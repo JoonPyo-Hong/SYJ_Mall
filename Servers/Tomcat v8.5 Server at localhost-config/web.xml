@@ -118,7 +118,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
+   
 
   <!-- The JSP page compiler and execution servlet, which is the mechanism  -->
   <!-- used by Tomcat to support JSP pages.  Traditionally, this servlet    -->
@@ -4717,10 +4717,8 @@
   <!-- here, so be sure to include any of the default values that you wish  -->
   <!-- to use within your application.                                       -->
 
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>index.htm</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
+    <welcome-file-list> 
+        <welcome-file>/WEB-INF/views/login/UserLogin.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>
