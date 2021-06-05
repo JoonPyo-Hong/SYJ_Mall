@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 실행할 때 보조적인 도움을 주는 설정을 관리한다 -->
+
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+	
+	<!-- mybatis 에서 자주 사용하ㅣ는 자료형의 별칭을 붙일 수 있음. : 매퍼임 -->
+<!-- 	<typeAliases>
+		<typeAlias type="com.test.spring.CategoryDTO" alias="cdto"/>
+		<typeAlias type="com.test.spring.BoardDTO" alias="bdto"/>
+	</typeAliases> -->
+	
+	
+</configuration>

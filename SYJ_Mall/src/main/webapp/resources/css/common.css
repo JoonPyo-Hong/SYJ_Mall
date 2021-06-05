@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+.wrap{
+	width: 100%;
+}
+
+.Header, .content, .Footer{
+	width: 100%;
+	float: left;
+}
+
+.Header, .Footer{
+	height: 8em;
+}
+
+.SideBar{
+	width: 10%;
+	height: 600px;
+	background-color: #FFBB00;
+	float: left;
+}
+
+.page_content{
+	width: 90%;
+	height: 600px;
+	background-color: #EAEAEA;
+	float: left;
+}
+
+.Header{
+	background-color: #ABF200;
+}
+
+.Footer{
+	background-color: #FF00DD;
+}
