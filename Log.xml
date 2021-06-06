@@ -1,0 +1,67 @@
+
+<!-- ***작업번호 작성요령*** -->
+1. 승환 : 10_x
+2. 예림 : 20_x
+3. 준표 : 30_x
+
+
+
+
+<!-- 2021-06-06 -->
+    <!-- 작업자 : seunghwanshin -->
+        <!-- 작업번호 :  10_1; 작업내용 : 자동로그인 방지 구현-->
+            <!-- LOGIC modify log -->
+                1. controller -> userAutologinCheck() 메서드 구현 : 자동로그인 방지 체크
+                2. logService -> AutoLoginBanned() 메서드 구현 : 과거로그인 기록을 조회하여 마지막 로그인기록 아이피와 다른경우 자동로그인 방지 페이지로 이동한다.
+            <!-- SP modify log -->
+                해당사항 없음
+            <!-- DDL modify log --> 
+                해당사항 없음
+            <!-- FRONT modify log -->
+                1. UserAutoLoginCheck 생성 : 자동로그인 방지를 위한 프론트페이지 -> 여러개의 사진을 나열해준다.
+            <!-- LIBRARY modify log -->
+                해당사항 없음
+            <!-- FOLDER modify log -->
+                1. images > securefile 등록 : 자동로그인 구현하기 위한 이미지파일
+
+        <!-- 작업번호 :  10_2; 작업내용 : 로그인 페이지에 광고 넣기-->
+            <!-- LOGIC modify log -->
+                1. logService > adverShow() 메서드 구현 : 광고이미지 가져오는 로직
+                2. AdverDTO class 생성 : 광고이미지 정보를 담아주는 클래스
+                3. LoginDAO class > getAdvertiseInfo() 메서드 생성 : 광고를 실제 넣어주기 위한 db연동 기능 
+            <!-- SP modify log -->
+                1. advertise_show 생성 : 광고이미지를 db에서 뽑아주는 sp
+            <!-- DDL modify log --> 
+                1. ADVERTISE_INFO 테이블 생성 : 광고이미지와 해당 정보가 존재하는 테이블 
+            <!-- FRONT modify log -->
+               1. UserLogin.jsp 하단 광고칸 추가
+            <!-- LIBRARY modify log -->
+                해당사항 없음
+            <!-- FOLDER modify log -->
+                1. images > adver 등록 : 광고넣기 위한 이미지파일
+    
+    <!-- 작업자 : Yerimchoi -->
+
+
+
+<!-- 2021-06-07 -->
+
+
+<!-- 2021-06-08 -->
+
+
+<!-- 2021-06-09 -->
+
+
+<!-- 2021-06-10 -->
+
+
+<!-- 2021-06-11 -->
+
+
+
+
+
+
+
+

@@ -98,7 +98,7 @@
         <img src = "resources/images/Qoo10_Logo.png">    
     </div>
     
-    <form action="loginVerification.action" method = "POST" id = "inputform"><!-- 여기도 변화를 줘야하는데 어떤식으로 주면 될까 -->
+    <form action="loginVerification.action" method = "POST" id = "inputform">
         <!-- 아이디 -->
         <div class = "inputform">
             <input type="text" name = "id" autocomplete="off" id = "inputid" placeholder = "아이디">
