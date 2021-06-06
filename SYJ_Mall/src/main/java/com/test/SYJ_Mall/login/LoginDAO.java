@@ -29,7 +29,7 @@ public class LoginDAO {
 			
 		int result = template.selectOne("SYJDB.loginVerification",loginCheckMap);
 			
-		return 1;
+		return result;
 	}
 	
 	
