@@ -123,7 +123,7 @@
         <span class = "bar">|</span>
         <a target="_blank" href = "">비밀번호 찾기</a>
         <span class = "bar">|</span>
-        <a target="_blank" href = "/spring/signUp.action">회원 가입</a>
+        <a target="_blank" href = "/SYJ_Mall/userSignUp.action">회원 가입</a>
     </div>
 
     <div id = "copyright" style="font-family: 'NEXON Lv1 Gothic OTF'">

@@ -21,9 +21,6 @@ public class MainController {
 	@Autowired
 	private ILoginService logService;
 
-	
-	
-
 
 	// 처음에 로그인 페이지로 보내주는 곳
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET })
@@ -74,10 +71,42 @@ public class MainController {
 				//여기서 보안정책에 대해 성공한 경우는 또 로그인기록등을 남겨줘야 한다. --> 일단보류
 				
 				return "/login/UserAutoLoginCheck";
-				//return "/login/UserLogin";
+				
 			}	
 			
 			
+	}
+	
+	//자동로그인 방지
+	@RequestMapping(value = "/userautologinCheck.action", method = { RequestMethod.POST })
+	public void autologinCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		PrintWriter out = response.getWriter();
+		JSONObject obj = logService.picCheck(request);
+		
+		out.print(obj);			
+	}
+	
+	//회원가입 페이지로 보내주는 곳
+	@RequestMapping(value = "/userSignUp.action", method = { RequestMethod.GET })
+	public String signUp(HttpServletRequest request, HttpServletResponse response) {
+			
+			
+		return "/login/usersignup";
+	}	
+	
+	//회원가입 페이지
+	@RequestMapping(value = "/userSignUpGo.action", method = { RequestMethod.POST })
+	public String signUpGo(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		
+		request.setCharacterEncoding("UTF-8");
+	
+		
+		//int result = logService.userSignUp(request);
+		
+		//System.out.println(result);
+						
+		return "result";
 	}
 	
 

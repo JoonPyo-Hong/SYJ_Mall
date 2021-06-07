@@ -137,6 +137,15 @@ public class LoginService implements ILoginService {
 		obj.put("sucessCount",sucessCount);
 		
 		return obj;
+	}
+
+	@Override
+	public int userSignUp(HttpServletRequest request) {//회원가입 로직
+		
+		
+		
+		
+		return 0;
 	}	
 	
 	

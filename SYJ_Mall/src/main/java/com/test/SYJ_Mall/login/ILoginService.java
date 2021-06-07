@@ -19,6 +19,8 @@ public interface ILoginService {
 	HttpServletRequest AutoLoginBanned(HttpServletRequest request);//자동로그인 방지를 위함
 	
 	JSONObject picCheck(HttpServletRequest request);//자동로그인 방지를 위함
+
+	int userSignUp(HttpServletRequest request);//회원가입 해주는 로직
 	
 	
 }
