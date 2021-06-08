@@ -59,7 +59,7 @@ public class LoginService implements ILoginService {
 	}
 	
 	@Override
-	public int loginResult(String userIp,String id, String pw) {//로그인 결과
+	public List<LoginDTO> loginResult(String userIp,String id, String pw) {//로그인 결과
 		
 		return dao.loginResult(userIp,id, pw);
 	}
@@ -142,11 +142,22 @@ public class LoginService implements ILoginService {
 	@Override
 	public int userSignUp(HttpServletRequest request) {//회원가입 로직
 		
-		
-		
-		
 		return 0;
-	}	
+	}
+
+	@Override
+	public void loginSuccess(HttpServletRequest request, int userSeq) {//로그인 성공한 경우
+		
+		
+		HttpSession userSession = request.getSession();
+		//userSession.invalidate();//세션 초기화 --> 메모리 낭비를 줄이기위함
+		
+		List<UserDTO> dto = dao.userInfo(userSeq);
+		userSession.setAttribute("userinfo", dto.get(0));
+		
+	}
+
+
 	
 	
 

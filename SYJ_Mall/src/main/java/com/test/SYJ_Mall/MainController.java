@@ -2,10 +2,12 @@ package com.test.SYJ_Mall;
 
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.SYJ_Mall.login.ILoginService;
+import com.test.SYJ_Mall.login.LoginDTO;
 
 @Controller
 public class MainController {
@@ -26,7 +29,6 @@ public class MainController {
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET })
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 
-		// System.out.println("asd");
 		// 광고관련 넘겨야 한다. & 아이디 비밀번호 오류관련
 		Map<String, String> adverMap = logService.adverShow();
 		request.setAttribute("adverMap", adverMap);
@@ -49,13 +51,21 @@ public class MainController {
 			String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
 		
 			
-			int loginResult = logService.loginResult(ip, id, encPw);
+			List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
+			int userSeq = loginResult.get(0).getUserSeq();//유저 고유 코드
+			int loginCode = loginResult.get(0).getLoginCode();//로그인 결과
 			
 			
-			if (loginResult == 0) {// 로그인 성공
+			if (loginCode == 0) {// 로그인 성공
 				System.out.println("로그인 성공");
-				return "/login/UserLogin";
-			} else if (loginResult == 1 || loginResult == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
+				//session에 유저객체를 넘겨줘야한다.
+				logService.loginSuccess(request,userSeq);
+				HttpSession userSession = request.getSession();
+				
+				System.out.println(userSession.getAttribute("userinfo"));
+				
+				return "/testwaiting/waiting";
+			} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
 				System.out.println("잘못된 로그인 정보");
 				
 				//아래에서 광고정보를 쇄신해준다. & 아이디 비밀번호 오류관련

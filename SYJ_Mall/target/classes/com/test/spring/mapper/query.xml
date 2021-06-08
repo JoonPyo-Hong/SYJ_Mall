@@ -8,10 +8,11 @@
 	
 	
 	<!-- 로그인 검증과정 -->
-	<select id="loginVerification" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+	<select id="loginVerification" resultType="com.test.SYJ_Mall.login.LoginDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		declare @user_seq int
 		declare @login_code int
-		exec dbo.qoo10_total_login #{userIp}, #{id}, #{encpw}, @login_code output
-		select @login_code	
+		exec dbo.qoo10_total_login #{userIp}, #{id}, #{encpw}, @login_code output, @user_seq output
+		select @login_code as loginCode, @user_seq as userSeq 
 	</select>
 	
 	
@@ -22,7 +23,12 @@
 		}
 	</select>
 	
-	
+	<!-- 유저정보 가져와주기 -->
+	<select id="userInfoDetail" resultType="com.test.SYJ_Mall.login.UserDTO" statementType="CALLABLE" >
+		{
+			call qoo10_user_info (#{userSeq})
+		}
+	</select>
 	
 	
 	
