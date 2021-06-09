@@ -154,7 +154,6 @@ public class LoginService implements ILoginService {
 		
 		
 		HttpSession userSession = request.getSession();
-		//userSession.invalidate();//세션 초기화 --> 메모리 낭비를 줄이기위함
 		
 		List<UserDTO> dto = dao.userInfo(userSeq);
 		userSession.setAttribute("userinfo", dto.get(0));
