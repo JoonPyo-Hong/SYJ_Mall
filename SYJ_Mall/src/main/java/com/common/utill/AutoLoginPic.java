@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-//자동로그인방지를 위한 랜덤그림뽑아주는 역할을 하는 클래스
+/**
+ * 자동로그인방지를 위한 랜덤그림뽑아주는 역할을 하는 클래스
+ * @author shin
+ *
+ */
 public class AutoLoginPic {
 	
 	//랜덤함수
@@ -15,7 +18,11 @@ public class AutoLoginPic {
 	//사진 리스트
 	private String[] picList = {"airplane","apartment","car","cat","dog","laptop","phone","sea"};
 	
-	//사진 이름
+	
+	/**
+	 * 사진 이름과 일대일 대응 시켜주는 메서드
+	 * @return	 한글사진 이름,영어사진 이름
+	 */
 	public String[] picName() {
 		
 		String[] answerList = {"비행기","아파트","자동차","고양이","강아지","노트북","스마트폰","바다"};
@@ -28,7 +35,12 @@ public class AutoLoginPic {
 		return resultArr;
 	}
 	
-	//첫번째 사진 콜백함수
+	/**
+	 * 처음으로 자동로그인 방지에 들어갈 사진을 뽑아주는 함수
+	 * @param num		필요한 사진 갯수
+	 * @param imgName	이미지사진 - 영어이름
+	 * @return			여러사진의 리스트
+	 */
 	public List<String> firstCall(int num,String imgName) {
 		
 		List<String> getPicList = new ArrayList<String>();
@@ -45,18 +57,26 @@ public class AutoLoginPic {
 		return getPicList;
 	}
 	
-	//원하는 사진을 뽑아야할때
+	
+	/**
+	 * 원하는 사진을 뽑아야할때
+	 * @param name	이미지 이름 - 영어이름
+	 * @return		이미지 이름 : 상세한 이름(xxx.jpg)
+	 */
 	public String imgMakers(String name) {
 		
 		StringBuilder st = new StringBuilder();
 		st.append(name);//비행기,아파트 뭘 꺼낼건지 선택
-		st.append(String.format("%02d", rnd.nextInt(10)+1));//숫자
+		st.append(String.format("%02d", rnd.nextInt(10)+1));//이미지 숫자 : 1 ~ 10 까지 존재함
 		st.append(".jpg");
 		
 		return st.toString();
 	}
 	
-	//아무사진을 뽑아도 될때
+	/**
+	 * 아무사진을 뽑아주는 메서드
+	 * @return	이미지 이름 : 상세한 이름(xxx.jpg)
+	 */
 	public String imgMakers() {
 		
 		StringBuilder st = new StringBuilder();
@@ -68,7 +88,13 @@ public class AutoLoginPic {
 		
 	}
 	
-	//사진 1개는 정답을 가져와주고 나머지 2개는 아무거나 가져와주는 로직
+	
+	/**
+	 * 사진 1개는 정답을 가져와주고 나머지 2개는 아무거나 가져와주는 로직
+	 * @param clickNum	선택한 그림이름
+	 * @param answer	정답 그림 이름
+	 * @return 			정답이 존재하는 사진 한장과 랜덤사진 두장
+	 */
 	public Map<Integer,String[]> picAnother(String clickNum,String answer) {//imgxx,airplane
 		
 		Map<Integer,String[]> map = new HashMap<Integer, String[]>();

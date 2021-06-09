@@ -1,7 +1,11 @@
 package com.test.SYJ_Mall.login;
 
 import lombok.Data;
-
+/**
+ * 유저객체
+ * @author shin
+ *
+ */
 @Data
 public class UserDTO {
 

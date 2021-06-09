@@ -4,8 +4,11 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-//암호화작업을 수행
+/**
+ * 비밀번호 암호화작업
+ * @author shin
+ *
+ */
 public class Encryption {
 	
 	//매트릭스 인덱스
@@ -25,7 +28,10 @@ public class Encryption {
 	
 	private String valueKey = "NaPleo";//암호키**masterkey
 	
-	//암호화키판 리턴시켜준다.
+	/**
+	 * 암호화키판 리턴
+	 * @return	암호화 키판
+	 */
 	public String[][] initialMatrix() {
 		
 		String[][] initialMatrix = new String[11][11];//여기에 암호들이 들어있음.
@@ -48,9 +54,11 @@ public class Encryption {
 		
 	}//initialMatrix()
 	
-	
-	//본격적으로 암호화 시작
-	//암호화매트릭스 , 암호화할단어, 암호key값
+	/**
+	 * 암호화로직
+	 * @param input	암호화 되지 않은 비밀번호	
+	 * @return		암호화된 비밀번호
+	 */
 	public String returnEncVoca(String input) {
 		
 		List<String> result = new ArrayList<String>();
@@ -75,7 +83,7 @@ public class Encryption {
 		int keyRow = (int)Math.ceil((double)result.size() / valueKey.length());//다운캐스팅 까지 완료 -> 올림을 통하여 행을 하나 늘려주는 역할을 수행한다.
 		int keyCol = valueKey.length();//key의 길이
 		
-		String[][] keyMatrix = new String[keyRow+1][keyCol]; //2차 암호화된 결과를 담을 그릇 왜 플러스1을 해주는거지? -> key를 타이틀로 주기 위해서
+		String[][] keyMatrix = new String[keyRow+1][keyCol];//key를 타이틀로 주기 위해서
 		
 		int keyIndex = 0;
 		

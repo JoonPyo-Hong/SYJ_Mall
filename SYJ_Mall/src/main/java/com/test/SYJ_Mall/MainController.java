@@ -17,14 +17,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
-
+/**
+ * 메인 컨트롤러 역할
+ * @author shin
+ *
+ */
 @Controller
 public class MainController {
-
+	
 	@Autowired
 	private ILoginService logService;
 
-
+	
 	// 처음에 로그인 페이지로 보내주는 곳
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET })
 	public String login(HttpServletRequest request, HttpServletResponse response) {
@@ -33,7 +37,7 @@ public class MainController {
 		Map<String, String> adverMap = logService.adverShow();
 		request.setAttribute("adverMap", adverMap);
 
-		
+		//asd
 		return "/login/UserLogin";
 	}
 	
@@ -59,10 +63,10 @@ public class MainController {
 			if (loginCode == 0) {// 로그인 성공
 				System.out.println("로그인 성공");
 				//session에 유저객체를 넘겨줘야한다.
-				logService.loginSuccess(request,userSeq);
-				HttpSession userSession = request.getSession();
+				logService.loginSuccess(request,userSeq,1);
+				//HttpSession userSession = request.getSession();
 				
-				System.out.println(userSession.getAttribute("userinfo"));
+				//System.out.println(userSession.getAttribute("userinfo"));
 				
 				return "/testwaiting/waiting";
 			} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
@@ -77,6 +81,7 @@ public class MainController {
 			} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
 				System.out.println("보안정책을 따라야한다.");
 				
+				logService.loginSuccess(request,userSeq,0);
 				request = logService.AutoLoginBanned(request);
 				//여기서 보안정책에 대해 성공한 경우는 또 로그인기록등을 남겨줘야 한다. --> 일단보류
 				
@@ -95,6 +100,18 @@ public class MainController {
 		JSONObject obj = logService.picCheck(request);
 		
 		out.print(obj);			
+	}
+	
+	//자동로그인 방지 -> 통과한경우
+	@RequestMapping(value = "/userautologinPass.action", method = { RequestMethod.GET })
+	public String autologinPass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+				
+		
+		HttpSession session = request.getSession();
+
+		//확인해줄곳 --> 세션이 끊긴건가 뭐지;?;;
+		System.out.println(session.getAttribute("userinfo"));
+		return "/testwaiting/waiting";
 	}
 	
 	//회원가입 페이지로 보내주는 곳

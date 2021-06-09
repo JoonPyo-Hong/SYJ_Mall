@@ -1,11 +1,18 @@
 package com.common.utill;
 
 import javax.servlet.http.HttpServletRequest;
-
-//아이피를 체크해주는 클래스
+/**
+ * 아이피를 체크해주는 클래스
+ * @author shin
+ *
+ */
 public class IpCheck {
 	 
-	//접속자의 아이피를 기록
+	/**
+	 * 접속자의 아이피를 기록
+	 * @param request	request 객체
+	 * @return			아이피 주소
+	 */
 	 public String getClientIP (HttpServletRequest request) {
 		 
 	     String ip = request.getHeader("X-FORWARDED-FOR"); 

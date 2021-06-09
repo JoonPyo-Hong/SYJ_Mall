@@ -16,13 +16,17 @@ import com.common.utill.AdverDTO;
 import com.common.utill.AutoLoginPic;
 import com.common.utill.Encryption;
 import com.common.utill.IpCheck;
-
+/**
+ * 로그인 서비스 객체
+ * @author shin
+ *
+ */
 @Service
 public class LoginService implements ILoginService {
 	
 	@Autowired
-	private LoginDAO dao;
-
+	private ILoginDAO dao;
+	
 	@Override
 	public String ipCheck(HttpServletRequest request) {//접속자의 아이피를 체크함
 		
@@ -138,15 +142,15 @@ public class LoginService implements ILoginService {
 		
 		return obj;
 	}
-
+	
 	@Override
 	public int userSignUp(HttpServletRequest request) {//회원가입 로직
 		
 		return 0;
 	}
-
+	
 	@Override
-	public void loginSuccess(HttpServletRequest request, int userSeq) {//로그인 성공한 경우
+	public void loginSuccess(HttpServletRequest request, int userSeq, int mode) {//로그인 성공한 경우
 		
 		
 		HttpSession userSession = request.getSession();

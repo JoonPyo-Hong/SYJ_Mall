@@ -2,6 +2,11 @@ package com.test.SYJ_Mall.login;
 
 import lombok.Data;
 
+/**
+ * 로그인 검증 객체
+ * @author shin
+ *
+ */
 @Data
 public class LoginDTO {
 	

@@ -154,7 +154,7 @@
 					
 					//아래를 만족하면 넘어가준다. -> 여기는 아직 처리되지 않음
 					if (sucessCount >= 3) {
-						location.href = "login.action";
+						location.href = "/SYJ_Mall/userautologinPass.action";
 					}
 				},
 				

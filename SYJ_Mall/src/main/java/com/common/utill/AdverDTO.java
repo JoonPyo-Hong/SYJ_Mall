@@ -1,7 +1,11 @@
 package com.common.utill;
 
 import lombok.Data;
-
+/**
+ * 광고객체
+ * @author shin
+ *
+ */
 @Data
 public class AdverDTO {
 	

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.common.utill.AdverDTO;
 
 @Repository
-public class LoginDAO {
+public class LoginDAO implements ILoginDAO {
 	
 	
 	@Autowired
