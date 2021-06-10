@@ -9,7 +9,7 @@
     <title>Document</title>
 	<style>
 
-                /* 로그인 이미지 */
+        /* 로그인 이미지 */
         #qoo10login {
             /* border : 1px solid red; */
             margin: 0px auto;
@@ -216,7 +216,7 @@
         <img src = "resources/images/Qoo10_Logo.png">    
     </div>
     
-    <form action="" method="post">
+    <form action="/SYJ_Mall/userSignUpGo.action" method="post">
         <div class="input_box">
             <div class = "info_name">아이디</div>
             <div class = "info_write"><input id = "id_input" class = "inputs_info" type="text" name = "id_input" autocomplete="off"></div>
@@ -369,7 +369,7 @@
         //----------------------------------------------------------------------------유효성 검증-----------------------------------------------------------------------------------
 	
         
-        
+        //객체 id, 지정할 color, 띄워줄 문자열
         function common(element,color,inputText) {
         	$("#" + element).text(""+inputText);
         	$("#" + element)
@@ -408,7 +408,7 @@
             
             $.ajax({
                 type:"GET",
-                url: "/spring/signUpId.action" ,
+                url: "/SYJ_Mall/userSignUpGo.action" ,
                 data : "checkid=" + id,
                 datattype : "json",
                 success : function(result) {
@@ -443,7 +443,13 @@
 
         });
 
-
+		
+        
+        //2. 비밀번호
+        
+        
+        
+        
         //select 박스 클릭해줄때 빨간테두리 생기게 해주는 기능
         $(".selected_info").focus(function(){
             redClickSelectedOff(2,this);

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.common.utill.AdverDTO;
 import com.common.utill.AutoLoginPic;
+import com.common.utill.CommonDate;
 import com.common.utill.Encryption;
 import com.common.utill.IpCheck;
 /**
@@ -142,12 +143,7 @@ public class LoginService implements ILoginService {
 		
 		return obj;
 	}
-	
-	@Override
-	public int userSignUp(HttpServletRequest request) {//회원가입 로직
-		
-		return 0;
-	}
+
 	
 	@Override
 	public void loginSuccess(HttpServletRequest request, int userSeq, int mode) {//로그인 성공한 경우
@@ -158,6 +154,67 @@ public class LoginService implements ILoginService {
 		List<UserDTO> dto = dao.userInfo(userSeq);
 		userSession.setAttribute("userinfo", dto.get(0));
 		
+	}
+
+	@Override
+	public void logUserTrace(int userSeq,String ipaddress) {//자동로그인 방지 인증 후 로그인정보 남기기
+		
+		dao.autoLoginPassTrace(userSeq,ipaddress);
+		
+	}
+	
+	
+	@Override
+	public int userSignUp(HttpServletRequest request) {//회원가입 로직
+		
+		CommonDate comDate = new CommonDate();
+		
+		String qoouser_id = request.getParameter("id_input");//회원가입 아이디
+		String qoouser_pw = pwEnc(request.getParameter("pw_input"));//암호화 해줘야한다. -> 회원가입 비밀번호
+		String qoouser_name = request.getParameter("name_input");// 회원가입 이름
+		String qoouser_gender = request.getParameter("sex_input");// 회원가입 성별
+		String qoouser_nation = request.getParameter("nation_input");// 회원가입 국가
+		
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append(request.getParameter("yy_input"));
+		sb.append("-");
+		sb.append(request.getParameter("mm_input"));
+		sb.append("-");
+		sb.append(comDate.dateTypeConvert(request.getParameter("dd_input")));
+		
+		String qoouser_birthday = sb.toString();// 회원가입 생년월일
+		String qoouser_phone_num = request.getParameter("phone_input");//회원가입 전화번호
+		
+		sb.setLength(0);//StringBuffer 객체 초기화
+		sb.append(request.getParameter("email_input_address"));
+		sb.append("@");
+		sb.append(request.getParameter("email_input_site"));
+		
+		String qoouser_email = sb.toString();//회원가입 이메일주소
+		String qoouser_receive_email = request.getParameter("email_agree_input");
+		String qoouser_receive_sms = request.getParameter("sms_agree_input");
+		
+		String qoouser_ipaddress = ipCheck(request);
+		
+		
+		SignUpDTO dto = new SignUpDTO();
+		dto.setQoouser_id(qoouser_id);
+		dto.setQoouser_pw(qoouser_pw);
+		dto.setQoouser_name(qoouser_name);
+		dto.setQoouser_gender(qoouser_gender);
+		dto.setQoouser_nation(qoouser_nation);
+		dto.setQoouser_birthday(qoouser_birthday);
+		dto.setQoouser_phone_num(qoouser_phone_num);
+		dto.setQoouser_email(qoouser_email);
+		dto.setQoouser_receive_email(qoouser_receive_email);
+		dto.setQoouser_receive_sms(qoouser_receive_sms);
+		dto.setQoouser_ipaddress(qoouser_ipaddress);
+		
+		
+		int result = dao.signUp(dto);
+		
+		return result;
 	}
 
 

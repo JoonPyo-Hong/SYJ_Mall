@@ -68,14 +68,23 @@ public interface ILoginService {
 	 * @return			json 객체 - 사진정보
 	 */
 	JSONObject picCheck(HttpServletRequest request);
+	
+
+	/**
+	 * 자동로그인 방지인증 후 회원이 로그인한 시간을 기록으로 남길것.
+	 * @param userSeq		회원 고유번호
+	 * @param ipaddress		ip주소
+	 */
+	void logUserTrace(int userSeq,String ipaddress);
 
 	
 	/**
 	 * 회원가입
 	 * @param request	request 객체
-	 * @return			회원가입 결과
+	 * @return			회원가입 결과 -> 1 : 성공, -1 : 실패
 	 */
 	int userSignUp(HttpServletRequest request);//회원가입 해주는 로직
+	
 
 	
 	

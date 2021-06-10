@@ -26,8 +26,25 @@
 	<!-- 유저정보 가져와주기 -->
 	<select id="userInfoDetail" resultType="com.test.SYJ_Mall.login.UserDTO" statementType="CALLABLE" >
 		{
-			call qoo10_user_info (#{userSeq})
+			call dbo.qoo10_user_info (#{userSeq})
 		}
+	</select>
+	
+	<!-- 자동로그인 거친 후 회원의 로그인 시간,아이피 기록 -->
+	<update id="autoAfterTrace" parameterType="java.util.HashMap" statementType="CALLABLE">
+		{
+			call dbo.qoo10_login_after_auto_check(#{ipaddress},#{userSeq})
+		}
+	</update>
+	
+	<select id="qooSignUpsp" resultType="Integer" parameterType="com.test.SYJ_Mall.login.SignUpDTO" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.qoo_sign_up #{qoouser_id},#{qoouser_pw},#{qoouser_birthday},#{qoouser_email},#{qoouser_gender},
+							 #{qoouser_nation}, #{qoouser_ipaddress}, #{qoouser_phone_num}, #{qoouser_receive_email},
+							 #{qoouser_receive_sms}, #{qoouser_name}, @result output
+		select @result
+		
 	</select>
 	
 	

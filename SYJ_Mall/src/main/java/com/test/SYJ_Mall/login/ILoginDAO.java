@@ -33,6 +33,22 @@ public interface ILoginDAO {
 	 * @return			유저객체
 	 */
 	List<UserDTO> userInfo(int userSeq);
+
+
+	/**
+	 * 자동로그인 인증 후 고객의 로그인을 기록해줄것
+	 * @param userSeq		유저의 고유번호
+	 * @param ipaddress		아이피주소
+	 */
+	void autoLoginPassTrace(int userSeq,String ipaddress);
+
+	
+	/**
+	 * 회원이 기입한 정보를 회원테이블로 옮겨줄 메서드
+	 * @param dto	회원가입 데이터 객체
+	 * @return		실패 성공 여부 체크
+	 */
+	int signUp(SignUpDTO dto);
 	
 	
 }

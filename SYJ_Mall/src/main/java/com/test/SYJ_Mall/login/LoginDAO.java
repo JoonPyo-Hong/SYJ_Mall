@@ -30,7 +30,6 @@ public class LoginDAO implements ILoginDAO {
 		List<LoginDTO> resultList = new ArrayList<LoginDTO>();
 		resultList = template.selectList("SYJDB.loginVerification", loginCheckMap);
 		
-		
 		return resultList;
 	}
 	
@@ -54,6 +53,30 @@ public class LoginDAO implements ILoginDAO {
 		dtoList = template.selectList("SYJDB.userInfoDetail",userSeq);
 		
 		return dtoList;
+	}
+
+	
+	//자동로그인 방지 인증 후 고객의 로그인정보 저장
+	@Override
+	public void autoLoginPassTrace(int userSeq,String ipaddress) {
+		
+
+		Map<String,String> userMap = new HashMap<String, String>();
+		userMap.put("userSeq", ""+userSeq);
+		userMap.put("ipaddress", ipaddress);
+		
+		template.update("SYJDB.autoAfterTrace",userMap);
+		
+	}
+
+	
+	//회원이 기입한 정보를 토대로 insert 작업 진행
+	@Override
+	public int signUp(SignUpDTO dto) {
+		
+		template.selectOne("SYJDB.qooSignUpsp", dto);
+		
+		return 0;
 	}
 	
 	
