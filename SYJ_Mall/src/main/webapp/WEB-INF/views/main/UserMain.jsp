@@ -6,9 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
-<title>Insert title here</title>
+<title>Main</title>
+<style>
+    #body_top{
+    	height: 50px;
+    	background-color: black;
+    }
+    
+</style>
 </head>
 <body>
-Test
+    <div id="wrap">
+    	<div id="body_top"></div>
+    </div>
 </body>
 </html>
