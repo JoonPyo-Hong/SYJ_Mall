@@ -83,10 +83,7 @@ public class LoginDAO implements ILoginDAO {
 	//회원이 회원으로 쓸 아이디에 대한 검증과정
 	@Override
 	public int signUpIdVerifyCheck(String inputId) {
-		
-		System.out.println("???");
-		System.out.println(inputId);
-		
+
 		return template.selectOne("SYJDB.userSignUpIdCheck",inputId);
 		
 	}

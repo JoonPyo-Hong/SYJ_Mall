@@ -161,9 +161,6 @@ public class MainController {
 		PrintWriter out = response.getWriter();
 		int result = logService.userSignUpIdVerify(request);
 		
-		System.out.println("?!!!!");
-		System.out.println(result);
-		
 		out.print(result);
 	}
 	

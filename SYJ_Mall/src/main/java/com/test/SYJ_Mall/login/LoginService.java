@@ -223,11 +223,10 @@ public class LoginService implements ILoginService {
 	public int userSignUpIdVerify(HttpServletRequest request) {
 		
 		String inputId = request.getParameter("checkid");
-		System.out.println(inputId);
 		
 		int result = dao.signUpIdVerifyCheck(inputId);
 		
-		return 0;
+		return result;
 	}
 
 
