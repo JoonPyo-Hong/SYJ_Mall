@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -154,8 +155,17 @@ public class MainController {
 	
 	
 	//회원가입 페이지 - 아이디 검증
-	
-	
+	@RequestMapping(value = "/userSignUpIdCheck.action", method = { RequestMethod.GET })
+	public void idVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		PrintWriter out = response.getWriter();
+		int result = logService.userSignUpIdVerify(request);
+		
+		System.out.println("?!!!!");
+		System.out.println(result);
+		
+		out.print(result);
+	}
 	
 	//회원가입 페이지 - 비밀번호 검증
 	

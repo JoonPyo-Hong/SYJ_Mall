@@ -85,6 +85,13 @@ public interface ILoginService {
 	 */
 	int userSignUp(HttpServletRequest request);//회원가입 해주는 로직
 	
+	/**
+	 * 유저회원가입 - 아이디 검증
+	 * @param request	request 객체
+	 * @return			-1 : 사용불가, 1 : 사용가능
+	 */
+	int userSignUpIdVerify(HttpServletRequest request);
+	
 
 	
 	

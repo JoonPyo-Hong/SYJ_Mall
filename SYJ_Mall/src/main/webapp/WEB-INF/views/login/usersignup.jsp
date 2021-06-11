@@ -408,15 +408,15 @@
             
             $.ajax({
                 type:"GET",
-                url: "/SYJ_Mall/userSignUpGo.action" ,
+                url: "/SYJ_Mall/userSignUpIdCheck.action" ,
                 data : "checkid=" + id,
                 datattype : "json",
                 success : function(result) {
                     //var result = data.substr(4);
-                    //console.log(result);
+                    console.log(result);
                     
                     if (result == 1) {// 아이디가 중복되지 않는경우
-                    	//console.log(result);
+                    	//consle.log(result);
                     	common('iderrmsg','#08A600','멋진 아이디네요!');
                         /* $("#iderrmsg").text('멋진 아이디네요!');
                         $("#iderrmsg")

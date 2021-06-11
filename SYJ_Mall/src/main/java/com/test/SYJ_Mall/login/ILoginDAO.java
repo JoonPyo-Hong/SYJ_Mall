@@ -49,6 +49,14 @@ public interface ILoginDAO {
 	 * @return		실패 성공 여부 체크
 	 */
 	int signUp(SignUpDTO dto);
+
+	
+	/**
+	 * 회원이 입력한 id가 중복되지 않는지 체크
+	 * @param inputId	회원이 회원가입 하기 위해 입력한 아이디
+	 * @return			-1 : 사용가능 불가, 1 : 사용가능
+	 */
+	int signUpIdVerifyCheck(String inputId);
 	
 	
 }

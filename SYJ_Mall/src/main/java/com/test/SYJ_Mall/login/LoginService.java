@@ -216,6 +216,19 @@ public class LoginService implements ILoginService {
 		
 		return result;
 	}
+	
+	
+	//유저 아이디 확인
+	@Override
+	public int userSignUpIdVerify(HttpServletRequest request) {
+		
+		String inputId = request.getParameter("checkid");
+		System.out.println(inputId);
+		
+		int result = dao.signUpIdVerifyCheck(inputId);
+		
+		return 0;
+	}
 
 
 	

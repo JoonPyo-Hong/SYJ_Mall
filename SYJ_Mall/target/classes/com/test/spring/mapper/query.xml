@@ -48,6 +48,14 @@
 	</select>
 	
 	
+	<select id="userSignUpIdCheck" resultType="Integer" parameterType="String" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.qoo_sign_up_id_check #{inputId},@result output
+		select @result
+		
+	</select>
+	
 	
 
 </mapper>
