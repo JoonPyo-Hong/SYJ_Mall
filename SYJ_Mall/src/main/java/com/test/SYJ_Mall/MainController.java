@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.RSAalgorithm;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
 /**
@@ -135,7 +136,13 @@ public class MainController {
 	@RequestMapping(value = "/userSignUp.action", method = { RequestMethod.GET })
 	public String signUp(HttpServletRequest request, HttpServletResponse response) {
 			
-			
+		//비밀번호를 암호하하기 위해서 RSA 대칭키를 써줄것이다.
+		try {
+			int result = logService.setRSAkey(request);//rsa대칭키 생성
+		} catch(Exception e) {
+			e.getMessage();
+		}
+		
 		return "/login/usersignup";
 	}	
 	
@@ -144,17 +151,18 @@ public class MainController {
 	public String signUpGo(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		
 		request.setCharacterEncoding("UTF-8");
-	
 		
-		int result = logService.userSignUp(request);
-		
-		//System.out.println(result);
-						
+		try {
+			int result = logService.userSignUp(request);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+				
 		return "result";
 	}
 	
 	
-	//회원가입 페이지 - 아이디 검증
+	//회원가입 페이지 - 아이디 검증(ajax)
 	@RequestMapping(value = "/userSignUpIdCheck.action", method = { RequestMethod.GET })
 	public void idVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -164,8 +172,15 @@ public class MainController {
 		out.print(result);
 	}
 	
-	//회원가입 페이지 - 비밀번호 검증
-	
+	//회원가입 페이지 - 비밀번호 검증(ajax)
+	@RequestMapping(value = "/userSignUpPwCheck.action", method = { RequestMethod.GET })
+	public void pwVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		PrintWriter out = response.getWriter();
+		int result = logService.userSignUpPwVerify(request);
+		
+		out.print(result);
+	}
 	
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/

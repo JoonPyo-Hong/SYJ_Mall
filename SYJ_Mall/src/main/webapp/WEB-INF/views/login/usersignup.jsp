@@ -3,6 +3,10 @@
 <%@ include file="/WEB-INF/views/inc/mainasset.jsp" %>
 <!DOCTYPE html>
 <html>
+<script type="text/javascript" src="<c:url value="resources/js/jsbn.js"/>"></script>
+<script type="text/javascript" src="<c:url value="resources/js/rsa.js"/>"></script>
+<script type="text/javascript" src="<c:url value="resources/js/prng4.js"/>"></script>
+<script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
@@ -210,33 +214,39 @@
 
 </head>
 <body>
-
-
+	
+    <input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}" />
+    <input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />	
+	
     <div id = "qoo10login">
         <img src = "resources/images/Qoo10_Logo.png">    
     </div>
     
-    <form action="/SYJ_Mall/userSignUpGo.action" method="post">
-        <div class="input_box">
-            <div class = "info_name">아이디</div>
-            <div class = "info_write"><input id = "id_input" class = "inputs_info" type="text" name = "id_input" autocomplete="off"></div>
-            <div class = "error_next_box" id="iderrmsg" style="display:none;"></div>
-        </div>
+    
+    <div class="input_box">
+        <div class = "info_name">아이디</div>
+        <div class = "info_write"><input id = "id_input" class = "inputs_info" type="text" name = "id_input" autocomplete="off"></div>
+        <div class = "error_next_box" id="iderrmsg" style="display:none;"></div>
+    </div>
 
+    <div id="id_input" class="input_box">
+        <div class = "info_name">비밀번호</div>
+        <div class = "info_write"><input id = "pw_input" class = "inputs_info" type="password" name = "pw_input"></div>
+        <div class="error_next_box" id="pwerrmsg" style="display:none;">8~16 영문 대 소문자, 숫자, 특수문자를 사용하세요.</div>
+    </div>
         
-
-        <div id="id_input" class="input_box">
-            <div class = "info_name">비밀번호</div>
-            <div class = "info_write"><input id = "pw_input" class = "inputs_info" type="password" name = "pw_input"></div>
-            <div class="error_next_box" id="pwerrmsg" style="display:none;">8~16 영문 대 소문자, 숫자, 특수문자를 사용하세요.</div>
-        </div>
-
-        <div id="pw_input" class="input_box">
-            <div class = "info_name">비밀번호 재확인</div>
-            <div class = "info_write"><input id = "pw_input_check" class = "inputs_info" type="password"></div>
-            <div class="error_next_box" id="pwerrmsg2" style="display:none;">비밀번호가 일치하지 않습니다.</div>
-        </div>
-
+    <div id="pw_input" class="input_box">
+        <div class = "info_name">비밀번호 재확인</div>
+        <div class = "info_write"><input id = "pw_input_check" class = "inputs_info" type="password"></div>
+        <div class="error_next_box" id="pwerrmsg2" style="display:none;">비밀번호가 일치하지 않습니다.</div>
+    </div>
+    
+	<!-- 암호화하여 넘겨줄 데이터 -->
+	<form id="securedForm" name="securedForm" action="/SYJ_Mall/userSignUpGo.action" method="post">
+		
+		<input type="hidden" name="securedUsername" id="securedUsername" value="" />
+        <input type="hidden" name="securedPassword" id="securedPassword" value="" />
+		
         <div id="pw_input_check" class="input_box">
             <div class = "info_name">이름</div>
             <div class = "info_write"><input id = "name_input" class = "inputs_info" type="text" name = "name_input"></div>
@@ -353,7 +363,7 @@
 
 
         <div id = "submit_button" style="margin-top:50px;">
-            <input id = "submit_info" type="submit" value="가입하기">
+            <input id = "submit_info" type="button" value="가입하기">
         </div>
 
     </form>
@@ -367,7 +377,19 @@
         
 
         //----------------------------------------------------------------------------유효성 검증-----------------------------------------------------------------------------------
-	
+		
+        var totalPass = false;//최종적으로 넘어가도 될지 판단해주는 것
+        
+        
+/*         $("#submit_button").click(function(){
+        	if (totalPass) {
+        		alert("pass");
+        	} else {
+        		alert("fail");
+        	}
+        	
+        }); */
+        
         
         //객체 id, 지정할 color, 띄워줄 문자열
         function common(element,color,inputText) {
@@ -378,7 +400,7 @@
         }
         
         //1. 아이디
-        var idFlag = false;
+        var idFlag = false;//아이디 검증
         
         $("#id_input").blur(function(){
 
@@ -389,20 +411,14 @@
             if (id == "") {
                 
             	common('iderrmsg','red','필수입력 항목입니다.');
-                /* $("#iderrmsg").text('필수입력 항목입니다.');
-                $("#iderrmsg")
-                .css('color','red')
-                .css('display','block'); */
+            	
                 return false;
             } 
 
             var isID = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
             if (!isID.test(id)) {
             	common('iderrmsg','red','5~12자의 영문 소문자, 숫자와 특수기호(_)만 사용 가능합니다.');
-                /* $("#iderrmsg").text('5~12자의 영문 소문자, 숫자와 특수기호(_)만 사용 가능합니다.');
-                $("#iderrmsg")
-                .css('color','red')
-                .css('display','block'); */
+                
                 return false;
             }
             
@@ -418,19 +434,13 @@
                     if (result == 1) {// 아이디가 중복되지 않는경우
                     	//consle.log(result);
                     	common('iderrmsg','#08A600','멋진 아이디네요!');
-                        /* $("#iderrmsg").text('멋진 아이디네요!');
-                        $("#iderrmsg")
-                        .css('color','#08A600')
-                        .css('display','block'); */
+                       
                        
                         idFlag = true;
                     } else {//아이디가 중복되는 경우
                     	//console.log(result);
                     	common('iderrmsg','red','이미 사용중이거나 탈퇴한 아이디입니다.');
-                    	/* $("#iderrmsg").text('이미 사용중이거나 탈퇴한 아이디입니다.');
-                        $("#iderrmsg")
-                        .css('color','red')
-                        .css('display','block'); */
+                    	
                     }
                 },
                 error: function(a,b,c) {
@@ -446,9 +456,96 @@
 		
         
         //2. 비밀번호
+        var pwFlag = false;//비밀번호 통과할지 결정해주는 변수
+        $("#pw_input").blur(function(){
+            if (pwFlag) return true;
+
+            var pw = this.value;
+
+            if (pw == "") {
+                common('pwerrmsg','red','필수입력 항목입니다.');
+                return false;
+            }
+
+            if (isValidPasswd(pw) != true) {
+                common('pwerrmsg','red','8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.');
+                return false;
+            }
+
+            //common('pwerrmsg','green','굿굿');
+            //여기아래에서 이제 ajax 를 통한 검증을 들어가야한다. -> 인코딩을 통해 암호화가 필요할거같은데;
+            $.ajax({
+                type:"GET",
+                url: "/SYJ_Mall/userSignUpPwCheck.action" ,
+                data : "checkpw=" + pw,
+                datattype : "json",
+                success : function(result) {
+                    //var result = data.substr(4);
+                    console.log(result);
+                    
+                    if (result == 1) {// 아이디가 중복되지 않는경우
+                    	
+                    } else {//아이디가 중복되는 경우
+                    	
+                    	
+                    }
+                },
+                error: function(a,b,c) {
+                	//console.log("error");
+					console.log(a,b,c);
+				}
+            });
+            
+            pwFlag = true;
+            return true;
+            
+        });       
         
-        
-        
+  
+       	//공백체크
+        function checkSpace(str) {
+            if (str.search(/\s/) != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //비밀번호를 체크하기 위한 로직
+        function isValidPasswd(str) {
+        	var cnt = 0;
+        	if (str == "") {
+	            return false;
+	        }
+	        
+	        /* check whether input value is included space or not */
+	        var retVal = checkSpace(str);
+	        
+	        if (retVal) {
+	            return false;
+	        }
+	        
+	        if (str.length < 8) {
+	            return false;
+	        }
+	        
+	        for (var i = 0; i < str.length; ++i) {
+	            if (str.charAt(0) == str.substring(i, i + 1))
+	                ++cnt;
+	        }
+	        
+	        if (cnt == str.length) {
+	            return false;
+	        }
+	
+	        var isPW = /^[A-Za-z0-9`\-=\\\[\];',\./~!@#\$%\^&\*\(\)_\+|\{\}:"<>\?]{8,16}$/;
+	        
+	        if (!isPW.test(str)) {
+	            return false;
+	        }
+	
+	        return true;
+    	}
         
         //select 박스 클릭해줄때 빨간테두리 생기게 해주는 기능
         $(".selected_info").focus(function(){
@@ -551,6 +648,47 @@
                 $("#"+class_this.id).css('border','1px solid #EC2E3C'); 
             }
         }
+        
+        
+        
+        
+      	//회원가입 버튼 클릭시
+      	$("#submit_button").click(function(){
+      	    
+      		//원래는 더 많은 로직이 필요하다.
+      		
+      		var username = document.getElementById("id_input").value;//유저가 작성한 아이디
+      	    var password = document.getElementById("pw_input").value;//유저가 작성한 비밀번호
+      	    
+      	    try {
+      	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
+      	        var rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
+      	        submitEncryptedForm(username,password, rsaPublicKeyModulus, rsaPublicKeyExponent);
+      	        
+      	    } catch(err) {
+      	    	
+      	        alert(err);
+      	    }
+      	    
+      	});
+        
+        
+      	//회원가입 버튼 클릭시 -> 데이터를 넘겨주는 부분
+      	function submitEncryptedForm(username, password, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
+      	    var rsa = new RSAKey();
+      	    
+      	    rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
+
+      	    // 사용자ID와 비밀번호를 RSA로 암호화한다.
+      	    var securedUsername = rsa.encrypt(username);
+      	    var securedPassword = rsa.encrypt(password);
+
+      	    var securedForm = document.getElementById("securedForm");//form 데이터
+      	    
+      	    securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
+      	    securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
+      	    securedForm.submit();//제출
+      	}
 
     
     </script>

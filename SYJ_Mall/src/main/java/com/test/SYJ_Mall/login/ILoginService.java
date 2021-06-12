@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.login;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +85,7 @@ public interface ILoginService {
 	 * @param request	request 객체
 	 * @return			회원가입 결과 -> 1 : 성공, -1 : 실패
 	 */
-	int userSignUp(HttpServletRequest request);//회원가입 해주는 로직
+	int userSignUp(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException;//회원가입 해주는 로직
 	
 	/**
 	 * 유저회원가입 - 아이디 검증
@@ -92,7 +94,29 @@ public interface ILoginService {
 	 */
 	int userSignUpIdVerify(HttpServletRequest request);
 	
-
+	/**
+	 * 유저회원가입 - 비밀번호 검증
+	 * @param request	request 객체
+	 * @return			-1 : 비밀번호가 안전하지 않음, 1 : 비밀번호가 안전해서 사용가능
+	 */
+	int userSignUpPwVerify(HttpServletRequest request);
+	
+	
+	/**
+	 * RSA 대칭키 암호화
+	 * @param request	request 객체
+	 * @return			-1 : 오류 , 1 : 성공
+	 */	
+	int setRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException;
+	
+	/**
+	 * RSA 대칭키 복호화
+	 * @param request	request 객체
+	 * @return			복호화된 결과값을 map객체로 불러와준다.
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
+	 */
+	HashMap<String,String> getRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException;
 	
 	
 }

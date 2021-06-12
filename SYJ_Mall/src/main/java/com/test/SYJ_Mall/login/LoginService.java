@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.login;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,7 @@ import com.common.utill.AutoLoginPic;
 import com.common.utill.CommonDate;
 import com.common.utill.Encryption;
 import com.common.utill.IpCheck;
+import com.common.utill.RSAalgorithm;
 /**
  * 로그인 서비스 객체
  * @author shin
@@ -165,12 +168,14 @@ public class LoginService implements ILoginService {
 	
 	
 	@Override
-	public int userSignUp(HttpServletRequest request) {//회원가입 로직
+	public int userSignUp(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {//회원가입 로직
+		
+		Map<String,String> map = getRSAkey(request);
 		
 		CommonDate comDate = new CommonDate();
 		
-		String qoouser_id = request.getParameter("id_input");//회원가입 아이디
-		String qoouser_pw = pwEnc(request.getParameter("pw_input"));//암호화 해줘야한다. -> 회원가입 비밀번호
+		String qoouser_id = map.get("id");//회원가입 아이디
+		String qoouser_pw = pwEnc(map.get("pw"));//암호화 해줘야한다. -> 회원가입 비밀번호
 		String qoouser_name = request.getParameter("name_input");// 회원가입 이름
 		String qoouser_gender = request.getParameter("sex_input");// 회원가입 성별
 		String qoouser_nation = request.getParameter("nation_input");// 회원가입 국가
@@ -227,6 +232,39 @@ public class LoginService implements ILoginService {
 		int result = dao.signUpIdVerifyCheck(inputId);
 		
 		return result;
+	}
+	
+	
+	//유저 비밀번호 확인
+	@Override
+	public int userSignUpPwVerify(HttpServletRequest request) {
+		
+		
+		
+		return 0;
+	}
+	
+	//RSA 대칭키 생성
+	@Override
+	public int setRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		
+		RSAalgorithm rsa = new RSAalgorithm();
+		
+		rsa.setRSA(request);
+		
+		return 0;
+	}
+	
+	//RSA 대칭키 - 복호화
+	@Override
+	public HashMap<String, String> getRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		
+		RSAalgorithm rsa = new RSAalgorithm();
+		
+		HashMap<String,String> map = rsa.getRSA(request);
+		
+		
+		return map;
 	}
 
 
