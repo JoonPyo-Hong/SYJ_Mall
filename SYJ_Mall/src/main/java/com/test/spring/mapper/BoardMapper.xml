@@ -8,7 +8,8 @@
 
 	<select id="noticelist" resultType="com.test.board.BoardDTO">
 		SELECT
-		seq, qubn, title, content, reg_id, reg_de
+		seq,gubn, title,
+		content, reg_id, reg_dt
 		FROM NOTICE
 	</select>
 
