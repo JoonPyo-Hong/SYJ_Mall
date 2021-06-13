@@ -9,7 +9,8 @@
 	<select id="noticelist" resultType="com.test.SYJ_Mall.board.BoardDTO">
 		SELECT
 		seq,gubn, title,
-		content, reg_id, reg_dt
+		content, reg_id, CONVERT(CHAR(23),
+		reg_dt, 23) as reg_dt
 		FROM NOTICE
 	</select>
 
