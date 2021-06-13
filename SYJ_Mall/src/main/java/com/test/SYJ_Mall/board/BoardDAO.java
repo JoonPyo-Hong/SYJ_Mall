@@ -1,19 +1,22 @@
-package com.test.board;
+package com.test.SYJ_Mall.board;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class BoardDAO implements IBoardDAO{
-	@Inject
+	@Autowired
     private SqlSession session;
 	
 	@Override
 	public List<BoardDTO> noticelist(BoardDTO dto) {
 
-		return session.selectList("noticelist",dto);
+		return session.selectList("board.noticelist",dto);
 	}
 
 }

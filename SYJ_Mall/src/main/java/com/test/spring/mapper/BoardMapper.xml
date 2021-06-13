@@ -6,7 +6,7 @@
 
 <mapper namespace="board">
 
-	<select id="noticelist" resultType="com.test.board.BoardDTO">
+	<select id="noticelist" resultType="com.test.SYJ_Mall.board.BoardDTO">
 		SELECT
 		seq,gubn, title,
 		content, reg_id, reg_dt

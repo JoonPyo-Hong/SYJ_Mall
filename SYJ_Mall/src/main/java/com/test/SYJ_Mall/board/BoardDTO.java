@@ -1,4 +1,4 @@
-package com.test.board;
+package com.test.SYJ_Mall.board;
 import lombok.Data;
 
 /**
