@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/board_list_inc.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,20 +19,30 @@
 		<div id="top"></div>
 		<div id="middle">
 			<c:forEach var="list" items="${list}">
-   				<div id="title">
-   					<span>${list.title}</span>
-   					<span>▽</span>
+   				<div>
+   					<span class="title">${list.title}</span>
+   					<span class="btn_notice">
+   						<img class="img_notice" id="img_notice_${list.seq}" onclick="notice_view(${list.seq})" src="resources/images/kakao_ryan.png">
+   					</span>
   				</div>
-   				<div id="date">
-   					<fmt:parseDate var="parsedDate" pattern="yyyy-MM-dd" value="${list.reg_dt}"/>
+   				<div class="date">
    					${list.reg_dt}
 				</div>
     		</c:forEach>
+		</div>
+		<div id="bottom">
+			<a href="#">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">></a>
 		</div>	
 	</div>
 </body>
 <script type="text/javascript">
-	
-	
+	function notice_view(seq){
+		alert(seq);		
+	}
+
+
 </script>
 </html>

@@ -21,16 +21,36 @@
 }
 
 #middle {
-	padding: 10px 20px;
+	padding: 30px 20px;
 }
 
-#title {
+.title {
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1.4em;
 }
 
-#date {
-	color:#999999;
+.date {s
+	color: #999999;
 	font-size: 0.8em;
 }
+
+.btn_notice {
+	float: right;
+}
+
+.btn_notice img{
+	height: 25px;
+	cursor: pointer;
+}
+#bottom{
+	padding: 30px 20px;
+	text-align: center;
+}
+
+#bottom a{
+	margin: 5px;
+	
+}
+
+
 </style>
