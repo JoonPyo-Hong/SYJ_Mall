@@ -41,19 +41,28 @@ public class MainController {
 		// 광고관련 넘겨야 한다. & 아이디 비밀번호 오류관련
 		Map<String, String> adverMap = logService.adverShow();
 		request.setAttribute("adverMap", adverMap);
-
+		
+		//패킷을 보호하기 위해 RSA 디칭키를 넘겨준다.
+		try {
+			int result = logService.setRSAkey(request);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "/login/UserLogin";
 	}
 	
 	
 	//로그인페이지에서 정보를 넘겨주는곳
 	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST })
-	public String loginVerification(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+	public String loginVerification(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
 			request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
-		
-			String id = (String)request.getParameter("id");//아이디
-			String pw = (String)request.getParameter("pw");//비밀번호
+			
+			Map<String,String> map = logService.getRSAkey(request);
+			
+			String id = map.get("id");//아이디
+			String pw = map.get("pw");//비밀번호
 			
 			String ip = logService.ipCheck(request);
 			String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.

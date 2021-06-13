@@ -3,6 +3,10 @@
 <%@ include file="/WEB-INF/views/inc/mainasset.jsp" %>
 <!DOCTYPE html>
 <html>
+<script type="text/javascript" src="<c:url value="resources/js/jsbn.js"/>"></script>
+<script type="text/javascript" src="<c:url value="resources/js/rsa.js"/>"></script>
+<script type="text/javascript" src="<c:url value="resources/js/prng4.js"/>"></script>
+<script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
@@ -93,20 +97,29 @@
     </style>
 </head>
 <body>
-
+	
+	<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}" />
+    <input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />	
+	
     <div id = "qoo10login">
         <img src = "resources/images/Qoo10_Logo.png">    
     </div>
+
+    <!-- 아이디 -->
+    <div class = "inputform">
+        <input type="text" name = "id" autocomplete="off" id = "inputid" placeholder = "아이디">
+    </div>
+    <!-- 비밀번호 -->
+    <div class = "inputform">
+        <input type="password" name = "pw" autocomplete="off" id = "inputpw" placeholder = "비밀번호">
+    </div>	
+	
     
     <form action="loginVerification.action" method = "POST" id = "inputform">
-        <!-- 아이디 -->
-        <div class = "inputform">
-            <input type="text" name = "id" autocomplete="off" id = "inputid" placeholder = "아이디">
-        </div>
-        <!-- 비밀번호 -->
-        <div class = "inputform">
-            <input type="password" name = "pw" autocomplete="off" id = "inputpw" placeholder = "비밀번호">
-        </div>
+		
+		<input type="hidden" name="securedUsername" id="securedUsername" value="" />
+        <input type="hidden" name="securedPassword" id="securedPassword" value="" />
+		
         <c:if test="${not empty loginError}">
         <div id = "errorLogin" style = "display: <c:out value="${adverMap['errorLogin']}"/>;">
             &nbsp;가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.
@@ -114,7 +127,7 @@
         </c:if>
         <!-- 로그인 버튼 -->
         <div class = "inputform">
-            <input id = "go" type="submit" value = "SIGN IN" style = "font-weight: bold; font-size: 1.3em; background-color: #EC2E3C; color:white;">
+            <input id = "go" type="button" value = "SIGN IN" style = "font-weight: bold; font-size: 1.3em; background-color: #EC2E3C; color:white;">
         </div>
     </form>
     
@@ -140,6 +153,43 @@
         $("#advertise").click(function(){
         	location.href = '<c:out value="${adverMap['url']}"/>'
         });
+        
+        
+        //패킷을 중간에 가로채는것을 방지하기 위함
+      	$("#go").click(function(){
+      	    
+      		var username = document.getElementById("inputid").value;//유저가 작성한 아이디
+      	    var password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
+      	    
+      	    try {
+      	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
+      	        var rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
+      	        submitEncryptedForm(username,password, rsaPublicKeyModulus, rsaPublicKeyExponent);
+      	        
+      	    } catch(err) {
+      	    	
+      	        alert(err);
+      	    }
+      	    
+      	});      	
+        
+      	
+        //로그인 버튼 클릭시 -> 데이터를 넘겨주는 부분
+      	function submitEncryptedForm(username, password, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
+      	    var rsa = new RSAKey();
+      	    
+      	    rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
+
+      	    // 사용자ID와 비밀번호를 RSA로 암호화한다.
+      	    var securedUsername = rsa.encrypt(username);
+      	    var securedPassword = rsa.encrypt(password);
+
+      	    var securedForm = document.getElementById("inputform");//form 데이터
+      	    
+      	    securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
+      	    securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
+      	    securedForm.submit();//제출
+      	}
 
 
     </script>
