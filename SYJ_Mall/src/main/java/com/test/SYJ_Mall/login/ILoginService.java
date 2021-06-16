@@ -50,14 +50,6 @@ public interface ILoginService {
 	
 	
 	/**
-	 * 광고관련 로직
-	 * @return	광고정보
-	 */
-	HashMap<String,String> adverShow();
-	
-	
-	
-	/**
 	 * 자동로그인 방지
 	 * @param request	request 객체
 	 * @return			request 객체
@@ -117,6 +109,15 @@ public interface ILoginService {
 	 * @throws InvalidKeySpecException
 	 */
 	HashMap<String,String> getRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException;
+	
+	
+	/**
+	 * 첫번째 로그인 과정 - 광고넘겨주고 rsa키값 넘겨준다
+	 * @param request		request 객체
+	 * @param errorCode		오류코드 - 로그인오류 : -1, 정상 : 0
+	 * @return				정상 : 0 , 비정상 : -1
+	 */
+	int firstLoginStep(HttpServletRequest request,int errorCode);
 	
 	
 }

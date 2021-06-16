@@ -38,18 +38,12 @@ public class MainController {
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET })
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 
-		// 광고관련 넘겨야 한다. & 아이디 비밀번호 오류관련
-		Map<String, String> adverMap = logService.adverShow();
-		request.setAttribute("adverMap", adverMap);
+
+		int result = logService.firstLoginStep(request,0);
 		
-		//패킷을 보호하기 위해 RSA 디칭키를 넘겨준다.
-		try {
-			int result = logService.setRSAkey(request);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+		if (result == 0) return "/login/UserLogin";
+		else return "/login/UserLogin";
 		
-		return "/login/UserLogin";
 	}
 	
 	
@@ -83,14 +77,14 @@ public class MainController {
 			} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
 				System.out.println("잘못된 로그인 정보");
 				
-				//아래에서 광고정보를 쇄신해준다. & 아이디 비밀번호 오류관련
-				Map<String,String> adverMap = logService.adverShow();
-				request.setAttribute("adverMap", adverMap);
-				request.setAttribute("loginError", 404);
+				int result = logService.firstLoginStep(request,-1);
+
 				
-				return "/login/UserLogin";
+				if (result == 0) return "/login/UserLogin";
+				else return "/login/UserLogin";
 				
-			} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
+				
+			} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> 보안정책 실패하는 경우도 넣어줘야 하는데
 				System.out.println("보안정책을 따라야한다.");
 				
 				logService.loginSuccess(request,userSeq,0);//로그인 인증티켓 발급

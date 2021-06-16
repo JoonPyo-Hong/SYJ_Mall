@@ -49,23 +49,6 @@ public class LoginService implements ILoginService {
 		return enc.returnEncVoca(password);
 	}
 
-	@Override
-	public HashMap<String, String> adverShow() {// db 로부터 광고 데이터를 가져와서 어떤식으로 광고를 뿌릴지 정의해준다.
-
-		Random rnd = new Random();
-		List<AdverDTO> dtoList = dao.getAdvertiseInfo();
-
-		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 지금은 "랜덤"으로 처리해준다.
-		AdverDTO dto = dtoList.get(rnd.nextInt(dtoList.size()));
-		String picName = dto.getAdpPcUrl();
-		String url = dto.getAdUrl();
-
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("picName", picName);
-		map.put("url", url);
-
-		return map;
-	}
 
 	@Override
 	public List<LoginDTO> loginResult(String userIp, String id, String pw) {// 로그인 결과
@@ -94,7 +77,7 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public JSONObject picCheck(HttpServletRequest request) {
+	public JSONObject picCheck(HttpServletRequest request) {//그림을 체크해주는것
 
 		HttpSession userSession = request.getSession();
 		int sucessCount = (Integer) userSession.getAttribute("sucessCount");
@@ -158,6 +141,7 @@ public class LoginService implements ILoginService {
 
 		List<UserDTO> dto = dao.userInfo(userSeq);
 		userSession.setAttribute("userinfo", dto.get(0));
+		
 
 	}
 
@@ -169,8 +153,8 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public int userSignUp(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {// 회원가입
-																												// 로직
+	public int userSignUp(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {// 회원가입 로직
+																												
 
 		Map<String, String> map = getRSAkey(request);
 
@@ -252,8 +236,7 @@ public class LoginService implements ILoginService {
 
 	// RSA 대칭키 - 복호화
 	@Override
-	public HashMap<String, String> getRSAkey(HttpServletRequest request)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public HashMap<String, String> getRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
 		RSAalgorithm rsa = new RSAalgorithm();
 
@@ -261,5 +244,49 @@ public class LoginService implements ILoginService {
 
 		return map;
 	}
+	
+	//맨처음 로그인할때 광고,rsa키 지정해주는곳
+	@Override
+	public int firstLoginStep(HttpServletRequest request,int errorCode) {
+		
+		int error = 0;
+		Random rnd = new Random();
+		List<AdverDTO> dtoList = dao.getAdvertiseInfo();
 
+		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 적용하고 지금은 "랜덤"으로 처리해준다.
+		AdverDTO dto = dtoList.get(rnd.nextInt(dtoList.size()));
+		String picName = dto.getAdpPcUrl();
+		String url = dto.getAdUrl();
+
+		HashMap<String, String> adverMap = new HashMap<String, String>();
+		adverMap.put("picName", picName);
+		adverMap.put("url", url);
+		
+		request.setAttribute("adverMap", adverMap);
+		
+		if (errorCode == -1) {
+			request.setAttribute("loginError", -1);
+		} else {
+			request.setAttribute("loginError", 0);
+		}
+		
+		try {
+			int result = setRSAkey(request);
+		} catch(Exception e) {
+			error = -1;
+			e.printStackTrace();
+		}
+		
+		if (error == 0) {
+			return 0;
+		} else {
+			return -1;
+		}
+
+	}
+	
+	
+	
+	
+	
 }

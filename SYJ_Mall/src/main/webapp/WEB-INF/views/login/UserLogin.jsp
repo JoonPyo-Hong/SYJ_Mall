@@ -120,7 +120,7 @@
 		<input type="hidden" name="securedUsername" id="securedUsername" value="" />
         <input type="hidden" name="securedPassword" id="securedPassword" value="" />
 		
-        <c:if test="${not empty loginError}">
+        <c:if test="${loginError eq '-1'}">
         <div id = "errorLogin" style = "display: <c:out value="${adverMap['errorLogin']}"/>;">
             &nbsp;가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.
        	</div>       
@@ -155,10 +155,23 @@
         });
         
         
-        //패킷을 중간에 가로채는것을 방지하기 위함
-      	$("#go").click(function(){
-      	    
-      		var username = document.getElementById("inputid").value;//유저가 작성한 아이디
+        
+      	//1. 버튼을 직접 누른 경우
+        $("#go").click(function(){
+        	packetLogin();
+      	}); 
+        
+        //2. 엔터키를 통해서 로그인 시도한 경우
+        $("#inputpw").keyup(function(e){
+        	if(e.keyCode == 13) packetLogin();
+        })
+        
+        
+        
+        //로그인 - 패킷을 중간에 가로채는것을 방지하기 위함
+        function packetLogin() {
+        	
+        	var username = document.getElementById("inputid").value;//유저가 작성한 아이디
       	    var password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
       	    
       	    try {
@@ -169,9 +182,8 @@
       	    } catch(err) {
       	    	
       	        alert(err);
-      	    }
-      	    
-      	});      	
+      	    } 
+        }
         
       	
         //로그인 버튼 클릭시 -> 데이터를 넘겨주는 부분
