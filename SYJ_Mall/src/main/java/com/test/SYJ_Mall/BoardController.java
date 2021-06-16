@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,12 +47,13 @@ public class BoardController {
 	}
 	// 게시판 리스트에서의 확장 버튼
 		@RequestMapping(value = "/list_btn.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public String list_btn(BoardDTO dto,@RequestParam Map<String, Object> param) {
+		public Map<String, Object> list_btn(HttpServletRequest request, Model model) throws Exception{
 			
-			System.out.println(param);
-			String a= "test";
-			return a;
+			System.out.println(request.getParameter("seq"));
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("kor", "Korea");
+			model.addAttribute("kor", "Korea");
+			return map;
 		}
 	
 
