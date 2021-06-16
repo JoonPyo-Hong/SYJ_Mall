@@ -30,7 +30,7 @@ public class BoardController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
-	// 게시판 리스트 형식 출
+	// 게시판 리스트 형식 출력
 	@RequestMapping(value = "/notice_list.action", method = { RequestMethod.GET })
 	public String login(BoardDTO dto, Model model) {
 
@@ -39,5 +39,13 @@ public class BoardController {
 
 		return "/Board/NoticeList";
 	}
+	// 게시판 리스트에서의 확장 버튼
+		@RequestMapping(value = "/list_btn.action", method = { RequestMethod.POST })
+		public List<BoardDTO> list_btn(BoardDTO dto, Model model) {
+			List<BoardDTO> list = service.noticelist(dto); 
+			
+			return list;
+		}
+	
 
 }
