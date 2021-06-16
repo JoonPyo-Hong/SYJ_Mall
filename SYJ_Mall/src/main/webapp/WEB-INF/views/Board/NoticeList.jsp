@@ -19,28 +19,43 @@
 		<div id="top"></div>
 		<div id="middle">
 			<c:forEach var="list" items="${list}">
-   				<div>
-   					<span class="title">${list.title}</span>
-   					<span class="btn_notice">
-   						<img class="img_notice" id="img_notice_${list.seq}" onclick="notice_view(${list.seq})" src="resources/images/kakao_ryan.png">
-   					</span>
-  				</div>
-   				<div class="date">
-   					${list.reg_dt}
+				<div>
+					<span class="title">${list.title}</span> <span class="btn_notice">
+						<img class="img_notice" id="img_notice_${list.seq}"
+						onclick="notice_view(${list.seq})"
+						src="resources/images/kakao_ryan.png">
+					</span>
 				</div>
-    		</c:forEach>
+				<div class="date">${list.reg_dt}</div>
+			</c:forEach>
 		</div>
 		<div id="bottom">
-			<a href="#">1</a>
-			<a href="#">2</a>
-			<a href="#">3</a>
-			<a href="#">></a>
-		</div>	
+			<a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">></a>
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	function notice_view(seq){
-		alert(seq);		
+	function notice_view(list_seq){
+		
+		 var form = {
+               seq: 1
+       	 }
+	        $.ajax({
+	            url: "list_btn.action",
+	            type : 'post', 
+	            dataType : 'json', 
+	            data : { 
+	            	seq : list_seq,
+	            },       	
+	            success: function(data){
+	                alert(data);
+	            },
+	            error: function(){
+	                alert("에러");
+	            }
+	        });
+	
+      
 	}
 
 
