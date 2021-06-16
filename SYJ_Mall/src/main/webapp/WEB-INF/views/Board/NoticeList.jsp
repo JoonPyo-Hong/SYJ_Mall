@@ -43,7 +43,6 @@
 	        $.ajax({
 	            url: "list_btn.action",
 	            type : 'post', 
-	            dataType : 'json', 
 	            data : { seq : list_seq,
 	            
 	            },       	
