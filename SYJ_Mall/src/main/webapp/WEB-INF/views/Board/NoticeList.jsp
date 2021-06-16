@@ -35,21 +35,27 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function notice_view(seq){
-		alert(seq);
+	function notice_view(list_seq){
 		
-        $.ajax({
-            url: "/SYJ_Mall/list_btn.action",
-            type: "POST",
-			data: "seq=" + seq,
-			dataType: "json",
-            success: function(result){
-                alert(result);
-            },
-            error: function(a,b,c){
-                alert("에러" + a+b+c);
-            }
-        });
+		 var form = {
+               seq: 1
+       	 }
+	        $.ajax({
+	            url: "list_btn.action",
+	            type : 'post', 
+	            dataType : 'json', 
+	            data : { seq : list_seq,
+	            
+	            },       	
+	            success: function(data){
+	                alert(data);
+	            },
+	            error: function(){
+	                alert("에러");
+	            }
+	        });
+	
+      
 	}
 
 
