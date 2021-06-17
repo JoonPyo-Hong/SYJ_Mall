@@ -271,7 +271,7 @@ public class LoginService implements ILoginService {
 	    final int MAX = 16;
 		
 	    // 영어, 숫자, 특수문자 포함한 MIN to MAX 글자 정규식
-	    final String REGEX = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{" + MIN + "," + MAX +"}$";
+	    final String REGEX = "^((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\\W]).{" + MIN + "," + MAX + "})$";
 	    
 	    // 3자리 연속 문자 정규식
 	    final String SAMEPT = "(\\w)\\1\\1";
@@ -304,7 +304,7 @@ public class LoginService implements ILoginService {
 	    }
 
 	    // 비밀번호 정규식 체크
-	    matcher = Pattern.compile(REGEX).matcher(tmpPw);
+	    matcher = Pattern.compile(REGEX).matcher(inputPw);
 	    if (!matcher.find()) {
 	    	return -3; // 정규식 문제 -> 대,소문자 특수기호
 	    }
