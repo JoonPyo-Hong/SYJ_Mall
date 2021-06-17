@@ -449,8 +449,8 @@
         //2. 비밀번호
         var pwFlag = false;//비밀번호 통과할지 결정해주는 변수
         $("#pw_input").blur(function(){
-            if (pwFlag) return true;
-
+            
+        	pwFlag = false;
             var pw = this.value;
             
             console.log(pw);
