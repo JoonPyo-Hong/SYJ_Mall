@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface IBoardDAO {
 	public List<BoardDTO> noticelist(BoardDTO dto);
+	public List<BoardDTO> listbtn(BoardDTO dto);
 }

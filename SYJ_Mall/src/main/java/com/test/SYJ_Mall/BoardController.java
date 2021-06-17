@@ -48,10 +48,11 @@ public class BoardController {
 	// 게시판 리스트에서의 확장 버튼
 		@RequestMapping(value = "/list_btn.action", method = { RequestMethod.POST })
 		@ResponseBody
-		public String list_btn(BoardDTO dto){
-			
-			System.out.println(dto.getContent());
-			return dto.getContent();
+		public Object list_btn(BoardDTO dto){
+			List<BoardDTO> list = service.listbtn(dto);
+			System.out.println(dto.getSeq());
+			System.out.println(list);
+			return list;
 		}
 	
 

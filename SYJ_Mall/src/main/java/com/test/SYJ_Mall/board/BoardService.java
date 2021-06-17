@@ -18,4 +18,9 @@ public class BoardService implements IBoardService {
 		return dao.noticelist(dto);
 	}
 
+	public List<BoardDTO> listbtn(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		return dao.listbtn(dto);
+	}
+
 }

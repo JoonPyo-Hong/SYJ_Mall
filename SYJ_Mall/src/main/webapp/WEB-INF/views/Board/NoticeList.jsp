@@ -41,7 +41,7 @@
 	            url: "list_btn.action",
 	            type : 'post', 
 	            data : { 
-	            	content : "test",
+	            	seq : list_seq,
 	            },       	
 	            success: function(data){
 	                alert(data);

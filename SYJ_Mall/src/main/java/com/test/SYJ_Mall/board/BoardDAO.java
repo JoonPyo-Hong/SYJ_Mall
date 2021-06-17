@@ -19,4 +19,9 @@ public class BoardDAO implements IBoardDAO{
 		return session.selectList("board.noticelist",dto);
 	}
 
+	public List<BoardDTO> listbtn(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.listbtn",dto);
+	}
+
 }
