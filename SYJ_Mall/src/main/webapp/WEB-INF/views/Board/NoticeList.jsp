@@ -37,15 +37,11 @@
 <script type="text/javascript">
 	function notice_view(list_seq){
 		
-		 var form = {
-               seq: 1
-       	 }
 	        $.ajax({
 	            url: "list_btn.action",
 	            type : 'post', 
-	            dataType : 'json', 
 	            data : { 
-	            	seq : list_seq,
+	            	content : "test",
 	            },       	
 	            success: function(data){
 	                alert(data);

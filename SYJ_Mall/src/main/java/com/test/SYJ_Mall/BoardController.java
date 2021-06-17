@@ -47,13 +47,11 @@ public class BoardController {
 	}
 	// 게시판 리스트에서의 확장 버튼
 		@RequestMapping(value = "/list_btn.action", method = { RequestMethod.POST })
-		public Map<String, Object> list_btn(HttpServletRequest request, Model model) throws Exception{
+		@ResponseBody
+		public String list_btn(BoardDTO dto){
 			
-			System.out.println(request.getParameter("seq"));
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("kor", "Korea");
-			model.addAttribute("kor", "Korea");
-			return map;
+			System.out.println(dto.getContent());
+			return dto.getContent();
 		}
 	
 
