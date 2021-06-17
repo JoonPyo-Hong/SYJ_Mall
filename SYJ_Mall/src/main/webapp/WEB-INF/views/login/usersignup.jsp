@@ -381,15 +381,6 @@
         var totalPass = false;//최종적으로 넘어가도 될지 판단해주는 것
         
         
-/*         $("#submit_button").click(function(){
-        	if (totalPass) {
-        		alert("pass");
-        	} else {
-        		alert("fail");
-        	}
-        	
-        }); */
-        
         
         //객체 id, 지정할 color, 띄워줄 문자열
         function common(element,color,inputText) {
@@ -426,7 +417,7 @@
                 type:"GET",
                 url: "/SYJ_Mall/userSignUpIdCheck.action" ,
                 data : "checkid=" + id,
-                datattype : "json",
+                datatype : "json",
                 success : function(result) {
                     //var result = data.substr(4);
                     console.log(result);
@@ -461,6 +452,8 @@
             if (pwFlag) return true;
 
             var pw = this.value;
+            
+            console.log(pw);
 
             if (pw == "") {
                 common('pwerrmsg','red','필수입력 항목입니다.');
@@ -471,27 +464,40 @@
                 common('pwerrmsg','red','8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.');
                 return false;
             }
-
-            //common('pwerrmsg','green','굿굿');
+	
+            console.log('여기오면 안되는데 왜 오는거야?');
+            
             //여기아래에서 이제 ajax 를 통한 검증을 들어가야한다. -> 인코딩을 통해 암호화가 필요할거같은데;
             $.ajax({
-                type:"GET",
+                type:"POST",
                 url: "/SYJ_Mall/userSignUpPwCheck.action" ,
-                data : "checkpw=" + pw,
-                datattype : "json",
+                data : {"checkpw" : pw},
+                datatype : "json",
                 success : function(result) {
-                    //var result = data.substr(4);
-                    console.log(result);
                     
-                    if (result == 1) {// 아이디가 중복되지 않는경우
-                    	
-                    } else {//아이디가 중복되는 경우
-                    	
-                    	
+                	console.log(result);
+                	
+                    if (result == 0) {// 비밀번호가 안전한 경우
+                    	common('pwerrmsg','#08A600','안전한 비밀번호네요 ^^');
+                    } 	else if (result == -1) {
+                    	common('pwerrmsg','red','공백은 들어갈 수 없어요');
+                    	pwFlag = false;
+                    	return false;
+                    }  	else if (result == -4) {
+                    	common('pwerrmsg','red','동일한 문자 3개 이상쓰는건 지양해주세요.');
+                    	pwFlag = false;
+                    	return false;
+                    }	else if (result == -5) {
+                    	common('pwerrmsg','red','연속된 숫자는 금지해주세요.');
+                    	pwFlag = false;
+                    	return false;
+                    }	else {
+                    	common('pwerrmsg','red','8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.');
+                    	pwFlag = false;
+                    	return false;
                     }
                 },
                 error: function(a,b,c) {
-                	//console.log("error");
 					console.log(a,b,c);
 				}
             });
@@ -537,15 +543,21 @@
 	        if (cnt == str.length) {
 	            return false;
 	        }
-	
-	        var isPW = /^[A-Za-z0-9`\-=\\\[\];',\./~!@#\$%\^&\*\(\)_\+|\{\}:"<>\?]{8,16}$/;
+			
+	        //정규식 -> 비밀번호 검증 정규식
+	        var isPW = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
 	        
-	        if (!isPW.test(str)) {
-	            return false;
-	        }
+			if (!isPW.test(str)) {
+	            
+	        	return false;
+	        } 
 	
 	        return true;
     	}
+        
+        
+        
+        
         
         //select 박스 클릭해줄때 빨간테두리 생기게 해주는 기능
         $(".selected_info").focus(function(){

@@ -170,17 +170,18 @@ public class MainController {
 	public void idVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		PrintWriter out = response.getWriter();
-		int result = logService.userSignUpIdVerify(request);
+		int result = logService.userSignUpIdVerify(request);// -1 을 가져오거나 1을 가져오는데 뭐지?
 		
 		out.print(result);
 	}
 	
 	//회원가입 페이지 - 비밀번호 검증(ajax)
-	@RequestMapping(value = "/userSignUpPwCheck.action", method = { RequestMethod.GET })
+	@RequestMapping(value = "/userSignUpPwCheck.action", method = { RequestMethod.POST })
 	public void pwVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		PrintWriter out = response.getWriter();
 		int result = logService.userSignUpPwVerify(request);
+		
 		
 		out.print(result);
 	}
