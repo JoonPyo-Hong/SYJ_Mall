@@ -74,7 +74,7 @@
 <body>
 	
 	<div id = "qoo10login">
-        <img src = "resources/images/Qoo10_Logo.png">    
+        <img src = "resources/images/kakao.svg">    
     </div>
     	
     <div id = "secSubject" class = "standardRule">

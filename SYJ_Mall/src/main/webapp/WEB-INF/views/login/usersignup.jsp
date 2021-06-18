@@ -92,10 +92,11 @@
             border: 0px;
             width: 350px;
             height: 45px;
-            margin: 0px auto;
-            background-color: #EC2E3C;
+            margin: 0px auto;           
             font-family: 'NEXON Lv1 Gothic OTF';
-            color: #FFFFFF;
+            font-size: 1em; 
+            background-color: #FEE500; 
+            color:black; 
         }
         /* --가입하기 버튼-- */
 
@@ -219,7 +220,7 @@
     <input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />	
 	
     <div id = "qoo10login">
-        <img src = "resources/images/Qoo10_Logo.png">    
+        <img src = "resources/images/kakao.svg">    
     </div>
     
     
@@ -370,9 +371,6 @@
     </form>
 
     
-    <div id = "copyright">
-        Copyright &copy; <span style="font-weight: bold;">Qoo10 Corp.</span> All rights reserved.
-    </div>
 
     <script>
         

@@ -14,11 +14,12 @@
 <style>
 		/* 로그인 이미지 */
         #qoo10login {
-            /* border : 1px solid red; */
             margin: 0px auto;
             margin-top: 40px;
-            height: 100px;
-            width: 200px;
+            height : 170px;
+            width : 370px;
+            transition-property: all;
+            transition-duration: 2s;
         }
         #qoo10login img {
             width:100%;
@@ -37,11 +38,20 @@
             width : 355px;
             height : 50px;
             padding: 10px;
+            opacity: 0;
+            transition-property: all;
+            transition-duration: 3s;
         }
         .inputform input {
             width : 340px;
             height : 40px;
             border: 1px solid #E5E5E6;
+        }
+        
+        #input_form {
+        	opacity: 0;
+            transition-property: all;
+            transition-duration: 3s;
         }
 
         #copyright {
@@ -73,6 +83,9 @@
             width : 260px;
             height : 30px;
             padding: 6px;
+            opacity: 0;
+            transition-property: all;
+            transition-duration: 3s;
         }
 
         #etcinfo a,span {
@@ -97,12 +110,12 @@
     </style>
 </head>
 <body>
-	
+	<!-- type="hidden" -->
 	<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}" />
     <input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />	
 	
     <div id = "qoo10login">
-        <img src = "resources/images/Qoo10_Logo.png">    
+        <img src = "resources/images/kakao.svg">
     </div>
 
     <!-- 아이디 -->
@@ -115,7 +128,7 @@
     </div>	
 	
     
-    <form action="loginVerification.action" method = "POST" id = "inputform">
+    <form action="loginVerification.action" method = "POST" id = "input_form">
 		
 		<input type="hidden" name="securedUsername" id="securedUsername" value="" />
         <input type="hidden" name="securedPassword" id="securedPassword" value="" />
@@ -127,7 +140,7 @@
         </c:if>
         <!-- 로그인 버튼 -->
         <div class = "inputform">
-            <input id = "go" type="button" value = "SIGN IN" style = "font-weight: bold; font-size: 1.3em; background-color: #EC2E3C; color:white;">
+            <input id = "go" type="button" value = "로그인" style = "font-size: 1em; background-color: #FEE500; color:black; font-family: 'NEXON Lv1 Gothic OTF';">
         </div>
     </form>
     
@@ -139,9 +152,6 @@
         <a target="_blank" href = "/SYJ_Mall/userSignUp.action">회원 가입</a>
     </div>
 
-    <div id = "copyright" style="font-family: 'NEXON Lv1 Gothic OTF'">
-        Copyright &copy; <span style="font-weight: bold;">Qoo10 Corp.</span> All rights reserved.
-    </div>
 	
 	<!-- 광고칸 -->
 	<div id = "advertise" class = "inputform" style = "background: url('resources/images/adver/<c:out value="${adverMap['picName']}"/>'); background-size: cover;"></div>
@@ -149,12 +159,22 @@
 
     <script>
         
+    
+    	setTimeout(function(){
+        	$("#qoo10login").css("width","200px")
+            				.css("height","100px");   
+    	},500);
+    	
+        setTimeout(function(){
+            $(".inputform").css("opacity","1");
+            $("#input_form").css("opacity","1");
+            $("#etcinfo").css("opacity","1");
+        },1000);
+    	
         //광고 클릭했을 경우
         $("#advertise").click(function(){
         	location.href = '<c:out value="${adverMap['url']}"/>'
         });
-        
-        
         
       	//1. 버튼을 직접 누른 경우
         $("#go").click(function(){
@@ -173,6 +193,7 @@
         	
         	var username = document.getElementById("inputid").value;//유저가 작성한 아이디
       	    var password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
+
       	    
       	    try {
       	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
@@ -195,8 +216,9 @@
       	    // 사용자ID와 비밀번호를 RSA로 암호화한다.
       	    var securedUsername = rsa.encrypt(username);
       	    var securedPassword = rsa.encrypt(password);
-
-      	    var securedForm = document.getElementById("inputform");//form 데이터
+		
+      	    
+      	    var securedForm = document.getElementById("input_form");//form 데이터
       	    
       	    securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
       	    securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
