@@ -448,10 +448,13 @@
         
         //2. 비밀번호
         var pwFlag = false;//비밀번호 통과할지 결정해주는 변수
+        var pwInstance = '';//임시변수 -> 비밀번호 체크하기 위한
+        
         $("#pw_input").blur(function(){
             
         	pwFlag = false;
             var pw = this.value;
+            pwInstance = pw;
             
             console.log(pw);
 
@@ -465,7 +468,7 @@
                 return false;
             }
 	
-            console.log('여기오면 안되는데 왜 오는거야?');
+            //console.log('여기오면 안되는데 왜 오는거야?');
             
             //여기아래에서 이제 ajax 를 통한 검증을 들어가야한다. -> 인코딩을 통해 암호화가 필요할거같은데;
             $.ajax({
@@ -506,6 +509,23 @@
             return true;
             
         });       
+        
+        
+        
+        
+        //3. 비밀번호 체크
+        var pwCheckFlag = false;//비밀번호 통과할지 결정해주는 변수
+        $("#pw_input_check").blur(function(){
+        	
+        	if(this.value == pwInstance) {
+        		common('pwerrmsg2','#08A600','비밀번호가 확인되었습니다.');
+        		pwInstance = '0';
+        		pwCheckFlag = true;
+        	} else {
+        		common('pwerrmsg2','red','비밀번호가 일치하지 않습니다.');
+        	}
+        	
+        });
         
   
        	//공백체크
