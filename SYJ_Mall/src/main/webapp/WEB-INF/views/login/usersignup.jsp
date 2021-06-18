@@ -278,7 +278,7 @@
                 <option value = "UK">영국</option>
                 <option value = "US">미국</option>
             </select>
-            <div class="error_next_box" id="nameerrmsg2" style="display:none;">정확한 이름을 적어주세요.</div>
+            <div class="error_next_box" id="nationerrmsg" style="display:none;"></div>
         </div>
 
         
@@ -331,7 +331,7 @@
                         <option value = "qoo10">qoo10</option>
                     </select>
             </div>
-            <div class="error_next_box" id="nameerrmsg2" style="margin-left:5px; clear:both; display:none;">필수입력 항목입니다.</div>
+            <div class="error_next_box" id="nameerrmsg2" style="margin-left:5px; clear:both; display:none;"></div>
         </div>
 
         <div id="email_agree" class="input_box">
@@ -341,14 +341,14 @@
                     <option value = "Y">동의</option>
                     <option value = "N">비동의</option>
                 </select>
-                <div class="error_next_box" id="nameerrmsg2" style="display:none;">필수입력 항목입니다.</div>
+                <div class="error_next_box" id="email_selected_errmsg" style="display:none;"></div>
         </div>
         
         
         <div id="phone_input" class="input_box">
             <div class = "info_name">휴대전화</div>
             <div class = "info_write"><input id = "phone_number_input" class = "inputs_info" type="text" placeholder="01012345678" name = "phone_input" maxlength="11"></div>
-            <div class="error_next_box" id="nameerrmsg2" style="display:none;">필수입력 항목입니다.</div>
+            <div class="error_next_box" id="nameerrmsg2" style="display:none;"></div>
         </div>
 
         <div id="sms_agree" class="input_box">
@@ -358,7 +358,7 @@
                     <option value = "Y">동의</option>
                     <option value = "N">비동의</option>
                 </select>
-            <div class="error_next_box" id="nameerrmsg2" style="display:none;">필수입력 항목입니다.</div>
+            <div class="error_next_box" id="smserrmsg" style="display:none;"></div>
         </div>
 
         
@@ -640,6 +640,63 @@
         
         //6. 거주국가 선택
         var nationFlag = false;
+        $("#nation_selected").blur(function(){
+        	nationFlag = false;//초기화
+			
+            var nationValue = this.value;
+            
+            if (nationValue == "") {
+                common('nationerrmsg','red','거주국가를 선택해주세요.');
+                return false;
+            }
+			
+            commondel('nationerrmsg');
+            genderFlag = true;
+        });
+        
+        
+        //7. 생년월일 선택
+        
+        
+        //8. 이메일주소 선택
+        
+        
+        //9. 이메일 발송 동의 유무 선택
+        var emailFlag = false;
+        $("#email_selected").blur(function(){
+        	emailFlag = false;//초기화
+			
+            var emailValue = this.value;
+            
+            if (emailValue == "") {
+                common('email_selected_errmsg','red','필수입력 항목입니다.');
+                return false;
+            }
+			
+            commondel('email_selected_errmsg');
+            genderFlag = true;
+        });        
+        
+        
+        
+        //10. 휴대전화 선택
+        
+        
+        //11. sms 발송 동의 유무 선택
+        var smsFlag = false;
+        $("#sms_selected").blur(function(){
+        	smsFlag = false;//초기화
+			
+            var smsValue = this.value;
+            
+            if (smsValue == "") {
+                common('smserrmsg','red','필수입력 항목입니다.');
+                return false;
+            }
+			
+            commondel('smserrmsg');
+            genderFlag = true;
+        });
         
         
         //select 박스 클릭해줄때 빨간테두리 생기게 해주는 기능
