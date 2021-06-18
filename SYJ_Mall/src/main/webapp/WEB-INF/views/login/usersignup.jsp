@@ -232,35 +232,36 @@
     <div id="id_input" class="input_box">
         <div class = "info_name">비밀번호</div>
         <div class = "info_write"><input id = "pw_input" class = "inputs_info" type="password" name = "pw_input"></div>
-        <div class="error_next_box" id="pwerrmsg" style="display:none;">8~16 영문 대 소문자, 숫자, 특수문자를 사용하세요.</div>
+        <div class="error_next_box" id="pwerrmsg" style="display:none;"></div>
     </div>
         
     <div id="pw_input" class="input_box">
         <div class = "info_name">비밀번호 재확인</div>
         <div class = "info_write"><input id = "pw_input_check" class = "inputs_info" type="password"></div>
-        <div class="error_next_box" id="pwerrmsg2" style="display:none;">비밀번호가 일치하지 않습니다.</div>
+        <div class="error_next_box" id="pwerrmsg2" style="display:none;"></div>
     </div>
     
-	<!-- 암호화하여 넘겨줄 데이터 -->
+	
 	<form id="securedForm" name="securedForm" action="/SYJ_Mall/userSignUpGo.action" method="post">
-		
+		<!-- 암호화하여 넘겨줄 데이터 -->
 		<input type="hidden" name="securedUsername" id="securedUsername" value="" />
         <input type="hidden" name="securedPassword" id="securedPassword" value="" />
+		<!-- 암호화하여 넘겨줄 데이터 -->
 		
         <div id="pw_input_check" class="input_box">
             <div class = "info_name">이름</div>
-            <div class = "info_write"><input id = "name_input" class = "inputs_info" type="text" name = "name_input"></div>
-            <div class="error_next_box" id="nameerrmsg2" style="display:none;">정확한 이름을 적어주세요.</div>
+            <div class = "info_write"><input id = "name_input" class = "inputs_info" type="text" name = "name_input" autocomplete="off"></div>
+            <div class="error_next_box" id="nmerrmsg" style="display:none;"></div>
         </div>
 
         <div id="gender_input" class="input_box">
             <div class = "info_name">성별</div>
-            <select class = "selected_info" id = gender_selected name = "sex_input">
+            <select class = "selected_info" id = "gender_selected" name = "sex_input">
                 <option value selected >성별</option>
                 <option value = "M">남자</option>
                 <option value = "F">여자</option>
             </select>
-            <div class="error_next_box" id="nameerrmsg2" style="display:none;">정확한 이름을 적어주세요.</div>
+            <div class="error_next_box" id="gendererrmsg" style="display:none;"></div>
         </div>
 
         <div id="nation_input" class="input_box">
@@ -390,6 +391,12 @@
             .css('display','block');
         }
         
+        //객체id --> 확인되었으면 붉은색 글자 없애준는 용도
+        function commondel(element) {
+            $("#" + element).css('display','none');
+        }
+        
+        
         //1. 아이디
         var idFlag = false;//아이디 검증
         
@@ -514,17 +521,27 @@
         
         
         //3. 비밀번호 체크
-        var pwCheckFlag = false;//비밀번호 통과할지 결정해주는 변수
+        var pwCheckFlag = false;//비밀번호 체크를 통과할지 결정해주는 변수
         $("#pw_input_check").blur(function(){
         	
-        	if(this.value == pwInstance) {
-        		common('pwerrmsg2','#08A600','비밀번호가 확인되었습니다.');
-        		pwInstance = '0';
-        		pwCheckFlag = true;
-        	} else {
-        		common('pwerrmsg2','red','비밀번호가 일치하지 않습니다.');
+        	pwCheckFlag = false;//초기화
+        	
+        	var checkPw = this.value;//재확인할 비밀번호
+        	
+        	if (pwInstance == "") {
+        		common('pwerrmsg2','red','비밀번호를 확인해주세요.');
+        		return false;
         	}
         	
+        	if (checkPw != "" && checkPw != pwInstance) {
+        		common('pwerrmsg2','red','비밀번호가 일치하지 않습니다.');
+        		return false;
+        	}
+        	
+        	commondel('pwerrmsg2');
+    		pwInstance = '0';//비밀번호 체크값 초기화
+    		pwCheckFlag = true;
+        	        	
         });
         
   
@@ -575,8 +592,56 @@
 	        return true;
     	}
         
+        //4. 이름 체크
+        var nameFlag = false;
+        $("#name_input").blur(function(){
+            
+            nameFlag = false;//초기화
+
+            var name = this.value;//이름
+            var nonchar = /[^가-힣a-zA-Z]/gi;//이름에 해당되는 정규식
+            var number = /[0-9]/gi;//숫자 제외해줄것
+
+            if (name == "") {
+                common('nmerrmsg','red','필수입력 항목입니다.');
+                return false;
+            }
+            if (name != "" && number.test(name)) {
+                common('nmerrmsg','red','이름에 숫자는 사용할 수 없습니다.');
+                return false;
+            }
+            if (name != "" && nonchar.test(name)) {
+                common('nmerrmsg','red','한글과 영문 대 소문자를 사용하세요.(특수기호,공백 사용 불가)');
+                return false;
+            }
+            if(name.length > 60) {
+                common('nmerrmsg','red','너무 긴 이름입니다.');
+                return false;
+            }
+
+            nameFlag = true;
+            commondel('nmerrmsg');
+
+        });
         
+        //5.성별선택
+        var genderFlag = false;
+        $("#gender_selected").blur(function(){
+            genderFlag = false;//초기화
+
+            var genderValue = this.value;
+            
+            if (genderValue == "") {
+                common('gendererrmsg','red','성별을 선택해주세요.');
+                return false;
+            }
+			
+            commondel('gendererrmsg');
+            genderFlag = true;
+        });
         
+        //6. 거주국가 선택
+        var nationFlag = false;
         
         
         //select 박스 클릭해줄때 빨간테두리 생기게 해주는 기능
