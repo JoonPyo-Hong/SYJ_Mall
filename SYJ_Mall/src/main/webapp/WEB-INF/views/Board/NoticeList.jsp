@@ -44,7 +44,7 @@
 	            	seq : list_seq,
 	            },       	
 	            success: function(data){
-	                alert(data);
+	                alert(data[0].content);
 	            },
 	            error: function(){
 	                alert("에러");
