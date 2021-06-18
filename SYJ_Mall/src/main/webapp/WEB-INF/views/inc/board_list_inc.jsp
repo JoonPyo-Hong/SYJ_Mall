@@ -51,6 +51,8 @@
 	margin: 5px;
 	
 }
-
+.list_add{
+	padding: 30px;
+}
 
 </style>
