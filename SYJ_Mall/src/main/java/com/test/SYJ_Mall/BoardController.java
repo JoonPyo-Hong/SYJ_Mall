@@ -50,8 +50,8 @@ public class BoardController {
 		@ResponseBody
 		public Object list_btn(BoardDTO dto){
 			List<BoardDTO> list = service.listbtn(dto);
-			System.out.println(dto.getSeq());
-			System.out.println(list);
+//			System.out.println(dto.getSeq());
+//			System.out.println(list);
 			return list;
 		}
 	

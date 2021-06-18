@@ -19,14 +19,16 @@
 		<div id="top"></div>
 		<div id="middle">
 			<c:forEach var="list" items="${list}">
-				<div>
-					<span class="title">${list.title}</span> <span class="btn_notice">
-						<img class="img_notice" id="img_notice_${list.seq}"
-						onclick="notice_view(${list.seq})"
-						src="resources/images/kakao_ryan.png">
-					</span>
-				</div>
+				<div id="list_${list.seq}">
+					<div>
+						<span class="title">${list.title}</span> <span class="btn_notice">
+							<img class="img_notice" id="img_notice_${list.seq}"
+							onclick="notice_view(${list.seq})"
+							src="resources/images/kakao_ryan.png">
+						</span>
+					</div>
 				<div class="date">${list.reg_dt}</div>
+				</div>
 			</c:forEach>
 		</div>
 		<div id="bottom">
@@ -44,7 +46,12 @@
 	            	seq : list_seq,
 	            },       	
 	            success: function(data){
-	                alert(data[0].content);
+	                /* alert(data[0].content); */
+	                if ($('#list_add_' + list_seq).length) {
+	                	$('#list_add_' + list_seq).remove();
+	                }else{
+	                	$('#list_' + list_seq).append("<div class='list_add' id ='list_add_"+list_seq+"'>"+data[0].content+"</div>");
+	                }
 	            },
 	            error: function(){
 	                alert("에러");
