@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,8 +50,48 @@ public class LoginService implements ILoginService {
 
 		return enc.returnEncVoca(password);
 	}
+	
+	//맨처음 로그인할때 광고,rsa키 지정해주는곳
+	@Override
+	public int firstLoginStep(HttpServletRequest request,int errorCode) {
+		
+		int error = 0;
+		Random rnd = new Random();
+		List<AdverDTO> dtoList = dao.getAdvertiseInfo();
 
+		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 적용하고 지금은 "랜덤"으로 처리해준다.
+		AdverDTO dto = dtoList.get(rnd.nextInt(dtoList.size()));
+		String picName = dto.getAdpPcUrl();
+		String url = dto.getAdUrl();
 
+		HashMap<String, String> adverMap = new HashMap<String, String>();
+		adverMap.put("picName", picName);
+		adverMap.put("url", url);
+		
+		request.setAttribute("adverMap", adverMap);
+		
+		if (errorCode == -1) {
+			request.setAttribute("loginError", -1);
+		} else {
+			request.setAttribute("loginError", 0);
+		}
+		
+		try {
+			int result = setRSAkey(request);
+		} catch(Exception e) {
+			error = -1;
+			e.printStackTrace();
+		}
+		
+		if (error == 0) {
+			return 0;
+		} else {
+			return -1;
+		}
+
+	}
+	
+	
 	@Override
 	public List<LoginDTO> loginResult(String userIp, String id, String pw) {// 로그인 결과
 
@@ -219,10 +261,91 @@ public class LoginService implements ILoginService {
 	// 유저 비밀번호 확인
 	@Override
 	public int userSignUpPwVerify(HttpServletRequest request) {
+		
+		String inputPw = request.getParameter("checkpw");
+		
+		// 1: pass , else : fail
+		
+		// 최소 8자, 최대 16자 상수 선언
+	    final int MIN = 8;
+	    final int MAX = 16;
+		
+	    // 영어, 숫자, 특수문자 포함한 MIN to MAX 글자 정규식
+	    final String REGEX = "^((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\\W]).{" + MIN + "," + MAX + "})$";
+	    
+	    // 3자리 연속 문자 정규식
+	    final String SAMEPT = "(\\w)\\1\\1";
+	    // 공백 문자 정규식
+	    final String BLANKPT = "(\\s)";
+	    
+	    // 정규식 검사객체
+	    Matcher matcher;
+		
+	    // 공백 체크
+	    if (inputPw == null || "".equals(inputPw)) {
+	    	return -1;// -1 : 공백문제
+	    }
+	    
+	    
+	    // ASCII 문자 비교를 위한 UpperCase
+	    String tmpPw = inputPw.toUpperCase();
+	    // 문자열 길이
+	    int strLen = tmpPw.length();
+	    
+	    // 글자 길이 체크
+	    if (strLen > 16 || strLen < 8) {
+	    	return -2;//-2 : 글자 길이 문제 
+	    }
+	    
+	    // 공백 체크
+	    matcher = Pattern.compile(BLANKPT).matcher(tmpPw);
+	    if (matcher.find()) {
+	    	return -1; // -1 : 공백문제
+	    }
 
-		return 0;
+	    // 비밀번호 정규식 체크
+	    matcher = Pattern.compile(REGEX).matcher(inputPw);
+	    if (!matcher.find()) {
+	    	return -3; // 정규식 문제 -> 대,소문자 특수기호
+	    }
+
+	    // 동일한 문자 3개 이상 체크
+	    matcher = Pattern.compile(SAMEPT).matcher(tmpPw);
+	    if (matcher.find()) {
+	    	return -4;// 동일한문제 3개 이상 쓰기 금지
+	    } 
+	    
+	    // ASCII Char를 담을 배열 선언
+	    int[] tmpArray = new int[strLen];
+	    
+	    // Make Array
+	    for (int i = 0; i < strLen; i++) {
+	    	tmpArray[i] = tmpPw.charAt(i);
+	    }	    
+	    
+	      // Validation Array
+	    for (int i = 0; i < strLen - 2; i++) {
+	      // 첫 글자 A-Z / 0-9
+	      if ((tmpArray[i] > 47 && tmpArray[i + 2] < 58)
+	          || (tmpArray[i] > 64 && tmpArray[i + 2] < 91)) {
+	        // 배열의 연속된 수 검사
+	        // 3번째 글자 - 2번째 글자 = 1, 3번째 글자 - 1번째 글자 = 2
+	        if (Math.abs(tmpArray[i + 2] - tmpArray[i + 1]) == 1
+	            && Math.abs(tmpArray[i + 2] - tmpArray[i]) == 2) {
+	          char c1 = (char) tmpArray[i];
+	          char c2 = (char) tmpArray[i + 1];
+	          char c3 = (char) tmpArray[i + 2];
+	          return -5;//연속된수 금지
+	        }
+	      }
+	    }
+		
+	    //아무것도 걸리지 않으면 정상적으로 0을 반환시켜준다.
+	    return 0;
+		
 	}
-
+	
+	
 	// RSA 대칭키 생성
 	@Override
 	public int setRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -245,45 +368,7 @@ public class LoginService implements ILoginService {
 		return map;
 	}
 	
-	//맨처음 로그인할때 광고,rsa키 지정해주는곳
-	@Override
-	public int firstLoginStep(HttpServletRequest request,int errorCode) {
-		
-		int error = 0;
-		Random rnd = new Random();
-		List<AdverDTO> dtoList = dao.getAdvertiseInfo();
 
-		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 적용하고 지금은 "랜덤"으로 처리해준다.
-		AdverDTO dto = dtoList.get(rnd.nextInt(dtoList.size()));
-		String picName = dto.getAdpPcUrl();
-		String url = dto.getAdUrl();
-
-		HashMap<String, String> adverMap = new HashMap<String, String>();
-		adverMap.put("picName", picName);
-		adverMap.put("url", url);
-		
-		request.setAttribute("adverMap", adverMap);
-		
-		if (errorCode == -1) {
-			request.setAttribute("loginError", -1);
-		} else {
-			request.setAttribute("loginError", 0);
-		}
-		
-		try {
-			int result = setRSAkey(request);
-		} catch(Exception e) {
-			error = -1;
-			e.printStackTrace();
-		}
-		
-		if (error == 0) {
-			return 0;
-		} else {
-			return -1;
-		}
-
-	}
 	
 	
 	
