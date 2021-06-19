@@ -135,7 +135,7 @@
             margin : 4px auto;
             padding-left: 7px;
             height: 30px;
-            width: 100px;
+            width: 108px;
         }
         /* --생년월일 입력-- */
         
@@ -168,10 +168,8 @@
         .selected_info_email {
             border-style: none;
             outline:none;
-            /* border: 1px solid blue; */
             background-color: #FFFFFF;
             margin : 4px;
-            /* padding-left: 0px; */
             height: 30px;
             width: 80px;
         }
@@ -286,7 +284,7 @@
         <div id="birth_input" class="input_box" style = "width : 360px;">
             <div class = "info_name">&nbsp;생년월일</div>
             <div class = "birth">
-                <input class = "inputs_info_small" type="text" id = "birth_yy" placeholder = "YYYY" name = "yy_input" maxlength="4">
+                <input class = "inputs_info_small" type="text" id = "birth_yy" placeholder = "YYYY" name = "yy_input" maxlength="4" autocomplete = "OFF">
             </div>
             <div class = "birth">
                     <select class="selected_info_birth" id = "birth_mm" name = "mm_input">
@@ -306,9 +304,9 @@
                     </select>
             </div>
             <div class = "birth">
-                <input class = "inputs_info_small" type="text" id = "birth_dd" placeholder = "dd" name = "dd_input" maxlength="2">
+                <input class = "inputs_info_small" type="text" id = "birth_dd" placeholder = "dd" name = "dd_input" maxlength="2" autocomplete = "OFF">
             </div>
-            <div class="error_next_box" id="nameerrmsg2" style="margin-left:5px; clear:both; display:none;">정확한 이름을 적어주세요.</div>
+            <div class="error_next_box" id="birtherrmsg" style="margin-left:5px; clear:both; display:none;"></div>
         </div>
 
         <div id="email_input" class="input_box" style = "width : 360px;">
@@ -331,7 +329,7 @@
                         <option value = "qoo10">qoo10</option>
                     </select>
             </div>
-            <div class="error_next_box" id="nameerrmsg2" style="margin-left:5px; clear:both; display:none;"></div>
+            <div class="error_next_box" id="emailerrmsg" style="margin-left:5px; clear:both; display:none;"></div>
         </div>
 
         <div id="email_agree" class="input_box">
@@ -656,6 +654,30 @@
         
         
         //7. 생년월일 선택
+        //생년월일 - 년도 선택
+        var birthyYFlag = false;
+        $("#birth_yy").blur(function(){
+			if (checkBirthday()) {
+				birthyYFlag = true;
+			}         	
+        });
+        
+        
+        
+        //생년월일을 체크를 위한 함수 정의
+        function checkBirthday() {
+        	var birthday;
+        	var yy = $("#birth_yy").val();
+        	var mm = $("#birth_mm").val();
+        	var dd = $("#birth_dd").val();
+        	
+        	if (yy == "" && mm == "" && dd == "") {
+        		 common('birtherrmsg','red','태어난 년도 4자리를 정확하게 입력하세요.');
+        		 return false;
+        	}
+        	
+        	
+        }
         
         
         //8. 이메일주소 선택
