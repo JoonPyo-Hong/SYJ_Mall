@@ -119,5 +119,12 @@ public interface ILoginService {
 	 */
 	int firstLoginStep(HttpServletRequest request,int errorCode);
 	
+	/**
+	 * 유저회원가입 - 이메일 아이디 중복 체크
+	 * @param request	request 객체
+	 * @return			1 : 성공, -1 : 실패
+	 */
+	int userEmailVerify(HttpServletRequest request);
+	
 	
 }

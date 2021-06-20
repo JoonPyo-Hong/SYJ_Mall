@@ -186,6 +186,16 @@ public class MainController {
 		out.print(result);
 	}
 	
+	//회원가입 페이지 - 사용자 이메일 아이디 검증(ajax)
+	@RequestMapping(value = "/userEmailVerifyCheck.action", method = { RequestMethod.GET })
+	public void emailVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		PrintWriter out = response.getWriter();
+		int result = logService.userEmailVerify(request);
+		
+		out.print(result);
+	}
+	
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
