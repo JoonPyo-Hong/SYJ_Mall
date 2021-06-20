@@ -34,7 +34,7 @@
 		<div id="bottom">
 			<div style="display: block; text-align: center;">		
 				<c:if test="${paging.startPage != 1 }">
-					<a href="/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+					<a href="/SYJ_Mall/notice_list.action?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 				</c:if>
 				<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 					<c:choose>
@@ -42,12 +42,12 @@
 							<b>${p }</b>
 						</c:when>
 						<c:when test="${p != paging.nowPage }">
-							<a href="/boardList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+							<a href="/SYJ_Mall/notice_list.action?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${paging.endPage != paging.lastPage}">
-					<a href="/boardList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+					<a href="/SYJ_Mall/notice_list.action?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 				</c:if>
 			</div>
 		</div>

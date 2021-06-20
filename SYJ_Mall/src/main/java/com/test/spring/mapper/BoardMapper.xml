@@ -7,7 +7,7 @@
 <mapper namespace="board">
 
 	<select id="noticelist"
-		resultType="com.test.SYJ_Mall.board.PagingDTO">
+		resultType="com.test.SYJ_Mall.board.BoardDTO">
 		select * from (
 		SELECT ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
 		seq, title,

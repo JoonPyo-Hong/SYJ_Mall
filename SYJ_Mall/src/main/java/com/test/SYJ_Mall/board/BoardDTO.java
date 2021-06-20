@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class BoardDTO {
+	private int rownum;
 	private int seq;
 	private String title;
 	private String content;
