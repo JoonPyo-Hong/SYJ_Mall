@@ -33,28 +33,40 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
+
 	/*---------------------------------------------------게시판 페이지------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 게시판 리스트 형식 출력
 	@RequestMapping(value = "/notice_list.action", method = { RequestMethod.GET })
-	public String login(PagingDTO dto, Model model) {
-
-		List<BoardDTO> list = service.noticelist(dto);
-		model.addAttribute("list", list);
+	public String login(PagingDTO dto, Model model, @RequestParam(value = "nowPage", required = false) String nowPage,
+			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
+		int total = service.countBoard();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "5";
+		}
+		dto = new PagingDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		model.addAttribute("paging", dto);
+		model.addAttribute("list",service.noticelist(dto));
 
 		return "/Board/NoticeList";
 	}
+
 	// 게시판 리스트에서의 확장 버튼
-		@RequestMapping(value = "/list_btn.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public Object list_btn(BoardDTO dto){
-			List<BoardDTO> list = service.listbtn(dto);
+	@RequestMapping(value = "/list_btn.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object list_btn(BoardDTO dto) {
+		List<BoardDTO> list = service.listbtn(dto);
 //			System.out.println(dto.getSeq());
 //			System.out.println(list);
-			return list;
-		}
-	
+		return list;
+	}
 
 }

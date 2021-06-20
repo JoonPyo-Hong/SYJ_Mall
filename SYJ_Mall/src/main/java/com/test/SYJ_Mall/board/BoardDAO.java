@@ -18,7 +18,8 @@ public class BoardDAO implements IBoardDAO{
 
 		return session.selectList("board.noticelist",dto);
 	}
-
+	
+	@Override
 	public List<BoardDTO> listbtn(BoardDTO dto) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.listbtn",dto);
@@ -26,8 +27,7 @@ public class BoardDAO implements IBoardDAO{
 
 	@Override
 	public int countBoard() {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.selectOne("board.countBoard");
 	}
 
 }
