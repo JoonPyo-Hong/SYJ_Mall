@@ -19,7 +19,7 @@
 		<div id="top"></div>
 		<div id="middle">
 			<c:forEach var="list" items="${list}">
-				<div id="list_${list.seq}">
+				<div id="list_${list.seq}" class="list">
 					<div>
 						<span class="title">${list.title}</span> <span class="btn_notice">
 							<img class="img_notice" id="img_notice_${list.seq}"

@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 public class BoardDTO {
 	private int seq;
-	private String gubn;
 	private String title;
 	private String content;
 	private String reg_id;

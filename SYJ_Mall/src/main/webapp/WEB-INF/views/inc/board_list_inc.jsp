@@ -21,7 +21,7 @@
 }
 
 #middle {
-	padding: 30px 20px;
+	padding: 0px 20px;
 }
 
 .title {
@@ -29,8 +29,8 @@
 	font-size: 1.4em;
 }
 
-.date {s
-	color: #999999;
+.date {
+	s color: #999999;
 	font-size: 0.8em;
 }
 
@@ -38,21 +38,25 @@
 	float: right;
 }
 
-.btn_notice img{
+.btn_notice img {
 	height: 25px;
 	cursor: pointer;
 }
-#bottom{
+
+#bottom {
 	padding: 30px 20px;
 	text-align: center;
 }
 
-#bottom a{
+#bottom a {
 	margin: 5px;
-	
 }
-.list_add{
+
+.list_add {
 	padding: 30px;
+}
+.list{
+	margin-top: 20px;
 }
 
 </style>
