@@ -7,7 +7,7 @@
 <mapper namespace="board">
 
 	<select id="noticelist"
-		resultType="com.test.SYJ_Mall.board.BoardDTO">
+		resultType="com.test.SYJ_Mall.board.PagingDTO">
 		select * from (
 		SELECT ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
 		seq, title,
@@ -25,7 +25,7 @@
 		FROM
 		dbo.NOTICE with(nolock) WHERE seq = #{seq}
 	</select>
-	<select id="count_notice" resultType="int">
+	<select id="countBoard" resultType="int">
 		SELECT COUNT(*) FROM
 		dbo.NOTICE with(nolock)
 	</select>

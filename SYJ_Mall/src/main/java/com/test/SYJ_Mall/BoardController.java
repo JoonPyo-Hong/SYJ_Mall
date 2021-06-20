@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.board.BoardDTO;
 import com.test.SYJ_Mall.board.BoardService;
+import com.test.SYJ_Mall.board.PagingDTO;
 
 /**
  * 게시판 컨트롤러 역할
@@ -38,7 +39,7 @@ public class BoardController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 게시판 리스트 형식 출력
 	@RequestMapping(value = "/notice_list.action", method = { RequestMethod.GET })
-	public String login(BoardDTO dto, Model model) {
+	public String login(PagingDTO dto, Model model) {
 
 		List<BoardDTO> list = service.noticelist(dto);
 		model.addAttribute("list", list);

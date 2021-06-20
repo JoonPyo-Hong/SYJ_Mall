@@ -14,7 +14,7 @@ public class BoardService implements IBoardService {
 	private BoardDAO dao;
 
 	@Override
-	public List<BoardDTO> noticelist(BoardDTO dto) {
+	public List<BoardDTO> noticelist(PagingDTO dto) {
 		return dao.noticelist(dto);
 	}
 
@@ -22,5 +22,13 @@ public class BoardService implements IBoardService {
 		// TODO Auto-generated method stub
 		return dao.listbtn(dto);
 	}
+
+	@Override
+	public int countBoard() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 }
