@@ -312,11 +312,11 @@
         <div id="email_input" class="input_box" style = "width : 360px;">
             <div class = "info_name">&nbsp;이메일 주소</div>
             <div class = "email">
-                <input class = "inputs_info_small" type="text" id = "email_id" name = "email_input_address">
+                <input class = "inputs_info_small" type="text" id = "email_id" name = "email_input_address" autocomplete = "OFF">
             </div>
             <div id = "email_gol">@</div>
             <div class = "email">
-                <input class = "inputs_info_small" type="text" id = "email_site" name = "email_input_site">
+                <input class = "inputs_info_small" type="text" id = "email_site" name = "email_input_site" autocomplete = "OFF">
             </div>
              <div class = "email" id = "email_selected_site">
                     <select class="selected_info_email" id = "email_site_seleted">
@@ -345,8 +345,8 @@
         
         <div id="phone_input" class="input_box">
             <div class = "info_name">휴대전화</div>
-            <div class = "info_write"><input id = "phone_number_input" class = "inputs_info" type="text" placeholder="01012345678" name = "phone_input" maxlength="11"></div>
-            <div class="error_next_box" id="nameerrmsg2" style="display:none;"></div>
+            <div class = "info_write"><input id = "phone_number_input" class = "inputs_info" type="text" placeholder="01012345678" name = "phone_input" maxlength="11" autocomplete = "OFF"></div>
+            <div class="error_next_box" id="phoneerrmsg" style="display:none;"></div>
         </div>
 
         <div id="sms_agree" class="input_box">
@@ -375,10 +375,6 @@
 
         //----------------------------------------------------------------------------유효성 검증-----------------------------------------------------------------------------------
 		
-        var totalPass = false;//최종적으로 넘어가도 될지 판단해주는 것
-        
-        
-        
         //객체 id, 지정할 color, 띄워줄 문자열
         function common(element,color,inputText) {
         	$("#" + element).text(""+inputText);
@@ -422,23 +418,18 @@
                 data : "checkid=" + id,
                 datatype : "json",
                 success : function(result) {
-                    //var result = data.substr(4);
-                    console.log(result);
                     
                     if (result == 1) {// 아이디가 중복되지 않는경우
-                    	//consle.log(result);
                     	common('iderrmsg','#08A600','멋진 아이디네요!');
                        
                        
                         idFlag = true;
                     } else {//아이디가 중복되는 경우
-                    	//console.log(result);
                     	common('iderrmsg','red','이미 사용중이거나 탈퇴한 아이디입니다.');
                     	
                     }
                 },
                 error: function(a,b,c) {
-                	//console.log("error");
 					console.log(a,b,c);
 				}
             });
@@ -459,7 +450,7 @@
             var pw = this.value;
             pwInstance = pw;
             
-            console.log(pw);
+
 
             if (pw == "") {
                 common('pwerrmsg','red','필수입력 항목입니다.');
@@ -470,8 +461,7 @@
                 common('pwerrmsg','red','8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.');
                 return false;
             }
-	
-            //console.log('여기오면 안되는데 왜 오는거야?');
+
             
             //여기아래에서 이제 ajax 를 통한 검증을 들어가야한다. -> 인코딩을 통해 암호화가 필요할거같은데;
             $.ajax({
@@ -480,8 +470,7 @@
                 data : {"checkpw" : pw},
                 datatype : "json",
                 success : function(result) {
-                    
-                	console.log(result);
+
                 	
                     if (result == 0) {// 비밀번호가 안전한 경우
                     	common('pwerrmsg','#08A600','안전한 비밀번호네요 ^^');
@@ -504,7 +493,7 @@
                     }
                 },
                 error: function(a,b,c) {
-					console.log(a,b,c);
+					//console.log(a,b,c);
 				}
             });
             
@@ -535,7 +524,7 @@
         	}
         	
         	commondel('pwerrmsg2');
-    		pwInstance = '0';//비밀번호 체크값 초기화
+    		//pwInstance = '0';//비밀번호 체크값 초기화 -> 제풀할떄 해야함
     		pwCheckFlag = true;
         	        	
         });
@@ -649,19 +638,35 @@
             }
 			
             commondel('nationerrmsg');
-            genderFlag = true;
+            nationFlag = true;
         });
         
         
         //7. 생년월일 선택
+        var birthFlag = false;
         //생년월일 - 년도 선택
-        var birthyYFlag = false;
         $("#birth_yy").blur(function(){
+        	birthFlag = false;
 			if (checkBirthday()) {
-				birthyYFlag = true;
-			}         	
+				birthFlag = true;
+			}
         });
         
+        //생년월일 - 월 선택
+        $("#birth_mm").blur(function(){
+        	birthFlag = false;
+			if (checkBirthday()) {
+				birthFlag = true;
+			}
+        });
+        
+        //생년월일 - 일 선택
+        $("#birth_dd").blur(function(){
+        	birthFlag = false;
+			if (checkBirthday()) {
+				birthFlag = true;
+			}
+        });
         
         
         //생년월일을 체크를 위한 함수 정의
@@ -671,16 +676,193 @@
         	var mm = $("#birth_mm").val();
         	var dd = $("#birth_dd").val();
         	
+        	var oyy = yy + "";//자꾸 yy가 false 로 나오는 오류때문에 지정해준 새로운 변수
+
+        	
+        	
+            if (mm.length == 1) {
+                mm = "0" + mm;
+            }
+            if (dd.length == 1) {
+                dd = "0" + dd;
+            } 
+        	
         	if (yy == "" && mm == "" && dd == "") {
-        		 common('birtherrmsg','red','태어난 년도 4자리를 정확하게 입력하세요.');
-        		 return false;
+
+        		common('birtherrmsg','red','태어난 년도 4자리를 정확하게 입력하세요.');
+        		return false;
         	}
         	
+        	if(yy = "" || yy.length != 4) {
+        		common('birtherrmsg','red','태어난 년도 4자리를 정확하게 입력하세요.');
+       		 	return false;
+        	}
         	
+            if(mm == "") {
+            	common('birtherrmsg','red','태어난 월을 선택하세요.');
+                return false;
+            }
+            
+            if(dd == "" || dd.length != 2) {
+            	common('birtherrmsg','red','태어난 일(날짜) 2자리를 정확하게 입력하세요.');
+                return false;
+            }
+            
+             
+            birthday = oyy +"-"+ mm +"-"+ dd;
+        	
+            
+           	if(!isValidDate(birthday)) {
+            	common('birtherrmsg','red','생년월일을 다시 확인해주세요.');
+                return false;
+            }
+            
+            var age = calcAge(birthday);
+            
+            
+            if (age < 0) {
+            	common('birtherrmsg','red','미래에서 오셨군요. ^^');
+            	return false;
+            } else if (age >= 100) {
+            	common('birtherrmsg','red','정말이세요?');
+            	return false;
+            } else {
+            	commondel('birtherrmsg');
+            	return true;
+            }   
         }
         
         
+        
+        //윤년체크
+ 		function isValidDate(param) {
+	        try {
+	            param = param.replace(/-/g, '');
+	            // 자리수가 맞지않을때
+	            if (isNaN(param) || param.length != 8) {
+	                return false;
+	            }
+	
+	            var year = Number(param.substring(0, 4));
+	            var month = Number(param.substring(4, 6));
+	            var day = Number(param.substring(6, 8));
+	            if (month < 1 || month > 12) {
+	                return false;
+	            }
+	
+	            var maxDaysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+	            var maxDay = maxDaysInMonth[month - 1];
+	
+	            // 윤년 체크
+	            if (month == 2 && (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)) {
+	                maxDay = 29;
+	            }
+	
+	            if (day <= 0 || day > maxDay) {
+	                return false;
+	            }        
+	            
+	            return true;
+	
+	        } catch (err) {
+	            return false;
+	        };
+    	}
+        
+     	//나이 체크
+     	function calcAge(birth) {
+     		
+	        var date = new Date();
+	        var year = date.getFullYear();
+	        var month = (date.getMonth() + 1);
+	        var day = date.getDate();
+	        if (month < 10)
+	            month = '0' + month;
+	        if (day < 10)
+	            day = '0' + day;
+	        var monthDay = month + '' + day;
+	
+	        birth = birth.replace('-', '').replace('-', '');
+	        var birthdayy = birth.substr(0, 4);
+	        var birthdaymd = birth.substr(4, 4);
+	
+	        var age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
+	        return age;
+    	}
+     
+        
         //8. 이메일주소 선택
+        var emailchFlag = false;
+        $("#email_id").blur(function(){
+        	emailchFlag = false;
+        	if(checkEmail()) {
+        		emailchFlag = true;
+        	};
+        });
+
+        $("#email_site").blur(function(){
+        	emailchFlag = false;
+        	if(checkEmail()) {
+        		emailchFlag = true;
+        	};
+        });
+        
+        $("#email_site_seleted").blur(function(){
+        	emailchFlag = false;
+        	if(checkEmail()) {
+        		emailchFlag = true;
+        	};
+        });
+        
+        
+        //이메일 체크 함수
+        function checkEmail() {
+        	var id = $("#email_id").val();
+        	var email = $("#email_site").val();
+        	
+        	if (id == "") {
+        		common('emailerrmsg','red','아이디를 다시 확인해주세요.');
+        		return false;
+        	}
+        	
+        	if (email == "") {
+        		common('emailerrmsg','red','이메일 주소를 다시 확인해주세요.');
+        		return false;
+        	}
+        	
+        	var isEmail = /([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+            var isHan = /[ㄱ-ㅎ가-힣]/g;
+           
+            
+            if (!isEmail.test(email) || isHan.test(email)) {
+            	common('emailerrmsg','red','이메일 주소를 다시 확인해주세요.');
+                return false;
+            } 
+            
+            var fullEmail = id + "@" + email;
+            
+            //이미사용중인 이메일 아이디인지 체크한다.
+            $.ajax({
+                type:"GET",
+                url: "/SYJ_Mall/userEmailVerifyCheck.action" ,
+                data : "fullEmail=" + fullEmail,
+                datatype : "json",
+                success : function(result) {
+                    
+                    if (result != 1) {// 아이디가 중복되는경우
+                    	common('emailerrmsg','red','이미 사용중인 이메일 아이디입니다.');
+                      	return false; 	
+                    } 
+                },
+                error: function(a,b,c) {
+					console.log(a,b,c);
+				}
+            });
+            
+            commondel('emailerrmsg');
+            return true;
+        }
+        
         
         
         //9. 이메일 발송 동의 유무 선택
@@ -696,12 +878,47 @@
             }
 			
             commondel('email_selected_errmsg');
-            genderFlag = true;
+            emailFlag = true;
         });        
         
         
         
         //10. 휴대전화 선택
+        var phoneFlag = false;
+        $("#phone_number_input").blur(function(){
+        	phoneFlag = false;
+        	
+        	if (phoneCheck()) {
+        		phoneFlag = true;
+        	}
+        });
+        
+        //휴대전화번호 확인
+        function phoneCheck() {
+        	var phoneVal = $("#phone_number_input").val();
+        	
+        	phoneVal = phoneVal.replace('-', '').replace('-', '');
+        	
+        	if(phoneVal == "") {
+        		common('phoneerrmsg','red','필수입력 항목입니다.');
+        		return false;
+        	}
+        	
+        	if(phoneVal.length != 11) {
+        		common('phoneerrmsg','red','휴대전화번호를 확인해주십시오.');
+        		return false;
+        	}
+        	
+        	var isCheck = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g
+        	
+        	if(!isCheck.test(phoneVal)) {
+        		return false;
+        	}
+        	
+        	return true;
+        }
+        
+        
         
         
         //11. sms 발송 동의 유무 선택
@@ -717,7 +934,7 @@
             }
 			
             commondel('smserrmsg');
-            genderFlag = true;
+            smsFlag = true;
         });
         
         
@@ -829,9 +1046,25 @@
       	//회원가입 버튼 클릭시
       	$("#submit_button").click(function(){
       	    
-      		//원래는 더 많은 로직이 필요하다.
+      		//원래는 더 많은 로직이 필요하다. -> 여기서 모든 항목에 오류가 없는지 검사한다.
+      		console.log("idFlag : " + idFlag);//1. 아이디
+      		console.log("pwFlag  : " + pwFlag );//2. 비밀번호
+      		console.log("pwCheckFlag : " + pwCheckFlag);//3. 비밀번호 체크
+      		console.log("nameFlag : " + pwCheckFlag);//4. 이름체크
+      		console.log("genderFlag : " + genderFlag);//5. 성별선택
+      		console.log("nationFlag : " + nationFlag );//6. 국가 선택
+      		console.log("birthFlag : " + birthFlag );//7. 생년월일
+      		console.log("emailchFlag  : " + emailchFlag);//8. 이메일 주소 선택
+      		console.log("emailFlag   : " + emailFlag );//9. 이메일 발송 선택
+      		console.log("phoneFlag    : " + phoneFlag  );//10. 휴대폰 전화 선택
+      		console.log("smsFlag     : " + smsFlag   );//11. sms 발송선택
       		
-      		var username = document.getElementById("id_input").value;//유저가 작성한 아이디
+      		
+      		
+      		
+      		
+      		
+      		/* var username = document.getElementById("id_input").value;//유저가 작성한 아이디
       	    var password = document.getElementById("pw_input").value;//유저가 작성한 비밀번호
       	    
       	    try {
@@ -842,7 +1075,7 @@
       	    } catch(err) {
       	    	
       	        alert(err);
-      	    }
+      	    } */
       	    
       	});
         

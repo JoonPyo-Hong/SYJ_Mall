@@ -87,6 +87,13 @@ public class LoginDAO implements ILoginDAO {
 		return template.selectOne("SYJDB.userSignUpIdCheck",inputId);
 		
 	}
+
+	//회원이 사용할 이메일 아이디 검증과정
+	@Override
+	public int emailVerifyCheck(String fullEmail) {
+		
+		return template.selectOne("SYJDB.userEmailIdCheck",fullEmail);
+	}
 	
 	
 }

@@ -57,5 +57,14 @@
 	</select>
 	
 	
+	<select id="userEmailIdCheck" resultType="Integer" parameterType="String" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.kakao_sign_up_email_check #{fullEmail},@result output
+		select @result
+		
+	</select>
+	
+	
 
 </mapper>

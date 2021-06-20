@@ -368,6 +368,18 @@ public class LoginService implements ILoginService {
 		return map;
 	}
 	
+	
+	//회원가입 - 유저 이메일 중복 확인
+	@Override
+	public int userEmailVerify(HttpServletRequest request) {
+		
+		String fullEmail = request.getParameter("fullEmail");
+		
+		int result = dao.emailVerifyCheck(fullEmail);
+		
+		return result;
+	}
+	
 
 	
 	

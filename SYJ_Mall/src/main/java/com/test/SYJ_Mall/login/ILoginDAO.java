@@ -57,6 +57,13 @@ public interface ILoginDAO {
 	 * @return			-1 : 사용가능 불가, 1 : 사용가능
 	 */
 	int signUpIdVerifyCheck(String inputId);
+
+	/**
+	 * 회원이 입력한 email이 중복되지 않는지 체크
+	 * @param fullEmail		회원이 사용할 이메일 아이디
+	 * @return				1 : 성공, -1 : 실패
+	 */
+	int emailVerifyCheck(String fullEmail);
 	
 	
 }
