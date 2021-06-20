@@ -55,7 +55,8 @@ public class BoardController {
 		
 		model.addAttribute("paging", dto);
 		model.addAttribute("list",service.noticelist(dto));
-
+		System.out.println(dto.toString());
+		System.out.println(service.noticelist(dto).toString());
 		return "/Board/NoticeList";
 	}
 

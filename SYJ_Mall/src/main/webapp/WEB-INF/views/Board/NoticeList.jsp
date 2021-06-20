@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/board_list_inc.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,31 +27,27 @@
 							src="resources/images/kakao_ryan.png">
 						</span>
 					</div>
-					<div class="date">${list.reg_dt}</div>
+				<div class="date">${list.reg_dt}</div>
 				</div>
 			</c:forEach>
 		</div>
 		<div id="bottom">
-			<div style="display: block; text-align: center;">
+			<div style="display: block; text-align: center;">		
 				<c:if test="${paging.startPage != 1 }">
-					<a
-						href="/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+					<a href="/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 				</c:if>
-				<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
-					var="p">
+				<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 					<c:choose>
 						<c:when test="${p == paging.nowPage }">
 							<b>${p }</b>
 						</c:when>
 						<c:when test="${p != paging.nowPage }">
-							<a
-								href="/boardList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+							<a href="/boardList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${paging.endPage != paging.lastPage}">
-					<a
-						href="/boardList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+					<a href="/boardList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 				</c:if>
 			</div>
 		</div>
