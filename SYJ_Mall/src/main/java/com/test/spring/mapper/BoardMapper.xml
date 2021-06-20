@@ -6,19 +6,28 @@
 
 <mapper namespace="board">
 
-	<select id="noticelist" resultType="com.test.SYJ_Mall.board.BoardDTO">
-		SELECT
+	<select id="noticelist"
+		resultType="com.test.SYJ_Mall.board.BoardDTO">
+		select * from (
+		SELECT ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
 		seq, title,
-		content, reg_id, CONVERT(CHAR(23),
-		reg_dt, 23) as reg_dt
-		FROM NOTICE
+		content, reg_id, CONVERT(CHAR(23),reg_dt,23) as reg_dt
+		FROM dbo.NOTICE with(nolock)
+		) A where rownum between #{start} and # {end}
 	</select>
-	<select id="listbtn" resultType="com.test.SYJ_Mall.board.BoardDTO" parameterType="Integer" >
+	<select id="listbtn"
+		resultType="com.test.SYJ_Mall.board.BoardDTO" parameterType="Integer">
 		SELECT
 		seq, title,
 		content, reg_id, CONVERT(CHAR(23),
-		reg_dt, 23) as reg_dt
-		FROM NOTICE WHERE seq = #{seq}
+		reg_dt, 23) as
+		reg_dt
+		FROM
+		dbo.NOTICE with(nolock) WHERE seq = #{seq}
+	</select>
+	<select id="count_notice" resultType="int">
+		SELECT COUNT(*) FROM
+		dbo.NOTICE with(nolock)
 	</select>
 
 </mapper>

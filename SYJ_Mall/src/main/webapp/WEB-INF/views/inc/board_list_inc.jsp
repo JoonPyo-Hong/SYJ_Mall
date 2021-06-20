@@ -10,7 +10,6 @@
 <style>
 #wrap {
 	height: 100%;
-	border: 1px solid black;
 	width: 600px;;
 	margin: 0px auto;
 }
