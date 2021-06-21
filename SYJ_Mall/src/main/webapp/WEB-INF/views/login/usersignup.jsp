@@ -228,13 +228,13 @@
         <div class = "error_next_box" id="iderrmsg" style="display:none;"></div>
     </div>
 
-    <div id="id_input" class="input_box">
+    <div id="pw_input_div" class="input_box">
         <div class = "info_name">비밀번호</div>
         <div class = "info_write"><input id = "pw_input" class = "inputs_info" type="password" name = "pw_input"></div>
         <div class="error_next_box" id="pwerrmsg" style="display:none;"></div>
     </div>
         
-    <div id="pw_input" class="input_box">
+    <div id="pw_input_check_div" class="input_box">
         <div class = "info_name">비밀번호 재확인</div>
         <div class = "info_write"><input id = "pw_input_check" class = "inputs_info" type="password"></div>
         <div class="error_next_box" id="pwerrmsg2" style="display:none;"></div>
@@ -247,7 +247,7 @@
         <input type="hidden" name="securedPassword" id="securedPassword" value="" />
 		<!-- 암호화하여 넘겨줄 데이터 -->
 		
-        <div id="pw_input_check" class="input_box">
+        <div id="name_input_check" class="input_box">
             <div class = "info_name">이름</div>
             <div class = "info_write"><input id = "name_input" class = "inputs_info" type="text" name = "name_input" autocomplete="off"></div>
             <div class="error_next_box" id="nmerrmsg" style="display:none;"></div>
@@ -265,7 +265,7 @@
 
         <div id="nation_input" class="input_box">
             <div class = "info_name">거주국가</div>
-            <select class = "selected_info" id = nation_selected name = "nation_input">
+            <select class = "selected_info" id = "nation_selected" name = "nation_input">
                 <option value selected>선택</option>
                 <option value = "KR">대한민국</option>
                 <option value = "CN">중국</option>
@@ -334,7 +334,7 @@
 
         <div id="email_agree" class="input_box">
             <div class = "info_name">이메일 발송 동의 유무</div>
-                <select class = "selected_info" id = email_selected name = "email_agree_input">
+                <select class = "selected_info" id = "email_selected" name = "email_agree_input">
                     <option value selected>선택</option>
                     <option value = "Y">동의</option>
                     <option value = "N">비동의</option>
@@ -351,7 +351,7 @@
 
         <div id="sms_agree" class="input_box">
             <div class = "info_name">SMS 발송 동의 유무</div>
-                <select class = "selected_info" id = sms_selected name = "sms_agree_input">
+                <select class = "selected_info" id = "sms_selected" name = "sms_agree_input">
                     <option value selected>선택</option>
                     <option value = "Y">동의</option>
                     <option value = "N">비동의</option>
@@ -1047,35 +1047,108 @@
       	$("#submit_button").click(function(){
       	    
       		//원래는 더 많은 로직이 필요하다. -> 여기서 모든 항목에 오류가 없는지 검사한다.
-      		console.log("idFlag : " + idFlag);//1. 아이디
-      		console.log("pwFlag  : " + pwFlag );//2. 비밀번호
-      		console.log("pwCheckFlag : " + pwCheckFlag);//3. 비밀번호 체크
-      		console.log("nameFlag : " + pwCheckFlag);//4. 이름체크
-      		console.log("genderFlag : " + genderFlag);//5. 성별선택
-      		console.log("nationFlag : " + nationFlag );//6. 국가 선택
-      		console.log("birthFlag : " + birthFlag );//7. 생년월일
-      		console.log("emailchFlag  : " + emailchFlag);//8. 이메일 주소 선택
-      		console.log("emailFlag   : " + emailFlag );//9. 이메일 발송 선택
-      		console.log("phoneFlag    : " + phoneFlag  );//10. 휴대폰 전화 선택
-      		console.log("smsFlag     : " + smsFlag   );//11. sms 발송선택
+      		//console.log("idFlag : " + idFlag);//1. 아이디
+      		//console.log("pwFlag  : " + pwFlag );//2. 비밀번호
+      		//console.log("pwCheckFlag : " + pwCheckFlag);//3. 비밀번호 체크
+      		//console.log("nameFlag : " + pwCheckFlag);//4. 이름체크
+      		//console.log("genderFlag : " + genderFlag);//5. 성별선택
+      		//console.log("nationFlag : " + nationFlag );//6. 국가 선택
+      		//console.log("birthFlag : " + birthFlag );//7. 생년월일
+      		//console.log("emailchFlag  : " + emailchFlag);//8. 이메일 주소 선택
+      		//console.log("emailFlag   : " + emailFlag );//9. 이메일 발송 선택
+      		//console.log("phoneFlag    : " + phoneFlag  );//10. 휴대폰 전화 선택
+      		//console.log("smsFlag     : " + smsFlag   );//11. sms 발송선택
+      		
+      		if (idFlag == true && pwFlag == true && pwCheckFlag == true && nameFlag == true && 
+      			genderFlag == true && nationFlag == true && birthFlag == true && emailchFlag == true &&
+      			emailFlag == true && phoneFlag == true && smsFlag == true) {
+      			
+          		var username = document.getElementById("id_input").value;//유저가 작성한 아이디
+          	    var password = document.getElementById("pw_input").value;//유저가 작성한 비밀번호
+          	    
+          	    try {
+          	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
+          	        var rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
+          	        submitEncryptedForm(username,password, rsaPublicKeyModulus, rsaPublicKeyExponent);
+          	        
+          	    } catch(err) {
+          	    	
+          	        alert(err);
+          	    }
+      		} else {//일치하지 않는경우
+      			
+      			//1.아이디를 잘못 적은 경우
+      			if (idFlag == false) {
+      				$("#id_input").focus();
+      				return false;
+      			}
+      		
+      			//2.비밀번호를 잘못 적은 경우
+      			if (pwFlag == false) {
+      				$("#pw_input").focus();
+      				return false;
+      			}
+      			
+      			//3. 비밀번호 확인을 잘못 적은경우
+      			if(pwCheckFlag == false) {
+      				$("#pw_input_check").focus();
+      				return false;
+      			}
+      			
+      			//4.이름을 잘못 적은 경우
+      			if (nameFlag == false) {
+      				$("#name_input").focus();
+      				return false;
+      			}
+      			
+      			//5.성별 잘못 적은 경우
+      			if (genderFlag == false) {
+      				$("#gender_selected").focus();
+      				return false;
+      			}
+      			
+      			//6.국가 잘못 적은 경우
+      			if(nationFlag == false) {
+      				$("#nation_selected").focus();
+      				return false;
+      			}
+      			
+      			//7.생년월일 잘못 적은 경우
+      			if(birthFlag == false) {
+      				$("#birth_yy").focus();
+      				return false;
+      			}
+      			
+      			//8.이메일 주소 잘못 입력한 경우
+      			if(emailchFlag == false) {
+      				$("#email_id").focus();
+      				return false;
+      			}
+      			
+      			//9.이메일 발송선택 잘못입력한 경우
+      			if(emailFlag == false) {
+      				$("#email_selected").focus();
+      				return false;
+      			}
+      			
+      			//10.휴대전화 잘못 넣은경우
+      			if(phoneFlag == false) {
+      				$("#phone_number_input").focus();
+      				return false;
+      			}
+      			
+      			//11. sms 잘못 넣은 경우
+      			if(smsFlag == false) {
+      				$("#sms_selected").focus();
+      				return false;
+      			}
+      			
+      		}
       		
       		
       		
       		
-      		
-      		
-      		/* var username = document.getElementById("id_input").value;//유저가 작성한 아이디
-      	    var password = document.getElementById("pw_input").value;//유저가 작성한 비밀번호
-      	    
-      	    try {
-      	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
-      	        var rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
-      	        submitEncryptedForm(username,password, rsaPublicKeyModulus, rsaPublicKeyExponent);
-      	        
-      	    } catch(err) {
-      	    	
-      	        alert(err);
-      	    } */
+
       	    
       	});
         

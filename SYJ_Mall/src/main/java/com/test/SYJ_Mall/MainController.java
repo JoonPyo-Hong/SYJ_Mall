@@ -161,7 +161,7 @@ public class MainController {
 			e.printStackTrace();
 		}
 				
-		return "result";
+		return "/login/UserLoginSuccess";
 	}
 	
 	
