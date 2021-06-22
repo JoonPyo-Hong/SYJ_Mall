@@ -44,10 +44,8 @@ public interface ILoginService {
 	 * 로그인 성공
 	 * @param request	request 객체
 	 * @param userSeq	유저 고유번호
-	 * @param mode		0 : 자동로그인방지 걸쳐서 성공, 1 : 자동방지 없이 로그인 성공
 	 */
-	void loginSuccess(HttpServletRequest request, int userSeq,int mode);
-	
+	void loginSuccess(HttpServletRequest request, int userSeq);
 	
 	/**
 	 * 자동로그인 방지
@@ -125,6 +123,8 @@ public interface ILoginService {
 	 * @return			1 : 성공, -1 : 실패
 	 */
 	int userEmailVerify(HttpServletRequest request);
+
+	
 	
 	
 }

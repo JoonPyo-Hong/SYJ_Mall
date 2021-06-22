@@ -177,7 +177,7 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public void loginSuccess(HttpServletRequest request, int userSeq, int mode) {// 로그인 성공한 경우
+	public void loginSuccess(HttpServletRequest request, int userSeq) {// 로그인 성공한 경우
 
 		HttpSession userSession = request.getSession();
 
@@ -379,6 +379,8 @@ public class LoginService implements ILoginService {
 		
 		return result;
 	}
+
+
 	
 
 	

@@ -70,7 +70,7 @@ public class MainController {
 			if (loginCode == 0) {// 로그인 성공
 				System.out.println("로그인 성공");
 				
-				logService.loginSuccess(request,userSeq,1);//로그인 인증티켓 발급
+				logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
 				
 				return "/testwaiting/waiting";//테스트페이지 
 				
@@ -87,10 +87,12 @@ public class MainController {
 			} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> 보안정책 실패하는 경우도 넣어줘야 하는데
 				System.out.println("보안정책을 따라야한다.");
 				
-				logService.loginSuccess(request,userSeq,0);//로그인 인증티켓 발급
-				request = logService.AutoLoginBanned(request);
+				HttpSession session = request.getSession();
+				session.setAttribute("userSeq", userSeq);
+				session.setAttribute("userIp", ip);
 				
-				logService.logUserTrace(userSeq,ip);//로그인 기록 남겨주기
+				//자동로그인 방지 알고리즘
+				request = logService.AutoLoginBanned(request);
 				
 				return "/login/UserAutoLoginCheck";
 				
@@ -115,7 +117,13 @@ public class MainController {
 				
 		
 		HttpSession session = request.getSession();
-
+		int userSeq = (Integer)session.getAttribute("userSeq");
+		String userIp = (String)session.getAttribute("userIp");
+		
+		
+		logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
+		logService.logUserTrace(userSeq,userIp);//로그인 기록 남겨주기
+		
 		System.out.println(session.getAttribute("userinfo"));
 		return "/testwaiting/waiting";
 	}
