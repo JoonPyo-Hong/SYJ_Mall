@@ -20,12 +20,11 @@
 		<div id="middle">
 			<c:forEach var="list" items="${list}">
 				<div id="list_${list.seq}" class="list">
-					<div>
-						<span class="title">${list.title}</span> <span class="btn_notice">
-							<img class="img_notice" id="img_notice_${list.seq}"
-							onclick="notice_view(${list.seq})"
-							src="resources/images/down.png">
-						</span>
+					<div class="title">${list.title}</div> 
+					<div class="btn_notice">
+						<img class="img_notice" id="img_notice_${list.seq}"
+						onclick="notice_view(${list.seq})"
+						src="resources/images/down.png">
 					</div>
 				<div class="date">${list.reg_dt}</div>
 				</div>

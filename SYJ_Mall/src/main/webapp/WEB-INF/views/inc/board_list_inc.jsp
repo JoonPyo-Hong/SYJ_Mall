@@ -15,10 +15,13 @@
 }
 
 #top {
-	height: 220px; background-size : cover; margin-top : 47px;
+	height: 220px;
+	background-size: cover;
+	margin-top: 47px;
 	background-color: orange;
 	background-size: cover;
 	margin-top: 47px;
+	margin-bottom: 10px;
 }
 
 #middle {
@@ -28,9 +31,13 @@
 
 .title {
 	position: static;
+	width: 590px;
+	height: 20px;
 	font-size: 17px;
 	letter-spacing: -0.2px;
 	padding-right: 0px;
+	font-weight: bold;
+	float: left;
 }
 
 .date {
@@ -41,11 +48,18 @@
 }
 
 .btn_notice {
-	float: right;
+	float: left;
+	
 }
 
 .btn_notice img {
+	top: auto;
+	right: 16px;
+	margin-top: 1px;
+	width: 18px;
 	height: 18px;
+	background-size: 18px;
+	padding-right: 0px;
 	cursor: pointer;
 }
 
@@ -65,5 +79,11 @@
 .list {
 	padding: 30px 16px;
 	position: relative;
+	float: left;	
+}
+
+.date {
+	float:left;
+	height: 19px;	
 }
 </style>
