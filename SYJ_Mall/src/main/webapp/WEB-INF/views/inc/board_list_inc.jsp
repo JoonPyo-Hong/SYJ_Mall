@@ -10,27 +10,34 @@
 <style>
 #wrap {
 	height: 100%;
-	width: 600px;;
+	width: 640px;
 	margin: 0px auto;
 }
 
 #top {
-	height: 20%;
+	height: 220px; background-size : cover; margin-top : 47px;
 	background-color: orange;
+	background-size: cover;
+	margin-top: 47px;
 }
 
 #middle {
-	padding: 0px 20px;
+	font-family: SFProText, "Apple SD Gothic Neo", AppleSDGothicNeo,
+		"Malgun Gothic", "맑은 고딕", sans-serif;
 }
 
 .title {
-	font-weight: bold;
-	font-size: 1.4em;
+	position: static;
+	font-size: 17px;
+	letter-spacing: -0.2px;
+	padding-right: 0px;
 }
 
 .date {
-	s color: #999999;
-	font-size: 0.8em;
+	color: rgb(154, 154, 158);
+	font-size: 13px;
+	letter-spacing: -0.2px;
+	margin: 3px 0px 0px;
 }
 
 .btn_notice {
@@ -48,14 +55,15 @@
 }
 
 #bottom a {
-	margin: 5px;
+	
 }
 
 .list_add {
 	padding: 30px;
 }
-.list{
-	margin-top: 20px;
-}
 
+.list {
+	padding: 30px 16px;
+	position: relative;
+}
 </style>
