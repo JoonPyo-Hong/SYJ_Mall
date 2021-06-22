@@ -38,7 +38,7 @@
 }
 
 .btn_notice img {
-	height: 25px;
+	height: 18px;
 	cursor: pointer;
 }
 

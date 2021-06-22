@@ -24,7 +24,7 @@
 						<span class="title">${list.title}</span> <span class="btn_notice">
 							<img class="img_notice" id="img_notice_${list.seq}"
 							onclick="notice_view(${list.seq})"
-							src="resources/images/kakao_ryan.png">
+							src="resources/images/down.png">
 						</span>
 					</div>
 				<div class="date">${list.reg_dt}</div>
@@ -66,8 +66,10 @@
 	                /* alert(data[0].content); */
 	                if ($('#list_add_' + list_seq).length) {
 	                	$('#list_add_' + list_seq).remove();
+	                	$('#img_notice_' + list_seq).attr("src", "resources/images/down.png");
 	                }else{
 	                	$('#list_' + list_seq).append("<div class='list_add' id ='list_add_"+list_seq+"'>"+data[0].content+"</div>");
+	                	$('#img_notice_' + list_seq).attr("src", "resources/images/up.png");
 	                }
 	            },
 	            error: function(){
