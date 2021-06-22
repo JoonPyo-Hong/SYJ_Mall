@@ -125,6 +125,14 @@ public class MainController {
 		logService.logUserTrace(userSeq,userIp);//로그인 기록 남겨주기
 		
 		System.out.println(session.getAttribute("userinfo"));
+		
+		//여기서 자동로그인때 사용한 세션변수 삭제해줘야한다. -> 메모리 누수 방지
+		session.removeAttribute("userSeq");
+		session.removeAttribute("userIp");
+		session.removeAttribute("picName");
+		session.removeAttribute("clickNum");
+		session.removeAttribute("sucessCount");
+		
 		return "/testwaiting/waiting";
 	}
 	
