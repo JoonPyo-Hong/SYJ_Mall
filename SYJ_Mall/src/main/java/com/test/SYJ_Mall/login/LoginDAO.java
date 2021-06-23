@@ -94,6 +94,18 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.userEmailIdCheck",fullEmail);
 	}
+
+	//에러요인 디비에 넣어주기
+	@Override
+	public void errorIntoDb(String errormsg, String ip) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("errormsg", errormsg);
+		map.put("ip", ip);
+		
+		template.insert("SYJDB.errorMsgInput", map);
+		
+	}
 	
 	
 }

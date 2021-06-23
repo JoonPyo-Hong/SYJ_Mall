@@ -64,6 +64,13 @@ public interface ILoginDAO {
 	 * @return				1 : 성공, -1 : 실패
 	 */
 	int emailVerifyCheck(String fullEmail);
+
+	/**
+	 * 에러요건 디비에 넣어주기
+	 * @param errormsg	에러요인
+	 * @param ip		에러발생시킨 아이피
+	 */
+	void errorIntoDb(String errormsg, String ip);
 	
 	
 }

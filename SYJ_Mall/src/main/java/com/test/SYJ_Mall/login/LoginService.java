@@ -196,8 +196,7 @@ public class LoginService implements ILoginService {
 
 	@Override
 	public int userSignUp(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {// 회원가입 로직
-																												
-
+		
 		Map<String, String> map = getRSAkey(request);
 
 		CommonDate comDate = new CommonDate();
@@ -359,13 +358,15 @@ public class LoginService implements ILoginService {
 
 	// RSA 대칭키 - 복호화
 	@Override
-	public HashMap<String, String> getRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
-
-		RSAalgorithm rsa = new RSAalgorithm();
-
-		HashMap<String, String> map = rsa.getRSA(request);
-
-		return map;
+	public HashMap<String, String> getRSAkey(HttpServletRequest request) {
+		
+			RSAalgorithm rsa = new RSAalgorithm();
+			
+			HashMap<String, String> map = rsa.getRSA(request);
+			
+			return map;
+			
+		
 	}
 	
 	
@@ -378,6 +379,14 @@ public class LoginService implements ILoginService {
 		int result = dao.emailVerifyCheck(fullEmail);
 		
 		return result;
+	}
+	
+	//에러발생요건 디비에 넣어주기
+	@Override
+	public void errorEruptionTodb(String errormsg, String ip) {
+		
+		dao.errorIntoDb(errormsg,ip);
+		
 	}
 
 

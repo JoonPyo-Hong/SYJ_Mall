@@ -12,6 +12,18 @@
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>Insert title here</title>
 <link rel = "stylesheet" href = "resources/css/userlogin/userLogin.css">
+<style>
+    /*로그인 실패했을때 띄워줄것 */
+    #errorLogin {
+        width : 340px;
+        margin : 0px auto;   
+        color : red;
+        text-align: center;
+    }
+
+</style>
+
+
 </head>
 <body>
 	<!-- type="hidden" -->
