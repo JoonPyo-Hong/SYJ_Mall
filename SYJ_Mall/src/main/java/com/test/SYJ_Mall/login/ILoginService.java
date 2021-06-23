@@ -106,7 +106,7 @@ public interface ILoginService {
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeySpecException
 	 */
-	HashMap<String,String> getRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException;
+	HashMap<String,String> getRSAkey(HttpServletRequest request);
 	
 	
 	/**
@@ -123,6 +123,13 @@ public interface ILoginService {
 	 * @return			1 : 성공, -1 : 실패
 	 */
 	int userEmailVerify(HttpServletRequest request);
+	
+	/**
+	 * 에러가 발생했을때 처리
+	 * @param errormsg	에러요인
+	 * @param ip		에러를 발생시킨 ip
+	 */
+	void errorEruptionTodb(String errormsg, String ip);
 
 	
 	

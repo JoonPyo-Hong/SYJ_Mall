@@ -2,6 +2,7 @@ package com.test.SYJ_Mall;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.common.utill.RSAalgorithm;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
 /**
@@ -49,54 +49,72 @@ public class MainController {
 	
 	//로그인페이지에서 정보를 넘겨주는곳
 	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST })
-	public String loginVerification(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String loginVerification(HttpServletRequest request, HttpServletResponse response) {
 			
-			request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
+			String ip = "";//아이피 주소
 			
-			Map<String,String> map = logService.getRSAkey(request);
-			
-			String id = map.get("id");//아이디
-			String pw = map.get("pw");//비밀번호
-			
-			String ip = logService.ipCheck(request);
-			String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
-		
-			
-			List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
-			int userSeq = loginResult.get(0).getUserSeq();//유저 고유 코드
-			int loginCode = loginResult.get(0).getLoginCode();//로그인 결과
-			
-			
-			if (loginCode == 0) {// 로그인 성공
-				System.out.println("로그인 성공");
+			try {
+				request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
 				
-				logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
+				ip = logService.ipCheck(request);
 				
-				return "/testwaiting/waiting";//테스트페이지 
+				Map<String,String> map = logService.getRSAkey(request);
 				
-			} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
-				System.out.println("잘못된 로그인 정보");
+				String id = map.get("id");//아이디
+				String pw = map.get("pw");//비밀번호
 				
-				int result = logService.firstLoginStep(request,-1);
+				
+				String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
+			
+				
+				List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
+				int userSeq = loginResult.get(0).getUserSeq();//유저 고유 코드
+				int loginCode = loginResult.get(0).getLoginCode();//로그인 결과
+				
+				
+				if (loginCode == 0) {// 로그인 성공
+					System.out.println("로그인 성공");
+					
+					logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
+					
+					return "/testwaiting/waiting";//테스트페이지 
+					
+				} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
+					System.out.println("잘못된 로그인 정보");
+					
+					int result = logService.firstLoginStep(request,-1);
 
+					
+					if (result == 0) return "/login/UserLogin";
+					else return "/login/UserLogin";
+					
+					
+				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> 보안정책 실패하는 경우도 넣어줘야 하는데
+					System.out.println("보안정책을 따라야한다.");
+					
+					HttpSession session = request.getSession();
+					session.setAttribute("userSeq", userSeq);
+					session.setAttribute("userIp", ip);
+					
+					//자동로그인 방지 알고리즘
+					request = logService.AutoLoginBanned(request);
+					
+					return "/login/UserAutoLoginCheck";
+					
+				}
 				
-				if (result == 0) return "/login/UserLogin";
-				else return "/login/UserLogin";
+			} catch(Exception e) {
+				StringWriter errors = new StringWriter();
+				e.printStackTrace(new PrintWriter(errors));
 				
+				//위의 에러를 디비에 넣어줘야 한다.
+				logService.errorEruptionTodb(errors.toString(),ip);
+			
+				return "/testwaiting/kakaoerror";
+			}
+			
+			
 				
-			} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> 보안정책 실패하는 경우도 넣어줘야 하는데
-				System.out.println("보안정책을 따라야한다.");
-				
-				HttpSession session = request.getSession();
-				session.setAttribute("userSeq", userSeq);
-				session.setAttribute("userIp", ip);
-				
-				//자동로그인 방지 알고리즘
-				request = logService.AutoLoginBanned(request);
-				
-				return "/login/UserAutoLoginCheck";
-				
-			}	
 			
 			
 	}

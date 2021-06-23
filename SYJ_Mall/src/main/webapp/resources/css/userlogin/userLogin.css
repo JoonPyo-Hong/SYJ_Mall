@@ -84,14 +84,4 @@
     #etcinfo:hover {
         cursor : pointer;
     }
-    
-    <c:if test="${not empty loginError}">
-    /*로그인 실패했을때 띄워줄것 */
-    #errorLogin {
-        width : 340px;
-        margin : 0px auto;   
-        color : red;
-        text-align: center;
-    }
-    </c:if>
-    
+

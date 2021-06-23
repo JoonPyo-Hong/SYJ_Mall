@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-        /* 전체적인 바디 */
+
+       /* 전체적인 바디 */
         body {
             /* border : 1px solid red; */
             height : 600px;
@@ -18,7 +19,7 @@
             background-repeat: no-repeat;
         }
 
-        /* 축하글 */
+        /* 에러글 */
         #congwriter {
             /* border: 1px solid red; */
             width: 440px;
@@ -31,7 +32,7 @@
         }
 
 
-        /* 축하이미지 */
+        /* 에러이미지 */
         #usercongimg {
             /* border: 1px solid red; */
             width: 400px;
@@ -42,7 +43,8 @@
             margin: 0px auto
         }
 
-        /* 로그인 버튼 */
+
+        /* 로그인으로 돌아가기 버튼 */
         #loginbutton {
             /* border: 1px solid red; */
             width: 352px;
@@ -57,4 +59,4 @@
             background-color: #FEE500;
             font-family: 'NEXON Lv1 Gothic OTF';
             color: black; 
-        }	
+        }
