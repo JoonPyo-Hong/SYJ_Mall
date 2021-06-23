@@ -16,7 +16,9 @@
 <body>
 	<div id="wrap">
 
-		<div id="top"></div>
+		<div id="top">
+			<span id="notice">공지사항</span>
+		</div>
 		<div id="middle">
 			<c:forEach var="list" items="${list}">
 				<div id="list_${list.seq}" class="list">
@@ -30,18 +32,23 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div id="bottom">
-			<div style="display: block; text-align: center;">		
+		
+		<div id="bottom" style="margin-top: 50px;">
+			<div id="pasing">		
 				<c:if test="${paging.startPage != 1 }">
 					<a href="/SYJ_Mall/notice_list.action?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 				</c:if>
 				<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 					<c:choose>
 						<c:when test="${p == paging.nowPage }">
-							<b>${p }</b>
+							<span class="bottom_tag">
+								<b>${p }</b>
+							</span>
 						</c:when>
 						<c:when test="${p != paging.nowPage }">
-							<a href="/SYJ_Mall/notice_list.action?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+							<span class="bottom_tag">
+								<a href="/SYJ_Mall/notice_list.action?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+							</span>
 						</c:when>
 					</c:choose>
 				</c:forEach>
@@ -50,6 +57,7 @@
 				</c:if>
 			</div>
 		</div>
+		
 	</div>
 </body>
 <script type="text/javascript">
@@ -67,7 +75,10 @@
 	                	$('#list_add_' + list_seq).remove();
 	                	$('#img_notice_' + list_seq).attr("src", "resources/images/down.png");
 	                }else{
-	                	$('#list_' + list_seq).append("<div class='list_add' id ='list_add_"+list_seq+"'>"+data[0].content+"</div>");
+	                	$('#list_' + list_seq).append("<div class='list_add' id ='list_add_"+list_seq+"'>"
+	                	+ "<div class = 'ryan'><img src='resources/images/kakao_ryan.png'></div>"
+            			+ "<div class = 'ajax_content'>" + data[0].content + "</div>"
+	                	+ "</div>");
 	                	$('#img_notice_' + list_seq).attr("src", "resources/images/up.png");
 	                }
 	            },

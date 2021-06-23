@@ -18,10 +18,12 @@
 	height: 220px;
 	background-size: cover;
 	margin-top: 47px;
-	background-color: orange;
+	background-image: url("resources/images/banner_faq.png");
 	background-size: cover;
 	margin-top: 47px;
 	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
 }
 
 #middle {
@@ -49,7 +51,6 @@
 
 .btn_notice {
 	float: left;
-	
 }
 
 .btn_notice img {
@@ -64,26 +65,68 @@
 }
 
 #bottom {
-	padding: 30px 20px;
-	text-align: center;
+	clear: both;
 }
 
 #bottom a {
-	
+	font-size: 15px;
+	text-decoration: none;
+	color: rgb(212, 215, 225);
+}
+
+#bottom b {
+	font-size: 15px;
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 .list_add {
+	clear: both;
 	padding: 30px;
+}
+
+.bottom_tag {
+	margin: 10px;
+	margin-top: 50px;
+}
+
+.list_add img {
+	width: 26.8px;
+	height: 24.8px;
+	margin-right: 10px;
 }
 
 .list {
 	padding: 30px 16px;
 	position: relative;
-	float: left;	
+	float: left;
 }
 
 .date {
-	float:left;
-	height: 19px;	
+	float: left;
+	height: 19px;
+}
+
+.ryan {
+	float: left;
+}
+
+.ajax_content {
+	float: left;
+}
+
+#notice {
+	color: white;
+	font-size: 24px;
+	letter-spacing: -0.2px;
+	margin-left: 20px;
+	font-weight: bold;
+}
+
+#pasing {
+	display: block;
+	text-align: center;
+	padding-top:60px;
+	height: 100%;
 }
 </style>
