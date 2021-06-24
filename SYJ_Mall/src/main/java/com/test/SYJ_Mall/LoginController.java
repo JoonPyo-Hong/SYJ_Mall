@@ -236,12 +236,5 @@ public class LoginController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------------------회원가입 페이지------------------------------------------------------------------*/
 	
-	//사용자(구매자) 메인 화면
-	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
-	public String UserMain(HttpServletRequest request, HttpServletResponse response) {
-
-		return "/main/UserMain";
-
-	}
 
 }
