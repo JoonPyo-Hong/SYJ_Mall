@@ -11,8 +11,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>Insert title here</title>
-<link rel = "stylesheet" href = "resources/css/userlogin/userLogin.css">
+<c:if test="${empty comeCount}">
+	<link rel = "stylesheet" href = "resources/css/userlogin/userLoginNotAnimation.css">
+</c:if>
+<c:if test="${not empty comeCount}">
+	<link rel = "stylesheet" href = "resources/css/userlogin/userLogin.css">
+</c:if>
 <style>
+
     /*로그인 실패했을때 띄워줄것 */
     #errorLogin {
         width : 340px;
@@ -75,7 +81,7 @@
 
     <script>
         
-    
+    	<c:if test="${not empty comeCount}">
     	setTimeout(function(){
         	$("#qoo10login").css("width","200px")
             				.css("height","100px");   
@@ -86,6 +92,8 @@
             $("#input_form").css("opacity","1");
             $("#etcinfo").css("opacity","1");
         },1000);
+        </c:if>
+        
     	
         //광고 클릭했을 경우
         $("#advertise").click(function(){
@@ -109,7 +117,10 @@
         	
         	var username = document.getElementById("inputid").value;//유저가 작성한 아이디
       	    var password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
-
+			
+      	    console.log(username);
+      	  	console.log(password);
+      	    
       	    
       	    try {
       	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;

@@ -39,10 +39,10 @@ public class LoginController {
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 
 
-		int result = logService.firstLoginStep(request,0);
+		int result = logService.firstLoginStep(request,0,0);
 		
-		if (result == 0) return "/login/UserLogin";
-		else return "/login/UserLogin";
+		if (result == 0) return "/login/UserLogin";//에러가 없는경우 -> 로그인 페이지로 넘겨준다.
+		else return "/testwaiting/kakaoerror";//에러페이지로 보내준다.
 		
 	}
 	
@@ -82,14 +82,12 @@ public class LoginController {
 				} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
 					System.out.println("잘못된 로그인 정보");
 					
-					int result = logService.firstLoginStep(request,-1);
+					int result = logService.firstLoginStep(request,-1,1);
 
-					
 					if (result == 0) return "/login/UserLogin";
-					else return "/login/UserLogin";
+					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
 					
-					
-				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> 보안정책 실패하는 경우도 넣어줘야 하는데
+				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> ***보안정책 실패하는 경우도 넣어줘야 하는데***;
 					System.out.println("보안정책을 따라야한다.");
 					
 					HttpSession session = request.getSession();

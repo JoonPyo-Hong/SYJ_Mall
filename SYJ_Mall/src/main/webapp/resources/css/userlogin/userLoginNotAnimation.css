@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+	/* 로그인 이미지 */
+    #qoo10login {
+        margin: 0px auto;
+        margin-top: 40px;
+        height : 100px;
+        width : 200px;
+    }
+    #qoo10login img {
+        width:100%;
+        height : 100%;
+    }
+    /*전체적인 바디 */
+    body {
+        /* border : 1px solid red; */
+        height : 740px;
+        background-color : #F5F6F7;
+    }
+    /*아이디 비밀번호 치는곳 */
+    .inputform {
+        /* border: 1px solid blue; */
+        margin: 5px auto;
+        width : 355px;
+        height : 50px;
+        padding: 10px;
+    }
+    .inputform input {
+        width : 340px;
+        height : 40px;
+        border: 1px solid #E5E5E6;
+    }
+    
+    #copyright {
+        width : 310px;
+        margin: 20px auto;
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    #inputid:focus {
+        outline: none;
+    }
+    
+    #inputpw:focus {
+        outline:none;
+    }
+    
+    /*광고관련 */
+    #advertise {
+        height: 200px;
+    }
+
+    #advertise:hover{
+        cursor: pointer;
+    }
+    #etcinfo {
+        margin: 5px auto;
+        width : 260px;
+        height : 30px;
+        padding: 6px;
+    }
+
+    #etcinfo a,span {
+        color: #8E8E8E;
+        font-family: 'NEXON Lv1 Gothic OTF';
+    }
+
+    #etcinfo:hover {
+        cursor : pointer;
+    }
