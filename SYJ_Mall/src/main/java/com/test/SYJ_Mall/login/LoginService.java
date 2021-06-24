@@ -53,13 +53,14 @@ public class LoginService implements ILoginService {
 	
 	//맨처음 로그인할때 광고,rsa키 지정해주는곳
 	@Override
-	public int firstLoginStep(HttpServletRequest request,int errorCode) {
+	public int firstLoginStep(HttpServletRequest request,int errorCode,int comeCount) {
 		
 		int error = 0;
 		Random rnd = new Random();
 		List<AdverDTO> dtoList = dao.getAdvertiseInfo();
 
 		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 적용하고 지금은 "랜덤"으로 처리해준다.
+		// ----광고관련----
 		AdverDTO dto = dtoList.get(rnd.nextInt(dtoList.size()));
 		String picName = dto.getAdpPcUrl();
 		String url = dto.getAdUrl();
@@ -70,6 +71,14 @@ public class LoginService implements ILoginService {
 		
 		request.setAttribute("adverMap", adverMap);
 		
+		// ----광고관련----
+		if(comeCount == 0) {
+			request.setAttribute("comeCount", "SYJ_Mall");
+		} 
+		
+		
+		
+		//로그인 에러 관련 : 벤당한 아이피로 로그인 시도를 한다거나 로그인 아이디/비밀번호가 틀렸을 경우
 		if (errorCode == -1) {
 			request.setAttribute("loginError", -1);
 		} else {
@@ -83,11 +92,7 @@ public class LoginService implements ILoginService {
 			e.printStackTrace();
 		}
 		
-		if (error == 0) {
-			return 0;
-		} else {
-			return -1;
-		}
+		return error;
 
 	}
 	

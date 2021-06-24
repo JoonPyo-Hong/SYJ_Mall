@@ -113,9 +113,10 @@ public interface ILoginService {
 	 * 첫번째 로그인 과정 - 광고넘겨주고 rsa키값 넘겨준다
 	 * @param request		request 객체
 	 * @param errorCode		오류코드 - 로그인오류 : -1, 정상 : 0
+	 * @param comeCount		첫번째 들어올때만 애니메이션 효과 넣어줄것. -> 로그인 오류가 발생하면 애니메이션 작동 안하게 처리
 	 * @return				정상 : 0 , 비정상 : -1
 	 */
-	int firstLoginStep(HttpServletRequest request,int errorCode);
+	int firstLoginStep(HttpServletRequest request,int errorCode,int comeCount);
 	
 	/**
 	 * 유저회원가입 - 이메일 아이디 중복 체크
