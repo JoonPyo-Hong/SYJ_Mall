@@ -243,12 +243,13 @@ font-size: 16px;
     column-count: initial !important;
 	    font: 400 13.3333px Arial;
 		    flex-direction: column;
-			    border: none;
-				    background: none;
-    
+			        width: 100%;
+    border: none;
+    background: none;
     outline: none;
     resize: none;
 	cursor:pointer;
+    overflow:hidden;
 	}
 
 </Style>
