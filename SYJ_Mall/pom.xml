@@ -194,7 +194,7 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
-
+		
 		<!-- Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
@@ -226,7 +226,21 @@
 			<artifactId>mssql-jdbc</artifactId>
 			<version>8.2.2.jre8</version>
 		</dependency>
+		
+		<!-- java mall : 이메일 보내주는 서비스 -->
+		<dependency>
 
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.2</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
 
 	</dependencies>
 	<build>

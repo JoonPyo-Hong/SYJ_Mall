@@ -26,7 +26,7 @@ public class Encryption {
 			  				  	     "f",")",";","p","g","s",",","a","o","{",
 			  				  	     "u","+","y","r","e","w","-","\\","|"," "};
 	
-	private String valueKey = "NaPleo";//암호키**masterkey
+	private final String VALUEKEY = "NaPleo";//암호키**masterkey
 	
 	/**
 	 * 암호화키판 리턴
@@ -55,7 +55,105 @@ public class Encryption {
 	}//initialMatrix()
 	
 	/**
-	 * 암호화로직
+	 * 복호화 로직
+	 * @param encInput
+	 * @return
+	 */
+	public String returnDcyVoca(String encInput) {
+		
+		String[] inputList = encInput.split("");//복호화 한 값이 들어가게 된다.
+		
+		String[] decKeySplitArrOrigin = VALUEKEY.split("");//origin -> 정렬안해준 배열.
+		String[] decKeySplitArr = VALUEKEY.split("");//comparison -> 정렬해주는 배열.
+		
+		Arrays.sort(decKeySplitArr);//정렬 -> ex) s e c u r -> c e r s u 로 변환
+		
+		int stepOneRow = inputList.length / VALUEKEY.length();// 2차 암호화때 도출된 매트릭스 행의 개수
+		int stepOneCol = VALUEKEY.length();// 2차 암호화때 도출된 매트릭스 열의 개수
+		
+		String[][] stepOneMatrix = new String[stepOneRow][stepOneCol];
+		
+		int inputListIndex = 0;//inputList 의 index
+		
+		for (int i = 0; i < decKeySplitArr.length; i++) {
+			
+			String selectVoca = decKeySplitArr[i];//선택된 하나의 단어 -> 처음은 c일것이다.
+			
+			for (int j = 0; j < decKeySplitArrOrigin.length; j++) {//원조의 단어 split 한것과 비교를 해준다.
+				
+				if (selectVoca.equals(decKeySplitArrOrigin[j])) { // c e r s u -> s e c u r
+					
+					for (int k = 0; k < stepOneRow; k++) {
+						
+						stepOneMatrix[k][j] = inputList[inputListIndex++];
+					}
+					
+					break;
+				}
+			}
+		}//for
+		
+		String[] finalArr = new String[stepOneRow*stepOneCol];//마지막 결과배열.
+		int finalArrIndex = 0;
+		
+		for (int i = 0; i < stepOneRow; i++) {
+			for (int j = 0; j < stepOneCol; j++) {
+				finalArr[finalArrIndex++] = stepOneMatrix[i][j];
+			}
+		}
+		
+		String answerVal = "";//최종 복호화 답
+		int finalIndex = 0;
+		int swich = 1;
+		String finalRow = "";
+		String finalCol = "";
+		
+	
+		
+		//System.out.println(finalArr.length);
+		
+		while(finalIndex < finalArr.length) {
+			
+			if (finalArr[finalIndex].equals("P")) {
+				break;
+			} else {
+				//System.out.println(finalIndex);
+				swich *= -1;
+				
+				if (swich == 1) {
+					finalCol = finalArr[finalIndex++];
+					int row = 0;
+					int col = 0;
+					
+					//여기서부터 탐색에 들어가야 한다. -> 나중에 업글을 시켜보자. -> 성능 튜닝.
+					for (int i = 0; i < standard.length; i++) {
+						if (finalRow.equals(standard[i])) {
+							row = i+1;
+							break;
+						}
+					}
+					
+					for (int i = 0; i < standard.length; i++) {
+						if (finalCol.equals(standard[i])) {
+							col = i+1;
+							break;
+						}
+					}
+					answerVal += initialMatrix()[row][col];
+					
+				} else {
+					finalRow = finalArr[finalIndex++];
+				}
+			}
+		}//while		
+		
+		return answerVal;
+		
+	}
+	
+	
+	/**
+	 * 암호화로직 - 회원 비밀번호에 쓰일 로직 : 복호화 불가.
 	 * @param input	암호화 되지 않은 비밀번호	
 	 * @return		암호화된 비밀번호
 	 */
@@ -80,8 +178,8 @@ public class Encryption {
 		}//for -> 1차 암호화 완료
 		
 		//2차 암호화
-		int keyRow = (int)Math.ceil((double)result.size() / valueKey.length());//다운캐스팅 까지 완료 -> 올림을 통하여 행을 하나 늘려주는 역할을 수행한다.
-		int keyCol = valueKey.length();//key의 길이
+		int keyRow = (int)Math.ceil((double)result.size() / VALUEKEY.length());//다운캐스팅 까지 완료 -> 올림을 통하여 행을 하나 늘려주는 역할을 수행한다.
+		int keyCol = VALUEKEY.length();//key의 길이
 		
 		String[][] keyMatrix = new String[keyRow+1][keyCol];//key를 타이틀로 주기 위해서
 		
@@ -92,7 +190,7 @@ public class Encryption {
 				
 				if (i == 0) { //첫번째 줄일경우
 					
-					keyMatrix[i][j] = valueKey.substring(j,j+1);//위의 문자 키워드를 집어넣을 것이다. -> key 값을 적겠다는 의미가 된다.
+					keyMatrix[i][j] = VALUEKEY.substring(j,j+1);//위의 문자 키워드를 집어넣을 것이다. -> key 값을 적겠다는 의미가 된다.
 					
 				} else { // 두번째 줄 이상일 경우
 					
@@ -106,7 +204,7 @@ public class Encryption {
 		}//for
 		
 		List<String> finalArr = new ArrayList<String>();//최종 암호화된 문자열을 집어넣을 곳이 된다.
-		String[] keySort = valueKey.split("");//입력key를 부분부분 쪼갠다.
+		String[] keySort = VALUEKEY.split("");//입력key를 부분부분 쪼갠다.
 		Arrays.sort(keySort);//키 정렬 -> 우선순위를 배정하기 위함이다.
 		
 		
