@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ include file="/WEB-INF/views/inc/board_list_inc.jsp"%> --%>
+<%@ include file="/WEB-INF/views/inc/main.jsp"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -10,85 +10,63 @@
 <meta name="viewport"
 	content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" />
 <title>Main</title>
-<style>
-html {
-	height: 100%;
-	width: 100%;
-	margin: 0px;
-}
 
-body {
-	height: 100%;
-	width: 100%;
-	margin: 0px;
-}
-
-#wrap {
-	height: 100%;
-	width: 100%;
-	text-align: center;
-	font-family: SFProText, "Apple SD Gothic Neo", AppleSDGothicNeo,
-		"Malgun Gothic", "맑은 고딕", sans-serif;
-}
-
-#Head {
-	display: inline-block;
-	width: 640px;
-	height: 47px;
-	width: 640px;
-}
-
-#btn_menu img {
-	color: transparent;
-	width: 18px;
-	height: 18px;
-}
-
-#btn_menu {
-	float: left;
-	color: transparent;
-	width: 32px;
-	height: 32px;
-	margin: 9px 3px 5px 6px;
-	padding: 0px;
-}
-
-#kakao_friends {
-	text-align: center;
-}
-
-#spn_kakao_friends img {
-	width: 147px;
-	height: 24px;
-	vertical-align: middle;
-	text-align: center;
-}
-
-#spn_kakao_friends:after {
-	display: inline-block;
-	height: 100%;
-	content: "";
-	vertical-align: middle;
-}
-
-button {
-	border: 0 none;
-	background-color: transparent;
-	cursor: pointer;
-}
-</style>
 </head>
 <body>
 	<div id="wrap">
-		<div id="Head">
-			<span>
-				<button type="button" id="btn_menu">
-					<img src="resources/images/main/ic_menu_2x.png">
-				</button>
-			</span> 
-			<span id="spn_kakao_friends" > <img 
-				src="resources/images/main/new-logo-mo.png">
-			</span>
+		<div id="head">
+			<div>
+				<span id="spn_menu"> <span id="img_menu">d</span>
+				</span>
+			</div>
+			<div>
+				<span>d</span>
+			</div>
+			<div>
+				<span>d</span>
+			</div>
+			<div>
+				<span>d</span>
+			</div>
+		</div>
+		<div id="tab">
+			<div class="tab_selected">오늘</div>
+			<div>신규</div>
+			<div>인기</div>
+			<div>마이</div>
+		</div>
+		<div class="content">
+			<div class="top">
+				<span class="img_top"></span>
+				<div class="txt_top">
+					<p>튜브</p>
+					<div>
+						<span>Daily Story</span> <span> · 4시간 전</span>
+					</div>
+				</div>
+			</div>
+			<div class="media">
+				<span id="img_media_1"></span>
+			</div>
+			<div class="etc">
+				<div class="etc_1"></div>
+				<div class="etc_2"></div>
+				<div class="etc_3"></div>
+			</div>
+			<div class="txt_1">
+				<span>좋아요</span> 213개
+			</div>
+			<div class="txt_2">입맛 특이 취향 모여라🙆🏼‍♂️</div>
+			<div class="txt_3">
+				하늘이 두 쪽 나도 민초단 (손)🙋🏻‍♀️<br> 고수 듬뿍 넣은 파스타 (손)🙋🏻‍♂️
+			</div>
+			<div class="txt_4">댓글 252개</div>
+			<div class="txt_5">
+				<span>박*린</span>어쩌구
+			</div>
+			<div class="comment">
+				<textarea placeholder="댓글을 달아주세요." disabled></textarea>
+			</div>
 		</div>
 	</div>
 </body>
