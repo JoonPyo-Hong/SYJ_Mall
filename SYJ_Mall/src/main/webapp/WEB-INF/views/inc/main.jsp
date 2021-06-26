@@ -7,7 +7,7 @@
 <script src="resources/js/jquery-ui.js"></script>
 <script src="resources/js/bootstrap.js"></script>
 
-<style>
+<Style>
 html {
 	margin: 0px;
 	width: 100%;
@@ -70,18 +70,19 @@ body {
 }
 
 #tab {
-	width: 605px;
+	width: 640px;
 	height: 43px;
 	margin: 0px auto;
 	display: flex;
 	border-bottom: 1px solid rgb(227, 229, 232);
 	padding: 0px 17.5px;
 	text-align: center;
+	font-size: 16px;
 }
 
 #tab div {
 	width: 146.25px;
-	height: 40px;
+	height: 43px;
 	margin: 0px auto;
 	line-height: 40px;
 }
@@ -93,8 +94,8 @@ body {
 
 .content {
 	margin: 0px auto;
-	height: 932px;
-	width: 600px;
+	
+	width: 640px;
 	padding: 20px 20px 30px;
 	border: 1px solid black;
 }
@@ -272,4 +273,4 @@ textarea {
 	cursor: pointer;
 	overflow: hidden;
 }
-</style>
+</Style>
