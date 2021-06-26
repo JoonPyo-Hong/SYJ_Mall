@@ -25,18 +25,15 @@ body {
 	height: 47px;
 	margin: 0px auto;
 	display: flex;
-	border: 1px solid black;
 }
 
 #head div:nth-child(1) {
-	border: 1px solid black;
 	width: 32px;
 	height: 32px;
 	margin: 8px 3px 7px 13px;
 }
 
 #head div:nth-child(2) {
-	border: 1px solid black;
 	width: 147px;
 	height: 24px;
 	display: block;
@@ -45,29 +42,44 @@ body {
 }
 
 #head div:nth-child(3) {
-	border: 1px solid black;
 	width: 32px;
 	height: 32px;
 	margin-top: 8px;
 }
 
 #head div:nth-child(4) {
-	border: 1px solid black;
 	width: 32px;
 	height: 32px;
 	margin: 8px 13px 7px 2px;
 }
 
-#img_menu {
-	width: 18px;
-	height: 18px;
-	margin: 5px 3px 7px;
+#head div img {
+	cursor: pointer;
 }
 
-#spn_menu {
-	width: 32px;
-	height: 32px;
-	cursor: pointer;
+#head div:nth-child(1) img {
+	width: 18px;
+	height: 18px;
+	margin: 6px 5px 7px;
+	height: 18px;
+}
+
+#head div:nth-child(2) img {
+	width: 147px;
+	height: 25px;
+}
+
+#head div:nth-child(3) img {
+	width: 18px;
+	height: 18px;
+	margin-top: 8px;
+}
+
+#head div:nth-child(4) img {
+	width: 18px;
+	height: 18px;
+	margin-top: 8px;
+	margin: 8px 13px 7px 2px;
 }
 
 #tab {
@@ -86,6 +98,7 @@ body {
 	height: 43px;
 	margin: 0px auto;
 	line-height: 40px;
+	cursor: pointer;
 }
 
 .tab_selected {
@@ -95,17 +108,14 @@ body {
 
 .content {
 	margin: 0px auto;
-	
 	width: 640px;
 	padding: 20px 20px 30px;
-	border: 1px solid black;
 }
 
 .top {
 	height: 41px;
 	width: 600px;
 	margin-bottom: 16px;
-	border: 1px solid black;
 	font-size: 14px;
 	line-height: 1.5;
 	display: flex;
@@ -115,7 +125,7 @@ body {
 	height: 40px;
 	width: 40px;
 	margin-right: 8px;
-	border: 1px solid black;
+	cursor: pointer;
 }
 
 .txt_top p {
@@ -124,6 +134,7 @@ body {
 	margin: 0px;
 	height: 19px;
 	width: 131.703px;
+	font-weight: bold;
 }
 
 .txt_top span:nth-child(1) {
@@ -146,39 +157,40 @@ body {
 }
 
 .media {
-	height: 600px;
+	height: 400px;
 	width: 600px;
 	border: 1px solid black;
 }
 
 .etc {
-	height: 27px;
+	height: 32px;
 	width: 600px;
 	margin-top: 10px;
-	border: 1px solid black;
 	display: flex;
 }
 
 .etc_1 {
-	width: 27px;
-	height: 27px;
-	border: 1px solid black;
+	width: 32px;
+	height: 32px;
 	cursor: pointer;
+	background-image: url(resources/images/main/heart-burst.png);
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .etc_2 {
 	margin-left: 12px;
 	width: 27px;
 	height: 27px;
-	border: 1px solid black;
 	cursor: pointer;
+	margin-top: 2px;
 }
 
 .etc_3 {
 	width: 27px;
 	height: 27px;
-	border: 1px solid black;
 	cursor: pointer;
+	margin-top: 2px;
 	margin-left: auto;
 }
 
@@ -189,7 +201,7 @@ body {
 	font-size: 14px;
 	line-height: 1.5;
 	color: #1e1e1e;
-	border: 1px solid black;
+	
 }
 
 .txt_1 span {
@@ -202,7 +214,7 @@ body {
 	font-size: 20px;
 	margin-top: 12px;
 	letter-spacing: -0.31px;
-	border: 1px solid black;
+	
 	font-weight: bold;
 	line-height: -1.2;
 }
@@ -212,7 +224,7 @@ body {
 	font-size: 14px;
 	letter-spacing: -0.22px;
 	margin-top: 10px;
-	border: 1px solid black;
+	
 	line-height: 1.43;
 }
 
@@ -220,7 +232,7 @@ body {
 	width: 600px;
 	font-size: 14px;
 	letter-spacing: -0.22px;
-	border: 1px solid black;
+	
 	color: rgb(154, 154, 158);
 	margin-top: 7px;
 }
@@ -229,7 +241,7 @@ body {
 	width: 600px;
 	font-size: 14px;
 	letter-spacing: -0.22px;
-	border: 1px solid black;
+	
 	line-height: 1.43;
 	margin-top: 12px;
 }

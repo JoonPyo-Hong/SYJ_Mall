@@ -16,18 +16,16 @@
         <div id="wrap">
 			<div id ="head">
 				<div>
-					<span id="spn_menu">
-						<img id="img_menu" src="resources/images/main/ic_menu_2x.png"></img>
-					</span>
+					<img src="resources/images/main/ic_menu_2x.png"></img>
 				</div>
 				<div>
-					<span></span>
+					<img src="resources/images/main/new-logo-mo.png"></img>
 				</div>
 				<div>
-					<span></span>
+					<img src="resources/images/main/ic_search_2x.png"></img>
 				</div>
 				<div>
-					<span></span>
+					<img src="resources/images/main/language-global-18-black@2x.png"></img>
 				</div>
 			</div>
 			<div id="tab">
@@ -38,7 +36,7 @@
 			</div>
 			<div class="content">
 				<div class="top">
-					<span class="img_top"></span>
+					<img class="img_top" src="resources/images/main/npc_20210429161734.png"></img>
 					<div class="txt_top">
 						<p>튜브</p>
 						<div>
@@ -51,12 +49,12 @@
 					<span id="img_media_1"></span>
 				</div>
 				<div class="etc">
-					<div class="etc_1"></div>
-					<div class="etc_2"></div>
-					<div class="etc_3"></div>
+					<span class="etc_1"></span>
+					<img class="etc_2" src="resources/images/main/reply-black.png"></img>
+					<img class="etc_3" src="resources/images/main/share-black.png"></img>
 				</div>
 				<div class="txt_1">
-					<span>좋아요</span> 213개
+					좋아요 <span>213개</span> 
 				</div>
 				<div class="txt_2">
 					입맛 특이 취향 모여라🙆🏼‍♂️
