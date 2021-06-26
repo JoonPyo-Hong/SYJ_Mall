@@ -51,7 +51,14 @@
 				<div class="etc">
 					<span class="etc_1"></span>
 					<img class="etc_2" src="resources/images/main/reply-black.png"></img>
-					<img class="etc_3" src="resources/images/main/share-black.png"></img>
+					<span class="etc_3">
+						<span class="etc_selected"></span>
+						<span class="etc_unselected"></span>
+						<span class="etc_unselected"></span>
+						<span class="etc_unselected"></span>
+						<span class="etc_unselected"></span>
+					</span>
+					<img class="etc_4" src="resources/images/main/share-black.png"></img>
 				</div>
 				<div class="txt_1">
 					좋아요 <span>213개</span> 

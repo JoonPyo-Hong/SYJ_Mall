@@ -185,13 +185,18 @@ body {
 	cursor: pointer;
 	margin-top: 2px;
 }
-
 .etc_3 {
+	margin:0px auto;
+	margin-top: 2px;
+}
+
+
+.etc_4 {
 	width: 27px;
 	height: 27px;
 	cursor: pointer;
 	margin-top: 2px;
-	margin-left: auto;
+	
 }
 
 .txt_1 {
@@ -201,7 +206,6 @@ body {
 	font-size: 14px;
 	line-height: 1.5;
 	color: #1e1e1e;
-	
 }
 
 .txt_1 span {
@@ -214,7 +218,6 @@ body {
 	font-size: 20px;
 	margin-top: 12px;
 	letter-spacing: -0.31px;
-	
 	font-weight: bold;
 	line-height: -1.2;
 }
@@ -224,7 +227,6 @@ body {
 	font-size: 14px;
 	letter-spacing: -0.22px;
 	margin-top: 10px;
-	
 	line-height: 1.43;
 }
 
@@ -232,7 +234,6 @@ body {
 	width: 600px;
 	font-size: 14px;
 	letter-spacing: -0.22px;
-	
 	color: rgb(154, 154, 158);
 	margin-top: 7px;
 }
@@ -241,7 +242,6 @@ body {
 	width: 600px;
 	font-size: 14px;
 	letter-spacing: -0.22px;
-	
 	line-height: 1.43;
 	margin-top: 12px;
 }
@@ -285,5 +285,24 @@ textarea {
 	resize: none;
 	cursor: pointer;
 	overflow: hidden;
+}
+
+.etc_selected {
+	background-color: rgb(0, 0, 0);
+	margin: 0px 2.5px;
+	width: 12px;
+	height: 5px;
+	border-radius: 2.5px;
+	border: 1px solid black;
+	    display: inline-block;
+}
+
+.etc_unselected {
+	background-color: rgb(224, 224, 224);
+	margin: 0px 2.5px;
+	width: 5px;
+	height: 5px;
+	border-radius: 2.5px;
+	    display: inline-block;
 }
 </Style>
