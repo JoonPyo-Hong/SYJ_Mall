@@ -61,6 +61,7 @@ body {
 #img_menu {
 	width: 18px;
 	height: 18px;
+	margin: 5px 3px 7px;
 }
 
 #spn_menu {

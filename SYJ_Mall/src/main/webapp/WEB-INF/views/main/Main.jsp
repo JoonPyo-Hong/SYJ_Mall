@@ -17,17 +17,17 @@
 			<div id ="head">
 				<div>
 					<span id="spn_menu">
-						<span id="img_menu">d</span>
+						<img id="img_menu" src="resources/images/main/ic_menu_2x.png"></img>
 					</span>
 				</div>
 				<div>
-					<span>d</span>
+					<span></span>
 				</div>
 				<div>
-					<span>d</span>
+					<span></span>
 				</div>
 				<div>
-					<span>d</span>
+					<span></span>
 				</div>
 			</div>
 			<div id="tab">
