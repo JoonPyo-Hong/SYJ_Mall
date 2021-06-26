@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="icon" href="resources/images/main/kakao_ryan.ico">
 <title>Main</title>
 
 </head>
