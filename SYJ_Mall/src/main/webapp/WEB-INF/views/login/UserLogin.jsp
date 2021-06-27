@@ -62,7 +62,7 @@
         </c:if>
         <!-- 로그인 버튼 -->
         <div class = "inputform">
-            <input id = "go" type="button" value = "로그인" style = "font-size: 1em; background-color: #FEE500; color:black; font-family: 'NEXON Lv1 Gothic OTF';">
+            <input id = "go" type="button" value = "로그인" style = "border-radius: 5px; font-size: 1em; background-color: #FEE500; color:black; font-family: 'NEXON Lv1 Gothic OTF';">
         </div>
     </form>
     
