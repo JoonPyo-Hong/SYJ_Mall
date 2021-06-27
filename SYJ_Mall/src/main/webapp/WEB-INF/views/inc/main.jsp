@@ -11,13 +11,13 @@
 html {
 	margin: 0px;
 	width: 100%;
-	height: 100%;
+
 }
 
 body {
 	margin: 0px;
 	width: 100%;
-	height: 100%;
+
 }
 
 #head {

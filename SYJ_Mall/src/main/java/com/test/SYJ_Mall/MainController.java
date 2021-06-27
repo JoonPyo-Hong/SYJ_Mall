@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.main.MainService;
@@ -19,6 +20,7 @@ class TIME_MAXIMUM {
 	public static final int DAY = 30;
 	public static final int MONTH = 12;
 }
+
 /**
  * 메인 페이지 컨트롤러 역할
  * 
@@ -34,14 +36,18 @@ public class MainController {
 	// 메인화면
 	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
 	public String main(Model model) {
-		List<MainDTO> list = service.list();
-		System.out.println(list.toString());
-		model.addAttribute("list", list);
+//		List<MainDTO> list = service.list();
 		
 		return "/main/Main";
 	}
-	
+
+	// 무한 스크롤
+	@RequestMapping(value = "/list.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object list(Model model) {
+		List<MainDTO> list = service.list();
+
+		return list;
+	}
+
 }
-
-
-
