@@ -4,7 +4,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="board">
+<mapper namespace="main">
 
-	
+	<select id="list"
+		resultType="com.test.SYJ_Mall.main.MainDTO">
+		SELECT
+		seq, reg_id,
+		CONVERT(CHAR(23),
+		reg_dt, 23) as
+		reg_dt, gubn, title, contents
+		FROM
+		dbo.main_list with(nolock)
+	</select>
 </mapper>
