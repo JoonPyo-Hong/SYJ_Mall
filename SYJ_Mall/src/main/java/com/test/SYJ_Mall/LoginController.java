@@ -249,15 +249,21 @@ public class LoginController {
 	@RequestMapping(value = "/userFindId.action", method = { RequestMethod.GET })
 	public String findId(HttpServletRequest request, HttpServletResponse response) {
 			
-		//비밀번호를 암호하하기 위해서 RSA 대칭키를 써줄것이다.
-		try {
-			int result = logService.setRSAkey(request);//rsa대칭키 생성
-		} catch(Exception e) {
-			e.getMessage();
-		}
+		return "/login/UserIdFind";
+	}
+	
+	//아이디 찾기 확인로직
+	@RequestMapping(value = "/userFindIdCheck.action", method = { RequestMethod.POST })
+	public String findIdCheck(HttpServletRequest request, HttpServletResponse response) {
 		
-		return "/login/usersignup";
-	}	
+		String email = request.getParameter("inputmail");
+		String phone = request.getParameter("inputphone");
+		
+		System.out.println(email);
+		System.out.println(phone);
+		
+		return "/login/UserIdFind";
+	}
 	
 	
 	
