@@ -6,13 +6,11 @@
 
 <mapper namespace="main">
 
-	<select id="list"
-		resultType="com.test.SYJ_Mall.main.MainDTO">
+	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO">
 		SELECT
 		seq, reg_id,
-		CONVERT(CHAR(23),
-		reg_dt, 23) as
-		reg_dt, gubn, title, contents
+		reg_dt, gubn,
+		title, contents
 		FROM
 		dbo.main_list with(nolock)
 	</select>

@@ -38,12 +38,14 @@
 			<c:forEach var="list" items="${list}">
 				<div class="content">
 					<div class="top">
-						<img class="img_top" src="resources/images/main/npc_20210429161734.png"></img>
+						<img class="img_top" src="resources/images/main/${list.reg_id}.png"></img>
 						<div class="txt_top">
 							<p>${list.reg_id}</p>
 							<div>
 								<span>${list.gubn}</span>
-								<span>${list.reg_dt}</span>
+								<span>
+									<c:if test="${not empty list.gubn}"> · </c:if>${list.reg_dt}
+								</span>
 							</div>
 						</div>
 					</div>

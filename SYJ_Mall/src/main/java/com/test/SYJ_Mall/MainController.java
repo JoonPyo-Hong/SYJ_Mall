@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.main.MainService;
 
+class TIME_MAXIMUM {
+	public static final int SEC = 60;
+	public static final int MIN = 60;
+	public static final int HOUR = 24;
+	public static final int DAY = 30;
+	public static final int MONTH = 12;
+}
 /**
  * 메인 페이지 컨트롤러 역할
  * 
@@ -28,7 +36,12 @@ public class MainController {
 	public String main(Model model) {
 		List<MainDTO> list = service.list();
 		System.out.println(list.toString());
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
+		
 		return "/main/Main";
 	}
+	
 }
+
+
+

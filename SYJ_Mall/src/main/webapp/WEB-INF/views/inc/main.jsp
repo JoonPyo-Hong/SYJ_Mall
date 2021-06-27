@@ -213,7 +213,7 @@ body {
 }
 
 .txt_2 {
-	height: 24px;
+
 	width: 600px;
 	font-size: 20px;
 	margin-top: 12px;
