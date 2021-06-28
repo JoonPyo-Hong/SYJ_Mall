@@ -37,7 +37,7 @@
 		</div>
 		<!--  -->
 		<div class="content">
-			<div class="top">
+<!-- 			<div class="top">
 				<img class="img_top" src="resources/images/main/${list.reg_id}.png"></img>
 				<div class="txt_top">
 					<p>${list.reg_id}</p>
@@ -70,7 +70,7 @@
 			</div>
 			<div class="comment">
 				<textarea placeholder="댓글을 달아주세요." disabled></textarea>
-			</div>
+			</div> -->
 		</div>
 		<!--  -->
 	</div>
@@ -96,7 +96,7 @@
 						}
 					});
 	function list() {
-	count ++;
+		
 		$.ajax({
 			url : "list.action",
 			type : 'post',
@@ -106,7 +106,42 @@
 			success : function(data) {
 
 				$(data).each(function() {
-					alert(this.seq);
+					var txt = "";
+					if(this.gubn){
+						txt = " · ";
+					}
+					$(".content").append(
+					   "<div class='top'>" 
+					+ "<img class='img_top' src='resources/images/main/" + this.reg_id + ".png'></img>"
+					+ "<div class='txt_top'>"
+					+ "<p>" + this.reg_id + "</p>"
+					+ "<div>"
+					+ "<span>" + this.gubn + "</span><span>" + txt + "</span>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "<div class='media'>"
+					+ "<span id="img_media_1"></span>"
+					+ "</div>"
+					+ "<div class='etc'>"
+					+ "<span class='etc_1'></span>"
+					+ "<img class='etc_2' src='resources/images/main/reply-black.png'></img>"
+					+ "<span class='etc_3'>" 
+					+ "<span class='etc_selected'></span>"
+					+ "<span class='etc_unselected'></span>"
+					+ "</span>"
+					+ "<img class='etc_4' src='resources/images/main/share-black.png'></img>"
+					+ "</div>"
+					+ "<div class='txt_1'>좋아요"
+					+ "<span>213개</span>"
+					+ "</div>"
+					+ "<div class='txt_2'>" + this.title + "</div>"
+					+ "<div class='txt_3'>" + this.contents + "</div>"
+					+ "<div class='txt_4'>" + "댓글 252개" + "</div>"
+					+ "<div class='txt_5'>" + "<span>" + "홍*표" + "</span>" + "내용 입니다." + "</div>"
+					+ "<div class='comment'>" + "<textarea placeholder="댓글을 달아주세요." disabled></textarea>" + "</div>"
+					+ "</div>"
+					);
 				}
 
 				);
