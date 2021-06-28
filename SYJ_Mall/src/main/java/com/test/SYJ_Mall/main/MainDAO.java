@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface MainDAO {
 
-	List<MainDTO> list();
+	List<MainDTO> list(int num);
 
 }

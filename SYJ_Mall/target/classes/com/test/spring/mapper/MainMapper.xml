@@ -6,12 +6,12 @@
 
 <mapper namespace="main">
 
-	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO">
-		SELECT
-		seq, reg_id,
-		reg_dt, gubn,
-		title, contents
-		FROM
-		dbo.main_list with(nolock)
+	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO" parameterType="int">
+	SELECT top(#{num})
+	seq, reg_id,
+	reg_dt, gubn,
+	title, contents
+	FROM
+	dbo.main_list with(nolock) order by seq desc
 	</select>
 </mapper>

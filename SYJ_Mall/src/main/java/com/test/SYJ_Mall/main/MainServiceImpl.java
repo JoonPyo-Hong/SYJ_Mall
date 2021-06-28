@@ -1,20 +1,19 @@
 package com.test.SYJ_Mall.main;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MainServiceImpl implements MainService{
+public class MainServiceImpl implements MainService {
 	@Autowired
 	private MainDAO dao;
 
-
 	@Override
-	public List<MainDTO> list() {
-	
-		return dao.list();
+	public List<MainDTO> list(int num) {
+		// TODO Auto-generated method stub
+		return dao.list(num);
 	}
-
 }

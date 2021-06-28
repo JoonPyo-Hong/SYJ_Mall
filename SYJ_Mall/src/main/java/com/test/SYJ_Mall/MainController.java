@@ -2,12 +2,14 @@ package com.test.SYJ_Mall;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.main.MainDTO;
@@ -44,8 +46,9 @@ public class MainController {
 	// 무한 스크롤
 	@RequestMapping(value = "/list.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public Object list(Model model) {
-		List<MainDTO> list = service.list();
+	public Object list(@RequestParam("num")int num) {
+		System.out.println(num);
+		List<MainDTO> list = service.list(num);
 
 		return list;
 	}
