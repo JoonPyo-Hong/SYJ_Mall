@@ -11,13 +11,11 @@
 html {
 	margin: 0px;
 	width: 100%;
-
 }
 
 body {
 	margin: 0px;
 	width: 100%;
-
 }
 
 #head {
@@ -160,6 +158,8 @@ body {
 	height: 400px;
 	width: 600px;
 	border: 1px solid black;
+	display: flex;
+    align-items: center;
 }
 
 .etc {
@@ -185,18 +185,17 @@ body {
 	cursor: pointer;
 	margin-top: 2px;
 }
+
 .etc_3 {
-	margin:0px auto;
+	margin: 0px auto;
 	margin-top: 2px;
 }
-
 
 .etc_4 {
 	width: 27px;
 	height: 27px;
 	cursor: pointer;
 	margin-top: 2px;
-	
 }
 
 .txt_1 {
@@ -213,7 +212,6 @@ body {
 }
 
 .txt_2 {
-
 	width: 600px;
 	font-size: 20px;
 	margin-top: 12px;
@@ -294,7 +292,7 @@ textarea {
 	height: 5px;
 	border-radius: 2.5px;
 	border: 1px solid black;
-	    display: inline-block;
+	display: inline-block;
 }
 
 .etc_unselected {
@@ -303,6 +301,27 @@ textarea {
 	width: 5px;
 	height: 5px;
 	border-radius: 2.5px;
-	    display: inline-block;
+	display: inline-block;
 }
+
+.left {
+	width: 27px;
+	height: 27px;
+	cursor: pointer;
+	transform: rotate(180deg);
+	vertical-align:middle;
+}
+
+.right {
+	float:right;
+	width: 27px;
+	height: 27px;
+	cursor: pointer;
+	vertical-align:middle;
+}
+.media div{
+	
+	width: 100%;
+}
+
 </Style>
