@@ -107,8 +107,10 @@
 
 				$(data).each(function() {
 					var txt = "";
+					var gubn = ""
 					if(this.gubn){
 						txt = " · ";
+						gubn = this.gubn;
 					}
 					$(".content").append(
 					   "<div class='top'>" 
@@ -116,12 +118,12 @@
 					+ "<div class='txt_top'>"
 					+ "<p>" + this.reg_id + "</p>"
 					+ "<div>"
-					+ "<span>" + this.gubn + "</span><span>" + txt + "</span>"
+					+ "<span>" + gubn + "</span><span>" + txt + this.reg_dt + "</span>"
 					+ "</div>"
 					+ "</div>"
 					+ "</div>"
 					+ "<div class='media'>"
-					+ "<span id="img_media_1"></span>"
+					+ "<span id='img_media_1'></span>"
 					+ "</div>"
 					+ "<div class='etc'>"
 					+ "<span class='etc_1'></span>"
@@ -139,7 +141,7 @@
 					+ "<div class='txt_3'>" + this.contents + "</div>"
 					+ "<div class='txt_4'>" + "댓글 252개" + "</div>"
 					+ "<div class='txt_5'>" + "<span>" + "홍*표" + "</span>" + "내용 입니다." + "</div>"
-					+ "<div class='comment'>" + "<textarea placeholder="댓글을 달아주세요." disabled></textarea>" + "</div>"
+					+ "<div class='comment'>" + "<textarea placeholder=" + "댓글을 달아주세요."+" disabled></textarea>" + "</div>"
 					+ "</div>"
 					);
 				}
