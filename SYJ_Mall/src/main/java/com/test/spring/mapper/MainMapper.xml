@@ -14,4 +14,7 @@
 	FROM
 	dbo.main_list with(nolock) order by seq desc
 	</select>
+	<select id="img" resultType="string" parameterType="int">
+	select img_nm from main_img with(nolock) where list_seq = #{seq}
+	</select>
 </mapper>

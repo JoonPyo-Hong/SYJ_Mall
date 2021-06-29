@@ -58,8 +58,9 @@ public class MainController {
 	@ResponseBody
 	public Object img(@RequestParam("seq") int seq) {
 		System.out.println(seq);
-
-		return "a";
+		List<String> list = service.img(seq);
+		System.out.println(list.toString());
+		return list;
 	}
 
 }

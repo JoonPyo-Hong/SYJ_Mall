@@ -14,8 +14,14 @@ public class MainDAOImpl implements MainDAO {
 
 	@Override
 	public List<MainDTO> list(int num) {
-		// TODO Auto-generated method stub
+		
 		return session.selectList("main.list", num);
+	}
+
+	@Override
+	public List<String> img(int seq) {
+		
+		return session.selectList("main.img", seq);
 	}
 
 }

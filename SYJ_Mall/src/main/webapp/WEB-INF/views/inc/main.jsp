@@ -319,9 +319,13 @@ textarea {
 	cursor: pointer;
 	vertical-align:middle;
 }
-.media div{
-	
+.media span{
+	z-index:1;
 	width: 100%;
+}
+.media_img{
+	width: 50px;
+	height: 50px;
 }
 
 </Style>

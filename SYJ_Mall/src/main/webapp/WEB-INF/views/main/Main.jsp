@@ -45,7 +45,7 @@
 	window.onload = function() {
 
 		list();
-		img(3);
+		
 	}
 
 	window.addEventListener(
@@ -70,8 +70,10 @@
             data : { 
             	seq : list_seq,
             },       	
-            success: function(data){
-               
+            success: function(data){           
+               for(var i = 0; i<data.length; i++){
+            	   $("#media_" + list_seq).append("<img class='media_img' src='resources/images/main/" + data[i] + "'></img>");
+               }
             },
             error: function(){
                 alert("에러");
@@ -108,11 +110,11 @@
 					+ "</div>"
 					+ "</div>"
 					+ "</div>"
-					+ "<div class='media'>"
-					+ "<div>"
+					+ "<div class='media' id='media_"+ this.seq +"'>"
+					+ "<span>"
 					+ "<img class='left' src='resources/images/main/arrow-medium-circle-right-white.png'></img>"
 					+ "<img class='right' src='resources/images/main/arrow-medium-circle-right-white.png'></img>"
-					+ "</div>"
+					+ "</span>"
 					+ "</div>"
 					+ "<div class='etc'>"
 					+ "<span class='etc_1'></span>"
@@ -130,11 +132,12 @@
 					+ "<div class='txt_3'>" + this.contents + "</div>"
 					+ "<div class='txt_4'>" + "댓글 252개" + "</div>"
 					+ "<div class='txt_5'>" + "<span>" + "홍*표" + "</span>" + "내용 입니다." + "</div>"
-					+ "<div class='comment'>" + "<textarea placeholder=" + "댓글을 달아주세요."+" disabled></textarea>" + "</div>"
+					+ "<div class='comment'>" + "<textarea placeholder='댓글을 달아주세요.' disabled></textarea>" + "</div>"
 					+ "</div>"
 					+ "</div>"
 					);
 					/* alert(this.seq); */
+					img(this.seq);
 				}
 
 				);

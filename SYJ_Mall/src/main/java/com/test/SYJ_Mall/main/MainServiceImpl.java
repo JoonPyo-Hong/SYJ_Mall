@@ -16,4 +16,10 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return dao.list(num);
 	}
+
+	@Override
+	public List<String> img(int seq) {
+		// TODO Auto-generated method stub
+		return dao.img(seq);
+	}
 }

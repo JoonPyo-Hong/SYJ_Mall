@@ -6,4 +6,6 @@ public interface MainDAO {
 
 	List<MainDTO> list(int num);
 
+	List<String> img(int seq);
+
 }

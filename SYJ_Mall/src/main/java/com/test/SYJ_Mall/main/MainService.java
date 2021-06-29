@@ -8,4 +8,6 @@ public interface MainService {
 
 	List<MainDTO> list(int num);
 
+	List<String> img(int seq);
+
 }
