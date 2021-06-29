@@ -158,8 +158,9 @@ body {
 	height: 400px;
 	width: 600px;
 	border: 1px solid black;
-	display: flex;
-    align-items: center;
+	margin: 0px auto;
+	overflow: hidden;
+	position: relative;
 }
 
 .etc {
@@ -309,23 +310,35 @@ textarea {
 	height: 27px;
 	cursor: pointer;
 	transform: rotate(180deg);
-	vertical-align:middle;
+	vertical-align: middle;
 }
 
 .right {
-	float:right;
+	float: right;
 	width: 27px;
 	height: 27px;
 	cursor: pointer;
-	vertical-align:middle;
-}
-.media span{
-	z-index:1;
-	width: 100%;
-}
-.media_img{
-	width: 50px;
-	height: 50px;
+	vertical-align: middle;
 }
 
+.media span {
+	z-index: 1;
+	width: 600px;
+	position: absolute;
+	top: 180px;
+	padding: 5px;
+}
+
+.media div {
+	height: 400px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-size: 0;
+}
+
+.media_img {
+	width: 600px;
+	height: 400px;
+}
 </Style>
