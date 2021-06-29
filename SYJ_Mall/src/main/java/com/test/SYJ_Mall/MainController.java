@@ -35,22 +35,31 @@ public class MainController {
 	@Autowired
 	private MainService service;
 
-	// 메인화면
+	// 메인 화면
 	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
 	public String main(Model model) {
 //		List<MainDTO> list = service.list();
-		
+
 		return "/main/Main";
 	}
 
 	// 무한 스크롤
 	@RequestMapping(value = "/list.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public Object list(@RequestParam("num")int num) {
-		System.out.println(num);
+	public Object list(@RequestParam("num") int num) {
+//		System.out.println(num);
 		List<MainDTO> list = service.list(num);
 
 		return list;
+	}
+
+	// 메인 이미지
+	@RequestMapping(value = "/img.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object img(@RequestParam("seq") int seq) {
+		System.out.println(seq);
+
+		return "a";
 	}
 
 }

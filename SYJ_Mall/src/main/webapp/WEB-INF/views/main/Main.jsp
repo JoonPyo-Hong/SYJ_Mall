@@ -45,6 +45,7 @@
 	window.onload = function() {
 
 		list();
+		img(3);
 	}
 
 	window.addEventListener(
@@ -61,6 +62,23 @@
 							list();
 						}
 					});
+	function img(list_seq){
+		
+        $.ajax({
+            url: "img.action",
+            type : 'post', 
+            data : { 
+            	seq : list_seq,
+            },       	
+            success: function(data){
+               
+            },
+            error: function(){
+                alert("에러");
+            }
+        });
+	}
+	
 	function list() {
 		count = count + 2;
 		$.ajax({
@@ -72,6 +90,7 @@
 			success : function(data) {
 				$(".scroll").empty();
 				$(data).each(function() {
+					
 					var txt = "";
 					var gubn = ""
 					if(this.gubn){
@@ -115,6 +134,7 @@
 					+ "</div>"
 					+ "</div>"
 					);
+					/* alert(this.seq); */
 				}
 
 				);
