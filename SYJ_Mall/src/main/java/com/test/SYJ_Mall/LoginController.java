@@ -262,6 +262,9 @@ public class LoginController {
 		System.out.println(email);
 		System.out.println(phone);
 		
+		
+		int result = logService.findUserId(email,phone);
+		
 		return "/login/UserIdFind";
 	}
 	

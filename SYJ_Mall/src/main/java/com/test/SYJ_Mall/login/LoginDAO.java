@@ -106,6 +106,17 @@ public class LoginDAO implements ILoginDAO {
 		template.insert("SYJDB.errorMsgInput", map);
 		
 	}
+
+	//고객의 아이디 찾아주기
+	@Override
+	public int userFindId(String email, String phone) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("email", email);
+		map.put("phone", phone);
+		
+		return template.selectOne("SYJDB.findUserId",map);
+	}
 	
 	
 }

@@ -393,6 +393,13 @@ public class LoginService implements ILoginService {
 		dao.errorIntoDb(errormsg,ip);
 		
 	}
+	
+	//고객의 아이디 찾아주기
+	@Override
+	public int findUserId(String email, String phone) {
+		
+		return dao.userFindId(email,phone);
+	}
 
 
 	

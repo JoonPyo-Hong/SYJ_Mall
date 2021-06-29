@@ -131,6 +131,14 @@ public interface ILoginService {
 	 * @param ip		에러를 발생시킨 ip
 	 */
 	void errorEruptionTodb(String errormsg, String ip);
+	
+	/**
+	 * 고객의 아이디 찾기
+	 * @param email		이메일 주소
+	 * @param phone		휴대전화번호
+	 * @return			1 : 아이디 존재, -1 : 아이디 없음
+	 */
+	int findUserId(String email, String phone);
 
 	
 	

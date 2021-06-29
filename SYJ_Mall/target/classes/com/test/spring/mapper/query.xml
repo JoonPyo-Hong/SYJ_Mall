@@ -75,5 +75,14 @@
 		
 	</insert>
 	
+	<!-- 고객의 아이디 찾기 -->
+	<select id="findUserId" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.kakao_sign_up_email_check #{fullEmail},@result output
+		select @result
+		
+	</select>	
+	
 
 </mapper>
