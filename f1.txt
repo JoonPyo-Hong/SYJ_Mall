@@ -296,7 +296,7 @@ textarea {
 	border-radius: 2.5px;
 	display: inline-block;
 }
-
+/*
 .left {
 	width: 27px;
 	height: 27px;
@@ -312,7 +312,7 @@ textarea {
 	cursor: pointer;
 	vertical-align: middle;
 }
-
+*/
 .swiper-container {
 	height: 400px;
 	width: 600px;
@@ -342,5 +342,15 @@ textarea {
 	border-radius: 2.5px;
 	border: 1px solid black;
 	display: inline-block
+	}
+	.swiper-button-prev{
+		background-image:url("resources/images/main/arrow-medium-circle-right-white.png");
+	}
+	.swiper-button-next{
+		background-image:url("resources/images/main/arrow-medium-circle-right-white.png");
+		transform: rotate(180deg);
+	}
+	.swiper-button-disabled{
+		display:none;
 	}
 </Style>
