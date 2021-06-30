@@ -145,6 +145,46 @@ function img(list_seq){
             alert("에러");
         }
     });
+    
+    $('.swiper-pagination-bullet').css('background-color', 'rgb(224, 224, 224)');
+	$('.swiper-pagination-bullet').css('margin', '0px 2.5px');
+	$('.swiper-pagination-bullet').css('width', '5px');
+	$('.swiper-pagination-bullet').css('height', '5px');
+	$('.swiper-pagination-bullet').css('border-radius', '2.5px');
+	$('.swiper-pagination-bullet').css('border-radius', '1px solid black');
+	$('.swiper-pagination-bullet').css('display', 'inline-block');
+	
+	$('.swiper-pagination-bullet-active').css('background-color', 'rgb(0, 0, 0)');
+	$('.swiper-pagination-bullet-active').css('margin', '0px 2.5px');
+	$('.swiper-pagination-bullet-active').css('width', '12px');
+	$('.swiper-pagination-bullet-active').css('height', '5px');
+	$('.swiper-pagination-bullet-active').css('border-radius', '2.5px');
+	$('.swiper-pagination-bullet-active').css('border-radius', '1px solid black');
+	$('.swiper-pagination-bullet-active').css('display', 'inline-block');
+	
+	$('.swiper-button-prev').css('background-image', 'url("resources/images/main/arrow-medium-circle-right-white.png")');
+	$('.swiper-button-prev').css('transform', 'rotate(180deg)');
+	$('.swiper-button-next').css('background-image', 'url("resources/images/main/arrow-medium-circle-right-white.png")');
+	$('.swiper-button-prev').css('background-size', '27px');
+	$('.swiper-button-next').css('background-size', '27px');
+	$('.swiper-button-prev').css('width', '27px');
+	$('.swiper-button-prev').css('height', '27px');
+	$('.swiper-button-next').css('width', '27px');
+	$('.swiper-button-next').css('height', '27px');
+	
+	$('.swiper-container').css('height', '400px');
+	$('.swiper-container').css('width', '600px');
+	
+	$('.swiper-slide img').css('height', '400px');
+	$('.swiper-slide img').css('width', '600px');
+	
+	$('.swiper-slide').css('text-align-image', 'center');
+	$('.swiper-slide').css('display', 'flex');
+	$('.swiper-slide').css('align-items', 'center');
+	$('.swiper-slide').css('justify-content', 'center');
+	
+	$('.swiper-button-disabled').css('display', 'none');
+	$('.swiper-pagination').css('margin-top', '50px;'); 
 }
 
 function list() {
