@@ -1,41 +1,7 @@
 
-var imgs;
-var img_count;
-var img_position = 1;
-
-imgs = $(".media div");
-img_count = imgs.children().length;
-
-//버튼을 클릭했을 때 함수 실행
-	$('#left').click(function () {
-	  back();
-	});
-	$('#right').click(function () {
-	  next();
-	});
-	
-	function back() {
-	  if(1<img_position){
-	    imgs.animate({
-	      left:'+=600px'
-	    });
-	    img_position--;
-	  }
-	}
-	function next() {
-	  if(img_count>img_position){
-	    imgs.animate({
-	      left:'-=600px'
-	    });
-	    img_position++;
-	  }
-	}
-		
 	var count = 0;
 	window.onload = function() {
-		
 		list();
-		
 	}
 
 	window.addEventListener(
@@ -62,10 +28,20 @@ img_count = imgs.children().length;
             },       	
             success: function(data){           
                for(var i = 0; i<data.length; i++){
-            	   $("#media_" + list_seq + " div").append("<img class='media_img' src='resources/images/main/" + data[i] + "'></img>");
-            	   $("#media_" + list_seq + " div").width("'"+data.length * 600 + "px'");
-            	   
-               }
+            	   $("#swiper" + list_seq + " div").append("<div class='swiper-slide'><img src='resources/images/main/" + data[i] + "'></img></div>");
+            	 
+				   
+				}
+				new Swiper('#swiper' + list_seq, {
+					pagination : { // 페이징 설정
+						el : '.swiper-pagination',
+						clickable : false, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+					},
+					navigation : { // 네비게이션 설정
+						nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+						prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+					},
+				});
             },
             error: function(){
                 alert("에러");
@@ -102,13 +78,12 @@ img_count = imgs.children().length;
 					+ "</div>"
 					+ "</div>"
 					+ "</div>"
-					+ "<div class='media' id='media_"+ this.seq +"'>"
-					+ "<div>"
-					+ "<span>"
-					+ "<img class='left' src='resources/images/main/arrow-medium-circle-right-white.png'></img>"
-					+ "<img class='right' src='resources/images/main/arrow-medium-circle-right-white.png'></img>"
-					+ "</span>"
+					+ "<div class='swiper-container' id='swiper"+ this.seq +"'>"
+					+ "<div class='swiper-wrapper'>"
 					+ "</div>"
+					+ "<div class='swiper-button-next'></div>"
+					+ "<div class='swiper-button-prev'></div>"
+					+ "<div class='swiper-pagination'></div>"
 					+ "</div>"
 					+ "<div class='etc'>"
 					+ "<span class='etc_1'></span>"
@@ -130,7 +105,7 @@ img_count = imgs.children().length;
 					+ "</div>"
 					+ "</div>"
 					);
-					/* alert(this.seq); */
+					
 					img(this.seq);
 				}
 

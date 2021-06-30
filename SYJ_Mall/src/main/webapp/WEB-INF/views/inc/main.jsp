@@ -154,15 +154,6 @@ body {
 	color: rgb(154, 154, 158);
 }
 
-.media {
-	height: 400px;
-	width: 600px;
-	border: 1px solid black;
-	margin: 0px auto;
-	overflow: hidden;
-	position: relative;
-}
-
 .etc {
 	height: 32px;
 	width: 600px;
@@ -305,40 +296,55 @@ textarea {
 	display: inline-block;
 }
 
-.left {
-	width: 27px;
-	height: 27px;
-	cursor: pointer;
-	transform: rotate(180deg);
-	vertical-align: middle;
-}
-
-.right {
-	float: right;
-	width: 27px;
-	height: 27px;
-	cursor: pointer;
-	vertical-align: middle;
-}
-
-.media span {
-	z-index: 1;
-	width: 600px;
-	position: absolute;
-	top: 180px;
-	padding: 5px;
-}
-
-.media div {
+.swiper-container {
 	height: 400px;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	font-size: 0;
+	width: 600px;
+
 }
 
-.media_img {
-	width: 600px;
-	height: 400px;
+.swiper-slide {
+	text-align: center;
+	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	align-items: center; /* 위아래 기준 중앙정렬 */
+	justify-content: center; /* 좌우 기준 중앙정렬 */
+}
+.swiper-slide img{
+	width: 580px;
+	height: 380px;
+}
+
+.swiper-pagination-bullet {
+	background-color: rgb(224, 224, 224);
+	margin: 0px 2.5px;
+	width: 5px;
+	height: 5px;
+	border-radius: 2.5px;
+	border: 1px solid black;
+	display: inline-block;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: rgb(0, 0, 0);
+	margin: 0px 2.5px;
+	width: 12px;
+	height: 5px;
+	border-radius: 2.5px;
+	border: 1px solid black;
+	display: inline-block
+}
+
+.swiper-button-prev {
+	background-image:
+		url("resources/images/main/arrow-medium-circle-right-white.png");
+		
+}
+
+.swiper-button-next {
+	background-image:
+		url("resources/images/main/arrow-medium-circle-right-white.png");
+	
+
+.swiper-button-disabled {
+	display: none;
 }
 </Style>
