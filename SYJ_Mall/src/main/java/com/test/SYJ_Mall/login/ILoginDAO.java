@@ -73,12 +73,14 @@ public interface ILoginDAO {
 	void errorIntoDb(String errormsg, String ip);
 
 	/**
-	 * 고객의 아이디 찾아주기
-	 * @param email	고객의 이메일 주소
-	 * @param phone	고객의 휴대폰번호 
-	 * @return		1: 고객의 아이디 존재, 2 : 고객의 아이디 존재하지 않음 , -1 : 오류발생
+	 * 유저 아이디 찾아주기
+	 * @param email	유저 이메일
+	 * @param phone	유저 폰번호
+	 * @return		유저 아이디
 	 */
-	int userFindId(String email, String phone);
+	String findUserId(String email, String phone);
+
+	
 	
 	
 }

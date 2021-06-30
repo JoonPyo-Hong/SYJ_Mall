@@ -72,10 +72,13 @@ public interface ILoginService {
 	
 	/**
 	 * 회원가입
-	 * @param request	request 객체
-	 * @return			회원가입 결과 -> 1 : 성공, -1 : 실패
+	 * @param request
+	 * @param dto
+	 * @return	회원가입 결과 -> 1 : 성공, -1 : 실패
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
 	 */
-	int userSignUp(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException;//회원가입 해주는 로직
+	int userSignUp(HttpServletRequest request,SignUpDTO dto) throws NoSuchAlgorithmException, InvalidKeySpecException;//회원가입 해주는 로직
 	
 	/**
 	 * 유저회원가입 - 아이디 검증
@@ -133,12 +136,14 @@ public interface ILoginService {
 	void errorEruptionTodb(String errormsg, String ip);
 	
 	/**
-	 * 고객의 아이디 찾기
-	 * @param email		이메일 주소
-	 * @param phone		휴대전화번호
-	 * @return			1 : 아이디 존재, -1 : 아이디 없음
+	 * 유저 아이디 찾아주기
+	 * @param email	유저 이메일
+	 * @param phone	유저 휴대폰 번호
+	 * @return		유저아이디
 	 */
-	int findUserId(String email, String phone);
+	String findUserId(String email, String phone);
+	
+	
 
 	
 	

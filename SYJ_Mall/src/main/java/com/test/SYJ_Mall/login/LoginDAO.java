@@ -107,9 +107,9 @@ public class LoginDAO implements ILoginDAO {
 		
 	}
 
-	//고객의 아이디 찾아주기
+
 	@Override
-	public int userFindId(String email, String phone) {
+	public String findUserId(String email, String phone) {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
@@ -117,7 +117,5 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.findUserId",map);
 	}
-	
-	
 }
 

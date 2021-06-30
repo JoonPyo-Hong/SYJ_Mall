@@ -200,7 +200,7 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public int userSignUp(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {// 회원가입 로직
+	public int userSignUp(HttpServletRequest request,SignUpDTO dto) throws NoSuchAlgorithmException, InvalidKeySpecException {// 회원가입 로직
 		
 		Map<String, String> map = getRSAkey(request);
 
@@ -233,18 +233,9 @@ public class LoginService implements ILoginService {
 
 		String qoouser_ipaddress = ipCheck(request);
 
-		SignUpDTO dto = new SignUpDTO();
-		dto.setQoouser_id(qoouser_id);
-		dto.setQoouser_pw(qoouser_pw);
-		dto.setQoouser_name(qoouser_name);
-		dto.setQoouser_gender(qoouser_gender);
-		dto.setQoouser_nation(qoouser_nation);
-		dto.setQoouser_birthday(qoouser_birthday);
-		dto.setQoouser_phone_num(qoouser_phone_num);
-		dto.setQoouser_email(qoouser_email);
-		dto.setQoouser_receive_email(qoouser_receive_email);
-		dto.setQoouser_receive_sms(qoouser_receive_sms);
-		dto.setQoouser_ipaddress(qoouser_ipaddress);
+		dto = new SignUpDTO(qoouser_id,qoouser_pw,qoouser_name,qoouser_gender,qoouser_nation,
+							qoouser_birthday,qoouser_phone_num,qoouser_email,qoouser_receive_email,
+							qoouser_receive_sms,qoouser_ipaddress);
 
 		int result = dao.signUp(dto);
 
@@ -394,12 +385,13 @@ public class LoginService implements ILoginService {
 		
 	}
 	
-	//고객의 아이디 찾아주기
+	//유저의 아이디를 찾아줌
 	@Override
-	public int findUserId(String email, String phone) {
+	public String findUserId(String email, String phone) {
 		
-		return dao.userFindId(email,phone);
+		return dao.findUserId(email,phone);
 	}
+	
 
 
 	
