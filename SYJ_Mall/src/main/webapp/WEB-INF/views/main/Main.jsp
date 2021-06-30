@@ -108,6 +108,12 @@ function img(list_seq){
 			$('.swiper-button-prev').css('background-image', 'url("resources/images/main/arrow-medium-circle-right-white.png")');
 			$('.swiper-button-prev').css('transform', 'rotate(180deg)');
 			$('.swiper-button-next').css('background-image', 'url("resources/images/main/arrow-medium-circle-right-white.png")');
+			$('.swiper-button-prev').css('background-size', '27px');
+			$('.swiper-button-next').css('background-size', '27px');
+			$('.swiper-button-prev').css('width', '27px');
+			$('.swiper-button-prev').css('height', '27px');
+			$('.swiper-button-next').css('width', '27px');
+			$('.swiper-button-next').css('height', '27px');
 			
 			$('.swiper-container').css('height', '400px');
 			$('.swiper-container').css('width', '600px');
@@ -121,6 +127,8 @@ function img(list_seq){
 			$('.swiper-slide').css('justify-content', 'center');
 			
 			$('.swiper-button-disabled').css('display', 'none');
+			$('.swiper-pagination').css('margin-top', '50px;');
+			
         },
         error: function(){
             alert("에러");
@@ -168,8 +176,6 @@ function list() {
 				+ "<span class='etc_1'></span>"
 				+ "<img class='etc_2' src='resources/images/main/reply-black.png'></img>"
 				+ "<span class='etc_3'>" 
-				+ "<span class='etc_selected'></span>"
-				+ "<span class='etc_unselected'></span>"
 				+ "</span>"
 				+ "<img class='etc_4' src='resources/images/main/share-black.png'></img>"
 				+ "</div>"
