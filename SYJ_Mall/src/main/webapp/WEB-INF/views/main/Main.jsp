@@ -65,6 +65,11 @@ window.addEventListener(
 						list();
 					}
 				});
+				
+function swiper(list_seq){
+	
+	
+}
 function img(list_seq){
 	
     $.ajax({
@@ -89,7 +94,7 @@ function img(list_seq){
 					prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
 				},
 			});
-			$('.swiper-pagination-bullet').css('background-color', 'rgb(224, 224, 224)');
+			/* $('.swiper-pagination-bullet').css('background-color', 'rgb(224, 224, 224)');
 			$('.swiper-pagination-bullet').css('margin', '0px 2.5px');
 			$('.swiper-pagination-bullet').css('width', '5px');
 			$('.swiper-pagination-bullet').css('height', '5px');
@@ -127,7 +132,13 @@ function img(list_seq){
 			$('.swiper-slide').css('justify-content', 'center');
 			
 			$('.swiper-button-disabled').css('display', 'none');
-			$('.swiper-pagination').css('margin-top', '50px;');
+			$('.swiper-pagination').css('margin-top', '50px;'); */
+			
+		
+
+
+			
+
 			
         },
         error: function(){
