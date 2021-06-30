@@ -102,17 +102,21 @@
             }
         });
         
-        //카카오 계정찾기 누를 경우
+        //1.카카오 계정찾기 누를 경우
         $("#submit_info").click(function(){
         	
-        	console.log("click!");
-        	console.log(emailFlag);
-        	console.log(phoneFlag);
         	if (emailFlag && phoneFlag) {
         		
         		$("#input_form").submit();
         	}
         	
+        });
+        
+      	//2. 엔터키를 통해서 로그인 시도한 경우
+        $("#registeredPhone").keyup(function(e){
+        	if(e.keyCode == 13 && (emailFlag && phoneFlag)) {
+            		$("#input_form").submit();
+        	}
         });
 	        
 
@@ -193,6 +197,7 @@
             }
 
             var isCheck = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g
+            
             if (!isCheck.test(phoneContent)) {
             	$("#phoneerr").text('정확한 전화번호를 입력해주세요.');
             	return false;

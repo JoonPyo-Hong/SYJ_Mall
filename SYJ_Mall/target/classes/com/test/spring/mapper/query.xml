@@ -75,12 +75,12 @@
 		
 	</insert>
 	
-	<!-- 고객의 아이디 찾기 -->
-	<select id="findUserId" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+	<!-- 고객의 아이디 찾기  애 수정해야함-->
+	<select id="findUserId" resultType="String" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
-		declare @result int
-		exec dbo.kakao_sign_up_email_check #{fullEmail},@result output
-		select @result
+		declare @userid varchar(100)
+		exec dbo.kakao_find_user_id #{email},#{phone},@userid output
+		select @userid
 		
 	</select>	
 	

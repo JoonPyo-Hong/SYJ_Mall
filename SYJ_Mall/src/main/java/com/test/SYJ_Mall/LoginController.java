@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
+import com.test.SYJ_Mall.login.SignUpDTO;
 /**
  * 메인 컨트롤러 역할
  * @author shin
@@ -183,12 +184,12 @@ public class LoginController {
 	
 	//회원가입 페이지 - main
 	@RequestMapping(value = "/userSignUpGo.action", method = { RequestMethod.POST })
-	public String signUpGo(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+	public String signUpGo(HttpServletRequest request, HttpServletResponse response,SignUpDTO dto) throws UnsupportedEncodingException {
 		
 		request.setCharacterEncoding("UTF-8");
 		
 		try {
-			int result = logService.userSignUp(request);
+			int result = logService.userSignUp(request,dto);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -263,9 +264,18 @@ public class LoginController {
 		System.out.println(phone);
 		
 		
-		int result = logService.findUserId(email,phone);
+		String userId = logService.findUserId(email,phone);
 		
-		return "/login/UserIdFind";
+		//System.out.println(userId);
+		if (userId==null) {//해당되는 아이디가 없을 경우
+			System.out.println("null");
+			return "/login/UserIdFind";
+		} else {//해당되는 아이디가 있는경우
+			return "/login/UserIdFind";
+		}
+		
+		
+		
 	}
 	
 	
