@@ -266,11 +266,13 @@ public class LoginController {
 		
 		String userId = logService.findUserId(email,phone);
 		
-		//System.out.println(userId);
-		if (userId==null) {//해당되는 아이디가 없을 경우
-			System.out.println("null");
-			return "/login/UserIdFind";
-		} else {//해당되는 아이디가 있는경우
+		if (userId!=null) {//해당되는 아이디가 있는 경우
+			request.setAttribute("phone", phone);
+			request.setAttribute("userId", userId);
+			
+			return "/login/UserIdFindCheck";
+		} else {//해당되는 아이디가 없는경우
+			
 			return "/login/UserIdFind";
 		}
 		
