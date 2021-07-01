@@ -299,7 +299,6 @@ textarea {
 .swiper-container {
 	height: 400px;
 	width: 600px;
-
 }
 
 .swiper-slide {
@@ -308,9 +307,10 @@ textarea {
 	align-items: center; /* 위아래 기준 중앙정렬 */
 	justify-content: center; /* 좌우 기준 중앙정렬 */
 }
-.swiper-slide img{
-	width: 580px;
-	height: 380px;
+
+.swiper-slide img {
+	width: 600px;
+	height: 400px;
 }
 
 .swiper-pagination-bullet {
@@ -330,19 +330,24 @@ textarea {
 	height: 5px;
 	border-radius: 2.5px;
 	border: 1px solid black;
-	display: inline-block
+	display: inline-block;
 }
 
 .swiper-button-prev {
-	background-image:
-		url("resources/images/main/arrow-medium-circle-right-white.png");
-		
+	display: inline-block;
+	background-image: url(resources/images/main/arrow-medium-circle-right-white.png);
+	background-size: 27px 44px;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .swiper-button-next {
-	background-image:
-		url("resources/images/main/arrow-medium-circle-right-white.png");
-	
+	display: inline-block;
+	background-image: url(resources/images/main/arrow-medium-circle-right-white.png);
+	background-size: 27px 44px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
 
 .swiper-button-disabled {
 	display: none;
