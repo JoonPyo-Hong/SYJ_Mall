@@ -57,10 +57,20 @@ public class MainController {
 	@RequestMapping(value = "/img.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object img(@RequestParam("seq") int seq) {
-		System.out.println(seq);
+//		System.out.println(seq);
 		List<String> list = service.img(seq);
-		System.out.println(list.toString());
+//		System.out.println(list.toString());
 		return list;
+	}
+	
+	// 좋아요 갯수
+	@RequestMapping(value = "/heart.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object heart(@RequestParam("num") int num) {
+		System.out.println(num);
+		Integer count = service.heart(num);
+
+		return count;
 	}
 
 }

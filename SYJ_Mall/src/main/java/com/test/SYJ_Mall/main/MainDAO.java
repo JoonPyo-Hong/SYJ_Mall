@@ -8,4 +8,6 @@ public interface MainDAO {
 
 	List<String> img(int seq);
 
+	Integer heart(int num);
+
 }

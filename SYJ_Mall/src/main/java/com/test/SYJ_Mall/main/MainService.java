@@ -10,4 +10,6 @@ public interface MainService {
 
 	List<String> img(int seq);
 
+	Integer heart(int num);
+
 }

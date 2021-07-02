@@ -22,4 +22,10 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return dao.img(seq);
 	}
+
+	@Override
+	public Integer heart(int num) {
+		// TODO Auto-generated method stub
+		return dao.heart(num);
+	}
 }

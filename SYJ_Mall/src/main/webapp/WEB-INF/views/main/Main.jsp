@@ -427,6 +427,22 @@ window.addEventListener(
 						list();
 					}
 				});
+function heart(seq) {
+	$.ajax({
+        url: "heart.action",
+        type : 'post', 
+        data : { 
+        	num : seq,
+        },       	
+        success: function(data){           
+        	$("#content_"+seq+" .txt_1 span").append(" " +data + "개");
+        	
+        },
+        error: function(){
+            alert("에러");
+        }
+    });
+}
 				
 function img(list_seq){
 	
@@ -481,7 +497,7 @@ function list() {
 					gubn = this.gubn;
 				}
 				$(".scroll").append(
-				"<div class ='content'>"
+				"<div class ='content' id = 'content_"+this.seq +"'>"
 				+ "<div class='top'>" 
 				+ "<img class='img_top' src='resources/images/main/" + this.reg_id + ".png'></img>"
 				+ "<div class='txt_top'>"
@@ -507,7 +523,7 @@ function list() {
 				+ "<img class='etc_4' src='resources/images/main/share-black.png'></img>"
 				+ "</div>"
 				+ "<div class='txt_1'>좋아요"
-				+ "<span>213개</span>"
+				+ "<span></span>"
 				+ "</div>"
 				+ "<div class='txt_2'>" + this.title + "</div>"
 				+ "<div class='txt_3'>" + this.contents + "</div>"
@@ -520,6 +536,7 @@ function list() {
 				);
 				
 				img(this.seq);
+				heart(this.seq);
 			}
 
 			);

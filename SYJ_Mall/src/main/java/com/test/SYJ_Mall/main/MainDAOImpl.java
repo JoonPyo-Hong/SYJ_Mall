@@ -24,4 +24,10 @@ public class MainDAOImpl implements MainDAO {
 		return session.selectList("main.img", seq);
 	}
 
+	@Override
+	public Integer heart(int num) {
+		// TODO Auto-generated method stub
+		return session.selectOne("main.heart", num);
+	}
+
 }
