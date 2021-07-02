@@ -15,13 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.main.MainService;
 
-class TIME_MAXIMUM {
-	public static final int SEC = 60;
-	public static final int MIN = 60;
-	public static final int HOUR = 24;
-	public static final int DAY = 30;
-	public static final int MONTH = 12;
-}
 
 /**
  * 메인 페이지 컨트롤러 역할
