@@ -184,7 +184,14 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 }
-
+.etc img{
+	cursor: pointer;
+	z-index: 100;
+}
+.etc span{
+	cursor: pointer;
+	z-index: 100;
+}
 .etc_2 {
 	margin-left: 12px;
 	width: 27px;
