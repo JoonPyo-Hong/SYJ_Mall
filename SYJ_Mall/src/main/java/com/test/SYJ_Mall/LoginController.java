@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
 import com.test.SYJ_Mall.login.SignUpDTO;
@@ -253,30 +255,32 @@ public class LoginController {
 		return "/login/UserIdFind";
 	}
 	
+	
 	//아이디 찾기 확인로직
 	@RequestMapping(value = "/userFindIdCheck.action", method = { RequestMethod.POST })
-	public String findIdCheck(HttpServletRequest request, HttpServletResponse response) {
+	public void findIdCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String email = request.getParameter("inputmail");
 		String phone = request.getParameter("inputphone");
 		
-		System.out.println(email);
-		System.out.println(phone);
+		PrintWriter out = response.getWriter();
+		JSONObject obj = logService.findUserId(email,phone);
+	
+		out.print(obj);
 		
+	}
+	
+	//아이디 찾기 확인로직
+	@RequestMapping(value = "/userFindIdCheckFinal.action", method = { RequestMethod.POST })
+	public String findIdCheckFinal(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String userId = logService.findUserId(email,phone);
-		
-		if (userId!=null) {//해당되는 아이디가 있는 경우
-			request.setAttribute("phone", phone);
-			request.setAttribute("userId", userId);
+		String userId = request.getParameter("throwUserId");
+		String phone = request.getParameter("throwUserPhone");
 			
-			return "/login/UserIdFindCheck";
-		} else {//해당되는 아이디가 없는경우
-			
-			return "/login/UserIdFind";
-		}
+		request.setAttribute("userId", userId);
+		request.setAttribute("phone", phone);
 		
-		
+		return "/login/UserIdFindCheck";
 		
 	}
 	

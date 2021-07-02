@@ -30,8 +30,8 @@
     <hr style="width: 420px;">
 
     <div id = "userinfo" class= "mainframe">
-        <div id = "userid">ssh****@naver.com</div>
-        <div id = "userphone">010-5139-3792</div>
+        <div id = "userid">${userId}</div>
+        <div id = "userphone">${phone}</div>
     </div>
 
     <div id = "userselect" class= "mainframe">

@@ -139,9 +139,9 @@ public interface ILoginService {
 	 * 유저 아이디 찾아주기
 	 * @param email	유저 이메일
 	 * @param phone	유저 휴대폰 번호
-	 * @return		유저아이디
+	 * @return		유저관련 json 객체
 	 */
-	String findUserId(String email, String phone);
+	JSONObject findUserId(String email, String phone);
 	
 	
 
