@@ -122,7 +122,7 @@ body {
 .content {
 	margin: 0px auto;
 	width: 640px;
-	padding: 20px 20px 30px;
+	padding: 20px 20px 0px;
 }
 
 .top {
@@ -312,14 +312,14 @@ textarea {
 }
 
 .swiper-container {
-	height: 400px;
+	height: 440px;
 	width: 600px;
 }
 
 .swiper-slide {
 	text-align: center;
 	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
-	align-items: center; /* 위아래 기준 중앙정렬 */
+	align-items: top; /* 위아래 기준 중앙정렬 */
 	justify-content: center; /* 좌우 기준 중앙정렬 */
 }
 
@@ -369,8 +369,12 @@ textarea {
 .swiper-button-disabled {
 	display: none;
 }
-
-
+.part{
+ 	position: relative;
+ 	top: -45px;
+ 	left: 0;
+	
+}
 </style>
 <title>Main</title>
 
@@ -487,13 +491,14 @@ function list() {
 				+ "</div>"
 				+ "</div>"
 				+ "</div>"
-				+ "<div class='swiper-container' id='swiper"+ this.seq +"'>"
+				+ "<div class='swiper-container' id='swiper"+ this.seq +"'>"	
 				+ "<div class='swiper-wrapper'>"
 				+ "</div>"
 				+ "<div class='swiper-button-next'></div>"
 				+ "<div class='swiper-button-prev'></div>"
-				+ "<div class='swiper-pagination'></div>"
+				+ "<div class='swiper-pagination'></div>"	
 				+ "</div>"
+				+ "<div class='part'>"
 				+ "<div class='etc'>"
 				+ "<span class='etc_1'></span>"
 				+ "<img class='etc_2' src='resources/images/main/reply-black.png'></img>"
@@ -509,6 +514,7 @@ function list() {
 				+ "<div class='txt_4'>" + "댓글 252개" + "</div>"
 				+ "<div class='txt_5'>" + "<span>" + "홍*표" + "</span>" + "내용 입니다." + "</div>"
 				+ "<div class='comment'>" + "<textarea placeholder='댓글을 달아주세요.' disabled></textarea>" + "</div>"
+				+ "</div>"
 				+ "</div>"
 				+ "</div>"
 				);
