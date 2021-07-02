@@ -159,3 +159,38 @@
             height: 20px;
             margin: 0px auto; 
         }
+        
+        /* 모달창 */
+        #myModal > .modal-dialog {
+            width: 420px;
+            height : 200px;
+            margin-top: 300px;
+        }
+        #myModal > .modal-dialog > .modal-content {
+            height : 200px;
+        }
+        #modalcontent {
+            margin-top: 40px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color : #7C7C7C;
+            text-align: center;
+        }
+        #mfooter {
+            border: 0px; 
+            padding: 0px;
+            text-align:center
+        }
+        #mfooter_check {
+            border:0px;
+            width: 350px;
+            height: 45px;
+            background-color: #FEE500;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color: black;
+            border-radius: 5px;
+            outline: none;
+        }
+        #mfooter_check:hover{
+            background-color: #F0D700;
+        }
+        

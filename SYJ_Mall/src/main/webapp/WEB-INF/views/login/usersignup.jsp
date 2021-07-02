@@ -217,7 +217,7 @@
                 type:"GET",
                 url: "/SYJ_Mall/userSignUpIdCheck.action" ,
                 data : "checkid=" + id,
-                datatype : "json",
+                dataType : "json",
                 success : function(result) {
                     
                     if (result == 1) {// 아이디가 중복되지 않는경우
@@ -269,7 +269,7 @@
                 type:"POST",
                 url: "/SYJ_Mall/userSignUpPwCheck.action" ,
                 data : {"checkpw" : pw},
-                datatype : "json",
+                dataType : "json",
                 success : function(result) {
 
                 	
@@ -647,7 +647,7 @@
                 type:"GET",
                 url: "/SYJ_Mall/userEmailVerifyCheck.action" ,
                 data : "fullEmail=" + fullEmail,
-                datatype : "json",
+                dataType : "json",
                 success : function(result) {
                     
                     if (result != 1) {// 아이디가 중복되는경우

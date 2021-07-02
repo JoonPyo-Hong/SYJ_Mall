@@ -22,6 +22,7 @@ import com.common.utill.CommonDate;
 import com.common.utill.Encryption;
 import com.common.utill.IpCheck;
 import com.common.utill.RSAalgorithm;
+import com.common.utill.StringFormatClass;
 
 /**
  * 로그인 서비스 객체
@@ -387,9 +388,23 @@ public class LoginService implements ILoginService {
 	
 	//유저의 아이디를 찾아줌
 	@Override
-	public String findUserId(String email, String phone) {
+	public JSONObject findUserId(String email, String phone) {
 		
-		return dao.findUserId(email,phone);
+		StringFormatClass sfc = new StringFormatClass();
+		String userId = dao.findUserId(email,phone);
+		
+		if (userId != null) {
+			userId = sfc.maskigId(userId);
+		}
+		
+		phone = phone = sfc.getPhoneNumHypoon(phone);
+		
+		JSONObject obj = new JSONObject();
+		
+		obj.put("userId", userId);
+		obj.put("phone", phone);
+		
+		return obj;
 	}
 	
 
