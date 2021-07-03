@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>Insert title here</title>
-<link rel = "stylesheet" href = "resources/css/userlogin/userFindIdCheck.css">
+<link rel = "stylesheet" href = "resources/css/userlogin/userFindIdCheckOk.css">
 </head>
 <body>
     
@@ -27,7 +27,7 @@
         표시됩니다. 
     </div>
     
-    <hr style="width: 420px;">
+    <hr style="width: 350px;">
 
     <div id = "userinfo" class= "mainframe">
         <div id = "userid">${userId}</div>
@@ -38,7 +38,7 @@
         비밀번호 재설정
     </div>
 
-    <hr style="width: 420px;">
+    <hr style="width: 350px;">
 
     <div id = "submit_button" class = "mainframe">
         <input id = "submit_info" type="button" value="로그인" class = "mainframe">

@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>Insert title here</title>
-<link rel = "stylesheet" href = "resources/css/userlogin/userFindId.css">
+<link rel = "stylesheet" href = "resources/css/userlogin/userFindIdNew.css">
 <style>
         /* 모달창 */
         #myModal > .modal-dialog {
-            width: 420px;
+            width: 350px;
             height : 200px;
             margin-top: 300px;
         }
@@ -31,7 +31,7 @@
         }
         #mfooter_check {
             border:0px;
-            width: 350px;
+            width: 320px;
             height: 45px;
             background-color: #FEE500;
             font-family: 'NEXON Lv1 Gothic OTF';

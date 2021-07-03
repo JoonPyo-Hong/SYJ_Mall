@@ -6,7 +6,7 @@
             border : 1px solid #F6F6F6;
             height : 873px;
             margin: 0px auto;
-            width: 494px;
+            width: 370px;
             background-color : #FFFFFF;
         }
 
@@ -25,7 +25,7 @@
         /* 메인프레임 */
         .mainframe {
             /* border : 1px solid red; */
-            width: 420px;
+            width: 350px;
             font-family: 'NEXON Lv1 Gothic OTF';
             margin: 0px auto;
         }
@@ -43,7 +43,7 @@
             color : #7C7C7C;
             height : 80px;
             padding-top: 10px;
-            font-size : 1.1em;
+            font-size : 1em;
         }
 
         /* 회원가입 버튼 */
