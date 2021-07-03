@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +33,20 @@ public class MainController {
 
 	// 메인 화면
 	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
-	public String main(Model model) {
+	public String main(Model model, HttpServletRequest request) {
 //		List<MainDTO> list = service.list();
-
+		HttpSession session = request.getSession();
+		int seq = 0;
+		if(session.getAttribute("userSeq")==null) {
+			seq = 2000018;
+		}else {
+			
+			seq = (Integer)session.getAttribute("userSeq");
+		}
+		model.addAttribute("seq", seq);
+		
+		System.out.println(seq);
+		
 		return "/main/Main";
 	}
 
@@ -60,7 +74,7 @@ public class MainController {
 	@RequestMapping(value = "/heart.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object heart(@RequestParam("num") int num) {
-		System.out.println(num);
+//		System.out.println(num);
 		Integer count = service.heart(num);
 
 		return count;

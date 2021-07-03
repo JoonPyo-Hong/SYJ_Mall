@@ -409,15 +409,26 @@ textarea {
 			<div>인기</div>
 			<div>마이</div>
 		</div>
+		<input type="hidden" value="${seq}}">세션 seq = ${seq}
 		<div class="scroll"></div>
 	</div>
 </body>
 <script type="text/javascript">
 
+$(document).on("click",".etc_1",function(e){
+	
+		
+	if($(e.target).css("background-position") =="-96px 0px"){
+		$(e.target).css('background-position', '0px 0');
+	}else{
+		$(e.target).css('background-position', '-96px 0');	
+	}
+	
+});
+
 var count = 0;
 window.onload = function() {
 	list();
-	
 }
 
 window.addEventListener(
