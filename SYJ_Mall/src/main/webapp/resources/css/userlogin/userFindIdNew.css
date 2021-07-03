@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 
  		/* 전체적인 바디 */
@@ -5,7 +6,7 @@
             border : 1px solid #F6F6F6;
             height : 873px;
             margin: 0px auto;
-            width: 494px;
+            width: 370px;
             background-color : #FFFFFF;
         }
 
@@ -24,7 +25,7 @@
         /* 타이틀 */
         #findtitle {
             /* border : 1px solid red; */
-            width: 420px;
+            width: 350px;
             height : 100px;
             margin: 0px auto;
             padding-top: 30px;
@@ -38,7 +39,7 @@
             /* border : 1px solid red; */
             color : #7C7C7C;
             font-family: 'NEXON Lv1 Gothic OTF';
-            width: 420px;
+            width: 350px;
             height : 60px;
             padding-top: 10px;
             font-size : 1.1em;
@@ -48,7 +49,7 @@
         /* 입력하는곳 제목 */
         .inputtitles {
             /* border : 1px solid red; */
-            width:420px;
+            width:350px;
             margin: 4px auto;
             margin-top:10px;
             font-family: 'NEXON Lv1 Gothic OTF';
@@ -60,7 +61,7 @@
         .inputbox {
             /* border : 1px solid red; */
             border-bottom: 1.5px solid #7C7C7C;
-            width:420px;
+            width:350px;
             height: 34px; 
             margin: 12px auto;
             margin-bottom: 5px;
@@ -69,7 +70,7 @@
         /* 정보 입력하는 곳 - 등록한 이메일 */
         #registeredEmail {
             border: 0px;
-            width:420px;
+            width:350px;
             height: 30px;
             background-color : #FFFFFF;
             font-size : 1.1em;
@@ -87,7 +88,7 @@
         /* 진짜로 전화번호 입력해주는 창 */
         #registeredPhone {
             border: 0px solid red;
-            width:350px;
+            width:275px;
             height: 30px;
             background-color : #FFFFFF;
             font-size : 1.1em;
@@ -155,42 +156,10 @@
         .errmsgs {
             color: red;
             font-family: 'NEXON Lv1 Gothic OTF';
-            width:420px;
+            width:350px;
             height: 20px;
             margin: 0px auto; 
         }
         
-        /* 모달창 */
-        #myModal > .modal-dialog {
-            width: 420px;
-            height : 200px;
-            margin-top: 300px;
-        }
-        #myModal > .modal-dialog > .modal-content {
-            height : 200px;
-        }
-        #modalcontent {
-            margin-top: 40px;
-            font-family: 'NEXON Lv1 Gothic OTF';
-            color : #7C7C7C;
-            text-align: center;
-        }
-        #mfooter {
-            border: 0px; 
-            padding: 0px;
-            text-align:center
-        }
-        #mfooter_check {
-            border:0px;
-            width: 350px;
-            height: 45px;
-            background-color: #FEE500;
-            font-family: 'NEXON Lv1 Gothic OTF';
-            color: black;
-            border-radius: 5px;
-            outline: none;
-        }
-        #mfooter_check:hover{
-            background-color: #F0D700;
-        }
+
         

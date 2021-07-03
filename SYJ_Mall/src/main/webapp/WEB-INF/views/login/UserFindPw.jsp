@@ -11,7 +11,7 @@
 <style>
         /* 모달창 */
         #myModal > .modal-dialog {
-            width: 420px;
+            width: 350px;
             height : 200px;
             margin-top: 300px;
         }
@@ -31,7 +31,7 @@
         }
         #mfooter_check {
             border:0px;
-            width: 350px;
+            width: 320px;
             height: 45px;
             background-color: #FEE500;
             font-family: 'NEXON Lv1 Gothic OTF';

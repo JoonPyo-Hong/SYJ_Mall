@@ -6,7 +6,7 @@
             border : 1px solid #F6F6F6;
             height : 873px;
             margin: 0px auto;
-            width: 494px;
+            width: 370px;
             background-color : #FFFFFF;
         }
 
@@ -24,7 +24,7 @@
         /* 메인프레임 */
         .mainframe {
             /* border : 1px solid red; */
-            width: 420px;
+            width: 350px;
             font-family: 'NEXON Lv1 Gothic OTF';
             margin: 0px auto;
         }
@@ -83,7 +83,7 @@
         /*기입할 내용 제목*/
         .inputtitles {
             /* border : 1px solid red; */
-            width:420px;
+            width:350px;
             margin: 4px auto;
             margin-top:10px;
             font-family: 'NEXON Lv1 Gothic OTF';
@@ -95,14 +95,14 @@
         .inputbox {
             /* border : 1px solid red; */
             border-bottom: 1.5px solid #7C7C7C;
-            width:420px;
+            width:350px;
             height: 34px; 
             margin: 12px auto;
             margin-bottom: 5px;
         }
         .inputboxcontent {
             border: 0px;
-            width:420px;
+            width:350px;
             height: 30px;
             background-color : #FFFFFF;
             font-size : 1.1em;
@@ -115,7 +115,7 @@
             /* border : 1px solid red; */
             color: red;
             font-family: 'NEXON Lv1 Gothic OTF';
-            width:420px;
+            width:350px;
             height: 20px;
             margin: 0px auto; 
             font-size: 0.9em;
@@ -123,13 +123,13 @@
         /* 핸드폰 기입하는곳 */
         #kakaoPhone {
             /* border:1px solid red; */
-            width: 320px;
+            width: 290px;
             float: left;
         }
         /* 자동으로  글자수 늘려주는 폼*/
         #phoneLen {
             /* border: 1px solid blue; */
-            width: 100px;
+            width: 60px;
             float: left;
             height: 30px;
             font-family: 'NEXON Lv1 Gothic OTF';
