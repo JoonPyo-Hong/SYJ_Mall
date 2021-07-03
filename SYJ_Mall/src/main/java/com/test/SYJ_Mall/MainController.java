@@ -45,7 +45,7 @@ public class MainController {
 		}
 		model.addAttribute("seq", seq);
 		
-		System.out.println(seq);
+//		System.out.println(seq);
 		
 		return "/main/Main";
 	}
@@ -78,6 +78,15 @@ public class MainController {
 		Integer count = service.heart(num);
 
 		return count;
+	}
+	
+	// 하트 조회
+	@RequestMapping(value = "/heart_select.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object heart_select(@RequestParam("list_seq") int list_seq, @RequestParam("session_seq") int session_seq) {
+		System.out.println(list_seq);
+		System.out.println(session_seq);
+		return 0;
 	}
 
 }

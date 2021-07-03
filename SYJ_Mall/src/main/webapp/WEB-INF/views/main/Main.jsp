@@ -409,7 +409,7 @@ textarea {
 			<div>인기</div>
 			<div>마이</div>
 		</div>
-		<input type="hidden" value="${seq}}">세션 seq = ${seq}
+		<input type="hidden" id="hid_seq" value="${seq}}">세션 seq = ${seq}
 		<div class="scroll"></div>
 	</div>
 </body>
@@ -425,6 +425,26 @@ $(document).on("click",".etc_1",function(e){
 	}
 	
 });
+
+
+function heart_select(a,b) {
+	$.ajax({
+        url: "heart_select.action",
+        type : 'post', 
+        data : { 
+        	list_seq : a,
+        	session_seq : b
+        },       	
+        success: function(data){           
+        	alert();
+        	
+        },
+        error: function(){
+            alert("에러");
+        }
+    });
+}
+	
 
 var count = 0;
 window.onload = function() {
@@ -552,7 +572,7 @@ function list() {
 				+ "</div>"
 				+ "</div>"
 				);
-				
+				heart_select(this.seq, parseInt($('#hid_seq').val()));				
 				img(this.seq);
 				heart(this.seq);
 			}
