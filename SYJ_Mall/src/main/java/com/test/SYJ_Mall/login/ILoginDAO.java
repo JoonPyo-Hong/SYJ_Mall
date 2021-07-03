@@ -80,6 +80,15 @@ public interface ILoginDAO {
 	 */
 	String findUserId(String email, String phone);
 
+	/**
+	 * 유저 비밀번호 찾기전 해당 아이디가 존재하는지 확인하는 작업
+	 * @param userId	유저 아이디	
+	 * @param userEmail	유저 이메일주소
+	 * @param userPhone	유저 폰번호
+	 * @return			1 : 존재, -1 : 존재하지 않음
+	 */
+	int findUserPwExist(String userId, String userEmail, String userPhone);
+
 	
 	
 	

@@ -157,17 +157,14 @@
         //1.카카오 계정찾기 누를 경우
         $("#submit_info").click(function(){
         	
-        	if (emailFlag && phoneFlag) {
+        	if ((emailFlag == true) && (phoneFlag == true)) {
         		goCheck();
-        		//$("#input_form").submit();
         	}
-        	
         });
         
       	//2. 엔터키를 통해서 로그인 시도한 경우
         $("#registeredPhone").keyup(function(e){
-        	if(e.keyCode == 13 && (emailFlag && phoneFlag)) {
-            		//$("#input_form").submit();
+        	if(e.keyCode == 13 && ((emailFlag == true) && (phoneFlag == true))) {
         		goCheck();
         	}
         });
@@ -176,6 +173,7 @@
       	//일치하는 정보가 있는지 없는지 ajax를 통해 체크후 보내준는 작업
       	function goCheck() {
       		
+      	
       		$.ajax({
                 type:"POST",
                 url: "/SYJ_Mall/userFindIdCheck.action" ,

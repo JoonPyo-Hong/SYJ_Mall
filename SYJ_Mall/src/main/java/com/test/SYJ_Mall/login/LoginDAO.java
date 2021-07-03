@@ -117,5 +117,17 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.findUserId",map);
 	}
+
+	//비밀번호 찾기전 해당 아이디 존재하는지 확인해주는 작업
+	@Override
+	public int findUserPwExist(String userId, String userEmail, String userPhone) {
+		// TODO Auto-generated method stub
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("userEmail", userEmail);
+		map.put("userPhone", userPhone);
+		
+		return template.selectOne("SYJDB.findUserPwExist",map);
+	}
 }
 

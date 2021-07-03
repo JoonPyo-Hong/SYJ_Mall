@@ -22,7 +22,7 @@
     <div id = "detailtitle" class= "mainframe">
         개인정보 보호를 위해 정보 일부를 *로 표시하였습니다.
         <br>
-        카카오계정에 로그인 할 수 있는 이메일 및 전화번호가
+        카카오계정에 로그인 할 수 있는 아이디 및 전화번호가
         <br>
         표시됩니다. 
     </div>
@@ -52,7 +52,16 @@
     
     
     <script>
-           
+        
+    	//비밀번호 재설정 눌렀을 경우 -> 비밀번호 재설정 페이지로 이동!
+    	$("#userselect").click(function(){
+    		location.href = "/SYJ_Mall/userFindpw.action";
+        }); 
+    	
+    	//로그인 버튼 눌렀을 경우
+    	$("#submit_info").click(function(){
+    		location.href = "/SYJ_Mall/login.action";
+    	});
         
 
     </script>

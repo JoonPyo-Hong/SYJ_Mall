@@ -284,13 +284,69 @@ public class LoginController {
 		
 	}
 	
-	
-	
-	
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------------------아이디 찾기--------------------------------------------------------------------*/
 	
-
+	
+	
+	
+	
+	
+	
+	/*---------------------------------------------------비밀번호 찾기--------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	//비밀번호 찾기 로직
+	@RequestMapping(value = "/userFindpw.action", method = { RequestMethod.GET })
+	public String findUserPw(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		
+		return "/login/UserFindPw";
+	}
+	
+	//비밀번호 찾기전 해당 정보가 유효한지 체크해준다.
+	@RequestMapping(value = "/userFindpwCheck.action", method = { RequestMethod.POST })
+	public void findUserPwCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		//여기서 ajax로 넘어온 데이터를 체크하여 존재하는 아이디가 맞고 비밀번호를 바꿀 준비가 되었는지 확인작업을 진행해준다.
+		String userId = request.getParameter("userId");
+		String userEmail = request.getParameter("userEmail");
+		String userPhone = request.getParameter("userPhone");
+		
+		PrintWriter out = response.getWriter();
+		int result = logService.findUserPw(userId,userEmail,userPhone);
+		
+		
+		out.print(result);
+		//return "/login/UserIdFindCheck";
+	}
+	
+	
+	//비밀번호 찾기 -> 비밀번호를 변경해주고 회원 이메일로 변경된 임시비밀번호를 발급해준다.
+	@RequestMapping(value = "/userFindpwSend.action", method = { RequestMethod.POST })
+	public String findUserPwSend(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		//여기서 ajax로 넘어온 데이터를 체크하여 존재하는 아이디가 맞고 비밀번호를 바꿀 준비가 되었는지 확인작업을 진행해준다.
+		String userId = request.getParameter("kakaoId");
+		String userEmail = request.getParameter("kakaoMail");
+		String userPhone = request.getParameter("kakaoPhone");
+		
+		//임시비밀번호 생성
+		
+		
+		return "/login/UserIdFindCheck";
+	}
+	
+	
+	
+	
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------비밀번호 찾기--------------------------------------------------------------------*/
+	
+	
 }

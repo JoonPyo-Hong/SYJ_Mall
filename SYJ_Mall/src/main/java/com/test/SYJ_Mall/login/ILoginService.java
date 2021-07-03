@@ -143,6 +143,17 @@ public interface ILoginService {
 	 */
 	JSONObject findUserId(String email, String phone);
 	
+	/**
+	 * 유저 비밀번호 찾기전 해당 아이디가 존재하는지 확인하는 작업
+	 * @param userId	유저의 아이디
+	 * @param userEmail	유저의 이메일
+	 * @param userPhone	유저의 전화번호
+	 * @return			1 : 존재, -1 : 존재하지 않음
+	 */
+	int findUserPw(String userId, String userEmail, String userPhone);
+	
+	
+	
 	
 
 	

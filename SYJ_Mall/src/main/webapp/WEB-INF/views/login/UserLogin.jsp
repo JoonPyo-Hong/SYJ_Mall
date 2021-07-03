@@ -69,7 +69,7 @@
     <div id = "etcinfo">
         <a target="_self" href = "/SYJ_Mall/userFindId.action">아이디 찾기</a>
         <span class = "bar">|</span>
-        <a target="_self" href = "">비밀번호 찾기</a>
+        <a target="_self" href = "/SYJ_Mall/userFindpw.action">비밀번호 찾기</a>
         <span class = "bar">|</span>
         <a target="_self" href = "/SYJ_Mall/userSignUp.action">회원 가입</a>
     </div>

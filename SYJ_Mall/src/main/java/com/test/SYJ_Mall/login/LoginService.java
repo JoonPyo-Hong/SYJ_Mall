@@ -407,6 +407,13 @@ public class LoginService implements ILoginService {
 		return obj;
 	}
 	
+	//유저의 비밀번호를 찾기전에 아이디가 존재하는지 검증하는 작업
+	@Override
+	public int findUserPw(String userId, String userEmail, String userPhone) {
+		
+		return dao.findUserPwExist(userId,userEmail,userPhone);
+	}
+	
 
 
 	
