@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
 import com.test.SYJ_Mall.login.SignUpDTO;
@@ -334,7 +333,13 @@ public class LoginController {
 		String userEmail = request.getParameter("kakaoMail");
 		String userPhone = request.getParameter("kakaoPhone");
 		
+		
+		System.out.println(userId);
+		System.out.println(userEmail);
+		System.out.println(userPhone);
 		//임시비밀번호 생성
+		int result = logService.sendPw(userId,userEmail,userPhone);
+		
 		
 		
 		return "/login/UserIdFindCheck";

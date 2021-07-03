@@ -107,7 +107,7 @@ public class LoginDAO implements ILoginDAO {
 		
 	}
 
-
+	//고객 아이디 찾아주기
 	@Override
 	public String findUserId(String email, String phone) {
 		
@@ -128,6 +128,20 @@ public class LoginDAO implements ILoginDAO {
 		map.put("userPhone", userPhone);
 		
 		return template.selectOne("SYJDB.findUserPwExist",map);
+	}
+	
+	
+	//유저의 비밀번호를 임시비밀번호로 변경해준다.
+	@Override
+	public int modifyUserPw(String userId, String userEmail, String userPhone, String encInstPw) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("userEmail", userEmail);
+		map.put("userPhone", userPhone);
+		map.put("encInstPw", encInstPw);
+		
+		return template.selectOne("SYJDB.modifyUserPw",map);
 	}
 }
 

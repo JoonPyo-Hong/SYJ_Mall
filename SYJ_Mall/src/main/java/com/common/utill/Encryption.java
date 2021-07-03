@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 /**
  * 비밀번호 암호화작업
  * @author shin
@@ -256,6 +257,26 @@ public class Encryption {
 		}
 		
 	}//returnEncVoca
+	
+	/**
+	 * 아무암호 랜덤으로 던져준다.
+	 * @return	암호
+	 */
+	public String randomPw() {
+		
+		Random rnd = new Random();
+		
+		int pwLen = rnd.nextInt(5) + 7;//임시비밀번호의 길이
+		StringBuffer sb = new StringBuffer();
+		
+		for (int i = 0; i < pwLen; i++) {
+			char ch = (char)(rnd.nextInt(94) + 33);
+			sb.append(ch);
+ 		}
+ 		
+		return sb.toString();
+	}
+	
 	
 }
 

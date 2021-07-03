@@ -91,6 +91,15 @@
 		exec dbo.kakao_find_user_pw_exists #{userId},#{userEmail},#{userPhone},@result output
 		select @result
 		
+	</select>
+	
+	<!-- 고객의 비밀번호를 임시비밀번호로 변경해준다. -->
+	<select id="modifyUserPw" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.kakao_user_modify_pw #{userId},#{userEmail},#{userPhone},#{encInstPw},@result output 
+		select @result
+		
 	</select>	
 	
 

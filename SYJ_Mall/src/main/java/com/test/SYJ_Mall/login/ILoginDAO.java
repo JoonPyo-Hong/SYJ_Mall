@@ -89,6 +89,16 @@ public interface ILoginDAO {
 	 */
 	int findUserPwExist(String userId, String userEmail, String userPhone);
 
+	/**
+	 * 비밀번호를 찾고자하는 유저의 비밀번호를 임시비밀번호로 바꾸어준다.
+	 * @param userId		유저의 아이디
+	 * @param userEmail		유저의 이메일
+	 * @param userPhone		유저의 핸드폰번호
+	 * @param encInstPw		유저의 임시아이디(암호화된 값)
+	 * @return				1 : 성공, -1 : 실패
+	 */
+	int modifyUserPw(String userId, String userEmail, String userPhone, String encInstPw);
+
 	
 	
 	
