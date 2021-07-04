@@ -430,7 +430,7 @@ public class LoginService implements ILoginService {
 		if (modifyResult == 1) {
 			//고객의 메일로 임시비밀번호 발급
 			SendEmail se = new SendEmail();
-			final String NVPW = "x@x&##@P$++*x++P$&+P!+*P";
+			final String NVPW = "@*@#@@#&!!*@&*&@&!&&!!@+";
 			final String NVID = "ssh9308@naver.com";
 			
 			StringBuffer sb = new StringBuffer();
