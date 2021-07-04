@@ -42,11 +42,11 @@ public class MainDAOImpl implements MainDAO {
 		// TODO Auto-generated method stub
 //		System.out.println("dao =" + map.get("gubn"));
 		if(map.get("gubn").equals("I")) {
-			System.out.println("insert");
+//			System.out.println("insert");
 			session.insert("main.heart_insert", map);
 		}else if(map.get("gubn").equals("D")) {
 			session.delete("main.heart_delete", map);
-			System.out.println("delete");
+//			System.out.println("delete");
 		}
 		
 		

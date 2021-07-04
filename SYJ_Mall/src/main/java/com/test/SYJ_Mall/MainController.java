@@ -98,9 +98,9 @@ public class MainController {
 		@RequestMapping(value = "/heart_update.action", method = { RequestMethod.POST })
 		@ResponseBody
 		public void heart_update(@RequestParam("list_seq") String list_seq, @RequestParam("member_seq") String member_seq,@RequestParam("gubn") String gubn) {
-			System.out.println("list_seq =" +list_seq);
-			System.out.println("session_seq =" + member_seq);
-			System.out.println("gubn =" + gubn);
+//			System.out.println("list_seq =" +list_seq);
+//			System.out.println("session_seq =" + member_seq);
+//			System.out.println("gubn =" + gubn);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("list_seq", list_seq);
 			map.put("member_seq", member_seq);
