@@ -20,6 +20,9 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        #kakaopic:hover {
+       		cursor:pointer; 	
+        }
 
         /* 메인프레임 */
         .mainframe {

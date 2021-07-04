@@ -124,6 +124,13 @@
 	  
     <script>
         
+	    /* 카카오사진 눌러주면 로그인창으로 이동 */
+		
+		$("#kakaopic").click(function(){
+			location.href = "/SYJ_Mall/login.action";
+		});
+    
+    
         //1.카카오 아이디 검증
         var kakaoIdFlag = false;
         $("#kakaoId").focus(function(){

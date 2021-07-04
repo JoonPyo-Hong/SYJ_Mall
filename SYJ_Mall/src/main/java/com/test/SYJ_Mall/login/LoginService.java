@@ -50,16 +50,16 @@ public class LoginService implements ILoginService {
 
 		Encryption enc = new Encryption();
 
-		return enc.returnEncVoca(password);
+		return enc.returnEncVoca(password);//?
 	}
 	
 	//맨처음 로그인할때 광고,rsa키 지정해주는곳
 	@Override
 	public int firstLoginStep(HttpServletRequest request,int errorCode,int comeCount) {
 		
-		int error = 0;
+		int error = 0;//에러처리
 		Random rnd = new Random();
-		List<AdverDTO> dtoList = dao.getAdvertiseInfo();
+		List<AdverDTO> dtoList = dao.getAdvertiseInfo();//광고관련
 
 		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 적용하고 지금은 "랜덤"으로 처리해준다.
 		// ----광고관련----
@@ -447,6 +447,15 @@ public class LoginService implements ILoginService {
 			return -1;
 		}
 
+	}
+	
+	//회원가입 - 고객이 입력한 전화번호가 중복이 되는지 체크 
+	@Override
+	public int userPhoneNumVerify(HttpServletRequest request) {
+		
+		String userPhoneNum = request.getParameter("phoneNum");
+		
+		return dao.phoneVerifyCheck(userPhoneNum);
 	}
 	
 

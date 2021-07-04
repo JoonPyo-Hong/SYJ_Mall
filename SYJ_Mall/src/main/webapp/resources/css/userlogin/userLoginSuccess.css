@@ -17,6 +17,9 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        #kakaopic:hover {
+        	cursor:pointer;
+        }
 
         /* 축하글 */
         #congwriter {

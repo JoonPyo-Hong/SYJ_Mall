@@ -24,6 +24,11 @@
 		$("#gologin").click(function(){
 			location.href = "/SYJ_Mall/login.action";
 		});
+		
+    	/* 카카오사진 눌러주면 로그인창으로 이동 */
+		$("#kakaopic").click(function(){
+			location.href = "/SYJ_Mall/login.action";
+		});
 	 
 	 </script>
 	

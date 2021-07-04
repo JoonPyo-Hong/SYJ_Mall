@@ -13,6 +13,10 @@
             width:100%;
             height : 100%;
         }
+		/* 카카오사진 눌러주면 로그인창으로 이동 -> hover */
+		#qoo10login:hover {
+			cursor : pointer;
+		}
         /* 전체적인 바디 */
         body {
             /* border : 1px solid red; */

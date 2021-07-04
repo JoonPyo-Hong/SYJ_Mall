@@ -80,7 +80,11 @@
 
 
     <script>
-        
+    	/* 카카오사진 눌러주면 로그인창으로 이동 */
+		$("#qoo10login").click(function(){
+			location.href = "/SYJ_Mall/login.action";
+		});       
+    	
     	<c:if test="${not empty comeCount}">
     	setTimeout(function(){
         	$("#qoo10login").css("width","200px")

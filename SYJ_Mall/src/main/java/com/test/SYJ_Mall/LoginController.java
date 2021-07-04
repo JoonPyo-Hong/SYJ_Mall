@@ -41,7 +41,7 @@ public class LoginController {
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 
 
-		int result = logService.firstLoginStep(request,0,0);
+		int result = logService.firstLoginStep(request,0,0);//result : 0 -> 에러없음
 		
 		if (result == 0) return "/login/UserLogin";//에러가 없는경우 -> 로그인 페이지로 넘겨준다.
 		else return "/testwaiting/kakaoerror";//에러페이지로 보내준다.
@@ -54,7 +54,7 @@ public class LoginController {
 	public String loginVerification(HttpServletRequest request, HttpServletResponse response) {
 			
 			String ip = "";//아이피 주소
-			
+
 			try {
 				request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
 				
@@ -65,8 +65,7 @@ public class LoginController {
 				String id = map.get("id");//아이디
 				String pw = map.get("pw");//비밀번호
 				
-				
-				String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
+				String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.--> 여기서 문제가 생기는거 같은데.
 			
 				
 				List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
@@ -226,6 +225,17 @@ public class LoginController {
 		
 		PrintWriter out = response.getWriter();
 		int result = logService.userEmailVerify(request);
+		
+		out.print(result);
+	}
+	
+	//회원가입 페이지 - 사용자 전화번호  검증(ajax)
+	@RequestMapping(value = "/userPhoneVerifyCheck.action", method = { RequestMethod.GET })
+	public void phoneNumVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		PrintWriter out = response.getWriter();
+		int result = logService.userPhoneNumVerify(request);
+		
 		
 		out.print(result);
 	}

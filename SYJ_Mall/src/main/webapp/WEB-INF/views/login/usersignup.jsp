@@ -172,8 +172,13 @@
     
 
     <script>
-        
+    
+    	/* 카카오사진 눌러주면 로그인창으로 이동 */
+		$("#qoo10login").click(function(){
+			location.href = "/SYJ_Mall/login.action";
+		});
 
+    
         //----------------------------------------------------------------------------유효성 검증-----------------------------------------------------------------------------------
 		
         //객체 id, 지정할 color, 띄워줄 문자열
@@ -690,6 +695,7 @@
         	phoneFlag = false;
         	
         	if (phoneCheck()) {
+        		commondel('phoneerrmsg');
         		phoneFlag = true;
         	}
         });
@@ -705,23 +711,42 @@
         		return false;
         	}
         	
-        	if(phoneVal.length != 11) {
+        	//아래조건은 필요없을듯
+        	/*if(phoneVal.length != 11) {
         		common('phoneerrmsg','red','휴대전화번호를 확인해주십시오.');
         		return false;
-        	}
+        	} */
         	
         	var isCheck = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g
         	
         	if(!isCheck.test(phoneVal)) {
+        		common('phoneerrmsg','red','휴대전화번호를 확인해주십시오.');
         		return false;
         	}
+       		//휴대전화번호가 중복되는지 체크
+        	$.ajax({
+                type:"GET",
+                url: "/SYJ_Mall/userPhoneVerifyCheck.action" ,
+                data : "phoneNum=" + phoneVal,
+                dataType : "json",
+                success : function(result) {
+                    
+                	console.log(result);
+                	
+                    if (result != 1) {// 번호가 중복되는경우
+                    	common('phoneerrmsg','red','이미 사용중인 휴대전화 번호입니다.');
+                    	return false;
+                    }
+                },
+                error: function(a,b,c) {
+                	console.log("에러인가?");
+					console.log(a,b,c);
+				}
+            });
         	
         	return true;
         }
-        
-        
-        
-        
+
         //11. sms 발송 동의 유무 선택
         var smsFlag = false;
         $("#sms_selected").blur(function(){

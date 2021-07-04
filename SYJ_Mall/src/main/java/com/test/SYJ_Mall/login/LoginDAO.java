@@ -143,5 +143,12 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.modifyUserPw",map);
 	}
+
+	//회원가입 - 고객이 입력한 핸드폰번호가 중복되는지 체크
+	@Override
+	public int phoneVerifyCheck(String userPhoneNum) {
+		
+		return template.selectOne("SYJDB.userPhoneNumCheck",userPhoneNum);
+	}
 }
 

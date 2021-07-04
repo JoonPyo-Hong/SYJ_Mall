@@ -125,6 +125,12 @@
 	      
     <script>
         
+    	/* 카카오사진 눌러주면 로그인창으로 이동 */
+		$("#kakaopic").click(function(){
+			location.href = "/SYJ_Mall/login.action";
+		});
+    	
+    
         var emailFlag = false;
         $("#registeredEmail").focus(function(){
             bottomcursorfocus($(this).attr('id'),1);

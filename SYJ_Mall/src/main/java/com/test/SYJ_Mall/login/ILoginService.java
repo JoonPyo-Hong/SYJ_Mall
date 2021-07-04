@@ -161,6 +161,13 @@ public interface ILoginService {
 	 */
 	int sendPw(String userId, String userEmail, String userPhone);
 	
+	/**
+	 * 회원가입 - 고객이 입력한 전화번호가 중복되지 않는지 체크
+	 * @param request	request 객체	
+	 * @return			1 : 중복안됨, -1 : 중복됨
+	 */
+	int userPhoneNumVerify(HttpServletRequest request);
+	
 
 	
 	

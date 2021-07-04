@@ -163,7 +163,7 @@ public class Encryption {
 		List<String> result = new ArrayList<String>();
 		
 		//암호변환작업 1 -> encoding
-		for (int i = 0; i < input.length(); i++) {
+		for (int i = 0; i < input.length(); i++) {//여기서 오류가 발생함.
 			
 			String str = input.substring(i,i+1);
 			

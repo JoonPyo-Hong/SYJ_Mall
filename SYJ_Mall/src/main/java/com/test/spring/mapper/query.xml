@@ -66,6 +66,15 @@
 		
 	</select>
 	
+	<!-- 회원 핸드폰번호 체크 -->
+	<select id="userPhoneNumCheck" resultType="Integer" parameterType="String" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.kakao_sign_up_phone_num_check #{userPhoneNum},@result output
+		select @result
+		
+	</select>
+	
 	<!--에러요인 집어넣어주기  -->
 	<insert id="errorMsgInput" parameterType="java.util.HashMap" statementType="CALLABLE">
 		

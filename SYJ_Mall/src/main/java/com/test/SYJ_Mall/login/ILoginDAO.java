@@ -99,6 +99,13 @@ public interface ILoginDAO {
 	 */
 	int modifyUserPw(String userId, String userEmail, String userPhone, String encInstPw);
 
+	/**
+	 * 회원가입 - 고객이 입력한 전화번호가 중복되지 않는지 체크한다.
+	 * @param userPhoneNum	고객의 전화번호
+	 * @return				1 : 중복안됨, -1 : 중복
+	 */
+	int phoneVerifyCheck(String userPhoneNum);
+
 	
 	
 	
