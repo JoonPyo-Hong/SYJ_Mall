@@ -20,4 +20,8 @@
 	<select id="heart" resultType="int" parameterType="int">
 	select count(*) from main_heart with (nolock) where list_seq = #{num}
 	</select>
+	<select id="heart_select" resultType="int" parameterType="java.util.HashMap">
+	select count(*) from dbo.main_heart with(nolock) where list_seq = #{list_seq} and member_seq= #{session_seq}
+	</select>
+	
 </mapper>

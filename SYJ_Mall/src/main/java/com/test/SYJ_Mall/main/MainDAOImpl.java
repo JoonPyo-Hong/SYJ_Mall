@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.main;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -28,6 +29,12 @@ public class MainDAOImpl implements MainDAO {
 	public Integer heart(int num) {
 		// TODO Auto-generated method stub
 		return session.selectOne("main.heart", num);
+	}
+
+	@Override
+	public Integer heart_select(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("main.heart_select", map);
 	}
 
 }

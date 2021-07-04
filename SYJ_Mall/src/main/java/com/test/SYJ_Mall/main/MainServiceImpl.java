@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.main;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,11 @@ public class MainServiceImpl implements MainService {
 	public Integer heart(int num) {
 		// TODO Auto-generated method stub
 		return dao.heart(num);
+	}
+
+	@Override
+	public Integer heart_select(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return dao.heart_select(map);
 	}
 }

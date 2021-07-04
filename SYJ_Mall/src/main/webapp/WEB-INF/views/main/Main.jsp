@@ -436,8 +436,8 @@ function heart_select(a,b) {
         	session_seq : b
         },       	
         success: function(data){           
-        	alert();
-        	
+  
+        		alert(data);
         },
         error: function(){
             alert("에러");

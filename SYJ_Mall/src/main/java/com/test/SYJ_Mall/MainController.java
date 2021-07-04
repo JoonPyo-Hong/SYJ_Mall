@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,9 +85,14 @@ public class MainController {
 	@RequestMapping(value = "/heart_select.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object heart_select(@RequestParam("list_seq") int list_seq, @RequestParam("session_seq") int session_seq) {
-		System.out.println(list_seq);
-		System.out.println(session_seq);
-		return 0;
+//		System.out.println(list_seq);
+//		System.out.println(session_seq);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("list_seq", list_seq);
+		map.put("session_seq", session_seq);
+		Integer count = service.heart_select(map);
+		System.out.println(count);
+		return true;
 	}
 
 }
