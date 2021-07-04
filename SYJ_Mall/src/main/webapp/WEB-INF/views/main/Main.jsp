@@ -436,8 +436,11 @@ function heart_select(a,b) {
         	session_seq : b
         },       	
         success: function(data){           
-  
-        		alert(data);
+  				
+  				if(data!=0){
+  					$("#content_" + a + " .etc_1").css('background-position', '-96px 0');
+  				}
+        		
         },
         error: function(){
             alert("에러");
