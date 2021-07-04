@@ -23,5 +23,11 @@
 	<select id="heart_select" resultType="int" parameterType="java.util.HashMap">
 	select count(*) from dbo.main_heart with(nolock) where list_seq = #{list_seq} and member_seq= #{session_seq}
 	</select>
-	
+	<insert id="heart_insert" parameterType="java.util.HashMap">
+		insert into dbo.main_heart values(#{list_seq},#{member_seq})
+	</insert>
+	<delete id="heart_delete" parameterType="java.util.HashMap">
+		delete dbo.main_heart where list_seq = #{list_seq} and member_seq = #{member_seq}
+	</delete>
+		
 </mapper>

@@ -37,4 +37,19 @@ public class MainDAOImpl implements MainDAO {
 		return session.selectOne("main.heart_select", map);
 	}
 
+	@Override
+	public void heart_update(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+//		System.out.println("dao =" + map.get("gubn"));
+		if(map.get("gubn").equals("I")) {
+			System.out.println("insert");
+			session.insert("main.heart_insert", map);
+		}else if(map.get("gubn").equals("D")) {
+			session.delete("main.heart_delete", map);
+			System.out.println("delete");
+		}
+		
+		
+	}
+
 }

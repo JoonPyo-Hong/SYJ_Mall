@@ -85,14 +85,29 @@ public class MainController {
 	@RequestMapping(value = "/heart_select.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object heart_select(@RequestParam("list_seq") int list_seq, @RequestParam("session_seq") int session_seq) {
-		System.out.println("list_seq =" +list_seq);
-		System.out.println("session_seq =" +session_seq);
+//		System.out.println("list_seq =" +list_seq);
+//		System.out.println("session_seq =" +session_seq);
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("list_seq", list_seq);
 		map.put("session_seq", session_seq);
 		Integer count = service.heart_select(map);
-		System.out.println("count =" + count);
+//		System.out.println("count =" + count);
 		return count;
 	}
+	// 좋아요 처리 (Insert, Delete)
+		@RequestMapping(value = "/heart_update.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public void heart_update(@RequestParam("list_seq") String list_seq, @RequestParam("member_seq") String member_seq,@RequestParam("gubn") String gubn) {
+			System.out.println("list_seq =" +list_seq);
+			System.out.println("session_seq =" + member_seq);
+			System.out.println("gubn =" + gubn);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("list_seq", list_seq);
+			map.put("member_seq", member_seq);
+			map.put("gubn", gubn);
+			
+			service.heart_update(map);
+			
+		}
 
 }

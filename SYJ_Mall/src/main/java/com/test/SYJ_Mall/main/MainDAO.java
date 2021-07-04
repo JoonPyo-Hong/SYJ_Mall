@@ -13,4 +13,6 @@ public interface MainDAO {
 
 	Integer heart_select(HashMap<String, Integer> map);
 
+	void heart_update(HashMap<String, String> map);
+
 }

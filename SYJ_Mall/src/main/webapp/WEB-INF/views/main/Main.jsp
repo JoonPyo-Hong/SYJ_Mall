@@ -417,13 +417,34 @@ textarea {
 
 $(document).on("click",".etc_1",function(e){
 	
-		
+	var l_seq = $(e.target).parent().parent().parent().attr('id').replace("content_","");	
+	var m_seq = parseInt($('#hid_seq').val());
+	var type = "";
+	
 	if($(e.target).css("background-position") =="-96px 0px"){
 		$(e.target).css('background-position', '0px 0');
+		type = "D";
 	}else{
-		$(e.target).css('background-position', '-96px 0');	
+		$(e.target).css('background-position', '-96px 0');
+		type = "I";
 	}
-	
+	$.ajax({
+        url: "heart_update.action",
+        type : 'post', 
+        data : { 
+        	list_seq :l_seq,
+        	member_seq : m_seq,
+        	gubn : type
+        },       	
+        success: function(data){           
+  				
+
+        		
+        },
+        error: function(){
+            alert("에러");
+        }
+    });
 });
 
 

@@ -35,4 +35,10 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return dao.heart_select(map);
 	}
+
+	@Override
+	public void heart_update(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		dao.heart_update(map);
+	}
 }
