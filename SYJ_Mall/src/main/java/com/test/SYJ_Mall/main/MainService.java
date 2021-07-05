@@ -7,7 +7,7 @@ import java.util.List;
 public interface MainService {
 
 
-	List<MainDTO> list(int num);
+	List<MainDTO> list(HashMap<String, Integer> map);
 
 	List<String> img(int seq);
 

@@ -7,12 +7,12 @@
 <mapper namespace="main">
 
 	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO" parameterType="int">
-	SELECT top(#{num})
+	SELECT
 	seq, reg_id,
 	reg_dt, gubn,
 	title, contents
 	FROM
-	dbo.main_list with(nolock) order by seq desc
+	dbo.main_list with(nolock) where (seq BETWEEN #{num1} AND #{num2}) order by seq desc
 	</select>
 	<select id="img" resultType="string" parameterType="int">
 	select img_nm from main_img with(nolock) where list_seq = #{seq}

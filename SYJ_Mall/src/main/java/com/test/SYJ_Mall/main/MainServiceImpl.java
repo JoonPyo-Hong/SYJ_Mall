@@ -13,9 +13,9 @@ public class MainServiceImpl implements MainService {
 	private MainDAO dao;
 
 	@Override
-	public List<MainDTO> list(int num) {
+	public List<MainDTO> list(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
-		return dao.list(num);
+		return dao.list(map);
 	}
 
 	@Override
@@ -41,4 +41,6 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		dao.heart_update(map);
 	}
+
+
 }

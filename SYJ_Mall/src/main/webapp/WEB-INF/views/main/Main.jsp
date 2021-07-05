@@ -549,7 +549,7 @@ function list() {
 			num : count,
 		},
 		success : function(data) {
-			$(".scroll").empty();
+			
 			$(data).each(function() {
 				
 				var txt = "";

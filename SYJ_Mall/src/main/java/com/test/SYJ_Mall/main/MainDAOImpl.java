@@ -3,7 +3,6 @@ package com.test.SYJ_Mall.main;
 import java.util.HashMap;
 import java.util.List;
 
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,14 +13,13 @@ public class MainDAOImpl implements MainDAO {
 	private SqlSession session;
 
 	@Override
-	public List<MainDTO> list(int num) {
-		
-		return session.selectList("main.list", num);
+	public List<MainDTO> list(HashMap<String, Integer> map) {
+		return session.selectList("main.list", map);
 	}
 
 	@Override
 	public List<String> img(int seq) {
-		
+
 		return session.selectList("main.img", seq);
 	}
 
@@ -41,15 +39,14 @@ public class MainDAOImpl implements MainDAO {
 	public void heart_update(HashMap<String, String> map) {
 		// TODO Auto-generated method stub
 //		System.out.println("dao =" + map.get("gubn"));
-		if(map.get("gubn").equals("I")) {
+		if (map.get("gubn").equals("I")) {
 //			System.out.println("insert");
 			session.insert("main.heart_insert", map);
-		}else if(map.get("gubn").equals("D")) {
+		} else if (map.get("gubn").equals("D")) {
 			session.delete("main.heart_delete", map);
 //			System.out.println("delete");
 		}
-		
-		
+
 	}
 
 }

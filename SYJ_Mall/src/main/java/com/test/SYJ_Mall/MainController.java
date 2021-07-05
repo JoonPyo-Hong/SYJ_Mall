@@ -56,7 +56,12 @@ public class MainController {
 	@ResponseBody
 	public Object list(@RequestParam("num") int num) {
 //		System.out.println(num);
-		List<MainDTO> list = service.list(num);
+		Integer num1 = num -1;
+		Integer num2 = num;
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("num1", num1);
+		map.put("num2", num2);
+		List<MainDTO> list = service.list(map);
 
 		return list;
 	}
