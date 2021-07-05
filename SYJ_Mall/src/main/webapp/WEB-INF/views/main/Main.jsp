@@ -184,14 +184,17 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 }
-.etc img{
+
+.etc img {
 	cursor: pointer;
 	z-index: 100;
 }
-.etc span{
+
+.etc span {
 	cursor: pointer;
 	z-index: 100;
 }
+
 .etc_2 {
 	margin-left: 12px;
 	width: 27px;
@@ -357,7 +360,8 @@ textarea {
 
 .swiper-button-prev {
 	display: inline-block;
-	background-image: url(resources/images/main/arrow-medium-circle-right-white.png);
+	background-image:
+		url(resources/images/main/arrow-medium-circle-right-white.png);
 	background-size: 27px 27px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -366,21 +370,84 @@ textarea {
 
 .swiper-button-next {
 	display: inline-block;
-	background-image: url(resources/images/main/arrow-medium-circle-right-white.png);
+	background-image:
+		url(resources/images/main/arrow-medium-circle-right-white.png);
 	background-size: 27px 27px;
 	background-position: center;
 	background-repeat: no-repeat;
-	
 }
 
 .swiper-button-disabled {
 	display: none;
 }
-.part{
- 	position: relative;
- 	top: -45px;
- 	left: 0;
-	
+
+.part {
+	position: relative;
+	top: -45px;
+	left: 0;
+}
+
+#modal {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	overflow-y: auto;
+}
+
+.modal-con {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 60%;
+	min-height: 30%;
+	background: #fff;
+	z-index: 1000;
+	overflow-y: auto;
+}
+
+.modal-con .title {
+	font-size: 20px;
+	padding: 20px;
+	background: gold;
+	z-index: 1000;
+	overflow-y: auto;
+}
+
+.modal-con .con {
+	font-size: 15px;
+	line-height: 1.3;
+	padding: 30px;
+	z-index: 1000;
+	overflow-y: auto;
+}
+
+.modal-con .close {
+	display: block;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: 3px solid #000;
+	text-align: center;
+	line-height: 30px;
+	text-decoration: none;
+	color: #000;
+	font-size: 20px;
+	font-weight: bold;
+	right: 10px;
+	top: 10px;
+	z-index: 1000;
+}
+
+body.s_no-scroll {
+	overflow-y: hidden;
 }
 </style>
 <title>Main</title>
@@ -409,207 +476,257 @@ textarea {
 			<div>인기</div>
 			<div>마이</div>
 		</div>
-		<input type="hidden" id="hid_seq" value="${seq}}">세션 seq = ${seq}
+		<input type="hidden" id="hid_seq" value="${seq}}">세션 seq =
+		${seq}
 		<div class="scroll"></div>
+		<a href="javascript:openModal('modal1');" class="button modal-open">모달열기1</a>
+	</div>
+	<div id="modal"></div>
+	<div class="modal-con modal1">
+		<a href="javascript:;" class="close">X</a>
+		<p class="title">모달</p>
+		<div class="con">내용Lorem Ipsum is simply dummy text of the
+			printing and typesetting industry. Lorem Ipsum has been the
+			industry's standard dummy text ever since the 1500s, when an unknown
+			printer took a galley of type and scrambled it to make a type
+			specimen book.</div>
 	</div>
 </body>
 <script type="text/javascript">
-
-$(document).on("click",".etc_1",function(e){
-	
-	var l_seq = $(e.target).parent().parent().parent().attr('id').replace("content_","");	
-	var m_seq = parseInt($('#hid_seq').val());
-	var type = "";
-	
-	if($(e.target).css("background-position") =="-96px 0px"){
-		$(e.target).css('background-position', '0px 0');
-		type = "D";
-		
-	}else{
-		$(e.target).css('background-position', '-96px 0');
-		type = "I";
-		
+	function openModal(modalname) {
+		document.get
+		$("#modal").fadeIn(300);
+		$("." + modalname).fadeIn(300);
+		document.body.classList.add('s_no-scroll');
 	}
-	$.ajax({
-        url: "heart_update.action",
-        type : 'post', 
-        data : { 
-        	list_seq :l_seq,
-        	member_seq : m_seq,
-        	gubn : type
-        },       	
-        success: function(data){           
-        	heart(l_seq);
-        },
-        error: function(){
-            alert("에러");
-        }
-    });
-});
 
+	$("#modal, .close").on('click', function() {
+		$("#modal").fadeOut(300);
+		$(".modal-con").fadeOut(300);
+		document.body.classList.remove('s_no-scroll');
 
-function heart_select(a,b) {
-	$.ajax({
-        url: "heart_select.action",
-        type : 'post', 
-        data : { 
-        	list_seq : a,
-        	session_seq : b
-        },       	
-        success: function(data){           
-  				
-  				if(data!=0){
-  					$("#content_" + a + " .etc_1").css('background-position', '-96px 0');
-  				}
-        		
-        },
-        error: function(){
-            alert("에러");
-        }
-    });
-}
-	
+	});
+	$(document).on(
+			"click",
+			".etc_1",
+			function(e) {
 
-var count = 0;
-window.onload = function() {
-	list();
-}
+				var l_seq = $(e.target).parent().parent().parent().attr('id')
+						.replace("content_", "");
+				var m_seq = parseInt($('#hid_seq').val());
+				var type = "";
 
-window.addEventListener(
-				"scroll",
-				function() {
-					const SCROLLED_HEIGHT = window.scrollY;
-					const WINDOW_HEIGHT = window.innerHeight;
-					const DOC_TOTAL_HEIGHT = document.body.offsetHeight;
+				if ($(e.target).css("background-position") == "-96px 0px") {
+					$(e.target).css('background-position', '0px 0');
+					type = "D";
 
-					const IS_BOTTOM = WINDOW_HEIGHT + SCROLLED_HEIGHT === DOC_TOTAL_HEIGHT;
+				} else {
+					$(e.target).css('background-position', '-96px 0');
+					type = "I";
 
-					if (IS_BOTTOM) {
-						console.log("스크롤바 이벤트");
-						list();
+				}
+				$.ajax({
+					url : "heart_update.action",
+					type : 'post',
+					data : {
+						list_seq : l_seq,
+						member_seq : m_seq,
+						gubn : type
+					},
+					success : function(data) {
+						heart(l_seq);
+					},
+					error : function() {
+						alert("에러");
 					}
 				});
-function heart(seq) {
-	$.ajax({
-        url: "heart.action",
-        type : 'post', 
-        data : { 
-        	num : seq,
-        },       	
-        success: function(data){           
-        	/* $("#content_"+seq+" .txt_1 span").append(" " +data + "개"); */
-        	$("#content_"+seq+" .txt_1 span").text(" " +data + "개");
-        	
-        },
-        error: function(){
-            alert("에러");
-        }
-    });
-}
-				
-function img(list_seq){
-	
-    $.ajax({
-        url: "img.action",
-        type : 'post', 
-        data : { 
-        	seq : list_seq,
-        },       	
-        success: function(data){           
-           for(var i = 0; i<data.length; i++){
-        	   $("#swiper" + list_seq + " .swiper-wrapper").append("<div class='swiper-slide'><img src='resources/images/main/" + data[i] + "'></img></div>");
-        	 
-			   
-			}
-			new Swiper('#swiper' + list_seq, {
-				allowTouchMove : false, 
-				watchOverflow : true,
-				pagination : { // 페이징 설정
-					el : '.swiper-pagination',
-					clickable : false, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
-				},
-				navigation : { // 네비게이션 설정
-					nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-					prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-				},
 			});
-			
-        },
-        error: function(){
-            alert("에러");
-        }
-    });
-}
 
-function list() {
-	count = count + 2;
-	$.ajax({
-		url : "list.action",
-		type : 'post',
-		data : {
-			num : count,
-		},
-		success : function(data) {
-			
-			$(data).each(function() {
-				
-				var txt = "";
-				var gubn = ""
-				if(this.gubn){
-					txt = " · ";
-					gubn = this.gubn;
+	function heart_select(a, b) {
+		$.ajax({
+			url : "heart_select.action",
+			type : 'post',
+			data : {
+				list_seq : a,
+				session_seq : b
+			},
+			success : function(data) {
+
+				if (data != 0) {
+					$("#content_" + a + " .etc_1").css('background-position',
+							'-96px 0');
 				}
-				$(".scroll").append(
-				"<div class ='content' id = 'content_"+this.seq +"'>"
-				+ "<div class='top'>" 
-				+ "<img class='img_top' src='resources/images/main/" + this.reg_id + ".png'></img>"
-				+ "<div class='txt_top'>"
-				+ "<p>" + this.reg_id + "</p>"
-				+ "<div>"
-				+ "<span>" + gubn + "</span><span>" + txt + this.reg_dt + "</span>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "<div class='swiper-container' id='swiper"+ this.seq +"'>"	
-				+ "<div class='swiper-wrapper'>"
-				+ "</div>"
-				+ "<div class='swiper-button-next'></div>"
-				+ "<div class='swiper-button-prev'></div>"
-				+ "<div class='swiper-pagination'></div>"	
-				+ "</div>"
-				+ "<div class='part'>"
-				+ "<div class='etc'>"
-				+ "<span class='etc_1'></span>"
-				+ "<img class='etc_2' src='resources/images/main/reply-black.png'></img>"
-				+ "<span class='etc_3'>" 
-				+ "</span>"
-				+ "<img class='etc_4' src='resources/images/main/share-black.png'></img>"
-				+ "</div>"
-				+ "<div class='txt_1'>좋아요"
-				+ "<span></span>"
-				+ "</div>"
-				+ "<div class='txt_2'>" + this.title + "</div>"
-				+ "<div class='txt_3'>" + this.contents + "</div>"
-				+ "<div class='txt_4'>" + "댓글 252개" + "</div>"
-				+ "<div class='txt_5'>" + "<span>" + "홍*표" + "</span>" + "내용 입니다." + "</div>"
-				+ "<div class='comment'>" + "<textarea placeholder='댓글을 달아주세요.' disabled></textarea>" + "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				);
-				heart_select(this.seq, parseInt($('#hid_seq').val()));				
-				img(this.seq);
-				heart(this.seq);
-			}
 
-			);
-		},
-		error : function() {
-			alert("에러");
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
+	}
+
+	var count = 0;
+	window.onload = function() {
+		list();
+	}
+
+	window.addEventListener("scroll", function() {
+		const SCROLLED_HEIGHT = window.scrollY;
+		const WINDOW_HEIGHT = window.innerHeight;
+		const DOC_TOTAL_HEIGHT = document.body.offsetHeight;
+
+		const IS_BOTTOM = WINDOW_HEIGHT + SCROLLED_HEIGHT === DOC_TOTAL_HEIGHT;
+
+		if (IS_BOTTOM) {
+			console.log("스크롤바 이벤트");
+			list();
 		}
 	});
+	function heart(seq) {
+		$.ajax({
+			url : "heart.action",
+			type : 'post',
+			data : {
+				num : seq,
+			},
+			success : function(data) {
+				/* $("#content_"+seq+" .txt_1 span").append(" " +data + "개"); */
+				$("#content_" + seq + " .txt_1 span").text(" " + data + "개");
 
-}
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
+	}
 
+	function img(list_seq) {
+
+		$
+				.ajax({
+					url : "img.action",
+					type : 'post',
+					data : {
+						seq : list_seq,
+					},
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+							$("#swiper" + list_seq + " .swiper-wrapper")
+									.append(
+											"<div class='swiper-slide'><img src='resources/images/main/" + data[i] + "'></img></div>");
+
+						}
+						new Swiper('#swiper' + list_seq, {
+							allowTouchMove : false,
+							watchOverflow : true,
+							pagination : { // 페이징 설정
+								el : '.swiper-pagination',
+								clickable : false, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+							},
+							navigation : { // 네비게이션 설정
+								nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+								prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+							},
+						});
+
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+	}
+
+	function list() {
+		count = count + 2;
+		$
+				.ajax({
+					url : "list.action",
+					type : 'post',
+					data : {
+						num : count,
+					},
+					success : function(data) {
+
+						$(data)
+								.each(
+										function() {
+
+											var txt = "";
+											var gubn = ""
+											if (this.gubn) {
+												txt = " · ";
+												gubn = this.gubn;
+											}
+											$(".scroll")
+													.append(
+															"<div class ='content' id = 'content_"+this.seq +"'>"
+																	+ "<div class='top'>"
+																	+ "<img class='img_top' src='resources/images/main/" + this.reg_id + ".png'></img>"
+																	+ "<div class='txt_top'>"
+																	+ "<p>"
+																	+ this.reg_id
+																	+ "</p>"
+																	+ "<div>"
+																	+ "<span>"
+																	+ gubn
+																	+ "</span><span>"
+																	+ txt
+																	+ this.reg_dt
+																	+ "</span>"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "<div class='swiper-container' id='swiper"+ this.seq +"'>"
+																	+ "<div class='swiper-wrapper'>"
+																	+ "</div>"
+																	+ "<div class='swiper-button-next'></div>"
+																	+ "<div class='swiper-button-prev'></div>"
+																	+ "<div class='swiper-pagination'></div>"
+																	+ "</div>"
+																	+ "<div class='part'>"
+																	+ "<div class='etc'>"
+																	+ "<span class='etc_1'></span>"
+																	+ "<img class='etc_2' src='resources/images/main/reply-black.png'></img>"
+																	+ "<span class='etc_3'>"
+																	+ "</span>"
+																	+ "<img class='etc_4' src='resources/images/main/share-black.png'></img>"
+																	+ "</div>"
+																	+ "<div class='txt_1'>좋아요"
+																	+ "<span></span>"
+																	+ "</div>"
+																	+ "<div class='txt_2'>"
+																	+ this.title
+																	+ "</div>"
+																	+ "<div class='txt_3'>"
+																	+ this.contents
+																	+ "</div>"
+																	+ "<div class='txt_4'>"
+																	+ "댓글 252개"
+																	+ "</div>"
+																	+ "<div class='txt_5'>"
+																	+ "<span>"
+																	+ "홍*표"
+																	+ "</span>"
+																	+ "내용 입니다."
+																	+ "</div>"
+																	+ "<div class='comment'>"
+																	+ "<textarea placeholder='댓글을 달아주세요.' disabled></textarea>"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "</div>");
+											heart_select(this.seq, parseInt($(
+													'#hid_seq').val()));
+											img(this.seq);
+											heart(this.seq);
+										}
+
+								);
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+
+	}
 </script>
 </html>
