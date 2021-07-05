@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+        /* 전체적인 바디 */
+        body {
+            /* border : 1px solid red; */
+            border : 1px solid #F6F6F6;
+            height : 873px;
+            margin: 0px auto;
+            width: 370px;
+            background-color : #FFFFFF;
+        }
+
+        /* 카카오프렌즈 이미지 */
+        #kakaopic {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 140px;
+            height: 50px;
+            width: 100px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        /* 메인프레임 */
+        .mainframe {
+            /* border : 1px solid red; */
+            width: 350px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            margin: 0px auto;
+        }
+
+        /* 타이틀 */
+        #findtitle {
+            height : 100px;
+            padding-top: 30px;
+            font-size : 1.6em;
+            font-weight: bold;
+        }
+
+        /* 세부항목  설명*/
+        #detailtitle {
+            color : #7C7C7C;
+            height : 80px;
+            padding-top: 10px;
+            font-size : 1em;
+        }
+
+        /* 회원가입 버튼 */
+        #submit_button {
+            height: 45px;
+            margin-top:50px; 
+        }
+
+        #submit_info {
+            border: 0px;
+            height: 45px;
+            background-color: #FEE500;
+            color: black;
+            border-radius: 5px;
+        }
+
+        #submit_info:focus {
+            outline: none;
+        }
+
+        /* 바닥라인 */
+        #bottomline {
+            border : 1.2px solid #F6F6F6;
+            margin-top: 250px;
+        }
+
+        /* 저작권 */
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 310px;
+            margin: 20px auto;
+            font-size: 0.9em;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        /* 유저 아이디 */
+        #userid {
+            font-weight: bold;
+            height : 30px;
+        }
