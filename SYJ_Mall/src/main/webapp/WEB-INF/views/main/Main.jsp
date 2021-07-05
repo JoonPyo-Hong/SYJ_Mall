@@ -396,7 +396,13 @@ textarea {
 	left: 0;
 	background: rgba(0, 0, 0, 0.3);
 	z-index: 1000;
-	overflow-y: auto;
+}
+
+#modal_content {
+	width: 310px;
+	height: 357px;
+	display: flex;
+	flex-direction: column;
 }
 
 .modal-con {
@@ -405,49 +411,32 @@ textarea {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	max-width: 60%;
-	min-height: 30%;
 	background: #fff;
 	z-index: 1000;
-	overflow-y: auto;
-}
-
-.modal-con .title {
-	font-size: 20px;
-	padding: 20px;
-	background: gold;
-	z-index: 1000;
-	overflow-y: auto;
-}
-
-.modal-con .con {
-	font-size: 15px;
-	line-height: 1.3;
-	padding: 30px;
-	z-index: 1000;
-	overflow-y: auto;
-}
-
-.modal-con .close {
-	display: block;
-	position: absolute;
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	border: 3px solid #000;
-	text-align: center;
-	line-height: 30px;
-	text-decoration: none;
-	color: #000;
-	font-size: 20px;
-	font-weight: bold;
-	right: 10px;
-	top: 10px;
-	z-index: 1000;
+	border-radius: 15px;
 }
 
 body.s_no-scroll {
 	overflow-y: hidden;
+}
+
+#close {
+	padding-right: 15px;
+	padding-top: 15px;
+}
+
+#close img {
+	float: right;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+#chracter {
+	text-align: center;
+}
+#chracter img{
+	width: 128px;
+	height: 128px;
 }
 </style>
 <title>Main</title>
@@ -483,13 +472,14 @@ body.s_no-scroll {
 	</div>
 	<div id="modal"></div>
 	<div class="modal-con modal1">
-		<a href="javascript:;" class="close">X</a>
-		<p class="title">모달</p>
-		<div class="con">내용Lorem Ipsum is simply dummy text of the
-			printing and typesetting industry. Lorem Ipsum has been the
-			industry's standard dummy text ever since the 1500s, when an unknown
-			printer took a galley of type and scrambled it to make a type
-			specimen book.</div>
+		<div id="modal_content">
+			<div id="close">
+				<img src="resources/images/main/close-24.png">
+			</div>
+			<div id="chracter">
+				<img src="resources/images/main/character-3-d-neo-128.png">
+			</div>
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -500,7 +490,7 @@ body.s_no-scroll {
 		document.body.classList.add('s_no-scroll');
 	}
 
-	$("#modal, .close").on('click', function() {
+	$("#modal, #close").on('click', function() {
 		$("#modal").fadeOut(300);
 		$(".modal-con").fadeOut(300);
 		document.body.classList.remove('s_no-scroll');
@@ -589,7 +579,7 @@ body.s_no-scroll {
 				num : seq,
 			},
 			success : function(data) {
-				/* $("#content_"+seq+" .txt_1 span").append(" " +data + "개"); */
+
 				$("#content_" + seq + " .txt_1 span").text(" " + data + "개");
 
 			},
