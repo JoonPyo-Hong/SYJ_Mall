@@ -1,5 +1,6 @@
 package com.common.utill;
 
+import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 /**
@@ -68,6 +69,22 @@ public class StringFormatClass {
 		}
 		
 		return sb.toString();
+	}
+	
+	public String maskingMail(String userMail) {
+		
+		StringTokenizer stk = new StringTokenizer(userMail,"@");
+		
+		String userId = maskigId(stk.nextToken());//마스킹 해준다.
+		String userAddress = stk.nextToken();
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append(userId);
+		sb.append("@");
+		sb.append(userAddress);
+		
+		return sb.toString();
+		
 	}
 	
 

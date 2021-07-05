@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
 import com.test.SYJ_Mall.login.SignUpDTO;
@@ -336,23 +336,27 @@ public class LoginController {
 	
 	//비밀번호 찾기 -> 비밀번호를 변경해주고 회원 이메일로 변경된 임시비밀번호를 발급해준다.
 	@RequestMapping(value = "/userFindpwSend.action", method = { RequestMethod.POST })
-	public String findUserPwSend(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String findUserPwSend(HttpServletRequest request, HttpServletResponse response,StringFormatClass sfc) throws IOException {
 		
 		//여기서 ajax로 넘어온 데이터를 체크하여 존재하는 아이디가 맞고 비밀번호를 바꿀 준비가 되었는지 확인작업을 진행해준다.
 		String userId = request.getParameter("kakaoId");
 		String userEmail = request.getParameter("kakaoMail");
 		String userPhone = request.getParameter("kakaoPhone");
 		
-		
 		System.out.println(userId);
 		System.out.println(userEmail);
 		System.out.println(userPhone);
+		
 		//임시비밀번호 생성
 		int result = logService.sendPw(userId,userEmail,userPhone);
 		
-		
-		
-		return "/login/UserIdFindCheck";
+		if (result == 1) {
+			String sendEmail = sfc.maskingMail(userEmail);
+			request.setAttribute("sendEmail", sendEmail);
+			return "/login/UserFindPwSendEmail";
+		} else {//에러가 발생한경우
+			return "/testwaiting/kakaoerror";
+		}	
 	}
 	
 	
