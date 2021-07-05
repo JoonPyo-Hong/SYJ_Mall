@@ -424,9 +424,11 @@ $(document).on("click",".etc_1",function(e){
 	if($(e.target).css("background-position") =="-96px 0px"){
 		$(e.target).css('background-position', '0px 0');
 		type = "D";
+		
 	}else{
 		$(e.target).css('background-position', '-96px 0');
 		type = "I";
+		
 	}
 	$.ajax({
         url: "heart_update.action",
@@ -437,9 +439,7 @@ $(document).on("click",".etc_1",function(e){
         	gubn : type
         },       	
         success: function(data){           
-  				
-
-        		
+        	heart(l_seq);
         },
         error: function(){
             alert("에러");
@@ -497,7 +497,8 @@ function heart(seq) {
         	num : seq,
         },       	
         success: function(data){           
-        	$("#content_"+seq+" .txt_1 span").append(" " +data + "개");
+        	/* $("#content_"+seq+" .txt_1 span").append(" " +data + "개"); */
+        	$("#content_"+seq+" .txt_1 span").text(" " +data + "개");
         	
         },
         error: function(){
