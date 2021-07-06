@@ -88,6 +88,16 @@ public class LoginController {
 					if (result == 0) return "/login/UserLogin";
 					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
 					
+				} else if (loginCode == 3) {//로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
+					System.out.println("비밀번호 변경 요망");
+					
+					//아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
+					int result = logService.userRedefinedPw(request,userSeq);
+					
+					if (result == 1) return "/login/UserLoginPwRedefined";
+					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
+					
+					
 				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> ***보안정책 실패하는 경우도 넣어줘야 하는데***;
 					System.out.println("보안정책을 따라야한다.");
 					
@@ -150,6 +160,18 @@ public class LoginController {
 		session.removeAttribute("clickNum");
 		session.removeAttribute("sucessCount");
 		
+		return "/testwaiting/waiting";
+	}
+	
+	//임시비번 발급 -> 비밀번호 변경
+	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
+	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		//PrintWriter out = response.getWriter();
+		//JSONObject obj = logService.picCheck(request);
+		
+		//out.print(obj);	
 		return "/testwaiting/waiting";
 	}
 	

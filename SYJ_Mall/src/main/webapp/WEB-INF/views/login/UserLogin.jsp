@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>Insert title here</title>
+<link rel="icon" href="resources/images/main/kakao_ryan.ico">
 <c:if test="${empty comeCount}">
 	<link rel = "stylesheet" href = "resources/css/userlogin/userLoginNotAnimation.css">
 </c:if>

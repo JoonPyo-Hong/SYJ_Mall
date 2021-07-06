@@ -45,6 +45,8 @@
 </style>
 </head>
 <body>
+    
+    
     <div id = kakaopic style = "background-image: url('resources/images/kakao.svg');"></div>
 
     <div id = "findtitle" class= "mainframe">

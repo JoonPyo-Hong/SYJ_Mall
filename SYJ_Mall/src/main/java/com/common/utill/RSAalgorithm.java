@@ -104,6 +104,35 @@ public class RSAalgorithm {
         return map;
 	}
 	
+	/**
+	 * 암호화된 문자열을 복호화한다. - 오직 비밀번호만
+	 * @param request	request 객체
+	 * @return			복호화된 비밀번호
+	 */
+	public String getRSAonlyPw(HttpServletRequest request) {
+		
+
+        String securedPassword = request.getParameter("securedPassword");//암호화된 비밀번호
+		
+        HttpSession session = request.getSession();
+        PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
+        session.removeAttribute("__rsaPrivateKey__"); // 키의 재사용을 막는다. 항상 새로운 키를 받도록 강제. and 메모리누수 방지
+        
+        if (privateKey == null) {
+            throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다.");
+        }
+        try {
+            
+            String password = decryptRsa(privateKey, securedPassword);
+            
+            return password;
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+            return null;
+        }
+	}
+	
 	
 	/**
 	 * RSA 복호화 알고리즘

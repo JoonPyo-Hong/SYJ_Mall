@@ -168,6 +168,14 @@ public interface ILoginService {
 	 */
 	int userPhoneNumVerify(HttpServletRequest request);
 	
+	/**
+	 * 로그인 - 유저가 임시비밀번호 발급받아서 비밀번호 변경해야함
+	 * @param request	
+	 * @param userSeq	유저의 고유번호
+	 * @return			1: 성공, -1: 실패
+	 */
+	int userRedefinedPw(HttpServletRequest request, int userSeq);
+	
 
 	
 	
