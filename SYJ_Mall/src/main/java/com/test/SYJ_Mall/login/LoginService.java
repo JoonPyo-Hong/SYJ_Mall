@@ -193,6 +193,22 @@ public class LoginService implements ILoginService {
 		
 
 	}
+	
+	//로그인 - 유저가 임시비밀번호 발급받아서 새 비밀번호 지정이 필요함
+	@Override
+	public int userRedefinedPw(HttpServletRequest request, int userSeq) {
+		
+		HttpSession userSession = request.getSession();
+		userSession.setAttribute("userSeq", userSeq);
+		
+		try {
+			int val = setRSAkey(request);
+			return 1;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 	@Override
 	public void logUserTrace(int userSeq, String ipaddress) {// 자동로그인 방지 인증 후 로그인정보 남기기
@@ -457,6 +473,8 @@ public class LoginService implements ILoginService {
 		
 		return dao.phoneVerifyCheck(userPhoneNum);
 	}
+	
+
 	
 
 

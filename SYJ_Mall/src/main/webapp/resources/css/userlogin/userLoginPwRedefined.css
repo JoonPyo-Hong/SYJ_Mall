@@ -1,0 +1,130 @@
+@charset "UTF-8";
+        
+        
+        /* 전체적인 바디 */
+        body {
+            /* border : 1px solid red; */
+            border : 1px solid #F6F6F6;
+            height : 873px;
+            margin: 0px auto;
+            width: 370px;
+            background-color : #FFFFFF;
+        }
+
+        /* 카카오프렌즈 이미지 */
+        #kakaopic {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 140px;
+            height: 50px;
+            width: 100px;
+            background-image: url(./img/kakao.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 타이틀 */
+        #findtitle {
+            /* border : 1px solid red; */
+            width: 350px;
+            height : 100px;
+            margin: 0px auto;
+            padding-top: 30px;
+            font-size : 1.6em;
+            font-weight: bold;
+            font-family: 'NEXON Lv1 Gothic OTF';
+        }
+
+        /* 세부항목  설명*/
+        #detailtitle {
+            /* border : 1px solid red; */
+            color : #7C7C7C;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            width: 350px;
+            height : 60px;
+            padding-top: 10px;
+            font-size : 1.1em;
+            margin: 0px auto;
+        }
+
+        /* 입력하는곳 제목 */
+        .inputtitles {
+            /* border : 1px solid red; */
+            width:350px;
+            margin: 0px auto;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size : 0.9em;
+            font-weight: bold;
+        }
+
+        /* 정보 입력하는 곳 */
+        .inputbox {
+            /* border : 1px solid green; */
+            border-bottom: 1.5px solid #7C7C7C;
+            width:350px;
+            height: 24px; 
+            margin: 5px auto;
+            margin-bottom: 5px;
+            /* outline: none; */
+        }
+
+        .inputbox > input {
+            /* border: 1px solid red; */
+            border: 0px;
+            width:348px;
+            height: 20px;
+            background-color : #FFFFFF;
+            font-size : 1.1em;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            outline: none;
+        }
+
+        /* 비밀번호 바꾸기 버튼 */
+        #submit_button {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            width: 350px;
+            height: 45px;
+            margin-top:50px;    
+        }
+
+        #submit_info {
+            border: 0px;
+            width: 350px;
+            height: 45px;
+            margin: 0px auto;
+            background-color: #F6F6F6;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color: black;
+            border-radius: 5px;
+        }
+
+        #submit_info:focus {
+            outline: none;
+        }
+
+        /* 바닥라인 */
+        #bottomline {
+            border : 1.2px solid #F6F6F6;
+            margin-top: 180px;
+        }
+
+        /* 저작권 */
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 310px;
+            margin: 20px auto;
+            font-size: 0.9em;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        /* 에러메시지 */
+        .errmsgs {
+            border : 1px solid red;
+            color: red;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            width:350px;
+            height: 20px;
+            margin: 0px auto; 
+        }
