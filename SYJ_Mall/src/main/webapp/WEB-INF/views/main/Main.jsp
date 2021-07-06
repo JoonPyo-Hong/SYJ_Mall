@@ -431,12 +431,56 @@ body.s_no-scroll {
 	height: 24px;
 	cursor: pointer;
 }
+
 #chracter {
 	text-align: center;
 }
-#chracter img{
+
+#chracter img {
 	width: 128px;
 	height: 128px;
+}
+
+#modal_txt1 {
+	text-align: center;
+	font-size: 18px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	font-weight: bold;
+}
+
+#modal_txt2 {
+	text-align: center;
+	font-size: 16px;
+	letter-spacing: -0.25px;
+	font-weight: normal;
+	font-stretch: normal;
+}
+#modal_login{
+	
+	border-radius: 35px;
+	background-color: rgb(255, 235, 0);
+	outline: none;
+	text-align: center;
+	width: 220px;
+	height: 48px;
+	margin: 0px auto;
+	margin-top:20px;
+	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	align-items: center; /* 위아래 기준 중앙정렬 */
+	justify-content: center;
+}
+#modal_login img{
+	width: 20px;
+	height: 20px;
+}
+#modal_login p{
+	font-size: 15px;
+    
+    margin-left: 5px;
+    font-weight: bold;
+    margin-bottom: 0px;
+   
 }
 </style>
 <title>Main</title>
@@ -478,6 +522,13 @@ body.s_no-scroll {
 			</div>
 			<div id="chracter">
 				<img src="resources/images/main/character-3-d-neo-128.png">
+			</div>
+			<div id="modal_txt1">앗! 로그인</div>
+			<div id="modal_txt2">
+				여러분의 좋아요 그리고 댓글은<br> 저에게 큰 힘이 될 거에요
+			</div>
+			<div id="modal_login">
+				<img src="resources/images/main/kakaotalk-tiny-brown.png"><p>로그인하기</p>
 			</div>
 		</div>
 	</div>
