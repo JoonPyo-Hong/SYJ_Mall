@@ -39,7 +39,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		int seq = 0;
 		if(session.getAttribute("userSeq")==null) {
-			seq = 2000018;
+			seq = 0;
 		}else {
 			
 			seq = (Integer)session.getAttribute("userSeq");

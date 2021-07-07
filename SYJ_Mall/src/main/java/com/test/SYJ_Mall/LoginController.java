@@ -37,10 +37,12 @@ public class LoginController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 처음에 로그인 페이지로 보내주는 곳
-	@RequestMapping(value = "/login.action", method = { RequestMethod.GET })
-	public String login(HttpServletRequest request, HttpServletResponse response) {
-
-
+	@RequestMapping(value = "/login.action", method = { RequestMethod.GET,RequestMethod.POST })
+	public String login(HttpServletRequest request, HttpServletResponse response, String site) {
+		
+		// 승환이형 작업 할 것
+		System.out.println(site);
+		
 		int result = logService.firstLoginStep(request,0,0);//result : 0 -> 에러없음
 		
 		if (result == 0) return "/login/UserLogin";//에러가 없는경우 -> 로그인 페이지로 넘겨준다.

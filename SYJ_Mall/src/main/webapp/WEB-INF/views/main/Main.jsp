@@ -456,8 +456,8 @@ body.s_no-scroll {
 	font-weight: normal;
 	font-stretch: normal;
 }
-#modal_login{
-	
+
+#modal_login {
 	border-radius: 35px;
 	background-color: rgb(255, 235, 0);
 	outline: none;
@@ -465,22 +465,23 @@ body.s_no-scroll {
 	width: 220px;
 	height: 48px;
 	margin: 0px auto;
-	margin-top:20px;
+	margin-top: 20px;
 	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
 	align-items: center; /* 위아래 기준 중앙정렬 */
 	justify-content: center;
+	cursor: pointer;
 }
-#modal_login img{
+
+#modal_login img {
 	width: 20px;
 	height: 20px;
 }
-#modal_login p{
+
+#modal_login p {
 	font-size: 15px;
-    
-    margin-left: 5px;
-    font-weight: bold;
-    margin-bottom: 0px;
-   
+	margin-left: 5px;
+	font-weight: bold;
+	margin-bottom: 0px;
 }
 </style>
 <title>Main</title>
@@ -512,7 +513,7 @@ body.s_no-scroll {
 		<input type="hidden" id="hid_seq" value="${seq}}">세션 seq =
 		${seq}
 		<div class="scroll"></div>
-		<a href="javascript:openModal('modal1');" class="button modal-open">모달열기1</a>
+
 	</div>
 	<div id="modal"></div>
 	<div class="modal-con modal1">
@@ -528,246 +529,275 @@ body.s_no-scroll {
 				여러분의 좋아요 그리고 댓글은<br> 저에게 큰 힘이 될 거에요
 			</div>
 			<div id="modal_login">
-				<img src="resources/images/main/kakaotalk-tiny-brown.png"><p>로그인하기</p>
+				<img src="resources/images/main/kakaotalk-tiny-brown.png">
+				<p>로그인하기</p>
 			</div>
 		</div>
 	</div>
-</body>
-<script type="text/javascript">
-	function openModal(modalname) {
-		document.get
-		$("#modal").fadeIn(300);
-		$("." + modalname).fadeIn(300);
-		document.body.classList.add('s_no-scroll');
-	}
+	<script type="text/javascript">
+		
+		 $('#modal_login').click(function() {
+			  let f = document.createElement('form');
+			    
+			    let obj;
+			    obj = document.createElement('input');
+			    obj.setAttribute('type', 'hidden');
+			    obj.setAttribute('name', 'site');
+			    obj.setAttribute('value', "main.action");
+			    
+			    f.appendChild(obj);
+			    f.setAttribute('method', 'post');
+			    f.setAttribute('action', '/SYJ_Mall/login.action');
+			    document.body.appendChild(f);
+			    f.submit();
 
-	$("#modal, #close").on('click', function() {
-		$("#modal").fadeOut(300);
-		$(".modal-con").fadeOut(300);
-		document.body.classList.remove('s_no-scroll');
-
-	});
-	$(document).on(
-			"click",
-			".etc_1",
-			function(e) {
-
-				var l_seq = $(e.target).parent().parent().parent().attr('id')
-						.replace("content_", "");
-				var m_seq = parseInt($('#hid_seq').val());
-				var type = "";
-
-				if ($(e.target).css("background-position") == "-96px 0px") {
-					$(e.target).css('background-position', '0px 0');
-					type = "D";
-
-				} else {
-					$(e.target).css('background-position', '-96px 0');
-					type = "I";
-
-				}
-				$.ajax({
-					url : "heart_update.action",
-					type : 'post',
-					data : {
-						list_seq : l_seq,
-						member_seq : m_seq,
-						gubn : type
-					},
-					success : function(data) {
-						heart(l_seq);
-					},
-					error : function() {
-						alert("에러");
-					}
-				});
-			});
-
-	function heart_select(a, b) {
-		$.ajax({
-			url : "heart_select.action",
-			type : 'post',
-			data : {
-				list_seq : a,
-				session_seq : b
-			},
-			success : function(data) {
-
-				if (data != 0) {
-					$("#content_" + a + " .etc_1").css('background-position',
-							'-96px 0');
-				}
-
-			},
-			error : function() {
-				alert("에러");
-			}
-		});
-	}
-
-	var count = 0;
-	window.onload = function() {
-		list();
-	}
-
-	window.addEventListener("scroll", function() {
-		const SCROLLED_HEIGHT = window.scrollY;
-		const WINDOW_HEIGHT = window.innerHeight;
-		const DOC_TOTAL_HEIGHT = document.body.offsetHeight;
-
-		const IS_BOTTOM = WINDOW_HEIGHT + SCROLLED_HEIGHT === DOC_TOTAL_HEIGHT;
-
-		if (IS_BOTTOM) {
-			console.log("스크롤바 이벤트");
-			list();
+		}); 
+		function openModal(modalname) {
+			document.get
+			$("#modal").fadeIn(300);
+			$("." + modalname).fadeIn(300);
+			document.body.classList.add('s_no-scroll');
 		}
-	});
-	function heart(seq) {
-		$.ajax({
-			url : "heart.action",
-			type : 'post',
-			data : {
-				num : seq,
-			},
-			success : function(data) {
 
-				$("#content_" + seq + " .txt_1 span").text(" " + data + "개");
+		$("#modal, #close").on('click', function() {
+			$("#modal").fadeOut(300);
+			$(".modal-con").fadeOut(300);
+			document.body.classList.remove('s_no-scroll');
 
-			},
-			error : function() {
-				alert("에러");
-			}
 		});
-	}
+		$(document)
+				.on(
+						"click",
+						".etc_1",
+						function(e) {
 
-	function img(list_seq) {
+							var l_seq = $(e.target).parent().parent().parent()
+									.attr('id').replace("content_", "");
+							var m_seq = parseInt($('#hid_seq').val());
+							var type = "";
+							if (m_seq != 0) {
+								if ($(e.target).css("background-position") == "-96px 0px") {
+									$(e.target).css('background-position',
+											'0px 0');
+									type = "D";
 
-		$
-				.ajax({
-					url : "img.action",
-					type : 'post',
-					data : {
-						seq : list_seq,
-					},
-					success : function(data) {
-						for (var i = 0; i < data.length; i++) {
-							$("#swiper" + list_seq + " .swiper-wrapper")
-									.append(
-											"<div class='swiper-slide'><img src='resources/images/main/" + data[i] + "'></img></div>");
+								} else {
+									$(e.target).css('background-position',
+											'-96px 0');
+									type = "I";
 
-						}
-						new Swiper('#swiper' + list_seq, {
-							allowTouchMove : false,
-							watchOverflow : true,
-							pagination : { // 페이징 설정
-								el : '.swiper-pagination',
-								clickable : false, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
-							},
-							navigation : { // 네비게이션 설정
-								nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-								prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-							},
+								}
+								$.ajax({
+									url : "heart_update.action",
+									type : 'post',
+									data : {
+										list_seq : l_seq,
+										member_seq : m_seq,
+										gubn : type
+									},
+									success : function(data) {
+										heart(l_seq);
+									},
+									error : function() {
+										alert("에러");
+									}
+								});
+							} else {
+								openModal("modal1");
+							}
 						});
 
-					},
-					error : function() {
-						alert("에러");
+		function heart_select(a, b) {
+			$.ajax({
+				url : "heart_select.action",
+				type : 'post',
+				data : {
+					list_seq : a,
+					session_seq : b
+				},
+				success : function(data) {
+
+					if (data != 0) {
+						$("#content_" + a + " .etc_1").css(
+								'background-position', '-96px 0');
 					}
-				});
-	}
 
-	function list() {
-		count = count + 2;
-		$
-				.ajax({
-					url : "list.action",
-					type : 'post',
-					data : {
-						num : count,
-					},
-					success : function(data) {
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+		}
 
-						$(data)
-								.each(
-										function() {
+		var count = 0;
+		window.onload = function() {
+			list();
+		}
 
-											var txt = "";
-											var gubn = ""
-											if (this.gubn) {
-												txt = " · ";
-												gubn = this.gubn;
+		window
+				.addEventListener(
+						"scroll",
+						function() {
+							const SCROLLED_HEIGHT = window.scrollY;
+							const WINDOW_HEIGHT = window.innerHeight;
+							const DOC_TOTAL_HEIGHT = document.body.offsetHeight;
+
+							const IS_BOTTOM = WINDOW_HEIGHT + SCROLLED_HEIGHT === DOC_TOTAL_HEIGHT;
+
+							if (IS_BOTTOM) {
+								console.log("스크롤바 이벤트");
+								list();
+							}
+						});
+		function heart(seq) {
+			$.ajax({
+				url : "heart.action",
+				type : 'post',
+				data : {
+					num : seq,
+				},
+				success : function(data) {
+
+					$("#content_" + seq + " .txt_1 span")
+							.text(" " + data + "개");
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+		}
+
+		function img(list_seq) {
+
+			$
+					.ajax({
+						url : "img.action",
+						type : 'post',
+						data : {
+							seq : list_seq,
+						},
+						success : function(data) {
+							for (var i = 0; i < data.length; i++) {
+								$("#swiper" + list_seq + " .swiper-wrapper")
+										.append(
+												"<div class='swiper-slide'><img src='resources/images/main/" + data[i] + "'></img></div>");
+
+							}
+							new Swiper('#swiper' + list_seq, {
+								allowTouchMove : false,
+								watchOverflow : true,
+								pagination : { // 페이징 설정
+									el : '.swiper-pagination',
+									clickable : false, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+								},
+								navigation : { // 네비게이션 설정
+									nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+									prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+								},
+							});
+
+						},
+						error : function() {
+							alert("에러");
+						}
+					});
+		}
+
+		function list() {
+			count = count + 2;
+			$
+					.ajax({
+						url : "list.action",
+						type : 'post',
+						data : {
+							num : count,
+						},
+						success : function(data) {
+
+							$(data)
+									.each(
+											function() {
+
+												var txt = "";
+												var gubn = ""
+												if (this.gubn) {
+													txt = " · ";
+													gubn = this.gubn;
+												}
+												$(".scroll")
+														.append(
+																"<div class ='content' id = 'content_"+this.seq +"'>"
+																		+ "<div class='top'>"
+																		+ "<img class='img_top' src='resources/images/main/" + this.reg_id + ".png'></img>"
+																		+ "<div class='txt_top'>"
+																		+ "<p>"
+																		+ this.reg_id
+																		+ "</p>"
+																		+ "<div>"
+																		+ "<span>"
+																		+ gubn
+																		+ "</span><span>"
+																		+ txt
+																		+ this.reg_dt
+																		+ "</span>"
+																		+ "</div>"
+																		+ "</div>"
+																		+ "</div>"
+																		+ "<div class='swiper-container' id='swiper"+ this.seq +"'>"
+																		+ "<div class='swiper-wrapper'>"
+																		+ "</div>"
+																		+ "<div class='swiper-button-next'></div>"
+																		+ "<div class='swiper-button-prev'></div>"
+																		+ "<div class='swiper-pagination'></div>"
+																		+ "</div>"
+																		+ "<div class='part'>"
+																		+ "<div class='etc'>"
+																		+ "<span class='etc_1'></span>"
+																		+ "<img class='etc_2' src='resources/images/main/reply-black.png'></img>"
+																		+ "<span class='etc_3'>"
+																		+ "</span>"
+																		+ "<img class='etc_4' src='resources/images/main/share-black.png'></img>"
+																		+ "</div>"
+																		+ "<div class='txt_1'>좋아요"
+																		+ "<span></span>"
+																		+ "</div>"
+																		+ "<div class='txt_2'>"
+																		+ this.title
+																		+ "</div>"
+																		+ "<div class='txt_3'>"
+																		+ this.contents
+																		+ "</div>"
+																		+ "<div class='txt_4'>"
+																		+ "댓글 252개"
+																		+ "</div>"
+																		+ "<div class='txt_5'>"
+																		+ "<span>"
+																		+ "홍*표"
+																		+ "</span>"
+																		+ "내용 입니다."
+																		+ "</div>"
+																		+ "<div class='comment'>"
+																		+ "<textarea placeholder='댓글을 달아주세요.' disabled></textarea>"
+																		+ "</div>"
+																		+ "</div>"
+																		+ "</div>"
+																		+ "</div>");
+												heart_select(this.seq,
+														parseInt($('#hid_seq')
+																.val()));
+												img(this.seq);
+												heart(this.seq);
 											}
-											$(".scroll")
-													.append(
-															"<div class ='content' id = 'content_"+this.seq +"'>"
-																	+ "<div class='top'>"
-																	+ "<img class='img_top' src='resources/images/main/" + this.reg_id + ".png'></img>"
-																	+ "<div class='txt_top'>"
-																	+ "<p>"
-																	+ this.reg_id
-																	+ "</p>"
-																	+ "<div>"
-																	+ "<span>"
-																	+ gubn
-																	+ "</span><span>"
-																	+ txt
-																	+ this.reg_dt
-																	+ "</span>"
-																	+ "</div>"
-																	+ "</div>"
-																	+ "</div>"
-																	+ "<div class='swiper-container' id='swiper"+ this.seq +"'>"
-																	+ "<div class='swiper-wrapper'>"
-																	+ "</div>"
-																	+ "<div class='swiper-button-next'></div>"
-																	+ "<div class='swiper-button-prev'></div>"
-																	+ "<div class='swiper-pagination'></div>"
-																	+ "</div>"
-																	+ "<div class='part'>"
-																	+ "<div class='etc'>"
-																	+ "<span class='etc_1'></span>"
-																	+ "<img class='etc_2' src='resources/images/main/reply-black.png'></img>"
-																	+ "<span class='etc_3'>"
-																	+ "</span>"
-																	+ "<img class='etc_4' src='resources/images/main/share-black.png'></img>"
-																	+ "</div>"
-																	+ "<div class='txt_1'>좋아요"
-																	+ "<span></span>"
-																	+ "</div>"
-																	+ "<div class='txt_2'>"
-																	+ this.title
-																	+ "</div>"
-																	+ "<div class='txt_3'>"
-																	+ this.contents
-																	+ "</div>"
-																	+ "<div class='txt_4'>"
-																	+ "댓글 252개"
-																	+ "</div>"
-																	+ "<div class='txt_5'>"
-																	+ "<span>"
-																	+ "홍*표"
-																	+ "</span>"
-																	+ "내용 입니다."
-																	+ "</div>"
-																	+ "<div class='comment'>"
-																	+ "<textarea placeholder='댓글을 달아주세요.' disabled></textarea>"
-																	+ "</div>"
-																	+ "</div>"
-																	+ "</div>"
-																	+ "</div>");
-											heart_select(this.seq, parseInt($(
-													'#hid_seq').val()));
-											img(this.seq);
-											heart(this.seq);
-										}
 
-								);
-					},
-					error : function() {
-						alert("에러");
-					}
-				});
+									);
+						},
+						error : function() {
+							alert("에러");
+						}
+					});
 
-	}
-</script>
+		}
+	</script>
+</body>
 </html>
