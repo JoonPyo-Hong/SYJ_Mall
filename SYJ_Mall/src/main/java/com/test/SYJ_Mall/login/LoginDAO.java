@@ -150,5 +150,17 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.userPhoneNumCheck",userPhoneNum);
 	}
+
+	//고객의 새로운 비밀번호 지정
+	@Override
+	public int modifyUserPw(int userSeq, String userPwdecode) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userSeq", ""+userSeq);
+		map.put("userPwdecode", userPwdecode);
+		
+		return template.selectOne("SYJDB.modifyUserPwReturn",map);
+		
+	}
 }
 

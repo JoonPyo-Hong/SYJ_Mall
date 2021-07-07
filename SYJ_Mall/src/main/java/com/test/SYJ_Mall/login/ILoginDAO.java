@@ -106,6 +106,14 @@ public interface ILoginDAO {
 	 */
 	int phoneVerifyCheck(String userPhoneNum);
 
+	/**
+	 * 고객의 비밀번호 재지정 + 임시비밀번호 정보 변경
+	 * @param userSeq		고객의 고유번호
+	 * @param userPwdecode	고객이 지정한 비밀번호
+	 * @return				1 : 성공, -1 : 실패
+	 */
+	int modifyUserPw(int userSeq, String userPwdecode);
+
 	
 	
 	

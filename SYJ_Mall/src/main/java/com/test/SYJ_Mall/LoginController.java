@@ -167,9 +167,11 @@ public class LoginController {
 	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
 	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
 		
-		//PrintWriter out = response.getWriter();
-		//JSONObject obj = logService.picCheck(request);
+		//HttpSession session = request.getSession();
+		int result = logService.remodiftUserPw(request);
+		
 		
 		//out.print(obj);	
 		return "/testwaiting/waiting";

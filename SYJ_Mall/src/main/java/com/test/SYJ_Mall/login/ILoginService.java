@@ -176,6 +176,15 @@ public interface ILoginService {
 	 */
 	int userRedefinedPw(HttpServletRequest request, int userSeq);
 	
+	/**
+	 * 고객의 임시비밀번호를 다시 바꾸어주는 작업 => 고객이 직접 변경해서 넘어온 값 
+	 * @param request
+	 * @return
+	 */
+	int remodiftUserPw(HttpServletRequest request);
+	
+	
+	
 
 	
 	

@@ -474,6 +474,27 @@ public class LoginService implements ILoginService {
 		return dao.phoneVerifyCheck(userPhoneNum);
 	}
 	
+	//고객이 직접 새로운 비밀번호 넘겨준곳
+	@Override
+	public int remodiftUserPw(HttpServletRequest request) {
+		
+		RSAalgorithm rsa = new RSAalgorithm();
+		Encryption enc = new Encryption();
+		String userPwdecode = rsa.getRSAonlyPw(request); 
+		userPwdecode = enc.returnEncVoca(userPwdecode);//유저가 설정한 암호를 암호화 해준다.
+		
+		
+		HttpSession userSession = request.getSession();
+		int userSeq = (Integer) userSession.getAttribute("userSeq");
+		
+		int result = dao.modifyUserPw(userSeq,userPwdecode);
+		//System.out.println(userPwdecode);
+		//System.out.println(userSeq);
+		//이제 여기서 유저의 임시비밀번호 기록을 지워야함. 그리고 비밀번호도 바꿔줘야함
+		
+		return 0;
+	}
+	
 
 	
 
