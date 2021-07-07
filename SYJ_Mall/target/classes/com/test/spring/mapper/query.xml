@@ -115,7 +115,7 @@
 	<select id="modifyUserPwReturn" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int
-		exec dbo.kakao_user_pw_redefined_return #{userSeq},#{userPwdecode},@result output 
+		exec dbo.kakao_user_pw_redefined_return #{userSeq},#{userPw},#{userId},#{userIp}, @result output 
 		select @result
 		
 	</select>	
