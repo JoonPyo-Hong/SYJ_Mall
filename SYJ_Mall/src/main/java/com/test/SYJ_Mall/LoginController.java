@@ -94,7 +94,7 @@ public class LoginController {
 					System.out.println("비밀번호 변경 요망");
 					
 					//아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
-					int result = logService.userRedefinedPw(request,userSeq);
+					int result = logService.userRedefinedPw(request,userSeq,id,ip);
 					
 					if (result == 1) return "/login/UserLoginPwRedefined";
 					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
@@ -162,20 +162,6 @@ public class LoginController {
 		session.removeAttribute("clickNum");
 		session.removeAttribute("sucessCount");
 		
-		return "/testwaiting/waiting";
-	}
-	
-	//임시비번 발급 -> 비밀번호 변경
-	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
-	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
-		
-		//HttpSession session = request.getSession();
-		int result = logService.remodiftUserPw(request);
-		
-		
-		//out.print(obj);	
 		return "/testwaiting/waiting";
 	}
 	
@@ -385,6 +371,22 @@ public class LoginController {
 		}	
 	}
 	
+	//비밀번호 찾기 : 임시비번 -> 비밀번호 변경
+	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
+	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
+		
+		int result = logService.remodiftUserPw(request);
+		
+		if(result == 1) {
+			return "/testwaiting/waiting";
+		} else {
+			return "/testwaiting/kakaoerror";
+		}
+			
+		
+	}
 	
 	
 	

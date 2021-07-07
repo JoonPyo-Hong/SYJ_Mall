@@ -22,6 +22,13 @@
 	
 	
 	<div>${userinfo.userSeq}</div>
+	<div>${userinfo.userId}</div>
+	<div>${userinfo.userGender}</div>
+	<div>${userinfo.userNation}</div>
+	<div>${userinfo.userHasCoin}</div>
+	<div>${userinfo.userGrade}</div>
+	<div>${userinfo.userName}</div>
+	
 	
 	
 	

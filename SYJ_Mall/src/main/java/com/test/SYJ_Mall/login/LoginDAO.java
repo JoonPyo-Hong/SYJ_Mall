@@ -153,11 +153,13 @@ public class LoginDAO implements ILoginDAO {
 
 	//고객의 새로운 비밀번호 지정
 	@Override
-	public int modifyUserPw(int userSeq, String userPwdecode) {
+	public int modifyUserPwReal(int userSeq, String userPw, String userId, String userIp) {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userSeq", ""+userSeq);
-		map.put("userPwdecode", userPwdecode);
+		map.put("userPw", userPw);
+		map.put("userId", userId);
+		map.put("userIp", userIp);
 		
 		return template.selectOne("SYJDB.modifyUserPwReturn",map);
 		
