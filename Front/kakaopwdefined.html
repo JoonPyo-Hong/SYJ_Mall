@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <style>
+
+        /* 전체적인 바디 */
+        body {
+            border : 1px solid red;
+            /* border : 1px solid #F6F6F6; */
+            height : 873px;
+            margin: 0px auto;
+            width: 370px;
+            background-color : #FFFFFF;
+        }
+        /* 넥슨 글씨체 */
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 카카오프렌즈 이미지 */
+        #kakaopic {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 80px;
+            height: 50px;
+            width: 100px;
+            background-image: url(./img/kakao.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 메인프레임 */
+        .mainframe {
+            /* border : 1px solid red; */
+            width: 350px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            margin: 0px auto;
+        }
+
+        /* 타이틀 */
+        #findtitle {
+            height : 100px;
+            padding-top: 30px;
+            font-size : 1.6em;
+            font-weight: bold;
+        }
+
+        /* 세부항목  설명*/
+        #detailtitle {
+            /* border : 1px solid red; */
+            color : #7C7C7C;
+            height : 110px;
+            padding-top: 10px;
+            font-size : 1.1em;
+        }
+
+        /* 회원가입 버튼 */
+        #submit_button {
+            height: 45px;
+            margin-top:50px; 
+        }
+
+        #submit_info {
+            border: 0px;
+            height: 45px;
+            background-color: #FEE500;
+            color: black;
+            border-radius: 5px;
+        }
+
+        #submit_info:focus {
+            outline: none;
+        }
+
+        /* 바닥라인 */
+        #bottomline {
+            border : 1.2px solid #F6F6F6;
+            margin-top: 80px;
+        }
+
+        /* 저작권 */
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 310px;
+            margin: 20px auto;
+            font-size: 0.9em;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        /*기입할 내용 제목*/
+        .inputtitles {
+            /* border : 1px solid red; */
+            width:350px;
+            margin: 4px auto;
+            margin-top:10px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size : 0.9em;
+            font-weight: bold;
+        }
+
+        /* 정보 입력하는 곳 */
+        .inputbox {
+            /* border : 1px solid red; */
+            border-bottom: 1.5px solid #7C7C7C;
+            width:350px;
+            height: 34px; 
+            margin: 12px auto;
+            margin-bottom: 5px;
+        }
+        .inputboxcontent {
+            border: 0px;
+            width:350px;
+            height: 30px;
+            background-color : #FFFFFF;
+            font-size : 1.1em;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            outline: none;
+        } 
+        
+        /* 에러메시지 */
+        .errmsgs {
+            /* border : 1px solid red; */
+            color: red;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            width:350px;
+            height: 20px;
+            margin: 0px auto; 
+            font-size: 0.9em;
+        }
+        /* 핸드폰 기입하는곳 */
+        #kakaoPhone {
+            border:1px solid red;
+            width: 290px;
+            float: left;
+        }
+        /* 자동으로 */
+        #phoneLen {
+            border: 1px solid blue;
+            width: 60px;
+            float: left;
+            height: 30px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            text-align: center;
+            padding-top: 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div id = kakaopic></div>
+
+    <div id = "findtitle" class= "mainframe">
+        카카오계정의
+        <br>
+        비밀번호를 재설정합니다.
+    </div>
+
+    <div id = "detailtitle" class= "mainframe">
+        비밀번호를 재설정할 카카오계정의 아이디와
+        <br>
+        회원가입시 등록한 이메일을 입력해주세요.
+        <br>
+        이메일 주소로 임시 비밀번호를 지급해드립니다.
+    </div>
+    
+    <form action="" method = "POST" id = "input_form">
+       <!-- 카카오 계정 아이디 -->
+        <div class = "inputtitles">
+            카카오 계정 아이디
+        </div>
+        <div class = "inputbox" id = "kakaoIdBox">
+            <input type="text" class = "inputboxcontent" id = "kakaoId" name = "kakaoId" placeholder="카카오 계정 아이디" autocomplete="off">
+        </div>
+
+        <div class = "errmsgs" id = "kakaoIderr"></div>
+
+        <!-- 회원가입시 등록한 이메일 -->
+        <div class = "inputtitles">
+            회원가입시 등록한 이메일
+        </div>
+
+        <div class = "inputbox" id = "kakaoMailBox">
+            <input type="text" class = "inputboxcontent" id = "kakaoMail" name = "kakaoMail" placeholder="등록한 이메일을 입력해주세요." autocomplete="off">
+        </div>
+
+        <div class = "errmsgs" id = "kakaoMailerr"></div>
+
+        <!-- 회원가입시 등록한 전화번호 -->
+        <div class = "inputtitles">
+            전화번호
+        </div>
+
+        <div class = "inputbox" id = "kakaoPhoneBox">
+            <input type="text" class = "inputboxcontent" id = "kakaoPhone" name = "kakaoPhone" placeholder="등록한 전화번호를 입력해주세요." maxlength = 11 autocomplete="off">
+            <div id = "phoneLen"> 0 / 11</div>
+        </div>
+
+        <div class = "errmsgs" id = "kakaoPhoneerr"></div>
+
+        <div id = "submit_button" class = "mainframe">
+            <input id = "submit_info" type="button" value="다음" class = "mainframe">
+        </div>
+    </form>
+
+    <hr id = "bottomline">
+
+    <div id = "copyright">
+        Copyright &copy; <span style="font-weight: bold;">Kakao Corp.</span> All rights reserved.
+    </div>
+
+    <script>
+        
+        //1.카카오 아이디 검증
+        var kakaoIdFlag = false;
+        $("#kakaoId").focus(function(){
+            console.log($(this).attr('id'))
+            bottomcursorfocus($(this).attr('id'));
+        });
+
+        $("#kakaoId").blur(function(){
+            kakaoIdFlag = false;
+            bottomcursorblur($(this).attr('id'));
+
+            if(idVerify()) {
+                kakaoIdFlag = true;
+            }
+        });
+
+        //2.이메일 주소 검증
+        var kakaoMailFlag = false;
+        $("#kakaoMail").focus(function(){
+            console.log($(this).attr('id'))
+            bottomcursorfocus($(this).attr('id'));
+        });
+
+        $("#kakaoMail").blur(function(){
+            kakaoMailFlag = false;
+            bottomcursorblur($(this).attr('id'));
+
+            if(emailVerify()) {
+                kakaoMailFlag = true;
+            }
+        });
+
+
+        //3.전화번호 검증
+        var kakaoPhoneFlag = false;
+        $("#kakaoPhone").focus(function(){
+            console.log($(this).attr('id'))
+            bottomcursorfocus($(this).attr('id'));
+        });
+
+        $("#kakaoPhone").blur(function(){
+            kakaoPhoneFlag = false;
+            bottomcursorblur($(this).attr('id'));
+
+            if (phoneVerify()) {
+                kakaoPhoneFlag = true;
+            }
+        });
+
+
+         //포커스 처리
+        function bottomcursorfocus(id) {
+            var parentId = $('#'+id).parent().attr('id');
+            $("#" + parentId).css('border-bottom','2px solid black');
+        }
+       
+        //블러 처리 -> 각각의 항목에 대해 유효성 검증을 실시한다.
+        function bottomcursorblur(id) {
+            var parentId = $('#'+id).parent().attr('id');
+            $('#'+parentId).css('border-bottom','1.5px solid #7C7C7C');
+        }
+
+
+        // 아이디에 대한 유효성 검증
+        function idVerify() {
+
+            var idValue = $("#kakaoId").val();
+            var idLenth = $("#kakaoId").val().length;
+            var idHan = /[ㄱ-ㅎ가-힣]/g;
+
+            if (idLenth == 0) {
+                $("#kakaoIderr").text('필수입력 항목 입니다.');
+                return false;
+            }
+            
+            if(idHan.test(idValue)) {
+                $("#kakaoIderr").text('아이디를 확인해주십시오.');
+                return false;
+            }
+
+            
+        } 
+
+        // 이메일에 대한 유효성 검증
+        function emailVerify() {
+            var mailValue = $("#kakaoMail").val();
+            var mlen = $("#kakaoMail").val().length;//이메일 길이
+            var emailCheck = /([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+            var emailHan = /[ㄱ-ㅎ가-힣]/g;
+
+            if (mlen == 0) {
+                $("#kakaoMailerr").text('필수입력 항목 입니다.');
+                return false;
+            }
+            if (!emailCheck.test(mailValue) && emailHan.test(mailValue)) {
+                $("#kakaoMailerr").text('이메일 주소를 확인해주십시오.');
+                return false;
+            }
+
+            $("#kakaoMailerr").text('');
+            return true;
+        } 
+
+        //전화번호에 대한 유효성 검증
+        function phoneVerify() {
+            
+            var phoneValue = $("#kakaoPhone").val();
+            var plen = $("#kakaoPhone").val().length;//전화번호 길이
+            var phoneCheck = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;//휴대폰 유효성 검사
+
+            if (plen == 0) {
+                $("#kakaoPhoneerr").text('필수입력 항목 입니다.');
+                return false;
+            }
+
+            if (!phoneCheck.test(phoneValue)) {
+                $("#kakaoPhoneerr").text('휴대전화번호를 확인해주십시오.');
+                return false;
+            }
+
+            $("#kakaoPhoneerr").text('')
+            return true;
+        } 
+
+        //핸드폰 길이 실시간으로 쳤을 경우 나오는 이벤트 
+         $("#kakaoPhone").keyup(function(event){
+            //console.log(event.which);
+            phonelength = $("#kakaoPhone").val().length;//핸드폰 문자의 길이
+            
+            if (phonelength < 12) {
+                phonLenAuto(phonelength);
+            } 
+
+        });
+        
+        //핸드폰번호 길이 실시간으로 반영해주는 함수
+        function phonLenAuto() {
+            var len = $("#kakaoPhone").val().length;//핸드폰 번호 길이
+            var inputLen = "";//들어갈 숫자
+
+            if (len < 10) {
+                inputlen = len + " ";
+            } else {
+                 inputlen = len;
+            }
+            $("#phoneLen").text(inputlen + " / 11");
+        }
+
+    </script>
+
+
+</body>
+</html>

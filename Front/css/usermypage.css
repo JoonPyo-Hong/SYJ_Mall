@@ -1,0 +1,244 @@
+@charset "UTF-8";
+* { outline: none; }
+#btnpoint, #btninfo, #btndetail, #btnlogout, #btncalendar { outline: none; }
+body { margin: 0 auto; }
+h1 { font-family: "Arial Black"; font-weight: bold; }
+#main { width: 100%; }
+#top {
+    /* border: 1px solid black; */
+    min-width: 1300px;
+    height: 80px;
+    margin: 0 auto;
+}
+#middle {
+    /* border: 1px solid black; */
+    width: 1245px;
+    min-height: 1100px;
+    margin: 0 auto;
+    padding: 60px;
+}
+#bottom {
+    /* border: 1px solid black; */
+    min-width: 1300px;
+    height: 250px;
+    background-color: #eee;
+}
+#bottom > div {
+    float: left;
+    position: relative;
+    left: 21%;
+    top: 22%;
+}
+#bottom .txt {
+    margin-left: 30px;
+    line-height: 1.1em;
+    color: #666;
+    top: 28%;
+}
+#bottom .txt .black {
+    color: black;
+}
+#bottom #service {
+    margin-left: 200px;
+    top: 18%;
+}
+#bottom #service p:first-child {
+    border-bottom: 1px solid #BBB;
+    padding: 0 0 5px 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+#bottom #service p > span {
+    color: #444;
+    font-size: 1.3em;
+}
+#bottom #service p:nth-child(2) {
+    text-align: center;
+    font-size: 3em;
+    padding-left: 10px;
+}
+#bottom #service p {
+    margin-bottom: -2px;
+    padding-left: 20px;
+}
+
+#topmenu {
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    width: 100%;
+    min-width: 1300px;
+    height: 40px;
+    color: black;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 40px 0;
+    position: absolute;
+}
+.menubar {
+    margin: 0 5px;
+    cursor: pointer;
+}
+#topleft {
+    display: inline-block;
+    /* border: 1px solid white; */
+    width: 100px;
+    height: 65px;
+    background-image: url("/AtTicketProject/images//title.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: absolute;
+    left : 10px;
+    top: 10px;
+    cursor: pointer;
+}
+#topright {
+    font-size: 13px;
+    position: absolute;
+    right : 5px;
+    top: 42px;
+    cursor: pointer;
+}
+#search {
+    border: 0;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    outline: none;
+    color: black;
+}
+
+#left {
+    /* border: 1px solid black; */
+    width: 250px;
+    height: 1000px;
+    float: left;
+}
+#left > div {
+    border: 1px solid #C7C7C7;
+    width: 100%;
+    height: 200px;
+    background-color: #FDFDFD;
+}
+#left > div:first-child {height: 230px; margin-bottom: 25px;}
+#left > div:nth-child(3) {height: 278px; margin-bottom: 25px;}
+#userinfo #infohead {
+    background-color: #eee;
+    font-size: 1.7em;
+    font-weight: bold;
+    color: #444;
+    padding: 10px 0 10px 15px;
+    border-top: 2px solid black;
+    border-bottom: 1px solid #C7C7C7;
+    cursor: pointer;
+}
+#userinfo p:nth-child(2) {
+    padding: 2px 15px;
+}
+#userinfo p:nth-child(2) span {
+    font-weight: bold;
+}
+#point p {
+    border: 1px solid #DBE4F3;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 5px 15px 5px;
+}
+#userinfo div:nth-child(4) {
+    margin-bottom: 5px;
+}
+#userinfo div:nth-child(4), #userinfo div:nth-child(5) {
+    text-align: center;
+}
+#userinfo input {
+    width: 110px;
+}
+#left > div:nth-child(2) {
+    border: 5px solid #7A98B4;
+    padding: 15px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 25px;
+}
+#left > div:nth-child(2) > p {
+    border-bottom: 1px dotted #DBE4F3;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+#left > div:nth-child(2) > p > span {
+    float: right;
+}
+#left > div:nth-child(3) > p:first-child {
+    border-bottom: 1px solid #DBE4F3;
+    font-size: 1.2em;
+    text-decoration: underline;
+    color: #4E7AD1;
+    font-weight: bold;
+    padding: 8px 10px;
+    margin-bottom: -10px;
+    background-color: #EEEEEE;
+}
+#left > div:nth-child(3) > .personaltitle {
+    padding: 5px 15px;
+    margin-top: 10px;
+    border-top: 1px solid #DBE4F3;
+    border-bottom: 1px solid #DBE4F3;
+    font-weight: bold;
+    font-size: 14px;
+}
+#left > div:nth-child(3) > p:nth-child(2) {
+    border-top: 0;
+}
+#left > div:nth-child(3) > a {
+    font-size: 11px;
+    margin-left: 5px;
+    text-decoration: none;
+    color: black;
+}
+#left > div:nth-child(3) > a:hover {
+    text-decoration: underline;
+}
+
+#left > div:last-child p:first-child {
+    border-bottom: 1px solid #DBE4F3;
+    padding: 5px 0 5px 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+#left > div:last-child p:first-child > span {
+    color: #444;
+    font-size: 1.3em;
+}
+#left > div:last-child p:nth-child(2) {
+    text-align: center;
+    font-size: 3em;
+}
+.time {
+    /* text-align: center; */
+    border-left: 1px solid #888;
+    margin-bottom: -2px;
+    margin-left: 35px;
+    padding-left: 10px;
+}
+#movetop {
+    width: 40px;
+    height: 40px;
+    background-color: gray;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 3px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+#movetop:hover {
+    background-color: orange;
+    cursor: pointer;
+}
+#frogue-container, .frogue-chat {
+    position: absolute;
+    left:20px;
+    bottom: 0;
+}

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <style>
+
+        /* 전체적인 바디 */
+        body {
+            border : 1px solid red;
+            /* border : 1px solid #F6F6F6; */
+            height : 873px;
+            margin: 0px auto;
+            width: 370px;
+            background-color : #FFFFFF;
+        }
+        /* 넥슨 글씨체 */
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 카카오프렌즈 이미지 */
+        #kakaopic {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 40px;
+            height: 50px;
+            width: 100px;
+            background-image: url(./img/kakao.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 타이틀 */
+        #findtitle {
+            border : 1px solid red;
+            width: 350px;
+            height : 100px;
+            margin: 0px auto;
+            padding-top: 30px;
+            font-size : 1.6em;
+            font-weight: bold;
+            font-family: 'NEXON Lv1 Gothic OTF';
+        }
+
+        /* 세부항목  설명*/
+        #detailtitle {
+            border : 1px solid red;
+            color : #7C7C7C;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            width: 350px;
+            height : 60px;
+            padding-top: 10px;
+            font-size : 1.1em;
+            margin: 0px auto;
+        }
+
+        /* 입력하는곳 제목 */
+        .inputtitles {
+            border : 1px solid red;
+            width:350px;
+            margin: 4px auto;
+            margin-top:10px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size : 0.9em;
+            font-weight: bold;
+        }
+
+        /* 정보 입력하는 곳 */
+        .inputbox {
+            border : 1px solid red;
+            border-bottom: 1.5px solid #7C7C7C;
+            width:350px;
+            height: 34px; 
+            margin: 12px auto;
+            margin-bottom: 5px;
+        }
+
+        /* 정보 입력하는 곳 - 등록한 이메일 */
+        #registeredEmail {
+            border: 0px;
+            width:350px;
+            height: 30px;
+            background-color : #FFFFFF;
+            font-size : 1.1em;
+            font-family: 'NEXON Lv1 Gothic OTF';
+        }  
+
+        .inputbox input:focus {
+            outline: none;
+        }
+        
+        /* 전화번호 아래 정보기입칸들 */
+        .phoneinnertext { 
+            float: left;
+        }
+        /* 진짜로 전화번호 입력해주는 창 */
+        #registeredPhone {
+            border: 1px solid green;
+            width:275px;
+            height: 30px;
+            background-color : #FFFFFF;
+            font-size : 1.1em;
+            font-family: 'NEXON Lv1 Gothic OTF';           
+        }
+        
+        /* 현재 몇개의 전화번호개수가 입력되고 있는지 보여주는 창 */
+        #phnummaxlen {
+            border: 1px solid blue;
+            height: 32px;
+            width: 70px;
+            padding-left: 6px;
+            padding-top: 4px;
+        }
+
+        /* 전화번호 라인규칙 */
+        #phonelength {
+            /* border : 1px solid red; */
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size : 1.1em;
+            color: #8E8E8E;
+        }
+
+        /* 카카오 계정 찾기 버튼 */
+        #submit_button {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            width: 350px;
+            height: 45px;
+            margin-top:50px;    
+        }
+
+        #submit_info {
+            border: 0px;
+            width: 350px;
+            height: 45px;
+            margin: 0px auto;
+            background-color: #F6F6F6;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color: black;
+            border-radius: 5px;
+        }
+
+        #submit_info:focus {
+            outline: none;
+        }
+
+        /* 바닥라인 */
+        #bottomline {
+            border : 1.2px solid #F6F6F6;
+            margin-top: 240px;
+        }
+
+        /* 저작권 */
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 310px;
+            margin: 20px auto;
+            font-size: 0.9em;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        /* 에러메시지 */
+        .errmsgs {
+            color: red;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            width:420px;
+            height: 20px;
+            margin: 0px auto; 
+        }
+
+        /* .modal.modal-center {
+            text-align: center;
+        } */
+
+        /* @media screen and (min-width: 768px) { 
+        .modal.modal-center:before {
+            display: inline-block;
+            vertical-align: middle;
+            content: " ";
+            height: 100%;
+            }
+        } */
+
+        /* .modal-dialog.modal-center {
+          display: inline-block;
+          text-align: left;
+          vertical-align: middle; 
+        } */
+
+        /* #myModal {
+          display: inline-block;
+          text-align: left;
+          vertical-align: middle;   
+        }  */
+
+        /* 모달창 */
+        #myModal > .modal-dialog {
+            width: 420px;
+            height : 200px;
+            margin-top: 300px;
+        }
+        #myModal > .modal-dialog > .modal-content {
+            height : 200px;
+        }
+        #modalcontent {
+            margin-top: 40px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color : #7C7C7C;
+            text-align: center;
+        }
+        #mfooter {
+            border: 0px; 
+            padding: 0px;
+            text-align:center
+        }
+        #mfooter_check {
+            border:0px;
+            width: 350px;
+            height: 45px;
+            background-color: #FEE500;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color: black;
+            border-radius: 5px;
+            outline: none;
+        }
+        #mfooter_check:hover{
+            background-color: #F0D700;
+        }
+
+
+    </style>
+</head>
+<body>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body" id = "modalcontent">
+          <p>입력하신 정보와 일치하는 계정이 없습니다.</p>
+        </div>
+        <div class="modal-footer" id = "mfooter">
+          <button type="button" id = "mfooter_check" class="btn btn-default" data-dismiss="modal">확인</button>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+
+
+    <div id = kakaopic></div>
+
+    <div id = "findtitle">
+        이메일, 전화번호로
+        <br>
+        계정을 찾습니다.
+    </div>
+
+    <div id = "detailtitle">
+        카카오 가입시 등록한 사용자의 이메일과
+        <br>
+        전화번호를 입력해 주세요.
+
+    </div>
+    
+    <br>
+    
+    <form action="" method = "POST" id = "input_form">
+        <div class = "inputtitles">
+            등록한 이메일
+        </div>
+        <div class = "inputbox" id = "registeredEmailLine">
+            <input type="text" id = "registeredEmail" placeholder="등록한 이메일을 입력해주세요." autocomplete="off">
+        </div>
+
+        <div class = "errmsgs" id = "emailerr">
+            
+        </div>
+
+        <br>
+
+        <div class = "inputtitles">
+            전화번호
+        </div>
+        <div class = "inputbox" id = "registeredPhoneLine">
+            <div class = "phoneinnertext" id = "phnuminput">
+                <input type="text" id = "registeredPhone" placeholder="등록한 전화번호을 입력해주세요." maxlength="11" autocomplete="off">
+            </div>
+            <div class = "phoneinnertext" id = "phnummaxlen">
+                <span id = "phonelength">0 / 11</span>
+            </div>
+        </div>
+
+        <div class = "errmsgs" id = "phoneerr">
+            
+        </div>
+
+
+        <div id = "submit_button">
+            <input id = "submit_info" type="button" value="카카오 계정 찾기" >
+        </div>
+    </form>
+
+    <hr id = "bottomline">
+
+
+
+
+<!-- <button type="button" class="btn btn-info btn-lg" id="myBtn">Open Modal</button> -->
+
+
+
+
+    <div id = "copyright">
+        Copyright &copy; <span style="font-weight: bold;">Kakao Corp.</span> All rights reserved.
+    </div>
+    
+    
+    <script>
+        
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
+});
+
+
+
+
+
+        var emailFlag = false;
+        $("#registeredEmail").focus(function(){
+            bottomcursorfocus($(this).attr('id'),1);
+        });
+        
+        $("#registeredEmail").blur(function(){
+            emailFlag = false;
+            bottomcursorblur($(this).attr('id'),1);
+            
+            if(emailCheck()) {
+                emailFlag = true;
+            }
+        });
+
+        var phoneFlag = false;
+        $("#registeredPhone").focus(function(){
+            bottomcursorfocus($(this).attr('id'),2);
+        });
+
+        $("#registeredPhone").blur(function(){
+            phoneFlag = false;
+            bottomcursorblur($(this).attr('id'),2);
+
+            if (phoneCheck()) {
+                phoneFlag = true;
+            }
+        });
+
+
+        //포커스 처리 : id,계층단계(1,2) 로 나눔 -> 이메일 입력,전화번호 입력에서 공통적으로 쓰일 함수
+        function bottomcursorfocus(id,hierarchy) {
+            if (hierarchy == 1) {
+                var parentId = $('#'+id).parent().attr('id');
+            } else {
+                var parentId = $('#'+id).parent().parent().attr('id');
+            }
+            $("#" + parentId).css('border-bottom','2px solid black');
+        }
+
+        //블러 처리 : id,계층단계(1,2) 로 나눔 -> 이메일 입력,전화번호 입력에서 공통적으로 쓰일 함수
+        function bottomcursorblur(id,hierarchy) {
+            if (hierarchy == 1) {
+                var parentid =  $("#" + id).parent().attr('id');
+            } else {
+                var parentid =  $("#" + id).parent().parent().attr('id');
+            }
+            $('#'+parentid).css('border-bottom','1.5px solid #7C7C7C');
+        }
+
+
+        
+        //글자입력 -> 글자수 count 이벤트
+        var phonelength = 0;
+        
+        $("#registeredPhone").keyup(function(event){
+            //console.log(event.which);
+            //console.log($("#registeredPhone").val().length);
+            phonelength = $("#registeredPhone").val().length;//문자의 길이
+            var inputKeyCode = event.which;
+            
+            if (phonelength < 12) {
+                numbercount(phonelength);
+            } 
+
+        });
+
+        //숫자실시간으로 늘리기 && 줄이기
+        function numbercount(len) {
+            var inputlen = "";
+            
+            if (len < 10) {
+                inputlen = len + " ";
+            } else {
+                 inputlen = len;
+            }
+
+            $("#phonelength").text(inputlen + " / 11");
+        }
+
+
+        //--------------- 유효성 검증 --------------------
+        
+        //등록한 이메일 유효성 검증
+        function emailCheck() {
+            var emailContent =  $("#registeredEmail").val();
+
+            if (emailContent == "") {
+                //console.log("?");
+                $("#emailerr").text('이메일이 입력되지 않았습니다. 이메일을 입력해주세요.');
+                return false;
+            } else {
+                $("#emailerr").text('');
+                return true;
+            }
+        }
+
+        //등록한 휴대폰 유효성 검증
+        function phoneCheck() {
+            var phoneContent =  $("#registeredPhone").val();
+
+            if (phoneContent == "") {
+                $("#phoneerr").text('전화번호가 입력되지 않았습니다. 전화번호를 입력해주세요.');
+                return false;
+            }
+           
+
+
+
+        }
+
+    </script>
+
+
+</body>
+</html>

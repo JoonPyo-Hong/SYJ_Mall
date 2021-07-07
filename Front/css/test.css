@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+	@font-face { font-family: 'NanumBarunGothic'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot'); src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype'); }
+	@font-face { font-family: 'NEXON Lv1 Gothic OTF Light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff'); font-weight: normal; font-style: normal; }
+		
+	
+		#main {
+             
+             margin : 20px auto;
+             width : 1500px;
+             padding: 10px;
+             height : 1000px;
+             font-family: NEXON Lv1 Gothic OTF Light;
+        }
+
+        /* 검색 스타일 */
+        
+        #search {
+            
+            width : 1200px;/* border: 1px solid blue; */
+            height : 30px;
+            margin : 5px auto;
+        }
+		#searchbox {
+			
+			margin-left : 950px;
+		
+		}
+
+        /* 테이블 내의 스타일 */
+        #insatable {
+            border : 1px solid black;
+            border-collapse: collapse;
+            width: 1200px;
+            margin : 5px auto;
+        }
+        #insatable th:nth-child(1) {
+            width : 120px;
+        }
+        #insatable th:nth-child(2) {
+            width : 200px;
+        }
+        #insatable th:nth-child(3) {
+            width : 150px;
+        }
+        #insatable th:nth-child(4) {
+            width : 80px;
+        }
+        #insatable th:nth-child(5) {
+            width : 150px;
+        }
+        #insatable th:nth-child(6) {
+            width : 100px;
+        }
+        #insatable th:nth-child(7) {
+            width : 70px;
+        }
+        #insatable th:nth-child(8) {
+            width : 200px;
+        }
+        #insatable th:nth-child(9) {
+            width : 130px;
+        }
+
+        
+        #insatable td,th {
+            border : 1px solid black;
+        }
+
+        #insatable td {
+            text-align: center;
+        }

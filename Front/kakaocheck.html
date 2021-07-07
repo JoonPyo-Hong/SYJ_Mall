@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <style>
+
+        /* 전체적인 바디 */
+        body {
+            border : 1px solid red;
+            /* border : 1px solid #F6F6F6; */
+            height : 873px;
+            margin: 0px auto;
+            width: 370px;
+            background-color : #FFFFFF;
+        }
+        /* 넥슨 글씨체 */
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 카카오프렌즈 이미지 */
+        #kakaopic {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 140px;
+            height: 50px;
+            width: 100px;
+            background-image: url(./img/kakao.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 메인프레임 */
+        .mainframe {
+            border : 1px solid red;
+            width: 350px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            margin: 0px auto;
+        }
+
+        /* 타이틀 */
+        #findtitle {
+            height : 100px;
+            padding-top: 30px;
+            font-size : 1.6em;
+            font-weight: bold;
+        }
+
+        /* 세부항목  설명*/
+        #detailtitle {
+            color : #7C7C7C;
+            height : 80px;
+            padding-top: 10px;
+            font-size : 1em;
+        }
+
+        /* 회원가입 버튼 */
+        #submit_button {
+            height: 45px;
+            margin-top:50px; 
+        }
+
+        #submit_info {
+            border: 0px;
+            height: 45px;
+            background-color: #FEE500;
+            color: black;
+            border-radius: 5px;
+        }
+
+        #submit_info:focus {
+            outline: none;
+        }
+
+        /* 바닥라인 */
+        #bottomline {
+            border : 1.2px solid #F6F6F6;
+            margin-top: 190px;
+        }
+
+        /* 저작권 */
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 310px;
+            margin: 20px auto;
+            font-size: 0.9em;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        /* 유저 아이디 */
+        #userid {
+            font-weight: bold;
+            /* border : 1px solid red; */
+            height : 30px;
+        }
+
+        /* 비밀번호 재 설정 */
+        #userselect {
+            color : #7C7C7C;
+            margin-top : 20px;
+            text-decoration : underline;
+        }
+
+        #userselect:hover {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id = kakaopic></div>
+
+    <div id = "findtitle" class= "mainframe">
+        입력하는 정보와 일치하는
+        <br>
+        카카오계정을 확인해 주세요.
+    </div>
+
+    <div id = "detailtitle" class= "mainframe">
+        개인정보 보호를 위해 정보 일부를 *로 표시하였습니다.
+        <br>
+        카카오계정에 로그인 할 수 있는 이메일 및 전화번호가
+        <br>
+        표시됩니다. 
+    </div>
+    
+    <hr style="width: 350px;">
+
+    <div id = "userinfo" class= "mainframe">
+        <div id = "userid">ssh****@naver.com</div>
+        <div id = "userphone">010-5139-3792</div>
+    </div>
+
+    <div id = "userselect" class= "mainframe">
+        비밀번호 재설정
+    </div>
+
+    <hr style="width: 350px;">
+
+    <div id = "submit_button" class = "mainframe">
+        <input id = "submit_info" type="button" value="로그인" class = "mainframe">
+    </div>
+
+    <hr id = "bottomline">
+
+    <div id = "copyright">
+        Copyright &copy; <span style="font-weight: bold;">Kakao Corp.</span> All rights reserved.
+    </div>
+    
+    
+    <script>
+           
+        
+
+    </script>
+
+
+</body>
+</html>

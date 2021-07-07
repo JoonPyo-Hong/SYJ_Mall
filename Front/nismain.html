@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    <title>Document</title>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+    
+        /* 넥슨 글씨체 */
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        /* 로그인 이미지 */
+        #nislogin {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 40px;
+            transition-property: all;
+            transition-duration: 2s;
+            height : 400px;
+            width : 400px;
+
+        }
+        #nislogin img {
+            width:100%;
+            height : 100%;
+            /* opacity: 0; */
+            /* transition-property: all;
+            transition-duration: 3s; */
+        }
+
+        /* 전체적인 바디 */
+        body {
+            /* border : 1px solid red; */
+            height : 740px;
+            background-color : #F5F6F7;
+        }
+        
+        /* 아이디 비밀번호 치는곳 */
+        .inputform {
+            /* border: 1px solid blue; */
+            margin: 5px auto;
+            width : 355px;
+            height : 50px;
+            padding: 6px;
+        }
+        .inputform input {
+            width : 340px;
+            height : 40px;
+            border: 1px solid #E5E5E6;
+            
+        }
+
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 350px;
+            margin: 20px auto;
+            font-size: 0.7em;
+            text-align: center;
+            display: none;
+        }
+
+        #inputid:focus {
+            outline: none;
+        }
+        
+        #inputpw:focus {
+            outline:none;
+        }
+        #inputformaction {
+            opacity: 0;
+            transition-property: all;
+            transition-duration: 3s;
+        }
+
+    </style>
+</head>
+<body>
+    <div id = "nislogin">
+        <img src = "./img/nis.png" id="nispng">    
+    </div>
+    
+    <form action=".." method = "POST" id = "inputformaction">
+        <!-- 아이디 -->
+        <div class = "inputform">
+            <input type="text" name = "id" autocomplete="off" id = "inputid" placeholder = "  사원번호">
+        </div>
+        <!-- 비밀번호 -->
+        <div class = "inputform">
+            <input type="text" name = "pw" autocomplete="off" id = "inputpw" placeholder = "  비밀번호">
+        </div>
+        <!-- 로그인 버튼 -->
+        <div class = "inputform">
+            <input type="button" value = "SIGN IN" style = "font-weight: bold; font-size: 1.3em; background-color: #080641; color:white;">
+        </div>  
+    </form>
+    
+    
+
+    <div id = "copyright">
+        Copyright &copy; 2015 <spna style="font-weight: bold;">National Intelligence Service</spna> All rights reserved.
+    </div>
+
+
+    <script>
+
+        // setTimeout(function(){
+        //    //console.log("0초 뒤 생성");
+        //    $("#nispng"). 
+        // },0)
+
+        // $("#nispng").fadeOut(1000,function(){
+        //     $("#nispng").fadeIn(500,function(){
+
+        //     });
+        // });
+        
+
+
+        setTimeout(function(){
+            //$("#nispng").css("opacity","1"); 
+            //console.log("a");
+            $("#nislogin")
+                .css("width","200px")
+                .css("height","200px");   
+        },500);
+
+        setTimeout(function(){
+            $("#inputformaction").css("opacity","1");
+        },1000);
+
+
+        //$("#inputform").css("opacity","1");
+            
+        // $('#testEle').animate({opacity:"0"}, 1000);
+        //jQuery('#main').css('opacity', '0.6');
+    </script>
+
+</body>
+</html>

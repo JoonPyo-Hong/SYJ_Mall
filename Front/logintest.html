@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <style>
+
+         /* 넥슨 글씨체 */
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        /* 로그인 이미지 */
+        #qoo10login {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 40px;
+            height: 70px;
+            width: 140px;
+        }
+        #qoo10login img {
+            width:100%;
+            height : 100%;
+        }
+        /* 전체적인 바디 */
+        body {
+            border : 1px solid red;
+            height : 740px;
+            background-color : #F5F6F7;
+        }
+
+        /* 자동로그인 방지를 위한 큰 틀 -> 제목 + 사진들 */
+        .standardRule {
+            /* border: 1px solid red; */
+            margin : 0px auto;
+            width : 330px;
+        }
+        /* 제목을 감싸는 박스 */
+        #secSubject {
+            /* border: 1px solid red; */
+            background-color: #1D6AB3;
+            color : white;
+        } 
+        
+        /*보안 테이블 */
+        #secTable  {
+            /* border: 1px solid blue; */
+            height : 300px;
+        }
+        #secTable td {
+            padding : 5px;
+            width : 20px;
+            height : 30px;
+            /* border: 1px solid green; */
+        }
+
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 310px;
+            margin: 20px auto;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .images {
+            transition: all;
+            transition-duration: 1000ms;
+        }
+
+
+
+    </style>
+
+
+</head>
+<body>
+
+
+    <div id = "qoo10login">
+        <img src = "./img/Qoo10_Logo.png">    
+    </div>
+    	
+    <div id = "secSubject" class = "standardRule">
+            <span id = "secTitle">${throwName}</span><br>이(가) 있는 타일을 모두 선택하세요
+    </div>
+        
+    <table id = "secTable" class = "standardRule">
+            <tr>
+                <td id = "img1" class = "images" style = "background: url('./img/securefile/airplane01.jpg'); background-size: cover;"></td>
+                <td id = "img2" class = "images" style = "background: url('./img/securefile/airplane02.jpg'); background-size: cover;"></td>
+                <td id = "img3" class = "images" style = "background: url('./img/securefile/airplane03.jpg'); background-size: cover;"></td>
+            </tr>
+            <tr>
+                <td id = "img4" class = "images" style = "background: url('./img/securefile/airplane04.jpg'); background-size: cover;"></td>
+                <td id = "img5" class = "images" style = "background: url('./img/securefile/airplane05.jpg'); background-size: cover;"></td>
+                <td id = "img6" class = "images" style = "background: url('./img/securefile/airplane06.jpg'); background-size: cover;"></td>
+            </tr>
+            <tr>
+                <td id = "img7" class = "images" style = "background: url('./img/securefile/airplane07.jpg'); background-size: cover;"></td>
+                <td id = "img8" class = "images" style = "background: url('./img/securefile/airplane08.jpg'); background-size: cover;"></td>
+                <td id = "img9" class = "images" style = "background: url('./img/securefile/airplane09.jpg'); background-size: cover;"></td>
+            </tr>
+    </table>
+    
+    <div id = "copyright">
+        Copyright &copy; <span style="font-weight: bold;">Qoo10 Corp.</span> All rights reserved.
+    </div>
+
+    <input type="text" style="visibility: hidden;" id="sexy">
+
+
+    <script>
+        
+        var name;
+        var clickNum;
+        //console.log(name);
+        $(".images").click(function(){
+            clickNum = event.srcElement.id
+            console.log(clickNum);
+            //$("#sexy").textcontent = "asd"
+            $("#sexy").val('asd');
+            console.log($("#sexy").val());
+
+            //name = event.srcElement.id;
+            //console.log(name);
+            //console.log(num);
+            //console.log(event.srcElement.style.background)
+            //document.getElementById(num).css('background',"url(./img/securefile/airplane03.jpg')");
+            //$('#'+num).css({"background":"url(./img/securefile/airplane06.jpg)", 'background-size': 'cover'});
+            
+        });
+
+
+
+    </script>
+
+</body>
+</html>
