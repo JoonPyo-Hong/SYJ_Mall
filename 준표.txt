@@ -1,0 +1,25 @@
+<div id="wrap">
+		<div id="head">
+			<div>
+				<img src="resources/images/main/ic_menu_2x.png">
+			</div>
+			<div>
+				<img src="resources/images/main/new-logo-mo.png">
+			</div>
+			<div>
+				<img src="resources/images/main/ic_search_2x.png">
+			</div>
+			<div>
+				<img src="resources/images/main/language-global-18-black@2x.png">
+			</div>
+		</div>
+		<div id="tab">
+			<div class="tab_selected">오늘</div>
+			<div>신규</div>
+			<div>인기</div>
+			<div>마이</div>
+		</div>
+		<input type="hidden" id="hid_seq" value="0}">
+		<div class="scroll"><div class="content" id="content_2"><div class="top"><img class="img_top" src="resources/images/main/죠르디.png"><div class="txt_top"><p>죠르디</p><div><span></span><span>11일전</span></div></div></div><div class="swiper-container swiper-container-initialized swiper-container-horizontal" id="swiper2"><div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);"><div class="swiper-slide swiper-slide-active" style="width: 600px;"><img src="resources/images/main/media_0_20210623093109.jpg"></div><div class="swiper-slide swiper-slide-next" style="width: 600px;"><img src="resources/images/main/media_0_20210624184800.jpg"></div><div class="swiper-slide" style="width: 600px;"><img src="resources/images/main/media_1_20210628163731.jpg"></div><div class="swiper-slide" style="width: 600px;"><img src="resources/images/main/media_1_20210628165547.jpg"></div></div><div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"></div><div class="swiper-button-prev swiper-button-disabled" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true"></div><div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div><div class="part"><div class="etc"><span class="etc_1"></span><img class="etc_2" src="resources/images/main/reply-black.png"><span class="etc_3"></span><img class="etc_4" src="resources/images/main/share-black.png"></div><div class="txt_1">좋아요<span> 4개</span></div><div class="txt_2">죠르디의 정원으로 힐-링☘️</div><div class="txt_3">🧻 매일 사용하는 티슈를 새롭게<br>죠르디의 정원으로 변신시켜봐.🌸</div><div class="txt_4">댓글 252개</div><div class="txt_5"><span>홍*표</span>내용 입니다.</div><div class="comment"><textarea placeholder="댓글을 달아주세요." disabled=""></textarea></div></div></div><div class="content" id="content_1"><div class="top"><img class="img_top" src="resources/images/main/어피치.png"><div class="txt_top"><p>어피치</p><div><span>Daily Story</span><span> · 11일전</span></div></div></div><div class="swiper-container swiper-container-initialized swiper-container-horizontal" id="swiper1"><div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);"><div class="swiper-slide swiper-slide-active" style="width: 600px;"><img src="resources/images/main/media_0_20201217095707.jpg"></div><div class="swiper-slide swiper-slide-next" style="width: 600px;"><img src="resources/images/main/media_0_20201217095710.jpg"></div><div class="swiper-slide" style="width: 600px;"><img src="resources/images/main/media_0_20210521174607.jpg"></div><div class="swiper-slide" style="width: 600px;"><img src="resources/images/main/media_0_20210615143836.jpg"></div><div class="swiper-slide" style="width: 600px;"><img src="resources/images/main/media_0_20210615143900.jpg"></div></div><div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"></div><div class="swiper-button-prev swiper-button-disabled" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true"></div><div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div><div class="part"><div class="etc"><span class="etc_1"></span><img class="etc_2" src="resources/images/main/reply-black.png"><span class="etc_3"></span><img class="etc_4" src="resources/images/main/share-black.png"></div><div class="txt_1">좋아요<span> 5개</span></div><div class="txt_2">그리운 나날들 👀<br>추억 회상 중</div><div class="txt_3">코로나 전 우리가 좋아했던 불-멍 🔥<br>이젠 다들 뭐하면서 주말 보내?</div><div class="txt_4">댓글 252개</div><div class="txt_5"><span>홍*표</span>내용 입니다.</div><div class="comment"><textarea placeholder="댓글을 달아주세요." disabled=""></textarea></div></div></div></div>
+
+	</div>

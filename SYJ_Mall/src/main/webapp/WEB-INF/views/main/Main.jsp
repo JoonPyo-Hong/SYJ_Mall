@@ -540,8 +540,7 @@ body.s_no-scroll {
 			<div>인기</div>
 			<div>마이</div>
 		</div>
-		<input type="hidden" id="hid_seq" value="${seq}}">세션 seq =
-		${seq}
+		<input type="hidden" id="hid_seq" value="${seq}}">
 		<div class="scroll"></div>
 
 	</div>
