@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jdk.internal.misc.FileSystemOption;
+
 /**
  * 댓글 페이지 컨트롤러 역할
  * 
@@ -16,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class FeedController {
-	// 메인 화면
+	// 댓글 화면
 	@RequestMapping(value = "/feed.action", method = { RequestMethod.GET })
-	public String main(Model model, HttpServletRequest request) {
-
+	public String main(Model model, HttpServletRequest request, String seq) {
+		if(seq == null) {
+			seq = "0";
+		}
+		System.out.println(seq);
 		return "/main/Feed";
 	}
 }

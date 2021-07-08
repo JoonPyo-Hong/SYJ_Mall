@@ -500,17 +500,19 @@ body.s_no-scroll {
 	margin-top: 20px;
 	padding-left: 37px;
 }
-#modal_icon{
+
+#modal_icon {
 	width: 240px;
 	height: 128px;
 	margin-left: 35px;
 }
-#modal_icon img{
+
+#modal_icon img {
 	width: 60px;
 	height: 60px;
 	margin: 7px;
 	margin-top: 15px;
-} 
+}
 </style>
 <title>Main</title>
 
@@ -571,13 +573,18 @@ body.s_no-scroll {
 				<p>공유하기</p>
 			</div>
 			<div id="modal_icon">
-				<img src="resources/images/main/sns-kakao-talk-60.png">
-				<img src="resources/images/main/sns-facebook-60.png">
-				<img src="resources/images/main/sns-url-60.png">
+				<img src="resources/images/main/sns-kakao-talk-60.png"> <img
+					src="resources/images/main/sns-facebook-60.png"> <img
+					src="resources/images/main/sns-url-60.png">
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
+		$(document).on("click", ".etc_2", function(e) {
+			var seq = $(e.target).parent().parent().parent().attr('id').replace("content_", "");
+			location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+
+		});
 		$(document).on("click", ".etc_4", function(e) {
 			openModal("modal2");
 
