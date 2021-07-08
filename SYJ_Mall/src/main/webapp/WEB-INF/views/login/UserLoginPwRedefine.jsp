@@ -9,10 +9,10 @@
 <script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>Insert title here</title>
 <link rel="icon" href="resources/images/main/kakao_ryan.ico">
 <link rel = "stylesheet" href = "resources/css/userlogin/userLoginPwRedefined.css">
-
 </head>
 <body>
 	<!-- type="hidden" -->
@@ -20,7 +20,7 @@
     <input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />	
 
 
-    <div id = kakaopic></div>
+    <div id = kakaopic style = "background-image: url('resources/images/kakao.svg');"></div>
 
     <div id = "findtitle">
         새로운 비밀번호로

@@ -3,7 +3,6 @@
         
         /* 전체적인 바디 */
         body {
-            /* border : 1px solid red; */
             border : 1px solid #F6F6F6;
             height : 873px;
             margin: 0px auto;
@@ -18,7 +17,6 @@
             margin-top: 140px;
             height: 50px;
             width: 100px;
-            background-image: url(./img/kakao.svg);
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -121,7 +119,6 @@
 
         /* 에러메시지 */
         .errmsgs {
-            border : 1px solid red;
             color: red;
             font-family: 'NEXON Lv1 Gothic OTF';
             width:350px;
