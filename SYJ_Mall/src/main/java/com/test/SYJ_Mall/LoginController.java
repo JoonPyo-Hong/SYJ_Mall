@@ -80,7 +80,8 @@ public class LoginController {
 					
 					logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
 					
-					return "/testwaiting/waiting";//테스트페이지 
+					return "redirect:/main.action";
+					//return "/testwaiting/waiting";//테스트페이지 
 					
 				} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
 					System.out.println("잘못된 로그인 정보");
