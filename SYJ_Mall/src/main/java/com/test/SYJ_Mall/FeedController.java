@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jdk.internal.misc.FileSystemOption;
-
 /**
  * 댓글 페이지 컨트롤러 역할
  * 

@@ -1,9 +1,7 @@
 package com.test.SYJ_Mall;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.main.MainService;
 
@@ -37,17 +36,17 @@ public class MainController {
 	public String main(Model model, HttpServletRequest request) {
 //		List<MainDTO> list = service.list();
 		HttpSession session = request.getSession();
+		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
+		
 		int seq = 0;
-		if(session.getAttribute("userSeq")==null) {
+		
+		if(dto == null) { 
 			seq = 0;
-		}else {
-			
-			seq = (Integer)session.getAttribute("userSeq");
+		} else {
+			seq = dto.getUserSeq();
 		}
 		model.addAttribute("seq", seq);
-		
-//		System.out.println(seq);
-		
+			
 		return "/main/Main";
 	}
 
