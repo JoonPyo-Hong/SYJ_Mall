@@ -48,13 +48,13 @@ body {
 }
 
 #head div:nth-child(1) {
-	width: 32px;
+	width: 60px;
 	height: 32px;
 	margin: 8px 3px 7px 13px;
 }
 
 #head div:nth-child(2) {
-	width: 147px;
+	width: 214px;
 	height: 24px;
 	display: block;
 	margin: 0px auto;
@@ -77,7 +77,14 @@ body {
 	cursor: pointer;
 }
 
-#head div:nth-child(1) img {
+#head div:nth-child(1) img:nth-child(1) {
+	width: 18px;
+	height: 18px;
+	margin: 6px 5px 7px;
+	height: 18px;
+}
+
+#head div:nth-child(1) img:nth-child(2) {
 	width: 18px;
 	height: 18px;
 	margin: 6px 5px 7px;
@@ -461,13 +468,13 @@ body.s_no-scroll {
 	font-weight: bold;
 	margin-bottom: 0px;
 }
-#sticky{
+
+#sticky {
 	position: sticky;
 	top: 0px;
 	left: 0px;
 	z-index: 500;
 	background-color: white;
-
 }
 </style>
 <title>Feed</title>
@@ -477,7 +484,8 @@ body.s_no-scroll {
 		<div id="sticky">
 			<div id="head">
 				<div>
-					<img src="resources/images/main/gnb-home-18-black@2x.png"></img>
+					<img src="resources/images/main/ic_back_2x.png"></img> <img
+						src="resources/images/main/gnb-home-18-black@2x.png"></img>
 				</div>
 				<div>
 					<h1>게시물</h1>
@@ -491,9 +499,72 @@ body.s_no-scroll {
 				</div>
 			</div>
 		</div>
-		
+
+		<div class='content'>
+
+			<div class='top'>
+				<img class='img_top'></img>
+				<div class='txt_top'>
+
+					<p>1</p>
+
+					<div>
+						<span>2</span><span>2 </span>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class='swiper-container' id='swiper"+ this.seq +"'>
+
+				<div class='swiper-wrapper'></div>
+
+				<div class='swiper-button-next'></div>
+
+				<div class='swiper-button-prev'></div>
+
+				<div class='swiper-pagination'></div>
+
+			</div>
+
+			<div class='part'>
+
+				<div class='etc'>
+					<span class='etc_1'></span><img class='etc_2'
+						src='resources/images/main/reply-black.png'></img><span
+						class='etc_3'></span><img class='etc_4'
+						src='resources/images/main/share-black.png'></img>
+				</div>
+
+				<div class='txt_1'>
+					좋아요<span></span>
+				</div>
+
+				<div class='txt_2'>2</div>
+
+				<div class='txt_3'>2</div>
+
+				<div class='txt_4'></div>
+
+				<div class='txt_5'>
+					1<span>2</span>1
+				</div>
+
+				<div class='comment'>
+
+					<textarea placeholder='댓글을 달아주세요.' disabled></textarea>
+
+				</div>
+
+			</div>
+
+		</div>
 
 	</div>
+
+
+
 	<div id="modal"></div>
 	<div class="modal-con modal1">
 		<div id="modal_content">
