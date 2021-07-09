@@ -265,6 +265,11 @@ body {
 	cursor: pointer;
 }
 
+.comment img {
+	width: 28px;
+	height: 28px;
+}
+
 textarea {
 	text-rendering: auto;
 	word-spacing: normal;
@@ -476,6 +481,68 @@ body.s_no-scroll {
 	z-index: 500;
 	background-color: white;
 }
+
+#feed {
+	border-top: 1px solid rgb(227, 229, 232);
+	padding: 20px;
+	margin: 0px auto;
+	width: 640px;
+}
+
+.feed_spn_1 {
+	font-size: 14px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.feed_spn_2 {
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+.feed_spn_2 img {
+	width: 18px;
+	height: 18px;
+}
+
+.feed_content {
+	padding: 12px 0px;
+	width: 600px;
+	display: felx;
+}
+
+.feed_content div:nth-child(1) {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.feed_content div:nth-child(2) {
+	padding: 12px 59px 12px 14px;
+	border-radius: 0px 24px 24px;
+	height: 44px;
+	background-color: rgb(240, 241, 244);
+	position: relative;
+	box-sizing: border-box;
+	height: 44px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	width: auto;
+}
+
+.feed_content div:nth-child(3) span {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.feed_img {
+	cursor: pointer;
+}
+
+.feed_img img {
+	width: 15px;
+	height: 15px;
+}
 </style>
 <title>Feed</title>
 </head>
@@ -491,7 +558,6 @@ body.s_no-scroll {
 					<h1>게시물</h1>
 				</div>
 				<div>
-
 					<img src="resources/images/main/ic_search_2x.png"></img>
 				</div>
 				<div>
@@ -499,71 +565,60 @@ body.s_no-scroll {
 				</div>
 			</div>
 		</div>
-
 		<div class='content'>
-
 			<div class='top'>
 				<img class='img_top'></img>
 				<div class='txt_top'>
-
 					<p>1</p>
-
 					<div>
 						<span>2</span><span>2 </span>
 					</div>
-
 				</div>
-
 			</div>
-
 			<div class='swiper-container' id='swiper"+ this.seq +"'>
-
 				<div class='swiper-wrapper'></div>
-
 				<div class='swiper-button-next'></div>
-
 				<div class='swiper-button-prev'></div>
-
 				<div class='swiper-pagination'></div>
-
 			</div>
-
 			<div class='part'>
-
 				<div class='etc'>
 					<span class='etc_1'></span><img class='etc_2'
 						src='resources/images/main/reply-black.png'></img><span
 						class='etc_3'></span><img class='etc_4'
 						src='resources/images/main/share-black.png'></img>
 				</div>
-
 				<div class='txt_1'>
 					좋아요<span></span>
 				</div>
-
 				<div class='txt_2'>2</div>
-
 				<div class='txt_3'>2</div>
-
 				<div class='txt_4'></div>
-
 				<div class='txt_5'>
 					1<span>2</span>1
 				</div>
-
 				<div class='comment'>
-
-					<textarea placeholder='댓글을 달아주세요.' disabled></textarea>
-
+					<textarea placeholder="댓글을 달아주세요."></textarea>
+					<img src="resources/images/main/reply-off.png"></img>
 				</div>
-
 			</div>
-
 		</div>
-
+		<div id="feed">
+			<span class="feed_spn_1">최신순</span><span class="feed_spn_2"><img
+				src="resources/images/main/arrow-small-down.png"></span>
+			<div class="feed_content">
+				<div>전*지</div>
+				<div>
+					<textarea placeholder="하하하하" disabled="disabled"></textarea>
+				</div>
+				<div>
+					<span>15분 전</span> <span class="feed_img"><img
+						src="resources/images/main/like-grey.png"></span><span> 좋아요</span>
+					<span>답글달기</span>
+				</div>
+			</div>
+		</div>
 	</div>
-
-
 
 	<div id="modal"></div>
 	<div class="modal-con modal1">
