@@ -32,12 +32,20 @@ body {
 	margin: 0px;
 	width: 100%;
 }
+#sticky{
+	position: sticky;
+	top: 0px;
+	left: 0px;
+	z-index: 500;
+	background-color: white;
 
+}
 #head {
 	width: 640px;
 	height: 47px;
 	margin: 0px auto;
 	display: flex;
+
 }
 
 #head div:nth-child(1) {
@@ -104,6 +112,7 @@ body {
 	padding: 0px 17.5px;
 	text-align: center;
 	font-size: 16px;
+
 }
 
 #tab div {
@@ -520,25 +529,27 @@ body.s_no-scroll {
 <body>
 
 	<div id="wrap">
-		<div id="head">
-			<div>
-				<img src="resources/images/main/ic_menu_2x.png"></img>
+		<div id="sticky">
+			<div id="head">
+				<div>
+					<img src="resources/images/main/ic_menu_2x.png"></img>
+				</div>
+				<div>
+					<img src="resources/images/main/new-logo-mo.png"></img>
+				</div>
+				<div>
+					<img src="resources/images/main/ic_search_2x.png"></img>
+				</div>
+				<div>
+					<img src="resources/images/main/language-global-18-black@2x.png"></img>
+				</div>
 			</div>
-			<div>
-				<img src="resources/images/main/new-logo-mo.png"></img>
+			<div id="tab">
+				<div class="tab_selected">오늘</div>
+				<div>신규</div>
+				<div>인기</div>
+				<div>마이</div>
 			</div>
-			<div>
-				<img src="resources/images/main/ic_search_2x.png"></img>
-			</div>
-			<div>
-				<img src="resources/images/main/language-global-18-black@2x.png"></img>
-			</div>
-		</div>
-		<div id="tab">
-			<div class="tab_selected">오늘</div>
-			<div>신규</div>
-			<div>인기</div>
-			<div>마이</div>
 		</div>
 		<input type="hidden" id="hid_seq" value="${seq}}">
 		<div class="scroll"></div>
@@ -579,11 +590,15 @@ body.s_no-scroll {
 		</div>
 	</div>
 	<script type="text/javascript">
-		$(document).on("click", ".etc_2", function(e) {
-			var seq = $(e.target).parent().parent().parent().attr('id').replace("content_", "");
-			location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+		$(document).on(
+				"click",
+				".etc_2",
+				function(e) {
+					var seq = $(e.target).parent().parent().parent().attr('id')
+							.replace("content_", "");
+					location.href = "/SYJ_Mall/feed.action?seq=" + seq;
 
-		});
+				});
 		$(document).on("click", ".etc_4", function(e) {
 			openModal("modal2");
 

@@ -461,28 +461,37 @@ body.s_no-scroll {
 	font-weight: bold;
 	margin-bottom: 0px;
 }
+#sticky{
+	position: sticky;
+	top: 0px;
+	left: 0px;
+	z-index: 500;
+	background-color: white;
+
+}
 </style>
 <title>Feed</title>
 </head>
 <body>
 	<div id="wrap">
-		<div id="head">
-			<div>
-				<img src="resources/images/main/gnb-home-18-black@2x.png"></img>
-			</div>
-			<div>
-				<h1>게시물</h1>
-			</div>
-			<div>
+		<div id="sticky">
+			<div id="head">
+				<div>
+					<img src="resources/images/main/gnb-home-18-black@2x.png"></img>
+				</div>
+				<div>
+					<h1>게시물</h1>
+				</div>
+				<div>
 
-				<img src="resources/images/main/ic_search_2x.png"></img>
-			</div>
-			<div>
-				<img src="resources/images/main/language-global-18-black@2x.png"></img>
+					<img src="resources/images/main/ic_search_2x.png"></img>
+				</div>
+				<div>
+					<img src="resources/images/main/language-global-18-black@2x.png"></img>
+				</div>
 			</div>
 		</div>
-
-		<div class="scroll"></div>
+		
 
 	</div>
 	<div id="modal"></div>
