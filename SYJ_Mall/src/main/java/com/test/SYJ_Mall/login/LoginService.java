@@ -106,12 +106,17 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public HttpServletRequest AutoLoginBanned(HttpServletRequest request) {// 과거로그인 기록을 조회하여 마지막 로그인기록 아이피와 다른경우 자동로그인
-																			// 방지 페이지로 이동한다.
+	public HttpServletRequest AutoLoginBanned(HttpServletRequest request,int userSeq,String ip) {// 과거로그인 기록을 조회하여 마지막 로그인기록 아이피와 다른경우 자동로그인 방지 페이지로 이동한다.
+																		 
 
 		HttpSession userSession = request.getSession();// 유저의 세션객체를 만들어준다.
-		int sucessCount = 0;// 사용자가 몇번 정답을 맞췄는지 알려줄것이다.
-		userSession.setAttribute("sucessCount", sucessCount);// 세션객체에 대입
+		userSession.setAttribute("userSeq", userSeq);
+		userSession.setAttribute("userIp", ip);
+		
+		int sucessCount = 0;//사용자가 몇번 정답을 맞췄는지 알려줄것이다.
+		int failCount = 0;//사용자가 몇번 틀렸는지 알려줄 것이다.
+		userSession.setAttribute("sucessCount", sucessCount);// sucessCount 세션객체에 대입
+		userSession.setAttribute("failCount", failCount);// failCount 세션객체에 대입
 
 		AutoLoginPic autoLogin = new AutoLoginPic();
 		String[] picNameKorEng = autoLogin.picName();// 어떤 사진을 줄건지 생각을 해야한다.
@@ -129,40 +134,41 @@ public class LoginService implements ILoginService {
 	public JSONObject picCheck(HttpServletRequest request) {//그림을 체크해주는것
 
 		HttpSession userSession = request.getSession();
-		int sucessCount = (Integer) userSession.getAttribute("sucessCount");
-
+		int sucessCount = (Integer) userSession.getAttribute("sucessCount");//성공횟수
+		int failCount = (Integer) userSession.getAttribute("failCount");//실패횟수
+		
 		String selectPicName = (String) userSession.getAttribute("selectPicName");// 정답 그림이름 -> 영어이름
-
 		String throwPicName = request.getParameter("picName");// ajax 를 통해서 넘어온 그림의 이름
 		String clickNum = request.getParameter("clickNum");// ajax 를 통해서 넘어온 태그 id명
 
 		if (selectPicName.equals("airplane")) {
-			if (throwPicName.contains("airplane"))
-				sucessCount++;
+			if (throwPicName.contains("airplane")) sucessCount++;
+			else failCount++;	
 		} else if (selectPicName.equals("apartment")) {
-			if (throwPicName.contains("apartment"))
-				sucessCount++;
+			if (throwPicName.contains("apartment")) sucessCount++;
+			else failCount++;
 		} else if (selectPicName.equals("car")) {
-			if (throwPicName.contains("car"))
-				sucessCount++;
+			if (throwPicName.contains("car")) sucessCount++;
+			else failCount++;
 		} else if (selectPicName.equals("cat")) {
-			if (throwPicName.contains("cat"))
-				sucessCount++;
+			if (throwPicName.contains("cat")) sucessCount++;
+			else failCount++;
 		} else if (selectPicName.equals("dog")) {
-			if (throwPicName.contains("dog"))
-				sucessCount++;
+			if (throwPicName.contains("dog")) sucessCount++;
+			else failCount++;
 		} else if (selectPicName.equals("laptop")) {
-			if (throwPicName.contains("laptop"))
-				sucessCount++;
+			if (throwPicName.contains("laptop")) sucessCount++;
+			else failCount++;
 		} else if (selectPicName.equals("phone")) {
-			if (throwPicName.contains("phone"))
-				sucessCount++;
+			if (throwPicName.contains("phone")) sucessCount++;
+			else failCount++;
 		} else if (selectPicName.equals("sea")) {
-			if (throwPicName.contains("sea"))
-				sucessCount++;
+			if (throwPicName.contains("sea")) sucessCount++;
+			else failCount++;
 		}
 
-		userSession.setAttribute("sucessCount", sucessCount);// 카운트를 넣어주기
+		userSession.setAttribute("sucessCount", sucessCount);// 성공횟수를 세션에 다시 넣어주기
+		userSession.setAttribute("failCount", failCount);// 카운트를 넣어주기
 
 		JSONObject obj = new JSONObject();
 		AutoLoginPic al = new AutoLoginPic();
@@ -178,7 +184,8 @@ public class LoginService implements ILoginService {
 
 		obj.put("clickNum", clickNum);// 클릭한 태그명
 		obj.put("selectPic", selectPic);// 클릭한 태그명에 새로운 사진 업데이트
-		obj.put("sucessCount", sucessCount);
+		obj.put("sucessCount", sucessCount);//javascript 에 넘겨주기 위함 -> 성공횟수
+		obj.put("failCount", failCount);//javascript 에 넘겨주기 위함 -> 실패횟수
 
 		return obj;
 	}
@@ -505,6 +512,38 @@ public class LoginService implements ILoginService {
 
 		
 		return result;
+	}
+	
+	//세션객체를 소멸시켜주는 메서드
+	@Override
+	public void sessionDelete(HttpServletRequest request) {
+		
+		HttpSession userSession = request.getSession();
+		userSession.invalidate();//세션 완전히 삭제
+		
+	}
+
+	//자동로그인 방지 통과 후 로그인 처리
+	@Override
+	public int autoLoginPassLogOn(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		int userSeq = (Integer)session.getAttribute("userSeq");
+		String userIp = (String)session.getAttribute("userIp");
+			
+		loginSuccess(request,userSeq);//로그인 인증티켓 발급
+		logUserTrace(userSeq,userIp);//로그인 기록 남겨주기
+			
+		session.removeAttribute("userSeq");
+		session.removeAttribute("userIp");
+		session.removeAttribute("picName");
+		session.removeAttribute("clickNum");
+		session.removeAttribute("sucessCount");
+		session.removeAttribute("failCount");
+			
+		return 1;
+
 	}
 	
 

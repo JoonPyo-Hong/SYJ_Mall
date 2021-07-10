@@ -45,16 +45,18 @@
 	
     <script>
         
-    	var picName;
-    	var clickNum;
-    	var answer;
-    	var sucessCount = 0;// 애를기준으로 넘어갈지 말지 결정한다.
+    	//왜 전역변수로 빼준거지?
+    	//var picName;
+    	//var clickNum;
+    	//var answer;
+    	//var sucessCount = 0;//성공한 횟수
+    	//var failCount = 0;//실패한 횟수
     
         $(".images").click(function(){
             
-            clickNum = event.srcElement.id;
-            picName = event.srcElement.style.background;
-			console.log(picName)
+            var clickNum = event.srcElement.id;
+            var picName = event.srcElement.style.background;
+			//console.log(picName)
             
 			$.ajax({
 				//요청 정보
@@ -86,10 +88,16 @@
 					
 					
 					
-					sucessCount = result.sucessCount;
+					var sucessCount = result.sucessCount;
+					var failCount = result.failCount;
 					
-					//아래를 만족하면 넘어가준다. -> 여기는 아직 처리되지 않음
-					if (sucessCount >= 3) {
+					//실패횟수를 초과한 경우
+					if(failCount == 3) {
+						location.href = "/SYJ_Mall/userautologinFail.action";
+					}
+					
+					//성공횟수를 충족한 경우
+					if (sucessCount == 3) {
 						location.href = "/SYJ_Mall/userautologinPass.action";
 					}
 				},
