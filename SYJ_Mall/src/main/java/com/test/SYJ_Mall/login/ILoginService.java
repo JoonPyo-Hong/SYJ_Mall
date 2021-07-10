@@ -50,9 +50,11 @@ public interface ILoginService {
 	/**
 	 * 자동로그인 방지
 	 * @param request	request 객체
-	 * @return			request 객체
+	 * @param userSeq	유저 고유번호
+	 * @param ip		유저 아이피 주소
+	 * @return			HttpServletRequest 객체 request 를 보내주기 위함
 	 */
-	HttpServletRequest AutoLoginBanned(HttpServletRequest request);
+	HttpServletRequest AutoLoginBanned(HttpServletRequest request,int userSeq,String ip);
 	
 	/**
 	 * 자동로그인 방지 - 사진불러오기
@@ -186,6 +188,19 @@ public interface ILoginService {
 	 * @return			1 : 성공, -1 : 실패
 	 */
 	int remodiftUserPw(HttpServletRequest request);
+	
+	/**
+	 * 세션객체를 소멸시키는 메서드
+	 * @param request	request 객체	
+	 */
+	void sessionDelete(HttpServletRequest request);
+	
+	/**
+	 * 자동로그인 방지를 통과 한 후 로그인 처리단계
+	 * @param request	request 객체
+	 * @return			1 : 성공, -1 : 실패
+	 */
+	int autoLoginPassLogOn(HttpServletRequest request);
 
 
 	

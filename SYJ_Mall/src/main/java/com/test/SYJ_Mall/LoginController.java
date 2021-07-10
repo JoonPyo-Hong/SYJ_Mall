@@ -40,10 +40,15 @@ public class LoginController {
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET,RequestMethod.POST })
 	public String login(HttpServletRequest request, HttpServletResponse response, String site) {
 		
-		// 승환이형 작업 할 것
-		//System.out.println(site);
+		//혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임
+		int result = -1;
 		
-		int result = logService.firstLoginStep(request,0,0);//result : 0 -> 에러없음
+		HttpSession session = request.getSession();
+		if (session.getAttribute("userinfo") == null) {
+			result = logService.firstLoginStep(request,0,0);//result : 0 -> 에러없음
+		} else {
+			return "redirect:/main.action";
+		}
 		
 		if (result == 0) return "/login/UserLogin";//에러가 없는경우 -> 로그인 페이지로 넘겨준다.
 		else return "/testwaiting/kakaoerror";//에러페이지로 보내준다.
@@ -100,15 +105,11 @@ public class LoginController {
 					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
 					
 					
-				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다. --> ***보안정책 실패하는 경우도 넣어줘야 하는데***;
+				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
 					System.out.println("보안정책을 따라야한다.");
 					
-					HttpSession session = request.getSession();
-					session.setAttribute("userSeq", userSeq);
-					session.setAttribute("userIp", ip);
-					
 					//자동로그인 방지 알고리즘
-					request = logService.AutoLoginBanned(request);
+					request = logService.AutoLoginBanned(request,userSeq,ip);
 					
 					return "/login/UserAutoLoginCheck";
 					
@@ -123,11 +124,7 @@ public class LoginController {
 			
 				return "/testwaiting/kakaoerror";
 			}
-			
-			
-				
-			
-			
+
 	}
 	
 	//자동로그인 방지
@@ -143,26 +140,48 @@ public class LoginController {
 	//자동로그인 방지 -> 통과한경우
 	@RequestMapping(value = "/userautologinPass.action", method = { RequestMethod.GET })
 	public String autologinPass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		try {
+			HttpSession session = request.getSession();
+			int sucessCount = (Integer)session.getAttribute("sucessCount");
+			
+			if (sucessCount != 3) {
+				return "/testwaiting/kakaoerror";
+			//자동로그인 방지를 직접 통과하고 들어온 경우	
+			} else {
+				int result = logService.autoLoginPassLogOn(request);
 				
+				if (result == 1) return "redirect:/main.action";//메인페이지로 이동
+				else return "/testwaiting/kakaoerror";//오류페이지로 이동
+			}
+			
+		} catch(Exception e) {
+			//허용없이 들어올때 벤을 시켜줘야 한다.
+			return "/testwaiting/kakaoerror";
+		}
+	}
+	
+	//자동로그인 방지 -> 실패한 경우
+	@RequestMapping(value = "/userautologinFail.action", method = { RequestMethod.GET })
+	public String autologinFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		HttpSession session = request.getSession();
-		int userSeq = (Integer)session.getAttribute("userSeq");
-		String userIp = (String)session.getAttribute("userIp");
+		//못들어오게 해야하는데...
+		try {
+			HttpSession session = request.getSession();
+			int failCount = (Integer)session.getAttribute("failCount");
+			//세션을 아예 삭제시켜주는 서비스를 구현
+			logService.sessionDelete(request);
+			
+			if (failCount != 3) {
+				throw new Exception();
+			}
+
+			return "/testwaiting/waiting";
+		} catch(Exception e) {
+			return "/testwaiting/kakaoerror";
+		}
+
 		
-		
-		logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
-		logService.logUserTrace(userSeq,userIp);//로그인 기록 남겨주기
-		
-		System.out.println(session.getAttribute("userinfo"));
-		
-		//여기서 자동로그인때 사용한 세션변수 삭제해줘야한다. -> 메모리 누수 방지
-		session.removeAttribute("userSeq");
-		session.removeAttribute("userIp");
-		session.removeAttribute("picName");
-		session.removeAttribute("clickNum");
-		session.removeAttribute("sucessCount");
-		
-		return "/testwaiting/waiting";
 	}
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/
@@ -342,7 +361,6 @@ public class LoginController {
 		
 		
 		out.print(result);
-		//return "/login/UserIdFindCheck";
 	}
 	
 	
@@ -380,12 +398,11 @@ public class LoginController {
 		int result = logService.remodiftUserPw(request);
 		
 		if(result == 1) {
-			return "/testwaiting/waiting";
+			return "redirect:/main.action";//메인페이지로 보내준다.
 		} else {
 			return "/testwaiting/kakaoerror";
 		}
 			
-		
 	}
 	
 	
