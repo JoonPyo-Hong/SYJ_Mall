@@ -570,7 +570,7 @@ body.s_no-scroll {
 			</div>
 		</div>
 		<c:forEach items="${list1}" var="list1">
-			<div class='content'>
+			<div class='content' id="content_${list1.seq}">
 				<div class='top'>
 					<img class='img_top'
 						src="resources/images/main/${list1.reg_id}.png"></img>
@@ -604,8 +604,8 @@ body.s_no-scroll {
 					<div class='txt_1'>
 						좋아요<span></span>
 					</div>
-					<div class='txt_2'>2</div>
-					<div class='txt_3'>2</div>
+					<div class='txt_2'>${list1.title}</div>
+					<div class='txt_3'>${list1.contents}</div>
 					<div class='txt_4'></div>
 					<div class='txt_5'>
 						1<span>2</span>1
@@ -633,7 +633,7 @@ body.s_no-scroll {
 			</div>
 		</div>
 	</div>
-
+	<input type="hidden" id="hid_seq" value="${seq}}">
 	<div id="modal"></div>
 	<div class="modal-con modal1">
 		<div id="modal_content">
@@ -654,6 +654,116 @@ body.s_no-scroll {
 		</div>
 	</div>
 	<script>
+		var l_seq = $(".etc_1").parent().parent().parent().attr('id').replace(
+				"content_", "");
+
+		var m_seq = parseInt($('#hid_seq').val());
+
+		heart_select(l_seq, m_seq);
+		heart(l_seq);
+		
+		function openModal(modalname) {
+			document.get
+			$("#modal").fadeIn(300);
+			$("." + modalname).fadeIn(300);
+			document.body.classList.add('s_no-scroll');
+		}
+
+		$("#modal, #close").on('click', function() {
+			$("#modal").fadeOut(300);
+			$(".modal-con").fadeOut(300);
+			document.body.classList.remove('s_no-scroll');
+
+		});
+
+		$('#modal_login').click(function() {
+			let f = document.createElement('form');
+
+			let obj;
+			obj = document.createElement('input');
+			obj.setAttribute('type', 'hidden');
+			obj.setAttribute('name', 'site');
+			obj.setAttribute('value', "main.action");
+
+			f.appendChild(obj);
+			f.setAttribute('method', 'post');
+			f.setAttribute('action', '/SYJ_Mall/login.action');
+			document.body.appendChild(f);
+			f.submit();
+
+		});
+
+		$(document).on("click", ".etc_1", function(e) {
+
+			var type = "";
+			if (m_seq != 0) {
+				if ($(e.target).css("background-position") == "-96px 0px") {
+					$(e.target).css('background-position', '0px 0');
+					type = "D";
+
+				} else {
+					$(e.target).css('background-position', '-96px 0');
+					type = "I";
+
+				}
+				$.ajax({
+					url : "heart_update.action",
+					type : 'post',
+					data : {
+						list_seq : l_seq,
+						member_seq : m_seq,
+						gubn : type
+					},
+					success : function(data) {
+						heart(l_seq);
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+			} else {
+				openModal("modal1");
+			}
+		});
+		function heart_select(a, b) {
+			$.ajax({
+				url : "heart_select.action",
+				type : 'post',
+				data : {
+					list_seq : a,
+					session_seq : b
+				},
+				success : function(data) {
+
+					if (data != 0) {
+						$("#content_" + a + " .etc_1").css(
+								'background-position', '-96px 0');
+					}
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+		}
+		function heart(seq) {
+			$.ajax({
+				url : "heart.action",
+				type : 'post',
+				data : {
+					num : seq,
+				},
+				success : function(data) {
+
+					$("#content_" + seq + " .txt_1 span")
+							.text(" " + data + "개");
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+		}
 		new Swiper('#swiper1', {
 			allowTouchMove : false,
 			watchOverflow : true,
