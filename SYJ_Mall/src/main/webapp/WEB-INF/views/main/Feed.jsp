@@ -474,6 +474,36 @@ body.s_no-scroll {
 	margin-bottom: 0px;
 }
 
+#modal_content2 {
+	width: 310px;
+	height: 184px;
+	text-align: center;
+}
+
+#modal_content2 p {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 1.5;
+	letter-spacing: -0.25px;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	margin-top: 20px;
+	padding-left: 37px;
+}
+
+#modal_icon {
+	width: 240px;
+	height: 128px;
+	margin-left: 35px;
+}
+
+#modal_icon img {
+	width: 60px;
+	height: 60px;
+	margin: 7px;
+	margin-top: 15px;
+}
+
 #sticky {
 	position: sticky;
 	top: 0px;
@@ -653,6 +683,21 @@ body.s_no-scroll {
 			</div>
 		</div>
 	</div>
+	<div class="modal-con modal2">
+		<div id="modal_content2">
+			<div id="close">
+				<img src="resources/images/main/close-24.png">
+			</div>
+			<div>
+				<p>공유하기</p>
+			</div>
+			<div id="modal_icon">
+				<img src="resources/images/main/sns-kakao-talk-60.png"> <img
+					src="resources/images/main/sns-facebook-60.png"> <img
+					src="resources/images/main/sns-url-60.png">
+			</div>
+		</div>
+	</div>
 	<script>
 		var l_seq = $(".etc_1").parent().parent().parent().attr('id').replace(
 				"content_", "");
@@ -661,7 +706,12 @@ body.s_no-scroll {
 
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
-		
+
+		$(document).on("click", ".etc_4", function(e) {
+			openModal("modal2");
+
+		});
+
 		function openModal(modalname) {
 			document.get
 			$("#modal").fadeIn(300);

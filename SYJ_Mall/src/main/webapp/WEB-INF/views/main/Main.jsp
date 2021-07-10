@@ -595,9 +595,15 @@ body.s_no-scroll {
 				"click",
 				".etc_2",
 				function(e) {
+					var m_seq = parseInt($('#hid_seq').val());
+					if (m_seq != 0) {
+					
 					var seq = $(e.target).parent().parent().parent().attr('id')
 							.replace("content_", "");
 					location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+					}else{
+						openModal("modal1");
+					}
 
 				});
 		$(document).on("click", ".etc_4", function(e) {
