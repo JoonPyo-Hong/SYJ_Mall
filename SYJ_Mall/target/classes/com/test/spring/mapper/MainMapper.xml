@@ -6,7 +6,7 @@
 
 <mapper namespace="main">
 
-	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO" parameterType="int">
+	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO" parameterType="java.util.HashMap">
 	SELECT
 	seq, reg_id,
 	reg_dt, gubn,

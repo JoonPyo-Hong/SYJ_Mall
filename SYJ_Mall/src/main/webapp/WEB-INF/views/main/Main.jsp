@@ -276,7 +276,7 @@ body {
 }
 
 .comment {
-	padding: 12px 59px 12px 14px;
+	padding: 10px;
 	border-radius: 0px 24px 24px;
 	height: 44px;
 	background-color: rgb(240, 241, 244);
@@ -309,6 +309,7 @@ textarea {
 	resize: none;
 	cursor: pointer;
 	overflow: hidden;
+	font-size: 14px;
 }
 
 .etc_selected {

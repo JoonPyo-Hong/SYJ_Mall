@@ -252,7 +252,7 @@ body {
 }
 
 .comment {
-	padding: 12px 59px 12px 14px;
+	padding: 8px;
 	border-radius: 0px 24px 24px;
 	height: 44px;
 	background-color: rgb(240, 241, 244);
@@ -262,15 +262,16 @@ body {
 	width: 600px;
 	height: 44px;
 	margin-top: 16px;
-	cursor: pointer;
 }
 
 .comment img {
 	width: 28px;
 	height: 28px;
+	cursor: pointer;
 }
 
 textarea {
+	font-size: 14px;
 	text-rendering: auto;
 	word-spacing: normal;
 	text-transform: none;
@@ -288,7 +289,6 @@ textarea {
 	background: none;
 	outline: none;
 	resize: none;
-	cursor: pointer;
 	overflow: hidden;
 }
 
@@ -485,8 +485,9 @@ body.s_no-scroll {
 #feed {
 	border-top: 1px solid rgb(227, 229, 232);
 	padding: 20px;
-	margin: 0px auto;
+	margin: 0px auto;;
 	width: 640px;
+	margin: 0px auto;
 }
 
 .feed_spn_1 {
@@ -507,8 +508,11 @@ body.s_no-scroll {
 
 .feed_content {
 	padding: 12px 0px;
+	margin-top: 10px;
 	width: 600px;
 	display: felx;
+	padding: 12px 0px;
+	margin-top: 10px;
 }
 
 .feed_content div:nth-child(1) {
@@ -565,44 +569,54 @@ body.s_no-scroll {
 				</div>
 			</div>
 		</div>
-		<div class='content'>
-			<div class='top'>
-				<img class='img_top'></img>
-				<div class='txt_top'>
-					<p>1</p>
-					<div>
-						<span>2</span><span>2 </span>
+		<c:forEach items="${list1}" var="list1">
+			<div class='content'>
+				<div class='top'>
+					<img class='img_top'
+						src="resources/images/main/${list1.reg_id}.png"></img>
+					<div class='txt_top'>
+						<p>${list1.reg_id}</p>
+						<div>
+							<span>${list1.gubn}</span><span><c:if
+									test="${list1.gubn ne null}"> · </c:if>${list1.reg_dt}</span>
+						</div>
+					</div>
+				</div>
+				<div class='swiper-container' id='swiper1'>
+					<div class='swiper-wrapper'>
+						<c:forEach items="${list2}" var="list2">
+							<div class='swiper-slide'>
+								<img src='resources/images/main/${list2}'></img>
+							</div>
+						</c:forEach>
+					</div>
+					<div class='swiper-button-next'></div>
+					<div class='swiper-button-prev'></div>
+					<div class='swiper-pagination'></div>
+				</div>
+				<div class='part'>
+					<div class='etc'>
+						<span class='etc_1'></span><img class='etc_2'
+							src='resources/images/main/reply-black.png'></img><span
+							class='etc_3'></span><img class='etc_4'
+							src='resources/images/main/share-black.png'></img>
+					</div>
+					<div class='txt_1'>
+						좋아요<span></span>
+					</div>
+					<div class='txt_2'>2</div>
+					<div class='txt_3'>2</div>
+					<div class='txt_4'></div>
+					<div class='txt_5'>
+						1<span>2</span>1
+					</div>
+					<div class='comment'>
+						<textarea placeholder="로그인 후 이용해주세요."></textarea>
+						<img src="resources/images/main/reply-off.png"></img>
 					</div>
 				</div>
 			</div>
-			<div class='swiper-container' id='swiper"+ this.seq +"'>
-				<div class='swiper-wrapper'></div>
-				<div class='swiper-button-next'></div>
-				<div class='swiper-button-prev'></div>
-				<div class='swiper-pagination'></div>
-			</div>
-			<div class='part'>
-				<div class='etc'>
-					<span class='etc_1'></span><img class='etc_2'
-						src='resources/images/main/reply-black.png'></img><span
-						class='etc_3'></span><img class='etc_4'
-						src='resources/images/main/share-black.png'></img>
-				</div>
-				<div class='txt_1'>
-					좋아요<span></span>
-				</div>
-				<div class='txt_2'>2</div>
-				<div class='txt_3'>2</div>
-				<div class='txt_4'></div>
-				<div class='txt_5'>
-					1<span>2</span>1
-				</div>
-				<div class='comment'>
-					<textarea placeholder="댓글을 달아주세요."></textarea>
-					<img src="resources/images/main/reply-off.png"></img>
-				</div>
-			</div>
-		</div>
+		</c:forEach>
 		<div id="feed">
 			<span class="feed_spn_1">최신순</span><span class="feed_spn_2"><img
 				src="resources/images/main/arrow-small-down.png"></span>
@@ -639,6 +653,19 @@ body.s_no-scroll {
 			</div>
 		</div>
 	</div>
-
+	<script>
+		new Swiper('#swiper1', {
+			allowTouchMove : false,
+			watchOverflow : true,
+			pagination : { // 페이징 설정
+				el : '.swiper-pagination',
+				clickable : false, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+			},
+			navigation : { // 네비게이션 설정
+				nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+				prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+			},
+		});
+	</script>
 </body>
 </html>
