@@ -2,6 +2,7 @@ package com.test.SYJ_Mall;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +35,7 @@ public class MainController {
 	// 메인 화면
 	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
 	public String main(Model model, HttpServletRequest request) {
-//		List<MainDTO> list = service.list();
+
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 
@@ -53,7 +55,7 @@ public class MainController {
 	@RequestMapping(value = "/list.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object list(@RequestParam("num") int num) {
-//		System.out.println(num);
+
 		Integer num1 = num - 1;
 		Integer num2 = num;
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -68,9 +70,9 @@ public class MainController {
 	@RequestMapping(value = "/img.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object img(@RequestParam("seq") int seq) {
-//		System.out.println(seq);
+
 		List<String> list = service.img(seq);
-//		System.out.println(list.toString());
+
 		return list;
 	}
 
@@ -78,7 +80,7 @@ public class MainController {
 	@RequestMapping(value = "/heart.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object heart(@RequestParam("num") int num) {
-//		System.out.println(num);
+
 		Integer count = service.heart(num);
 
 		return count;
@@ -88,13 +90,12 @@ public class MainController {
 	@RequestMapping(value = "/heart_select.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object heart_select(@RequestParam("list_seq") int list_seq, @RequestParam("session_seq") int session_seq) {
-//		System.out.println("list_seq =" +list_seq);
-//		System.out.println("session_seq =" +session_seq);
+
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("list_seq", list_seq);
 		map.put("session_seq", session_seq);
 		Integer count = service.heart_select(map);
-//		System.out.println("count =" + count);
+
 		return count;
 	}
 
@@ -123,13 +124,17 @@ public class MainController {
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 
 		int user_seq = 0;
-
+		String user_name = "";
 		if (dto == null) {
 			user_seq = 0;
+			user_name = "";
 		} else {
 			user_seq = dto.getUserSeq();
+			user_name = dto.getUserName();
 		}
+		
 		model.addAttribute("seq", user_seq);
+		model.addAttribute("name", user_name);
 
 		if (seq == null) {
 			seq = 0;
@@ -150,5 +155,11 @@ public class MainController {
 		model.addAttribute("count", count);
 
 		return "/main/Feed";
+	}
+	// 댓글 (Insert)
+	@RequestMapping(value = "/feed_insert.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void feed_insert(@RequestParam Map <String,Object> map) {
+		service.feed_insert(map);
 	}
 }

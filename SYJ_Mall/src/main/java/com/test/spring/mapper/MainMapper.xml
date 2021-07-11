@@ -6,28 +6,36 @@
 
 <mapper namespace="main">
 
-	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO" parameterType="java.util.HashMap">
-	SELECT
-	seq, reg_id,
-	reg_dt, gubn,
-	title, contents
-	FROM
-	dbo.main_list with(nolock) where (seq BETWEEN #{num1} AND #{num2}) order by seq desc
+	<select id="list" resultType="com.test.SYJ_Mall.main.MainDTO"
+		parameterType="java.util.HashMap">
+		SELECT
+		seq, reg_id,
+		reg_dt, gubn,
+		title, contents
+		FROM
+		dbo.main_list with(nolock) where (seq BETWEEN #{num1} AND #{num2}) order by seq
+		desc
 	</select>
 	<select id="img" resultType="string" parameterType="int">
-	select img_nm from main_img with(nolock) where list_seq = #{seq}
+		select img_nm from main_img with(nolock) where list_seq = #{seq}
 	</select>
 	<select id="heart" resultType="int" parameterType="int">
-	select count(*) from main_heart with (nolock) where list_seq = #{num}
+		select count(*) from main_heart with (nolock) where list_seq = #{num}
 	</select>
-	<select id="heart_select" resultType="int" parameterType="java.util.HashMap">
-	select count(*) from dbo.main_heart with(nolock) where list_seq = #{list_seq} and member_seq= #{session_seq}
+	<select id="heart_select" resultType="int"
+		parameterType="java.util.HashMap">
+		select count(*) from dbo.main_heart with(nolock) where list_seq =
+		#{list_seq} and member_seq= #{session_seq}
 	</select>
 	<insert id="heart_insert" parameterType="java.util.HashMap">
-		insert into dbo.main_heart values(#{list_seq},#{member_seq})
+		insert into
+		dbo.main_heart values(#{list_seq},#{member_seq})
 	</insert>
 	<delete id="heart_delete" parameterType="java.util.HashMap">
-		delete dbo.main_heart where list_seq = #{list_seq} and member_seq = #{member_seq}
+		delete dbo.main_heart
+		where list_seq = #{list_seq} and member_seq = #{member_seq}
 	</delete>
-		
+	<insert id="feed_insert" parameterType="java.util.HashMap">
+		insert into dbo.feed(member_seq,list_seq,feed,reg_id)values(#{member_seq},#{list_seq},#{feed},#{name})
+	</insert>
 </mapper>

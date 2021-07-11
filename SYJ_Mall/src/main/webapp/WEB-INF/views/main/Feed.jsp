@@ -254,7 +254,6 @@ body {
 .comment {
 	padding: 8px;
 	border-radius: 0px 24px 24px;
-	height: 44px;
 	background-color: rgb(240, 241, 244);
 	position: relative;
 	display: flex;
@@ -285,6 +284,7 @@ textarea {
 	font: 400 13.3333px Arial;
 	flex-direction: column;
 	width: 100%;
+	max-height: 60px;
 	border: none;
 	background: none;
 	outline: none;
@@ -641,8 +641,9 @@ body.s_no-scroll {
 						1<span>2</span>1
 					</div>
 					<div class='comment'>
-						<textarea placeholder="로그인 후 이용해주세요."></textarea>
-						<img src="resources/images/main/reply-off.png"></img>
+						<textarea id="feed_txt"
+							placeholder="<c:if test='${seq eq 0}'>로그인 후 이용해주세요.</c:if><c:if test='${seq ne 0}'>댓글을 달아주세요.</c:if>"></textarea>
+						<img src="resources/images/main/reply-off.png" id="feed_img"></img>
 					</div>
 				</div>
 			</div>
@@ -663,7 +664,8 @@ body.s_no-scroll {
 			</div>
 		</div>
 	</div>
-	<input type="hidden" id="hid_seq" value="${seq}}">
+	<input type="hidden" id="hid_seq" value="${seq}">
+	<input type="hidden" id="hid_name" value="${name}">
 	<div id="modal"></div>
 	<div class="modal-con modal1">
 		<div id="modal_content">
@@ -703,9 +705,34 @@ body.s_no-scroll {
 				"content_", "");
 
 		var m_seq = parseInt($('#hid_seq').val());
+		var hid_name = $('#hid_name').val();
 
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
+
+		$('#feed_img').click(function() {
+			if ($('#feed_txt').val() != "") {
+				var feed_txt = $('#feed_txt').val();
+
+				$.ajax({
+					url : "feed_insert.action",
+					type : 'post',
+					data : {
+						list_seq : l_seq,
+						member_seq : m_seq,
+						feed : feed_txt,
+						name : hid_name
+					},
+					success : function(data) {
+
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+
+			}
+		});
 
 		$(document).on("click", ".etc_4", function(e) {
 			openModal("modal2");

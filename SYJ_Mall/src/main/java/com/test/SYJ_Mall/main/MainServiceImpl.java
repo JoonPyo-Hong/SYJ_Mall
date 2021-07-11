@@ -26,7 +26,7 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public Integer heart(int num) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubs
 		return dao.heart(num);
 	}
 
@@ -40,6 +40,12 @@ public class MainServiceImpl implements MainService {
 	public void heart_update(HashMap<String, String> map) {
 		// TODO Auto-generated method stub
 		dao.heart_update(map);
+	}
+
+	@Override
+	public void feed_insert(Map<String, Object> map) {
+		dao.feed_insert(map);
+		
 	}
 
 

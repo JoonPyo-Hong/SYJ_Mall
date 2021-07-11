@@ -2,6 +2,7 @@ package com.test.SYJ_Mall.main;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,12 @@ public class MainDAOImpl implements MainDAO {
 //			System.out.println("delete");
 		}
 
+	}
+
+	@Override
+	public void feed_insert(Map<String, Object> map) {
+		session.insert("main.feed_insert", map);
+		
 	}
 
 }

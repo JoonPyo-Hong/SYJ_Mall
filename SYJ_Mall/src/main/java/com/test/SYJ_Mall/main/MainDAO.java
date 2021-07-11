@@ -2,6 +2,7 @@ package com.test.SYJ_Mall.main;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface MainDAO {
 
@@ -14,5 +15,7 @@ public interface MainDAO {
 	Integer heart_select(HashMap<String, Integer> map);
 
 	void heart_update(HashMap<String, String> map);
+
+	void feed_insert(Map<String, Object> map);
 
 }
