@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.login;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -60,7 +62,8 @@ public class LoginService implements ILoginService {
 		int error = 0;//에러처리
 		Random rnd = new Random();
 		List<AdverDTO> dtoList = dao.getAdvertiseInfo();//광고관련
-
+		IpCheck ic = new IpCheck();
+		
 		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 적용하고 지금은 "랜덤"으로 처리해준다.
 		// ----광고관련----
 		AdverDTO dto = dtoList.get(rnd.nextInt(dtoList.size()));
@@ -91,7 +94,7 @@ public class LoginService implements ILoginService {
 			int result = setRSAkey(request);
 		} catch(Exception e) {
 			error = -1;
-			e.printStackTrace();
+			errorEruptionTodb(e,ic.getClientIP(request));//오류가 발생하면 오류를 디비에 넣어준다.
 		}
 		
 		return error;
@@ -215,7 +218,7 @@ public class LoginService implements ILoginService {
 			int val = setRSAkey(request);
 			return 1;
 		} catch(Exception e) {
-			e.printStackTrace();
+			errorEruptionTodb(e,ip);
 			return -1;
 		}
 	}
@@ -405,13 +408,7 @@ public class LoginService implements ILoginService {
 		return result;
 	}
 	
-	//에러발생요건 디비에 넣어주기
-	@Override
-	public void errorEruptionTodb(String errormsg, String ip) {
-		
-		dao.errorIntoDb(errormsg,ip);
-		
-	}
+
 	
 	//유저의 아이디를 찾아줌
 	@Override
@@ -544,6 +541,16 @@ public class LoginService implements ILoginService {
 			
 		return 1;
 
+	}
+	
+	//에러 발생했을때 디비에 넣어주기 
+	@Override
+	public void errorEruptionTodb(Exception e, String ip) {
+		
+		StringWriter errors = new StringWriter();
+		e.printStackTrace(new PrintWriter(errors));
+		
+		dao.errorIntoDb(errors.toString(),ip);
 	}
 	
 

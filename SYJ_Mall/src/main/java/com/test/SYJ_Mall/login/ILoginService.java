@@ -130,12 +130,7 @@ public interface ILoginService {
 	 */
 	int userEmailVerify(HttpServletRequest request);
 	
-	/**
-	 * 에러가 발생했을때 처리
-	 * @param errormsg	에러요인
-	 * @param ip		에러를 발생시킨 ip
-	 */
-	void errorEruptionTodb(String errormsg, String ip);
+
 	
 	/**
 	 * 유저 아이디 찾아주기
@@ -201,6 +196,15 @@ public interface ILoginService {
 	 * @return			1 : 성공, -1 : 실패
 	 */
 	int autoLoginPassLogOn(HttpServletRequest request);
+    
+	/**
+	 * 에러가 발생했을때 처리
+	 * @param e		에러요인
+	 * @param ip	에러를 발생시킨 ip
+	 */
+	void errorEruptionTodb(Exception e, String ip);
+	
+
 
 
 	

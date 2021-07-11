@@ -2,7 +2,6 @@ package com.test.SYJ_Mall;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.IpCheck;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
@@ -44,6 +44,7 @@ public class LoginController {
 		int result = -1;
 		
 		HttpSession session = request.getSession();
+		
 		if (session.getAttribute("userinfo") == null) {
 			result = logService.firstLoginStep(request,0,0);//result : 0 -> 에러없음
 		} else {
@@ -116,11 +117,9 @@ public class LoginController {
 				}
 				
 			} catch(Exception e) {
-				StringWriter errors = new StringWriter();
-				e.printStackTrace(new PrintWriter(errors));
 				
 				//위의 에러를 디비에 넣어줘야 한다.
-				logService.errorEruptionTodb(errors.toString(),ip);
+				logService.errorEruptionTodb(e,ip);
 			
 				return "/testwaiting/kakaoerror";
 			}
@@ -141,6 +140,8 @@ public class LoginController {
 	@RequestMapping(value = "/userautologinPass.action", method = { RequestMethod.GET })
 	public String autologinPass(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		IpCheck ic = new IpCheck();
+		
 		try {
 			HttpSession session = request.getSession();
 			int sucessCount = (Integer)session.getAttribute("sucessCount");
@@ -157,6 +158,7 @@ public class LoginController {
 			
 		} catch(Exception e) {
 			//허용없이 들어올때 벤을 시켜줘야 한다.
+			logService.errorEruptionTodb(e,ic.getClientIP(request));
 			return "/testwaiting/kakaoerror";
 		}
 	}
@@ -165,6 +167,7 @@ public class LoginController {
 	@RequestMapping(value = "/userautologinFail.action", method = { RequestMethod.GET })
 	public String autologinFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		IpCheck ic = new IpCheck();
 		//못들어오게 해야하는데...
 		try {
 			HttpSession session = request.getSession();
@@ -178,6 +181,7 @@ public class LoginController {
 
 			return "/testwaiting/waiting";
 		} catch(Exception e) {
+			logService.errorEruptionTodb(e,ic.getClientIP(request));
 			return "/testwaiting/kakaoerror";
 		}
 
@@ -202,11 +206,13 @@ public class LoginController {
 	//회원가입 페이지로 보내주는 곳
 	@RequestMapping(value = "/userSignUp.action", method = { RequestMethod.GET })
 	public String signUp(HttpServletRequest request, HttpServletResponse response) {
-			
+		IpCheck ic = new IpCheck();
+		
 		//비밀번호를 암호하하기 위해서 RSA 대칭키를 써줄것이다.
 		try {
 			int result = logService.setRSAkey(request);//rsa대칭키 생성
 		} catch(Exception e) {
+			logService.errorEruptionTodb(e,ic.getClientIP(request));
 			e.getMessage();
 		}
 		
@@ -216,12 +222,13 @@ public class LoginController {
 	//회원가입 페이지 - main
 	@RequestMapping(value = "/userSignUpGo.action", method = { RequestMethod.POST })
 	public String signUpGo(HttpServletRequest request, HttpServletResponse response,SignUpDTO dto) throws UnsupportedEncodingException {
-		
+		IpCheck ic = new IpCheck();
 		request.setCharacterEncoding("UTF-8");
 		
 		try {
 			int result = logService.userSignUp(request,dto);
 		} catch(Exception e) {
+			logService.errorEruptionTodb(e,ic.getClientIP(request));
 			e.printStackTrace();
 		}
 				
@@ -373,9 +380,9 @@ public class LoginController {
 		String userEmail = request.getParameter("kakaoMail");
 		String userPhone = request.getParameter("kakaoPhone");
 		
-		System.out.println(userId);
-		System.out.println(userEmail);
-		System.out.println(userPhone);
+		//System.out.println(userId);
+		//System.out.println(userEmail);
+		//System.out.println(userPhone);
 		
 		//임시비밀번호 생성
 		int result = logService.sendPw(userId,userEmail,userPhone);
