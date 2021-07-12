@@ -105,6 +105,39 @@ public class RSAalgorithm {
 	}
 	
 	/**
+	 * 암호화된 문자열을 복호화한다. --> 세션을 없애지 않는다.
+	 * @param request	request 객체
+	 * @return			map 객체 -> 복호화한 아이디,비밀번호 값이 들어있는
+	 */
+	public HashMap<String,String> getRSASessionMaintain(HttpServletRequest request) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		
+		String securedUsername = request.getParameter("securedUsername");//암호화된 아이디
+        String securedPassword = request.getParameter("securedPassword");//암호화된 비밀번호
+		
+        HttpSession session = request.getSession();
+        PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
+        
+        if (privateKey == null) {
+            throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다.");
+        }
+        try {
+            String username = decryptRsa(privateKey, securedUsername);
+            String password = decryptRsa(privateKey, securedPassword);
+            
+            map.put("id", username);
+            map.put("pw", password);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+        return map;
+	}
+	
+	
+	/**
 	 * 암호화된 문자열을 복호화한다. - 오직 비밀번호만
 	 * @param request	request 객체
 	 * @return			복호화된 비밀번호

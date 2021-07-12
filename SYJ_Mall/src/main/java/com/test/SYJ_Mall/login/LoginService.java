@@ -396,6 +396,18 @@ public class LoginService implements ILoginService {
 		
 	}
 	
+	// RSA 대칭키 - 복호화 - 세션유지
+	@Override
+	public HashMap<String, String> getRSAkeySessionStay(HttpServletRequest request) {
+		
+			RSAalgorithm rsa = new RSAalgorithm();
+			
+			HashMap<String, String> map = rsa.getRSASessionMaintain(request);
+			
+			return map;
+			
+	}
+	
 	
 	//회원가입 - 유저 이메일 중복 확인
 	@Override
@@ -551,6 +563,49 @@ public class LoginService implements ILoginService {
 		e.printStackTrace(new PrintWriter(errors));
 		
 		dao.errorIntoDb(errors.toString(),ip);
+	}
+	
+	//존재하는 아이디인지  체크 - 모달창 띄워줄것
+	@Override
+	public int userIdPwCheck(HttpServletRequest request) {
+		
+		String ip = "";
+		
+		try {
+			request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
+			
+			ip = ipCheck(request);
+			
+			Map<String,String> map = getRSAkeySessionStay(request);
+			
+			String id = map.get("id");//아이디
+			String pw = map.get("pw");//비밀번호
+			
+			//아래에서 이제 아이디 비밀번호의 일치여부를 결정해준다. and 벤할지도 결정
+			String encPw = pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
+			
+			List<LoginDTO> loginResult = loginResult(ip, id, encPw);
+			int loginCode = loginResult.get(0).getLoginCode();//로그인 결과
+			
+			if (loginCode != 1 && loginCode != -1) {
+				//HttpSession session = request.getSession();
+				int userSeq = loginResult.get(0).getUserSeq();//유저 고유 코드
+				//session.setAttribute("userSeq", userSeq);
+				//session.setAttribute("ip", ip);
+				
+				//성공하면 그냥 여기서 끝내자.
+				loginSuccess(request,userSeq);//로그인 인증티켓 발급
+				
+				return loginCode;
+			} else {
+				return -100;//아이디 비밀번호 일치하지 않거나 벤당한 경우
+			}
+			
+		} catch (Exception e) {
+			errorEruptionTodb(e,ip);
+			return -200;
+		}
+
 	}
 	
 
