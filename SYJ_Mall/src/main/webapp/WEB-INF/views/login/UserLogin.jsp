@@ -20,12 +20,38 @@
 </c:if>
 <style>
 
-    /*로그인 실패했을때 띄워줄것 */
-    #errorLogin {
-        width : 340px;
-        margin : 0px auto;   
-        color : red;
+    /* 모달창 */
+    #myModal > .modal-dialog {
+        width: 350px;
+        height : 200px;
+        margin-top: 300px;
+    }
+    #myModal > .modal-dialog > .modal-content {
+        height : 200px;
+    }
+    #modalcontent {
+        margin-top: 40px;
+        font-family: 'NEXON Lv1 Gothic OTF';
+        color : #7C7C7C;
         text-align: center;
+    }
+    #mfooter {
+        border: 0px; 
+        padding: 0px;
+        text-align:center
+    }
+    #mfooter_check {
+        border:0px;
+        width: 320px;
+        height: 45px;
+        background-color: #FEE500;
+        font-family: 'NEXON Lv1 Gothic OTF';
+        color: black;
+        border-radius: 5px;
+        outline: none;
+    }
+    #mfooter_check:hover{
+        background-color: #F0D700;
     }
 
 </style>
@@ -52,15 +78,12 @@
 	
     
     <form action="loginVerification.action" method = "POST" id = "input_form">
+    <!-- <form action="" method = "POST" id = "input_form"> -->
 		
 		<input type="hidden" name="securedUsername" id="securedUsername" value="" />
-        <input type="hidden" name="securedPassword" id="securedPassword" value="" />
+		<input type="hidden" name="securedPassword" id="securedPassword" value="" /> 
 		
-        <c:if test="${loginError eq '-1'}">
-        <div id = "errorLogin" style = "display: <c:out value="${adverMap['errorLogin']}"/>;">
-            &nbsp;가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.
-       	</div>       
-        </c:if>
+
         <!-- 로그인 버튼 -->
         <div class = "inputform">
             <input id = "go" type="button" value = "로그인" style = "border-radius: 5px; font-size: 1em; background-color: #FEE500; color:black; font-family: 'NEXON Lv1 Gothic OTF';">
@@ -78,7 +101,23 @@
 	
 	<!-- 광고칸 -->
 	<div id = "advertise" class = "inputform" style = "background: url('resources/images/adver/<c:out value="${adverMap['picName']}"/>'); background-size: cover;"></div>
-
+	
+	
+	  <!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-body" id = "modalcontent">
+	          <p>가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.</p>
+	        </div>
+	        <div class="modal-footer" id = "mfooter">
+	          <button type="button" id = "mfooter_check" class="btn btn-default" data-dismiss="modal">확인</button>
+	        </div>
+	      </div> 
+	    </div>
+	  </div>
+	
 
     <script>
     	/* 카카오사진 눌러주면 로그인창으로 이동 */
@@ -86,6 +125,7 @@
 			location.href = "/SYJ_Mall/login.action";
 		});       
     	
+    	//애니매이션 효과 안보여주고 싶을 경우
     	<c:if test="${not empty comeCount}">
     	setTimeout(function(){
         	$("#qoo10login").css("width","200px")
@@ -123,8 +163,8 @@
         	var username = document.getElementById("inputid").value;//유저가 작성한 아이디
       	    var password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
 			
-      	    console.log(username);
-      	  	console.log(password);
+      	    //console.log(username);
+      	  	//console.log(password);
       	    
       	    
       	    try {
@@ -152,10 +192,36 @@
       	    
       	    var securedForm = document.getElementById("input_form");//form 데이터
       	    
-      	    securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
-      	    securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
-      	    securedForm.submit();//제출
+      	   securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
+      	   securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
+      	   securedForm.submit();//제출
+      	   ajaxCheck(securedUsername,securedPassword);//ajax 호출
       	}
+        
+        
+        function ajaxCheck(securedUsername,securedPassword) {	
+      		$.ajax({
+                type:"POST",
+                url: "/SYJ_Mall/loginVerification.action" ,
+                data : {"securedUsername" : securedUsername,"securedPassword" : securedPassword },
+                dataType : "json",
+                success : function(result) {
+                	
+           			//console.log(result);
+
+                	if (result == -1) {
+                		$("#myModal").modal();
+                	} else {
+                		$("#input_form").submit();
+                	}
+                	
+                },
+                error: function(a,b,c) {
+					//console.log(a,b,c);
+				}
+            });
+      		
+        }
 
 
     </script>

@@ -40,7 +40,7 @@ public class LoginController {
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET,RequestMethod.POST })
 	public String login(HttpServletRequest request, HttpServletResponse response, String site) {
 		
-		//혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임
+		//혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임 -> 모달창으로 바꿔주는게 좋으려나;
 		int result = -1;
 		
 		HttpSession session = request.getSession();
@@ -54,6 +54,17 @@ public class LoginController {
 		if (result == 0) return "/login/UserLogin";//에러가 없는경우 -> 로그인 페이지로 넘겨준다.
 		else return "/testwaiting/kakaoerror";//에러페이지로 보내준다.
 		
+	}
+	
+	@RequestMapping(value = "/userLoginVerificationCheck.action", method = { RequestMethod.POST })
+	public void loginVerificationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		PrintWriter out = response.getWriter();
+		//JSONObject obj = logService.picCheck(request);
+		int result = logService.userIdPwCheck(request);
+		
+		
+		out.print(result);			
 	}
 	
 	
@@ -74,7 +85,6 @@ public class LoginController {
 				String pw = map.get("pw");//비밀번호
 				
 				String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
-				System.out.println(encPw);
 				
 				
 				List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
@@ -83,22 +93,22 @@ public class LoginController {
 				
 				
 				if (loginCode == 0) {// 로그인 성공
-					System.out.println("로그인 성공");
+					//System.out.println("로그인 성공");
 					
 					logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
 					
 					return "redirect:/main.action";//메인페이지로 이동
 					
 				} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
-					System.out.println("잘못된 로그인 정보");
+					//System.out.println("잘못된 로그인 정보");
 					
-					int result = logService.firstLoginStep(request,-1,1);
+					int result = logService.firstLoginStep(request,-1,1);//애를 불러올 이유가 없어보인다.
 
 					if (result == 0) return "/login/UserLogin";
 					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
 					
 				} else if (loginCode == 3) {//로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
-					System.out.println("비밀번호 변경 요망");
+					//System.out.println("비밀번호 변경 요망");
 					
 					//아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
 					int result = logService.userRedefinedPw(request,userSeq,id,ip);
@@ -108,7 +118,7 @@ public class LoginController {
 					
 					
 				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
-					System.out.println("보안정책을 따라야한다.");
+					//System.out.println("보안정책을 따라야한다.");
 					
 					//자동로그인 방지 알고리즘
 					request = logService.AutoLoginBanned(request,userSeq,ip);
@@ -173,6 +183,7 @@ public class LoginController {
 		try {
 			HttpSession session = request.getSession();
 			int failCount = (Integer)session.getAttribute("failCount");
+			
 			//세션을 아예 삭제시켜주는 서비스를 구현
 			logService.sessionDelete(request);
 			
@@ -180,7 +191,7 @@ public class LoginController {
 				throw new Exception();
 			}
 
-			return "/testwaiting/waiting";
+			return "/login/UserAutoLoginFail";
 		} catch(Exception e) {
 			logService.errorEruptionTodb(e,ic.getClientIP(request));
 			return "/testwaiting/kakaoerror";

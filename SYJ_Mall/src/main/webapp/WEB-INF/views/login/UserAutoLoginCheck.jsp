@@ -45,12 +45,6 @@
 	
     <script>
         
-    	//왜 전역변수로 빼준거지?
-    	//var picName;
-    	//var clickNum;
-    	//var answer;
-    	//var sucessCount = 0;//성공한 횟수
-    	//var failCount = 0;//실패한 횟수
     
         $(".images").click(function(){
             
