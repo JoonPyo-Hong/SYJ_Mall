@@ -24,7 +24,7 @@ public class Time {
         if (diffTime < TIME_MAXIMUM.SEC)
         {
             // sec
-            msg = diffTime + "초전";
+            msg = (diffTime + 5) + "초전";
         }
         else if ((diffTime /= TIME_MAXIMUM.SEC) < TIME_MAXIMUM.MIN)
         {

@@ -81,14 +81,12 @@ body {
 	width: 18px;
 	height: 18px;
 	margin: 6px 5px 7px;
-	height: 18px;
 }
 
 #head div:nth-child(1) img:nth-child(2) {
 	width: 18px;
 	height: 18px;
 	margin: 6px 5px 7px;
-	height: 18px;
 }
 
 #head div:nth-child(3) img {
@@ -517,7 +515,6 @@ body.s_no-scroll {
 	padding: 20px;
 	margin: 0px auto;;
 	width: 640px;
-	margin: 0px auto;
 }
 
 .feed_spn_1 {
@@ -543,6 +540,7 @@ body.s_no-scroll {
 	display: felx;
 	padding: 12px 0px;
 	margin-top: 10px;
+	height: auto;
 }
 
 .feed_content div:nth-child(1) {
@@ -550,23 +548,25 @@ body.s_no-scroll {
 	font-weight: bold;
 }
 
+/* feed textarea */
 .feed_content div:nth-child(2) {
 	padding: 12px 59px 12px 14px;
 	border-radius: 0px 24px 24px;
-	height: 44px;
 	background-color: rgb(240, 241, 244);
 	position: relative;
 	box-sizing: border-box;
-	height: 44px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	cursor: pointer;
 	width: auto;
+	height: auto;
+	display: inline-block;
 }
 
-.feed_content div:nth-child(3) span {
+.feed_content div:nth-child(3) {
 	font-size: 13px;
 	font-weight: normal;
+	color: rgb(154, 154, 158);
 }
 
 .feed_img {
@@ -576,6 +576,27 @@ body.s_no-scroll {
 .feed_img img {
 	width: 15px;
 	height: 15px;
+}
+
+.feed_textarea {
+	font-size: 14px;
+	text-rendering: auto;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	display: inline-block;
+	text-align: start;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+	column-count: initial !important;
+	font: 400 13.3333px Arial;
+	flex-direction: column;
+	border: none;
+	background: none;
+	outline: none;
+	resize: none;
+	overflow: hidden;
 }
 </style>
 <title>Feed</title>
@@ -712,32 +733,40 @@ body.s_no-scroll {
 		feed_select();
 
 		function feed_select() {
-			$.ajax({
-				url : "feed_select.action",
-				type : 'post',
-				data : {
-					list_seq : l_seq
-				},
-				success : function(data) {
-					$.each(data, function(index, value) {
-						console.log(index);
-						console.log(value.seq);
-						console.log(value.name);
-						$("#feed")
-						.append("<div class='feed_content'>" +
-								"<div>" + value.reg_id + "</div>" +
-								"<div><textarea placeholder='" + value.feed + "' disabled='disabled'></textarea></div>" +
-								"<div><span>" + value.reg_dt + "</span> <span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"+
-								"<span> 좋아요 </span><span>답글달기</span></div></div>" 
-						);
-								
-					});
+			$
+					.ajax({
+						url : "feed_select.action",
+						type : 'post',
+						data : {
+							list_seq : l_seq
+						},
+						success : function(data) {
+							$
+									.each(
+											data,
+											function(index, value) {
+												console.log(index);
+												console.log(value.seq);
+												console.log(value.name);
+												$("#feed")
+														.append(
+																"<div class='feed_content'>"
+																		+ "<div>"
+																		+ value.reg_id
+																		+ "</div>"
+																		+ "<div><textarea class='feed_textarea' placeholder='" + value.feed + "' disabled='disabled'></textarea></div>"
+																		+ "<div><span>"
+																		+ value.reg_dt
+																		+ "</span> <span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
+																		+ "<span> 좋아요 </span><span>답글달기</span></div></div>");
 
-				},
-				error : function() {
-					alert("에러");
-				}
-			});
+											});
+
+						},
+						error : function() {
+							alert("에러");
+						}
+					});
 		}
 
 		$('#feed_img').click(function() {
@@ -747,7 +776,7 @@ body.s_no-scroll {
 			}
 			if ($('#feed_txt').val() != "") {
 				var feed_txt = $('#feed_txt').val();
-				feed_txt = feed_txt.replace('\n', '<br/>');
+
 				$.ajax({
 					url : "feed_insert.action",
 					type : 'post',
