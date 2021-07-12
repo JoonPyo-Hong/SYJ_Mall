@@ -204,6 +204,20 @@ public interface ILoginService {
 	 */
 	void errorEruptionTodb(Exception e, String ip);
 	
+	/**
+	 * 로그인 버튼 누른후 -> 존재하는 아이디가 맞는지 체크 (모달창)
+	 * @param request	request 객체
+	 * @return			1 : 존재함, -1 : 존재하지 않음 / 벤당한 아이피로 접속
+	 */
+	int userIdPwCheck(HttpServletRequest request);
+	
+	/**
+	 * RSA 대칭키 복호화
+	 * @param request	request 객체
+	 * @return			복호화된 결과값을 map객체로 불러와준다.(id,pw)
+	 */
+	HashMap<String, String> getRSAkeySessionStay(HttpServletRequest request);
+	
 
 
 
