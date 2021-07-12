@@ -73,8 +73,9 @@ public class LoginController {
 				String id = map.get("id");//아이디
 				String pw = map.get("pw");//비밀번호
 				
-				String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.--> 여기서 문제가 생기는거 같은데.
-			
+				String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
+				System.out.println(encPw);
+				
 				
 				List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
 				int userSeq = loginResult.get(0).getUserSeq();//유저 고유 코드
