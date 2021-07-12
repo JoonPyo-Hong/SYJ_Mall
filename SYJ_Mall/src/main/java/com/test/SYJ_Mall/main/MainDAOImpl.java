@@ -26,26 +26,25 @@ public class MainDAOImpl implements MainDAO {
 
 	@Override
 	public Integer heart(int num) {
-		// TODO Auto-generated method stub
+
 		return session.selectOne("main.heart", num);
 	}
 
 	@Override
 	public Integer heart_select(HashMap<String, Integer> map) {
-		// TODO Auto-generated method stub
+
 		return session.selectOne("main.heart_select", map);
 	}
 
 	@Override
 	public void heart_update(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-//		System.out.println("dao =" + map.get("gubn"));
+
 		if (map.get("gubn").equals("I")) {
-//			System.out.println("insert");
+
 			session.insert("main.heart_insert", map);
 		} else if (map.get("gubn").equals("D")) {
 			session.delete("main.heart_delete", map);
-//			System.out.println("delete");
+
 		}
 
 	}
@@ -53,7 +52,12 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public void feed_insert(Map<String, Object> map) {
 		session.insert("main.feed_insert", map);
-		
+
+	}
+
+	@Override
+	public List<FeedDTO> feed_select(Integer list_seq) {
+		return session.selectList("main.feed_select", list_seq);
 	}
 
 }

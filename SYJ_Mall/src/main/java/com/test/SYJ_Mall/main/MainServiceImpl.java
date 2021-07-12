@@ -48,5 +48,12 @@ public class MainServiceImpl implements MainService {
 		
 	}
 
+	@Override
+	public List<FeedDTO> feed_select(Integer list_seq) {
+		return dao.feed_select(list_seq);
+	}
+
+	
+
 
 }

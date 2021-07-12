@@ -38,4 +38,8 @@
 	<insert id="feed_insert" parameterType="java.util.HashMap">
 		insert into dbo.feed(member_seq,list_seq,feed,reg_id)values(#{member_seq},#{list_seq},#{feed},#{name})
 	</insert>
+		<select id="feed_select" resultType="com.test.SYJ_Mall.main.FeedDTO"
+		parameterType="int">
+		select * from dbo.feed where list_seq = #{list_seq}
+	</select>
 </mapper>

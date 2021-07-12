@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.login.UserDTO;
+import com.test.SYJ_Mall.main.FeedDTO;
 import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.main.MainService;
 
@@ -132,7 +133,7 @@ public class MainController {
 			user_seq = dto.getUserSeq();
 			user_name = dto.getUserName();
 		}
-		
+
 		model.addAttribute("seq", user_seq);
 		model.addAttribute("name", user_name);
 
@@ -156,10 +157,19 @@ public class MainController {
 
 		return "/main/Feed";
 	}
+
 	// 댓글 (Insert)
 	@RequestMapping(value = "/feed_insert.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public void feed_insert(@RequestParam Map <String,Object> map) {
+	public void feed_insert(@RequestParam Map<String, Object> map) {
 		service.feed_insert(map);
+	}
+
+	// 댓글 (select)
+	@RequestMapping(value = "/feed_select.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public List<FeedDTO> feed_select(@RequestParam("list_seq") Integer list_seq) {
+		List<FeedDTO> list = service.feed_select(list_seq);
+		return list;
 	}
 }

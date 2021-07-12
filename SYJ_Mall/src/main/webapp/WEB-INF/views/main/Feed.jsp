@@ -651,7 +651,7 @@ body.s_no-scroll {
 		<div id="feed">
 			<span class="feed_spn_1">최신순</span><span class="feed_spn_2"><img
 				src="resources/images/main/arrow-small-down.png"></span>
-			<div class="feed_content">
+			<!-- <div class="feed_content">
 				<div>전*지</div>
 				<div>
 					<textarea placeholder="하하하하" disabled="disabled"></textarea>
@@ -661,7 +661,7 @@ body.s_no-scroll {
 						src="resources/images/main/like-grey.png"></span><span> 좋아요</span>
 					<span>답글달기</span>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<input type="hidden" id="hid_seq" value="${seq}">
@@ -709,11 +709,45 @@ body.s_no-scroll {
 
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
+		feed_select();
+
+		function feed_select() {
+			$.ajax({
+				url : "feed_select.action",
+				type : 'post',
+				data : {
+					list_seq : l_seq
+				},
+				success : function(data) {
+					$.each(data, function(index, value) {
+						console.log(index);
+						console.log(value.seq);
+						console.log(value.name);
+						$("#feed")
+						.append("<div class='feed_content'>" +
+								"<div>" + value.reg_id + "</div>" +
+								"<div><textarea placeholder='" + value.feed + "' disabled='disabled'></textarea></div>" +
+								"<div><span>" + value.reg_dt + "</span> <span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"+
+								"<span> 좋아요 </span><span>답글달기</span></div></div>" 
+						);
+								
+					});
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+		}
 
 		$('#feed_img').click(function() {
+			if (m_seq == 0) {
+				openModal("modal1");
+				return;
+			}
 			if ($('#feed_txt').val() != "") {
 				var feed_txt = $('#feed_txt').val();
-
+				feed_txt = feed_txt.replace('\n', '<br/>');
 				$.ajax({
 					url : "feed_insert.action",
 					type : 'post',
@@ -724,7 +758,7 @@ body.s_no-scroll {
 						name : hid_name
 					},
 					success : function(data) {
-
+						$('#feed_txt').val('');
 					},
 					error : function() {
 						alert("에러");
@@ -760,7 +794,7 @@ body.s_no-scroll {
 			obj = document.createElement('input');
 			obj.setAttribute('type', 'hidden');
 			obj.setAttribute('name', 'site');
-			obj.setAttribute('value', "main.action");
+			obj.setAttribute('value', "feed.action?seq=" + l_seq);
 
 			f.appendChild(obj);
 			f.setAttribute('method', 'post');

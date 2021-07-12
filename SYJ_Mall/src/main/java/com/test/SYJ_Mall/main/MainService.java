@@ -20,4 +20,6 @@ public interface MainService {
 
 	void feed_insert(Map<String, Object> map);
 
+	List<FeedDTO> feed_select(Integer list_seq);
+
 }
