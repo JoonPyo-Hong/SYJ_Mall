@@ -515,17 +515,16 @@ body.s_no-scroll {
 	padding: 20px;
 	margin: 0px auto;;
 	width: 640px;
+	position: relative;
 }
 
 .feed_spn_1 {
 	font-size: 14px;
-	cursor: pointer;
 	font-weight: bold;
 }
 
 .feed_spn_2 {
 	margin-left: 5px;
-	cursor: pointer;
 }
 
 .feed_spn_2 img {
@@ -572,6 +571,41 @@ body.s_no-scroll {
 .feed_img img {
 	width: 15px;
 	height: 15px;
+}
+
+#sel_feed {
+	position: absolute;
+	top: 54px;
+	left: 20px;
+	padding: 10px;
+	width: 99px;
+	border-radius: 6px;
+	border: 1px solid rgb(242, 242, 242);
+	background-color: rgb(255, 255, 255);
+	box-sizing: border-box;
+	z-index: 101;
+	display: none;
+}
+
+.btn_feed {
+	color: rgb(0, 0, 0);
+	width: 100%;
+	text-align: left;
+	outline: none;
+	border: 0 none;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 6px;
+}
+
+.btn_selected {
+	font-weight: bold;
+}
+
+.feed_click {
+	width: 70px;
+	cursor: pointer;
+	z-index: 10;
 }
 </style>
 <title>Feed</title>
@@ -645,19 +679,16 @@ body.s_no-scroll {
 			</div>
 		</c:forEach>
 		<div id="feed">
-			<span class="feed_spn_1">최신순</span><span class="feed_spn_2"><img
-				src="resources/images/main/arrow-small-down.png"></span>
-			<!-- <div class="feed_content">
-				<div>전*지</div>
-				<div>
-					<textarea placeholder="하하하하" disabled="disabled"></textarea>
-				</div>
-				<div>
-					<span>15분 전</span> <span class="feed_img"><img
-						src="resources/images/main/like-grey.png"></span><span> 좋아요</span>
-					<span>답글달기</span>
-				</div>
-			</div> -->
+			<div class="feed_click">
+				<span class="feed_spn_1">최신순</span><span class="feed_spn_2"><img
+					src="resources/images/main/arrow-small-down.png"></span>
+			</div>
+			<div id="sel_feed">
+				<button value="n" class="btn_feed btn_selected">최신순</button>
+				<button value="o" class="btn_feed">과거순</button>
+				<button value="l" class="btn_feed">좋아요순</button>
+			</div>
+			<div id="feed_content_div"></div>
 		</div>
 	</div>
 	<input type="hidden" id="hid_seq" value="${seq}">
@@ -706,8 +737,32 @@ body.s_no-scroll {
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
+		
+		
+		
+		
+/* 		$('html').click(
+				function(e) {
+					if (!$(e.target).hasClass("feed_click")) {
+						$('#sel_feed').hide();
+					}
+				}); */
+		
+	
+		
+		$('.feed_click').click(function() {
+				
+			if ($('#sel_feed').css('display') === 'none') {
+			
+				$('#sel_feed').show();
+			}else {
+			
+				$('#sel_feed').hide();
+			}
+		});
 
 		function feed_select() {
+			$("#feed_content_div").empty();
 			$
 					.ajax({
 						url : "feed_select.action",
@@ -720,10 +775,8 @@ body.s_no-scroll {
 									.each(
 											data,
 											function(index, value) {
-												console.log(index);
-												console.log(value.seq);
-												console.log(value.name);
-												$("#feed")
+
+												$("#feed_content_div")
 														.append(
 																"<div class='feed_content'>"
 																		+ "<div>"
@@ -746,34 +799,44 @@ body.s_no-scroll {
 					});
 		}
 
+		$('#feed_txt').click(function() {
+			if (m_seq == 0) {
+				openModal("modal1");
+				return;
+			}
+
+		});
 		$('#feed_img').click(function() {
 			if (m_seq == 0) {
 				openModal("modal1");
 				return;
 			}
-			if ($('#feed_txt').val() != "") {
-				var feed_txt = $('#feed_txt').val();
-
-				$.ajax({
-					url : "feed_insert.action",
-					type : 'post',
-					data : {
-						list_seq : l_seq,
-						member_seq : m_seq,
-						feed : feed_txt,
-						name : hid_name
-					},
-					success : function(data) {
-						$('#feed_txt').val('');
-					},
-					error : function() {
-						alert("에러");
-					}
-				});
-
+			if ($('#feed_txt').val() == "") {
+				return;
 			}
+			feed_insert();
 		});
+		function feed_insert() {
+			var feed_txt = $('#feed_txt').val();
+			$.ajax({
+				url : "feed_insert.action",
+				type : 'post',
+				data : {
+					list_seq : l_seq,
+					member_seq : m_seq,
+					feed : feed_txt,
+					name : hid_name
+				},
+				success : function(data) {
+					$('#feed_txt').val('');
+					feed_select();
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
 
+		}
 		$(document).on("click", ".etc_4", function(e) {
 			openModal("modal2");
 
