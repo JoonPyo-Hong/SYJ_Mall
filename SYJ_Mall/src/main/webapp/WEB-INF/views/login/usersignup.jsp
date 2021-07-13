@@ -732,7 +732,7 @@
                 dataType : "json",
                 success : function(result) {
                     
-                	console.log(result);
+                	//console.log(result);
                 	
                     if (result != 1) {// 번호가 중복되는경우
                     	common('phoneerrmsg','red','이미 사용중인 휴대전화 번호입니다.');
@@ -740,7 +740,7 @@
                     }
                 },
                 error: function(a,b,c) {
-                	console.log("에러인가?");
+                	//console.log("에러인가?");
 					console.log(a,b,c);
 				}
             });

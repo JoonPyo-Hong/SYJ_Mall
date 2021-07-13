@@ -194,7 +194,7 @@
       	    
       	   securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
       	   securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
-      	   securedForm.submit();//제출
+      	   //securedForm.submit();//제출
       	   ajaxCheck(securedUsername,securedPassword);//ajax 호출
       	}
         
@@ -202,22 +202,21 @@
         function ajaxCheck(securedUsername,securedPassword) {	
       		$.ajax({
                 type:"POST",
-                url: "/SYJ_Mall/loginVerification.action" ,
+                url: "/SYJ_Mall/userLoginVerificationCheck.action" ,
                 data : {"securedUsername" : securedUsername,"securedPassword" : securedPassword },
                 dataType : "json",
                 success : function(result) {
                 	
-           			//console.log(result);
-
-                	if (result == -1) {
-                		$("#myModal").modal();
-                	} else {
-                		$("#input_form").submit();
-                	}
-                	
+					
+           			if (result == 1){
+           				$("#input_form").submit();
+           			} else {
+           				$("#myModal").modal();
+           			}
+           			
                 },
                 error: function(a,b,c) {
-					//console.log(a,b,c);
+					alert('error');
 				}
             });
       		
