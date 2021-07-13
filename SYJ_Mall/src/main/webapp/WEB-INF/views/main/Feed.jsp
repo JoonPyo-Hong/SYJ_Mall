@@ -550,16 +550,12 @@ body.s_no-scroll {
 
 /* feed textarea */
 .feed_content div:nth-child(2) {
-	padding: 12px 59px 12px 14px;
+	padding: 15px;
 	border-radius: 0px 24px 24px;
 	background-color: rgb(240, 241, 244);
-	position: relative;
-	box-sizing: border-box;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	cursor: pointer;
-	width: auto;
-	height: auto;
 	display: inline-block;
 }
 
@@ -576,27 +572,6 @@ body.s_no-scroll {
 .feed_img img {
 	width: 15px;
 	height: 15px;
-}
-
-.feed_textarea {
-	font-size: 14px;
-	text-rendering: auto;
-	word-spacing: normal;
-	text-transform: none;
-	text-indent: 0px;
-	text-shadow: none;
-	display: inline-block;
-	text-align: start;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
-	column-count: initial !important;
-	font: 400 13.3333px Arial;
-	flex-direction: column;
-	border: none;
-	background: none;
-	outline: none;
-	resize: none;
-	overflow: hidden;
 }
 </style>
 <title>Feed</title>
@@ -754,7 +729,9 @@ body.s_no-scroll {
 																		+ "<div>"
 																		+ value.reg_id
 																		+ "</div>"
-																		+ "<div><textarea class='feed_textarea' placeholder='" + value.feed + "' disabled='disabled'></textarea></div>"
+																		+ "<div><span>"
+																		+ value.feed
+																		+ "</span></div>"
 																		+ "<div><span>"
 																		+ value.reg_dt
 																		+ "</span> <span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
