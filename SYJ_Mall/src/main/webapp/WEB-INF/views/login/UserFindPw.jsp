@@ -136,7 +136,7 @@
         //1.카카오 아이디 검증
         var kakaoIdFlag = false;
         $("#kakaoId").focus(function(){
-            console.log($(this).attr('id'))
+            //console.log($(this).attr('id'))
             bottomcursorfocus($(this).attr('id'));
         });
 
@@ -152,7 +152,7 @@
         //2.이메일 주소 검증
         var kakaoMailFlag = false;
         $("#kakaoMail").focus(function(){
-            console.log($(this).attr('id'))
+            //console.log($(this).attr('id'))
             bottomcursorfocus($(this).attr('id'));
         });
 
@@ -169,7 +169,7 @@
         //3.전화번호 검증
         var kakaoPhoneFlag = false;
         $("#kakaoPhone").focus(function(){
-            console.log($(this).attr('id'))
+            //console.log($(this).attr('id'))
             bottomcursorfocus($(this).attr('id'));
         });
 

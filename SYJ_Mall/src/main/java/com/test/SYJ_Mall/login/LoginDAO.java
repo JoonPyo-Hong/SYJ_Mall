@@ -164,5 +164,19 @@ public class LoginDAO implements ILoginDAO {
 		return template.selectOne("SYJDB.modifyUserPwReturn",map);
 		
 	}
+
+	//프론트단 로그인 처리
+	@Override
+	public int firstLoginCheck(String ip, String id, String pw) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("userId", id);
+		map.put("userPw", pw);
+		map.put("userIp", ip);
+		
+		
+		return template.selectOne("SYJDB.firstLoginCheck",map);
+	}
 }
 

@@ -116,6 +116,15 @@ public interface ILoginDAO {
 	 */
 	int modifyUserPwReal(int userSeq, String userPw, String userId, String userIp);
 
+	/**
+	 * 프론트단 회원 아이디 비밀번호 검증
+	 * @param ip	회원의 아이피주소
+	 * @param id	회원의 아이디
+	 * @param pw	회원의 비밀번호
+	 * @return		1 : 존재, -1 : 비밀번호,아이디 잘못되었거나, 아이피 벤
+	 */
+	int firstLoginCheck(String ip, String id, String pw);
+
 
 
 

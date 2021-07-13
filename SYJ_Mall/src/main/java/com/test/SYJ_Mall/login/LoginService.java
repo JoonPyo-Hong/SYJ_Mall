@@ -199,7 +199,7 @@ public class LoginService implements ILoginService {
 		HttpSession userSession = request.getSession();
 
 		List<UserDTO> dto = dao.userInfo(userSeq);
-		userSession.setAttribute("userinfo", dto.get(0));
+		userSession.setAttribute("userinfo", dto.get(0));//유저 dto 객체를 session에 주입
 		
 
 	}
@@ -573,39 +573,26 @@ public class LoginService implements ILoginService {
 		
 		try {
 			request.setCharacterEncoding("UTF-8");//인코딩 타입 설정
+			ip = ipCheck(request);//아이피 주소 체크
 			
-			ip = ipCheck(request);
-			
-			Map<String,String> map = getRSAkeySessionStay(request);
+			Map<String,String> map = getRSAkeySessionStay(request);//세션에서 정보를 지우지는 않는다.
 			
 			String id = map.get("id");//아이디
 			String pw = map.get("pw");//비밀번호
 			
-			//아래에서 이제 아이디 비밀번호의 일치여부를 결정해준다. and 벤할지도 결정
 			String encPw = pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
+			//System.out.println(id);
+			//System.out.println(pw);
 			
-			List<LoginDTO> loginResult = loginResult(ip, id, encPw);
-			int loginCode = loginResult.get(0).getLoginCode();//로그인 결과
+			//여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
+			int result = dao.firstLoginCheck(ip,id,encPw);
 			
-			if (loginCode != 1 && loginCode != -1) {
-				//HttpSession session = request.getSession();
-				int userSeq = loginResult.get(0).getUserSeq();//유저 고유 코드
-				//session.setAttribute("userSeq", userSeq);
-				//session.setAttribute("ip", ip);
-				
-				//성공하면 그냥 여기서 끝내자.
-				loginSuccess(request,userSeq);//로그인 인증티켓 발급
-				
-				return loginCode;
-			} else {
-				return -100;//아이디 비밀번호 일치하지 않거나 벤당한 경우
-			}
+			return result;
 			
-		} catch (Exception e) {
+		} catch(Exception e) {
 			errorEruptionTodb(e,ip);
-			return -200;
+			return 505;
 		}
-
 	}
 	
 
