@@ -683,7 +683,7 @@ body.s_no-scroll {
 				<span class="feed_spn_1">최신순</span><span class="feed_spn_2"><img
 					src="resources/images/main/arrow-small-down.png"></span>
 			</div>
-			<div id="sel_feed">
+			<div id="sel_feed" class="sel_feeds">
 				<button value="n" class="btn_feed btn_selected">최신순</button>
 				<button value="o" class="btn_feed">과거순</button>
 				<button value="l" class="btn_feed">좋아요순</button>
@@ -737,26 +737,16 @@ body.s_no-scroll {
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
+
 		
-		
-		
-		
-/* 		$('html').click(
-				function(e) {
-					if (!$(e.target).hasClass("feed_click")) {
-						$('#sel_feed').hide();
-					}
-				}); */
-		
-	
-		
+
 		$('.feed_click').click(function() {
-				
+
 			if ($('#sel_feed').css('display') === 'none') {
-			
+
 				$('#sel_feed').show();
-			}else {
-			
+			} else {
+
 				$('#sel_feed').hide();
 			}
 		});
