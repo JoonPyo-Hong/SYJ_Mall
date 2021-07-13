@@ -79,7 +79,7 @@ public class LoginController {
 				
 				ip = logService.ipCheck(request);
 				
-				Map<String,String> map = logService.getRSAkey(request);
+				Map<String,String> map = logService.getRSAkey(request);//여기서는 
 				
 				String id = map.get("id");//아이디
 				String pw = map.get("pw");//비밀번호
@@ -99,15 +99,7 @@ public class LoginController {
 					
 					return "redirect:/main.action";//메인페이지로 이동
 					
-				} else if (loginCode == 1 || loginCode == -1) {//로그인 실패 : 잘못된 로그인 정보 and 벤당한 아이피 들어오는경우
-					//System.out.println("잘못된 로그인 정보");
-					
-					int result = logService.firstLoginStep(request,-1,1);//애를 불러올 이유가 없어보인다.
-
-					if (result == 0) return "/login/UserLogin";
-					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
-					
-				} else if (loginCode == 3) {//로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
+				} else if (loginCode == 1) {//로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
 					//System.out.println("비밀번호 변경 요망");
 					
 					//아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
@@ -116,8 +108,7 @@ public class LoginController {
 					if (result == 1) return "/login/UserLoginPwRedefine";
 					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
 					
-					
-				} else {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
+				} else if (loginCode == 2) {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
 					//System.out.println("보안정책을 따라야한다.");
 					
 					//자동로그인 방지 알고리즘
@@ -125,6 +116,8 @@ public class LoginController {
 					
 					return "/login/UserAutoLoginCheck";
 					
+				} else {
+					throw new Exception();
 				}
 				
 			} catch(Exception e) {
