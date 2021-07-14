@@ -160,6 +160,7 @@ public class MainController {
 	@RequestMapping(value = "/feed_insert.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public void feed_insert(@RequestParam Map<String, Object> map) {
+
 		service.feed_insert(map);
 	}
 

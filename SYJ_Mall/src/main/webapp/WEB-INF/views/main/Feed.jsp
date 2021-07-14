@@ -671,7 +671,7 @@ body.s_no-scroll {
 						1<span>2</span>1
 					</div>
 					<div class='comment'>
-						<textarea id="feed_txt"
+						<textarea id="feed_txt" wrap="hard"
 							placeholder="<c:if test='${seq eq 0}'>로그인 후 이용해주세요.</c:if><c:if test='${seq ne 0}'>댓글을 달아주세요.</c:if>"></textarea>
 						<img src="resources/images/main/reply-off.png" id="feed_img"></img>
 					</div>
@@ -737,8 +737,6 @@ body.s_no-scroll {
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
-
-		
 
 		$('.feed_click').click(function() {
 
@@ -807,7 +805,9 @@ body.s_no-scroll {
 			feed_insert();
 		});
 		function feed_insert() {
-			var feed_txt = $('#feed_txt').val();
+			var feed_txt = $('#feed_txt').val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
+		
+
 			$.ajax({
 				url : "feed_insert.action",
 				type : 'post',
