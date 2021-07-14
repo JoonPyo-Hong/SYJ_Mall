@@ -735,12 +735,20 @@ body.s_no-scroll {
 		var m_seq = parseInt($('#hid_seq').val());
 		var hid_name = $('#hid_name').val();
 
+		var feed_sel = true;
+
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
 
-		$('.feed_click').click(function() {
+		$('#wrap').click(function() {
 
+			$('#sel_feed').hide();
+
+		});
+
+		$('.feed_click').click(function() {
+			event.stopPropagation();
 			if ($('#sel_feed').css('display') === 'none') {
 
 				$('#sel_feed').show();
@@ -806,8 +814,8 @@ body.s_no-scroll {
 			feed_insert();
 		});
 		function feed_insert() {
-			var feed_txt = $('#feed_txt').val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
-		
+			var feed_txt = $('#feed_txt').val().replace(/(?:\r\n|\r|\n)/g,
+					'<br/>');
 
 			$.ajax({
 				url : "feed_insert.action",
