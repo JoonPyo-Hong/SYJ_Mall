@@ -45,15 +45,12 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public void feed_insert(Map<String, Object> map) {
 		dao.feed_insert(map);
-		
+
 	}
 
 	@Override
-	public List<FeedDTO> feed_select(Integer list_seq) {
-		return dao.feed_select(list_seq);
+	public List<FeedDTO> feed_select(Map<String, Object> map) {
+		return dao.feed_select(map);
 	}
-
-	
-
 
 }

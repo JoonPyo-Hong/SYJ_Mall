@@ -56,8 +56,8 @@ public class MainDAOImpl implements MainDAO {
 	}
 
 	@Override
-	public List<FeedDTO> feed_select(Integer list_seq) {
-		return session.selectList("main.feed_select", list_seq);
+	public List<FeedDTO> feed_select(Map<String, Object> map) {
+		return session.selectList("main.feed_select", map);
 	}
 
 }

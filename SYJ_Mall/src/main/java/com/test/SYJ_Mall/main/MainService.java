@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public interface MainService {
-
 
 	List<MainDTO> list(HashMap<String, Integer> map);
 
@@ -20,6 +18,6 @@ public interface MainService {
 
 	void feed_insert(Map<String, Object> map);
 
-	List<FeedDTO> feed_select(Integer list_seq);
+	List<FeedDTO> feed_select(Map<String, Object> map);
 
 }

@@ -38,8 +38,14 @@
 	<insert id="feed_insert" parameterType="java.util.HashMap">
 		insert into dbo.feed(member_seq,list_seq,feed,reg_id)values(#{member_seq},#{list_seq},#{feed},#{name})
 	</insert>
-		<select id="feed_select" resultType="com.test.SYJ_Mall.main.FeedDTO"
-		parameterType="int">
-		select * from dbo.feed where list_seq = #{list_seq}
+	<select id="feed_select" resultType="com.test.SYJ_Mall.main.FeedDTO"
+		parameterType="java.util.HashMap">
+		select * from dbo.feed where list_seq = #{list_seq} order by
+		<choose>
+			<when test="sel == '최신순'">reg_dt desc</when>
+			<when test="sel == '과거순'">reg_dt asc</when> 
+			<otherwise>reg_dt</otherwise>
+		</choose>
+		
 	</select>
 </mapper>

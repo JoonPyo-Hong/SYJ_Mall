@@ -563,6 +563,13 @@ body.s_no-scroll {
 	font-weight: normal;
 	color: rgb(154, 154, 158);
 }
+.feed_content div:nth-child(3) span{
+	margin-right: 7px;
+}
+
+.feed_content div:nth-child(3) span:nth-child(2){
+	margin-right: 0px;
+}
 
 .feed_img {
 	cursor: pointer;
@@ -604,7 +611,7 @@ body.s_no-scroll {
 }
 
 .feed_click {
-	width: 70px;
+	width: 80px;
 	cursor: pointer;
 	z-index: 10;
 }
@@ -685,9 +692,9 @@ body.s_no-scroll {
 					src="resources/images/main/arrow-small-down.png"></span>
 			</div>
 			<div id="sel_feed" class="sel_feeds">
-				<button value="n" class="btn_feed btn_selected">최신순</button>
-				<button value="o" class="btn_feed">과거순</button>
-				<button value="l" class="btn_feed">좋아요순</button>
+				<button value="최신순" class="btn_feed btn_selected">최신순</button>
+				<button value="과거순" class="btn_feed">과거순</button>
+				<button value="좋아요순" class="btn_feed">좋아요순</button>
 			</div>
 			<div id="feed_content_div"></div>
 		</div>
@@ -735,27 +742,37 @@ body.s_no-scroll {
 		var m_seq = parseInt($('#hid_seq').val());
 		var hid_name = $('#hid_name').val();
 
-		var feed_sel = true;
+		var feed_sel = "최신순";
 
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
 
-		$('#wrap').click(function() {
+		$('#wrap').click(
+				function() {
+					$(".feed_spn_2 img").attr("src",
+							"resources/images/main/arrow-small-down.png");
+					$('#sel_feed').hide();
 
-			$('#sel_feed').hide();
+				});
 
-		});
+		$('.feed_click').click(
+				function() {
+					event.stopPropagation();
+					if ($('#sel_feed').css('display') === 'none') {
+						$(".feed_spn_2 img").attr("src",
+								"resources/images/main/arrow-small-up.png");
 
-		$('.feed_click').click(function() {
-			event.stopPropagation();
-			if ($('#sel_feed').css('display') === 'none') {
+						$('#sel_feed').show();
+					} else {
+						$(".feed_spn_2 img").attr("src",
+								"resources/images/main/arrow-small-down.png");
+						$('#sel_feed').hide();
+					}
+				});
+		$('.btn_feed').click(function(e) {
+			$(".feed_spn_1").text(e.target.value);
 
-				$('#sel_feed').show();
-			} else {
-
-				$('#sel_feed').hide();
-			}
 		});
 
 		function feed_select() {
@@ -765,7 +782,8 @@ body.s_no-scroll {
 						url : "feed_select.action",
 						type : 'post',
 						data : {
-							list_seq : l_seq
+							list_seq : l_seq,
+							sel : feed_sel
 						},
 						success : function(data) {
 							$

@@ -18,6 +18,6 @@ public interface MainDAO {
 
 	void feed_insert(Map<String, Object> map);
 
-	List<FeedDTO> feed_select(Integer list_seq);
+	List<FeedDTO> feed_select(Map <String, Object> map);
 
 }
