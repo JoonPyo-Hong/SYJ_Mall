@@ -79,7 +79,8 @@ public class LoginController {
 				
 				ip = logService.ipCheck(request);
 				
-				Map<String,String> map = logService.getRSAkey(request);//여기서는 
+				//Map<String,String> map = logService.getRSAkey(request);
+				Map<String,String> map = logService.getRSAkeySessionStay(request);
 				
 				String id = map.get("id");//아이디
 				String pw = map.get("pw");//비밀번호
