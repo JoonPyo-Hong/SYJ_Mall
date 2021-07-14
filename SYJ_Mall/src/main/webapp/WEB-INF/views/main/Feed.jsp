@@ -571,6 +571,7 @@ body.s_no-scroll {
 .feed_img img {
 	width: 15px;
 	height: 15px;
+	margin-bottom: 4px;
 }
 
 #sel_feed {
