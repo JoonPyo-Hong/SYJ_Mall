@@ -20,4 +20,6 @@ public interface MainService {
 
 	List<FeedDTO> feed_select(Map<String, Object> map);
 
+	Integer feed_heart(int feed_seq);
+
 }

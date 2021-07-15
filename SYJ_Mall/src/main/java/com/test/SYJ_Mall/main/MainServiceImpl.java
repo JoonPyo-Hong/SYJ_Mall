@@ -53,4 +53,10 @@ public class MainServiceImpl implements MainService {
 		return dao.feed_select(map);
 	}
 
+	@Override
+	public Integer feed_heart(int feed_seq) {
+		// TODO Auto-generated method stub
+		return dao.feed_heart(feed_seq);
+	}
+
 }

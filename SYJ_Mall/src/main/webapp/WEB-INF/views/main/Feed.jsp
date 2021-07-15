@@ -750,6 +750,27 @@ body.s_no-scroll {
 		heart(l_seq);
 		feed_select();
 
+		function feed_heart(seq) {
+			var result = 0;
+			$.ajax({
+				url : "feed_heart.action",
+				type : 'post',
+				async: false,
+				data : {
+					feed_seq : seq,
+				},
+				success : function(data) {
+				
+					result = data;
+				
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+			return result;
+		}
+
 		$('#wrap').click(
 				function() {
 					$(".feed_spn_2 img").attr("src",
@@ -803,7 +824,15 @@ body.s_no-scroll {
 									.each(
 											data,
 											function(index, value) {
-
+												var feed_heart_count = feed_heart(value.seq);
+												var feed_heart_txt = "";
+										
+												if (feed_heart_count == 0) {
+													feed_heart_txt = "";
+												} else {
+													feed_heart_txt = feed_heart_count
+															+ " 개";
+												}
 												$("#feed_content_div")
 														.append(
 																"<div class='feed_content'>"
@@ -816,11 +845,12 @@ body.s_no-scroll {
 																		+ "<div><span>"
 																		+ value.reg_dt
 																		+ "</span> <span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
-																		+ "<span> 좋아요 </span><span>답글달기</span></div></div>");
+																		+ "<span> 좋아요"
+																		+ feed_heart_txt
+																		+ " </span><span>답글달기</span></div></div>");
 
 											});
-							if(scroll!=0){
-								
+							if (scroll != 0) {
 
 								$(window).scrollTop(scroll);
 							}

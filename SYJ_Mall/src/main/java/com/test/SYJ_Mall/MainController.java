@@ -168,13 +168,18 @@ public class MainController {
 	@RequestMapping(value = "/feed_select.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public List<FeedDTO> feed_select(@RequestParam Map<String, Object> map) {
-		/*
-		 * System.out.println(map.toString()); System.out.println(map.get("sel"));
-		 * Object sel=""; if(map.get("sel").equals("최신순")) { sel = "reg_dt desc";
-		 * }if(map.get("sel").equals("과거순")) { sel = "reg_dt"; }else { sel = "reg_dt"; }
-		 * map.put("sel", sel); System.out.println(map.toString());
-		 */
 		List<FeedDTO> list = service.feed_select(map);
 		return list;
 	}
+	
+	//댓글 좋아요 갯수
+		@RequestMapping(value = "/feed_heart.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public Object feed_heart(@RequestParam("feed_seq") int feed_seq) {
+
+			Integer count = service.feed_heart(feed_seq);
+		
+			
+			return count;
+		}
 }

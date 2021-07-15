@@ -60,4 +60,10 @@ public class MainDAOImpl implements MainDAO {
 		return session.selectList("main.feed_select", map);
 	}
 
+	@Override
+	public Integer feed_heart(int feed_seq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("main.feed_heart", feed_seq);
+	}
+
 }
