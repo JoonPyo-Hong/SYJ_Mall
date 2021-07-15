@@ -772,7 +772,14 @@ body.s_no-scroll {
 				});
 		$('.btn_feed').click(function(e) {
 			$(".feed_spn_1").text(e.target.value);
+			feed_sel = e.target.value;
+			$(".btn_selected").removeClass("btn_selected");
 
+			
+			$(e.target).attr('class','btn_feed btn_selected');
+
+	
+			feed_select();
 		});
 
 		function feed_select() {
