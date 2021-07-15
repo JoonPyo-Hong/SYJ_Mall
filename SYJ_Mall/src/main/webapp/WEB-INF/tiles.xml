@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       <!-- 여기 3으로 바꿔야할수도 있음 -->
+       
+<!-- <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" 
+"http://tiles.apache.org/dtds/tiles-config_2._1.dtd"> -->
+
+<tiles-definitions>
+
+	<!-- Tiles Test -->
+	<!-- <definition name="/tiles/*.top" template="/WEB-INF/views/tiles/tiles-layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/headerTemplate.jsp" />
+		
+		<put-attribute name="content" value="" />
+		<put-attribute name="left" value="/WEB-INF/views/tiles/sidebarTemplate.jsp" />
+		<put-attribute name="foot" value="/WEB-INF/views/tiles/footerTemplate.jsp" />
+	</definition> -->
+	
+	<!-- 메인 타일즈 기본 템플릿 : 전체 레이아웃 틀 잡아준다고 생각 -->
+	<!-- 일단 아래의 예제 콘트롤러는 로그인컨트롤러 가장 하단에 존재 -->
+	<!-- http://localhost:9089/SYJ_Mall/mainTiles.action 로 실행하면 보일것 -->
+	<definition name="default" template="/WEB-INF/views/mainTiles/mainLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/mainTiles/mainTop.jsp" />
+		<put-attribute name="body" value="" />
+	</definition>
+	 
+	<!-- 위의 레이아웃에 몸통 즉 body 부분을 채워준다고 생각하면된다.
+		 name = "/tiles/*.top" => 컨트롤러에서 /tiles/아무이름.top 으로 호출시켜주면 
+		 아래의 타일즈를 실행시킨다고 생각하면된다
+		** tiles 실행 -> 원래 jsp 매핑시켜주던 뷰리졸브 실행
+		즉 아래의 몸통을 여러개가 될수 있다는 것이된다.
+	 -->
+	<definition name = "/tiles/*.top" extends="default">
+		<put-attribute name = "body" value="/WEB-INF/views/mainTiles/mainTest.jsp"/>	
+	</definition>
+
+</tiles-definitions>
