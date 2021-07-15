@@ -426,4 +426,34 @@ public class LoginController {
 	/*---------------------------------------------------비밀번호 찾기--------------------------------------------------------------------*/
 	
 	
+	
+	//타일즈 테스트
+	@RequestMapping(value = "/tilestest.action", method = { RequestMethod.GET })
+	public String tilestest(HttpServletRequest request, HttpServletResponse response) {
+		
+		//기존 ViewResolver : JSP 페이지를 찾는다
+		//return "member/info"; //"/WEB-INF/views/" + "member/info" + ".jsp"
+
+		//새로운 Tiles ViewResolver : tiles.xml 에 가서-> <definition> 의 name 을 찾는다.(****)
+		return "/tiles/main";
+	
+	}
+	
+	
+	//메인화면 타일즈 테스트
+	@RequestMapping(value = "/mainTiles.action", method = { RequestMethod.GET })
+	public String mainTiles(HttpServletRequest request, HttpServletResponse response) {
+		
+		//기존 ViewResolver : JSP 페이지를 찾는다
+		//return "member/info"; //"/WEB-INF/views/" + "member/info" + ".jsp"
+
+		//새로운 Tiles ViewResolver : tiles.xml 에 가서-> <definition> 의 name 을 찾는다.(****)
+		return "/tiles/main.top";
+	
+	}
+	
+	
+	
+	
+	
 }
