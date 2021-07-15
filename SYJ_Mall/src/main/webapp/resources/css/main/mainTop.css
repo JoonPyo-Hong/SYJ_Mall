@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+#sticky{
+	position: sticky;
+	top: 0px;
+	left: 0px;
+	z-index: 500;
+	background-color: white;
+
+}
+#head {
+	width: 375px;
+	height: 47px;
+	margin: 0px auto;
+	display: flex;
+
+}
+
+#head div:nth-child(1) {
+	width: 32px;
+	height: 32px;
+	margin: 8px 3px 7px 13px;
+}
+
+#head div:nth-child(2) {
+	width: 147px;
+	height: 24px;
+	display: block;
+	margin: 0px auto;
+	margin-top: 11px;
+}
+
+#head div:nth-child(3) {
+	width: 32px;
+	height: 32px;
+	margin-top: 8px;
+}
+
+#head div:nth-child(4) {
+	width: 32px;
+	height: 32px;
+	margin: 8px 13px 7px 2px;
+}
+
+#head div img {
+	cursor: pointer;
+}
+
+#head div:nth-child(1) img {
+	width: 18px;
+	height: 18px;
+	margin: 6px 5px 7px;
+	height: 18px;
+}
+
+#head div:nth-child(2) img {
+	width: 147px;
+	height: 25px;
+}
+
+#head div:nth-child(3) img {
+	width: 18px;
+	height: 18px;
+	margin-top: 8px;
+}
+
+#head div:nth-child(4) img {
+	width: 18px;
+	height: 18px;
+	margin-top: 8px;
+	margin: 8px 13px 7px 2px;
+}
+
+#tab {
+	width: 375px;
+	height: 43px;
+	margin: 0px auto;
+	display: flex;
+	border-bottom: 1px solid rgb(227, 229, 232);
+	padding: 0px 17.5px;
+	text-align: center;
+	font-size: 16px;
+
+}
+
+#tab div {
+	width: 146.25px;
+	height: 43px;
+	margin: 0px auto;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+.tab_selected {
+	border-bottom: 4px solid black;
+	font-weight: bold;
+}
