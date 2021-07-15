@@ -563,11 +563,12 @@ body.s_no-scroll {
 	font-weight: normal;
 	color: rgb(154, 154, 158);
 }
-.feed_content div:nth-child(3) span{
+
+.feed_content div:nth-child(3) span {
 	margin-right: 7px;
 }
 
-.feed_content div:nth-child(3) span:nth-child(2){
+.feed_content div:nth-child(3) span:nth-child(2) {
 	margin-right: 0px;
 }
 
@@ -743,6 +744,7 @@ body.s_no-scroll {
 		var hid_name = $('#hid_name').val();
 
 		var feed_sel = "최신순";
+		var scroll = 0;
 
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
@@ -775,11 +777,15 @@ body.s_no-scroll {
 			feed_sel = e.target.value;
 			$(".btn_selected").removeClass("btn_selected");
 
-			
-			$(e.target).attr('class','btn_feed btn_selected');
+			scroll = $(document).scrollTop();
+			$(e.target).attr('class', 'btn_feed btn_selected');
 
-	
 			feed_select();
+
+			/* setTimeout(function() {
+				
+			}, 15); */
+
 		});
 
 		function feed_select() {
@@ -813,12 +819,17 @@ body.s_no-scroll {
 																		+ "<span> 좋아요 </span><span>답글달기</span></div></div>");
 
 											});
+							if(scroll!=0){
+								
 
+								$(window).scrollTop(scroll);
+							}
 						},
 						error : function() {
 							alert("에러");
 						}
 					});
+
 		}
 
 		$('#feed_txt').click(function() {
