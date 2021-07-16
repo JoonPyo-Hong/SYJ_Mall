@@ -568,12 +568,12 @@ body.s_no-scroll {
 	margin-right: 7px;
 }
 
-.feed_content div:nth-child(3) span:nth-child(2) {
+.feed_content div:nth-child(3) span:nth-child(2) span:nth-child(1) {
 	margin-right: 0px;
 }
 
 .feed_img {
-	cursor: pointer;
+	margin-right: 0px;
 }
 
 .feed_img img {
@@ -615,6 +615,10 @@ body.s_no-scroll {
 	width: 80px;
 	cursor: pointer;
 	z-index: 10;
+}
+
+.feed_heart {
+	cursor: pointer;
 }
 </style>
 <title>Feed</title>
@@ -750,19 +754,22 @@ body.s_no-scroll {
 		heart(l_seq);
 		feed_select();
 
+		$('.feed_heart').click(function(e) {
+			alert(e.target.value);
+		});
 		function feed_heart(seq) {
 			var result = 0;
 			$.ajax({
 				url : "feed_heart.action",
 				type : 'post',
-				async: false,
+				async : false,
 				data : {
 					feed_seq : seq,
 				},
 				success : function(data) {
-				
+
 					result = data;
-				
+
 				},
 				error : function() {
 					alert("에러");
@@ -803,10 +810,6 @@ body.s_no-scroll {
 
 			feed_select();
 
-			/* setTimeout(function() {
-				
-			}, 15); */
-
 		});
 
 		function feed_select() {
@@ -826,7 +829,7 @@ body.s_no-scroll {
 											function(index, value) {
 												var feed_heart_count = feed_heart(value.seq);
 												var feed_heart_txt = "";
-										
+
 												if (feed_heart_count == 0) {
 													feed_heart_txt = "";
 												} else {
@@ -844,10 +847,10 @@ body.s_no-scroll {
 																		+ "</span></div>"
 																		+ "<div><span>"
 																		+ value.reg_dt
-																		+ "</span> <span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
-																		+ "<span> 좋아요"
+																		+ "</span> <span class='feed_heart' value='" + value.seq + "'><span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
+																		+ "<span > 좋아요"
 																		+ feed_heart_txt
-																		+ " </span><span>답글달기</span></div></div>");
+																		+ " </span></span><span>답글달기</span></div></div>");
 
 											});
 							if (scroll != 0) {
