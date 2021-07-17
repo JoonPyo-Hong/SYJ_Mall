@@ -18,7 +18,7 @@
 	
 	<!-- 내용 타일즈 -->
 	<tiles:insertAttribute name="body" ignore="false"/>
-	
+		
 
 </body>
 </html>
