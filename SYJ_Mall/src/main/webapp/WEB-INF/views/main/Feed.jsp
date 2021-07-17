@@ -754,7 +754,7 @@ body.s_no-scroll {
 		heart(l_seq);
 		feed_select();
 
-		$('.feed_heart').click(function(e) {
+		$(document).on("click",".feed_heart",function(e) {
 			alert(e.target.value);
 		});
 		function feed_heart(seq) {
