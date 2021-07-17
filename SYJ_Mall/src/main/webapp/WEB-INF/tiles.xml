@@ -35,5 +35,9 @@
 	<definition name = "/tiles/*.top" extends="default">
 		<put-attribute name = "body" value="/WEB-INF/views/mainTiles/mainTest.jsp"/>	
 	</definition>
+	
+	<definition name = "/tiles/*.topping" extends="default">
+		<put-attribute name = "body" value="/WEB-INF/views/newGoods/newGoodsMain.jsp"/>	
+	</definition>
 
 </tiles-definitions>

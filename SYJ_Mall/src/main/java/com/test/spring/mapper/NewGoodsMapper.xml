@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="newGoods">
+
+	<!-- 로그인 검증과정 -->
+	<select id="loginVerification" resultType="com.test.SYJ_Mall.login.LoginDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		declare @user_seq int
+		declare @login_code int
+		exec dbo.qoo10_total_login #{userIp}, #{id}, #{encpw}, @login_code output, @user_seq output
+		select @login_code as loginCode, @user_seq as userSeq 
+	</select>
+	
+
+</mapper>
