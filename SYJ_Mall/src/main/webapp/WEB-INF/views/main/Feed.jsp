@@ -620,6 +620,11 @@ body.s_no-scroll {
 .feed_heart {
 	cursor: pointer;
 }
+
+.feed_like_selected {
+	font-weight: bold;
+	color: rgb(255, 68, 127);
+}
 </style>
 <title>Feed</title>
 </head>
@@ -754,9 +759,69 @@ body.s_no-scroll {
 		heart(l_seq);
 		feed_select();
 
-		$(document).on("click",".feed_heart",function(e) {
-			alert(e.target.value);
-		});
+		$(document)
+				.on(
+						"click",
+						".feed_heart",
+						function(e) {
+							var feed_heart_val = $(e.target).val();
+							alert(e.target.value);
+							var type;
+/* 
+							if ($(e.target)
+									.children('.feed_img')
+									.children('img')
+									.css('src',
+											'resources/images/main/like-grey.png')) {
+								alert();
+								$(e.target)
+										.children('.feed_img')
+										.children('img')
+										.after('src',
+												'resources/images/main/like-pink.png');
+								$(e.target).children('.feed_like').addClass(
+										'feed_like_selected');
+
+								type = "I";
+							} else if ($(e.target).children('.feed_img').children(
+									'img').css('src',
+									'resources/images/main/like-pink.png')) {
+								$(e.target)
+										.children('.feed_img')
+										.children('img')
+										.attr('src',
+												'resources/images/main/like-grey.png');
+								$(e.target).children('.feed_like').removeClass(
+										'feed_like_selected');
+
+								type = "D";
+							} */
+
+							if (m_seq == 0) {
+								return;
+							}
+							/* feed_heart_update(feed_heart_val,type); */
+						});
+
+		function feed_heart_update(f_seq, type) {
+
+			$.ajax({
+				url : "feed_heart_update.action",
+				type : 'post',
+				data : {
+					feed_seq : f_seq,
+					member_seq : m_seq,
+					gubn : type
+				},
+				success : function(data) {
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+
+		}
 		function feed_heart(seq) {
 			var result = 0;
 			$.ajax({
@@ -848,7 +913,7 @@ body.s_no-scroll {
 																		+ "<div><span>"
 																		+ value.reg_dt
 																		+ "</span> <span class='feed_heart' value='" + value.seq + "'><span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
-																		+ "<span > 좋아요"
+																		+ "<span class='feed_like'> 좋아요"
 																		+ feed_heart_txt
 																		+ " </span></span><span>답글달기</span></div></div>");
 

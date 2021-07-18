@@ -100,7 +100,7 @@ public class MainController {
 		return count;
 	}
 
-	// 좋아요 처리 (Insert, Delete)
+	// 좋아요 처리 (Insert, Delete로 처리)
 	@RequestMapping(value = "/heart_update.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public void heart_update(@RequestParam("list_seq") String list_seq, @RequestParam("member_seq") String member_seq,
@@ -171,15 +171,26 @@ public class MainController {
 		List<FeedDTO> list = service.feed_select(map);
 		return list;
 	}
-	
-	//댓글 좋아요 갯수
-		@RequestMapping(value = "/feed_heart.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public Object feed_heart(@RequestParam("feed_seq") int feed_seq) {
 
-			Integer count = service.feed_heart(feed_seq);
+	// 댓글 좋아요 갯수
+	@RequestMapping(value = "/feed_heart.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object feed_heart(@RequestParam("feed_seq") int feed_seq) {
+
+		Integer count = service.feed_heart(feed_seq);
+
+		return count;
+	}
+
+	// 댓글 좋아요 업데이트 (Insert, Delete로 처리)
+	@RequestMapping(value = "/feed_heart_update.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void feed_heart_update(@RequestParam("feed_seq") String feed_seq, @RequestParam("member_seq") String member_seq,@RequestParam("gubn") String gubn) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("feed_seq", feed_seq);
+		map.put("member_seq", member_seq);
+		map.put("gubn", gubn);
+		service.feed_heart_update(map);
 		
-			
-			return count;
-		}
+	}
 }

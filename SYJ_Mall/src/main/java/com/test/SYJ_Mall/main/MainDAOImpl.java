@@ -66,4 +66,16 @@ public class MainDAOImpl implements MainDAO {
 		return session.selectOne("main.feed_heart", feed_seq);
 	}
 
+	@Override
+	public void feed_heart_update(HashMap<String, String> map) {
+		if (map.get("gubn").equals("I")) {
+
+			session.insert("feed_heart_insert", map);
+		} else if (map.get("gubn").equals("D")) {
+			session.delete("feed_heart_delete", map);
+
+		}
+
+	}
+
 }

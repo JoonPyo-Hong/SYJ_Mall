@@ -22,4 +22,8 @@ public interface MainDAO {
 
 	Integer feed_heart(int feed_seq);
 
+	void feed_heart_update(HashMap<String, String> map);
+
+
+
 }

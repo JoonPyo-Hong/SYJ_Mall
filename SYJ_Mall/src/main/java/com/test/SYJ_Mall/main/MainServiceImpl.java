@@ -59,4 +59,10 @@ public class MainServiceImpl implements MainService {
 		return dao.feed_heart(feed_seq);
 	}
 
+	@Override
+	public void feed_heart_update(HashMap<String, String> map) {
+		dao.feed_heart_update(map);
+		
+	}
+
 }
