@@ -764,38 +764,43 @@ body.s_no-scroll {
 						"click",
 						".feed_heart",
 						function(e) {
-							var feed_heart_val = $(e.target).val();
-							alert(e.target.value);
+							var feed_heart_val = $(this).attr('value');
+
 							var type;
-/* 
-							if ($(e.target)
-									.children('.feed_img')
-									.children('img')
-									.css('src',
-											'resources/images/main/like-grey.png')) {
-								alert();
-								$(e.target)
-										.children('.feed_img')
-										.children('img')
-										.after('src',
-												'resources/images/main/like-pink.png');
-								$(e.target).children('.feed_like').addClass(
-										'feed_like_selected');
+							if ($(this).children('.feed_img').children('img').src == 'resources/images/main/like-grey.png') {
+								alert(1);
+							} else {
+								alert(2);
+							}
+							/* 
+							 if ($(e.target)
+							 .children('.feed_img')
+							 .children('img')
+							 .css('src',
+							 'resources/images/main/like-grey.png')) {
+							 alert();
+							 $(e.target)
+							 .children('.feed_img')
+							 .children('img')
+							 .after('src',
+							 'resources/images/main/like-pink.png');
+							 $(e.target).children('.feed_like').addClass(
+							 'feed_like_selected');
 
-								type = "I";
-							} else if ($(e.target).children('.feed_img').children(
-									'img').css('src',
-									'resources/images/main/like-pink.png')) {
-								$(e.target)
-										.children('.feed_img')
-										.children('img')
-										.attr('src',
-												'resources/images/main/like-grey.png');
-								$(e.target).children('.feed_like').removeClass(
-										'feed_like_selected');
+							 type = "I";
+							 } else if ($(e.target).children('.feed_img').children(
+							 'img').css('src',
+							 'resources/images/main/like-pink.png')) {
+							 $(e.target)
+							 .children('.feed_img')
+							 .children('img')
+							 .attr('src',
+							 'resources/images/main/like-grey.png');
+							 $(e.target).children('.feed_like').removeClass(
+							 'feed_like_selected');
 
-								type = "D";
-							} */
+							 type = "D";
+							 } */
 
 							if (m_seq == 0) {
 								return;
