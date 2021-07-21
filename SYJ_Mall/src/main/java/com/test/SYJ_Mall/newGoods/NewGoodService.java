@@ -22,6 +22,8 @@ public class NewGoodService implements INewGoodService{
 	public void setTopProductSetting(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		
+		
+		
 	}
 	
 }

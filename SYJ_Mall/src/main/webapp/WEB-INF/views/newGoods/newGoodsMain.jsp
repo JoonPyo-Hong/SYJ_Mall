@@ -209,10 +209,6 @@
 
     });
 
-
-
-
-
 	//위로가기 눌렀을 경우에
 	$("#upPage").click(function(){
 		$("html,body").animate({
