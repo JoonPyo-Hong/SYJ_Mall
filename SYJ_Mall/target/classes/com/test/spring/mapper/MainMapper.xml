@@ -56,4 +56,12 @@
 	<select id="feed_heart" resultType="int" parameterType="int">
 		select count(*) from dbo.feed_heart with (nolock) where feed_seq = #{feed_seq}
 	</select>
+	<insert id="feed_heart_insert" parameterType="java.util.HashMap">
+		insert into
+		dbo.feed_heart values(#{feed_seq},#{member_seq})
+	</insert>
+	<delete id="feed_heart_delete" parameterType="java.util.HashMap">
+		delete dbo.feed_heart
+		where feed_seq = #{feed_seq} and member_seq = #{member_seq}
+	</delete>
 </mapper>
