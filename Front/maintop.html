@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=375, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="icofont/icofont.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <style>
+
+        /* 전체적인 바디 */
+        body {
+            border : 1px solid yellow;
+            border : 1px solid #F6F6F6;
+            height : 3000px;
+            margin: 0px auto;
+            width: 375px;
+            background-color : #FFFFFF;
+        }
+#sticky{
+	position: sticky;
+	top: 0px;
+	left: 0px;
+	z-index: 500;
+	background-color: white;
+
+}
+#head {
+    
+	width: 375px;
+	height: 47px;
+	margin: 0px auto;
+	display: flex;
+
+}
+
+#head div:nth-child(1) {
+    
+	width: 32px;
+	height: 32px;
+	margin: 8px 3px 7px 13px;
+}
+
+#head div:nth-child(2) {
+	width: 147px;
+	height: 24px;
+	display: block;
+	margin: 0px auto;
+	margin-top: 11px;
+}
+
+#head div:nth-child(3) {
+	width: 32px;
+	height: 32px;
+	margin-top: 8px;
+}
+
+#head div:nth-child(4) {
+	width: 32px;
+	height: 32px;
+	margin: 8px 13px 7px 2px;
+}
+
+#head div img {
+	cursor: pointer;
+}
+
+#head div:nth-child(1) img {
+	width: 18px;
+	height: 18px;
+	margin: 6px 5px 7px;
+	height: 18px;
+}
+
+#head div:nth-child(2) img {
+	width: 147px;
+	height: 25px;
+}
+
+#head div:nth-child(3) img {
+	width: 18px;
+	height: 18px;
+	margin-top: 8px;
+}
+
+#head div:nth-child(4) img {
+	width: 18px;
+	height: 18px;
+	margin-top: 8px;
+	margin: 8px 13px 7px 2px;
+}
+
+#tab {
+    /* border: 1px solid red; */
+	width: 375px;
+	height: 43px;
+	margin: 0px auto;
+	display: flex;
+	border-bottom: 1px solid rgb(227, 229, 232);
+	padding: 0px 17.5px;
+	text-align: center;
+	font-size: 16px;
+
+}
+
+#tab div {
+	width: 146.25px;
+	height: 43px;
+	margin: 0px auto;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+.tab_selected {
+	border-bottom: 4px solid black;
+	font-weight: bold;
+}        
+
+/* 상단 그림 */
+#newTopImg {
+	/* border : 1px solid red; */
+	width: 375px;
+	height: 211px;
+	/* border-bottom: 10px solid #EBEBEB; */
+	
+}
+
+#newTopImg > div > div > img {
+	width: 375px;
+	height: 211px;
+} 
+
+/* 상단 이미지 페이징 */
+#topPage {
+	/* border : 1px solid red; */
+	width: 50px;
+	height: 20px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	text-align: center;
+	position: relative;
+	top: -30px;
+	left: 320px;
+	z-index: 1;
+	color: #FFFFFF;
+	float: left;
+	
+}
+
+/* 상단 이미지 내에 들어갈 문구 */
+.imginnertoptextfirst {
+	/* border : 1px solid blue; */
+	z-index: 2;
+	position: relative;
+	top: -80px;
+	left: 10px;
+	width: 290px;
+	height: 35px;
+	font-size: 24px;
+	color: #FFFFFF;
+	font-weight: bolder;
+
+}
+
+.imginnertoptextsecond {
+	/* border : 1px solid rebeccapurple; */
+	z-index: 2;
+	position: relative;
+	left: 10px;
+	top: -75px;
+	width: 290px;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+/* 구분선 */
+.splitline {
+	border : 10px solid #EBEBEB;
+	width: 375px;
+}
+
+/* 추천신규  테마*/
+#recommendTheme {
+	/* border: 1px solid red; */
+	width: 375px;
+	height:1257px;
+	padding: 36px 20px;
+}
+
+/* 추천신규 테마 타이틀 */
+#recommendThemetitle {
+	/* border : 1px solid orange; */
+	height: 22px;
+	width: 335px;
+	font-size: 15px;
+	color : #9A9A9E;
+	padding-left: 6.5px;
+}
+
+/* 추천신규 테마 서브 타이틀 */
+#recommendThemesubtitle {
+	/* border: 1px solid blue; */
+	height: 32px;
+	width: 335px;
+	font-size: 28px;
+	font-weight: bold;
+	padding-left: 6.5px;
+	margin-bottom: 25px;
+}
+
+/* 테마 상품 */
+.themeProduct {
+	/* border : 1px solid red; */
+	width : 166.5px;
+	height : 280px;
+	float: left;
+	/* margin-left: 13px;*/
+	/* margin-top: 10px;  */
+	
+}
+
+/* 테마 상품 사진 */
+.themeProductPic {
+	border:1px solid #FAFAFA;
+	margin: 10px 2px;
+	width: 161px;
+	height: 161px;
+}
+
+.themeProductPic > img {
+	width: 159px;
+	height: 159px;
+}
+
+.themeProduct:hover {
+	cursor:pointer;
+}
+
+/* 테마상품 이름 */
+.themeProductPicName {
+	/* border:1px solid cornflowerblue; */
+	margin-left: 2px;
+	width: 161px;
+	height: 50px;
+	/* background-color: #FAFAFA; */
+}
+
+/* 진짜 상품 이름 */
+.productName {
+	/* border: 1px solid red; */
+	font-size : 16px;
+	width: 125px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	height: 48px;
+	float: left;
+	color: #AEAEAF;
+	/* text-overflow:ellipsis; */
+	/* overflow: hidden; */
+}
+
+/* 알람표시 */
+.productAlram > button {
+	border: 0px;
+	background-color: transparent;
+	color: #AEAEAF;
+	font-size: 22px;
+	margin-top: 10px;
+	outline: none;
+}
+
+.productBasket > button {
+	border: 0px;
+	background-color: transparent;
+	color: #AEAEAF;
+	font-size: 22px;
+	margin-top: 10px;
+	outline: none;
+}
+
+/* 물품가격 */
+.productPrice {
+	/* border: 1px solid red; */
+	width: 161px;
+	height: 23px;
+	margin: 0px auto;
+	padding-left: 5px;
+	font-weight: bolder;
+	font-size: 16px;
+}
+
+/* 할인후 가격 */
+.afterPrice {
+	/* border: 1px solid green; */
+	width: 161px;
+	margin: 0px auto;
+	height: 23px;
+	padding-left: 5px;
+	font-weight: bolder;
+	font-size: 16px;
+	color: #FF447F;
+}
+
+/* 할인전 가격 */
+.beforePrice {
+	/* border: 1px solid green; */
+	width: 161px;
+	margin: 0px auto;
+	height: 23px;
+	padding-left: 5px;
+	font-weight: bolder;
+	font-size: 16px;
+	color: #AEAEAF;
+	text-decoration-line: line-through;
+}
+
+
+/* 위로가기버튼 */
+#upPage {
+	border:1px solid #AEAEAF;
+	width: 46px;
+	height: 46px;
+	border-radius: 50px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bolder;
+	position: fixed;
+	z-index:10;
+	top:750px;
+	margin: 0px auto;
+	margin-left: 320px;
+	visibility: hidden;
+}
+
+#upPage:hover{
+	cursor: pointer;
+}
+
+#addView {
+	/* margin-top: 20px; */
+	/* border:1px solid black; */
+	margin: 0px auto;
+	width: 335px;
+	height:52px;
+	margin-bottom: 40px;
+}
+
+#addView > button {
+	border: 1px solid #AEAEAF;
+	width: 333px;
+	height:50px;
+	background-color: transparent;
+	font-size: 16px;
+	
+}
+
+#addView > button:hover {
+	cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+	<!-- 메인화면 최 상단 -->
+	<div id="wrap">
+		<div id="sticky">
+			<div id="head">
+				<div>
+					<img src="img/main/ic_menu_2x.png"></img>
+				</div>
+				<div>
+					<img src="img/main/new-logo-mo.png"></img>
+				</div>
+				<div>
+					<img src="img/main/ic_search_2x.png"></img>
+				</div>
+				<div>
+					<img src="img/main/language-global-18-black@2x.png"></img>
+				</div>
+			</div>
+			<div id="tab">
+				<div>오늘</div>
+				<div class="tab_selected">신규</div>
+				<div>인기</div>
+				<div>마이</div>
+			</div>
+		</div>
+		<input type="hidden" id="hid_seq" value="${seq}">
+		<div class="scroll"></div>
+	</div> 
+
+
+	<!-- 신규 -->
+	<div class="swiper-container" id="newTopImg">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<img src="img/banner_20210531110734_mobile_kr.jpg" alt="">
+				<div class = "imginnertoptextfirst">
+					선풍기 춘식이!
+				</div>
+				<div class = "imginnertoptextsecond">
+					춘식이는 선풍기를 좋아해
+				</div>
+			</div>
+			<div class="swiper-slide"><img src="img/banner_20210615143750_mobile_kr.jpg" alt=""></div>
+			<div class="swiper-slide"><img src="img/banner_20210714085750_mobile_kr.jpg" alt=""></div>
+		</div>
+	</div>
+	<div id = "topPage" class="swiper-pagination"></div>	
+	
+	<div class="splitline"></div>
+
+	<!-- 추천신규 테마 -->
+	<div id = "recommendTheme">
+		<div id ="recommendThemetitle">추천 신규 테마</div>
+		<div id ="recommendThemesubtitle">춘식</div>
+
+		<div class = "themeProduct">
+			<div class="themeProductPic">
+				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
+			</div>
+			<div class="themeProductPicName">
+				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
+				<div class="productAlram"><button id = "001xf" class="icofont-alarm"></button></div>
+			</div>
+			<div class="productPrice">29,500 원</div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic">
+				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
+			</div>
+			<div class="themeProductPicName">
+				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
+				<div class="productBasket"><button class="icofont-bag"></button></div>
+			</div>
+			<div class="afterPrice">30% 20,000 원</div>
+			<div class="beforePrice">30,000 원</div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+	</div>
+
+	<div id="addView">
+			<button>더 보기+</button>
+	</div>
+
+	<div class="splitline"></div>
+
+	<!-- 새로나온 친구들 -->
+	<div id = "recommendTheme">
+		<div id ="recommendThemetitle">오늘 업데이트 했어요</div>
+		<div id ="recommendThemesubtitle">새로나온 친구들</div>
+
+		<div class = "themeProduct">
+			<div class="themeProductPic">
+				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
+			</div>
+			<div class="themeProductPicName">
+				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
+				<div class="productAlram"><button class="icofont-alarm"></button></div>
+			</div>
+			<div class="productPrice">29,500 원</div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic">
+				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
+			</div>
+			<div class="themeProductPicName">
+				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
+				<div class="productBasket"><button class="icofont-bag"></button></div>
+			</div>
+			<div class="afterPrice">30% 20,000 원</div>
+			<div class="beforePrice">30,000 원</div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+		<div class = "themeProduct">
+			<div class="themeProductPic"></div>
+			<div class="themeProductPicName"></div>
+		</div>
+	</div>
+
+
+
+	<div id="upPage">↑</div>
+
+  <script>
+    
+	$(".icofont-alarm").click(function(){
+		const id = $(this).attr('id');
+		// console.log($(this).attr('id'));
+		alarmSwitch(id);
+	});
+
+	//알람의 색을 바꿔주는 역할
+	function alarmSwitch(id) {
+		$('#' + id).css('color','#FF447F');
+	}
+
+
+    var mySwiper = new Swiper('.swiper-container',{
+	
+       loop:false,
+       watchOverflow : true,
+       
+        //자동 스크롤링
+        autoplay: {
+            delay : 3000
+        },
+
+       //페이징
+       pagination: {
+            //페이지 기능
+            el: '.swiper-pagination',
+            //클릭 가능여부
+            clickable:true,
+            type:'fraction'
+			
+       }, 
+       
+       navigation : {
+           //다음페이지 설정
+           nextEl:'.sipwer-button-next',
+
+           //이전페이지 설정
+           prevEl:'.swiper-button-prev'
+       },
+    });
+
+	var bodyLen = 2185;
+	//스크롤움직일때 이벤트
+	$(document).scroll(function () {
+
+		console.log("document : " + $(document).scrollTop());
+		console.log("window : " +$(window).scrollTop());
+		console.log("windowHeight : " + $(window).height());
+		//visibility: hidden;
+		if ($(document).scrollTop() >= 500) {
+			$("#upPage").css("visibility","visible");
+		} else {
+			$("#upPage").css("visibility","hidden");
+		}
+
+		// if ($(window).scrollTop() / bodyLen == 1) {
+		// 	$('body').css('')
+		// 	alert('asd');
+		// 	$('body').append('<div>aaaaaaaaaaaaaaaaa</div>');
+		// }
+
+    });
+
+
+
+
+
+	//위로가기 눌렀을 경우에
+	$("#upPage").click(function(){
+		$("html,body").animate({
+                // scrollTop: 6350
+                scrollTop: 0
+            }, 500);	
+	});
+        
+
+
+</script>
+
+
+</body>
+</html>

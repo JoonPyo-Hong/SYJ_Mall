@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=375, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="icofont/icofont.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/bootstrap.js"></script>
+
+<style>
+    #main {
+        border : 1px solid red;
+        width:1000px;
+        height: 300px;
+        margin: 0px auto;
+    }
+
+    /* .swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    .swiper-pagination-bullet {
+      width: 100px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      color:#000;
+      opacity: 1;
+      background: rgba(0,0,0,0.2);
+    }
+    .swiper-pagination-bullet-active {
+      color:#fff;
+      background: #007aff;
+    } */
+
+
+</style>
+
+</head>
+<body>
+   
+    
+    <div id = "main">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                1번 슬라이드입니다.<br>마우스로 움직여보세요.
+            </div>
+            <div class="swiper-slide">
+                2번 슬라이드입니다.<br>
+                레이아웃만 제대로 설정되어 있다면 슬라이드에 어떤 것이든 넣을 수 있습니다.
+            </div>
+            <div class="swiper-slide">
+                <img src="https://image.flaticon.com/icons/png/128/1933/1933588.png" alt=""><br>
+                이렇게 이미지도 넣을 수 있습니다.
+            </div>
+            <div class="swiper-slide">
+                <img src="https://image.flaticon.com/icons/png/128/1933/1933588.png" alt=""><br>
+                이렇게 이미지도 넣을 수 있습니다.
+            </div>      
+            </div>
+        </div>
+        <!-- <div class="swiper-pagination"></div> -->
+
+  </div>
+  </div>
+  <div><span id = number>1</span> / 10 </div>
+  
+<script>
+    
+    // 페이지 네비게이션 배열지정 -> 아 뭔지 알겠다
+    var num = 1;
+    
+    var mySwiper = new Swiper('.swiper-container',{
+
+       loop:false,
+       watchOverflow : true,
+       
+        //자동 스크롤링
+        // autoplay: {
+        //     //delay : 3000
+        // },
+
+       //페이징
+       pagination: {
+            //페이지 기능
+            el: '.swiper-pagination',
+            //클릭 가능여부
+            clickable:true,
+            type:'bullets'
+       }, 
+       on: { 
+        slidePrevTransitionStart: function () {
+            //alert('슬라이드 변경');
+            num--;
+            $('#number').text(num);
+            
+        },
+        slideNextTransitionStart: function () {
+            //alert('슬라이드 변경');
+            num++;
+            $('#number').text(num);
+            
+            
+        },
+        
+        },
+
+       navigation : {
+           //다음페이지 설정
+           nextEl:'.sipwer-button-next',
+
+           //이전페이지 설정
+           prevEl:'.swiper-button-prev'
+       },
+       
+       
+
+
+    });
+
+</script>
+
+</body>
+</html>
