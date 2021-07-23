@@ -758,6 +758,10 @@ body.s_no-scroll {
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
+		
+		function re_feed(seq) {
+			 $("#feed_content_" + seq).append("<div> 테스트 </div>"); 
+		}
 
 		$(document).on(
 				"click",
@@ -930,7 +934,7 @@ body.s_no-scroll {
 												}
 												$("#feed_content_div")
 														.append(
-																"<div class='feed_content'>"
+																"<div class='feed_content' id ='feed_content_"+value.seq+"'>"
 																		+ "<div>"
 																		+ value.reg_id
 																		+ "</div>"
@@ -945,6 +949,7 @@ body.s_no-scroll {
 																		+ feed_heart_red
 																		+ feed_heart_txt
 																		+ " </span></span><span>답글달기</span></div></div>");
+												re_feed(value.seq);
 
 											});
 							if (scroll != 0) {
