@@ -50,16 +50,76 @@ COMMIT TRAN
 ROLLBACK TRAN
 
 
+
+
 /* KAKAO_PRODUCT_MAIN_CATEGORY - 상품정보 대분류 */
-CREATE TABLE [dbo].[KAKAO_PRODUCT_MAIN_CATEGORY ] (
+CREATE TABLE [dbo].[KAKAO_PRODUCT_MAIN_CATEGORY] (
 	[category_code] [BIGINT] NOT NULL,  /* 분류코드 - category_code */
 	[category_nm] [NVARCHAR](50) NOT NULL,  /* 분류이름 - category_nm */
 	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
 	[category_rep_img_url] [NVARCHAR](100) /* 대분류 대표 이미지 url - category_rep_img_url */
 )
 
+ALTER TABLE dbo.KAKAO_PRODUCT_MAIN_CATEGORY ADD CONSTRAINT PK__KAKAO_PRODUCT_MAIN_CATEGORY__CATEGORY_CODE PRIMARY KEY (category_code)
+
+BEGIN TRAN
+
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (1,N'LED 시계_라이언&춘식이',GETDATE(),N'resources/images/product/20210724_LED 시계_라이언&춘식이.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (2,N'[온라인 전용]높이 조절 탁상선풍기_라이언&춘식',GETDATE(),N'resources/images/product/20210724_[온라인 전용]높이 조절 탁상선풍기_라이언&춘식.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (3,N'춘식이는 수박을 좋아해 인형',GETDATE(),N'resources/images/product/20210724_춘식이는 수박을 좋아해 인형.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (4,N'라이언&춘식이 살균 무선 충전기',GETDATE(),N'resources/images/product/20210724_라이언&춘식이 살균 무선 충전기.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (5,N'라이언과 춘식이의 집콕놀이',GETDATE(),N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이.jpg')
+
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (6,N'죠르디 미니각티슈 케이스',GETDATE(),N'resources/images/product/20210724_죠르디 미니각티슈 케이스.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (7,N'리틀라이언 미니베이커',GETDATE(),N'resources/images/product/20210724_리틀라이언 미니베이커.jpg')
+
+SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
+
+DROP TABLE dbo.KAKAO_NEW_PRODUCT
 
 
+/* KAKAO_NEW_PRODUCT - 신규상품 */
+CREATE TABLE [dbo].[KAKAO_NEW_PRODUCT] (
+	[new_prodt_seq] [BIGINT] IDENTITY(1,1) NOT NULL,  /* 신규상품 코드 - new_prodt_seq */
+	[dp_start_dt] [DATETIME] NOT NULL,  /* DP 시작 날짜 - dp_start_dt */
+	[dp_end_dt] [DATETIME] NOT NULL,  /* DP 마지막 날짜 - dp_end_dt */
+	[recommend_prodt_yn] [CHAR](1) NOT NULL,  /* 추천상품 여부 - recommend_prodt_yn */
+	[product_top_img_title] [NVARCHAR](25),  /* 배너사진 설명 제목 - product_top_img_title */
+	[product_top_img_title_detail] [NVARCHAR](25),  /* 배너사진 설명 세부 - product_top_img_title_detail */
+	[category_code] [BIGINT] NOT NULL /* 분류코드 - category_code */
+)
+GO
+
+
+ALTER TABLE dbo.KAKAO_NEW_PRODUCT ADD CONSTRAINT PK__KAKAO_NEW_PRODUCT__NEW_PRODT_SEQ PRIMARY KEY (new_prodt_seq)
+
+
+begin tran
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'탁상용, 벽걸이용 모두되는',N'라이언와 춘식이 LED 시계',1)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'책상 위를 시원하게',N'온라인 전용 탁상용 선풍기',2)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'수박과 하나된',N'춘식이는 수박을 좋아해',3)
+
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'라이언과 클린하게',N'살균 무선 충전기',4)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'집콕엔 청소도 즐겁게',N'라이언과 춘식이의 집콕놀이',5)
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'나만의 죠르디 정원',N'죠르디 티슈 케이스',6)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'라이언과 즐거운 베이킹',N'리틀라이언 미니베이커',7)
+
+
+
+select * from dbo.KAKAO_NEW_PRODUCT with(nolock)
+
+
+
+commit tran
+
+
+COMMIT TRAN
+
+
+ROLLBACK TRAN
 
 
 
