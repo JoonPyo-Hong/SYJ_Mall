@@ -15,5 +15,7 @@
 		select @login_code as loginCode, @user_seq as userSeq 
 	</select>
 	
+	
+		
 
 </mapper>
