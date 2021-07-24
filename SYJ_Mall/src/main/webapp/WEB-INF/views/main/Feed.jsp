@@ -532,6 +532,10 @@ body.s_no-scroll {
 	height: 18px;
 }
 
+.feed_content2 {
+	margin-left: 30px;
+}
+
 .feed_content {
 	padding: 12px 0px;
 	margin-top: 10px;
@@ -566,6 +570,7 @@ body.s_no-scroll {
 
 .feed_content div:nth-child(3) span {
 	margin-right: 7px;
+	cursor: pointer;
 }
 
 .feed_content div:nth-child(3) span:nth-child(2) span:nth-child(1) {
@@ -624,6 +629,15 @@ body.s_no-scroll {
 .feed_like_selected {
 	font-weight: bold;
 	color: rgb(255, 68, 127);
+}
+
+.delete_search {
+	width: 18px;
+	height: 18px;
+}
+
+.comment2 {
+	margin-left: 50px;
 }
 </style>
 <title>Feed</title>
@@ -758,83 +772,114 @@ body.s_no-scroll {
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
-		
+
 		function re_feed(seq) {
-			 $("#feed_content_" + seq).append("<div class='feed_content'>"
-				+ "<div>"
-				+ "</div>"
-				+ "<div><span> 테스트"
-				+ "</span></div>"
-				+ "<div><span>"
-				+ "5일전 </span> <span class='feed_heart' value='" +  "'><span class='feed_img'><img src='resources/images/main/like-"
+			$("#feed_content_" + seq)
+					.append(
+							"<div class='feed_content feed_content2'>"
+									+ "<div>"
+									+ "</div>"
+									+ "<div><span> 테스트"
+									+ "</span></div>"
+									+ "<div><span>"
+									+ "5일전 </span> <span class='feed_heart' value='" +  "'><span class='feed_img'><img src='resources/images/main/like-"
 				+"grey"+".png'></span>"
-				+ "<span class='feed_like'> 좋아요"
-				+ " </span></span></div></div>"); 
+									+ "<span class='feed_like'> 좋아요"
+									+ " </span></span></div></div>");
 		}
+		$(document)
+				.on(
+						"click",
+						".feed_content div:nth-child(3) span:nth-child(3)",
+						function() {
 
-		$(document).on(
-				"click",
-				".feed_heart",
-				function() {
-					if (m_seq == 0) {
-						openModal("modal1");
-						return;
-					}
-					var feed_heart_val = $(this).attr('value');
-					var feed_like = "";
-					var type;
-					if ($(this).children('.feed_img').children('img').attr(
-							"src") == 'resources/images/main/like-grey.png') {
-						$(this).children('.feed_img').children('img').attr(
-								"src", 'resources/images/main/like-pink.png');
-						$(this).children('.feed_like').attr("style",
-								'color:red');
-						type = "I";
-						if ($(this).children('.feed_like').text() == " 좋아요 ") {
-
-							feed_like = " 좋아요 1개 ";
-						} else {
-							//문자 앞뒤 공백 제거후 가운데 공백으로 나눔
-							var feed_like_text = $(this).children('.feed_like')
-									.text().trim().split(' ');
-
-							feed_like = " 좋아요 "
-									+ (parseInt(feed_like_text[1].replace('개',
-											'')) + 1) + " 개 ";
-						}
-					} else {
-						$(this).children('.feed_img').children('img').attr(
-								"src", 'resources/images/main/like-grey.png');
-						type = "D";
-						$(this).children('.feed_like').attr("style",
-								'color:rgb(154, 154, 158)');
-						//.removeClass("feed_like_selected");
-						//.removeAttr('class');
-						//.attr("class", '');
-						if ($(this).children('.feed_like').text() == " 좋아요 ") {
-
-							feed_like = " 좋아요 1개 ";
-						} else {
-							//문자 앞뒤 공백 제거후 가운데 공백으로 나눔
-							var feed_like_text = $(this).children('.feed_like')
-									.text().trim().split(' ');
-							if(parseInt(feed_like_text[1].replace('개','')) == 1){
-								feed_like = " 좋아요 "
-							}else{
-								
-							feed_like = " 좋아요 "
-									+ (parseInt(feed_like_text[1].replace('개',
-											'')) - 1) + " 개 ";
+							if ($(this).children("div").attr('class') == 're_feed_update') {
+								return;
 							}
-						}
-					}
+							$(this)
+									.append(
+											"<div class='re_feed_update'><img src='resources/images/main/delete-search.png'class='delete_search'>"
+													+ "<div class='comment comment2' >"
+													+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
+													+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
+													+ "</div></div>");
+						});
 
-					/* scroll = $(document).scrollTop(); */
-					/* feed_select(); */
+		$(document)
+				.on(
+						"click",
+						".feed_heart",
+						function() {
+							if (m_seq == 0) {
+								openModal("modal1");
+								return;
+							}
+							var feed_heart_val = $(this).attr('value');
+							var feed_like = "";
+							var type;
+							if ($(this).children('.feed_img').children('img')
+									.attr("src") == 'resources/images/main/like-grey.png') {
+								$(this)
+										.children('.feed_img')
+										.children('img')
+										.attr("src",
+												'resources/images/main/like-pink.png');
+								$(this).children('.feed_like').attr("style",
+										'color:red');
+								type = "I";
+								if ($(this).children('.feed_like').text() == " 좋아요 ") {
 
-					$(this).children('.feed_like').text(feed_like);
-					feed_heart_update(feed_heart_val, type);
-				});
+									feed_like = " 좋아요 1개 ";
+								} else {
+									//문자 앞뒤 공백 제거후 가운데 공백으로 나눔
+									var feed_like_text = $(this).children(
+											'.feed_like').text().trim().split(
+											' ');
+
+									feed_like = " 좋아요 "
+											+ (parseInt(feed_like_text[1]
+													.replace('개', '')) + 1)
+											+ " 개 ";
+								}
+							} else {
+								$(this)
+										.children('.feed_img')
+										.children('img')
+										.attr("src",
+												'resources/images/main/like-grey.png');
+								type = "D";
+								$(this).children('.feed_like').attr("style",
+										'color:rgb(154, 154, 158)');
+								//.removeClass("feed_like_selected");
+								//.removeAttr('class');
+								//.attr("class", '');
+								if ($(this).children('.feed_like').text() == " 좋아요 ") {
+
+									feed_like = " 좋아요 1개 ";
+								} else {
+									//문자 앞뒤 공백 제거후 가운데 공백으로 나눔
+									var feed_like_text = $(this).children(
+											'.feed_like').text().trim().split(
+											' ');
+									if (parseInt(feed_like_text[1].replace('개',
+											'')) == 1) {
+										feed_like = " 좋아요 "
+									} else {
+
+										feed_like = " 좋아요 "
+												+ (parseInt(feed_like_text[1]
+														.replace('개', '')) - 1)
+												+ " 개 ";
+									}
+								}
+							}
+
+							/* scroll = $(document).scrollTop(); */
+							/* feed_select(); */
+
+							$(this).children('.feed_like').text(feed_like);
+							feed_heart_update(feed_heart_val, type);
+						});
 
 		function feed_heart_update(f_seq, type) {
 
@@ -957,14 +1002,14 @@ body.s_no-scroll {
 																		+ "<span class='feed_like'"
 																		+ feed_heart_red
 																		+ feed_heart_txt
-																		+ " </span></span><span>답글달기</span></div></div>");
-												re_feed(value.seq);
+																		+ " </span></span><span value='true'>답글달기</span></div></div>");
 
 											});
 							if (scroll != 0) {
-
 								$(window).scrollTop(scroll);
 							}
+							//test
+							re_feed("29");
 						},
 						error : function() {
 							alert("에러");
