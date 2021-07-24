@@ -760,7 +760,16 @@ body.s_no-scroll {
 		feed_select();
 		
 		function re_feed(seq) {
-			 $("#feed_content_" + seq).append("<div> 테스트 </div>"); 
+			 $("#feed_content_" + seq).append("<div class='feed_content'>"
+				+ "<div>"
+				+ "</div>"
+				+ "<div><span> 테스트"
+				+ "</span></div>"
+				+ "<div><span>"
+				+ "5일전 </span> <span class='feed_heart' value='" +  "'><span class='feed_img'><img src='resources/images/main/like-"
+				+"grey"+".png'></span>"
+				+ "<span class='feed_like'> 좋아요"
+				+ " </span></span></div></div>"); 
 		}
 
 		$(document).on(
