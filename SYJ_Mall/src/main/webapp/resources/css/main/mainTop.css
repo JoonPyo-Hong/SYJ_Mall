@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+		body {
+            
+            margin: 0px auto;
+            
+        } 
+
+
+
 #sticky{
 	position: sticky;
 	top: 0px;

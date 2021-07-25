@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ include file="/WEB-INF/views/inc/mainasset.jsp" %> --%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel = "stylesheet" href = "resources/css/newGoods/newGoodsMain.css">
-</head>
-<body>
+<style>
+body {
+            
+            margin: 0px auto;
+            
+        }
+
+</style>
 	
 	<!-- 신규 -->
 	<div class="swiper-container" id="newTopImg">
@@ -41,7 +40,7 @@
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productAlram"><button id = "001xf" class="icofont-alarm"></button></div>
+				<div class="productAlram"></div>
 			</div>
 			<div class="productPrice">29,500 원</div>
 		</div>
@@ -51,7 +50,7 @@
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productBasket"><button class="icofont-bag"></button></div>
+				<div class="productBasket"></div>
 			</div>
 			<div class="afterPrice">30% 20,000 원</div>
 			<div class="beforePrice">30,000 원</div>
@@ -89,7 +88,7 @@
 	<div class="splitline"></div>
 
 	<!-- 새로나온 친구들 -->
-	<div id = "recommendTheme">
+	<div id = "newPresentFriend">
 		<div id ="recommendThemetitle">오늘 업데이트 했어요</div>
 		<div id ="recommendThemesubtitle">새로나온 친구들</div>
 
@@ -194,25 +193,50 @@
 		console.log("document : " + $(document).scrollTop());
 		console.log("window : " +$(window).scrollTop());
 		console.log("windowHeight : " + $(window).height());
-		//visibility: hidden;
+		
+		//윌로 올라가기 표시
 		if ($(document).scrollTop() >= 500) {
 			$("#upPage").css("visibility","visible");
 		} else {
 			$("#upPage").css("visibility","hidden");
 		}
+		
+		
+		//스크롤이 밑바닥에 닿았을 경우
+		if($(window).scrollTop() + $(window).height() == $(document).height()) {
+			alert('?');
+			
+			const bodyHeight = parseInt($('body').css('height').replace('px',''));//바디의 높이를 구해준다.
+			$('body').css('height',bodyHeight + 840);//총 바디의 길이를 늘려준다.
+			
+			
+			for (var i = 0; i < 6; i++) {
+				$('#newPresentFriend').append(
 
-		// if ($(window).scrollTop() / bodyLen == 1) {
-		// 	$('body').css('')
-		// 	alert('asd');
-		// 	$('body').append('<div>aaaaaaaaaaaaaaaaa</div>');
-		// }
+					'<div class = "themeProduct" id="' +i+ '">'
+		            + '<div class="themeProductPic">'
+		            + '<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">'
+		            + '</div>'
+		            + '<div class="themeProductPicName">'
+		            + '<div class="productName">춘식이 버즈 라이브/프로 케이스</div>'
+		            + '<div class="productBasket"><button class="icofont-bag"></button></div>'
+		            + '</div>'
+		            + '<div class="afterPrice">30% 20,000 원</div>'
+		            + '<div class="beforePrice">30,000 원</div>'
+		        	+ '</div>'
+
+					);
+			}
+			
+			
+		}
+		
 
     });
 
-	//위로가기 눌렀을 경우에
+	//위로가기 눌렀을 경우에 -> 최상단으로 올라감
 	$("#upPage").click(function(){
 		$("html,body").animate({
-                // scrollTop: 6350
                 scrollTop: 0
             }, 500);	
 	});
@@ -222,5 +246,3 @@
 </script>	
 	
 	
-</body>
-</html>

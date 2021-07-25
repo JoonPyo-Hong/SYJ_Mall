@@ -1,0 +1,276 @@
+@charset "UTF-8";
+@charset "UTF-8";
+@charset "UTF-8";@charset "UTF-8";
+
+@charset "UTF-8";
+
+
+/* 상단 그림 */
+#newTopImg {
+	/* border : 1px solid red; */
+	width: 375px;
+	height: 211px;
+	/* border-bottom: 10px solid #EBEBEB; */
+	
+}
+
+#newTopImg > div > div > img {
+	width: 375px;
+	height: 211px;
+} 
+
+/* 상단 이미지 페이징 */
+#topPage {
+	/* border : 1px solid red; */
+	width: 50px;
+	height: 20px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	text-align: center;
+	position: relative;
+	top: -30px;
+	left: 320px;
+	z-index: 1;
+	color: #FFFFFF;
+	float: left;
+	
+}
+
+/* 상단 이미지 내에 들어갈 문구 */
+.imginnertoptextfirst {
+	/* border : 1px solid blue; */
+	z-index: 2;
+	position: relative;
+	top: -80px;
+	left: 10px;
+	width: 290px;
+	height: 35px;
+	font-size: 24px;
+	color: #FFFFFF;
+	font-weight: bolder;
+
+}
+
+.imginnertoptextsecond {
+	/* border : 1px solid rebeccapurple; */
+	z-index: 2;
+	position: relative;
+	left: 10px;
+	top: -75px;
+	width: 290px;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+/* 구분선 */
+.splitline {
+	border : 10px solid #EBEBEB;
+	width: 375px;
+}
+
+/* 추천신규  테마*/
+#recommendTheme {
+	/* border: 1px solid red; */
+	width: 375px;
+	height:1257px;
+	padding: 36px 20px;
+}
+
+#newPresentFriend {
+	width: 375px;
+	height:1257px;
+	padding: 36px 20px;
+}
+
+
+/* 추천신규 테마 타이틀 */
+#recommendThemetitle {
+	/* border : 1px solid orange; */
+	height: 22px;
+	width: 335px;
+	font-size: 15px;
+	color : #9A9A9E;
+	padding-left: 6.5px;
+}
+
+/* 추천신규 테마 서브 타이틀 */
+#recommendThemesubtitle {
+	/* border: 1px solid blue; */
+	height: 32px;
+	width: 335px;
+	font-size: 28px;
+	font-weight: bold;
+	padding-left: 6.5px;
+	margin-bottom: 25px;
+}
+
+/* 테마 상품 */
+.themeProduct {
+	/* border : 1px solid red; */
+	width : 166.5px;
+	height : 280px;
+	float: left;
+	/* margin-left: 13px;*/
+	/* margin-top: 10px;  */
+	
+}
+
+/* 테마 상품 사진 */
+.themeProductPic {
+	border:1px solid #FAFAFA;
+	margin: 10px 2px;
+	width: 161px;
+	height: 161px;
+}
+
+.themeProductPic > img {
+	width: 159px;
+	height: 159px;
+}
+
+.themeProduct:hover {
+	cursor:pointer;
+}
+
+/* 테마상품 이름 */
+.themeProductPicName {
+	/* border:1px solid cornflowerblue; */
+	margin-left: 2px;
+	width: 161px;
+	height: 50px;
+	/* background-color: #FAFAFA; */
+}
+
+/* 진짜 상품 이름 */
+.productName {
+	/* border: 1px solid red; */
+	font-size : 16px;
+	width: 122px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	height: 48px;
+	float: left;
+	color: #AEAEAF;
+	/* text-overflow:ellipsis; */
+	/* overflow: hidden; */
+}
+
+/* 알람표시 */
+ .productAlram {
+ 	border: 1px solid red;
+	width : 32px;
+	height : 25px;
+	float:left;	
+	/* margin-top:10px; */
+}
+ 
+
+.productAlram > button {
+	border: 1px solid blue;
+	background-color: transparent;
+	color: #AEAEAF;
+	font-size: 20px;
+	outline: none;
+	width : 30px;
+	height : 20px;
+	padding:0px;
+}
+
+.productBasket {
+	border: 1px solid red;
+	width : 32px;
+	height : 25px;
+	float:left;	
+	/* margin-top:10px; */
+}
+
+
+.productBasket > button {
+	border: 1px solid blue;
+	background-color: transparent;
+	color: #AEAEAF;
+	font-size: 20px;
+	outline: none;
+	width : 30px;
+	height : 20px;
+	padding:0px;
+	
+}
+
+/* 물품가격 */
+.productPrice {
+	/* border: 1px solid red; */
+	width: 161px;
+	height: 23px;
+	margin: 0px auto;
+	padding-left: 5px;
+	font-weight: bolder;
+	font-size: 16px;
+}
+
+/* 할인후 가격 */
+.afterPrice {
+	/* border: 1px solid green; */
+	width: 161px;
+	margin: 0px auto;
+	height: 23px;
+	padding-left: 5px;
+	font-weight: bolder;
+	font-size: 16px;
+	color: #FF447F;
+}
+
+/* 할인전 가격 */
+.beforePrice {
+	/* border: 1px solid green; */
+	width: 161px;
+	margin: 0px auto;
+	height: 23px;
+	padding-left: 5px;
+	font-weight: bolder;
+	font-size: 16px;
+	color: #AEAEAF;
+	text-decoration-line: line-through;
+}
+
+
+/* 위로가기버튼 */
+#upPage {
+	border:1px solid #AEAEAF;
+	width: 46px;
+	height: 46px;
+	border-radius: 50px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bolder;
+	position: fixed;
+	z-index:10;
+	top:90%;
+	margin: 0px auto;
+	margin-left: 320px;
+	visibility: hidden;
+}
+
+#upPage:hover{
+	cursor: pointer;
+}
+
+#addView {
+	/* margin-top: 20px; */
+	/* border:1px solid black; */
+	margin: 0px auto;
+	width: 335px;
+	height:52px;
+	margin-bottom: 40px;
+}
+
+#addView > button {
+	border: 1px solid #AEAEAF;
+	width: 333px;
+	height:50px;
+	background-color: transparent;
+	font-size: 16px;
+	
+}
+
+#addView > button:hover {
+	cursor: pointer;
+}

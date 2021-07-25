@@ -21,7 +21,7 @@
             border : 1px solid yellow;
             border : 1px solid #F6F6F6;
             height : 3000px;
-            margin: 0px auto;
+            /* margin: 0px auto; */
             width: 375px;
             background-color : #FFFFFF;
         }
@@ -187,7 +187,7 @@
 }
 
 /* 추천신규  테마*/
-#recommendTheme {
+.recommendTheme {
 	/* border: 1px solid red; */
 	width: 375px;
 	height:1257px;
@@ -217,7 +217,7 @@
 
 /* 테마 상품 */
 .themeProduct {
-	/* border : 1px solid red; */
+	border : 1px solid red;
 	width : 166.5px;
 	height : 280px;
 	float: left;
@@ -228,7 +228,8 @@
 
 /* 테마 상품 사진 */
 .themeProductPic {
-	border:1px solid #FAFAFA;
+	/* border:1px solid #FAFAFA; */
+	border : 1px solid red;	
 	margin: 10px 2px;
 	width: 161px;
 	height: 161px;
@@ -324,6 +325,7 @@
 /* 위로가기버튼 */
 #upPage {
 	border:1px solid #AEAEAF;
+	/* border : 1px solid red; */
 	width: 46px;
 	height: 46px;
 	border-radius: 50px;
@@ -331,8 +333,9 @@
 	font-size: 30px;
 	font-weight: bolder;
 	position: fixed;
-	z-index:10;
-	top:750px;
+	z-index:20;
+	/* top:750px; */
+	top:90%;
 	margin: 0px auto;
 	margin-left: 320px;
 	visibility: hidden;
@@ -367,6 +370,9 @@
 </style>
 </head>
 <body>
+
+	<div id="upPage">↑</div>
+
 	<!-- 메인화면 최 상단 -->
 	<div id="wrap">
 		<div id="sticky">
@@ -417,7 +423,7 @@
 	<div class="splitline"></div>
 
 	<!-- 추천신규 테마 -->
-	<div id = "recommendTheme">
+	<div class = "recommendTheme">
 		<div id ="recommendThemetitle">추천 신규 테마</div>
 		<div id ="recommendThemesubtitle">춘식</div>
 
@@ -427,8 +433,9 @@
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productAlram"><button id = "001xf" class="icofont-alarm"></button></div>
+				<!-- <div class="productAlram"><button id = "001xf" class="icofont-alarm"></button></div> -->
 			</div>
+			<span class="productAlram"><button id = "001xf" class="icofont-alarm"></button></span>
 			<div class="productPrice">29,500 원</div>
 		</div>
 		<div class = "themeProduct">
@@ -437,8 +444,8 @@
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productBasket"><button class="icofont-bag"></button></div>
 			</div>
+			<span class="productBasket"><button class="icofont-bag"></button></span>
 			<div class="afterPrice">30% 20,000 원</div>
 			<div class="beforePrice">30,000 원</div>
 		</div>
@@ -473,9 +480,11 @@
 	</div>
 
 	<div class="splitline"></div>
+	
+	
 
 	<!-- 새로나온 친구들 -->
-	<div id = "recommendTheme">
+	<div class = "recommendTheme" id = "newproduct">
 		<div id ="recommendThemetitle">오늘 업데이트 했어요</div>
 		<div id ="recommendThemesubtitle">새로나온 친구들</div>
 
@@ -517,18 +526,33 @@
 			<div class="themeProductPicName"></div>
 		</div>
 		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
+			<div class="themeProductPic">
+				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
+			</div>
+			<div class="themeProductPicName">
+				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
+				<div class="productBasket"><button class="icofont-bag"></button></div>
+			</div>
+			<div class="afterPrice">30% 20,000 원</div>
+			<div class="beforePrice">30,000 원</div>
 		</div>
+		
 		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
-		</div>
+			<div class="themeProductPic">
+				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
+			</div>
+			<div class="themeProductPicName">
+				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
+				<div class="productBasket"><button class="icofont-bag"></button></div>
+			</div>
+			<div class="afterPrice">30% 20,000 원</div>
+			<div class="beforePrice">30,000 원</div>
+		</div> 
 	</div>
 
 
 
-	<div id="upPage">↑</div>
+	
 
   <script>
     
@@ -573,13 +597,16 @@
        },
     });
 
-	var bodyLen = 2185;
+	//var bodyLen = 2185;
 	//스크롤움직일때 이벤트
 	$(document).scroll(function () {
 
+
+		console.log('==========');
 		console.log("document : " + $(document).scrollTop());
 		console.log("window : " +$(window).scrollTop());
 		console.log("windowHeight : " + $(window).height());
+		console.log('==========');
 		//visibility: hidden;
 		if ($(document).scrollTop() >= 500) {
 			$("#upPage").css("visibility","visible");
@@ -587,11 +614,32 @@
 			$("#upPage").css("visibility","hidden");
 		}
 
-		// if ($(window).scrollTop() / bodyLen == 1) {
-		// 	$('body').css('')
-		// 	alert('asd');
-		// 	$('body').append('<div>aaaaaaaaaaaaaaaaa</div>');
-		// }
+		if($(window).scrollTop() + $(window).height() == $(document).height()) { 
+			alert("bottom!");
+			const bodyHeight = parseInt($('body').css('height').replace('px',''));
+			$('body').css('height',bodyHeight + 300);
+			//console.log(bodyHeight);
+			
+			//여기서 내려주면 계속 늘어나는걸 구현해보자!
+			for (var i = 0; i < 6; i++) {
+				$('#newproduct').append(
+
+				'<div class = "themeProduct" id="' +i+ '">'
+            + '<div class="themeProductPic">'
+            +    '<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">'
+            + '</div>'
+            + '<div class="themeProductPicName">'
+            + '<div class="productName">춘식이 버즈 라이브/프로 케이스</div>'
+            +    '<div class="productBasket"><button class="icofont-bag"></button></div>'
+            + '</div>'
+            + '<div class="afterPrice">30% 20,000 원</div>'
+            + '<div class="beforePrice">30,000 원</div>'
+        	+	'</div>'
+
+			) 
+			}
+			
+		}
 
     });
 
