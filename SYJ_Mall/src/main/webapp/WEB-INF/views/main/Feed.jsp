@@ -532,18 +532,17 @@ body.s_no-scroll {
 	height: 18px;
 }
 
-.feed_content2 {
-	margin-left: 30px;
-}
-
 .feed_content {
-	padding: 12px 0px;
 	margin-top: 10px;
 	width: 600px;
 	display: felx;
-	padding: 12px 0px;
-	margin-top: 10px;
 	height: auto;
+}
+
+.feed_content2 {
+	margin-left: 50px;
+	margin-top: 0px;
+	padding-top: 8px;
 }
 
 .feed_content div:nth-child(1) {
@@ -566,6 +565,8 @@ body.s_no-scroll {
 	font-size: 13px;
 	font-weight: normal;
 	color: rgb(154, 154, 158);
+	max-height: 80px;
+	
 }
 
 .feed_content div:nth-child(3) span {
@@ -631,13 +632,23 @@ body.s_no-scroll {
 	color: rgb(255, 68, 127);
 }
 
-.delete_search {
+.delete_search { 
+	position: relative;
+	left: -33px;
+	top: -10px;
+}
+
+.spn_re_img img {
 	width: 18px;
 	height: 18px;
 }
 
 .comment2 {
 	margin-left: 50px;
+}
+
+.re_feed_update {
+	
 }
 </style>
 <title>Feed</title>
@@ -798,8 +809,9 @@ body.s_no-scroll {
 							}
 							$(this)
 									.append(
-											"<div class='re_feed_update'><img src='resources/images/main/delete-search.png'class='delete_search'>"
-													+ "<div class='comment comment2' >"
+											"<div class='re_feed_update'>"
+													+ "<div class='comment comment2' ><span class='spn_re_img'>" 
+													+"<img src='resources/images/main/delete-search.png'class='delete_search'></span>"
 													+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
 													+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
 													+ "</div></div>");
