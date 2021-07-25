@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/inc/mainasset.jsp" %>
 <style>
 body {
             
@@ -13,69 +14,18 @@ body {
 	<div class="swiper-container" id="newTopImg">
 		<div class="swiper-wrapper">
 			
-			<div class="swiper-slide" id="${dtoList[0].category_code}">
-				<img src= "${dtoList[0].category_img}" alt="">
-				<div class = "imginnertoptextfirst">
-					"${dtoList[0].banner_img}"
+			<c:forEach var="dto" items="${dtoList}">
+				<div class="swiper-slide" id="${dto.category_code}">
+					<img src= "${dto.category_img}" alt=""> 
+					<div class = "imginnertoptextfirst">
+						"${dto.banner_img}"
+					</div>
+					<div class = "imginnertoptextsecond">
+						"${dto.banner_img_detail}"
+					</div> 
 				</div>
-				<div class = "imginnertoptextsecond">
-					"${dtoList[0].banner_img_detail}"
-				</div>
-			</div>
-			<div class="swiper-slide" id="${dtoList[1].category_code}">
-				<img src= "${dtoList[1].category_img}" alt="">
-				<div class = "imginnertoptextfirst">
-					"${dtoList[1].banner_img}"
-				</div>
-				<div class = "imginnertoptextsecond">
-					"${dtoList[1].banner_img_detail}"
-				</div>
-			</div>
-			<div class="swiper-slide" id="${dtoList[2].category_code}">
-				<img src= "${dtoList[2].category_img}" alt="">
-				<div class = "imginnertoptextfirst">
-					"${dtoList[2].banner_img}"
-				</div>
-				<div class = "imginnertoptextsecond">
-					"${dtoList[2].banner_img_detail}"
-				</div>
-			</div>
-			<div class="swiper-slide" id="${dtoList[3].category_code}">
-				<img src= "${dtoList[3].category_img}" alt="">
-				<div class = "imginnertoptextfirst">
-					"${dtoList[3].banner_img}"
-				</div>
-				<div class = "imginnertoptextsecond">
-					"${dtoList[3].banner_img_detail}"
-				</div>
-			</div>
-			<div class="swiper-slide" id="${dtoList[4].category_code}">
-				<img src= "${dtoList[4].category_img}" alt="">
-				<div class = "imginnertoptextfirst">
-					"${dtoList[4].banner_img}"
-				</div>
-				<div class = "imginnertoptextsecond">
-					"${dtoList[4].banner_img_detail}"
-				</div>
-			</div>
-			<div class="swiper-slide" id="${dtoList[5].category_code}">
-				<img src= "${dtoList[5].category_img}" alt="">
-				<div class = "imginnertoptextfirst">
-					"${dtoList[5].banner_img}"
-				</div>
-				<div class = "imginnertoptextsecond">
-					"${dtoList[5].banner_img_detail}"
-				</div>
-			</div>
-			<div class="swiper-slide" id="${dtoList[6].category_code}">
-				<img src= "${dtoList[6].category_img}" alt="">
-				<div class = "imginnertoptextfirst">
-					"${dtoList[6].banner_img}"
-				</div>
-				<div class = "imginnertoptextsecond">
-					"${dtoList[6].banner_img_detail}"
-				</div>
-			</div>
+			</c:forEach>
+			
 			
 		</div>
 	</div>
@@ -199,6 +149,13 @@ body {
 
   <script>
     
+  
+  	//클릭했을때 상품 설명 페이지로 이동해 줄것이다.
+  	$(".swiper-slide").click(function(){
+		alert($(this));//정상적으로 작동함  
+  	});
+  
+  
 	$(".icofont-alarm").click(function(){
 		const id = $(this).attr('id');
 		// console.log($(this).attr('id'));
@@ -217,9 +174,9 @@ body {
        watchOverflow : true,
        
         //자동 스크롤링
-       /*  autoplay: {
+       	autoplay: {
             delay : 3000
-        }, */
+        }, 
 
        //페이징
        pagination: {
@@ -240,54 +197,48 @@ body {
        },
     });
 
-	var bodyLen = 2185;
-	//스크롤움직일때 이벤트
-	$(document).scroll(function () {
-
-		console.log("document : " + $(document).scrollTop());
-		console.log("window : " +$(window).scrollTop());
-		console.log("windowHeight : " + $(window).height());
-		
-		//윌로 올라가기 표시
-		if ($(document).scrollTop() >= 500) {
-			$("#upPage").css("visibility","visible");
-		} else {
-			$("#upPage").css("visibility","hidden");
+    var count = 0;
+	  
+      //스크롤 바닥 감지 - 모바일용
+	  window.onscroll = function(e) {
+	      //추가되는 임시 콘텐츠
+	      
+	      
+	    	 //window height + window scrollY 값이 document height보다 클 경우,
+		      if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+		      	//실행할 로직 (콘텐츠 추가)
+		        alert('asd');  
+		      	//count++;
+		          //var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
+		          //article에 추가되는 콘텐츠를 append
+		          //$('article').append(addContent);
+		      }
+	      
+	  };
+	
+	 
+	  //모바일 pc 체크
+	  function device_check() {
+		    // 디바이스 종류 설정
+		    var pc_device = "win16|win32|win64|mac|macintel";
+		 
+		    // 접속한 디바이스 환경
+		    var this_device = navigator.platform;
+		 
+		    if ( this_device ) {
+		 
+		        if ( pc_device.indexOf(navigator.platform.toLowerCase()) < 0 ) {
+		            //console.log('MOBILE');
+		            return 1;
+		        } else {
+		            //console.log('PC');
+		            return -1;
+		        }
+		    }
 		}
-		
-		
-		//스크롤이 밑바닥에 닿았을 경우
-		if($(window).scrollTop() + $(window).height() == $(document).height()) {
-			alert('?');
-			
-			const bodyHeight = parseInt($('body').css('height').replace('px',''));//바디의 높이를 구해준다.
-			$('body').css('height',bodyHeight + 840);//총 바디의 길이를 늘려준다.
-			
-			
-			for (var i = 0; i < 6; i++) {
-				$('#newPresentFriend').append(
 
-					'<div class = "themeProduct" id="' +i+ '">'
-		            + '<div class="themeProductPic">'
-		            + '<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">'
-		            + '</div>'
-		            + '<div class="themeProductPicName">'
-		            + '<div class="productName">춘식이 버즈 라이브/프로 케이스</div>'
-		            + '<div class="productBasket"><button class="icofont-bag"></button></div>'
-		            + '</div>'
-		            + '<div class="afterPrice">30% 20,000 원</div>'
-		            + '<div class="beforePrice">30,000 원</div>'
-		        	+ '</div>'
-
-					);
-			}
-			
-			
-		}
-		
-
-    });
-
+	  
+	  
 	//위로가기 눌렀을 경우에 -> 최상단으로 올라감
 	$("#upPage").click(function(){
 		$("html,body").animate({

@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=375, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>Insert title here</title>
-<link rel = "stylesheet" href = "resources/css/main/mainLayOutNew.css">
-<link rel = "stylesheet" href = "resources/css/newGoods/newGoodMainTheme.css"> 
+<link rel = "stylesheet" href = "resources/css/main/mainLayOutCommon.css">
+<link rel = "stylesheet" href = "resources/css/newGoods/newGoodsmain.css"> 
 </head>
 <body>
 
