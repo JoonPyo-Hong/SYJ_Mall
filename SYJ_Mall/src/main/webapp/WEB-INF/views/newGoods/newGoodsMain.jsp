@@ -1,29 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ include file="/WEB-INF/views/inc/mainasset.jsp" %> --%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel = "stylesheet" href = "resources/css/newGoods/newGoodsMain.css">
-</head>
-<body>
+<%@ include file="/WEB-INF/views/inc/mainasset.jsp" %>
+<style>
+body {
+            
+            margin: 0px auto;
+            
+        }
+
+</style>
 	
 	<!-- 신규 -->
 	<div class="swiper-container" id="newTopImg">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<img src="img/banner_20210531110734_mobile_kr.jpg" alt="">
-				<div class = "imginnertoptextfirst">
-					선풍기 춘식이!
+			
+			<c:forEach var="dto" items="${dtoList}">
+				<div class="swiper-slide" id="${dto.category_code}">
+					<img src= "${dto.category_img}" alt=""> 
+					<div class = "imginnertoptextfirst">
+						"${dto.banner_img}"
+					</div>
+					<div class = "imginnertoptextsecond">
+						"${dto.banner_img_detail}"
+					</div> 
 				</div>
-				<div class = "imginnertoptextsecond">
-					춘식이는 선풍기를 좋아해
-				</div>
-			</div>
-			<div class="swiper-slide"><img src="img/banner_20210615143750_mobile_kr.jpg" alt=""></div>
-			<div class="swiper-slide"><img src="img/banner_20210714085750_mobile_kr.jpg" alt=""></div>
+			</c:forEach>
+			
+			
 		</div>
 	</div>
 	<div id = "topPage" class="swiper-pagination"></div>	
@@ -41,7 +44,7 @@
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productAlram"><button id = "001xf" class="icofont-alarm"></button></div>
+				<div class="productAlram"></div>
 			</div>
 			<div class="productPrice">29,500 원</div>
 		</div>
@@ -51,7 +54,7 @@
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productBasket"><button class="icofont-bag"></button></div>
+				<div class="productBasket"></div>
 			</div>
 			<div class="afterPrice">30% 20,000 원</div>
 			<div class="beforePrice">30,000 원</div>
@@ -89,7 +92,7 @@
 	<div class="splitline"></div>
 
 	<!-- 새로나온 친구들 -->
-	<div id = "recommendTheme">
+	<div id = "newPresentFriend">
 		<div id ="recommendThemetitle">오늘 업데이트 했어요</div>
 		<div id ="recommendThemesubtitle">새로나온 친구들</div>
 
@@ -146,6 +149,13 @@
 
   <script>
     
+  
+  	//클릭했을때 상품 설명 페이지로 이동해 줄것이다.
+  	$(".swiper-slide").click(function(){
+		alert($(this));//정상적으로 작동함  
+  	});
+  
+  
 	$(".icofont-alarm").click(function(){
 		const id = $(this).attr('id');
 		// console.log($(this).attr('id'));
@@ -164,9 +174,9 @@
        watchOverflow : true,
        
         //자동 스크롤링
-        autoplay: {
+       	autoplay: {
             delay : 3000
-        },
+        }, 
 
        //페이징
        pagination: {
@@ -187,32 +197,51 @@
        },
     });
 
-	var bodyLen = 2185;
-	//스크롤움직일때 이벤트
-	$(document).scroll(function () {
-
-		console.log("document : " + $(document).scrollTop());
-		console.log("window : " +$(window).scrollTop());
-		console.log("windowHeight : " + $(window).height());
-		//visibility: hidden;
-		if ($(document).scrollTop() >= 500) {
-			$("#upPage").css("visibility","visible");
-		} else {
-			$("#upPage").css("visibility","hidden");
+    var count = 0;
+	  
+      //스크롤 바닥 감지 - 모바일용
+	  window.onscroll = function(e) {
+	      //추가되는 임시 콘텐츠
+	      
+	      
+	    	 //window height + window scrollY 값이 document height보다 클 경우,
+		      if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+		      	//실행할 로직 (콘텐츠 추가)
+		        alert('asd');  
+		      	//count++;
+		          //var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
+		          //article에 추가되는 콘텐츠를 append
+		          //$('article').append(addContent);
+		      }
+	      
+	  };
+	
+	 
+	  //모바일 pc 체크
+	  function device_check() {
+		    // 디바이스 종류 설정
+		    var pc_device = "win16|win32|win64|mac|macintel";
+		 
+		    // 접속한 디바이스 환경
+		    var this_device = navigator.platform;
+		 
+		    if ( this_device ) {
+		 
+		        if ( pc_device.indexOf(navigator.platform.toLowerCase()) < 0 ) {
+		            //console.log('MOBILE');
+		            return 1;
+		        } else {
+		            //console.log('PC');
+		            return -1;
+		        }
+		    }
 		}
 
-		// if ($(window).scrollTop() / bodyLen == 1) {
-		// 	$('body').css('')
-		// 	alert('asd');
-		// 	$('body').append('<div>aaaaaaaaaaaaaaaaa</div>');
-		// }
-
-    });
-
-	//위로가기 눌렀을 경우에
+	  
+	  
+	//위로가기 눌렀을 경우에 -> 최상단으로 올라감
 	$("#upPage").click(function(){
 		$("html,body").animate({
-                // scrollTop: 6350
                 scrollTop: 0
             }, 500);	
 	});
@@ -222,5 +251,3 @@
 </script>	
 	
 	
-</body>
-</html>

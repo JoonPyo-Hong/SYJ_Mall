@@ -1,5 +1,8 @@
 package com.test.SYJ_Mall.newGoods;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +22,30 @@ public class NewGoodService implements INewGoodService{
 	
 	// 신규 상단 배너 어떤 물품 가져올것인지 정해준다.	
 	@Override
-	public void setTopProductSetting(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	public int setTopProductSetting(HttpServletRequest request) {
+		
+		try {
+			List<PdtBannerDTO> dtoList = new ArrayList<PdtBannerDTO>();
+			dtoList = dao.bringNewTopImg();
+			
+			request.setAttribute("dtoList", dtoList);
+			
+			System.out.println(dtoList.get(3).getBanner_img_detail());
+			
+			
+			return 1;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 		
 		
 		
 	}
+	
+	
+	
+	
 	
 }
