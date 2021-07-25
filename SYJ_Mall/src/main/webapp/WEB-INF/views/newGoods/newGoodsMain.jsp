@@ -12,17 +12,71 @@ body {
 	<!-- 신규 -->
 	<div class="swiper-container" id="newTopImg">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<img src="img/banner_20210531110734_mobile_kr.jpg" alt="">
+			
+			<div class="swiper-slide" id="${dtoList[0].category_code}">
+				<img src= "${dtoList[0].category_img}" alt="">
 				<div class = "imginnertoptextfirst">
-					선풍기 춘식이!
+					"${dtoList[0].banner_img}"
 				</div>
 				<div class = "imginnertoptextsecond">
-					춘식이는 선풍기를 좋아해
+					"${dtoList[0].banner_img_detail}"
 				</div>
 			</div>
-			<div class="swiper-slide"><img src="img/banner_20210615143750_mobile_kr.jpg" alt=""></div>
-			<div class="swiper-slide"><img src="img/banner_20210714085750_mobile_kr.jpg" alt=""></div>
+			<div class="swiper-slide" id="${dtoList[1].category_code}">
+				<img src= "${dtoList[1].category_img}" alt="">
+				<div class = "imginnertoptextfirst">
+					"${dtoList[1].banner_img}"
+				</div>
+				<div class = "imginnertoptextsecond">
+					"${dtoList[1].banner_img_detail}"
+				</div>
+			</div>
+			<div class="swiper-slide" id="${dtoList[2].category_code}">
+				<img src= "${dtoList[2].category_img}" alt="">
+				<div class = "imginnertoptextfirst">
+					"${dtoList[2].banner_img}"
+				</div>
+				<div class = "imginnertoptextsecond">
+					"${dtoList[2].banner_img_detail}"
+				</div>
+			</div>
+			<div class="swiper-slide" id="${dtoList[3].category_code}">
+				<img src= "${dtoList[3].category_img}" alt="">
+				<div class = "imginnertoptextfirst">
+					"${dtoList[3].banner_img}"
+				</div>
+				<div class = "imginnertoptextsecond">
+					"${dtoList[3].banner_img_detail}"
+				</div>
+			</div>
+			<div class="swiper-slide" id="${dtoList[4].category_code}">
+				<img src= "${dtoList[4].category_img}" alt="">
+				<div class = "imginnertoptextfirst">
+					"${dtoList[4].banner_img}"
+				</div>
+				<div class = "imginnertoptextsecond">
+					"${dtoList[4].banner_img_detail}"
+				</div>
+			</div>
+			<div class="swiper-slide" id="${dtoList[5].category_code}">
+				<img src= "${dtoList[5].category_img}" alt="">
+				<div class = "imginnertoptextfirst">
+					"${dtoList[5].banner_img}"
+				</div>
+				<div class = "imginnertoptextsecond">
+					"${dtoList[5].banner_img_detail}"
+				</div>
+			</div>
+			<div class="swiper-slide" id="${dtoList[6].category_code}">
+				<img src= "${dtoList[6].category_img}" alt="">
+				<div class = "imginnertoptextfirst">
+					"${dtoList[6].banner_img}"
+				</div>
+				<div class = "imginnertoptextsecond">
+					"${dtoList[6].banner_img_detail}"
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	<div id = "topPage" class="swiper-pagination"></div>	
@@ -163,9 +217,9 @@ body {
        watchOverflow : true,
        
         //자동 스크롤링
-        autoplay: {
+       /*  autoplay: {
             delay : 3000
-        },
+        }, */
 
        //페이징
        pagination: {

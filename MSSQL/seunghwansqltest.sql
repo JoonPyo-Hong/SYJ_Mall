@@ -163,3 +163,28 @@ ROLLBACK TRAN
 	DEFAULT,
 	'N'
 )
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-07-25  
+	Description : 신규상품 - 배너 이미지 보여주기
+	     
+	History	: 2021-07-25 Seunghwan Shin	#최초 생성  
+*/
+create proc dbo.kakao_new_product_banner_images
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	select 
+		np.product_top_img_title as banner_img--배너사진 설명
+	,	np.product_top_img_title_detail as banner_img_detail-- 배너사진 설명 세부
+	,	pmc.category_rep_img_url as category_img-- 대분류 대표 이미지
+	,	pmc.category_code as category_code--분류코드
+	from dbo.KAKAO_NEW_PRODUCT np with(nolock)
+	inner join dbo.KAKAO_PRODUCT_MAIN_CATEGORY pmc with(nolock) on np.category_code = pmc.category_code
+	
+end
