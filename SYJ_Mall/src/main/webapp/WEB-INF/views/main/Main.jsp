@@ -524,6 +524,12 @@ body.s_no-scroll {
 }
 
 @media all and (max-width:812px) {
+	.swiper-button-next {
+		background-size: 42px 42px;
+	}
+	.swiper-button-prev {
+		background-size: 42px 42px;
+	}
 	.img_top {
 		height: 70px;
 		width: 70px;
@@ -639,25 +645,7 @@ body.s_no-scroll {
 	textarea::placeholder {
 		font-size: 24px;
 	}
-	/* .swiper-button-next {
-		display: inline-block;
-		background-image:
-			url(resources/images/main/arrow-medium-circle-right-white.png);
-		background-size: 40px 40px;
-		background-position: center;
-		background-repeat: no-repeat;
-		margin-right: 10px;
-	}
-	.swiper-button-prev {
-		display: inline-block;
-		background-image:
-			url(resources/images/main/arrow-medium-circle-right-white.png);
-		background-size: 40px 40px;
-		background-position: center;
-		background-repeat: no-repeat;
-		transform: rotate(180deg);
-		margin-left: 10px;
-	} */
+	
 }
 </style>
 <meta name="viewport"

@@ -571,7 +571,7 @@ body.s_no-scroll {
 	font-size: 13px;
 	font-weight: normal;
 	color: rgb(154, 154, 158);
-	max-height: 70px;
+	max-height: 80px;
 }
 
 .feed_content div:nth-child(3) span {
@@ -657,6 +657,33 @@ body.s_no-scroll {
 }
 
 @media all and (max-width:812px) {
+.feed_content div:nth-child(3) {
+	font-size: 13px;
+	font-weight: normal;
+	color: rgb(154, 154, 158);
+	max-height: 120px;
+}
+	.swiper-button-next {
+		background-size: 42px 42px;
+	}
+	.swiper-button-prev { 
+		background-size: 42px 42px;
+	}
+	.feed_img img {
+		width: 32px;
+		height: 32px;
+	}
+	.delete_search {
+		position: relative;
+		left: -54px;
+		top: -10px;
+	}
+	.feed_content{
+		
+	}
+	.feed_content2 {
+		margin-left: 20px;
+	}
 	.img_top {
 		height: 70px;
 		width: 70px;
@@ -755,10 +782,13 @@ body.s_no-scroll {
 		line-height: 1.43;
 		margin-top: 12px;
 	}
+	.comment2 {
+		margin-left: 20px;
+		padding-bottom: 40px;
+	}
 	.comment {
 		padding: 12px;
 		border-radius: 0px 24px 24px;
-		height: 65px;
 		background-color: rgb(240, 241, 244);
 		position: relative;
 		display: flex;
@@ -768,6 +798,9 @@ body.s_no-scroll {
 		margin-top: 16px;
 		cursor: pointer;
 		font-size: 24px;
+	}
+	.comment2 textarea {
+		margin-left: -38px;
 	}
 	textarea::placeholder {
 		font-size: 24px;
@@ -809,25 +842,21 @@ body.s_no-scroll {
 		cursor: pointer;
 		font-size: 24px;
 	}
-	/* .swiper-button-next {
-		display: inline-block;
-		background-image:
-			url(resources/images/main/arrow-medium-circle-right-white.png);
-		background-size: 40px 40px;
-		background-position: center;
-		background-repeat: no-repeat;
-		margin-right: 10px;
+	#sel_feed {
+		position: absolute;
+		top: 54px;
+		left: 20px;
+		padding: 10px;
+		width: 180px;
+		border-radius: 6px;
+		border: 1px solid rgb(242, 242, 242);
+		background-color: rgb(255, 255, 255);
+		box-sizing: border-box;
+		z-index: 101;
+		display: none;
+		font-size: 24px;
 	}
-	.swiper-button-prev {
-		display: inline-block;
-		background-image:
-			url(resources/images/main/arrow-medium-circle-right-white.png);
-		background-size: 40px 40px;
-		background-position: center;
-		background-repeat: no-repeat;
-		transform: rotate(180deg);
-		margin-left: 10px;
-	} */
+
 }
 </style>
 <meta name="viewport"
