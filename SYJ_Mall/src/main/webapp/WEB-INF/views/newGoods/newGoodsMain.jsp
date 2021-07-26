@@ -24,11 +24,10 @@ body {
 						"${dto.banner_img_detail}"
 					</div> 
 				</div>
-			</c:forEach>
-			
-			
+			</c:forEach>	
 		</div>
 	</div>
+	
 	<div id = "topPage" class="swiper-pagination"></div>	
 	
 	<div class="splitline"></div>
@@ -86,7 +85,7 @@ body {
 	</div>
 
 	<div id="addView">
-			<button>더 보기+</button>
+		<button>더 보기+</button>
 	</div>
 
 	<div class="splitline"></div>
@@ -196,29 +195,28 @@ body {
            prevEl:'.swiper-button-prev'
        },
     });
-
-    var count = 0;
+	
+    
+    
 	  
       //스크롤 바닥 감지 - 모바일용
 	   window.onscroll = function(e) {
-	      //추가되는 임시 콘텐츠
 	      
-	      	 
-	      	 if ($(document).scrollTop() >= 500) {
-         		$("#upPage").css("visibility","visible");
+	      
+		 //추가되는 임시 콘텐츠
+	   		if ($(document).scrollTop() >= 500) {
+        		$("#upPage").css("visibility","visible");
       		} else {
          		$("#upPage").css("visibility","hidden");
       		}
 	      
-	    	 //window height + window scrollY 값이 document height보다 클 경우,
-		      if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	    	//window height + window scrollY 값이 document height보다 클 경우, -> 무한스크롤 : ios 버전
+		    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 		    	  
 		    	  
-		    	  const bodyHeight = parseInt($('body').css('height').replace('px',''));//바디의 높이를 구해준다.
-		          $('body').css('height',bodyHeight + 840);//총 바디의 길이를 늘려준다.
-		          
-		    	  
-		    	  
+		   		const bodyHeight = parseInt($('body').css('height').replace('px',''));//바디의 높이를 구해준다.
+		        $('body').css('height',bodyHeight + 840);//총 바디의 길이를 늘려준다.
+
 		    	  //실행할 로직 (콘텐츠 추가)
 		        for (var i = 0; i < 6; i++) {
             		$('#newPresentFriend').append(
@@ -233,16 +231,11 @@ body {
                   + '</div>'
                   + '<div class="afterPrice">30% 20,000 원</div>'
                   + '<div class="beforePrice">30,000 원</div>'
-                 + '</div>'
-
-               );
+                 + '</div>');
          		}
-		      	
-		      	
-		      	
-		      }
+		     }
 	      
-	  }; 
+	  	}; 
 	  
 	 
 	  //모바일 pc 체크
