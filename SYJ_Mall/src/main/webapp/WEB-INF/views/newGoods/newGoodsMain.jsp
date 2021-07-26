@@ -200,22 +200,50 @@ body {
     var count = 0;
 	  
       //스크롤 바닥 감지 - 모바일용
-	  window.onscroll = function(e) {
+	   window.onscroll = function(e) {
 	      //추가되는 임시 콘텐츠
 	      
+	      	 
+	      	 if ($(document).scrollTop() >= 500) {
+         		$("#upPage").css("visibility","visible");
+      		} else {
+         		$("#upPage").css("visibility","hidden");
+      		}
 	      
 	    	 //window height + window scrollY 값이 document height보다 클 경우,
 		      if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-		      	//실행할 로직 (콘텐츠 추가)
-		        alert('asd');  
-		      	//count++;
-		          //var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
-		          //article에 추가되는 콘텐츠를 append
-		          //$('article').append(addContent);
+		    	  
+		    	  
+		    	  const bodyHeight = parseInt($('body').css('height').replace('px',''));//바디의 높이를 구해준다.
+		          $('body').css('height',bodyHeight + 840);//총 바디의 길이를 늘려준다.
+		          
+		    	  
+		    	  
+		    	  //실행할 로직 (콘텐츠 추가)
+		        for (var i = 0; i < 6; i++) {
+            		$('#newPresentFriend').append(
+
+               '<div class = "themeProduct" id="' +i+ '">'
+                  + '<div class="themeProductPic">'
+                  + '<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">'
+                  + '</div>'
+                  + '<div class="themeProductPicName">'
+                  + '<div class="productName">춘식이 버즈 라이브/프로 케이스</div>'
+                  + '<div class="productBasket"><button class="icofont-bag"></button></div>'
+                  + '</div>'
+                  + '<div class="afterPrice">30% 20,000 원</div>'
+                  + '<div class="beforePrice">30,000 원</div>'
+                 + '</div>'
+
+               );
+         		}
+		      	
+		      	
+		      	
 		      }
 	      
-	  };
-	
+	  }; 
+	  
 	 
 	  //모바일 pc 체크
 	  function device_check() {
