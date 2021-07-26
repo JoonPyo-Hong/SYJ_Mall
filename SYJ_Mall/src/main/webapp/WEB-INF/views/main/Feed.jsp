@@ -89,6 +89,24 @@ body {
 	margin: 6px 5px 7px;
 }
 
+@media all and (max-width:812px) {
+	#head div:nth-child(1) img:nth-child(2) {
+		width: 32px;
+		height: 32px;
+		margin: 6px 5px 7px;
+	}
+	#head div:nth-child(1) img:nth-child(1) {
+		width: 32px;
+		height: 32px;
+	}
+}
+
+#head div:nth-child(1) img:nth-child(2) {
+	width: 18px;
+	height: 18px;
+	margin: 6px 5px 7px;
+}
+
 #head div:nth-child(3) img {
 	width: 18px;
 	height: 18px;
@@ -650,7 +668,8 @@ body.s_no-scroll {
 	
 }
 </style>
-<meta name="viewport" content="user-scalable=no,
+<meta name="viewport"
+	content="user-scalable=no,
                                initial-scale=0.58,
                                maximum-scale=0.58,
                                minimum-scale=0.58,

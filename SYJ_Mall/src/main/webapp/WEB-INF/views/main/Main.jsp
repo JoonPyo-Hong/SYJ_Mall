@@ -26,27 +26,26 @@
 html {
 	margin: 0px;
 	width: 100%;
-	
 }
 
 body {
 	margin: 0px;
 	width: 100%;
 }
-#sticky{
+
+#sticky {
 	position: sticky;
 	top: 0px;
 	left: 0px;
 	z-index: 500;
 	background-color: white;
-
 }
+
 #head {
 	width: 640px;
 	height: 47px;
 	margin: 0px auto;
 	display: flex;
-
 }
 
 #head div:nth-child(1) {
@@ -113,7 +112,6 @@ body {
 	padding: 0px 17.5px;
 	text-align: center;
 	font-size: 16px;
-
 }
 
 #tab div {
@@ -524,8 +522,146 @@ body.s_no-scroll {
 	margin: 7px;
 	margin-top: 15px;
 }
+
+@media all and (max-width:812px) {
+	.img_top {
+		height: 70px;
+		width: 70px;
+		margin-right: 10px;
+		cursor: pointer;
+	}
+	.txt_top p {
+		font-size: 24px;
+		letter-spacing: -0.25px;
+		margin: 0px;
+		height: 30px;
+		width: 131.703px;
+		font-weight: bold;
+	}
+	.txt_top span:nth-child(2) {
+		margin: 0px;
+		color: rgb(47, 126, 230);
+		font-weight: bold;
+		font-size: 24px;
+		height: 30px;
+		width: 50.047px;
+		color: rgb(154, 154, 158);
+	}
+	.swiper-wrapper {
+		margin-top: 30px;
+	}
+	.txt_top span:nth-child(1) {
+		margin: 0px;
+		color: rgb(47, 126, 230);
+		font-weight: bold;
+		font-size: 24px;
+		height: 30px;
+		width: 71.656px;
+	}
+	.etc {
+		height: 30px;
+		width: 600px;
+		margin-top: 40px;
+		display: flex;
+	}
+	.etc_1 {
+		width: 50px;
+		height: 50px;
+		cursor: pointer;
+		background-image: url(resources/images/main/heart-burst.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.etc_2 {
+		margin-left: 12px;
+		width: 45px;
+		height: 45px;
+		cursor: pointer;
+		margin-top: 2px;
+	}
+	.etc_4 {
+		width: 45px;
+		height: 45px;
+		cursor: pointer;
+		margin-top: 2px;
+	}
+	.txt_1 {
+		height: 21px;
+		width: 600px;
+		margin-top: 30px;
+		font-size: 24px;
+		line-height: 1.5;
+		color: #1e1e1e;
+	}
+	.txt_2 {
+		width: 600px;
+		font-size: 32px;
+		margin-top: 26px;
+		letter-spacing: -0.31px;
+		font-weight: bold;
+		line-height: -1.2;
+	}
+	.txt_3 {
+		width: 600px;
+		font-size: 24px;
+		letter-spacing: -0.22px;
+		margin-top: 10px;
+		line-height: 1.43;
+	}
+	.txt_4 {
+		width: 600px;
+		font-size: 24px;
+		letter-spacing: -0.22px;
+		color: rgb(154, 154, 158);
+		margin-top: 7px;
+	}
+	.txt_5 {
+		width: 600px;
+		font-size: 24px;
+		letter-spacing: -0.22px;
+		line-height: 1.43;
+		margin-top: 12px;
+	}
+	.comment {
+		padding: 12px;
+		border-radius: 0px 24px 24px;
+		height: 65px;
+		background-color: rgb(240, 241, 244);
+		position: relative;
+		display: flex;
+		box-sizing: border-box;
+		width: 600px;
+		height: 65px;
+		margin-top: 16px;
+		cursor: pointer;
+		font-size: 24px;
+	}
+	textarea::placeholder {
+		font-size: 24px;
+	}
+	/* .swiper-button-next {
+		display: inline-block;
+		background-image:
+			url(resources/images/main/arrow-medium-circle-right-white.png);
+		background-size: 40px 40px;
+		background-position: center;
+		background-repeat: no-repeat;
+		margin-right: 10px;
+	}
+	.swiper-button-prev {
+		display: inline-block;
+		background-image:
+			url(resources/images/main/arrow-medium-circle-right-white.png);
+		background-size: 40px 40px;
+		background-position: center;
+		background-repeat: no-repeat;
+		transform: rotate(180deg);
+		margin-left: 10px;
+	} */
+}
 </style>
-<meta name="viewport" content="user-scalable=no,
+<meta name="viewport"
+	content="user-scalable=no,
                                initial-scale=0.58,
                                maximum-scale=0.58,
                                minimum-scale=0.58,
@@ -604,15 +740,15 @@ body.s_no-scroll {
 				"click",
 				".etc_2",
 				function(e) {
-				/* 	var m_seq = parseInt($('#hid_seq').val());
-					if (m_seq != 0) { */
-					
+					/* 	var m_seq = parseInt($('#hid_seq').val());
+						if (m_seq != 0) { */
+
 					var seq = $(e.target).parent().parent().parent().attr('id')
 							.replace("content_", "");
 					location.href = "/SYJ_Mall/feed.action?seq=" + seq;
-				/* 	}else{
-						openModal("modal1");
-					} */
+					/* 	}else{
+							openModal("modal1");
+						} */
 
 				});
 		$(document).on("click", ".etc_4", function(e) {
