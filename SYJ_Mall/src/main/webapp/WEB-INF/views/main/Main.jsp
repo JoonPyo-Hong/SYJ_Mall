@@ -26,6 +26,7 @@
 html {
 	margin: 0px;
 	width: 100%;
+	
 }
 
 body {
@@ -524,6 +525,14 @@ body.s_no-scroll {
 	margin-top: 15px;
 }
 </style>
+<meta name="viewport" content="user-scalable=no,
+                               initial-scale=0.58,
+                               maximum-scale=0.58,
+                               minimum-scale=0.58,
+                               width=device-width,
+                               height=device-height">
+
+
 <title>Main</title>
 
 </head>

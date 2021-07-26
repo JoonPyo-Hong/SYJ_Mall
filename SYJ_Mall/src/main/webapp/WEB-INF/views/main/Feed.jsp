@@ -565,8 +565,7 @@ body.s_no-scroll {
 	font-size: 13px;
 	font-weight: normal;
 	color: rgb(154, 154, 158);
-	max-height: 80px;
-	
+	max-height: 70px;
 }
 
 .feed_content div:nth-child(3) span {
@@ -632,7 +631,7 @@ body.s_no-scroll {
 	color: rgb(255, 68, 127);
 }
 
-.delete_search { 
+.delete_search {
 	position: relative;
 	left: -33px;
 	top: -10px;
@@ -651,6 +650,14 @@ body.s_no-scroll {
 	
 }
 </style>
+<meta name="viewport" content="user-scalable=no,
+                               initial-scale=0.58,
+                               maximum-scale=0.58,
+                               minimum-scale=0.58,
+                               width=device-width,
+                               height=device-height">
+
+
 <title>Feed</title>
 </head>
 <body>
@@ -810,8 +817,8 @@ body.s_no-scroll {
 							$(this)
 									.append(
 											"<div class='re_feed_update'>"
-													+ "<div class='comment comment2' ><span class='spn_re_img'>" 
-													+"<img src='resources/images/main/delete-search.png'class='delete_search'></span>"
+													+ "<div class='comment comment2' ><span class='spn_re_img'>"
+													+ "<img src='resources/images/main/delete-search.png'class='delete_search'></span>"
 													+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
 													+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
 													+ "</div></div>");
