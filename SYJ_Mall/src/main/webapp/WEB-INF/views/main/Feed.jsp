@@ -89,18 +89,6 @@ body {
 	margin: 6px 5px 7px;
 }
 
-@media all and (max-width:812px) {
-	#head div:nth-child(1) img:nth-child(2) {
-		width: 32px;
-		height: 32px;
-		margin: 6px 5px 7px;
-	}
-	#head div:nth-child(1) img:nth-child(1) {
-		width: 32px;
-		height: 32px;
-	}
-}
-
 #head div:nth-child(1) img:nth-child(2) {
 	width: 18px;
 	height: 18px;
@@ -666,6 +654,180 @@ body.s_no-scroll {
 
 .re_feed_update {
 	
+}
+
+@media all and (max-width:812px) {
+	.img_top {
+		height: 70px;
+		width: 70px;
+		margin-right: 10px;
+		cursor: pointer;
+	}
+	.txt_top p {
+		font-size: 24px;
+		letter-spacing: -0.25px;
+		margin: 0px;
+		height: 30px;
+		width: 131.703px;
+		font-weight: bold;
+	}
+	.txt_top span:nth-child(2) {
+		margin: 0px;
+		color: rgb(47, 126, 230);
+		font-weight: bold;
+		font-size: 24px;
+		height: 30px;
+		width: 50.047px;
+		color: rgb(154, 154, 158);
+	}
+	.swiper-wrapper {
+		margin-top: 30px;
+	}
+	.txt_top span:nth-child(1) {
+		margin: 0px;
+		color: rgb(47, 126, 230);
+		font-weight: bold;
+		font-size: 24px;
+		height: 30px;
+		width: 71.656px;
+	}
+	.etc {
+		height: 30px;
+		width: 600px;
+		margin-top: 40px;
+		display: flex;
+	}
+	.etc_1 {
+		width: 50px;
+		height: 50px;
+		cursor: pointer;
+		background-image: url(resources/images/main/heart-burst.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.etc_2 {
+		margin-left: 12px;
+		width: 45px;
+		height: 45px;
+		cursor: pointer;
+		margin-top: 2px;
+	}
+	.etc_4 {
+		width: 45px;
+		height: 45px;
+		cursor: pointer;
+		margin-top: 2px;
+	}
+	.txt_1 {
+		height: 21px;
+		width: 600px;
+		margin-top: 30px;
+		font-size: 24px;
+		line-height: 1.5;
+		color: #1e1e1e;
+	}
+	.txt_2 {
+		width: 600px;
+		font-size: 32px;
+		margin-top: 26px;
+		letter-spacing: -0.31px;
+		font-weight: bold;
+		line-height: -1.2;
+	}
+	.txt_3 {
+		width: 600px;
+		font-size: 24px;
+		letter-spacing: -0.22px;
+		margin-top: 10px;
+		line-height: 1.43;
+	}
+	.txt_4 {
+		width: 600px;
+		font-size: 24px;
+		letter-spacing: -0.22px;
+		color: rgb(154, 154, 158);
+		margin-top: 7px;
+	}
+	.txt_5 {
+		width: 600px;
+		font-size: 24px;
+		letter-spacing: -0.22px;
+		line-height: 1.43;
+		margin-top: 12px;
+	}
+	.comment {
+		padding: 12px;
+		border-radius: 0px 24px 24px;
+		height: 65px;
+		background-color: rgb(240, 241, 244);
+		position: relative;
+		display: flex;
+		box-sizing: border-box;
+		width: 600px;
+		height: 65px;
+		margin-top: 16px;
+		cursor: pointer;
+		font-size: 24px;
+	}
+	textarea::placeholder {
+		font-size: 24px;
+	}
+	.feed_spn_1 {
+		font-size: 24px;
+		font-weight: bold;
+	}
+	.feed_spn_2 img {
+		width: 32px;
+		height: 32px;
+	}
+	.feed_click {
+		width: 140px;
+		cursor: pointer;
+		z-index: 10;
+	}
+	.feed_content div:nth-child(1) {
+		font-size: 24px;
+		font-weight: bold;
+	}
+	.feed_content div:nth-child(2) {
+		padding: 15px;
+		border-radius: 0px 24px 24px;
+		background-color: rgb(240, 241, 244);
+		margin-top: 10px;
+		margin-bottom: 10px;
+		cursor: pointer;
+		display: inline-block;
+		font-size: 24px;
+	}
+	.comment img {
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+	}
+	.feed_content div:nth-child(3) span {
+		margin-right: 12px;
+		cursor: pointer;
+		font-size: 24px;
+	}
+	/* .swiper-button-next {
+		display: inline-block;
+		background-image:
+			url(resources/images/main/arrow-medium-circle-right-white.png);
+		background-size: 40px 40px;
+		background-position: center;
+		background-repeat: no-repeat;
+		margin-right: 10px;
+	}
+	.swiper-button-prev {
+		display: inline-block;
+		background-image:
+			url(resources/images/main/arrow-medium-circle-right-white.png);
+		background-size: 40px 40px;
+		background-position: center;
+		background-repeat: no-repeat;
+		transform: rotate(180deg);
+		margin-left: 10px;
+	} */
 }
 </style>
 <meta name="viewport"
