@@ -45,33 +45,40 @@ insert into dbo.KAKAO_PRODUCT_TABLE values (1,5,7,N'리틀라이언 미니베이커',120,N
 
 
 
+SELECT * FROM dbo.KAKAO_PRODUCT_TABLE WITH(NOLOCK)
+
+
+
 COMMIT TRAN
 
 ROLLBACK TRAN
 
+select @@TRANCOUNT
 
 
+DROP TABLE dbo.KAKAO_PRODUCT_MAIN_CATEGORY
 
 /* KAKAO_PRODUCT_MAIN_CATEGORY - 상품정보 대분류 */
 CREATE TABLE [dbo].[KAKAO_PRODUCT_MAIN_CATEGORY] (
-	[category_code] [BIGINT] NOT NULL,  /* 분류코드 - category_code */
+	[category_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* 분류코드 - category_code */
 	[category_nm] [NVARCHAR](50) NOT NULL,  /* 분류이름 - category_nm */
 	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
-	[category_rep_img_url] [NVARCHAR](100) /* 대분류 대표 이미지 url - category_rep_img_url */
+	[category_rep_img_url] [NVARCHAR](100), /* 대분류 대표 이미지 url - category_rep_img_url */
+	[rep_img_url]	[NVARCHAR](100) /* 대표 이미지 url - rep_img_url*/
 )
 
 ALTER TABLE dbo.KAKAO_PRODUCT_MAIN_CATEGORY ADD CONSTRAINT PK__KAKAO_PRODUCT_MAIN_CATEGORY__CATEGORY_CODE PRIMARY KEY (category_code)
 
 BEGIN TRAN
 
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (1,N'LED 시계_라이언&춘식이',GETDATE(),N'resources/images/product/20210724_LED 시계_라이언&춘식이.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (2,N'[온라인 전용]높이 조절 탁상선풍기_라이언&춘식',GETDATE(),N'resources/images/product/20210724_[온라인 전용]높이 조절 탁상선풍기_라이언&춘식.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (3,N'춘식이는 수박을 좋아해 인형',GETDATE(),N'resources/images/product/20210724_춘식이는 수박을 좋아해 인형.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (4,N'라이언&춘식이 살균 무선 충전기',GETDATE(),N'resources/images/product/20210724_라이언&춘식이 살균 무선 충전기.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (5,N'라이언과 춘식이의 집콕놀이',GETDATE(),N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'LED 시계_라이언&춘식이',GETDATE(),N'resources/images/product/20210724_LED 시계_라이언&춘식이.jpg',N'resources/images/product/20210724_LED 시계_라이언&춘식이_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'[온라인 전용]높이 조절 탁상선풍기_라이언&춘식',GETDATE(),N'resources/images/product/20210724_[온라인 전용]높이 조절 탁상선풍기_라이언&춘식.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'춘식이는 수박을 좋아해 인형',GETDATE(),N'resources/images/product/20210724_춘식이는 수박을 좋아해 인형.jpg',N'resources/images/product/20210724_춘식이는 수박을 좋아해 인형_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'라이언&춘식이 살균 무선 충전기',GETDATE(),N'resources/images/product/20210724_라이언&춘식이 살균 무선 충전기.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'라이언과 춘식이의 집콕놀이',GETDATE(),N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이.jpg',N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이_1.jpg')
 
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (6,N'죠르디 미니각티슈 케이스',GETDATE(),N'resources/images/product/20210724_죠르디 미니각티슈 케이스.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (7,N'리틀라이언 미니베이커',GETDATE(),N'resources/images/product/20210724_리틀라이언 미니베이커.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'죠르디 미니각티슈 케이스',GETDATE(),N'resources/images/product/20210724_죠르디 미니각티슈 케이스.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'리틀라이언 미니베이커',GETDATE(),N'resources/images/product/20210724_리틀라이언 미니베이커.jpg',NULL)
 
 SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
 
@@ -89,6 +96,16 @@ CREATE TABLE [dbo].[KAKAO_NEW_PRODUCT] (
 	[category_code] [BIGINT] NOT NULL /* 분류코드 - category_code */
 )
 GO
+
+
+select * from dbo.KAKAO_NEW_PRODUCT with(nolock)
+
+begin tran
+
+update dbo.KAKAO_NEW_PRODUCT set recommend_prodt_yn = 'Y' where new_prodt_seq in (1,3,5)
+
+
+commit tran
 
 
 ALTER TABLE dbo.KAKAO_NEW_PRODUCT ADD CONSTRAINT PK__KAKAO_NEW_PRODUCT__NEW_PRODT_SEQ PRIMARY KEY (new_prodt_seq)
@@ -164,6 +181,7 @@ ROLLBACK TRAN
 	'N'
 )
 
+select @@TRANCOUNT
 
 
 /* 
@@ -188,3 +206,153 @@ begin
 	inner join dbo.KAKAO_PRODUCT_MAIN_CATEGORY pmc with(nolock) on np.category_code = pmc.category_code
 	
 end
+
+
+
+DROP TABLE KAKAO_PRODUCT_IMG
+
+
+
+
+
+/* KAKAO_PRODUCT_IMG - 상품관련 이미지 */
+CREATE TABLE [dbo].[KAKAO_PRODUCT_IMG] (
+	[img_seq] [BIGINT] IDENTITY(1,1) NOT NULL,  /* 이미지 고유번호 - img_seq */
+	[product_id] [BIGINT] NOT NULL,  /* 상품고유번호 - product_id */
+	[char_seq] [BIGINT] NOT NULL,  /* 캐릭터 번호 - char_seq */
+	[product_img_url] [NVARCHAR](100) NOT NULL /* 이미지 url - product_img_url */
+)
+GO
+
+alter table dbo.KAKAO_PRODUCT_IMG add constraint PK__KAKAO_PRODUCT_IMG__IMG_SEQ PRIMARY KEY (img_seq,product_id,char_seq)
+
+BEGIN TRAN
+
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (1,1,N'resources/images/product/20210724_LED 시계_라이언&춘식이_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (1,9,N'resources/images/product/20210724_LED 시계_라이언&춘식이_1.jpg')
+
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (3,9,N'resources/images/product/20210724_춘식이는 수박을 좋아해 인형_1.jpg')
+
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (4,1,N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이_1.jpg')
+
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (5,9,N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이_1.jpg')
+
+
+SELECT * FROM dbo.KAKAO_PRODUCT_IMG WITH(NOLOCK)
+
+
+SELECT * FROM dbo.KAKAO_PRODUCT_TABLE WITH(NOLOCK)
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (9,6,)
+
+
+--resources/images/product/20210724_LED 시계_라이언&춘식이.jpg
+
+SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
+
+begin tran
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'감자칩블랙트러플',getdate(),N'resources/images/product/20210726_감자칩블랙트러플.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'감자칩핑크솔트',getdate(),N'resources/images/product/20210726_감자칩핑크솔트.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'춘식이버즈라이브프로케이스',getdate(),N'resources/images/product/20210726_춘식이버즈라이브프로케이스.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'라이언춘식이피규어주차번호판',getdate(),N'resources/images/product/20210726_라이언춘식이피규어주차번호판.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'라이언은은한수면등',getdate(),N'resources/images/product/20210726_라이언은은한수면등.jpg')
+
+
+SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
+
+
+
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY with(nolock)
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'감자칩블랙트러플',getdate(),null,N'resources/images/product/20210726_감자칩블랙트러플.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'감자칩핑크솔트',getdate(),null,N'resources/images/product/20210726_감자칩핑크솔트.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'춘식이버즈라이브프로케이스',getdate(),null,N'resources/images/product/20210726_춘식이버즈라이브프로케이스.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'라이언춘식이피규어주차번호판',getdate(),null,N'resources/images/product/20210726_라이언춘식이피규어주차번호판.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'라이언은은한수면등',getdate(),null,N'resources/images/product/20210726_라이언은은한수면등.jpg')
+
+
+KAO_NEW_PRODUCT WITH(NOLOCK)
+
+
+select * from dbo.KAKAO_NEW_PRODUCT with(nolock)
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','Y',NULL,NULL,8)
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','Y',NULL,NULL,9)
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','Y',NULL,NULL,10)
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','Y',NULL,NULL,11)
+
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','Y',NULL,NULL,12)
+
+
+
+
+
+
+
+
+
+/* KAKAO_PRODUCT_MAIN_CATEGORY - 상품정보 대분류 */
+CREATE TABLE [dbo].[KAKAO_PRODUCT_MAIN_CATEGORY] (
+	[category_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* 분류코드 - category_code */
+	[category_nm] [NVARCHAR](50) NOT NULL,  /* 분류이름 - category_nm */
+	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
+	[category_rep_img_url] [NVARCHAR](100), /* 대분류 대표 이미지 url - category_rep_img_url */
+	[rep_img_url]	[NVARCHAR](100) /* 대표 이미지 url - rep_img_url*/
+)
+
+ALTER TABLE dbo.KAKAO_PRODUCT_MAIN_CATEGORY ADD CONSTRAINT PK__KAKAO_PRODUCT_MAIN_CATEGORY__CATEGORY_CODE PRIMARY KEY (category_code)
+
+BEGIN TRAN
+
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'LED 시계_라이언&춘식이',GETDATE(),N'resources/images/product/20210724_LED 시계_라이언&춘식이.jpg',N'resources/images/product/20210724_LED 시계_라이언&춘식이_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'[온라인 전용]높이 조절 탁상선풍기_라이언&춘식',GETDATE(),N'resources/images/product/20210724_[온라인 전용]높이 조절 탁상선풍기_라이언&춘식.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'춘식이는 수박을 좋아해 인형',GETDATE(),N'resources/images/product/20210724_춘식이는 수박을 좋아해 인형.jpg',N'resources/images/product/20210724_춘식이는 수박을 좋아해 인형_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'라이언&춘식이 살균 무선 충전기',GETDATE(),N'resources/images/product/20210724_라이언&춘식이 살균 무선 충전기.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'라이언과 춘식이의 집콕놀이',GETDATE(),N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이.jpg',N'resources/images/product/20210724_라이언과 춘식이의 집콕놀이_1.jpg')
+
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'죠르디 미니각티슈 케이스',GETDATE(),N'resources/images/product/20210724_죠르디 미니각티슈 케이스.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'리틀라이언 미니베이커',GETDATE(),N'resources/images/product/20210724_리틀라이언 미니베이커.jpg',NULL)
+
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'감자칩블랙트러플',getdate(),null,N'resources/images/product/20210726_감자칩블랙트러플.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'감자칩핑크솔트',getdate(),null,N'resources/images/product/20210726_감자칩핑크솔트.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'춘식이버즈라이브프로케이스',getdate(),null,N'resources/images/product/20210726_춘식이버즈라이브프로케이스.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'라이언춘식이피규어주차번호판',getdate(),null,N'resources/images/product/20210726_라이언춘식이피규어주차번호판.jpg')
+
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'라이언은은한수면등',getdate(),null,N'resources/images/product/20210726_라이언은은한수면등.jpg')
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY with(nolock)
+
+
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY with(nolock)
+
+select * from dbo.KAKAO_NEW_PRODUCT with(nolock)
+
+
+select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+
+
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'카카오프렌즈 감자칩_히말라야핑크솔트',550,N'식품',NULL,19800,GETDATE(),'N',NULL)
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'카카오프렌즈 감자칩_히말라야핑크솔트',550,N'식품',NULL,19800,GETDATE(),'N',NULL)
