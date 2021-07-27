@@ -657,16 +657,16 @@ body.s_no-scroll {
 }
 
 @media all and (max-width:812px) {
-.feed_content div:nth-child(3) {
-	font-size: 13px;
-	font-weight: normal;
-	color: rgb(154, 154, 158);
-	max-height: 120px;
-}
+	.feed_content div:nth-child(3) {
+		font-size: 13px;
+		font-weight: normal;
+		color: rgb(154, 154, 158);
+		max-height: 120px;
+	}
 	.swiper-button-next {
 		background-size: 42px 42px;
 	}
-	.swiper-button-prev { 
+	.swiper-button-prev {
 		background-size: 42px 42px;
 	}
 	.feed_img img {
@@ -678,7 +678,7 @@ body.s_no-scroll {
 		left: -54px;
 		top: -10px;
 	}
-	.feed_content{
+	.feed_content {
 		
 	}
 	.feed_content2 {
@@ -856,7 +856,6 @@ body.s_no-scroll {
 		display: none;
 		font-size: 24px;
 	}
-
 }
 </style>
 <meta name="viewport"
@@ -1000,6 +999,11 @@ body.s_no-scroll {
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
 		feed_select();
+
+		$(document).on("click", ".delete_search", function() {
+			alert($(this).parent().parent().parent().attr('class'));
+			$(this).parent().parent().parent().attr('class').detach();
+		});
 
 		function re_feed(seq) {
 			$("#feed_content_" + seq)
@@ -1231,7 +1235,7 @@ body.s_no-scroll {
 																		+ "<span class='feed_like'"
 																		+ feed_heart_red
 																		+ feed_heart_txt
-																		+ " </span></span><span value='true'>답글달기</span></div></div>");
+																		+ " </span></span><span>답글달기</span></div></div>");
 
 											});
 							if (scroll != 0) {
