@@ -653,7 +653,7 @@ body.s_no-scroll {
 }
 
 .re_feed_update {
-	
+	height: auto;
 }
 
 @media all and (max-width:812px) {
@@ -1000,10 +1000,22 @@ body.s_no-scroll {
 		heart(l_seq);
 		feed_select();
 
-		$(document).on("click", ".delete_search", function() {
-			alert($(this).parent().parent().parent().attr('class'));
-			$(this).parent().parent().parent().attr('class').detach();
-		});
+		$(document).on(
+				"click",
+				".delete_search",
+				function() {
+					var test = $(this).parent().parent().parent()
+							.closest("div").attr('class');
+					/* alert($(this).parent().parent().parent().closest("div").attr('class')); */
+					/* $(".re_feed_update *").remove(); */
+					var myDiv = document.getElementsByClassName("re_feed_update");
+					alert(myDiv);
+					var parent = myDiv.parentNode; // 부모 객체 알아내기 
+					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기
+
+
+					$(this).parent().parent().parent().closest("div").detach();
+				});
 
 		function re_feed(seq) {
 			$("#feed_content_" + seq)
