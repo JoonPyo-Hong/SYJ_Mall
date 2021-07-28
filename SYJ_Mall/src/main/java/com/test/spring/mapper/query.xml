@@ -15,6 +15,15 @@
 		select @login_code as loginCode, @user_seq as userSeq 
 	</select>
 	
+	<!-- 프론트단 로그인처리 -->
+	<select id="firstLoginCheck" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.kakao_first_user_login #{userId},#{userPw},#{userIp}, @result output 
+		select @result
+		
+	</select>
+	
 	
 	<!-- 광고처리 -->
 	<select id="advertiseShow" resultType="com.common.utill.AdverDTO" statementType="CALLABLE" >
@@ -120,14 +129,7 @@
 		
 	</select>	
 	
-	<!-- 프론트단 로그인처리 -->
-	<select id="firstLoginCheck" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
-		
-		declare @result int
-		exec dbo.kakao_first_user_login #{userId},#{userPw},#{userIp}, @result output 
-		select @result
-		
-	</select>
+
 	
 
 </mapper>
