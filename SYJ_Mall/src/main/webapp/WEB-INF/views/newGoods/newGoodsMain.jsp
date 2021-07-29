@@ -43,7 +43,7 @@ body {
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productAlram"></div>
+				<div class="productAlram"><button class="icofont-alarm"></button></div>
 			</div>
 			<div class="productPrice">29,500 원</div>
 		</div>
@@ -53,7 +53,7 @@ body {
 			</div>
 			<div class="themeProductPicName">
 				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productBasket"></div>
+				<div class="productBasket"><button class="icofont-bag"></button></div>
 			</div>
 			<div class="afterPrice">30% 20,000 원</div>
 			<div class="beforePrice">30,000 원</div>
@@ -148,6 +148,28 @@ body {
 
   <script>
     
+	//동적으로 생성된태그 해결법
+  	$(document).on("click",".themeProduct",function(){
+	 	alert("asd"); 
+  	});
+	
+  	$(document).on("click",".productBasket",function(e){
+  		alert("goods");
+  		e.stopPropagation();
+  		
+  	});
+	
+	//productAlram
+	$(document).on("click",".productAlram",function(e){
+  		alert("goods");
+  		e.stopPropagation();
+  		
+  	});
+	
+  
+/*   	$(".themeProductPic").click(function(){
+  		alert('asd');
+  	}); */
   
   	//클릭했을때 상품 설명 페이지로 이동해 줄것이다.
   	$(".swiper-slide").click(function(){
