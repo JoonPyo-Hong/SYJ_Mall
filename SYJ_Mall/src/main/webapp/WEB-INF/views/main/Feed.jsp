@@ -1004,14 +1004,13 @@ body.s_no-scroll {
 				"click",
 				".delete_search",
 				function() {
-					var test = $(this).parent().parent().parent()
-							.closest("div").attr('class');
+					var test = $(this).parent().parent().parent().closest("div").attr('class');
 					/* alert($(this).parent().parent().parent().closest("div").attr('class')); */
 					/* $(".re_feed_update *").remove(); */
 					var myDiv = document.getElementsByClassName("re_feed_update");
-					alert(myDiv);
+			/* 		alert(myDiv);
 					var parent = myDiv.parentNode; // 부모 객체 알아내기 
-					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기
+					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기 */
 
 
 					$(this).parent().parent().parent().closest("div").detach();
