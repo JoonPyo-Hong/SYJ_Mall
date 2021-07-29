@@ -151,7 +151,6 @@
 
 /* 알람표시 */
  .productAlram {
- 	border: 1px solid red;
 	width : 32px;
 	height : 25px;
 	float:left;	
@@ -167,6 +166,7 @@
 	width : 30px;
 	height : 20px;
 	padding:0px;
+	border: 0px;
 }
 
 .productBasket {
@@ -177,6 +177,7 @@
 }
 
 
+
 .productBasket > button {
 	background-color: transparent;
 	color: #AEAEAF;
@@ -185,6 +186,7 @@
 	width : 30px;
 	height : 20px;
 	padding:0px;
+	border: 0px;
 	
 }
 

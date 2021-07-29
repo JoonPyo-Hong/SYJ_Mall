@@ -30,10 +30,10 @@ public class NewGoodsController {
 	public String newGoodsStart(HttpServletRequest request, HttpServletResponse response, String site) {
 		
 		request.setAttribute("selected", "new");
-		int result = goodService.setTopProductSetting(request);
+		//int result = goodService.setTopProductSetting(request);
 		
 		
-		System.out.println(result);
+		//System.out.println(result);
 		
 		
 		return "/tiles/newGoodsStartMain.topping";	
