@@ -652,10 +652,6 @@ body.s_no-scroll {
 	margin-left: 50px;
 }
 
-.re_feed_update {
-	height: auto;
-}
-
 @media all and (max-width:812px) {
 	.feed_content div:nth-child(3) {
 		font-size: 13px;
@@ -1004,14 +1000,15 @@ body.s_no-scroll {
 				"click",
 				".delete_search",
 				function() {
-					var test = $(this).parent().parent().parent().closest("div").attr('class');
+					/* var test = $(this).parent().parent().parent().closest("div").attr('class'); */
 					/* alert($(this).parent().parent().parent().closest("div").attr('class')); */
 					/* $(".re_feed_update *").remove(); */
-					var myDiv = document.getElementsByClassName("re_feed_update");
+					/* var myDiv = document.getElementsByClassName("re_feed_update"); */
 			/* 		alert(myDiv);
 					var parent = myDiv.parentNode; // 부모 객체 알아내기 
 					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기 */
-
+					
+					$(".re_feed_update").hide();
 
 					$(this).parent().parent().parent().closest("div").detach();
 				});
@@ -1020,15 +1017,14 @@ body.s_no-scroll {
 			$("#feed_content_" + seq)
 					.append(
 							"<div class='feed_content feed_content2'>"
-									+ "<div>"
+									+ "<div><span> 테스트</span></div>"
+									+ "<div><span>5일전 </span>"
+									+ "<span class='feed_heart'>"
+									+ "<span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
+									+ "<span class='feed_like'> 좋아요</span>"
+									+ "</span>"
 									+ "</div>"
-									+ "<div><span> 테스트"
-									+ "</span></div>"
-									+ "<div><span>"
-									+ "5일전 </span> <span class='feed_heart' value='" +  "'><span class='feed_img'><img src='resources/images/main/like-"
-				+"grey"+".png'></span>"
-									+ "<span class='feed_like'> 좋아요"
-									+ " </span></span></div></div>");
+									+ "</div>");
 		}
 		$(document)
 				.on(
@@ -1041,12 +1037,15 @@ body.s_no-scroll {
 							}
 							$(this)
 									.append(
-											"<div class='re_feed_update'>"
-													+ "<div class='comment comment2' ><span class='spn_re_img'>"
-													+ "<img src='resources/images/main/delete-search.png'class='delete_search'></span>"
+													  "<div class='re_feed_update'>"
+													+ "<div class='comment comment2' >"
+													+"<span class='spn_re_img'>"
+													+ "<img src='resources/images/main/delete-search.png'class='delete_search'>"
+													+"</span>"
 													+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
 													+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
-													+ "</div></div>");
+													+ "</div>"
+													+"</div>");
 						});
 
 		$(document)
@@ -1246,14 +1245,24 @@ body.s_no-scroll {
 																		+ "<span class='feed_like'"
 																		+ feed_heart_red
 																		+ feed_heart_txt
-																		+ " </span></span><span>답글달기</span></div></div>");
+																		+ " </span></span><span>답글달기"
+																		+ "<div class='re_feed_update'>"
+																		+ "<div class='comment comment2' >"
+																		+"<span class='spn_re_img'>"
+																		+ "<img src='resources/images/main/delete-search.png'class='delete_search'>"
+																		+"</span>"
+																		+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
+																		+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
+																		+ "</div>"
+																		+"</div>"
+																		+"</span></div></div>");
 
 											});
 							if (scroll != 0) {
 								$(window).scrollTop(scroll);
 							}
 							//test
-							re_feed("29");
+							re_feed("25");
 						},
 						error : function() {
 							alert("에러");

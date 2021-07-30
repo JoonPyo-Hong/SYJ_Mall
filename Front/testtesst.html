@@ -25,8 +25,11 @@
             border: 1px solid black;
             height: 3000px;
             width: 600px;
+           
         }
-
+#test{
+    position: absolute;
+}
         .apple_1 {
             border: 1px solid red;
             height: 400px;
@@ -46,20 +49,42 @@
             width: 200px;
             margin:50px;
         } 
+        .feed_content2 {
+	margin-left: 50px;
+	margin-top: 0px;
+	padding-top: 8px;
+}
+.spn_re_img img {
+	width: 18px;
+	height: 18px;
+}
+.comment {
+	padding: 8px;
+	border-radius: 0px 24px 24px;
+	background-color: rgb(240, 241, 244);
+	position: relative;
+	display: flex;
+	box-sizing: border-box;
+	width: 600px;
+	height: 44px;
+	margin-top: 16px;
+}
 
-
+.comment2 {
+	margin-left: 50px;
+}
+.delete_search {
+	position: relative;
+	left: -33px;
+	top: -10px;
+}
     </style>
 </head>
 <body>
     
     <div id = "total">
 
-        <div class = "apple_1">
-            <div class = "apple_2">
-                <div class = "apple_3" id = "idx0">
-
-                </div>
-            </div>
+    <div id="test">
         </div>
 
 
@@ -72,26 +97,28 @@
         var idx = 1;
 
         $('#btn').click(function(){
-            $('#total').append(
-                    '<div class = "apple_1">'
-            + '<div class = "apple_2">'
-            + '<div class = "apple_3" id = test' + idx +'>'
-            + '</div>'
-            + '</div>'
-            + '</div>'
-
-            )
+            $('#test').append(
+													  "<div class='re_feed_update'>"
+													+ "<div class='comment comment2' >"
+													+"<span class='spn_re_img'>"
+													+ "<img src='resources/images/main/delete-search.png'class='delete_search'>"
+													+"</span>"
+													+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
+													+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
+													+ "</div>"
+													+"</div>");
+            
 
             idx++;
         });
         
 
-        $(document).on('click','.apple_3',function(){
+        $(document).on('click','.re_feed_update',function(){
             //alert($(this).attr('id'));
             //$("#" + $(this).attr('id')).remove();
             //alert($("#" + $(this).attr('id')).parent().attr('class'));
             var test1 = $("#" + $(this).attr('id')).parent().attr('class');
-            $('.' + test1).remove();
+            $(".re_feed_update").remove();
         });
 
     </script>
