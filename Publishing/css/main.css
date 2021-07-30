@@ -63,6 +63,7 @@
 #inner-content {
   /* width: 640px; */
   margin: 0 auto;
+  height: auto;
 }
 
 .main-tab {

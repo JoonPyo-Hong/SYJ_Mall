@@ -164,4 +164,9 @@ var {
   .banner {
     height: 10% !important;
   }
+
+  .container-wrap {
+    grid-template-rows: 200px 200px 200px 200px 200px 200px !important;
+    /* border: 1px solid red !important; */
+  }
 }
