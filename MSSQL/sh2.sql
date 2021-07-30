@@ -188,3 +188,135 @@ begin
 		rollback tran
 	end catch
 end
+
+
+
+select * from dbo.KAKAO_PRODUCT_CATEGORY  with(nolock)
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+
+
+DROP TABLE dbo.KAKAO_PRODUCT_CATEGORY
+
+/* KAKAO_PRODUCT_CATEGORY - 상품정보 소분류 */
+CREATE TABLE [dbo].[KAKAO_PRODUCT_CATEGORY] (
+	[category_code] [BIGINT] NOT NULL,  /* 소분류코드 - category_code */
+	[main_category_code] [INT] NOT NULL,  /* 분류코드 - main_category_code */
+	[category_nm] [NVARCHAR](50) NOT NULL,  /* 분류이름 - category_nm */
+	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
+	[chg_dt] [DATETIME] /* 수정 날짜 - chg_dt */
+)
+GO
+
+alter table dbo.KAKAO_PRODUCT_CATEGORY add constraint PK__KAKAO_PRODUCT_CATEGORY__CATEGORY_CODE__MAIN_CATEGORY_CODE PRIMARY KEY (category_code,main_category_code)
+
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,2,N'미니인형',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,2,N'중형인형',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (3,2,N'대형인형',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (4,2,N'피규어/브릭',GETDATE(),NULL)
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,3,N'패브릭',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,3,N'주방용품',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (3,3,N'컵/텀블러',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (4,3,N'차량용품',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (5,3,N'생활소품',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (6,3,N'미용/욕실용품',GETDATE(),NULL)
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
+begin tran
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,4,N'가방',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,4,N'파우치/지갑',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (3,4,N'신발',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (4,4,N'패션소품',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (5,4,N'시즌용품',GETDATE(),NULL)
+
+rollback tran
+
+select @@TRANCOUNT
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
+begin tran
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,5,N'필기구',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,5,N'필통/케이스',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (3,5,N'노트/메모',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (4,5,N'스티커',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (5,5,N'데스크 소품',GETDATE(),NULL)
+
+commit tran
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
+begin tran
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,6,N'여성',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,6,N'남성',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (3,6,N'키즈',GETDATE(),NULL)
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock) where main_category_code = 7
+
+begin tran
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,7,N'소형 전자',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,7,N'PC/노트북 액새서리',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (3,7,N'휴대폰 케이스',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (4,7,N'휴대폰 악세서리',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (5,7,N'무선이어폰 케이스',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (6,7,N'무선이어폰 액세서리',GETDATE(),NULL)
+
+select @@TRANCOUNT
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock) where main_category_code = 8
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,8,N'여행',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,8,N'레져',GETDATE(),NULL)
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock) where main_category_code = 9
+
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,9,N'스낵',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,9,N'음료',GETDATE(),NULL)
+
+
+select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock) where main_category_code = 10
+
+
+begin tran
+
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (1,10,N'초록방학',GETDATE(),NULL,N'resources/images/theme/210611_theme_friends.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (2,10,N'러블리 어피치',GETDATE(),NULL,N'resources/images/theme/200929_category_lovelyapeach_M.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (3,10,N'마린 블루',GETDATE(),NULL,N'resources/images/theme/200604_category_marineblue_M.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (4,10,N'비치펍',GETDATE(),NULL,N'resources/images/theme/200701_category_beachpub_M.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (5,10,N'얌얌프렌즈',GETDATE(),NULL,N'resources/images/theme/200504_category_yumyum_M.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (6,10,N'레몬테라스',GETDATE(),NULL,N'resources/images/theme/200427_category_lemonterrace_M.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (7,10,N'베이비드리밍',GETDATE(),NULL,N'resources/images/theme/200310_category_babydreaming_M.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (8,10,N'해피위크',GETDATE(),NULL,N'resources/images/theme/200218_category_happweeks_M.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (9,10,N'강다니엘에디션',GETDATE(),NULL,N'resources/images/theme/200206_category_DANIEL_M.jpg')
+
+
+commit tran
+
+
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
+alter table dbo.KAKAO_PRODUCT_CATEGORY add theme_img nvarchar(100)
+
+
