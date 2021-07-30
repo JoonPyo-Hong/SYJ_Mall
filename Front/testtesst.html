@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+    <title>Document</title>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+    
+        /* 넥슨 글씨체 */
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+       
+
+        #total {
+            border: 1px solid black;
+            height: 3000px;
+            width: 600px;
+        }
+
+        .apple_1 {
+            border: 1px solid red;
+            height: 400px;
+            width: 400px;
+        }
+
+        .apple_2 {
+            border: 1px solid blue;
+            height: 300px;
+            width: 300px;
+            margin:50px;
+        }
+
+        .apple_3 {
+            border: 1px solid green;
+            height: 200px;
+            width: 200px;
+            margin:50px;
+        } 
+
+
+    </style>
+</head>
+<body>
+    
+    <div id = "total">
+
+        <div class = "apple_1">
+            <div class = "apple_2">
+                <div class = "apple_3" id = "idx0">
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <button id = "btn" style="margin:10px;">클릭</button>
+
+    <script>
+
+        var idx = 1;
+
+        $('#btn').click(function(){
+            $('#total').append(
+                    '<div class = "apple_1">'
+            + '<div class = "apple_2">'
+            + '<div class = "apple_3" id = test' + idx +'>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+
+            )
+
+            idx++;
+        });
+        
+
+        $(document).on('click','.apple_3',function(){
+            //alert($(this).attr('id'));
+            //$("#" + $(this).attr('id')).remove();
+            //alert($("#" + $(this).attr('id')).parent().attr('class'));
+            var test1 = $("#" + $(this).attr('id')).parent().attr('class');
+            $('.' + test1).remove();
+        });
+
+    </script>
+
+</body>
+</html>
