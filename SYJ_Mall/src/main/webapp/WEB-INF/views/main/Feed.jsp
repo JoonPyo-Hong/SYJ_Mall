@@ -1262,7 +1262,7 @@ body.s_no-scroll {
 								$(window).scrollTop(scroll);
 							}
 							//test
-							re_feed("25");
+							re_feed("27");
 						},
 						error : function() {
 							alert("에러");
