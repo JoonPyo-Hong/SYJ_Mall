@@ -21,31 +21,34 @@
 		</div>
 		<div id="tab">
 			<c:if test="${selected eq 'today'}">
-				<div class="tab_selected">오늘</div>
-				<div>신규</div>
-				<div>인기</div>
-				<div>마이</div>
+				<div class="tab_selected" id="banner_today">오늘</div>
+				<div id="banner_new">신규</div>
+				<div id="banner_popular">인기</div>
+				<div id="banner_my">마이</div>
 			</c:if>
 			<c:if test="${selected eq 'new'}">
-				<div>오늘</div>
-				<div class="tab_selected">신규</div>
-				<div>인기</div>
-				<div>마이</div>
+				<div id="banner_today">오늘</div>
+				<div class="tab_selected" id="banner_new">신규</div>
+				<div id="banner_popular">인기</div>
+				<div id="banner_my">마이</div>
 			</c:if>
 			<c:if test="${selected eq 'popular'}">
-				<div>오늘</div>
-				<div>신규</div>
-				<div class="tab_selected">인기</div>
-				<div>마이</div>
+				<div id="banner_today">오늘</div>
+				<div id="banner_new">신규</div>
+				<div class="tab_selected" id="banner_popular">인기</div>
+				<div id="banner_my">마이</div>
 			</c:if>
 			<c:if test="${selected eq 'my'}">
-				<div>오늘</div>
-				<div>신규</div>
-				<div>인기</div>
-				<div class="tab_selected">마이</div>
+				<div id="banner_today">오늘</div>
+				<div id="banner_new">신규</div>
+				<div id="banner_popular">인기</div>
+				<div class="tab_selected" id="banner_my">마이</div>
 			</c:if>
 		</div>
 	</div>
 	<input type="hidden" id="hid_seq" value="${seq}">
 	<div class="scroll"></div>
 </div>
+
+
+
