@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ include file="/WEB-INF/views/inc/mainasset.jsp" %> --%>
+<%@ include file="/WEB-INF/views/inc/mainasset.jsp" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <!DOCTYPE html>
@@ -21,5 +21,31 @@
 	<tiles:insertAttribute name="body" ignore="false"/>
 		
 
+
+	<script>
+	
+		
+		$('#banner_today').click(function(){
+			location.href = "/SYJ_Mall/main.action";
+		});
+		
+		$('#banner_new').click(function(){
+			location.href = "/SYJ_Mall/newGoodsStart.action";
+		});
+		
+		$('#banner_popular').click(function(){
+			location.href = "/SYJ_Mall/popularStart.action";
+		});
+		
+		$('#banner_my').click(function(){
+			location.href = "/SYJ_Mall/myStart.action";
+		});
+
+	</script>
+
+
+
 </body>
 </html>
+
+

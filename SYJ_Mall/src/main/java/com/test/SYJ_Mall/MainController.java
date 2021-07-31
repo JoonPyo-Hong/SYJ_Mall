@@ -39,7 +39,8 @@ public class MainController {
 
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
-
+		request.setAttribute("selected", "today");
+		
 		int seq = 0;
 
 		if (dto == null) {
@@ -49,7 +50,7 @@ public class MainController {
 		}
 		model.addAttribute("seq", seq);
 
-		return "/main/Main";
+		return "/tiles/mainStart.topping";
 	}
 
 	// 무한 스크롤

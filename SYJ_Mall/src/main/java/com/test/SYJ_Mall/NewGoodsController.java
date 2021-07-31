@@ -25,15 +25,13 @@ public class NewGoodsController {
 	@Autowired
 	private INewGoodService goodService;
 	
-	// 처음에 로그인 페이지로 보내주는 곳
-	@RequestMapping(value = "/newGoodsStart.action", method = { RequestMethod.GET,RequestMethod.POST })
+	
+	@RequestMapping(value = "/newGoodsStart.action", method = { RequestMethod.GET })
 	public String newGoodsStart(HttpServletRequest request, HttpServletResponse response, String site) {
 		
 		request.setAttribute("selected", "new");
 		int result = goodService.setTopProductSetting(request);
 		
-
-		
-		return "/tiles/newGoodsStartMain.topping";	
+		return "/tiles/newGoodsStart.topping";	
 	}
 }
