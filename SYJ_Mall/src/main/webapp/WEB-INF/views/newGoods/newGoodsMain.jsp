@@ -15,13 +15,13 @@ body {
 		<div class="swiper-wrapper">
 			
 			<c:forEach var="dto" items="${dtoList}">
-				<div class="swiper-slide" id="${dto.category_code}">
-					<img src= "${dto.category_img}" alt=""> 
+				<div class="swiper-slide" id="${dto.product_code}">
+					<img src= "${dto.promotion_img}" alt=""> 
 					<div class = "imginnertoptextfirst">
-						"${dto.banner_img}"
+						${dto.banner_img_title}
 					</div>
 					<div class = "imginnertoptextsecond">
-						"${dto.banner_img_detail}"
+						${dto.banner_img_detail}
 					</div> 
 				</div>
 			</c:forEach>	

@@ -24,11 +24,8 @@ public class NewGoodDAO implements INewGoodDAO {
 	public List<PdtBannerDTO> bringNewTopImg() {
 		
 		List<PdtBannerDTO> dtoList = new ArrayList<PdtBannerDTO>();
-		//dtoList = template.selectList("newGoods.newProductBannerImg");
+		dtoList = template.selectList("newGoods.newProductBannerImg");
 		
 		return dtoList;
-		//return dtoList.get(0);
-		//return template.selectOne("newGoods.newProductBannerImg");
 	}
-		
 }
