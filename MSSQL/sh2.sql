@@ -304,6 +304,9 @@ select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock) where main_category_code =
 
 select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
 
+SELECT @@TRANCOUNT
+
+
 
 begin tran
 
@@ -355,13 +358,23 @@ insert into dbo.KAKAO_PRODUCT_TABLE values (2,N'춘식이 손목보호 쿠션인형',250,NU
 
 insert into dbo.KAKAO_PRODUCT_TABLE values (24,N'LED 시계_라이언&춘식이',750,NULL,35000,0,'Y','N')
 
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,N'춘식이는 수박을 좋아해 인형',1050,NULL,24000,0,'Y','N')
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (27,N'라이언&춘식이 살균무선 충전기',880,NULL,39000,0,'Y','N')
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (2,N'라이언과 춘식이의 집콕놀이',210,NULL,39000,0,'Y','N')
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (9,N'죠르디 미니각티슈 케이스',2150,NULL,19000,0,'Y','N')
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (6,N'리틀라이언 미니베이커',150,NULL,39900,0,'Y','N')
+
+
 
 DROP TABLE dbo.KAKAO_PROMOTION
 
 /* KAKAO_PROMOTION - 기획상품 */
 CREATE TABLE [dbo].[KAKAO_PROMOTION] (
 	[category_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* 기획코드 - promotion_code */
-	[product_id] [BIGINT] NOT NULL,  /* 상품고유번호 - product_id */
 	[category_nm] [NVARCHAR](50) NOT NULL,  /* 기획이름 - promotion_nm */
 	[new_promotion_img] [NVARCHAR](100),  /* 기획 신규페이지 배너 이미지 - new_promotion_img */
 	[category_rep_img] [NVARCHAR](100),  /* 기획 배너 이미지  - promotion_img */
@@ -372,12 +385,104 @@ CREATE TABLE [dbo].[KAKAO_PROMOTION] (
 )
 GO
 
-alter table dbo.KAKAO_PROMOTION add constraint PK__KAKAO_PROMOTION__CATEGORY_CODE__PRODUCT_ID PRIMARY KEY (category_code,product_id)
+alter table dbo.KAKAO_PROMOTION add constraint PK__KAKAO_PROMOTION__CATEGORY_CODE__PRODUCT_ID PRIMARY KEY (category_code)
 
 SELECT * FROM dbo.KAKAO_PROMOTION WITH(NOLOCK)
 
-INSERT INTO dbo.KAKAO_PROMOTION VALUES (1,N'춘식이 손목보호 쿠션인형',N'resources/images/product/기획전/banner_20210727183214_mobile_kr.jpg',NULL,N'오랜 시간 컴퓨터 작업엔',N'춘식이 손목보호 인형',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROMOTION VALUES (N'춘식이 손목보호 쿠션인형',N'resources/images/product/기획전/banner_20210727183214_mobile_kr.jpg',NULL,N'오랜 시간 컴퓨터 작업엔',N'춘식이 손목보호 인형',GETDATE(),NULL)
 
-INSERT INTO dbo.KAKAO_PROMOTION VALUES (2,N'LED 시계_라이언&춘식이',N'resources/images/product/기획전/banner_20210722090518_mobile_kr.jpg',NULL,N'탁상용, 별걸이용 모두 되는',N'라이언와 춘식이 LED 시계',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROMOTION VALUES (N'LED 시계_라이언&춘식이',N'resources/images/product/기획전/banner_20210722090518_mobile_kr.jpg',NULL,N'탁상용, 별걸이용 모두 되는',N'라이언와 춘식이 LED 시계',GETDATE(),NULL)
+
+INSERT INTO dbo.KAKAO_PROMOTION VALUES (N'춘식이는 수박을 좋아해 인형',N'resources/images/product/기획전/banner_20210714085750_mobile_kr.jpg',NULL,N'수박과 하나된',N'춘식이는 수박을 좋아해',GETDATE(),NULL)
+
+INSERT INTO dbo.KAKAO_PROMOTION VALUES (N'라이언&춘식이 살균무선 충전기',N'resources/images/product/기획전/banner_20210615143750_mobile_kr.jpg',NULL,N'라이언과 클린하게',N'살균 무선 충전기',GETDATE(),NULL)
+
+INSERT INTO dbo.KAKAO_PROMOTION VALUES (N'라이언과 춘식이의 집콕놀이',N'resources/images/product/기획전/banner_20210702183342_mobile_kr.jpg',NULL,N'집콕엔 청소도 즐겁게',N'라이언과 춘식이의 집콕놀이',GETDATE(),NULL)
+
+INSERT INTO dbo.KAKAO_PROMOTION VALUES (N'죠르디 미니각티슈 케이스',N'resources/images/product/기획전/banner_20210624183636_mobile_kr.jpg',NULL,N'나만의 죠르디 정원',N'죠르디 티슈 케이스',GETDATE(),NULL)
+
+INSERT INTO dbo.KAKAO_PROMOTION VALUES (N'리틀라이언 미니베이커',N'resources/images/product/기획전/banner_20210421153139_mobile_kr.jpg',NULL,N'라이언과 즐거운 베이킹',N'리틀라이언 미니베이커',GETDATE(),NULL)
 
 
+
+/* KAKAO_PROM_PROD - 상품 기획 종속관계 */
+CREATE TABLE [dbo].[KAKAO_PROM_PROD] (
+	[category_code] [BIGINT] NOT NULL,  /* 기획코드 - promotion_code */
+	[product_id] [BIGINT] NOT NULL,  /* 상품고유번호 - product_id */
+	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
+	[chg_dt] [DATETIME] /* 수정 날짜 - chg_dt */
+)
+GO
+
+alter table dbo.KAKAO_PROM_PROD add constraint PK__KAKAO_PROM_PROD__CATEGORY_CODE__PRODUCT_ID PRIMARY KEY (category_code,product_id)
+
+INSERT INTO dbo.KAKAO_PROM_PROD VALUES (1,1,GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROM_PROD VALUES (2,2,GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROM_PROD VALUES (3,3,GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROM_PROD VALUES (4,4,GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROM_PROD VALUES (5,5,GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROM_PROD VALUES (6,6,GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_PROM_PROD VALUES (7,7,GETDATE(),NULL)
+
+
+SELECT @@TRANCOUNT
+SELECT * FROM dbo.KAKAO_PROM_PROD WITH(NOLOCK)
+
+/* KAKAO_THEME_PROMOTION - 테마기획전 상품 */
+CREATE TABLE [dbo].[KAKAO_THEME_PROMOTION] (
+	[theme_pro_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* 테마기획코드 - theme_pro_code */
+	[theme_nm] [NVARCHAR](50) NOT NULL,  /* 테마기획전 이름 - theme_nm */
+	[theme_img] [NVARCHAR](100),  /* 테마기획전 이미지 - theme_img */
+	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
+	[chg_dt] [DATETIME] /* 수정 날짜 - chg_dt */
+)
+GO
+
+alter table dbo.KAKAO_THEME_PROMOTION add constraint PK__KAKAO_THEME_PROMOTION__THEME_PRO_CODE PRIMARY KEY (theme_pro_code)
+
+
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'초록방학',N'resources/images/theme/210611_theme_friends.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'러블리 어피치',N'resources/images/theme/200929_category_lovelyapeach_M.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'마린 블루',N'resources/images/theme/200604_category_marineblue_M.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'비치펍',N'resources/images/theme/200701_category_beachpub_M.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'얌얌프렌즈',N'resources/images/theme/200504_category_yumyum_M.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'레몬테라스',N'resources/images/theme/200427_category_lemonterrace_M.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'베이비드리밍',N'resources/images/theme/200310_category_babydreaming_M.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'해피위크',N'resources/images/theme/200218_category_happweeks_M.jpg',GETDATE(),NULL)
+INSERT INTO dbo.KAKAO_THEME_PROMOTION VALUES (N'강다니엘에디션',N'resources/images/theme/200206_category_DANIEL_M.jpg',GETDATE(),NULL)
+
+
+select * from dbo.KAKAO_THEME_PROMOTION with(nolock)
+
+
+
+
+
+
+
+/* KAKAO_PROD_THEME - 상품 테마기획전 종속관계 */
+CREATE TABLE [dbo].[KAKAO_PROD_THEME] (
+	[product_id] [BIGINT] NOT NULL,  /* 상품고유번호 - product_id */
+	[theme_pro_code] [BIGINT] NOT NULL,  /* 테마기획코드 - theme_pro_code */
+	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
+	[chg_dt] [DATETIME] /* 수정 날짜 - chg_dt */
+)
+GO
+
+
+alter table dbo.KAKAO_PROD_THEME add constraint PK__KAKAO_PROD_THEME__PRODUCT_ID__THEME_PRO_CODE PRIMARY KEY (product_id,theme_pro_code)
+
+
+
+
+/* KAKAO_PROMOTION_IMG - 기획상품 기타 이미지 */
+CREATE TABLE [dbo].[KAKAO_PROMOTION_IMG] (
+	[etc_img_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* 기타 이미지 코드 - etc_img_code */
+	[category_code] [BIGINT] NOT NULL,  /* 기획코드 - promotion_code */
+	[etc_img] [NVARCHAR](100) NOT NULL,  /* 기타 이미지  - etc_img */
+	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
+	[chg_dt] [DATETIME] /* 수정 날짜 - chg_dt */
+)
+GO
+
+alter table dbo.KAKAO_PROMOTION_IMG add constraint PK__KAKAO_PROMOTION_IMG__ETC_IMG_CODE__CATEGORY_CODE PRIMARY KEY (etc_img_code,category_code)
