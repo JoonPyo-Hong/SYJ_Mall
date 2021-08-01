@@ -1,19 +1,19 @@
 
 DROP TABLE dbo.KAKAO_PRODUCT_TABLE
 
-/* KAKAO_PRODUCT_TABLE - »óÇ°Á¤º¸ */
+/* KAKAO_PRODUCT_TABLE - ìƒí’ˆì •ë³´ */
 CREATE TABLE [dbo].[KAKAO_PRODUCT_TABLE ] (
-	[char_seq] [BIGINT] NOT NULL,  /* Ä³¸¯ÅÍ ¹øÈ£ - char_seq */
-	[product_id] [BIGINT] NOT NULL,  /* »óÇ°°íÀ¯¹øÈ£ - product_id */
-	[category_code] [BIGINT] NOT NULL,  /* ºÐ·ùÄÚµå - category_code */
-	[product_nm] [NVARCHAR](60) NOT NULL,  /* »óÇ°ÀÌ¸§ - product_nm */
-	[product_count] [INT] NOT NULL,  /* »óÇ° ¼ö·® - product_count */
-	[product_category] [NVARCHAR](100),  /* Ä«Å×°í¸® - product_category */
-	[product_detail_info] [NVARCHAR](3000),  /* ¼¼ºÎÁ¤º¸ - product_detail_info */
-	[product_price] [MONEY] NOT NULL,  /* Á¦Ç°°¡°Ý - product_price */
-	[reg_dt] [DATETIME] NOT NULL,  /* µî·Ï³¯Â¥ - reg_dt */
-	[del_yn] [CHAR](1) NOT NULL,  /* »èÁ¦À¯¹« - del_yn */
-	[discount_rate] [SMALLINT] /* ÇÒÀÎÀ²  - discount_rate */
+	[char_seq] [BIGINT] NOT NULL,  /* ìºë¦­í„° ë²ˆí˜¸ - char_seq */
+	[product_id] [BIGINT] NOT NULL,  /* ìƒí’ˆê³ ìœ ë²ˆí˜¸ - product_id */
+	[category_code] [BIGINT] NOT NULL,  /* ë¶„ë¥˜ì½”ë“œ - category_code */
+	[product_nm] [NVARCHAR](60) NOT NULL,  /* ìƒí’ˆì´ë¦„ - product_nm */
+	[product_count] [INT] NOT NULL,  /* ìƒí’ˆ ìˆ˜ëŸ‰ - product_count */
+	[product_category] [NVARCHAR](100),  /* ì¹´í…Œê³ ë¦¬ - product_category */
+	[product_detail_info] [NVARCHAR](3000),  /* ì„¸ë¶€ì •ë³´ - product_detail_info */
+	[product_price] [MONEY] NOT NULL,  /* ì œí’ˆê°€ê²© - product_price */
+	[reg_dt] [DATETIME] NOT NULL,  /* ë“±ë¡ë‚ ì§œ - reg_dt */
+	[del_yn] [CHAR](1) NOT NULL,  /* ì‚­ì œìœ ë¬´ - del_yn */
+	[discount_rate] [SMALLINT] /* í• ì¸ìœ¨  - discount_rate */
 )
 
 ALTER TABLE dbo.KAKAO_PRODUCT_TABLE ADD CONSTRAINT PK__KAKAO_PRODUCT_TABLE__CHAR_SEQ__PRODUCT_ID PRIMARY KEY (char_seq,product_id)
@@ -23,25 +23,25 @@ SELECT * FROM dbo.KAKAO_PRODUCT_TABLE WITH(NOLOCK)
 
 BEGIN TRAN
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,1,N'LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ',450,N'¸®ºù',NULL,35000,GETDATE(),'N',NULL)
-insert into dbo.KAKAO_PRODUCT_TABLE values (9,1,1,N'LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ',450,N'¸®ºù',NULL,35000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,1,N'LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´',450,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (9,1,1,N'LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´',450,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',NULL)
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (9,2,2,N'[¿Â¶óÀÎ Àü¿ë]³ôÀÌ Á¶Àý Å¹»ó¼±Ç³±â_¶óÀÌ¾ð&Ãá½Ä',550,N'¸®ºù',NULL,49000,GETDATE(),'N',NULL)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,2,2,N'[¿Â¶óÀÎ Àü¿ë]³ôÀÌ Á¶Àý Å¹»ó¼±Ç³±â_¶óÀÌ¾ð&Ãá½Ä',550,N'¸®ºù',NULL,49000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (9,2,2,N'[ì˜¨ë¼ì¸ ì „ìš©]ë†’ì´ ì¡°ì ˆ íƒìƒì„ í’ê¸°_ë¼ì´ì–¸&ì¶˜ì‹',550,N'ë¦¬ë¹™',NULL,49000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,2,2,N'[ì˜¨ë¼ì¸ ì „ìš©]ë†’ì´ ì¡°ì ˆ íƒìƒì„ í’ê¸°_ë¼ì´ì–¸&ì¶˜ì‹',550,N'ë¦¬ë¹™',NULL,49000,GETDATE(),'N',NULL)
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (9,3,3,N'Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü',2000,N'ÅäÀÌ',NULL,24000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (9,3,3,N'ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•',2000,N'í† ì´',NULL,24000,GETDATE(),'N',NULL)
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,3,4,N'¶óÀÌ¾ð&Ãá½ÄÀÌ »ì±Õ ¹«¼± ÃæÀü±â',1200,N'Æù ¿¢¼¼¼­¸®',NULL,39000,GETDATE(),'N',NULL)
-insert into dbo.KAKAO_PRODUCT_TABLE values (9,4,4,N'¶óÀÌ¾ð&Ãá½ÄÀÌ »ì±Õ ¹«¼± ÃæÀü±â',1200,N'Æù ¿¢¼¼¼­¸®',NULL,39000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,3,4,N'ë¼ì´ì–¸&ì¶˜ì‹ì´ ì‚´ê·  ë¬´ì„  ì¶©ì „ê¸°',1200,N'í° ì—‘ì„¸ì„œë¦¬',NULL,39000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (9,4,4,N'ë¼ì´ì–¸&ì¶˜ì‹ì´ ì‚´ê·  ë¬´ì„  ì¶©ì „ê¸°',1200,N'í° ì—‘ì„¸ì„œë¦¬',NULL,39000,GETDATE(),'N',NULL)
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,4,5,N'¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ',550,N'ÅäÀÌ',NULL,39000,GETDATE(),'N',NULL)
-insert into dbo.KAKAO_PRODUCT_TABLE values (9,5,5,N'¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ',550,N'ÅäÀÌ',NULL,39000,GETDATE(),'N',NULL)
-
-
-insert into dbo.KAKAO_PRODUCT_TABLE values (10,1,6,N'ÁÒ¸£µð ¹Ì´Ï°¢Æ¼½´ ÄÉÀÌ½º',5800,N'¸®ºù',NULL,19000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,4,5,N'ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´',550,N'í† ì´',NULL,39000,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (9,5,5,N'ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´',550,N'í† ì´',NULL,39000,GETDATE(),'N',NULL)
 
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,5,7,N'¸®Æ²¶óÀÌ¾ð ¹Ì´Ïº£ÀÌÄ¿',120,N'¸®ºù',NULL,39900,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (10,1,6,N'ì£ ë¥´ë”” ë¯¸ë‹ˆê°í‹°ìŠˆ ì¼€ì´ìŠ¤',5800,N'ë¦¬ë¹™',NULL,19000,GETDATE(),'N',NULL)
+
+
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,5,7,N'ë¦¬í‹€ë¼ì´ì–¸ ë¯¸ë‹ˆë² ì´ì»¤',120,N'ë¦¬ë¹™',NULL,39900,GETDATE(),'N',NULL)
 
 
 
@@ -58,42 +58,42 @@ select @@TRANCOUNT
 
 DROP TABLE dbo.KAKAO_PRODUCT_MAIN_CATEGORY
 
-/* KAKAO_PRODUCT_MAIN_CATEGORY - »óÇ°Á¤º¸ ´ëºÐ·ù */
+/* KAKAO_PRODUCT_MAIN_CATEGORY - ìƒí’ˆì •ë³´ ëŒ€ë¶„ë¥˜ */
 CREATE TABLE [dbo].[KAKAO_PRODUCT_MAIN_CATEGORY] (
-	[category_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ºÐ·ùÄÚµå - category_code */
-	[category_nm] [NVARCHAR](50) NOT NULL,  /* ºÐ·ùÀÌ¸§ - category_nm */
-	[reg_dt] [DATETIME] NOT NULL,  /* µî·Ï³¯Â¥ - reg_dt */
-	[category_rep_img_url] [NVARCHAR](100), /* ´ëºÐ·ù ´ëÇ¥ ÀÌ¹ÌÁö url - category_rep_img_url */
-	[rep_img_url]	[NVARCHAR](100) /* ´ëÇ¥ ÀÌ¹ÌÁö url - rep_img_url*/
+	[category_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ë¶„ë¥˜ì½”ë“œ - category_code */
+	[category_nm] [NVARCHAR](50) NOT NULL,  /* ë¶„ë¥˜ì´ë¦„ - category_nm */
+	[reg_dt] [DATETIME] NOT NULL,  /* ë“±ë¡ë‚ ì§œ - reg_dt */
+	[category_rep_img_url] [NVARCHAR](100), /* ëŒ€ë¶„ë¥˜ ëŒ€í‘œ ì´ë¯¸ì§€ url - category_rep_img_url */
+	[rep_img_url]	[NVARCHAR](100) /* ëŒ€í‘œ ì´ë¯¸ì§€ url - rep_img_url*/
 )
 
 ALTER TABLE dbo.KAKAO_PRODUCT_MAIN_CATEGORY ADD CONSTRAINT PK__KAKAO_PRODUCT_MAIN_CATEGORY__CATEGORY_CODE PRIMARY KEY (category_code)
 
 BEGIN TRAN
 
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ',GETDATE(),N'resources/images/product/20210724_LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ.jpg',N'resources/images/product/20210724_LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ_1.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'[¿Â¶óÀÎ Àü¿ë]³ôÀÌ Á¶Àý Å¹»ó¼±Ç³±â_¶óÀÌ¾ð&Ãá½Ä',GETDATE(),N'resources/images/product/20210724_[¿Â¶óÀÎ Àü¿ë]³ôÀÌ Á¶Àý Å¹»ó¼±Ç³±â_¶óÀÌ¾ð&Ãá½Ä.jpg',NULL)
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü',GETDATE(),N'resources/images/product/20210724_Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü.jpg',N'resources/images/product/20210724_Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü_1.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'¶óÀÌ¾ð&Ãá½ÄÀÌ »ì±Õ ¹«¼± ÃæÀü±â',GETDATE(),N'resources/images/product/20210724_¶óÀÌ¾ð&Ãá½ÄÀÌ »ì±Õ ¹«¼± ÃæÀü±â.jpg',NULL)
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ',GETDATE(),N'resources/images/product/20210724_¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ.jpg',N'resources/images/product/20210724_¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´',GETDATE(),N'resources/images/product/20210724_LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´.jpg',N'resources/images/product/20210724_LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'[ì˜¨ë¼ì¸ ì „ìš©]ë†’ì´ ì¡°ì ˆ íƒìƒì„ í’ê¸°_ë¼ì´ì–¸&ì¶˜ì‹',GETDATE(),N'resources/images/product/20210724_[ì˜¨ë¼ì¸ ì „ìš©]ë†’ì´ ì¡°ì ˆ íƒìƒì„ í’ê¸°_ë¼ì´ì–¸&ì¶˜ì‹.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•',GETDATE(),N'resources/images/product/20210724_ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•.jpg',N'resources/images/product/20210724_ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ë¼ì´ì–¸&ì¶˜ì‹ì´ ì‚´ê·  ë¬´ì„  ì¶©ì „ê¸°',GETDATE(),N'resources/images/product/20210724_ë¼ì´ì–¸&ì¶˜ì‹ì´ ì‚´ê·  ë¬´ì„  ì¶©ì „ê¸°.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´',GETDATE(),N'resources/images/product/20210724_ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´.jpg',N'resources/images/product/20210724_ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´_1.jpg')
 
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ÁÒ¸£µð ¹Ì´Ï°¢Æ¼½´ ÄÉÀÌ½º',GETDATE(),N'resources/images/product/20210724_ÁÒ¸£µð ¹Ì´Ï°¢Æ¼½´ ÄÉÀÌ½º.jpg',NULL)
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'¸®Æ²¶óÀÌ¾ð ¹Ì´Ïº£ÀÌÄ¿',GETDATE(),N'resources/images/product/20210724_¸®Æ²¶óÀÌ¾ð ¹Ì´Ïº£ÀÌÄ¿.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ì£ ë¥´ë”” ë¯¸ë‹ˆê°í‹°ìŠˆ ì¼€ì´ìŠ¤',GETDATE(),N'resources/images/product/20210724_ì£ ë¥´ë”” ë¯¸ë‹ˆê°í‹°ìŠˆ ì¼€ì´ìŠ¤.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ë¦¬í‹€ë¼ì´ì–¸ ë¯¸ë‹ˆë² ì´ì»¤',GETDATE(),N'resources/images/product/20210724_ë¦¬í‹€ë¼ì´ì–¸ ë¯¸ë‹ˆë² ì´ì»¤.jpg',NULL)
 
 SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
 
 DROP TABLE dbo.KAKAO_NEW_PRODUCT
 
 
-/* KAKAO_NEW_PRODUCT - ½Å±Ô»óÇ° */
+/* KAKAO_NEW_PRODUCT - ì‹ ê·œìƒí’ˆ */
 CREATE TABLE [dbo].[KAKAO_NEW_PRODUCT] (
-	[new_prodt_seq] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ½Å±Ô»óÇ° ÄÚµå - new_prodt_seq */
-	[dp_start_dt] [DATETIME] NOT NULL,  /* DP ½ÃÀÛ ³¯Â¥ - dp_start_dt */
-	[dp_end_dt] [DATETIME] NOT NULL,  /* DP ¸¶Áö¸· ³¯Â¥ - dp_end_dt */
-	[recommend_prodt_yn] [CHAR](1) NOT NULL,  /* ÃßÃµ»óÇ° ¿©ºÎ - recommend_prodt_yn */
-	[product_top_img_title] [NVARCHAR](25),  /* ¹è³Ê»çÁø ¼³¸í Á¦¸ñ - product_top_img_title */
-	[product_top_img_title_detail] [NVARCHAR](25),  /* ¹è³Ê»çÁø ¼³¸í ¼¼ºÎ - product_top_img_title_detail */
-	[category_code] [BIGINT] NOT NULL /* ºÐ·ùÄÚµå - category_code */
+	[new_prodt_seq] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ì‹ ê·œìƒí’ˆ ì½”ë“œ - new_prodt_seq */
+	[dp_start_dt] [DATETIME] NOT NULL,  /* DP ì‹œìž‘ ë‚ ì§œ - dp_start_dt */
+	[dp_end_dt] [DATETIME] NOT NULL,  /* DP ë§ˆì§€ë§‰ ë‚ ì§œ - dp_end_dt */
+	[recommend_prodt_yn] [CHAR](1) NOT NULL,  /* ì¶”ì²œìƒí’ˆ ì—¬ë¶€ - recommend_prodt_yn */
+	[product_top_img_title] [NVARCHAR](25),  /* ë°°ë„ˆì‚¬ì§„ ì„¤ëª… ì œëª© - product_top_img_title */
+	[product_top_img_title_detail] [NVARCHAR](25),  /* ë°°ë„ˆì‚¬ì§„ ì„¤ëª… ì„¸ë¶€ - product_top_img_title_detail */
+	[category_code] [BIGINT] NOT NULL /* ë¶„ë¥˜ì½”ë“œ - category_code */
 )
 GO
 
@@ -113,16 +113,16 @@ ALTER TABLE dbo.KAKAO_NEW_PRODUCT ADD CONSTRAINT PK__KAKAO_NEW_PRODUCT__NEW_PROD
 
 begin tran
 
-INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'Å¹»ó¿ë, º®°ÉÀÌ¿ë ¸ðµÎµÇ´Â',N'¶óÀÌ¾ð¿Í Ãá½ÄÀÌ LED ½Ã°è',1)
-INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'Ã¥»ó À§¸¦ ½Ã¿øÇÏ°Ô',N'¿Â¶óÀÎ Àü¿ë Å¹»ó¿ë ¼±Ç³±â',2)
-INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'¼ö¹Ú°ú ÇÏ³ªµÈ',N'Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ',3)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'íƒìƒìš©, ë²½ê±¸ì´ìš© ëª¨ë‘ë˜ëŠ”',N'ë¼ì´ì–¸ì™€ ì¶˜ì‹ì´ LED ì‹œê³„',1)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'ì±…ìƒ ìœ„ë¥¼ ì‹œì›í•˜ê²Œ',N'ì˜¨ë¼ì¸ ì „ìš© íƒìƒìš© ì„ í’ê¸°',2)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'ìˆ˜ë°•ê³¼ í•˜ë‚˜ëœ',N'ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´',3)
 
 
-INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'¶óÀÌ¾ð°ú Å¬¸°ÇÏ°Ô',N'»ì±Õ ¹«¼± ÃæÀü±â',4)
-INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'ÁýÄÛ¿£ Ã»¼Òµµ Áñ°Ì°Ô',N'¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ',5)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'ë¼ì´ì–¸ê³¼ í´ë¦°í•˜ê²Œ',N'ì‚´ê·  ë¬´ì„  ì¶©ì „ê¸°',4)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'ì§‘ì½•ì—” ì²­ì†Œë„ ì¦ê²ê²Œ',N'ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´',5)
 
-INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'³ª¸¸ÀÇ ÁÒ¸£µð Á¤¿ø',N'ÁÒ¸£µð Æ¼½´ ÄÉÀÌ½º',6)
-INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'¶óÀÌ¾ð°ú Áñ°Å¿î º£ÀÌÅ·',N'¸®Æ²¶óÀÌ¾ð ¹Ì´Ïº£ÀÌÄ¿',7)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'ë‚˜ë§Œì˜ ì£ ë¥´ë”” ì •ì›',N'ì£ ë¥´ë”” í‹°ìŠˆ ì¼€ì´ìŠ¤',6)
+INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','N',N'ë¼ì´ì–¸ê³¼ ì¦ê±°ìš´ ë² ì´í‚¹',N'ë¦¬í‹€ë¼ì´ì–¸ ë¯¸ë‹ˆë² ì´ì»¤',7)
 
 
 
@@ -140,21 +140,21 @@ ROLLBACK TRAN
 
 
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
 
 
 
 
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
-insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'Ãá½ÄÀÌ¿ÍÄ£±¸µé',340,N'¸®ºù',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
+insert into dbo.KAKAO_PRODUCT_TABLE values (1,1,N'ì¶˜ì‹ì´ì™€ì¹œêµ¬ë“¤',340,N'ë¦¬ë¹™',NULL,35000,GETDATE(),'N',1)
 
 
 
@@ -174,7 +174,7 @@ ROLLBACK TRAN
 	9,
 	1,
 	500,
-	N'¸®ºù',
+	N'ë¦¬ë¹™',
 	NULL,
 	49000,
 	DEFAULT,
@@ -187,9 +187,9 @@ select @@TRANCOUNT
 /* 
 	Author      : Seunghwan Shin 
 	Create date : 2021-07-25  
-	Description : ½Å±Ô»óÇ° - ¹è³Ê ÀÌ¹ÌÁö º¸¿©ÁÖ±â
+	Description : ì‹ ê·œìƒí’ˆ - ë°°ë„ˆ ì´ë¯¸ì§€ ë³´ì—¬ì£¼ê¸°
 	     
-	History	: 2021-07-25 Seunghwan Shin	#ÃÖÃÊ »ý¼º  
+	History	: 2021-07-25 Seunghwan Shin	#ìµœì´ˆ ìƒì„±  
 */
 create proc dbo.kakao_new_product_banner_images
 as 
@@ -198,10 +198,10 @@ set transaction isolation level read uncommitted
 begin
 	
 	select 
-		np.product_top_img_title as banner_img--¹è³Ê»çÁø ¼³¸í
-	,	np.product_top_img_title_detail as banner_img_detail-- ¹è³Ê»çÁø ¼³¸í ¼¼ºÎ
-	,	pmc.category_rep_img_url as category_img-- ´ëºÐ·ù ´ëÇ¥ ÀÌ¹ÌÁö
-	,	pmc.category_code as category_code--ºÐ·ùÄÚµå
+		np.product_top_img_title as banner_img--ë°°ë„ˆì‚¬ì§„ ì„¤ëª…
+	,	np.product_top_img_title_detail as banner_img_detail-- ë°°ë„ˆì‚¬ì§„ ì„¤ëª… ì„¸ë¶€
+	,	pmc.category_rep_img_url as category_img-- ëŒ€ë¶„ë¥˜ ëŒ€í‘œ ì´ë¯¸ì§€
+	,	pmc.category_code as category_code--ë¶„ë¥˜ì½”ë“œ
 	from dbo.KAKAO_NEW_PRODUCT np with(nolock)
 	inner join dbo.KAKAO_PRODUCT_MAIN_CATEGORY pmc with(nolock) on np.category_code = pmc.category_code
 	
@@ -215,12 +215,12 @@ DROP TABLE KAKAO_PRODUCT_IMG
 
 
 
-/* KAKAO_PRODUCT_IMG - »óÇ°°ü·Ã ÀÌ¹ÌÁö */
+/* KAKAO_PRODUCT_IMG - ìƒí’ˆê´€ë ¨ ì´ë¯¸ì§€ */
 CREATE TABLE [dbo].[KAKAO_PRODUCT_IMG] (
-	[img_seq] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ÀÌ¹ÌÁö °íÀ¯¹øÈ£ - img_seq */
-	[product_id] [BIGINT] NOT NULL,  /* »óÇ°°íÀ¯¹øÈ£ - product_id */
-	[char_seq] [BIGINT] NOT NULL,  /* Ä³¸¯ÅÍ ¹øÈ£ - char_seq */
-	[product_img_url] [NVARCHAR](100) NOT NULL /* ÀÌ¹ÌÁö url - product_img_url */
+	[img_seq] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ì´ë¯¸ì§€ ê³ ìœ ë²ˆí˜¸ - img_seq */
+	[product_id] [BIGINT] NOT NULL,  /* ìƒí’ˆê³ ìœ ë²ˆí˜¸ - product_id */
+	[char_seq] [BIGINT] NOT NULL,  /* ìºë¦­í„° ë²ˆí˜¸ - char_seq */
+	[product_img_url] [NVARCHAR](100) NOT NULL /* ì´ë¯¸ì§€ url - product_img_url */
 )
 GO
 
@@ -228,14 +228,14 @@ alter table dbo.KAKAO_PRODUCT_IMG add constraint PK__KAKAO_PRODUCT_IMG__IMG_SEQ 
 
 BEGIN TRAN
 
-INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (1,1,N'resources/images/product/20210724_LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ_1.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (1,9,N'resources/images/product/20210724_LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (1,1,N'resources/images/product/20210724_LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (1,9,N'resources/images/product/20210724_LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´_1.jpg')
 
-INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (3,9,N'resources/images/product/20210724_Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (3,9,N'resources/images/product/20210724_ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•_1.jpg')
 
-INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (4,1,N'resources/images/product/20210724_¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (4,1,N'resources/images/product/20210724_ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´_1.jpg')
 
-INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (5,9,N'resources/images/product/20210724_¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_IMG VALUES (5,9,N'resources/images/product/20210724_ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´_1.jpg')
 
 
 SELECT * FROM dbo.KAKAO_PRODUCT_IMG WITH(NOLOCK)
@@ -246,21 +246,21 @@ SELECT * FROM dbo.KAKAO_PRODUCT_TABLE WITH(NOLOCK)
 insert into dbo.KAKAO_PRODUCT_TABLE values (9,6,)
 
 
---resources/images/product/20210724_LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ.jpg
+--resources/images/product/20210724_LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´.jpg
 
 SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
 
 begin tran
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'°¨ÀÚÄ¨ºí·¢Æ®·¯ÇÃ',getdate(),N'resources/images/product/20210726_°¨ÀÚÄ¨ºí·¢Æ®·¯ÇÃ.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ê°ìžì¹©ë¸”ëž™íŠ¸ëŸ¬í”Œ',getdate(),N'resources/images/product/20210726_ê°ìžì¹©ë¸”ëž™íŠ¸ëŸ¬í”Œ.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'°¨ÀÚÄ¨ÇÎÅ©¼ÖÆ®',getdate(),N'resources/images/product/20210726_°¨ÀÚÄ¨ÇÎÅ©¼ÖÆ®.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ê°ìžì¹©í•‘í¬ì†”íŠ¸',getdate(),N'resources/images/product/20210726_ê°ìžì¹©í•‘í¬ì†”íŠ¸.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'Ãá½ÄÀÌ¹öÁî¶óÀÌºêÇÁ·ÎÄÉÀÌ½º',getdate(),N'resources/images/product/20210726_Ãá½ÄÀÌ¹öÁî¶óÀÌºêÇÁ·ÎÄÉÀÌ½º.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ì¶˜ì‹ì´ë²„ì¦ˆë¼ì´ë¸Œí”„ë¡œì¼€ì´ìŠ¤',getdate(),N'resources/images/product/20210726_ì¶˜ì‹ì´ë²„ì¦ˆë¼ì´ë¸Œí”„ë¡œì¼€ì´ìŠ¤.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'¶óÀÌ¾ðÃá½ÄÀÌÇÇ±Ô¾îÁÖÂ÷¹øÈ£ÆÇ',getdate(),N'resources/images/product/20210726_¶óÀÌ¾ðÃá½ÄÀÌÇÇ±Ô¾îÁÖÂ÷¹øÈ£ÆÇ.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ë¼ì´ì–¸ì¶˜ì‹ì´í”¼ê·œì–´ì£¼ì°¨ë²ˆí˜¸íŒ',getdate(),N'resources/images/product/20210726_ë¼ì´ì–¸ì¶˜ì‹ì´í”¼ê·œì–´ì£¼ì°¨ë²ˆí˜¸íŒ.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'¶óÀÌ¾ðÀºÀºÇÑ¼ö¸éµî',getdate(),N'resources/images/product/20210726_¶óÀÌ¾ðÀºÀºÇÑ¼ö¸éµî.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ë¼ì´ì–¸ì€ì€í•œìˆ˜ë©´ë“±',getdate(),N'resources/images/product/20210726_ë¼ì´ì–¸ì€ì€í•œìˆ˜ë©´ë“±.jpg')
 
 
 SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
@@ -271,15 +271,15 @@ SELECT * FROM dbo.KAKAO_PRODUCT_MAIN_CATEGORY WITH(NOLOCK)
 
 select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY with(nolock)
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'°¨ÀÚÄ¨ºí·¢Æ®·¯ÇÃ',getdate(),null,N'resources/images/product/20210726_°¨ÀÚÄ¨ºí·¢Æ®·¯ÇÃ.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ê°ìžì¹©ë¸”ëž™íŠ¸ëŸ¬í”Œ',getdate(),null,N'resources/images/product/20210726_ê°ìžì¹©ë¸”ëž™íŠ¸ëŸ¬í”Œ.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'°¨ÀÚÄ¨ÇÎÅ©¼ÖÆ®',getdate(),null,N'resources/images/product/20210726_°¨ÀÚÄ¨ÇÎÅ©¼ÖÆ®.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ê°ìžì¹©í•‘í¬ì†”íŠ¸',getdate(),null,N'resources/images/product/20210726_ê°ìžì¹©í•‘í¬ì†”íŠ¸.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'Ãá½ÄÀÌ¹öÁî¶óÀÌºêÇÁ·ÎÄÉÀÌ½º',getdate(),null,N'resources/images/product/20210726_Ãá½ÄÀÌ¹öÁî¶óÀÌºêÇÁ·ÎÄÉÀÌ½º.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ì¶˜ì‹ì´ë²„ì¦ˆë¼ì´ë¸Œí”„ë¡œì¼€ì´ìŠ¤',getdate(),null,N'resources/images/product/20210726_ì¶˜ì‹ì´ë²„ì¦ˆë¼ì´ë¸Œí”„ë¡œì¼€ì´ìŠ¤.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'¶óÀÌ¾ðÃá½ÄÀÌÇÇ±Ô¾îÁÖÂ÷¹øÈ£ÆÇ',getdate(),null,N'resources/images/product/20210726_¶óÀÌ¾ðÃá½ÄÀÌÇÇ±Ô¾îÁÖÂ÷¹øÈ£ÆÇ.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ë¼ì´ì–¸ì¶˜ì‹ì´í”¼ê·œì–´ì£¼ì°¨ë²ˆí˜¸íŒ',getdate(),null,N'resources/images/product/20210726_ë¼ì´ì–¸ì¶˜ì‹ì´í”¼ê·œì–´ì£¼ì°¨ë²ˆí˜¸íŒ.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'¶óÀÌ¾ðÀºÀºÇÑ¼ö¸éµî',getdate(),null,N'resources/images/product/20210726_¶óÀÌ¾ðÀºÀºÇÑ¼ö¸éµî.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ë¼ì´ì–¸ì€ì€í•œìˆ˜ë©´ë“±',getdate(),null,N'resources/images/product/20210726_ë¼ì´ì–¸ì€ì€í•œìˆ˜ë©´ë“±.jpg')
 
 
 KAO_NEW_PRODUCT WITH(NOLOCK)
@@ -305,38 +305,38 @@ INSERT INTO dbo.KAKAO_NEW_PRODUCT VALUES (getdate(),'2022-01-01','Y',NULL,NULL,1
 
 
 
-/* KAKAO_PRODUCT_MAIN_CATEGORY - »óÇ°Á¤º¸ ´ëºÐ·ù */
+/* KAKAO_PRODUCT_MAIN_CATEGORY - ìƒí’ˆì •ë³´ ëŒ€ë¶„ë¥˜ */
 CREATE TABLE [dbo].[KAKAO_PRODUCT_MAIN_CATEGORY] (
-	[category_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ºÐ·ùÄÚµå - category_code */
-	[category_nm] [NVARCHAR](50) NOT NULL,  /* ºÐ·ùÀÌ¸§ - category_nm */
-	[reg_dt] [DATETIME] NOT NULL,  /* µî·Ï³¯Â¥ - reg_dt */
-	[category_rep_img_url] [NVARCHAR](100), /* ´ëºÐ·ù ´ëÇ¥ ÀÌ¹ÌÁö url - category_rep_img_url */
-	[rep_img_url]	[NVARCHAR](100) /* ´ëÇ¥ ÀÌ¹ÌÁö url - rep_img_url*/
+	[category_code] [BIGINT] IDENTITY(1,1) NOT NULL,  /* ë¶„ë¥˜ì½”ë“œ - category_code */
+	[category_nm] [NVARCHAR](50) NOT NULL,  /* ë¶„ë¥˜ì´ë¦„ - category_nm */
+	[reg_dt] [DATETIME] NOT NULL,  /* ë“±ë¡ë‚ ì§œ - reg_dt */
+	[category_rep_img_url] [NVARCHAR](100), /* ëŒ€ë¶„ë¥˜ ëŒ€í‘œ ì´ë¯¸ì§€ url - category_rep_img_url */
+	[rep_img_url]	[NVARCHAR](100) /* ëŒ€í‘œ ì´ë¯¸ì§€ url - rep_img_url*/
 )
 
 ALTER TABLE dbo.KAKAO_PRODUCT_MAIN_CATEGORY ADD CONSTRAINT PK__KAKAO_PRODUCT_MAIN_CATEGORY__CATEGORY_CODE PRIMARY KEY (category_code)
 
 BEGIN TRAN
 
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ',GETDATE(),N'resources/images/product/20210724_LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ.jpg',N'resources/images/product/20210724_LED ½Ã°è_¶óÀÌ¾ð&Ãá½ÄÀÌ_1.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'[¿Â¶óÀÎ Àü¿ë]³ôÀÌ Á¶Àý Å¹»ó¼±Ç³±â_¶óÀÌ¾ð&Ãá½Ä',GETDATE(),N'resources/images/product/20210724_[¿Â¶óÀÎ Àü¿ë]³ôÀÌ Á¶Àý Å¹»ó¼±Ç³±â_¶óÀÌ¾ð&Ãá½Ä.jpg',NULL)
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü',GETDATE(),N'resources/images/product/20210724_Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü.jpg',N'resources/images/product/20210724_Ãá½ÄÀÌ´Â ¼ö¹ÚÀ» ÁÁ¾ÆÇØ ÀÎÇü_1.jpg')
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'¶óÀÌ¾ð&Ãá½ÄÀÌ »ì±Õ ¹«¼± ÃæÀü±â',GETDATE(),N'resources/images/product/20210724_¶óÀÌ¾ð&Ãá½ÄÀÌ »ì±Õ ¹«¼± ÃæÀü±â.jpg',NULL)
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ',GETDATE(),N'resources/images/product/20210724_¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ.jpg',N'resources/images/product/20210724_¶óÀÌ¾ð°ú Ãá½ÄÀÌÀÇ ÁýÄÛ³îÀÌ_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´',GETDATE(),N'resources/images/product/20210724_LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´.jpg',N'resources/images/product/20210724_LED ì‹œê³„_ë¼ì´ì–¸&ì¶˜ì‹ì´_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'[ì˜¨ë¼ì¸ ì „ìš©]ë†’ì´ ì¡°ì ˆ íƒìƒì„ í’ê¸°_ë¼ì´ì–¸&ì¶˜ì‹',GETDATE(),N'resources/images/product/20210724_[ì˜¨ë¼ì¸ ì „ìš©]ë†’ì´ ì¡°ì ˆ íƒìƒì„ í’ê¸°_ë¼ì´ì–¸&ì¶˜ì‹.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•',GETDATE(),N'resources/images/product/20210724_ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•.jpg',N'resources/images/product/20210724_ì¶˜ì‹ì´ëŠ” ìˆ˜ë°•ì„ ì¢‹ì•„í•´ ì¸í˜•_1.jpg')
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ë¼ì´ì–¸&ì¶˜ì‹ì´ ì‚´ê·  ë¬´ì„  ì¶©ì „ê¸°',GETDATE(),N'resources/images/product/20210724_ë¼ì´ì–¸&ì¶˜ì‹ì´ ì‚´ê·  ë¬´ì„  ì¶©ì „ê¸°.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´',GETDATE(),N'resources/images/product/20210724_ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´.jpg',N'resources/images/product/20210724_ë¼ì´ì–¸ê³¼ ì¶˜ì‹ì´ì˜ ì§‘ì½•ë†€ì´_1.jpg')
 
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ÁÒ¸£µð ¹Ì´Ï°¢Æ¼½´ ÄÉÀÌ½º',GETDATE(),N'resources/images/product/20210724_ÁÒ¸£µð ¹Ì´Ï°¢Æ¼½´ ÄÉÀÌ½º.jpg',NULL)
-INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'¸®Æ²¶óÀÌ¾ð ¹Ì´Ïº£ÀÌÄ¿',GETDATE(),N'resources/images/product/20210724_¸®Æ²¶óÀÌ¾ð ¹Ì´Ïº£ÀÌÄ¿.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ì£ ë¥´ë”” ë¯¸ë‹ˆê°í‹°ìŠˆ ì¼€ì´ìŠ¤',GETDATE(),N'resources/images/product/20210724_ì£ ë¥´ë”” ë¯¸ë‹ˆê°í‹°ìŠˆ ì¼€ì´ìŠ¤.jpg',NULL)
+INSERT INTO dbo.KAKAO_PRODUCT_MAIN_CATEGORY VALUES (N'ë¦¬í‹€ë¼ì´ì–¸ ë¯¸ë‹ˆë² ì´ì»¤',GETDATE(),N'resources/images/product/20210724_ë¦¬í‹€ë¼ì´ì–¸ ë¯¸ë‹ˆë² ì´ì»¤.jpg',NULL)
 
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'°¨ÀÚÄ¨ºí·¢Æ®·¯ÇÃ',getdate(),null,N'resources/images/product/20210726_°¨ÀÚÄ¨ºí·¢Æ®·¯ÇÃ.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ê°ìžì¹©ë¸”ëž™íŠ¸ëŸ¬í”Œ',getdate(),null,N'resources/images/product/20210726_ê°ìžì¹©ë¸”ëž™íŠ¸ëŸ¬í”Œ.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'°¨ÀÚÄ¨ÇÎÅ©¼ÖÆ®',getdate(),null,N'resources/images/product/20210726_°¨ÀÚÄ¨ÇÎÅ©¼ÖÆ®.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ê°ìžì¹©í•‘í¬ì†”íŠ¸',getdate(),null,N'resources/images/product/20210726_ê°ìžì¹©í•‘í¬ì†”íŠ¸.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'Ãá½ÄÀÌ¹öÁî¶óÀÌºêÇÁ·ÎÄÉÀÌ½º',getdate(),null,N'resources/images/product/20210726_Ãá½ÄÀÌ¹öÁî¶óÀÌºêÇÁ·ÎÄÉÀÌ½º.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ì¶˜ì‹ì´ë²„ì¦ˆë¼ì´ë¸Œí”„ë¡œì¼€ì´ìŠ¤',getdate(),null,N'resources/images/product/20210726_ì¶˜ì‹ì´ë²„ì¦ˆë¼ì´ë¸Œí”„ë¡œì¼€ì´ìŠ¤.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'¶óÀÌ¾ðÃá½ÄÀÌÇÇ±Ô¾îÁÖÂ÷¹øÈ£ÆÇ',getdate(),null,N'resources/images/product/20210726_¶óÀÌ¾ðÃá½ÄÀÌÇÇ±Ô¾îÁÖÂ÷¹øÈ£ÆÇ.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ë¼ì´ì–¸ì¶˜ì‹ì´í”¼ê·œì–´ì£¼ì°¨ë²ˆí˜¸íŒ',getdate(),null,N'resources/images/product/20210726_ë¼ì´ì–¸ì¶˜ì‹ì´í”¼ê·œì–´ì£¼ì°¨ë²ˆí˜¸íŒ.jpg')
 
-insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'¶óÀÌ¾ðÀºÀºÇÑ¼ö¸éµî',getdate(),null,N'resources/images/product/20210726_¶óÀÌ¾ðÀºÀºÇÑ¼ö¸éµî.jpg')
+insert into dbo.KAKAO_PRODUCT_MAIN_CATEGORY values (N'ë¼ì´ì–¸ì€ì€í•œìˆ˜ë©´ë“±',getdate(),null,N'resources/images/product/20210726_ë¼ì´ì–¸ì€ì€í•œìˆ˜ë©´ë“±.jpg')
 
 
 select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY with(nolock)
@@ -353,6 +353,6 @@ select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
 
 
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'Ä«Ä«¿ÀÇÁ·»Áî °¨ÀÚÄ¨_È÷¸»¶ó¾ßÇÎÅ©¼ÖÆ®',550,N'½ÄÇ°',NULL,19800,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'ì¹´ì¹´ì˜¤í”„ë Œì¦ˆ ê°ìžì¹©_ížˆë§ë¼ì•¼í•‘í¬ì†”íŠ¸',550,N'ì‹í’ˆ',NULL,19800,GETDATE(),'N',NULL)
 
-insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'Ä«Ä«¿ÀÇÁ·»Áî °¨ÀÚÄ¨_È÷¸»¶ó¾ßÇÎÅ©¼ÖÆ®',550,N'½ÄÇ°',NULL,19800,GETDATE(),'N',NULL)
+insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'ì¹´ì¹´ì˜¤í”„ë Œì¦ˆ ê°ìžì¹©_ížˆë§ë¼ì•¼í•‘í¬ì†”íŠ¸',550,N'ì‹í’ˆ',NULL,19800,GETDATE(),'N',NULL)
