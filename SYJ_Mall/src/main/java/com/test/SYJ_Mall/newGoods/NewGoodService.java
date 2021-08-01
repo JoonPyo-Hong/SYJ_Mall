@@ -29,7 +29,6 @@ public class NewGoodService implements INewGoodService{
 			dtoList = dao.bringNewTopImg();
 			
 			request.setAttribute("dtoList", dtoList);
-			//request.setAttribute("newBannerProductCount", dtoList.size());//신규기획 배너에 들어갈 갯수
 			
 			return 1;
 		}

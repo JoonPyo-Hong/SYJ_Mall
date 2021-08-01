@@ -15,7 +15,7 @@ body {
 		<div class="swiper-wrapper">
 			
 			<c:forEach var="dto" items="${dtoList}">
-				<div class="swiper-slide" id="${dto.product_code}">
+				<div class="swiper-slide" id="${dto.promotion_code}">
 					<img src= "${dto.promotion_img}" alt=""> 
 					<div class = "imginnertoptextfirst">
 						${dto.banner_img_title}
@@ -173,7 +173,7 @@ body {
   
   	//클릭했을때 상품 설명 페이지로 이동해 줄것이다.
   	$(".swiper-slide").click(function(){
-		alert($(this));//정상적으로 작동함  
+		alert($(this).attr('id'));//정상적으로 작동함  
   	});
   
   
