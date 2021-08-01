@@ -24,4 +24,6 @@ public interface MainService {
 
 	void feed_heart_update(HashMap<String, String> map);
 
+	void re_feed_insert(Map<String, Object> map);
+
 }

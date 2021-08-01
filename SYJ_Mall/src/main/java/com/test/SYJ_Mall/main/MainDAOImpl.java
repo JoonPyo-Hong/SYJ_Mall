@@ -78,4 +78,10 @@ public class MainDAOImpl implements MainDAO {
 
 	}
 
+	@Override
+	public void re_feed_insert(Map<String, Object> map) {
+		session.insert("main.re_feed_insert", map);
+		
+	}
+
 }

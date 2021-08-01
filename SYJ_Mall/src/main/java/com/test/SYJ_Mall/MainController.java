@@ -194,4 +194,12 @@ public class MainController {
 		service.feed_heart_update(map);
 		
 	}
+	
+	// 대댓글 (Insert)
+	@RequestMapping(value = "/re_feed_insert.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void re_feed_insert(@RequestParam Map<String, Object> map) {
+
+		service.re_feed_insert(map);
+	}
 }

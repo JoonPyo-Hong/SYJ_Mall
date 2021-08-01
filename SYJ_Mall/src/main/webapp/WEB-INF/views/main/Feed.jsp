@@ -557,7 +557,7 @@ body.s_no-scroll {
 }
 
 /* feed textarea */
-.feed_content div:nth-child(2) {
+.feed_content_div2 {
 	padding: 15px;
 	border-radius: 0px 24px 24px;
 	background-color: rgb(240, 241, 244);
@@ -650,6 +650,10 @@ body.s_no-scroll {
 
 .comment2 {
 	margin-left: 50px;
+}
+
+.btn_re_feed {
+	
 }
 
 @media all and (max-width:812px) {
@@ -852,7 +856,6 @@ body.s_no-scroll {
 		display: none;
 		font-size: 24px;
 	}
-
 }
 </style>
 <meta name="viewport"
@@ -997,6 +1000,43 @@ body.s_no-scroll {
 		heart(l_seq);
 		feed_select();
 
+		$(document).on("click", ".feed_img_class", function() {
+			/* alert($(this).parent().parent().attr('class')); */
+			var r_seq = $(this).prev().attr('class');
+			var txt = $(this).prev().val();
+		
+			if ($(this).parent().parent(".re_feed_update").css("display") == "none") {
+				$(this).parent().parent(".re_feed_update").show();
+				
+			} else {
+				if (m_seq == 0) {
+					openModal("modal1");
+					return;
+				}
+				
+				$.ajax({
+					url : "re_feed_insert.action",
+					type : 'post',
+					data : {
+						re_feed_seq : r_seq,
+						member_seq : m_seq,
+						text : txt,
+						name : hid_name
+					},
+					success : function(data) {
+
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+				
+				$(this).parent().parent(".re_feed_update").hide();
+				
+			}
+
+		});
+
 		$(document).on("click", ".delete_search", function() {
 			/* var test = $(this).parent().parent().parent().closest("div").attr('class'); */
 
@@ -1005,10 +1045,9 @@ body.s_no-scroll {
 			/* 		alert(myDiv);
 					var parent = myDiv.parentNode; // 부모 객체 알아내기 
 					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기 */
-		
+
 			$(this).parent().parent().parent().hide();
 			$(this).style.display = 'block';
-
 
 		});
 
@@ -1023,20 +1062,15 @@ body.s_no-scroll {
 									+ "<span class='feed_like'> 좋아요</span>"
 									+ "</span>" + "</div>" + "</div>");
 		}
-		$(document)
-				.on(
-						"click",
-						".feed_content div:nth-child(3) span:nth-child(3)",
-						function() {
+		$(document).on("click", ".btn_re_feed", function() {
 
-							if ($(this).children(".re_feed_update").css("display") == "none") {
-								$(this).children(".re_feed_update").show();
-							}else{
-								$(this).children(".re_feed_update").hide();
-							}
-							
-									
-						});
+			if ($(this).siblings(".re_feed_update").css("display") == "none") {
+				$(this).siblings(".re_feed_update").show();
+			} else {
+				$(this).siblings(".re_feed_update").hide();
+			}
+
+		});
 
 		$(document)
 				.on(
@@ -1225,7 +1259,7 @@ body.s_no-scroll {
 																		+ "<div>"
 																		+ value.reg_id
 																		+ "</div>"
-																		+ "<div><span>"
+																		+ "<div class='feed_content_div2'><span>"
 																		+ value.feed
 																		+ "</span></div>"
 																		+ "<div><span>"
@@ -1235,14 +1269,14 @@ body.s_no-scroll {
 																		+ "<span class='feed_like'"
 																		+ feed_heart_red
 																		+ feed_heart_txt
-																		+ " </span></span><span>답글달기"
+																		+ " </span></span><span><span class='btn_re_feed'>답글달기</span>"
 																		+ "<div class='re_feed_update'style='display:none;'> "
 																		+ "<div class='comment comment2' >"
 																		+ "<span class='spn_re_img'>"
 																		+ "<img src='resources/images/main/delete-search.png'class='delete_search'>"
 																		+ "</span>"
-																		+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
-																		+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
+																		+ "<textarea id='feed_txt' class='"+ value.seq  +"' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
+																		+ "<img  src='resources/images/main/reply-off.png' id='feed_img' class ='feed_img_class'>"
 																		+ "</div>"
 																		+ "</div>"
 																		+ "</span></div></div>");

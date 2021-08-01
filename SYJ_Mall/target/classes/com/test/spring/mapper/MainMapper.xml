@@ -64,4 +64,8 @@
 		delete dbo.feed_heart
 		where feed_seq = #{feed_seq} and member_seq = #{member_seq}
 	</delete>
+	<insert id="re_feed_insert" parameterType="java.util.HashMap">
+		insert into
+		dbo.re_feed(member_seq,feed_seq,re_feed,reg_id)values(#{member_seq},#{re_feed_seq},#{text},#{name})
+	</insert>
 </mapper>
