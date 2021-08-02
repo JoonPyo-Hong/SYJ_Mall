@@ -468,13 +468,10 @@ public class LoginService implements ILoginService {
 	
 	//로그인 - 유저가 임시비밀번호 발급받아서 새 비밀번호 지정이 필요함
 	@Override
-	public int userRedefinedPw(HttpServletRequest request, int userSeq, String id, String ip) {
+	public int userRedefinedPw(HttpServletRequest request, int userSeq, String ip) {
 		
 		HttpSession userSession = request.getSession();
 		userSession.setAttribute("userSeq", userSeq);//유저 고유번호를 세션에 넘겨준다.
-		//userSession.setAttribute("userId", id);//유저 아이디를 세션에 넘겨준다.
-		//userSession.setAttribute("userIp", ip);//유저 아이피 주소를 세션에 넘겨준다.
-		
 		
 		try {
 			int val = setRSAkey(request);
@@ -505,12 +502,9 @@ public class LoginService implements ILoginService {
 		
 		HttpSession userSession = request.getSession();
 		int userSeq = (Integer)userSession.getAttribute("userSeq");
-		//String userId = (String)userSession.getAttribute("userId");
-		String userIp = (String)userSession.getAttribute("userIp");
+		//String userIp = (String)userSession.getAttribute("userIp");
 		
-		//userSession.removeAttribute("userSeq");//세션 값 제거 - 유저 고유번호
-		//userSession.removeAttribute("userId");//세션 값 제거 - 유저 아이디
-		//userSession.removeAttribute("userIp");//세션 값 제거 - 유저 아이피 주소
+
 		userSession.invalidate();//세션값 자체를 제거
 		
 		//이제 여기서 유저의 임시비밀번호 기록을 지워야함. 그리고 비밀번호도 바꿔줘야함 and 로그인 시간 로그테이블에 기록
@@ -519,11 +513,6 @@ public class LoginService implements ILoginService {
 		//이제 여기서 유저의 임시비밀번호 기록을 지워야함. 그리고 비밀번호도 바꿔줘야함
 		int result = dao.modifyUserPwRealNew(userSeq,userPw);
 		
-//		if (result == 1) {
-//			//로그인 인증티켓 발급
-//			loginSuccess(request,userSeq);
-//		}
-
 		
 		return result;
 	}

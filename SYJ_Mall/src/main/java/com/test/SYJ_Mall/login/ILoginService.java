@@ -169,11 +169,10 @@ public interface ILoginService {
 	 * 로그인 - 유저가 임시비밀번호 발급받아서 비밀번호 변경해야함
 	 * @param request	request 객체
 	 * @param userSeq	유저 고유번호
-	 * @param id		유저 아이디
 	 * @param ip		유저 아이피 주소
 	 * @return			1: 성공, -1: 실패
 	 */
-	int userRedefinedPw(HttpServletRequest request, int userSeq, String id, String ip);
+	int userRedefinedPw(HttpServletRequest request, int userSeq, String ip);
 	
 	
 	

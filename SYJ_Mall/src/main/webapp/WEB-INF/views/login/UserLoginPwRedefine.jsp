@@ -13,13 +13,67 @@
 <title>Insert title here</title>
 <link rel="icon" href="resources/images/main/kakao_ryan.ico">
 <link rel = "stylesheet" href = "resources/css/userlogin/userLoginPwRedefined.css">
+<style>
+
+    /* 모달창 */
+    #myModal > .modal-dialog {
+        width: 350px;
+        height : 200px;
+        margin-top: 300px;
+    }
+    #myModal > .modal-dialog > .modal-content {
+        height : 200px;
+    }
+    #modalcontent {
+        margin-top: 40px;
+        font-family: 'NEXON Lv1 Gothic OTF';
+        color : #7C7C7C;
+        text-align: center;
+    }
+    #mfooter {
+        border: 0px; 
+        padding: 0px;
+        text-align:center
+    }
+    #mfooter_check {
+        border:0px;
+        width: 320px;
+        height: 45px;
+        background-color: #FEE500;
+        font-family: 'NEXON Lv1 Gothic OTF';
+        color: black;
+        border-radius: 5px;
+        outline: none;
+    }
+    #mfooter_check:hover{
+        background-color: #F0D700;
+    }
+
+</style>
+
 </head>
 <body>
 	<!-- type="hidden" -->
 	<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}" />
     <input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />	
 
-
+	<!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-body" id = "modalcontent">
+	          <p>비밀번호를 확인해주세요!</p>
+	        </div>
+	        <div class="modal-footer" id = "mfooter">
+	          <button type="button" id = "mfooter_check" class="btn btn-default" data-dismiss="modal">확인</button>
+	        </div>
+	      </div> 
+	    </div>
+	  </div>
+	
+	
+	
     <div id = kakaopic style = "background-image: url('resources/images/kakao.svg');"></div>
 
     <div id = "findtitle">
@@ -192,7 +246,8 @@
         	
         	if ((pwCheckFlag == true) && (pwFlag == true))
         		packetLogin();
-        	else alert("확인요망");//여기 모달창으로 바꿔야함
+        	else $("#myModal").modal();
+        	//else alert("확인요망");//여기 모달창으로 바꿔야함
         })
         
         
