@@ -178,5 +178,18 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.firstLoginCheck",map);
 	}
+
+	
+	//고객의 새로운 비밀번호 지정
+	@Override
+	public int modifyUserPwRealNew(int userSeq, String userPw) {
+		// TODO Auto-generated method stub
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userSeq", ""+userSeq);
+		map.put("userPw", userPw);
+		
+		
+		return template.selectOne("SYJDB.modifyUserPwReturnNew",map);
+	}
 }
 

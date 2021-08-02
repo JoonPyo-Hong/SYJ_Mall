@@ -125,6 +125,15 @@ public interface ILoginDAO {
 	 */
 	int firstLoginCheck(String ip, String id, String pw);
 
+	
+	/**
+	 * 고객의 비밀번호 재지정 + 임시비밀번호 정보 변경
+	 * @param userSeq	고객의 고유변호
+	 * @param userPw	고객의 비밀번호
+	 * @return
+	 */
+	int modifyUserPwRealNew(int userSeq, String userPw);
+
 
 
 
