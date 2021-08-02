@@ -606,3 +606,73 @@ inner join dbo.KAKAO_CHAR_PRODUCT kcp with(nolock) on kcp.product_id = kpt.produ
 left join dbo.KAKAO_USER_SHOPPING_CART ksc with(nolock) on ksc.product_id = kpt.product_id
 left join dbo.QOO10_USER_REAL q with(nolock) on q.qoouser_seq = ksc.qoouser_seq
 where kcp.char_seq = 9 and kpi.rep_img_yn = 'Y'
+
+
+
+
+Text
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-07-07   
+	Description : 고객의 임시비밀번호를 고객이 지정한 비밀번호로 변경
+	     
+	History	: 2021-07-07 Seunghwan Shin	#최초 생성 
+*/
+CREATE proc dbo.kakao_user_pw_redefined_return
+	@user_seq bigint -- 유저의 고유번호
+,	@user_pw varchar(800) --유저가 지정한 비밀번호	
+,	@user_id varchar(100) --유저의 아이디
+,	@user_ip_address varchar(200) --유저의 아이피 주소
+,	@result int output
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+
+	begin try
+		
+		begin tran
+			update dbo.QOO10_USER_REAL 
+			set qoouser_pw = @user_pw
+			,	qoouser_instance_pw_grant = 'N'
+			where qoouser_seq = @user_seq
+
+									
+			-- 로그인 성공시간 기록 남기기
+			insert into dbo.QOO10USERLOG
+			(
+				log_user_seq
+			,	log_user_id
+			,	log_dt
+			,	ip_address
+			)
+			values
+			(
+				@user_seq
+			,	@user_id
+			,	default
+			,	@user_ip_address
+			)
+
+			--마지막 로그인에 대한 시간, 마지막 접속 아이피 주소 남기기
+			update dbo.QOO10_USER_REAL set 
+				qoouser_lastlogin_datetime = getdate()
+			,	qoouser_lastlogin_ipaddress = @user_ip_address
+			where qoouser_seq = @user_seq 
+
+
+			set @result = 1;
+		commit tran
+
+	end try
+	begin catch
+		set @result = -1;
+		rollback tran
+
+	end catch
+end
+
+
+완료 시간: 2021-08-02T23:36:28.6398285+09:00

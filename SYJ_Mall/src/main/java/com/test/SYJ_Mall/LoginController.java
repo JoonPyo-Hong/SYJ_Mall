@@ -411,7 +411,7 @@ public class LoginController {
 		int result = logService.remodiftUserPw(request);
 		
 		if(result == 1) {
-			return "redirect:/main.action";//메인페이지로 보내준다.
+			return "redirect:/login.action";//메인페이지로 보내준다.
 		} else {
 			return "/testwaiting/kakaoerror";
 		}

@@ -189,7 +189,10 @@
         
         //1. 비밀번호 변경 버튼을 직접 누른경우
         $("#submit_info").click(function(){
-        	packetLogin();
+        	
+        	if ((pwCheckFlag == true) && (pwFlag == true))
+        		packetLogin();
+        	else alert("확인요망");//여기 모달창으로 바꿔야함
         })
         
         
@@ -198,7 +201,7 @@
         	
       	    var password = document.getElementById("newpw2").value;//유저가 작성한 비밀번호
 			
-      	  	console.log(password);
+      	  	//console.log(password);
       	    
       	    
       	    try {
