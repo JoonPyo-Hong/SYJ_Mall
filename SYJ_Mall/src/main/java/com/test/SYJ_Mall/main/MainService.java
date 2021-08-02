@@ -26,4 +26,6 @@ public interface MainService {
 
 	void re_feed_insert(Map<String, Object> map);
 
+	Object re_feed_select(String feed_seq);
+
 }

@@ -9,6 +9,24 @@ public class FeedDTO {
 	private String feed;
 	private String reg_id;
 	private String reg_dt;
+	private int feed_seq;
+	private String re_feed;
+
+	public int getFeed_seq() {
+		return feed_seq;
+	}
+
+	public void setFeed_seq(int feed_seq) {
+		this.feed_seq = feed_seq;
+	}
+
+	public String getRe_feed() {
+		return re_feed;
+	}
+
+	public void setRe_feed(String re_feed) {
+		this.re_feed = re_feed;
+	}
 
 	public int getSeq() {
 		return seq;

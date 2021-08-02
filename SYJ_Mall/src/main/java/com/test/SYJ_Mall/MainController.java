@@ -202,4 +202,11 @@ public class MainController {
 
 		service.re_feed_insert(map);
 	}
+	// 대댓글 (Select)
+	@RequestMapping(value = "/re_feed_select.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object re_feed_select(@RequestParam("feed_seq") String feed_seq) {
+
+		return service.re_feed_select(feed_seq);
+	}
 }

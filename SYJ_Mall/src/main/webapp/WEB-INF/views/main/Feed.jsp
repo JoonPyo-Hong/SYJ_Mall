@@ -551,7 +551,7 @@ body.s_no-scroll {
 	padding-top: 8px;
 }
 
-.feed_content div:nth-child(1) {
+.feed_id {
 	font-size: 14px;
 	font-weight: bold;
 }
@@ -857,6 +857,13 @@ body.s_no-scroll {
 		font-size: 24px;
 	}
 }
+
+.feed_content_div3 {
+	font-size: 13px;
+	font-weight: normal;
+	color: rgb(154, 154, 158);
+	max-height: 80px;
+}
 </style>
 <meta name="viewport"
 	content="user-scalable=no,
@@ -1000,42 +1007,46 @@ body.s_no-scroll {
 		heart(l_seq);
 		feed_select();
 
-		$(document).on("click", ".feed_img_class", function() {
-			/* alert($(this).parent().parent().attr('class')); */
-			var r_seq = $(this).prev().attr('class');
-			var txt = $(this).prev().val();
-		
-			if ($(this).parent().parent(".re_feed_update").css("display") == "none") {
-				$(this).parent().parent(".re_feed_update").show();
-				
-			} else {
-				if (m_seq == 0) {
-					openModal("modal1");
-					return;
-				}
-				
-				$.ajax({
-					url : "re_feed_insert.action",
-					type : 'post',
-					data : {
-						re_feed_seq : r_seq,
-						member_seq : m_seq,
-						text : txt,
-						name : hid_name
-					},
-					success : function(data) {
+		$(document).on(
+				"click",
+				".feed_img_class",
+				function() {
+					/* alert($(this).parent().parent().attr('class')); */
+					var r_seq = $(this).prev().attr('class');
+					var txt = $(this).prev().val();
 
-					},
-					error : function() {
-						alert("에러");
+					if ($(this).parent().parent(".re_feed_update").css(
+							"display") == "none") {
+						$(this).parent().parent(".re_feed_update").show();
+
+					} else {
+						if (m_seq == 0) {
+							openModal("modal1");
+							return;
+						}
+
+						$.ajax({
+							url : "re_feed_insert.action",
+							type : 'post',
+							data : {
+								re_feed_seq : r_seq,
+								member_seq : m_seq,
+								text : txt,
+								name : hid_name
+							},
+							success : function(data) {
+
+							},
+							error : function() {
+								alert("에러");
+							}
+						});
+
+						$(this).parent().parent(".re_feed_update").hide();
+
 					}
-				});
-				
-				$(this).parent().parent(".re_feed_update").hide();
-				
-			}
 
-		});
+				});
 
 		$(document).on("click", ".delete_search", function() {
 			/* var test = $(this).parent().parent().parent().closest("div").attr('class'); */
@@ -1052,15 +1063,46 @@ body.s_no-scroll {
 		});
 
 		function re_feed(seq) {
-			$("#feed_content_" + seq)
-					.append(
-							"<div class='feed_content feed_content2'>"
-									+ "<div><span> 테스트</span></div>"
-									+ "<div><span>5일전 </span>"
-									+ "<span class='feed_heart'>"
-									+ "<span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
-									+ "<span class='feed_like'> 좋아요</span>"
-									+ "</span>" + "</div>" + "</div>");
+
+			$
+					.ajax({
+						url : "re_feed_select.action",
+						type : 'post',
+						data : {
+							feed_seq : seq
+						},
+						success : function(data) {
+							if (data != "") {
+
+								$
+										.each(
+												data,
+												function(index, value) {
+													$("#feed_content_" + seq)
+															.append(
+																	"<div class='feed_content feed_content2'>"
+																			+ "<div class='feed_content_div2'><span> "
+																			+ value.re_feed
+																			+ "</span></div>"
+																			+ "<div class= 'feed_content_div3'><span>"
+																			+ value.reg_dt
+																			+ " </span>"
+																			+ "<span class='feed_heart'>"
+																			+ "<span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
+																			+ "<span class='feed_like'> 좋아요</span>"
+																			+ "</span>"
+																			+ "</div>"
+																			+ "</div>");
+												});
+
+							}
+
+						},
+						error : function() {
+							alert("에러");
+						}
+					});
+
 		}
 		$(document).on("click", ".btn_re_feed", function() {
 
@@ -1256,7 +1298,7 @@ body.s_no-scroll {
 												$("#feed_content_div")
 														.append(
 																"<div class='feed_content' id ='feed_content_"+value.seq+"'>"
-																		+ "<div>"
+																		+ "<div class='feed_id'>"
 																		+ value.reg_id
 																		+ "</div>"
 																		+ "<div class='feed_content_div2'><span>"
@@ -1280,13 +1322,14 @@ body.s_no-scroll {
 																		+ "</div>"
 																		+ "</div>"
 																		+ "</span></div></div>");
+												//test
+												re_feed(value.seq);
 
 											});
 							if (scroll != 0) {
 								$(window).scrollTop(scroll);
 							}
-							//test
-							re_feed("27");
+
 						},
 						error : function() {
 							alert("에러");

@@ -68,4 +68,9 @@
 		insert into
 		dbo.re_feed(member_seq,feed_seq,re_feed,reg_id)values(#{member_seq},#{re_feed_seq},#{text},#{name})
 	</insert>
+		<select id="re_feed_select"
+		resultType="com.test.SYJ_Mall.main.FeedDTO"
+		parameterType="java.util.HashMap">
+		select * from dbo.re_feed where feed_seq = #{feed_seq} order by seq desc
+	</select>
 </mapper>

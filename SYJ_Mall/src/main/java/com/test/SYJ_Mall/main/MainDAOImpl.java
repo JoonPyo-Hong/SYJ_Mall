@@ -84,4 +84,10 @@ public class MainDAOImpl implements MainDAO {
 		
 	}
 
+	@Override
+	public Object re_feed_select(String feed_seq) {
+		return session.selectList("main.re_feed_select", feed_seq);
+		
+	}
+
 }

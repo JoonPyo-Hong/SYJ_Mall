@@ -71,4 +71,11 @@ public class MainServiceImpl implements MainService {
 		
 	}
 
+	@Override
+	public Object re_feed_select(String feed_seq) {
+		
+		return dao.re_feed_select(feed_seq);
+		
+	}
+
 }
