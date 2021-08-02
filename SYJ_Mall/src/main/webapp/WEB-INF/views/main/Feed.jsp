@@ -1035,7 +1035,7 @@ body.s_no-scroll {
 								name : hid_name
 							},
 							success : function(data) {
-
+								re_feed(r_seq);
 							},
 							error : function() {
 								alert("에러");
@@ -1043,7 +1043,7 @@ body.s_no-scroll {
 						});
 
 						$(this).parent().parent(".re_feed_update").hide();
-
+						
 					}
 
 				});
@@ -1056,9 +1056,9 @@ body.s_no-scroll {
 			/* 		alert(myDiv);
 					var parent = myDiv.parentNode; // 부모 객체 알아내기 
 					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기 */
-
+			$('#feed_txt').val('');
 			$(this).parent().parent().parent().hide();
-			$(this).style.display = 'block';
+	
 
 		});
 
@@ -1073,11 +1073,12 @@ body.s_no-scroll {
 						},
 						success : function(data) {
 							if (data != "") {
-
+								$("#feed_content_" + seq).empty();
 								$
 										.each(
 												data,
 												function(index, value) {
+													
 													$("#feed_content_" + seq)
 															.append(
 																	"<div class='feed_content feed_content2'>"
@@ -1297,7 +1298,7 @@ body.s_no-scroll {
 												}
 												$("#feed_content_div")
 														.append(
-																"<div class='feed_content' id ='feed_content_"+value.seq+"'>"
+																"<div class='feed_content' >"
 																		+ "<div class='feed_id'>"
 																		+ value.reg_id
 																		+ "</div>"
@@ -1321,7 +1322,7 @@ body.s_no-scroll {
 																		+ "<img  src='resources/images/main/reply-off.png' id='feed_img' class ='feed_img_class'>"
 																		+ "</div>"
 																		+ "</div>"
-																		+ "</span></div></div>");
+																		+ "</span></div><span id ='feed_content_"+value.seq+"'></span></div>");
 												//test
 												re_feed(value.seq);
 
@@ -1354,6 +1355,7 @@ body.s_no-scroll {
 				return;
 			}
 			feed_insert();
+			$('#feed_txt').val('');
 		});
 		function feed_insert() {
 			var feed_txt = $('#feed_txt').val().replace(/(?:\r\n|\r|\n)/g,
