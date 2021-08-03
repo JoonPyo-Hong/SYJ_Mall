@@ -939,7 +939,7 @@ body.s_no-scroll {
 					<div class='comment'>
 						<textarea id="feed_txt" wrap="hard"
 							placeholder="<c:if test='${seq eq 0}'>로그인 후 이용해주세요.</c:if><c:if test='${seq ne 0}'>댓글을 달아주세요.</c:if>"></textarea>
-						<img src="resources/images/main/reply-off.png" id="feed_img"></img>
+						<img src="resources/images/main/reply-off.png" id="feed_img" class='feed_img2'></img>
 					</div>
 				</div>
 			</div>
@@ -1009,9 +1009,11 @@ body.s_no-scroll {
 
 		$(document).on(
 				"click",
-				".feed_img_class",
+				".feed_img_class2",
 				function() {
 					/* alert($(this).parent().parent().attr('class')); */
+					
+				
 					var r_seq = $(this).prev().attr('class');
 					var txt = $(this).prev().val();
 
@@ -1020,6 +1022,8 @@ body.s_no-scroll {
 						$(this).parent().parent(".re_feed_update").show();
 
 					} else {
+					
+				
 						if (m_seq == 0) {
 							openModal("modal1");
 							return;
@@ -1041,9 +1045,9 @@ body.s_no-scroll {
 								alert("에러");
 							}
 						});
-
+				
 						$(this).parent().parent(".re_feed_update").hide();
-						
+						$(this).prev().val('');
 					}
 
 				});
@@ -1056,8 +1060,10 @@ body.s_no-scroll {
 			/* 		alert(myDiv);
 					var parent = myDiv.parentNode; // 부모 객체 알아내기 
 					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기 */
-			$('#feed_txt').val('');
+					
+					
 			$(this).parent().parent().parent().hide();
+			$(this).parent().next().val("");
 	
 
 		});
@@ -1319,7 +1325,7 @@ body.s_no-scroll {
 																		+ "<img src='resources/images/main/delete-search.png'class='delete_search'>"
 																		+ "</span>"
 																		+ "<textarea id='feed_txt' class='"+ value.seq  +"' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
-																		+ "<img  src='resources/images/main/reply-off.png' id='feed_img' class ='feed_img_class'>"
+																		+ "<img  src='resources/images/main/reply-off.png' id='feed_img' class ='feed_img_class feed_img_class2' >"
 																		+ "</div>"
 																		+ "</div>"
 																		+ "</span></div><span id ='feed_content_"+value.seq+"'></span></div>");
@@ -1346,7 +1352,10 @@ body.s_no-scroll {
 			}
 
 		});
-		$('#feed_img').click(function() {
+		$('.feed_img2').click(function() {
+			$('.'+l_seq).val('');
+			alert($('.'+l_seq).attr("class"));
+			return;
 			if (m_seq == 0) {
 				openModal("modal1");
 				return;
@@ -1354,8 +1363,9 @@ body.s_no-scroll {
 			if ($('#feed_txt').val() == "") {
 				return;
 			}
+		
 			feed_insert();
-			$('#feed_txt').val('');
+			
 		});
 		function feed_insert() {
 			var feed_txt = $('#feed_txt').val().replace(/(?:\r\n|\r|\n)/g,
@@ -1371,8 +1381,10 @@ body.s_no-scroll {
 					name : hid_name
 				},
 				success : function(data) {
-					$('#feed_txt').val('');
+					
+					
 					feed_select();
+					
 				},
 				error : function() {
 					alert("에러");
