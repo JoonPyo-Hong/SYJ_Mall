@@ -104,7 +104,6 @@ public class LoginController {
 					//System.out.println("비밀번호 변경 요망");
 					
 					//아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
-					//int result = logService.userRedefinedPw(request,userSeq,id,ip);
 					int result = logService.userRedefinedPw(request,userSeq,ip);
 					
 					if (result == 1) return "/login/UserLoginPwRedefine";
@@ -408,7 +407,8 @@ public class LoginController {
 		int result = logService.remodiftUserPw(request);
 		
 		if(result == 1) {
-			return "redirect:/login.action";//메인페이지로 보내준다.
+			return "/login/UserRedefinedPwSuccess";
+			//return "redirect:/login.action";//메인페이지로 보내준다.
 		} else {
 			return "/testwaiting/kakaoerror";
 		}

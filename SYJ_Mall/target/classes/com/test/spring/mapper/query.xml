@@ -120,16 +120,8 @@
 		
 	</select>	
 	
-	<!-- 고객의 임시비밀번호를 고객이 지정한 비밀번호로 변경해준다. 삭제해줄것 -->
-	<select id="modifyUserPwReturn" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
-		
-		declare @result int
-		exec dbo.kakao_user_pw_redefined_return #{userSeq},#{userPw},#{userId},#{userIp}, @result output 
-		select @result
-		
-	</select>	
 	
-	
+	<!-- 고객의 임시비밀번호를 고객이 지정한 비밀번호로 변경해준다.-->
 	<select id="modifyUserPwReturnNew" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int

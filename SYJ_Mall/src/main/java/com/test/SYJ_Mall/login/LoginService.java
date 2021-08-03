@@ -502,13 +502,10 @@ public class LoginService implements ILoginService {
 		
 		HttpSession userSession = request.getSession();
 		int userSeq = (Integer)userSession.getAttribute("userSeq");
-		//String userIp = (String)userSession.getAttribute("userIp");
 		
 
 		userSession.invalidate();//세션값 자체를 제거
 		
-		//이제 여기서 유저의 임시비밀번호 기록을 지워야함. 그리고 비밀번호도 바꿔줘야함 and 로그인 시간 로그테이블에 기록
-		//int result = dao.modifyUserPwReal(userSeq,userPw,userId,userIp);
 		
 		//이제 여기서 유저의 임시비밀번호 기록을 지워야함. 그리고 비밀번호도 바꿔줘야함
 		int result = dao.modifyUserPwRealNew(userSeq,userPw);
