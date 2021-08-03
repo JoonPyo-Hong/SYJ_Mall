@@ -1,0 +1,38 @@
+/* 대표 이미지 */
+.main-image {
+  height: 640px;
+  width: 640px;
+  background-image: url(./../images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);
+  background-size: cover;
+}
+
+/* 하단 버튼 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  background-color: rgba(251, 46, 69, 0.95);
+  width: 640px;
+  height: 80px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.direct-purchase {
+  color: #fff;
+  font-size: 18px;
+}
+
+.add-to-cart {
+  color: #fff;
+  font-size: 18px;
+  position: absolute;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background-image: url(./../images/product-detail/ico_cart_off.png);
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
