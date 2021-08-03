@@ -7,14 +7,26 @@
 
 <mapper namespace="newGoods">
 
-	<!-- 로그인 검증과정 -->
+	<!-- 신규 상단 배너 정보 불러오기 -->
 	<select id="newProductBannerImg" resultType="com.test.SYJ_Mall.newGoods.PdtBannerDTO" statementType="CALLABLE" >
 		{
 			call dbo.kakao_new_product_banner_images
 		}
 	</select>
 	
+	<!-- 캐릭터 이름 가져오기 -->
+	<select id="bringcharName" parameterType="Integer" resultType="String" statementType="CALLABLE" >
+		{
+			call dbo.kakao_bring_char_name(#{charNum})
+		}
+	</select>
 	
-		
+	
+	<!-- 신규 추천신규테마 정보 불러오기 -->
+	<select id="newProductRecommentInfo" parameterType="java.util.HashMap" resultType="com.test.SYJ_Mall.newGoods.PdtRecommedDTO" statementType="CALLABLE" >
+		{
+			call dbo.kakao_new_product_recommend_theme_images(#{charNum},#{userSeq})
+		}
+	</select>	
 
 </mapper>
