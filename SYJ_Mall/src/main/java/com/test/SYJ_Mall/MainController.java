@@ -209,4 +209,26 @@ public class MainController {
 
 		return service.re_feed_select(feed_seq);
 	}
+	
+	// 대댓글 좋아요 업데이트 (Insert, Delete로 처리)
+	@RequestMapping(value = "/re_feed_heart_update.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void re_feed_heart_update(@RequestParam("feed_seq") String feed_seq, @RequestParam("member_seq") String member_seq,@RequestParam("gubn") String gubn) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("feed_seq", feed_seq);
+		map.put("member_seq", member_seq);
+		map.put("gubn", gubn);
+		service.re_feed_heart_update(map);
+		
+	}
+	
+	// 대댓글 좋아요 갯수
+		@RequestMapping(value = "/re_feed_heart.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public Object re_feed_heart(@RequestParam("feed_seq") int feed_seq) {
+
+			Integer count = service.re_feed_heart(feed_seq);
+
+			return count;
+		}
 }

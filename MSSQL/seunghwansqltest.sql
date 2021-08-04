@@ -356,3 +356,6 @@ select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
 insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'카카오프렌즈 감자칩_히말라야핑크솔트',550,N'식품',NULL,19800,GETDATE(),'N',NULL)
 
 insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'카카오프렌즈 감자칩_히말라야핑크솔트',550,N'식품',NULL,19800,GETDATE(),'N',NULL)
+
+
+select * from KAKAO_PRODUCT_IMG

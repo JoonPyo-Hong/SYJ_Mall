@@ -632,6 +632,10 @@ body.s_no-scroll {
 	cursor: pointer;
 }
 
+.feed_heart2 {
+	cursor: pointer;
+}
+
 .feed_like_selected {
 	font-weight: bold;
 	color: rgb(255, 68, 127);
@@ -939,7 +943,8 @@ body.s_no-scroll {
 					<div class='comment'>
 						<textarea id="feed_txt" wrap="hard"
 							placeholder="<c:if test='${seq eq 0}'>로그인 후 이용해주세요.</c:if><c:if test='${seq ne 0}'>댓글을 달아주세요.</c:if>"></textarea>
-						<img src="resources/images/main/reply-off.png" id="feed_img" class='feed_img2'></img>
+						<img src="resources/images/main/reply-off.png" id="feed_img"
+							class='feed_img2'></img>
 					</div>
 				</div>
 			</div>
@@ -1002,6 +1007,100 @@ body.s_no-scroll {
 
 		var feed_sel = "최신순";
 		var scroll = 0;
+		$(document)
+				.on(
+						"click",
+						".feed_heart2",
+						function() {
+							if (m_seq == 0) {
+								openModal("modal1");
+								return;
+							}
+							var feed_heart_val = $(this).attr('value');
+							var feed_like = "";
+							var type;
+							if ($(this).children('.feed_img').children('img')
+									.attr("src") == 'resources/images/main/like-grey.png') {
+								$(this)
+										.children('.feed_img')
+										.children('img')
+										.attr("src",
+												'resources/images/main/like-pink.png');
+								$(this).children('.feed_like2').attr("style",
+										'color:red');
+								type = "I";
+								if ($(this).children('.feed_like2').text() == " 좋아요 ") {
+
+									feed_like = " 좋아요 1개 ";
+								} else {
+									//문자 앞뒤 공백 제거후 가운데 공백으로 나눔
+									var feed_like_text = $(this).children(
+											'.feed_like2').text().trim().split(
+											' ');
+
+									feed_like = " 좋아요 "
+											+ (parseInt(feed_like_text[1]
+													.replace('개', '')) + 1)
+											+ " 개 ";
+								}
+							} else {
+								$(this)
+										.children('.feed_img')
+										.children('img')
+										.attr("src",
+												'resources/images/main/like-grey.png');
+								type = "D";
+								$(this).children('.feed_like2').attr("style",
+										'color:rgb(154, 154, 158)');
+								//.removeClass("feed_like_selected");
+								//.removeAttr('class');
+								//.attr("class", '');
+								if ($(this).children('.feed_like2').text() == " 좋아요 ") {
+
+									feed_like = " 좋아요 1개 ";
+								} else {
+									//문자 앞뒤 공백 제거후 가운데 공백으로 나눔
+									var feed_like_text = $(this).children(
+											'.feed_like2').text().trim().split(
+											' ');
+									if (parseInt(feed_like_text[1].replace('개',
+											'')) == 1) {
+										feed_like = " 좋아요 "
+									} else {
+
+										feed_like = " 좋아요 "
+												+ (parseInt(feed_like_text[1]
+														.replace('개', '')) - 1)
+												+ " 개 ";
+									}
+								}
+							}
+
+							$(this).children('.feed_like2').text(feed_like);
+							re_feed_heart_update(feed_heart_val, type);
+
+							
+
+						});
+		function re_feed_heart_update(f_seq, type) {
+
+			$.ajax({
+				url : "re_feed_heart_update.action",
+				type : 'post',
+				data : {
+					feed_seq : f_seq,
+					member_seq : m_seq,
+					gubn : type
+				},
+				success : function(data) {
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+
+		}
 
 		heart_select(l_seq, m_seq);
 		heart(l_seq);
@@ -1012,8 +1111,7 @@ body.s_no-scroll {
 				".feed_img_class2",
 				function() {
 					/* alert($(this).parent().parent().attr('class')); */
-					
-				
+
 					var r_seq = $(this).prev().attr('class');
 					var txt = $(this).prev().val();
 
@@ -1022,8 +1120,7 @@ body.s_no-scroll {
 						$(this).parent().parent(".re_feed_update").show();
 
 					} else {
-					
-				
+
 						if (m_seq == 0) {
 							openModal("modal1");
 							return;
@@ -1045,7 +1142,7 @@ body.s_no-scroll {
 								alert("에러");
 							}
 						});
-				
+
 						$(this).parent().parent(".re_feed_update").hide();
 						$(this).prev().val('');
 					}
@@ -1060,11 +1157,9 @@ body.s_no-scroll {
 			/* 		alert(myDiv);
 					var parent = myDiv.parentNode; // 부모 객체 알아내기 
 					parent.removeChild(myDiv); // 부모로부터 myDiv 객체 떼어내기 */
-					
-					
+
 			$(this).parent().parent().parent().hide();
 			$(this).parent().next().val("");
-	
 
 		});
 
@@ -1084,7 +1179,30 @@ body.s_no-scroll {
 										.each(
 												data,
 												function(index, value) {
+													var feed_heart_count = re_feed_heart(value.seq);
+													if(feed_heart_count =='NaN'){
+														feed_heart_count = 0;
+													}
 													
+													var feed_heart_txt = "";
+													var feed_heart_img = "";
+													var feed_heart_red = "";
+
+													if (feed_heart_count == 0) {
+														feed_heart_txt = "";
+														feed_heart_img = "grey";
+														feed_heart_red = "> 좋아요 ";
+													} else {
+														feed_heart_txt = " "
+																+ feed_heart_count
+																+ "개";
+														feed_heart_img = "pink";
+														feed_heart_red = " style='color:red;'> 좋아요";
+													}
+												
+														
+											
+
 													$("#feed_content_" + seq)
 															.append(
 																	"<div class='feed_content feed_content2'>"
@@ -1094,9 +1212,12 @@ body.s_no-scroll {
 																			+ "<div class= 'feed_content_div3'><span>"
 																			+ value.reg_dt
 																			+ " </span>"
-																			+ "<span class='feed_heart'>"
-																			+ "<span class='feed_img'><img src='resources/images/main/like-grey.png'></span>"
-																			+ "<span class='feed_like'> 좋아요</span>"
+																			+ "<span class='feed_heart2' value='" + value.seq + "'>"
+																			+ "<span class='feed_img'><img src='resources/images/main/like-"+feed_heart_img+".png'></span>"
+																			+ "<span class='feed_like2'"
+																			+ feed_heart_red
+																			+ feed_heart_txt
+																			+"</span>"
 																			+ "</span>"
 																			+ "</div>"
 																			+ "</div>");
@@ -1149,8 +1270,7 @@ body.s_no-scroll {
 								} else {
 									//문자 앞뒤 공백 제거후 가운데 공백으로 나눔
 									var feed_like_text = $(this).children(
-											'.feed_like').text().trim().split(
-											' ');
+											'.feed_like').text().trim().split(' ');
 
 									feed_like = " 좋아요 "
 											+ (parseInt(feed_like_text[1]
@@ -1227,6 +1347,29 @@ body.s_no-scroll {
 				},
 				success : function(data) {
 
+					result = data;
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+			return result;
+		}
+		function re_feed_heart(seq) {
+			var result = 0;
+			$.ajax({
+				url : "re_feed_heart.action",
+				type : 'post',
+				async : false,
+				data : {
+					feed_seq : seq,
+				},
+				success : function(data) {
+					if(data == "NaN"){
+						result = 0;
+					}
+					
 					result = data;
 
 				},
@@ -1329,7 +1472,7 @@ body.s_no-scroll {
 																		+ "</div>"
 																		+ "</div>"
 																		+ "</span></div><span id ='feed_content_"+value.seq+"'></span></div>");
-												//test
+											
 												re_feed(value.seq);
 
 											});
@@ -1353,8 +1496,8 @@ body.s_no-scroll {
 
 		});
 		$('.feed_img2').click(function() {
-			$('.'+l_seq).val('');
-			alert($('.'+l_seq).attr("class"));
+			$('.' + l_seq).val('');
+			alert($('.' + l_seq).attr("class"));
 			return;
 			if (m_seq == 0) {
 				openModal("modal1");
@@ -1363,9 +1506,9 @@ body.s_no-scroll {
 			if ($('#feed_txt').val() == "") {
 				return;
 			}
-		
+
 			feed_insert();
-			
+
 		});
 		function feed_insert() {
 			var feed_txt = $('#feed_txt').val().replace(/(?:\r\n|\r|\n)/g,
@@ -1381,10 +1524,9 @@ body.s_no-scroll {
 					name : hid_name
 				},
 				success : function(data) {
-					
-					
+
 					feed_select();
-					
+
 				},
 				error : function() {
 					alert("에러");

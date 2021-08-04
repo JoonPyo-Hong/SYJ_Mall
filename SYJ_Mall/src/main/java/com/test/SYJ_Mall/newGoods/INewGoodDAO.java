@@ -14,5 +14,22 @@ public interface INewGoodDAO {
 	 * @return	PdtBannerDTO 객체
 	 */
 	List<PdtBannerDTO> bringNewTopImg();
+	
+	/**
+	 * 신규목록 추천신규 테마 정보
+	 * @param userSeq	회원번호
+	 * @param charNum	캐릭터번호
+	 * @return			추천신규 테마 객체
+	 */
+	List<PdtRecommedDTO> bringNewRecommendInfo(int userSeq, int charNum);
+	
+	/**
+	 * 캐릭터 이름 가져오기
+	 * @param charNum	캐릭터 번호
+	 * @return			캐릭터 이름
+	 */
+	String bringCharName(int charNum);
+	
+
 
 }

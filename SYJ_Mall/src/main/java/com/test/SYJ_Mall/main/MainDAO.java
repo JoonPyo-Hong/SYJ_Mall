@@ -28,6 +28,10 @@ public interface MainDAO {
 
 	Object re_feed_select(String feed_seq);
 
+	void re_feed_heart_update(HashMap<String, String> map);
+
+	Integer re_feed_heart(int feed_seq);
+
 
 
 }
