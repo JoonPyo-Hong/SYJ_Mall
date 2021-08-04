@@ -676,3 +676,49 @@ end
 
 
 완료 시간: 2021-08-02T23:36:28.6398285+09:00
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-01  
+	Description : 신규상품 - 추천 신규 테마 보여주기
+	     
+	History	: 2021-08-01 Seunghwan Shin	#최초 생성 
+			 
+*/
+alter proc dbo.kakao_new_product_recommend_theme_images
+	@char_seq bigint
+,	@qoouser_seq bigint
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	if (@qoouser_seq is null)
+	begin
+		--로그인 안한경우
+		select 
+			kpt.product_nm as productName
+		,	kpt.product_price as productPrice
+		,	kpt.product_id as productId 
+		,	kpi.product_img as productImg
+		from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+		inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpi.product_id = kpt.product_id
+		inner join dbo.KAKAO_CHAR_PRODUCT kcp with(nolock) on kcp.product_id = kpt.product_id 
+		left join dbo.KAKAO_USER_SHOPPING_CART ksc with(nolock) on ksc.product_id = kpt.product_id
+		left join dbo.QOO10_USER_REAL q with(nolock) on q.qoouser_seq = ksc.qoouser_seq
+		where kcp.char_seq = @char_seq and kpi.rep_img_yn = 'Y'	
+	end
+	
+end
+
+
+
+
+
+
+
+
+
+

@@ -35,53 +35,21 @@ body {
 	<!-- 추천신규 테마 -->
 	<div id = "recommendTheme">
 		<div id ="recommendThemetitle">추천 신규 테마</div>
-		<div id ="recommendThemesubtitle">춘식</div>
-
-		<div class = "themeProduct">
-			<div class="themeProductPic">
-				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
+		<div id ="recommendThemesubtitle">${charName}</div>
+		
+		<c:forEach var="pdto" items="${pdtrdtoList}">
+			<div class = "themeProduct" id = "${pdto.productId}">
+				<div class="themeProductPic">
+					<img src="${pdto.productImg}" alt="">
+				</div>
+				<div class="themeProductPicName">
+					<div class="productName">${pdto.productName}</div>
+					<div class="productAlram"><button class="icofont-alarm"></button></div>
+				</div>
+				<div class="productPrice">${pdto.productPrice}</div>
 			</div>
-			<div class="themeProductPicName">
-				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productAlram"><button class="icofont-alarm"></button></div>
-			</div>
-			<div class="productPrice">29,500 원</div>
-		</div>
-		<div class = "themeProduct">
-			<div class="themeProductPic">
-				<img src="img/20210712141042807_8809814920540_8809814920540_AW_00.jpg" alt="">
-			</div>
-			<div class="themeProductPicName">
-				<div class="productName">춘식이 버즈 라이브/프로 케이스</div>
-				<div class="productBasket"><button class="icofont-bag"></button></div>
-			</div>
-			<div class="afterPrice">30% 20,000 원</div>
-			<div class="beforePrice">30,000 원</div>
-		</div>
-		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
-		</div>
-		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
-		</div>
-		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
-		</div>
-		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
-		</div>
-		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
-		</div>
-		<div class = "themeProduct">
-			<div class="themeProductPic"></div>
-			<div class="themeProductPicName"></div>
-		</div>
+		</c:forEach>
+		
 	</div>
 
 	<div id="addView">
