@@ -54,23 +54,43 @@
 		</choose>
 	</select>
 	<select id="feed_heart" resultType="int" parameterType="int">
-		select count(*) from dbo.feed_heart with (nolock) where feed_seq = #{feed_seq}
+		select
+		count(*) from dbo.feed_heart with (nolock) where feed_seq =
+		#{feed_seq}
 	</select>
 	<insert id="feed_heart_insert" parameterType="java.util.HashMap">
 		insert into
 		dbo.feed_heart values(#{feed_seq},#{member_seq})
 	</insert>
 	<delete id="feed_heart_delete" parameterType="java.util.HashMap">
-		delete dbo.feed_heart
-		where feed_seq = #{feed_seq} and member_seq = #{member_seq}
+		delete
+		dbo.feed_heart
+		where feed_seq = #{feed_seq} and member_seq =
+		#{member_seq}
 	</delete>
 	<insert id="re_feed_insert" parameterType="java.util.HashMap">
 		insert into
 		dbo.re_feed(member_seq,feed_seq,re_feed,reg_id)values(#{member_seq},#{re_feed_seq},#{text},#{name})
 	</insert>
-		<select id="re_feed_select"
+	<select id="re_feed_select"
 		resultType="com.test.SYJ_Mall.main.FeedDTO"
 		parameterType="java.util.HashMap">
-		select * from dbo.re_feed where feed_seq = #{feed_seq} order by seq desc
+		select * from dbo.re_feed where feed_seq = #{feed_seq}
+		order by seq desc
+	</select>
+		<insert id="re_feed_heart_insert" parameterType="java.util.HashMap">
+		insert into
+		dbo.re_feed_heart values(#{feed_seq},#{member_seq})
+	</insert>
+	<delete id="re_feed_heart_delete" parameterType="java.util.HashMap">
+		delete
+		dbo.re_feed_heart
+		where feed_seq = #{feed_seq} and member_seq =
+		#{member_seq}
+	</delete>
+	<select id="re_feed_heart" resultType="int" parameterType="int">
+		select
+		count(*) from dbo.re_feed_heart with (nolock) where feed_seq =
+		#{feed_seq}
 	</select>
 </mapper>

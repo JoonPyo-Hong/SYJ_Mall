@@ -90,4 +90,21 @@ public class MainDAOImpl implements MainDAO {
 		
 	}
 
+	@Override
+	public void re_feed_heart_update(HashMap<String, String> map) {
+		if (map.get("gubn").equals("I")) {
+
+			session.insert("re_feed_heart_insert", map);
+		} else if (map.get("gubn").equals("D")) {
+			session.delete("re_feed_heart_delete", map);
+
+		}
+	}
+
+	@Override
+	public Integer re_feed_heart(int feed_seq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("main.re_feed_heart", feed_seq);
+	}
+
 }
