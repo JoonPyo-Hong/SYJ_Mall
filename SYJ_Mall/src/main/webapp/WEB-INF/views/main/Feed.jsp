@@ -250,7 +250,7 @@ body {
 	margin-top: 12px;
 }
 
-.txt_5 span {
+.txt_5 span:nth-child(1) {
 	margin-right: 7px;
 	font-weight: bold;
 }
@@ -938,7 +938,7 @@ body.s_no-scroll {
 					<div class='txt_3'>${list1.contents}</div>
 					<div class='txt_4'></div>
 					<div class='txt_5'>
-						1<span>2</span>1
+						<span id='txt_span1'></span><span id='txt_span2'></span>
 					</div>
 					<div class='comment'>
 						<textarea id="feed_txt" wrap="hard"
@@ -1387,7 +1387,15 @@ body.s_no-scroll {
 					$('#sel_feed').hide();
 
 				});
+		
+		$('.etc_2').click(
+				function() {
+					
+				        $('html, body').animate({scrollTop : 777}, 400);
 
+
+				
+				});
 		$('.feed_click').click(
 				function() {
 					event.stopPropagation();
@@ -1413,7 +1421,7 @@ body.s_no-scroll {
 			feed_select();
 
 		});
-
+		var state = true;
 		function feed_select() {
 			$("#feed_content_div").empty();
 			$
@@ -1425,6 +1433,7 @@ body.s_no-scroll {
 							sel : feed_sel
 						},
 						success : function(data) {
+						
 							$
 									.each(
 											data,
@@ -1445,6 +1454,12 @@ body.s_no-scroll {
 													feed_heart_img = "pink";
 													feed_heart_red = " style='color:red;'> 좋아요";
 												}
+												if(state == true){
+													$("#txt_span1").text(value.reg_id);
+													$("#txt_span2").text((value.feed).replace("<br/>"," "));
+												}
+												
+												state = false;
 												$("#feed_content_div")
 														.append(
 																"<div class='feed_content' >"

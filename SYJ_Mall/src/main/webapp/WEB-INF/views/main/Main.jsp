@@ -885,6 +885,23 @@ body.s_no-scroll {
 						}
 					});
 		}
+		function main_feed(list_seq) {
+
+			$
+					.ajax({
+						url : "main_feed.action",
+						type : 'post',
+						data : {
+							seq : list_seq,
+						},
+						success : function(data) {
+
+						},
+						error : function() {
+							alert("에러");
+						}
+					});
+		}
 
 		function list() {
 			count = count + 2;
@@ -907,6 +924,7 @@ body.s_no-scroll {
 													txt = " · ";
 													gubn = this.gubn;
 												}
+												main_feed(list_seq);
 												$(".scroll")
 														.append(
 																"<div class ='content' id = 'content_"+this.seq +"'>"

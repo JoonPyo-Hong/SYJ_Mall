@@ -172,6 +172,14 @@ public class MainController {
 		List<FeedDTO> list = service.feed_select(map);
 		return list;
 	}
+	
+	// 댓글 텍스트(select)
+	@RequestMapping(value = "/main_feed.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public List<FeedDTO> main_feed(@RequestParam Map<String, Object> map) {
+		List<FeedDTO> list = service.feed_select(map);
+		return list;
+	}
 
 	// 댓글 좋아요 갯수
 	@RequestMapping(value = "/feed_heart.action", method = { RequestMethod.POST })
