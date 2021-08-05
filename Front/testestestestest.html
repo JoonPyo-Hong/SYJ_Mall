@@ -12,15 +12,6 @@
     <script src="js/bootstrap.js"></script>
     <style>
     
-        body {
-            /* border: 1px solid #AEAEAF; */
-            width:2000px;
-            height:3000px;
-            margin: 0px auto;
-
-            
-        }
-
         #inputmain {
             border: 1px solid red;
             width:1500px;
@@ -38,15 +29,15 @@
             align-items: center;
 
         }
-
-        input:focus {outline:none;}
-        
         .item {
             height: 40px;
             border: 1px solid #AEAEAF;
             display:flex;
             border-top: 0px;
- 
+        }
+        .item:nth-child(1) {
+            background-color: red;
+            border: 2px solid red;
         }
 
         .container > .item:nth-child(1) {
@@ -97,24 +88,15 @@
             /* background-color: red; */
             width: 180px;
         }
-        
-        #buttonMain {
-            /* border: 1px solid red; */
-            width:1500px;
-            margin: 5px auto;
-            height:50px;
-        } 
-        #buttons {
-            margin-top: 10px;
-            margin-left:700px;
+        #btns {
+            margin-left: 100px;
         }
+
     </style>
 </head>
 <body>  
     
     <div id = "inputmain">
-        
-        
         <div class="container" id="title">
             <div class="item">소분류</div>
             <div class="item">상품이름</div>
@@ -229,136 +211,131 @@
                 <input type="text">
             </div>
         </div>
-        
-        
-
-        
-
     </div>
-    <div id="buttonMain">
-
-        <button id="buttons">add+</button>
-
-    </div>
+    
+    <button id = "btns">클릭클릭</button>
+    
+    
+    
+    
+    
     
     <script>
-        
-    
-        $(function(){
-
-        
-        $(document).on('click','#buttons',function(){
-        //$("#buttons").click(function(){
-            //e.preventDefault();
+         
+         $(document).on('click','#btns',function(){
             const inputmainHeight = parseInt($("#inputmain").css('height').replace('px','')) + 42;
             $("#inputmain").css('height',inputmainHeight);
-           
-            //여기서 화면단 늘리기 작업 들어가야된다.
-            $("#inputmain").append(
-                '<div class="container" >'
-            +'<div class="item" style="width: 155px;">'
-               +' <select name="" id="">'
-                  +'  <option value="1">미니인형</option>'
-                  +'  <option value="2">중형인형</option>'
-                  +'  <option value="3">대형인형</option>'
-                  +'  <option value="4">피규어/브릭</option>'
-                  +'  <option value="5">패브릭</option>'
-                  +'  <option value="6">주방용품</option>'
-                  +'  <option value="7">컵/텀블러</option>'
-                  +'  <option value="8">차량용품</option>'
-                  +'  <option value="9">생활소품</option>'
-                  +'  <option value="10">미용/욕실용품</option>'
-                  +'  <option value="11">가방</option>'
-                  +'  <option value="12">파우치/지갑</option>'
-                  +'  <option value="13">신발</option>'
-                  +'  <option value="14">패션소품</option>'
-                  +'  <option value="15">시즌용품</option>'
-                  +'  <option value="16">필기구</option>'
-                  +'  <option value="17">필통/케이스</option>'
-                  +'  <option value="18">노트/메모</option>'
-                  +'  <option value="19">스티커</option>'
-                  +'  <option value="20">데스크 소품</option>'
-                  +'  <option value="21">여성</option>'
-                  +'  <option value="22">남성</option>'
-                  +'  <option value="23">키즈</option>'
-                  +'  <option value="24">소형 전자</option>'
-                  +'  <option value="25">PC/노트북 액새서리</option>'
-                  +'  <option value="26">휴대폰 케이스</option>'
-                  +'  <option value="27">휴대폰 악세서리</option>'
-                  +'  <option value="28">무선이어폰 케이스</option>'
-                  +'  <option value="29">무선이어폰 액세서리</option>'
-                  +'  <option value="30">여행</option>'
-                  +'  <option value="31">레져</option>'
-                  +'  <option value="32">스낵</option>'
-                  +'  <option value="33">음료</option>'
-               +' </select>'
-           +' </div>'
-           +' <div class="item" style="width: 150px;">'
-           +'     <input type="text">'
-           +' <div class="item" style="width: 150px;">'
-           +'     <input type="text">'
-           +' </div>'
-           +' <div class="item" style="width: 150px;">'
-           +'     <input type="text">'
-           +' </div>'
-           +' <div class="item" style="width: 150px;">'
-           +'     <input type="text">'
-           +' </div>'
-           +' <div class="item" style="width: 90px;">'
-           +'     <select name="" id="">'
-           +'         <option value="Y">Y</option>'
-           +'         <option value="N">N</option>'
-           +'     </select>'
-           +' </div>'
-           +' <div class="item" style="width: 90px;">'
-           +'     <select name="" id="">'
-           +'         <option value="1">라이언</option>'
-           +'         <option value="2">어피치</option>'
-           +'         <option value="3">무지</option>'
-           +'         <option value="4">프로도</option>'
-           +'         <option value="5">네오</option>'
-           +'         <option value="6">튜브</option>'
-           +'         <option value="7">제이지</option>'
-           +'         <option value="8">콘</option>'
-           +'         <option value="9">춘식</option>'
-           +'          <option value="10">죠르디</option>'
-           +'         <option value="11">스카피</option>'
-           +'         <option value="12">앙몬드</option>'
-           +'         <option value="13">팬다주니어</option>'
-           +'         <option value="14">케로베로니</option>'
-           +'         <option value="15">꿈돌이</option>'
-           +'     </select>'
-           +' </div>'
-           +' <div class="item" style="width: 90px;">'
-           +'     <select name="" id="">'
-           +'         <option value="0">미선택</option>'
-           +'         <option value="1">라이언</option>'
-           +'         <option value="2">어피치</option>'
-           +'         <option value="3">무지</option>'
-           +'         <option value="4">프로도</option>'
-           +'         <option value="5">네오</option>'
-           +'         <option value="6">튜브</option>'
-           +'         <option value="7">제이지</option>'
-           +'         <option value="8">콘</option>'
-           +'         <option value="9">춘식</option>'
-           +'         <option value="10">죠르디</option>'
-           +'         <option value="11">스카피</option>'
-           +'         <option value="12">앙몬드</option>'
-           +'         <option value="13">팬다주니어</option>'
-           +'         <option value="14">케로베로니</option>'
-           +'         <option value="15">꿈돌이</option>'
-           +'     </select>'
-           +' </div>'
-           +' <div class="item" style="width: 150px;">'
-           +'     <input type="text">'
-           +' </div>'
-           +' <div class="item" style="width: 180px;">'
-           +'     <input type="text">'
-           +' </div>'
+            
+            $('#inputmain').append(
+
+               '<div class="container">'
+        +'    <div class="item">'
+        +'        <select name="" id="">'
+        +'            <option value="1">미니인형</option>'
+        +'            <option value="2">중형인형</option>'
+        +'            <option value="3">대형인형</option>'
+        +'            <option value="4">피규어/브릭</option>'
+        +'            <option value="5">패브릭</option>'
+        +'            <option value="6">주방용품</option>'
+        +'            <option value="7">컵/텀블러</option>'
+        +'            <option value="8">차량용품</option>'
+        +'            <option value="9">생활소품</option>'
+        +'            <option value="10">미용/욕실용품</option>'
+        +'            <option value="11">가방</option>'
+        +'            <option value="12">파우치/지갑</option>'
+        +'            <option value="13">신발</option>'
+        +'            <option value="14">패션소품</option>'
+        +'            <option value="15">시즌용품</option>'
+        +'            <option value="16">필기구</option>'
+        +'            <option value="17">필통/케이스</option>'
+        +'            <option value="18">노트/메모</option>'
+        +'            <option value="19">스티커</option>'
+        +'            <option value="20">데스크 소품</option>'
+        +'            <option value="21">여성</option>'
+        +'            <option value="22">남성</option>'
+        +'            <option value="23">키즈</option>'
+        +'            <option value="24">소형 전자</option>'
+        +'            <option value="25">PC/노트북 액새서리</option>'
+        +'            <option value="26">휴대폰 케이스</option>'
+        +'            <option value="27">휴대폰 악세서리</option>'
+        +'            <option value="28">무선이어폰 케이스</option>'
+        +'            <option value="29">무선이어폰 액세서리</option>'
+        +'            <option value="30">여행</option>'
+        +'            <option value="31">레져</option>'
+        +'            <option value="32">스낵</option>'
+        +'            <option value="33">음료</option>'
+        +'        </select>'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <input type="text">'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <input type="text">'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <input type="text">'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <input type="text">'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <select name="" id="">'
+        +'            <option value="Y">Y</option>'
+        +'            <option value="N">N</option>'
+        +'        </select>'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <select name="" id="">'
+        +'            <option value="1">라이언</option>'
+        +'            <option value="2">어피치</option>'
+        +'            <option value="3">무지</option>'
+        +'            <option value="4">프로도</option>'
+        +'            <option value="5">네오</option>'
+        +'            <option value="6">튜브</option>'
+        +'            <option value="7">제이지</option>'
+        +'            <option value="8">콘</option>'
+        +'            <option value="9">춘식</option>'
+        +'            <option value="10">죠르디</option>'
+        +'            <option value="11">스카피</option>'
+        +'            <option value="12">앙몬드</option>'
+        +'            <option value="13">팬다주니어</option>'
+        +'            <option value="14">케로베로니</option>'
+        +'            <option value="15">꿈돌이</option>'
+        +'        </select>'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <select name="" id="">'
+        +'            <option value="0">미선택</option>'
+        +'            <option value="1">라이언</option>'
+        +'            <option value="2">어피치</option>'
+        +'            <option value="3">무지</option>'
+        +'            <option value="4">프로도</option>'
+        +'            <option value="5">네오</option>'
+        +'            <option value="6">튜브</option>'
+        +'            <option value="7">제이지</option>'
+        +'            <option value="8">콘</option>'
+        +'            <option value="9">춘식</option>'
+        +'            <option value="10">죠르디</option>'
+        +'            <option value="11">스카피</option>'
+        +'            <option value="12">앙몬드</option>'
+        +'            <option value="13">팬다주니어</option>'
+        +'            <option value="14">케로베로니</option>'
+        +'            <option value="15">꿈돌이</option>'
+        +'        </select>'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <input type="text">'
+        +'    </div>'
+        +'    <div class="item">'
+        +'        <input type="text">'
+        +'    </div>'
         +'</div>'
+
             )
-       });
-});
+
+         });
+
+
     </script>
 
 </body>
