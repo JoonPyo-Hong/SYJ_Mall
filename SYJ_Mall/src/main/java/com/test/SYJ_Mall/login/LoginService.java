@@ -52,7 +52,7 @@ public class LoginService implements ILoginService {
 
 		Encryption enc = new Encryption();
 
-		return enc.returnEncVoca(password);//?
+		return enc.returnEncVoca(password);//
 	}
 	
 	//맨처음 로그인할때 광고,rsa키 지정해주는곳
