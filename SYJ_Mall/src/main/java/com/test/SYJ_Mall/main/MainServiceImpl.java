@@ -89,4 +89,10 @@ public class MainServiceImpl implements MainService {
 		return dao.re_feed_heart(feed_seq);
 	}
 
+	@Override
+	public HashMap<String, Object> main_feed(Integer seq) {
+		// TODO Auto-generated method stub
+		return dao.main_feed(seq);
+	}
+
 }

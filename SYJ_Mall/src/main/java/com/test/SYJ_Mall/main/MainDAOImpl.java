@@ -107,4 +107,11 @@ public class MainDAOImpl implements MainDAO {
 		return session.selectOne("main.re_feed_heart", feed_seq);
 	}
 
+	@Override
+	public HashMap<String, Object> main_feed(Integer seq) {
+		// TODO Auto-generated method stub
+
+		return session.selectOne("main.main_feed", seq);
+	
+	}
 }

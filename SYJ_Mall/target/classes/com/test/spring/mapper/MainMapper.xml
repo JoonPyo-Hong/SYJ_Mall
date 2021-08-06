@@ -93,4 +93,10 @@
 		count(*) from dbo.re_feed_heart with (nolock) where feed_seq =
 		#{feed_seq}
 	</select>
+		<select id="main_feed"
+		resultType="java.util.HashMap"
+		parameterType="int">
+		select top(1) * from dbo.feed a LEFT JOIN feed_heart b on a.seq = b.feed_seq where list_seq = #{seq} order by feed_seq desc
+		
+	</select>
 </mapper>

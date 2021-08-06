@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,9 +177,19 @@ public class MainController {
 	// 댓글 텍스트(select)
 	@RequestMapping(value = "/main_feed.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public List<FeedDTO> main_feed(@RequestParam Map<String, Object> map) {
-		List<FeedDTO> list = service.feed_select(map);
-		return list;
+	public Object main_feed(@RequestParam("seq") Integer seq) {
+		/* List<FeedDTO> list = service.main_feed(map); */
+		
+		
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			map =  service.main_feed(seq);
+			return map;
+		} catch (Exception e) {
+			return null;
+		}
+	
 	}
 
 	// 댓글 좋아요 갯수

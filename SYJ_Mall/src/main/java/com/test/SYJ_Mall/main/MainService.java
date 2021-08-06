@@ -32,4 +32,6 @@ public interface MainService {
 
 	Integer re_feed_heart(int feed_seq);
 
+	HashMap<String, Object> main_feed(Integer seq);
+
 }

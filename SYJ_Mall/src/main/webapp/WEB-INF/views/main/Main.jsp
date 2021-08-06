@@ -886,7 +886,7 @@ body.s_no-scroll {
 					});
 		}
 		function main_feed(list_seq) {
-
+		var result = new Array();
 			$
 					.ajax({
 						url : "main_feed.action",
@@ -895,12 +895,20 @@ body.s_no-scroll {
 							seq : list_seq,
 						},
 						success : function(data) {
-
+							
+							result.push(data.reg_id);
+							result.push(data.feed);
+						
+							
 						},
 						error : function() {
 							alert("에러");
 						}
 					});
+
+			
+			return result;
+			
 		}
 
 		function list() {
@@ -924,7 +932,9 @@ body.s_no-scroll {
 													txt = " · ";
 													gubn = this.gubn;
 												}
-												main_feed(list_seq);
+												var test = main_feed(this.seq);
+												alert(test[0]);
+												alert(test[1]);
 												$(".scroll")
 														.append(
 																"<div class ='content' id = 'content_"+this.seq +"'>"
