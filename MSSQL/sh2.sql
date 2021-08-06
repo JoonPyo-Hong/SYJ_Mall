@@ -717,8 +717,14 @@ end
 
 
 
+select
+			*
+			from string_split('likkj2l3i4j/12kajsdhf/wergsdlfgkjshdflgk/sdfgsdfg#12341234/12352345623/23452345/23452345#sklajdfhalskdfj/asdkfjhalsdkjfh/aksjdfhljajksdf','#') as ss
 
 
 
+select * from dbo.KAKAO_PROMOTION with(nolock)
 
+
+resources/images/product/콘/런던에디션 미니키체인_근위병콘/20201019143628927_8809721504192_BW_02.jpg
 

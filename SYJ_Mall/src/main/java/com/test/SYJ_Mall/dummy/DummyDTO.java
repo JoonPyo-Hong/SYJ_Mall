@@ -4,40 +4,32 @@ import lombok.Data;
 
 @Data
 public class DummyDTO {
-
-	public DummyDTO(int categories, String names, int counts, int prices, int discounts, String rep_yns,
-			int char_firsts, int char_seconds, String rep_imgs, String heads1, String heads2, String heads3,
-			String heads4) {
+	
+	private int category;
+	private String prodName;
+	private int prodCount;
+	private int prodPrice;
+	private int prodDiscounts;
+	private String prodRepYns;
+	private int prodCharFirsts;
+	private int prodCharSeconds;
+	private String prodRepImgs;
+	private String prodHeads;
+	
+	public DummyDTO(int category, String prodName, int prodCount, int prodPrice, int prodDiscounts, String prodRepYns,
+			int prodCharFirsts, int prodCharSeconds, String prodRepImgs, String prodHeads) {
 		super();
-		this.categories = categories;
-		this.names = names;
-		this.counts = counts;
-		this.prices = prices;
-		this.discounts = discounts;
-		this.rep_yns = rep_yns;
-		this.char_firsts = char_firsts;
-		this.char_seconds = char_seconds;
-		this.rep_imgs = rep_imgs;
-		this.heads1 = heads1;
-		this.heads2 = heads2;
-		this.heads3 = heads3;
-		this.heads4 = heads4;
+		this.category = category;
+		this.prodName = prodName;
+		this.prodCount = prodCount;
+		this.prodPrice = prodPrice;
+		this.prodDiscounts = prodDiscounts;
+		this.prodRepYns = prodRepYns;
+		this.prodCharFirsts = prodCharFirsts;
+		this.prodCharSeconds = prodCharSeconds;
+		this.prodRepImgs = prodRepImgs;
+		this.prodHeads = prodHeads;
 	}
-	
-	private int categories;
-	private String names;
-	private int counts;
-	private int prices;
-	private int discounts;
-	private String rep_yns;
-	private int char_firsts;
-	private int char_seconds;
-	private String rep_imgs;
-	private String heads1;
-	private String heads2;
-	private String heads3;
-	private String heads4;
-	
 	
 	
 }

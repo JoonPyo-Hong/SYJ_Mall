@@ -56,7 +56,7 @@ public class DummyController {
 									heads1,heads2,heads3,heads4);
 		
 		
-		
+		System.out.println(result);
 		
 		return "/dummy/dummyInfo";
 	}

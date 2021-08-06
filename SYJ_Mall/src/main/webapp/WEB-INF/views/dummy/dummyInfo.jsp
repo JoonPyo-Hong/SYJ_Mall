@@ -94,7 +94,7 @@
             width: 150px;
         }
         
-        #btnss {
+        .btnss {
             /* border:1px solid red; */
             margin: 10px auto;
             width:100px;
@@ -141,10 +141,14 @@
         
     </form>
     
-    <div id="btnss">
+    <div class="btnss">
         <button id = "btns">ADD+</button>
     </div>
-
+	
+	<div class="btnss">
+        <button id = "btnsD">delete</button>
+    </div>
+	
 
     <div id="finalbtns">
         <button id = "checkbtns" style="background-color : red; color : white;">등록(CAUTION)</button>
@@ -157,7 +161,7 @@
     
     <script>
          
-        var num = 1;
+        var num = 0;//박스의 번호
 
          $(document).on('click','#btns',function(){
             const inputmainHeight = parseInt($("#inputmain").css('height').replace('px','')) + 42;
@@ -209,10 +213,10 @@
         +'        <input type="text" style="width:140px;" name="product_nm" id="product_nm" value="none">'
         +'    </div>'
         +'    <div class="item">'
-        +'        <input type="text" name="product_count" id="product_count">'
+        +'        <input type="text" name="product_count" id="product_count" value="0">'
         +'    </div>'
         +'    <div class="item">'
-        +'        <input type="text" name="product_price" id="product_price">'
+        +'        <input type="text" name="product_price" id="product_price" value="0">'
         +'    </div>'
         +'    <div class="item">'
         +'        <input type="text" value="0" name="product_discount" id="product_discount">'
@@ -282,10 +286,29 @@
             )
 
          });
+         
+         //박스 삭제를 클릭했을 경우 --> 박스를 하나 삭제해준다.
+         $(document).on('click','#btnsD',function(){
+        	 
+        	 if (num > 0) {
+        		 const inputmainHeight = parseInt($("#inputmain").css('height').replace('px','')) - 42;
+                 $("#inputmain").css('height',inputmainHeight);
+        		 const container_id = "cont" + num;
+            	 $("#"+container_id).remove();
+            	 num--;
+        	 } else {
+        		alert('박스가 없습니다'); 
+        	 }
+        	 
+         });
+         
 		
          $("#finalbtns").click(function(){
         	 $("#inputmain").submit();
          });
+         
+         
+         
          
          
 

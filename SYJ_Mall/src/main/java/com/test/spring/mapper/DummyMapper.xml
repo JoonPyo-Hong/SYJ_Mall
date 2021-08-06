@@ -7,7 +7,15 @@
 
 <mapper namespace="Dummy">
 
-	
+	<!-- 더미생성 -->
+	<select id="generateDummy" resultType="Integer" parameterType="com.test.SYJ_Mall.dummy.DummyDTO" statementType="CALLABLE" >
+		declare @result int
+		exec dbo.kakao_dummy_generator #{category},#{prodName},#{prodCount},#{prodPrice},#{prodDiscounts},#{prodRepYns},
+										#{prodCharFirsts},#{prodCharSeconds},#{prodRepImgs},#{prodHeads},@result output
+										
+		select @result
+		
+	</select>
 
 
 </mapper>
