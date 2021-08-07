@@ -41,7 +41,7 @@ public class DummyService implements IDummyService{
 				//String prodRepImgs = rep_imgs.get(i);//대표이미지
 				
 				StringBuffer sb = new StringBuffer();
-				String[] headList = {heads1.get(i),heads2.get(i),heads3.get(i),heads4.get(i)};
+				String[] headList = {heads1.get(i),heads2.get(i),heads3.get(i),heads4.get(i)};//헤드이미지 셋트
 				
 				int headCount = 0;
 				sb.append("");
@@ -49,9 +49,10 @@ public class DummyService implements IDummyService{
 				for (String heads : headList) {
 					
 					if (heads.equals("none")) break;
+					
 					sb.append(heads);
-					headCount++;
 					sb.append("#");	
+					headCount++;
 				}
 				
 				if (headCount > 0) {
@@ -67,15 +68,15 @@ public class DummyService implements IDummyService{
 
 				
 //				System.out.println("============================");
-//				System.out.println("categories : " + category);
-//				System.out.println("names : " + prodName);
-//				System.out.println("counts : " + prodCount);
-//				System.out.println("prices : " + prodPrice);
-//				System.out.println("discounts : " + prodDiscounts);
-//				System.out.println("rep_yns : " + prodRepYns);
-//				System.out.println("char_firsts : " + prodCharFirsts);
-//				System.out.println("char_seconds : " + prodCharSeconds);
-//				System.out.println("rep_imgs : " + prodRepImgs);
+//				System.out.println("categories : " + categories.get(i));
+//				System.out.println("names : " + names.get(i));
+//				System.out.println("counts : " + counts.get(i));
+//				System.out.println("prices : " + prices.get(i));
+//				System.out.println("discounts : " + discounts.get(i));
+//				System.out.println("rep_yns : " + rep_yns.get(i));
+//				System.out.println("char_firsts : " + char_firsts.get(i));
+//				System.out.println("char_seconds : " + char_seconds.get(i));
+//				System.out.println("rep_imgs : " + rep_imgs.get(i));
 //				System.out.println("heads : " + prodHeads);
 			}
 			
@@ -84,9 +85,6 @@ public class DummyService implements IDummyService{
 			e.printStackTrace();
 			return -1;
 		}
-		
-		
-		
 	}
 	
 	

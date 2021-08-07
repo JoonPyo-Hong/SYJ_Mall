@@ -18,16 +18,16 @@ public class DummyDAO implements IDummyDAO {
 	@Override
 	public int generateDummy(DummyDTO dto) {
 		
-		System.out.println(dto.getCategory());
-		System.out.println(dto.getProdName());
-		System.out.println(dto.getProdCount());
-		System.out.println(dto.getProdPrice());
-		System.out.println(dto.getProdDiscounts());
-		System.out.println(dto.getProdRepYns());
-		System.out.println(dto.getProdCharFirsts());
-		System.out.println(dto.getProdCharSeconds());
-		System.out.println(dto.getProdRepImgs());
-		System.out.println(dto.getProdHeads());
+//		System.out.println(dto.getCategory());
+//		System.out.println(dto.getProdName());
+//		System.out.println(dto.getProdCount());
+//		System.out.println(dto.getProdPrice());
+//		System.out.println(dto.getProdDiscounts());
+//		System.out.println(dto.getProdRepYns());
+//		System.out.println(dto.getProdCharFirsts());
+//		System.out.println(dto.getProdCharSeconds());
+//		System.out.println(dto.getProdRepImgs());
+//		System.out.println(dto.getProdHeads());
 		
 		
 

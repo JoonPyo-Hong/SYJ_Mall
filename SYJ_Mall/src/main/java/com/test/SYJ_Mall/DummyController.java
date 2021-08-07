@@ -56,9 +56,12 @@ public class DummyController {
 									heads1,heads2,heads3,heads4);
 		
 		
-		System.out.println(result);
+		System.out.println("result : " + result);
 		
-		return "/dummy/dummyInfo";
+		if (result == 1) return "/dummy/DummySuccess";
+		else return "/dummy/DummyFail";
+		
+		
 	}
 	
 	
