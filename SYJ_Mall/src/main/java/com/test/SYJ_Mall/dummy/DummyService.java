@@ -67,17 +67,17 @@ public class DummyService implements IDummyService{
 				int result = dao.generateDummy(dto);
 
 				
-//				System.out.println("============================");
-//				System.out.println("categories : " + categories.get(i));
-//				System.out.println("names : " + names.get(i));
-//				System.out.println("counts : " + counts.get(i));
-//				System.out.println("prices : " + prices.get(i));
-//				System.out.println("discounts : " + discounts.get(i));
-//				System.out.println("rep_yns : " + rep_yns.get(i));
-//				System.out.println("char_firsts : " + char_firsts.get(i));
-//				System.out.println("char_seconds : " + char_seconds.get(i));
-//				System.out.println("rep_imgs : " + rep_imgs.get(i));
-//				System.out.println("heads : " + prodHeads);
+				System.out.println("============================");
+				System.out.println("categories : " + categories.get(i));
+				System.out.println("names : " + names.get(i));
+				System.out.println("counts : " + counts.get(i));
+				System.out.println("prices : " + prices.get(i));
+				System.out.println("discounts : " + discounts.get(i));
+				System.out.println("rep_yns : " + rep_yns.get(i));
+				System.out.println("char_firsts : " + char_firsts.get(i));
+				System.out.println("char_seconds : " + char_seconds.get(i));
+				System.out.println("rep_imgs : " + rep_imgs.get(i));
+				System.out.println("heads : " + prodHeads);
 			}
 			
 			return 1;

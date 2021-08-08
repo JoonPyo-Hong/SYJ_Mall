@@ -149,7 +149,32 @@ select * from KAKAO_PRODUCT_IMG with(nolock)
 
 select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
 
+begin tran
+
+update dbo.KAKAO_PRODUCT_TABLE 
+set category_code = 14
+,	product_nm = N'프렌즈뱃지_스마트 콘'
+,	product_count = 3000
+,	product_price = 12000
+,	recommend_prodt_yn = 'N'
+where product_id = 7
+
+update
+
+commit tran
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
+
 select * from dbo.KAKAO_CHAR_PRODUCT with(nolock)
+
+begin tran
+
+update dbo.KAKAO_CHAR_PRODUCT set char_seq = 8 where char_seq = 1 and product_id = 7
+
+commit tran
+
+select @@TRANCOUNT
+
 
 select * from dbo.KAKAO_CHARACTER with(nolock)
 
@@ -167,6 +192,6 @@ update dbo.KAKAO_PRODUCT_IMG set product_img = N'resources/images/product/콘/�
 update dbo.KAKAO_PRODUCT_IMG set product_img = N'resources/images/product/콘/마린 에어팟키링_무지&콘/20200529122143559_8809721501122_BW_00_(2).jpg' where img_seq = 9
 
 
-select * from dbo.KAKAO_CHAR_PRODUCT  with(nolock)
+select * from dbo.KAKAO_CHAR_PRODUCT with(nolock)
 
-truncate table dbo.KAKAO_CHAR_PRODUCT
+
