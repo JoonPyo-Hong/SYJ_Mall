@@ -191,6 +191,15 @@ public class MainController {
 		}
 	
 	}
+	
+	// 댓글 개수(select)
+	@RequestMapping(value = "/main_feed_count.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object main_feed_count(@RequestParam("seq") Integer seq) {
+		
+		return  service.main_feed_count(seq);
+	
+	}
 
 	// 댓글 좋아요 갯수
 	@RequestMapping(value = "/feed_heart.action", method = { RequestMethod.POST })

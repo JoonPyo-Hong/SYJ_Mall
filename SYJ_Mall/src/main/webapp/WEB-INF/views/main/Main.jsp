@@ -645,7 +645,6 @@ body.s_no-scroll {
 	textarea::placeholder {
 		font-size: 24px;
 	}
-	
 }
 </style>
 <meta name="viewport"
@@ -662,7 +661,7 @@ body.s_no-scroll {
 </head>
 <body>
 
-	
+
 	<div id="modal"></div>
 	<div class="modal-con modal1">
 		<div id="modal_content">
@@ -886,29 +885,48 @@ body.s_no-scroll {
 					});
 		}
 		function main_feed(list_seq) {
-		var result = new Array();
-			$
-					.ajax({
-						url : "main_feed.action",
-						type : 'post',
-						data : {
-							seq : list_seq,
-						},
-						success : function(data) {
-							
-							result.push(data.reg_id);
-							result.push(data.feed);
-						
-							
-						},
-						error : function() {
-							alert("에러");
-						}
-					});
+			var result = new Array();
+			$.ajax({
+				url : "main_feed.action",
+				type : 'post',
+				async : false,
+				data : {
+					seq : list_seq,
+				},
+				success : function(data) {
 
-			
+					result.push(data.reg_id);
+					result.push(data.feed);
+
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+
 			return result;
-			
+
+		}
+		
+		function main_feed_count(list_seq) {
+		var count = 0;
+			$.ajax({
+				url : "main_feed_count.action",
+				type : 'post',
+				async : false,
+				data : {
+					seq : list_seq,
+				},
+				success : function(data) {
+					count = data;
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+
+		return count;
+
 		}
 
 		function list() {
@@ -932,9 +950,20 @@ body.s_no-scroll {
 													txt = " · ";
 													gubn = this.gubn;
 												}
-												var test = main_feed(this.seq);
-												alert(test[0]);
-												alert(test[1]);
+												var result = main_feed(this.seq);
+												var spn1 = result[0];
+												var spn2 = result[1];
+												if (typeof spn1 == "undefined") {
+													spn1 = "";
+													spn2 = "";
+												}else{
+												
+													spn2 = spn2.replace('<br/>', ' ');
+												
+												}
+										
+												var count = main_feed_count(this.seq);
+												
 												$(".scroll")
 														.append(
 																"<div class ='content' id = 'content_"+this.seq +"'>"
@@ -979,13 +1008,13 @@ body.s_no-scroll {
 																		+ this.contents
 																		+ "</div>"
 																		+ "<div class='txt_4'>"
-																		+ "댓글 252개"
+																		+ "댓글 "+count+"개"
 																		+ "</div>"
 																		+ "<div class='txt_5'>"
 																		+ "<span>"
-																		+ "홍*표"
+																		+ spn1
 																		+ "</span>"
-																		+ "내용 입니다."
+																		+ spn2
 																		+ "</div>"
 																		+ "<div class='comment'>"
 																		+ "<textarea placeholder='댓글을 달아주세요.' disabled></textarea>"

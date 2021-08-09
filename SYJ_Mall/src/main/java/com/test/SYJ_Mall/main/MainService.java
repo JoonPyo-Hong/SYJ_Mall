@@ -34,4 +34,6 @@ public interface MainService {
 
 	HashMap<String, Object> main_feed(Integer seq);
 
+	Object main_feed_count(Integer seq);
+
 }

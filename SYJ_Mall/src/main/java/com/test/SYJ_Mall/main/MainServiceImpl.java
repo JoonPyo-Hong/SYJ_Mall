@@ -62,26 +62,26 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public void feed_heart_update(HashMap<String, String> map) {
 		dao.feed_heart_update(map);
-		
+
 	}
 
 	@Override
 	public void re_feed_insert(Map<String, Object> map) {
 		dao.re_feed_insert(map);
-		
+
 	}
 
 	@Override
 	public Object re_feed_select(String feed_seq) {
-		
+
 		return dao.re_feed_select(feed_seq);
-		
+
 	}
 
 	@Override
 	public void re_feed_heart_update(HashMap<String, String> map) {
 		dao.re_feed_heart_update(map);
-		
+
 	}
 
 	@Override
@@ -93,6 +93,13 @@ public class MainServiceImpl implements MainService {
 	public HashMap<String, Object> main_feed(Integer seq) {
 		// TODO Auto-generated method stub
 		return dao.main_feed(seq);
+	}
+
+	@Override
+	public Object main_feed_count(Integer seq) {
+
+		return dao.main_feed_count(seq);
+
 	}
 
 }

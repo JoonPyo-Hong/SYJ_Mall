@@ -114,4 +114,10 @@ public class MainDAOImpl implements MainDAO {
 		return session.selectOne("main.main_feed", seq);
 	
 	}
+
+	@Override
+	public Object main_feed_count(Integer seq) {
+		
+		return session.selectOne("main.main_feed_count", seq);
+	}
 }
