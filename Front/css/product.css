@@ -1,0 +1,106 @@
+/* 대표 이미지 */
+.main-image {
+  height: 640px;
+  width: 640px;
+  background-image: url(./../images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);
+  background-size: cover;
+}
+
+/* 컨텐츠 헤더 */
+.detail-header {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  flex-direction: column;
+  margin: 25px 20px 0px;
+}
+
+.product-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-weight: bold;
+}
+
+.product-name {
+  font-size: 30px;
+  /* max-width: 250px; */
+}
+
+.share {
+  width: 40px;
+  height: 40px;
+  background-image: url(./../images/product-detail/btn_share.png);
+  background-size: cover;
+}
+
+.product-pric {
+  font-size: 14px;
+}
+
+.product-review {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: 10px;
+}
+.review-star {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url(./../images/product-detail/star_on.png);
+  background-size: cover;
+  margin-right: 3px;
+}
+
+.review-star.off {
+  background-image: url(./../images/product-detail/star_off.png);
+}
+
+.review-count {
+  margin-left: 6px;
+}
+
+/* 컨텐츠 */
+.detail-content {
+}
+
+.detaul-content-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 50px 20px 30px;
+}
+.detaul-content-image {
+  width: 100%;
+}
+
+/* 하단 버튼 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  background-color: rgba(251, 46, 69, 0.95);
+  width: 640px;
+  height: 80px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.direct-purchase {
+  color: #fff;
+  font-size: 18px;
+}
+
+.add-to-cart {
+  color: #fff;
+  font-size: 18px;
+  position: absolute;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background-image: url(./../images/product-detail/ico_cart_off.png);
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
