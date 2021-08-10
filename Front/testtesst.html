@@ -1,127 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
-    <title>Document</title>
-    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/jquery-1.12.4.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <style>
-    
-        /* 넥슨 글씨체 */
-        @font-face {
-            font-family: 'NEXON Lv1 Gothic OTF';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-       
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<table>
+    <tr id="test">
+        <td width="118" style="border-width: 1px 1px 1px 0px; border-style: solid solid solid none; border-color: black; width: 89pt; background-color: rgb(204, 204, 204); cursor: col-resize;" id="NamoSE_border_show">
+            <p style="text-align: center;"><span style="font-family: '맑은 고딕'; font-size: 13px;">수량</span></p></td> 
+        <td width="118" style="border-width: 1px 1px 1px 0px; border-style: solid solid solid none; border-color: black; width: 89pt; background-color: rgb(204, 204, 204); cursor: col-resize;" id="NamoSE_border_show">
+        <p style="text-align: center;"><span style="font-family: '맑은 고딕'; font-size: 13px;">수량</span></p></td> 
+    </tr>
 
-        #total {
-            border: 1px solid black;
-            height: 3000px;
-            width: 600px;
-           
-        }
-#test{
-    position: absolute;
-}
-        .apple_1 {
-            border: 1px solid red;
-            height: 400px;
-            width: 400px;
-        }
+</table>
+<SCript>
+ let target = document.getElementById('test');
 
-        .apple_2 {
-            border: 1px solid blue;
-            height: 300px;
-            width: 300px;
-            margin:50px;
-        }
+let src = target.innerHTML;
+var src1 = src.split('cursor:');
+var src2 = src1[0];
+alert(src2);
+var src3 = src1[1];
+src3 = src1[1].replace((src3.substring(0, src3.indexOf(';')+1)), '');
 
-        .apple_3 {
-            border: 1px solid green;
-            height: 200px;
-            width: 200px;
-            margin:50px;
-        } 
-        .feed_content2 {
-	margin-left: 50px;
-	margin-top: 0px;
-	padding-top: 8px;
-}
-.spn_re_img img {
-	width: 18px;
-	height: 18px;
-}
-.comment {
-	padding: 8px;
-	border-radius: 0px 24px 24px;
-	background-color: rgb(240, 241, 244);
-	position: relative;
-	display: flex;
-	box-sizing: border-box;
-	width: 600px;
-	height: 44px;
-	margin-top: 16px;
-}
+alert(src3);
 
-.comment2 {
-	margin-left: 50px;
-}
-.delete_search {
-	position: relative;
-	left: -33px;
-	top: -10px;
-}
-    </style>
-</head>
-<body>
-    
-    <div id = "total">
+var good = src2 + src3;
+alert(good);
+src = src.replace('cursor: col-resize;', '');
+// console.log( src );
 
-    <div id="test">
-        </div>
+/**
+ * ->
+ * <h1>This Content is target</h1>
+ * <span>to replace</span>
+ * .
+ */
+// let extractedText = src.replace(extractTextPattern, '');
+// console.log( extractedText );
 
 
 
-    </div>
-    <button id = "btn" style="margin:10px;">클릭</button>
 
-    <script>
-
-        var idx = 1;
-
-        $('#btn').click(function(){
-            $('#test').append(
-													  "<div class='re_feed_update'>"
-													+ "<div class='comment comment2' >"
-													+"<span class='spn_re_img'>"
-													+ "<img src='resources/images/main/delete-search.png'class='delete_search'>"
-													+"</span>"
-													+ "<textarea id='feed_txt' wrap='hard' placeholder='답글을 달아주세요.'></textarea>"
-													+ "<img  src='resources/images/main/reply-off.png' id='feed_img'>"
-													+ "</div>"
-													+"</div>");
-            
-
-            idx++;
-        });
-        
-
-        $(document).on('click','.re_feed_update',function(){
-            //alert($(this).attr('id'));
-            //$("#" + $(this).attr('id')).remove();
-            //alert($("#" + $(this).attr('id')).parent().attr('class'));
-            var test1 = $("#" + $(this).attr('id')).parent().attr('class');
-            $(".re_feed_update").remove();
-        });
-
-    </script>
-
-</body>
-</html>
+</SCript>
