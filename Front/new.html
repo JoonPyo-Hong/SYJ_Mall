@@ -154,6 +154,55 @@
 
 <script>
     
+    var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
+    var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
+    
+  $(document).ready(function() {
+  // 왼쪽 사이드바 캐릭터 메뉴
+  $("li.character-accordion-button").on("click", function () {
+
+    if (!left_side_var_chr) {
+        $(".character-menu").css("display", "inline-block");
+        left_side_var_chr = true;
+        
+        $(".character-accordion-button .drop-down").css(
+            "transform",
+            "rotate(180deg)"
+        );   
+    } else {
+        $(".character-menu").css("display", "none");
+        left_side_var_chr = false;
+
+        $(".character-accordion-button .drop-down").css(
+            "transform",
+            "rotate(360deg)"
+        );
+    }
+    });
+
+    // 왼쪽 사이드바 카테고리 메뉴
+    $("li.category-accordion-button").on("click", function () {
+
+        if (!left_side_var_category) {
+            $(".category-menu").css("display", "inline-block");
+            $(".category-accordion-button .drop-down").css(
+                "transform",
+                "rotate(180deg)"
+            );
+            left_side_var_category = true;
+        } else {
+            $(".category-menu").css("display", "none");
+            $(".category-accordion-button .drop-down").css(
+                "transform",
+                "rotate(360deg)"
+            );
+            left_side_var_category = false;
+        }    
+    });
+});
+
+
+
     $(".language").click(function(){
         //$("#myModal").modal();
         $("#burger-check").prop("checked", false);

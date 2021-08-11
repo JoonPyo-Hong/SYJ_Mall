@@ -55,5 +55,21 @@
 		<put-attribute name = "body" value="/WEB-INF/views/my/myMain.jsp"/>	
 	</definition>
 	
+	
+	
+	
+	<!-- 재지정 -->
+	<definition name="newbdefault" template="/WEB-INF/views/Layout/totalLayout.jsp">
+		<!-- <put-attribute name="header" value="/WEB-INF/views/mainTiles/mainTop.jsp" /> -->
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	
+	<definition name = "/tiles/popularItem.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/popular/popularMain.jsp"/>	
+	</definition>
+	
+	
+	
 
 </tiles-definitions>

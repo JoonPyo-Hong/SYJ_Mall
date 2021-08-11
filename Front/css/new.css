@@ -9,7 +9,6 @@
 .container-wrap .item {
   border: 1px solid #fff;
   position: relative;
-  background-image: url(./../images/hot/item_test1.jpg);
   background-size: cover;
 }
 
@@ -33,18 +32,23 @@
   grid-row-end: 2;
 } */
 
-.item:nth-child(1) {
+.item:nth-child(12n-11) {
   /* 1번 라인에서 2칸 */
   grid-column: 1 / span 2;
   /* 1번 라인에서 3칸 */
   grid-row: 1 / span 2;
 }
 
-.item:nth-child(9) {
+.item:nth-child(12n-3) {
   /* 1번 라인에서 2칸 */
   grid-column: 2 / span 2;
   /* 1번 라인에서 3칸 */
   grid-row: 4 / span 2;
+}
+
+
+.item:nth-child(1) {
+  background-image: url(./../images/hot/item_test1.jpg);
 }
 
 .item:nth-child(2) {

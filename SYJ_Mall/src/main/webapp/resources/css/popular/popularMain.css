@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.container-wrap {
+  height: 100%;
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100px 100px 100px 100px 100px 100px;
+}
+
+.container-wrap .item {
+  border: 1px solid #fff;
+  position: relative;
+  background-size: cover;
+}
+
+.container-wrap .item::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-image: http://localhost:9089/SYJ_Mall/resources/css/images/hot/cart.png);
+  background-size: cover;
+  right: 7px;
+  bottom: 7px;
+}
+
+/* 
+.item:nth-child(1) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+} */
+
+.item:nth-child(12n-11) {
+  /* 1번 라인에서 2칸 */
+  grid-column: 1 / span 2;
+  /* 1번 라인에서 3칸 */
+  grid-row: 1 / span 2;
+}
+
+.item:nth-child(12n-3) {
+  /* 1번 라인에서 2칸 */
+  grid-column: 2 / span 2;
+  /* 1번 라인에서 3칸 */
+  grid-row: 4 / span 2;
+}
+
+
