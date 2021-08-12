@@ -164,7 +164,7 @@ body {
 	width: 32px;
 	height: 32px;
 	cursor: pointer;
-	background-image: url(resources/images/main/heart-burst.png);
+	background-image: url(/SYJ_Mall/resources/images/main/heart-burst.png);
 	background-size: cover;
 	background-repeat: no-repeat;
 }
@@ -346,7 +346,7 @@ textarea {
 .swiper-button-prev {
 	display: inline-block;
 	background-image:
-		url(resources/images/main/arrow-medium-circle-right-white.png);
+		url(/SYJ_Mall/resources/images/main/arrow-medium-circle-right-white.png);
 	background-size: 27px 27px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -356,7 +356,7 @@ textarea {
 .swiper-button-next {
 	display: inline-block;
 	background-image:
-		url(resources/images/main/arrow-medium-circle-right-white.png);
+		url(/SYJ_Mall/resources/images/main/arrow-medium-circle-right-white.png);
 	background-size: 27px 27px;
 	background-position: center;
 	background-repeat: no-repeat;

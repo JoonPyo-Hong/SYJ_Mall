@@ -10,17 +10,17 @@
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 
 <link rel="stylesheet" href="resources/css/jquery-ui.css">
-<link rel="stylesheet" href="resources/css/main/feed.css">
+
 <script src="resources/js/jquery-1.12.4.js"></script>
 <script src="resources/js/jquery-ui.js"></script>
 <script src="resources/js/bootstrap.js"></script>
 
-<link rel="icon" href="resources/images/main/kakao_ryan.ico">
+<link rel="icon" href="/SYJ_Mall/resources/images/main/kakao_ryan.ico">
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+	<link rel="stylesheet" href="resources/css/main/feed.css">
+
 
 
 <meta name="viewport"
@@ -152,6 +152,8 @@
 			</div>
 		</div>
 	</div>
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 	<script src="resources/js/main/feed.js"></script>
 </body>
 </html>
