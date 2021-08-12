@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="resources/css/bootstrap.css">
-<link rel="stylesheet" href="resources/css/main/feed.css">
+
 <link rel="stylesheet" href="resources/css/jquery-ui.css">
+<link rel="stylesheet" href="resources/css/main/feed.css">
 <script src="resources/js/jquery-1.12.4.js"></script>
 <script src="resources/js/jquery-ui.js"></script>
 <script src="resources/js/bootstrap.js"></script>
