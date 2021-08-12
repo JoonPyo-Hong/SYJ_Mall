@@ -49,14 +49,14 @@
 .title-logo {
   width: 147px;
   height: 24px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/new-logo-mo.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/new-logo-mo.png);
   background-size: cover;
 }
 
 .search {
   width: 20px;
   height: 20px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/ic_search.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/ic_search.png);
   background-size: cover;
   margin: 8px 13px 7px 2px;
 }
@@ -64,7 +64,7 @@
 .language {
   width: 20px;
   height: 20px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/ic-language-global.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/ic-language-global.png);
   background-size: cover;
   margin: 8px 13px 7px 2px;
 }
@@ -115,7 +115,7 @@
   user-select: none;
   width: 20px;
   height: 20px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/ic_menu.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/ic_menu.png);
   background-size: cover;
   margin: 8px 3px 5px 13px;
 }
@@ -180,7 +180,7 @@
   display: inline-block;
   width: 15px;
   height: 15px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/right-arrow.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/right-arrow.png);
   background-size: cover;
   vertical-align: middle;
   margin-left: 2px;
@@ -189,7 +189,7 @@
 
 .banner {
   height: 8%;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/navigation-banner.jpg);
+  background-image: url(/SYJ_Mall/resources/images/main2/navigation-banner.jpg);
   background-size: cover;
   margin: 0 10px;
   border-radius: 10px;
@@ -220,7 +220,7 @@
 .navigation-menu-li .drop-down {
   width: 18px;
   height: 18px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/down-arrow.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/down-arrow.png);
   background-size: cover;
   margin-right: 25px;
 }
@@ -259,65 +259,65 @@
   display: inline-block;
   width: 50px;
   height: 50px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Ryan.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Ryan.png);
   background-size: cover;
   margin-bottom: 8px;
 }
 
 .li-Apeach::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Apeach.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Apeach.png);
 }
 
 .li-Muzi::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Muzi.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Muzi.png);
 }
 
 .li-Frodo::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Frodo.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Frodo.png);
 }
 
 .li-Neo::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Neo.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Neo.png);
 }
 
 .li-Tube::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Tube.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Tube.png);
 }
 
 .li-Jay::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Jay.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Jay.png);
 }
 
 .li-Con::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Con.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Con.png);
 }
 
 .li-Choonsic::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Choonsic.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Choonsic.png);
 }
 
 .li-Jordy::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Jordy.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Jordy.png);
 }
 
 .li-Scappy::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Scappy.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Scappy.png);
 }
 
 .li-Angmond::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Angmond.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Angmond.png);
 }
 
 .li-PendaJr::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-PendaJr.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-PendaJr.png);
 }
 
 .li-Kereberony::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Kereberony.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Kereberony.png);
 }
 
 .li-Kumdori::before {
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/li-Kumdori.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/li-Kumdori.png);
 }
 
 /* li-sub-menu category */
@@ -359,7 +359,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  background-image: url(http://localhost:9089/SYJ_Mall/resources/images/main2/login.png);
+  background-image: url(/SYJ_Mall/resources/images/main2/login.png);
   background-size: cover;
   vertical-align: middle;
   margin-right: 5px;
