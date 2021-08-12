@@ -359,3 +359,8 @@ insert into dbo.KAKAO_PRODUCT_TABLE values (16,1,8,N'카카오프렌즈 감자�
 
 
 select * from KAKAO_PRODUCT_IMG
+
+
+
+
+select count(*) from dbo.QOO10_USER_REAL with(nolock)

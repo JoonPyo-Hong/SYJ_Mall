@@ -1,22 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/inc/newMainAsset.jsp" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>카카오 프렌즈샵</title>
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="./js/main.js"></script> 
-    <link rel="shortcut icon" href="./images/favicon.ico" type='image/x-ico' />
-    <link rel="stylesheet" type="text/css" href="./css/fonts.css">
-    <link rel="stylesheet" type="text/css" href="./css/common.css">
-    <link rel="stylesheet" type="text/css" href="./css/main.css">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>카카오 프렌즈샵</title>
+<link rel = "stylesheet" href = "resources/css/mainLayout/mainTotalLayout.css"> 
 </head>
 <body>
+	 <div id="mask"></div>
     <div id="kakao-wrap">
-        <div id="kakao-head">
+        <div id="kakao-head" >
             <div id="inner-head">
                 <div class="left-btn">
                     <!-- <button class="hamburger-menu"></button> -->
@@ -97,6 +96,7 @@
                     <button class="language"></button>
                 </div>
             </div>
+            
             <div id="kakao-content">
                 <div id="inner-content">
                     <div class="main-tab">
@@ -107,13 +107,155 @@
                             <li class="main-tab-li">마이</li>
                         </ul>
                     </div>
-                </div>
+                     <!-- 내용 타일즈 -->
+					<tiles:insertAttribute name="body" ignore="false"/>
+                 </div>           
             </div>
         </div>
-
     </div>
 
 
+<script>
+	
+
+	var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
+	var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
+	
+	$(document).ready(function() {
+		// 왼쪽 사이드바 캐릭터 메뉴
+		$("li.character-accordion-button").on("click", function () {
+	
+			if (!left_side_var_chr) {
+	    		$(".character-menu").css("display", "inline-block");
+	    		left_side_var_chr = true;
+	    
+		    	$(".character-accordion-button .drop-down").css(
+		        	"transform",
+	        		"rotate(180deg)"
+	    		);   
+			} else {
+		    	$(".character-menu").css("display", "none");
+		    	left_side_var_chr = false;
+	
+	    		$(".character-accordion-button .drop-down").css(
+	        		"transform",
+	        		"rotate(360deg)"
+	    		);
+			}
+		});
+	
+		// 왼쪽 사이드바 카테고리 메뉴
+		$("li.category-accordion-button").on("click", function () {
+	
+		    if (!left_side_var_category) {
+		        $(".category-menu").css("display", "inline-block");
+		        $(".category-accordion-button .drop-down").css(
+		            "transform",
+		            "rotate(180deg)"
+		        );
+		        left_side_var_category = true;
+		    } else {
+		        $(".category-menu").css("display", "none");
+		        $(".category-accordion-button .drop-down").css(
+		            "transform",
+		            "rotate(360deg)"
+		        );
+		        left_side_var_category = false;
+		    }    
+		});
+	});
     
+    
+    
+    $(".language").click(function(){
+        //$("#myModal").modal();
+        $("#burger-check").prop("checked", false);
+        $(".navigation").css("left",-325);
+        $(".navigation-inner").css("left",-325);
+    });
+
+    var check = false;
+
+    $("#burger-check").click(function(){
+        wrapWindowByMask();
+         
+    });
+
+    $(".item").click(function(){
+        alert('tlqkf');
+    });
+
+    $('#mask').click(function () {  
+        $(this).hide();  
+        $('.window').hide(); 
+         $("#burger-check").prop("checked", false);
+        //$('.window').css('background-color','#FFF'); 
+    }); 
+
+    // if (check == false) {
+        //     //$(".navigation").css("left",0);
+            
+        //     //$(".navigation-inner").css("left",0);
+           
+        //     //check = true;
+        // }
+
+        // if ( $("#burger-check").is(":checked") == false){
+        //     alert('asd');
+            
+        //     //$("body").css("background-color",'#4C4C4C');
+        // } else {
+            
+        //     $(".navigation").css("left",-325);
+        //     $(".navigation-inner").css("left",-325);
+        // }
+
+    //닫기 버튼을 눌렀을 때
+    // $('.window .close').click(function (e) {  
+    //     //링크 기본동작은 작동하지 않도록 한다.
+    //     e.preventDefault();  
+    //     $('#mask, .window').hide();  
+    // });    
+
+    // $(document).ready(function(){
+    //     //검은 막 띄우기
+    //     $('#burger-check').click(function(e){
+    //         e.preventDefault();
+    //         //if ( $("#burger-check").is(":checked")){
+    //         //$(".navigation").css("left",0);
+    //         //$(".navigation-inner").css("left",0);
+    //         //$("body").css("background-color",'#4C4C4C');
+    //         //} 
+    //         wrapWindowByMask();
+    //     });
+
+           
+
+    //     //검은 막을 눌렀을 때
+    //     $('#mask').click(function () {  
+    //         $(this).hide();  
+    //         $('.window').hide(); 
+    //         //$('.window').css('background-color','#FFF'); 
+    //     });      
+    // });
+    
+    function wrapWindowByMask(){
+        //화면의 높이와 너비를 구한다.
+        var maskHeight = $(document).height();  
+        var maskWidth = $(window).width();  
+		
+        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+        $('#mask').css({'width':maskWidth,'height':maskHeight});  
+		
+        //애니메이션 효과
+        //$('#mask').fadeIn(1000);      
+        $('#mask').fadeTo("slow",0.8);    
+    }
+
+    
+
+
+    //4C4C4C
+</script>
 </body>
 </html>
