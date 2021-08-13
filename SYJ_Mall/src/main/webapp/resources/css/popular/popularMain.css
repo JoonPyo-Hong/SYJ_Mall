@@ -14,13 +14,14 @@
   background-size: cover;
 }
 
-.container-wrap .item::before {
+.container-wrap .item .basket {
+  border: 1px solid red;	
   content: "";
   display: inline-block;
   position: absolute;
   width: 24px;
   height: 24px;
-  background-image: /SYJ_Mall/resources/css/images/hot/cart.png);
+  background-image: url(/SYJ_Mall/resources/images/hot/cart.png);
   background-size: cover;
   right: 7px;
   bottom: 7px;
@@ -47,5 +48,57 @@
   /* 1번 라인에서 3칸 */
   grid-row: 4 / span 2;
 }
+
+
+.item:nth-child(1) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test1.jpg);
+}
+
+.item:nth-child(2) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test2.jpg);
+}
+
+.item:nth-child(3) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test3.jpg);
+}
+
+.item:nth-child(4) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test4.jpg);
+}
+
+.item:nth-child(5) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test5.jpg);
+}
+
+.item:nth-child(6) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test6.jpg);
+}
+
+.item:nth-child(7) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test7.jpg);
+}
+
+.item:nth-child(8) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test8.jpg);
+}
+
+.item:nth-child(9) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test9.jpg);
+}
+
+.item:nth-child(10) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test10.jpg);
+}
+
+.item:nth-child(11) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test11.jpg);
+}
+
+.item:nth-child(12) {
+  background-image: url(/SYJ_Mall/resources/images/hot/item_test12.jpg);
+}
+
+
+
 
 

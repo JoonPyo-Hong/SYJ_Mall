@@ -109,6 +109,7 @@
                     </div>
                      <!-- 내용 타일즈 -->
 					<tiles:insertAttribute name="body" ignore="false"/>
+					
                  </div>           
             </div>
         </div>
@@ -179,10 +180,6 @@
     $("#burger-check").click(function(){
         wrapWindowByMask();
          
-    });
-
-    $(".item").click(function(){
-        alert('tlqkf');
     });
 
     $('#mask').click(function () {  
