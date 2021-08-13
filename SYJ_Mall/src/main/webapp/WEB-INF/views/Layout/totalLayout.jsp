@@ -101,9 +101,9 @@
                 <div id="inner-content">
                     <div class="main-tab">
                         <ul class="main-tab-ul">
-                            <li class="main-tab-li active">오늘</li>
+                            <li class="main-tab-li">오늘</li>
                             <li class="main-tab-li">신규</li>
-                            <li class="main-tab-li">인기</li>
+                            <li class="main-tab-li active">인기</li>
                             <li class="main-tab-li">마이</li>
                         </ul>
                     </div>

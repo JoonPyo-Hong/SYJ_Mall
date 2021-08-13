@@ -15,7 +15,6 @@
 }
 
 .container-wrap .item .basket {
-  border: 1px solid red;	
   content: "";
   display: inline-block;
   position: absolute;
