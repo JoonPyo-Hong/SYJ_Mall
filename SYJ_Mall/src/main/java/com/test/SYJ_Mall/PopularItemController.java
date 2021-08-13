@@ -17,8 +17,9 @@ public class PopularItemController {
 	
 	// 처음에 로그인 페이지로 보내주는 곳
 	@RequestMapping(value = "/popularMain.action", method = { RequestMethod.GET,RequestMethod.POST })
-	public String login(HttpServletRequest request, HttpServletResponse response, String site) {
+	public String login(HttpServletRequest request, HttpServletResponse response) {
 				
+		int result = service.getPopularProductList(request);
 		
 		
 		return "/tiles/popularItem.layout";

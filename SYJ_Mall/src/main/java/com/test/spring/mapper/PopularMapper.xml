@@ -6,7 +6,15 @@
 
 
 <mapper namespace="popuarItem">
-
+	
+	
+	
+	<!-- 인기상품 진열 sp -->	
+	<select id="popularProductList" resultType="com.test.SYJ_Mall.popularItem.PopularItemDTO"  statementType="CALLABLE" >
+		{
+			call dbo.kakao_popular_product_list
+		}
+	</select>
 	
 
 

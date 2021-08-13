@@ -1,24 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp" %>
-<link rel = "stylesheet" href = "resources/css/popular/popularMain.css"> 
+<link rel = "stylesheet" href = "resources/css/popular/NewPopularMain.css"> 
+
 
 <div class="container-wrap hot-wrap" style="height: 900px;">
-	<div class="item" id="1"><div class="basket" ></div></div>
-	<div class="item" id="2"><div class="basket" ></div></div>
-	<div class="item" id="3"><div class="basket" ></div></div>
-	<div class="item" id="4"><div class="basket" ></div></div>
-	<div class="item" id="5"><div class="basket" ></div></div>
-	<div class="item" id="6"><div class="basket" ></div></div>
-	<div class="item" id="7"><div class="basket" ></div></div>
-	<div class="item" id="8"><div class="basket" ></div></div>
-	<div class="item" id="9"><div class="basket" ></div></div>
-	<div class="item" id="10"><div class="basket"></div></div>
-	<div class="item" id="11"><div class="basket" ></div></div>
-	<div class="item" id="12"><div class="basket" ></div></div>
+	<c:forEach var="pdto" items="${popularDtoList}">
+		<div class="item" id="${pdto.productId}" style="background-image : url(${pdto.productImg})"><div class="basket" ></div></div>
+	</c:forEach>
 </div>
-
-
 <script>
 	
 	

@@ -728,3 +728,48 @@ select * from dbo.KAKAO_PROMOTION with(nolock)
 
 resources/images/product/콘/런던에디션 미니키체인_근위병콘/20201019143628927_8809721504192_BW_02.jpg
 
+
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-13   
+	Description : 인기페이지 상품 바둑판처럼 배열하는 로직
+	     
+	History	: 2021-08-13 Seunghwan Shin	#최초 생성 : 아직 구매 로직이 없어서 이미지 뜨는지만 테스트
+*/
+alter proc dbo.kakao_popular_product_list
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+
+	select
+		top(12)
+		kpi.product_id as productId
+	,	replace(kpi.product_img,N' ',N'%20') as productImg
+	from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+	inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+	where rep_img_yn = 'Y' and head_img_yn = 'Y'
+	order by kpi.product_id
+
+
+end
+
+
+
+
+select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
+
+begin tran
+
+update dbo.KAKAO_PRODUCT_IMG set product_img = N'resources/images/product/콘/마린 에어팟키링_무지&콘/20200529122123619_8809721501139_BW_02.jpg' where img_seq = 1
+
+
+
+commit tran
+
