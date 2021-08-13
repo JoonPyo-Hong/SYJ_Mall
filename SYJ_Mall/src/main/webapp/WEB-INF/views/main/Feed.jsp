@@ -15,7 +15,7 @@
 <script src="resources/js/jquery-ui.js"></script>
 <script src="resources/js/bootstrap.js"></script>
 
-<link rel="icon" href="/SYJ_Mall/resources/images/main/kakao_ryan.ico">
+<!-- <link rel="icon" href="/SYJ_Mall/resources/images/main/kakao_ryan.ico"> -->
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">

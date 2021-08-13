@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ include file="/WEB-INF/views/inc/mainasset.jsp"%>
 <link rel="stylesheet" href="resources/css/main/mainTop.css">
+
+<link rel="icon" href="resources/images/main/kakao_ryan.ico">
+<!-- <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-ico"> -->
+
 <!-- 메인화면 최 상단 -->
 <div id="wrap">
 	<div id="sticky">

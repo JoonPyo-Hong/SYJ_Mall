@@ -441,7 +441,9 @@ body.s_no-scroll {
 	font-weight: normal;
 	font-stretch: normal;
 }
-
+.swiper-button-prev:after,.swiper-button-next:after{
+	display: none;
+}
 #modal_login {
 	border-radius: 35px;
 	background-color: rgb(255, 235, 0);

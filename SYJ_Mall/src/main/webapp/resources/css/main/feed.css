@@ -633,7 +633,9 @@ body.s_no-scroll {
 .comment2 {
 	margin-left: 50px;
 }
-
+.swiper-button-prev:after,.swiper-button-next:after{
+	display: none;
+}
 
 
 @media all and (max-width:812px) {
