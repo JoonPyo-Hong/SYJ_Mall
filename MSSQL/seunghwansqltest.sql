@@ -364,3 +364,163 @@ select * from KAKAO_PRODUCT_IMG
 
 
 select count(*) from dbo.QOO10_USER_REAL with(nolock)
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-13   
+	Description : 인기페이지 상품 바둑판처럼 배열하는 로직
+	     
+	History	: 2021-08-13 Seunghwan Shin	#최초 생성 : 아직 구매 로직이 없어서 이미지 뜨는지만 테스트
+			  2021-08-13 Seunghwan Shin	#가져올 상품 갯수 변경
+			  2021-08-14 Seunghwan Shin	#구매정보에 기반한 데이터 추가
+*/
+alter proc dbo.kakao_popular_product_list
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+
+	select
+		top(12)
+		pd.productId
+	,	replace(kpi.product_img,N' ',N'%20') as productImg
+	from 
+	(select
+		kpt.product_id as productId
+	,	count(*) as cnt
+	from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+	inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
+	where kpt.del_yn = 'N'
+	group by kpt.product_id
+	) as pd
+	inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpi.product_id = pd.productId
+	where kpi.rep_img_yn = 'Y' and kpi.head_img_yn = 'Y'
+	order by pd.cnt desc
+
+end
+
+select @@TRANCOUNT
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
+
+begin tran
+
+--차량용방향제(통풍구형)_보드 무지
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock) where product_img like N'%)_보드 무지%'
+
+update dbo.KAKAO_PRODUCT_IMG set product_img = replace(product_img,N'(',N' ') where product_img like N'%)_보드 무지%'
+
+update dbo.KAKAO_PRODUCT_IMG set product_img = replace(product_img,N')',N' ') where product_img like N'%)_보드 무지%'
+
+
+update dbo.KAKAO_PRODUCT_IMG set product_img = replace(product_img,N'none',N'')
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
+
+begin tran
+
+update dbo.KAKAO_PRODUCT_IMG set product_img = replace(product_img,N'[',N'')
+
+update dbo.KAKAO_PRODUCT_IMG set product_img = replace(product_img,N']',N' ')
+
+rollback tran
+
+
+
+
+rollback tran
+
+rollback tran
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
+
+
+
+SELECT * INTO dbo.TESTSHGOOD FROM dbo.KAKAO_PRODUCT_IMG
+
+select * from dbo.TESTSHGOOD
+
+
+top(2)
+		kpi.product_id as productId
+	,	replace(kpi.product_img,N' ',N'%20') as productImg
+
+
+	select
+		kpi.product_id as productId
+	--,	replace(kpi.product_img,N' ',N'%20') as productImg
+	from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+	inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
+	group by kpi.product_id
+	inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+	--where rep_img_yn = 'Y' and head_img_yn = 'Y'
+	--group by kpt.product_id
+	--order by kpi.product_id
+
+	resources/images/product/라이언/베트남 에디션  아오자이라이언 시팅인형/20210728112240153_8809721508947_BW_01.jpg
+select 
+	product_id
+,	sum(product_buy_count) as cnt
+from dbo.KAKAO_PRODUCT_PAYMENT with(nolock) 
+group by product_id
+order by cnt desc
+
+
+select
+	top(12)
+	pd.productId
+,	replace(kpi.product_img,N' ',N'%20') as productImg
+from 
+(select
+	kpt.product_id as productId
+,	count(*) as cnt
+from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
+group by kpt.product_id
+) as pd
+inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpi.product_id = pd.productId
+where kpi.rep_img_yn = 'Y' and kpi.head_img_yn = 'Y'
+order by pd.cnt desc
+
+
+CREATE INDEX IDX__KAKAO_PRODUCT_PAYMENT__PRODUCT_ID ON dbo.KAKAO_PRODUCT_PAYMENT (product_id)
+DROP INDEX IDX__KAKAO_PRODUCT_PAYMENT__PRODUCT_ID ON dbo.KAKAO_PRODUCT_PAYMENT
+
+
+ALTER TABLE dbo.KAKAO_PRODUCT_PAYMENT DROP CONSTRAINT PK__KAKAO_PRODUCT_PAYMENT__PD_ORDER_SEQ
+
+ALTER TABLE dbo.KAKAO_PRODUCT_PAYMENT ADD CONSTRAINT PK__KAKAO_PRODUCT_PAYMENT__PRODUCT_ID__QOOUSER_SEQ PRIMARY KEY (pd_order_seq,product_id,qoouser_seq)
+
+
+KAKAO_PRODUCT_IMG
+
+create index IDX__KAKAO_PRODUCT_IMG__
+
+
+
+
+
+
+
+(select
+	kpt.product_id as productId
+,	count(*) as cnt
+from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
+group by kpt.product_id
+) as pd
+inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpi.product_id = pd.productId
+where kpi.rep_img_yn = 'Y' and kpi.head_img_yn = 'Y'
+order by pd.cnt desc
+
+
+
+
+
+
+
+

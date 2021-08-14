@@ -7,6 +7,8 @@
   height: 50px;
 }
 
+
+
 #inner-head {
   margin: 0 auto;
   /* width: 640px; */
@@ -67,6 +69,16 @@
   margin: 0 auto;
   height: 100%;
 }
+
+/* 새로 추가한 부분 */
+#kakao-search-content {
+  border: 1px solid blue;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* 새로 추가한 부분 */
+
 
 .main-tab {
   width: 100%;
