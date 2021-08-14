@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +21,13 @@ public class PopularItemController {
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 				
 		int result = service.getPopularProductList(request);
+		//HttpSession session = request.getSession();
+		//session.setAttribute("lastPage", "popularMain");
+		
+		//Cookie kakaoCookie = new Cookie("lastPage", "popularMain");
+		//kakaoCookie.setMaxAge(-1);
+		
+		//response.addCookie(kakaoCookie);
 		
 		if (result == 1) {
 			return "/tiles/popularItem.layout";
@@ -27,8 +35,4 @@ public class PopularItemController {
 			return "/testwaiting/kakaoerror";//에러 발생한 경우
 		}	
 	}
-	
-	
-	
-	
 }

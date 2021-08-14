@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
-<link rel = "stylesheet" href = "resources/css/mainLayout/mainTotalLayout.css"> 
+<link rel = "stylesheet" href = "resources/css/mainLayout/mainLayout.css"> 
 </head>
 <body>
 	<!-- 모달 -->
@@ -29,10 +29,17 @@
                     </label>
                     <!-- hamburger-menu open -->
                     <div class="navigation">
-                            <div class="navigation-inner" >
-                            <div class="user-info"><U>로그인</U>이 필요해요!
-                                <span>비회원 주문조회</span>
-                            </div>
+                            <div class="navigation-inner">
+                            <c:if test="${empty userinfo}">
+                            	<div class="user-info"><U id="login-need">로그인</U>이 필요해요!
+                                	<span>비회원 주문조회</span>
+                            	</div>
+                            </c:if>
+                            <c:if test="${not empty userinfo}">
+                            	<div class="user-info"><U>${userinfo.userName}</U>님 반가워요!
+                                	<span>여기 바꿔야함</span>
+                            	</div>
+                            </c:if>
                             <div class="banner"></div>
                             <div class="navigation-menu">
                                 <ul class="navigation-menu-ul">
@@ -88,7 +95,12 @@
                                     <hr>
                                 </ul>
                             </div>
-                            <div class="login-or-out">로그인</div>
+                            <c:if test="${empty userinfo}">
+                            	<div class="login-or-out">로그인</div>
+                            </c:if>
+                            <c:if test="${not empty userinfo}">
+                            	<div class="login-or-out">로그아웃</div>
+                            </c:if>
                             </div>
            
                 </div>
@@ -214,6 +226,19 @@
 	    }
 		
 		
+	    //로그인 클릭
+	    $('#login-need').click(function(){
+	    	goLoginPage();
+	    });
+	    
+	    $('.login-or-out').click(function(){
+	    	goLoginPage();
+	    });
+	    
+	    
+	    function goLoginPage(){
+	    	location.href = "/SYJ_Mall/login.action";
+	    }
 		
 	});
     

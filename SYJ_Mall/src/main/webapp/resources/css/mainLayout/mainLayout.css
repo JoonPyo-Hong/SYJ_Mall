@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 
+#login-need:hover {
+  cursor : pointer;
+}
+
 #mask {  
     position:absolute;  
     left:0;

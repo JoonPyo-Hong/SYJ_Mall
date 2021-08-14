@@ -97,8 +97,17 @@ public class LoginController {
 					//System.out.println("로그인 성공");
 					
 					logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
+					//HttpSession session = request.getSession();
+					//String lastPage = (String)session.getAttribute("lastPage");
+					
+//					if (lastPage == null) {
+//						return "redirect:/main.action";//메인페이지로 이동
+//					} else {
+//						return "redirect:/" + lastPage + "";
+//					}
 					
 					return "redirect:/main.action";//메인페이지로 이동
+
 					
 				} else if (loginCode == 1) {//로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
 					//System.out.println("비밀번호 변경 요망");
@@ -106,7 +115,9 @@ public class LoginController {
 					//아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
 					int result = logService.userRedefinedPw(request,userSeq,ip);
 					
-					if (result == 1) return "/login/UserLoginPwRedefine";
+					if (result == 1) {
+						return "/login/UserLoginPwRedefine";
+					}
 					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
 					
 				} else if (loginCode == 2) {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
