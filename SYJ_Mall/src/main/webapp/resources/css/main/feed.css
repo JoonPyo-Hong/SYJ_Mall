@@ -636,7 +636,14 @@ body.s_no-scroll {
 .swiper-button-prev:after,.swiper-button-next:after{
 	display: none;
 }
-
+#re_feed_edit_img, #feed_edit_img{
+	float: right;
+}
+#re_feed_edit_img img, #feed_edit_img img{
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+}
 
 @media all and (max-width:812px) {
 	.feed_content div:nth-child(3) {

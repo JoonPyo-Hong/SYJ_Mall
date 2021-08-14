@@ -200,15 +200,23 @@
 														feed_heart_red = " style='color:red;'> 좋아요";
 													}
 												
+													var re_feed_diplay = '';
+													
+													if(value.member_seq == m_seq){	
+													 re_feed_diplay = "style = 'display: none;'";
+													}else{
+													re_feed_diplay = "";
 														
-											
+													}
+													
 
 													$("#feed_content_" + seq)
 															.append(
-																	"<div class='feed_content feed_content2'>"
+																	"<div class='feed_content feed_content2'>" 
 																			+ "<div class='feed_content_div2'><span> "
-																			+ value.re_feed
-																			+ "</span></div>"
+																			+ value.re_feed 
+																			+ "</span>" + "</div>"
+																			+ "<span id = 're_feed_edit_img'" +"value ='"+ value.seq +"'" + re_feed_diplay +"><img src='resources/images/main/edit-regular-grey.png'></span>"
 																			+ "<div class= 'feed_content_div3'><span>"
 																			+ value.reg_dt
 																			+ " </span>"
@@ -459,10 +467,21 @@
 													$("#txt_span2").text((value.feed).replace("<br/>"," "));
 												}
 												
+												var feed_diplay = "";
+												if(value.memer_seq == m_seq){
+													feed_diplay = style='display:none';
+												}else{
+													feed_diplay = "";
+												}
+												
+												
+												
 												state = false;
 												$("#feed_content_div")
 														.append(
 																"<div class='feed_content' >"
+																		+ "<span id = 'feed_edit_img'" +" value ='"+ value.seq +"'" + feed_diplay +"><img src='resources/images/main/edit-regular-grey.png'>"
+																		+"<span>수정 삭제</span></span>"
 																		+ "<div class='feed_id'>"
 																		+ value.reg_id
 																		+ "</div>"
