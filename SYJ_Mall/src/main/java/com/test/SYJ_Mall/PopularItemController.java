@@ -21,8 +21,14 @@ public class PopularItemController {
 				
 		int result = service.getPopularProductList(request);
 		
-		
-		return "/tiles/popularItem.layout";
-			
+		if (result == 1) {
+			return "/tiles/popularItem.layout";
+		} else {
+			return "/testwaiting/kakaoerror";//에러 발생한 경우
+		}	
 	}
+	
+	
+	
+	
 }

@@ -17,9 +17,11 @@ public class PopularService implements IPopularService{
 	@Override
 	public int getPopularProductList(HttpServletRequest request) {
 		try {
+
 			List<PopularItemDTO> popularDtoList = dao.getPopularItem();
-			
 			request.setAttribute("popularDtoList", popularDtoList);
+			request.setAttribute("seleted", "popular");//상단 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
+			
 			
 			return 1;
 		} catch(Exception e) {

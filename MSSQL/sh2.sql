@@ -738,6 +738,7 @@ resources/images/product/콘/런던에디션 미니키체인_근위병콘/202010
 	Description : 인기페이지 상품 바둑판처럼 배열하는 로직
 	     
 	History	: 2021-08-13 Seunghwan Shin	#최초 생성 : 아직 구매 로직이 없어서 이미지 뜨는지만 테스트
+			  2021-08-13 Seunghwan Shin	#가져올 상품 갯수 변경
 */
 alter proc dbo.kakao_popular_product_list
 as
@@ -747,7 +748,7 @@ begin
 	
 
 	select
-		top(12)
+		top(2)
 		kpi.product_id as productId
 	,	replace(kpi.product_img,N' ',N'%20') as productImg
 	from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
@@ -772,4 +773,95 @@ update dbo.KAKAO_PRODUCT_IMG set product_img = N'resources/images/product/콘/�
 
 
 commit tran
+
+
+select * from dbo.re_feed_heart with(nolock)
+
+ALTER TABLE dbo.re_feed_heart ALTER column member_seq bigint not null
+
+
+alter table dbo.re_feed_heart add constraint PK__RE_FEED_HEART__FEED_SEQ__MEMBER_SEQ PRIMARY KEY (feed_seq,member_seq)
+
+
+
+CREATE TABLE [dbo].[re_feed](
+   [seq] [bigint] IDENTITY(0,1) NOT NULL, -- 순번
+   [member_seq] [bigint] NULL,   -- 회원 번호
+   [feed_seq] [bigint] NULL, -- 댓글 번호
+   [re_feed] [nvarchar](500) NULL, -- 대댓글 내용
+   [reg_id] [nvarchar](50) NULL,   -- 작성자
+   [reg_dt] [datetime] NULL, -- 작성일
+PRIMARY KEY CLUSTERED 
+(
+   [seq] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+select * from dbo.FEED with(nolock)
+
+alter table dbo.FEED add constraint PK__FEED__SEQ__MEMBER_SEQ PRIMARY KEY (seq,member_seq)
+
+alter table dbo.FEED drop constraint PK__feed__DDDFBCBEAED61C73
+
+
+RE_FEED
+
+alter table dbo.FEED alter column member_seq bigint not null
+
+RE_FEED_HEART 
+
+
+select * from dbo.main_img with(nolock)
+
+alter table dbo.main_img add constraint PK__MAIN_IMG__LIST_SEQ__IMG_NM PRIMARY KEY (list_seq,img_nm)
+
+alter table dbo.main_img alter column list_seq bigint not null
+
+alter table dbo.main_img alter column img_nm nvarchar(200) not null
+
+
+SELECT * FROM dbo.main_heart WITH(NOLOCK)
+
+alter table dbo.main_heart add constraint PK__MAIN_HEART__LIST_SEQ__MEMBER_SEQ PRIMARY KEY (list_seq,member_seq)
+
+alter table dbo.main_heart alter column list_seq bigint not null
+alter table dbo.main_heart alter column member_seq bigint not null
+
+
+commit tran
+
+BEGIN TRAN
+
+DELETE dbo.main_heart WHERE list_seq = 3 and member_seq is null
+
+
+SELECT * FROM dbo.feed_heart with(nolock)
+
+alter table dbo.feed_heart ALTER COLUMN feed_seq BIGINT NOT NULL
+
+
+alter table dbo.feed_heart ALTER COLUMN member_seq BIGINT NOT NULL
+
+
+alter table dbo.feed_heart add constraint PK__FEED_HEART__FEED_SEQ__MEMBER_SEQ PRIMARY KEY (feed_seq,member_seq)
+
+
+SELECT * FROM dbo.RE_FEED WITH(NOLOCK)
+
+ALTER TABLE dbo.RE_FEED ADD CONSTRAINT PK__RE_FEED__SEQ__MEMBER_SEQ PRIMARY KEY (seq,member_seq)
+
+
+
+ALTER TABLE dbo.RE_FEED DROP CONSTRAINT PK__re_feed__DDDFBCBE92ACEB9C
+
+
+ALTER TABLE dbo.RE_FEED ALTER COLUMN member_seq BIGINT NOT NULL
+
+
+re_feed
+
+
+
 

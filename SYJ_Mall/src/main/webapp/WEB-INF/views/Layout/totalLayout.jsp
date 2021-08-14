@@ -13,7 +13,10 @@
 <link rel = "stylesheet" href = "resources/css/mainLayout/mainTotalLayout.css"> 
 </head>
 <body>
-	 <div id="mask"></div>
+	<!-- 모달 -->
+	<div id="mask"></div>
+    
+    <!-- 레이아웃 -->
     <div id="kakao-wrap">
         <div id="kakao-head" >
             <div id="inner-head">
@@ -101,10 +104,30 @@
                 <div id="inner-content">
                     <div class="main-tab">
                         <ul class="main-tab-ul">
-                            <li class="main-tab-li">오늘</li>
-                            <li class="main-tab-li">신규</li>
-                            <li class="main-tab-li active">인기</li>
-                            <li class="main-tab-li">마이</li>
+                        	<c:if test="${seleted eq 'today'}">
+                        		<li class="main-tab-li active">오늘</li>
+                            	<li class="main-tab-li">신규</li>
+                            	<li class="main-tab-li">인기</li>
+                            	<li class="main-tab-li">마이</li>
+                        	</c:if>
+                        	<c:if test="${seleted eq 'new'}">
+                        		<li class="main-tab-li">오늘</li>
+                            	<li class="main-tab-li active">신규</li>
+                            	<li class="main-tab-li">인기</li>
+                            	<li class="main-tab-li">마이</li>
+                        	</c:if>
+                        	<c:if test="${seleted eq 'popular'}">
+                        		<li class="main-tab-li">오늘</li>
+                            	<li class="main-tab-li">신규</li>
+                            	<li class="main-tab-li active">인기</li>
+                            	<li class="main-tab-li">마이</li>
+                        	</c:if>
+                        	<c:if test="${seleted eq 'my'}">
+                        		<li class="main-tab-li">오늘</li>
+                            	<li class="main-tab-li">신규</li>
+                            	<li class="main-tab-li">인기</li>
+                            	<li class="main-tab-li active">마이</li>
+                        	</c:if>
                         </ul>
                     </div>
                      <!-- 내용 타일즈 -->
@@ -121,6 +144,7 @@
 
 	var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
+	
 	
 	$(document).ready(function() {
 		// 왼쪽 사이드바 캐릭터 메뉴
@@ -164,30 +188,38 @@
 		        left_side_var_category = false;
 		    }    
 		});
+
+		$("#burger-check").click(function(){
+		        wrapWindowByMask();
+		         
+		});
+
+		$('#mask').click(function () {  
+		        $(this).hide();  
+		        $('.window').hide(); 
+		        $("#burger-check").prop("checked", false);
+		}); 
+		
+	    function wrapWindowByMask(){
+	        //화면의 높이와 너비를 구한다.
+	        var maskHeight = $(document).height();  
+	        var maskWidth = $(window).width();  
+			
+	        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+	        $('#mask').css({'width':maskWidth,'height':maskHeight});  
+			
+	        //애니메이션 효과
+	        //$('#mask').fadeIn(1000);      
+	        $('#mask').fadeTo("slow",0.8);    
+	    }
+		
+		
+		
 	});
     
     
     
-    $(".language").click(function(){
-        //$("#myModal").modal();
-        $("#burger-check").prop("checked", false);
-        $(".navigation").css("left",-325);
-        $(".navigation-inner").css("left",-325);
-    });
-
-    var check = false;
-
-    $("#burger-check").click(function(){
-        wrapWindowByMask();
-         
-    });
-
-    $('#mask').click(function () {  
-        $(this).hide();  
-        $('.window').hide(); 
-         $("#burger-check").prop("checked", false);
-        //$('.window').css('background-color','#FFF'); 
-    }); 
+   
 
     // if (check == false) {
         //     //$(".navigation").css("left",0);
@@ -236,23 +268,9 @@
     //     });      
     // });
     
-    function wrapWindowByMask(){
-        //화면의 높이와 너비를 구한다.
-        var maskHeight = $(document).height();  
-        var maskWidth = $(window).width();  
-		
-        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
-        $('#mask').css({'width':maskWidth,'height':maskHeight});  
-		
-        //애니메이션 효과
-        //$('#mask').fadeIn(1000);      
-        $('#mask').fadeTo("slow",0.8);    
-    }
+
 
     
-
-
-    //4C4C4C
 </script>
 </body>
 </html>
