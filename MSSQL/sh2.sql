@@ -738,6 +738,7 @@ resources/images/product/콘/런던에디션 미니키체인_근위병콘/202010
 	Description : 인기페이지 상품 바둑판처럼 배열하는 로직
 	     
 	History	: 2021-08-13 Seunghwan Shin	#최초 생성 : 아직 구매 로직이 없어서 이미지 뜨는지만 테스트
+			  2021-08-13 Seunghwan Shin	#가져올 상품 갯수 변경
 */
 alter proc dbo.kakao_popular_product_list
 as
@@ -747,7 +748,7 @@ begin
 	
 
 	select
-		top(12)
+		top(2)
 		kpi.product_id as productId
 	,	replace(kpi.product_img,N' ',N'%20') as productImg
 	from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
@@ -860,3 +861,7 @@ ALTER TABLE dbo.RE_FEED ALTER COLUMN member_seq BIGINT NOT NULL
 
 
 re_feed
+
+
+
+

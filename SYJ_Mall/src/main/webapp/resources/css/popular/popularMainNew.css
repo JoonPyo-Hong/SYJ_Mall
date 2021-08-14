@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "UTF-8";@charset "UTF-8";
 
 .container-wrap {
   height: 100%;
@@ -26,6 +26,10 @@
   bottom: 7px;
 }
 
+.item:hover {
+	cursor : pointer;
+}
+
 /* 
 .item:nth-child(1) {
   grid-column-start: 1;
@@ -47,6 +51,7 @@
   /* 1번 라인에서 3칸 */
   grid-row: 4 / span 2;
 }
+
 
 
 
