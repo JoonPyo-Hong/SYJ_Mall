@@ -1,11 +1,12 @@
 package com.test.SYJ_Mall.dummy;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.common.utill.CommonDate;
 
 /**
  * DummyService 객체
@@ -29,16 +30,6 @@ public class DummyService implements IDummyService{
 			int size = categories.size();
 			
 			for (int i = 0; i < size; i++) {
-				
-				//int category = categories.get(i);//소분류 코드
-				//String prodName = names.get(i);//상품 이름
-				//int prodCount = counts.get(i);//상품 갯수
-				//int prodPrice = prices.get(i);//상품가격
-				//int prodDiscounts = discounts.get(i);//할인율
-				//String prodRepYns = rep_yns.get(i);//추천상품 여부
-				//int prodCharFirsts = char_firsts.get(i);//연관 캐릭터번호1
-				//int prodCharSeconds = char_seconds.get(i);//연관 캐릭터번호2
-				//String prodRepImgs = rep_imgs.get(i);//대표이미지
 				
 				StringBuffer sb = new StringBuffer();
 				String[] headList = {heads1.get(i),heads2.get(i),heads3.get(i),heads4.get(i)};//헤드이미지 셋트
@@ -67,17 +58,17 @@ public class DummyService implements IDummyService{
 				int result = dao.generateDummy(dto);
 
 				
-				System.out.println("============================");
-				System.out.println("categories : " + categories.get(i));
-				System.out.println("names : " + names.get(i));
-				System.out.println("counts : " + counts.get(i));
-				System.out.println("prices : " + prices.get(i));
-				System.out.println("discounts : " + discounts.get(i));
-				System.out.println("rep_yns : " + rep_yns.get(i));
-				System.out.println("char_firsts : " + char_firsts.get(i));
-				System.out.println("char_seconds : " + char_seconds.get(i));
-				System.out.println("rep_imgs : " + rep_imgs.get(i));
-				System.out.println("heads : " + prodHeads);
+//				System.out.println("============================");
+//				System.out.println("categories : " + categories.get(i));
+//				System.out.println("names : " + names.get(i));
+//				System.out.println("counts : " + counts.get(i));
+//				System.out.println("prices : " + prices.get(i));
+//				System.out.println("discounts : " + discounts.get(i));
+//				System.out.println("rep_yns : " + rep_yns.get(i));
+//				System.out.println("char_firsts : " + char_firsts.get(i));
+//				System.out.println("char_seconds : " + char_seconds.get(i));
+//				System.out.println("rep_imgs : " + rep_imgs.get(i));
+//				System.out.println("heads : " + prodHeads);
 			}
 			
 			return 1;
@@ -85,6 +76,50 @@ public class DummyService implements IDummyService{
 			e.printStackTrace();
 			return -1;
 		}
+	}
+
+	//구매 더미데이터 넣어주기
+	@Override
+	public int putBuyInfo() {
+		
+		try {
+			
+			int userCount = dao.getuserCount();//회원명수
+			int productCount = dao.getProductCount();//제품갯수
+			
+			Random rnd = new Random();
+			CommonDate c = new CommonDate();
+			
+			for (int i = 0; i < 10000000; i++) {
+				
+				int productId = rnd.nextInt(productCount) + 1;
+				int qoouserSeq = rnd.nextInt(userCount) + 1;
+				int starScore = rnd.nextInt(6);
+				int productBuyCount = rnd.nextInt(30) + 1;
+				String productBuyDt = c.dateCreateDummy();
+				
+//				확인용 주석 지우기 X
+//				System.out.println("==================================");
+//				System.out.println("productId : " + productId);
+//				System.out.println("qoouserSeq : " + qoouserSeq);
+//				System.out.println("starScore : " + starScore);
+//				System.out.println("productBuyCount : " + productBuyCount);
+//				System.out.println("productBuyDt : " + productBuyDt);
+				
+				DummyProductDTO dpdto = new DummyProductDTO(productId,qoouserSeq,starScore,productBuyCount,productBuyDt);
+				
+				int result = dao.putBuyDummy(dpdto);
+				
+				if (result == -1) break;
+			}
+			
+			return 1;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
 	}
 	
 	

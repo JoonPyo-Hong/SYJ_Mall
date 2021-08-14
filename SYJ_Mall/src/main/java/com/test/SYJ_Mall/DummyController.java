@@ -60,9 +60,23 @@ public class DummyController {
 		
 		if (result == 1) return "/dummy/DummySuccess";
 		else return "/dummy/DummyFail";
+	}
+	
+	
+	
+	//회원 구매 더미 생성
+	@RequestMapping(value = "/customerBuyDummy.action", method = { RequestMethod.GET })
+	public String customerBuyDummy(HttpServletRequest request, HttpServletResponse response) {
 		
+		
+		int result = service.putBuyInfo();
+		
+		if (result == 1) return "/dummy/DummySuccess";
+		else return "/dummy/DummyFail";
 		
 	}
+	
+	
 	
 	
 }

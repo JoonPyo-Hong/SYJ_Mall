@@ -140,6 +140,8 @@ set @product_id = IDENT_CURRENT('dbo.KAKAO_PRODUCT_TABLE')
 select @product_id
 
 
+select * from dbo.KAKAO_CHARACTER
+
 KAKAO_PRODUCT_IMG
 KAKAO_CHARACTER 
 KAKAO_PRODUCT_CATEGORY 
@@ -195,3 +197,124 @@ update dbo.KAKAO_PRODUCT_IMG set product_img = N'resources/images/product/콘/�
 select * from dbo.KAKAO_CHAR_PRODUCT with(nolock)
 
 
+
+select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+
+begin tran
+
+update dbo.KAKAO_PRODUCT_TABLE
+set product_nm = replace(product_nm,N'none',N'')
+
+delete dbo.KAKAO_PRODUCT_TABLE where product_id between 52 and 56
+
+
+
+commit tran
+
+
+select count(*) from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+
+
+
+
+
+declare @result int
+exec dbo.kakao_buy_dummy_generator 105,405887,1,13,'2021-01-01',@result output
+select @result
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-14  
+	Description : 구매 관련더미생성기
+	     
+	History	: 2021-08-14 Seunghwan Shin	#최초 생성 
+
+			 
+*/
+alter proc dbo.kakao_buy_dummy_generator
+	@product_id bigint			-- 제품 아이디
+,	@qoouser_seq bigint			-- 회원 번호
+,	@star_score int				-- 별점
+,	@product_buy_count int		-- 상품 구매 개수
+,	@product_buy_dt varchar(25)	-- 상품 구매 일자
+,	@result int output			-- 결과값 1: 성공, -1 : 실패
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	begin try
+		begin tran
+		insert into dbo.KAKAO_PRODUCT_PAYMENT
+		(
+			product_id
+		,	qoouser_seq
+		,	star_score
+		,	review_content
+		,	review_reg_dt
+		,	review_chg_dt
+		,	review_del_dt
+		,	product_buy_count
+		,	product_buy_dt
+		,	cancel_dt	
+		)
+		values
+		(
+			@product_id
+		,	@qoouser_seq
+		,	@star_score
+		,	null
+		,	null
+		,	null
+		,	null
+		,	@product_buy_count
+		,	@product_buy_dt
+		,	null
+		)
+		commit tran
+
+		set @result = 1
+
+	end try
+	begin catch
+		set @result = -1
+		rollback tran
+	end catch
+
+end
+
+
+select * from dbo.KAKAO_PRODUCT_PAYMENT with(nolock)
+
+truncate table dbo.KAKAO_PRODUCT_PAYMENT
+
+
+select * from dbo.BUYTBL_INFO  with(nolock)
+
+drop table dbo.ELECTRONIC_PRODUCTS
+
+
+drop table dbo.KAKAO_PRODUCT_PAYMENT
+
+/* KAKAO_PRODUCT_PAYMENT - 상품 구매 내역 */
+CREATE TABLE [dbo].[KAKAO_PRODUCT_PAYMENT] (
+	[pd_order_seq] [BIGINT] identity(1,1) NOT NULL,  /* 주문번호 - pd_order_seq */
+	[product_id] [BIGINT] NOT NULL,  /* 상품고유번호 - product_id */
+	[qoouser_seq] [BIGINT] NOT NULL,  /* 회원 고유 번호 - qoouser_seq */
+	[star_score] [INT],  /* 별점 - start_score */
+	[review_content] [NVARCHAR](300),  /* 후기 내용 - review_content */
+	[review_reg_dt] [DATETIME],  /* 후기 작성날짜 - review_reg_dt */
+	[review_chg_dt] [DATETIME],  /* 후기 수정날짜 - review_chg_dt */
+	[review_del_dt] [DATETIME],  /* 후기 삭제날짜 - review_del_dt */
+	[product_buy_count] [INT] NOT NULL,  /* 구매수량 - product_buy_count */
+	[product_buy_dt] [DATETIME] NOT NULL,  /* 구매 일자 - product_buy_dt */
+	[cancel_dt] [DATETIME] /* 구매 취소 일자 - cancel_dt */
+)
+GO
+
+alter table dbo.KAKAO_PRODUCT_PAYMENT add constraint PK__KAKAO_PRODUCT_PAYMENT__PD_ORDER_SEQ PRIMARY KEY (pd_order_seq)
+
+
+select count(*) from dbo.KAKAO_PRODUCT_PAYMENT with(nolock)

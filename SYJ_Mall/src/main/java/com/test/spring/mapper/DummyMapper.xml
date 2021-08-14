@@ -16,5 +16,30 @@
 		select @result
 		
 	</select>
+	
+	<!-- 회원 명수 -->
+	<select id="getUserCount" resultType="Integer" statementType="CALLABLE" >
+		
+		select count(*) from dbo.QOO10_USER_REAL with(nolock)
+		
+	</select>
+	
+	
+	<!-- 상품 갯수 -->
+	<select id="getProductCount" resultType="Integer" statementType="CALLABLE" >
+		
+		select count(*) from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+		
+	</select>
+	
+	
+	<select id="setProductBuyInfo" statementType="CALLABLE" resultType="Integer" parameterType="com.test.SYJ_Mall.dummy.DummyProductDTO">
+		
+		declare @result int
+		exec dbo.kakao_buy_dummy_generator #{productId},#{qoouserSeq},#{starScore},#{productBuyCount},#{productBuyDt},@result output
+		select @result
+		
+	</select>
+	
 
 </mapper>

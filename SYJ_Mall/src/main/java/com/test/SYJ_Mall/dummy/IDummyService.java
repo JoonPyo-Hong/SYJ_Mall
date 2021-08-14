@@ -33,6 +33,12 @@ public interface IDummyService {
 			List<Integer> discounts, List<String> rep_yns, List<Integer> char_firsts, List<Integer> char_seconds,
 			List<String> rep_imgs, List<String> heads1, List<String> heads2, List<String> heads3, List<String> heads4);
 	
+	/**
+	 * 구매 더미데이터 넣어주기
+	 * @return 1: 성공, -1 : 실패
+	 */
+	int putBuyInfo();
+	
 	
 
 }
