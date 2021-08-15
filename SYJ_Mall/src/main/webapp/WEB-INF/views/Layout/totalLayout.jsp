@@ -232,7 +232,12 @@
 	    });
 	    
 	    $('.login-or-out').click(function(){
-	    	goLoginPage();
+	    	if ($(this).attr('id') == null) {
+	    		goLoginPage();
+	    	} else {
+	    		//로그아웃
+	    	}
+	    	
 	    });
 	    
 	    

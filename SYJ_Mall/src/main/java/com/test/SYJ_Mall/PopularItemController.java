@@ -1,6 +1,5 @@
 package com.test.SYJ_Mall;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.KakaoCookie;
 import com.test.SYJ_Mall.popularItem.IPopularService;
 
 @Controller
@@ -21,13 +21,9 @@ public class PopularItemController {
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 				
 		int result = service.getPopularProductList(request);
-		//HttpSession session = request.getSession();
-		//session.setAttribute("lastPage", "popularMain");
+		KakaoCookie ck = new KakaoCookie();
+		ck.generateCookie(response, "lastPage", "popularMain");
 		
-		//Cookie kakaoCookie = new Cookie("lastPage", "popularMain");
-		//kakaoCookie.setMaxAge(-1);
-		
-		//response.addCookie(kakaoCookie);
 		
 		if (result == 1) {
 			return "/tiles/popularItem.layout";

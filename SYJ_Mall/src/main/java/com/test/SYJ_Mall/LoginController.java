@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.common.utill.IpCheck;
+import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.LoginDTO;
@@ -97,18 +98,18 @@ public class LoginController {
 					//System.out.println("로그인 성공");
 					
 					logService.loginSuccess(request,userSeq);//로그인 인증티켓 발급
-					//HttpSession session = request.getSession();
-					//String lastPage = (String)session.getAttribute("lastPage");
+					KakaoCookie ck = new KakaoCookie();
+					String lastPage = (String)ck.getCookieInfo(request, "lastPage");
+					ck.deleteCookie(request,response,"lastPage");
 					
-//					if (lastPage == null) {
-//						return "redirect:/main.action";//메인페이지로 이동
-//					} else {
-//						return "redirect:/" + lastPage + "";
-//					}
+					System.out.println(lastPage);
 					
-					return "redirect:/main.action";//메인페이지로 이동
+					if (lastPage == null) {
+						return "redirect:/main.action";//메인페이지로 이동
+					} else {
+						return "redirect:/" + lastPage + ".action";
+					}
 
-					
 				} else if (loginCode == 1) {//로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
 					//System.out.println("비밀번호 변경 요망");
 					
@@ -168,7 +169,19 @@ public class LoginController {
 			} else {
 				int result = logService.autoLoginPassLogOn(request);
 				
-				if (result == 1) return "redirect:/main.action";//메인페이지로 이동
+				if (result == 1) {
+					
+					KakaoCookie kc = new KakaoCookie();
+					String lastPage = (String)kc.getCookieInfo(request, "lastPage");
+					kc.deleteCookie(request,response,"lastPage");
+					
+					if (lastPage == null) {
+						return "redirect:/main.action";//메인페이지로 이동
+					} else {
+						return "redirect:/" + lastPage + ".action";
+					}
+					
+				}
 				else return "/testwaiting/kakaoerror";//오류페이지로 이동
 			}
 			

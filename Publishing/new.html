@@ -87,7 +87,7 @@
                                     <hr>
                                 </ul>
                             </div>
-                            <div class="login-or-out">로그인</div>
+                            <button class="login-or-out" id="sexy">로그인</button>
                             </div>
            
                 </div>
@@ -142,8 +142,15 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+
+<script>
+    
+    $(".login-or-out").click(function(){
+        alert($(this).attr('id'));
+    });
+
+</script>
+
 </body>
 </html>
