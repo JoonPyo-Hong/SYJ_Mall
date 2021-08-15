@@ -9,7 +9,15 @@
 		var scroll = 0;
 		
 		
-			$(document).on("click", "#feed_edti_img_div", function() {
+		$(document).on("click", "#feed_edit_delete span", function() {
+	
+			alert($(this).attr("id"));
+			
+			
+		});
+		
+		
+		$(document).on("click", "#feed_edti_img_div", function() {
 	
 			if($(this).next().css('display') ==='none'){
 				$(this).next().show();
@@ -495,8 +503,17 @@
 																"<div class='feed_content' >"
 																		+ "<span id = 'feed_edit_img'" +" value ='"+ value.seq +"'" + feed_diplay +">"
 																		+"<div id ='feed_edti_img_div'><img src='resources/images/main/edit-regular-grey.png'></div>"
-																		+"<div id = 'feed_edit_delete'><span>수정</span><span>삭제</span></div>"
+																		+"<div id = 'feed_edit_delete'><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
+																		
+																		
 																		+ "</span>"
+																		
+																		+ "<div class='comment' >"
+																
+																		+ "<textarea id='feed_txt' class='"+ value.seq  +"' wrap='hard' placeholder=''></textarea>"
+																		+ "<img  src='resources/images/main/reply-off.png' id='feed_edit_btn' >"
+																		+ "</div>"
+																		
 																		+ "<div class='feed_id'>"
 																		+ value.reg_id
 																		+ "</div>"

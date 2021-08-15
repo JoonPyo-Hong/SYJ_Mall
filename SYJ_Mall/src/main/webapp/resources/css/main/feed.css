@@ -545,12 +545,12 @@ body.s_no-scroll {
 	display: inline-block;
 }
 
-.feed_content div:nth-child(3) {
+/* .feed_content div:nth-child(3) {
 	font-size: 13px;
 	font-weight: normal;
 	color: rgb(154, 154, 158);
 	max-height: 80px;
-}
+} */
 
 .feed_content div:nth-child(3) span {
 	margin-right: 7px;
@@ -868,8 +868,11 @@ body.s_no-scroll {
     float: right;
 }
 
-
+#btn_re_feed{
+	cursor: pointer;
+}
 
 #feed_edit_delete span {
 	padding: 10px;
+	cursor: pointer;
 }
