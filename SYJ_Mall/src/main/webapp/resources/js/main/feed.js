@@ -7,6 +7,19 @@
 
 		var feed_sel = "최신순";
 		var scroll = 0;
+		
+		
+			$(document).on("click", "#feed_edti_img_div", function() {
+	
+			if($(this).next().css('display') ==='none'){
+				$(this).next().show();
+			}else{
+				$(this).next().hide();
+			}
+
+		});
+		
+		
 		$(document)
 				.on(
 						"click",
@@ -480,8 +493,10 @@
 												$("#feed_content_div")
 														.append(
 																"<div class='feed_content' >"
-																		+ "<span id = 'feed_edit_img'" +" value ='"+ value.seq +"'" + feed_diplay +"><img src='resources/images/main/edit-regular-grey.png'>"
-																		+"<span>수정 삭제</span></span>"
+																		+ "<span id = 'feed_edit_img'" +" value ='"+ value.seq +"'" + feed_diplay +">"
+																		+"<div id ='feed_edti_img_div'><img src='resources/images/main/edit-regular-grey.png'></div>"
+																		+"<div id = 'feed_edit_delete'><span>수정</span><span>삭제</span></div>"
+																		+ "</span>"
 																		+ "<div class='feed_id'>"
 																		+ value.reg_id
 																		+ "</div>"
