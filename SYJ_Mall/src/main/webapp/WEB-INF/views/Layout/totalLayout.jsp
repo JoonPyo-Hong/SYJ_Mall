@@ -99,7 +99,7 @@
                             	<div class="login-or-out">로그인</div>
                             </c:if>
                             <c:if test="${not empty userinfo}">
-                            	<div class="login-or-out">로그아웃</div>
+                            	<div class="login-or-out" id="asd">로그아웃</div>
                             </c:if>
                             </div>
            
@@ -235,7 +235,9 @@
 	    	if ($(this).attr('id') == null) {
 	    		goLoginPage();
 	    	} else {
-	    		//로그아웃
+	    		//로그아웃 -> 처리해야함
+	    		//goLoginPage();
+	    		location.href = "/SYJ_Mall/userLogout.action";
 	    	}
 	    	
 	    });

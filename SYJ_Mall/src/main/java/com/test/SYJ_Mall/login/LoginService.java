@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -23,6 +24,7 @@ import com.common.utill.AutoLoginPic;
 import com.common.utill.CommonDate;
 import com.common.utill.Encryption;
 import com.common.utill.IpCheck;
+import com.common.utill.KakaoCookie;
 import com.common.utill.RSAalgorithm;
 import com.common.utill.SendEmail;
 import com.common.utill.StringFormatClass;
@@ -583,6 +585,21 @@ public class LoginService implements ILoginService {
 			return 505;
 		}
 	}
+	
+	
+	//임시쿠키객체 발급
+	@Override
+	public Object instanceCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+		
+		KakaoCookie ck = new KakaoCookie();
+		Object result = ck.getCookieInfo(request, cookieName);
+		ck.deleteCookie(request,response,cookieName);
+		
+		return result;
+	}
+	
+	
+
 	
 
 	

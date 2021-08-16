@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
@@ -216,6 +217,21 @@ public interface ILoginService {
 	 * @return			복호화된 결과값을 map객체로 불러와준다.(id,pw)
 	 */
 	HashMap<String, String> getRSAkeySessionStay(HttpServletRequest request);
+	
+	/**
+	 * 마지막 접속 페이지 쿠키 가져오기
+	 * @param request		
+	 * @param response		
+	 * @param cookieName	쿠키이름
+	 * @return				해당 쿠키이름에 대응되는 value
+	 */
+	Object instanceCookie(HttpServletRequest request, HttpServletResponse response, String cookieName);
+	
+
+	
+
+	
+
 	
 
 
