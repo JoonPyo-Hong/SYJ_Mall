@@ -532,6 +532,7 @@ body.s_no-scroll {
 .feed_id {
 	font-size: 14px;
 	font-weight: bold;
+	clear: both;
 }
 
 /* feed textarea */
@@ -551,7 +552,6 @@ body.s_no-scroll {
 	color: rgb(154, 154, 158);
 	max-height: 80px;
 } */
-
 .feed_content div:nth-child(3) span {
 	margin-right: 7px;
 	cursor: pointer;
@@ -855,7 +855,7 @@ body.s_no-scroll {
 }
 
 #feed_edit_delete {
-	display:none;
+	display: none;
 	border-radius: 6px;
 	border: 1px solid rgb(242, 242, 242);
 	background-color: rgb(255, 255, 255);
@@ -865,14 +865,38 @@ body.s_no-scroll {
 }
 
 #feed_edti_img_div {
-    float: right;
+	
+	float: right;
 }
 
-#btn_re_feed{
+#commet_id{
+	display: none;
+	
+}
+
+#btn_re_feed {
 	cursor: pointer;
 }
 
 #feed_edit_delete span {
 	padding: 10px;
 	cursor: pointer;
+}
+
+#btn_edit_delete {
+	display:none;
+	float: right;
+	margin-top: 10px;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+
+#btn_edit_delete span:nth-child(1) {
+	padding: 8px;
+	border: 1px solid rgb(227, 229, 232);
+}
+
+#btn_edit_delete span:nth-child(2) {
+	padding: 8px;
+	border: 1px solid rgb(227, 229, 232);
 }

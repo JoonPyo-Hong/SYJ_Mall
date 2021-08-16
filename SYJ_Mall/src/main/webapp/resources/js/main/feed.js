@@ -11,7 +11,13 @@
 		
 		$(document).on("click", "#feed_edit_delete span", function() {
 	
-			alert($(this).attr("id"));
+			
+			if($(this).attr("id") == "U"){
+				$("#feed_edti_img_div").show();
+				
+			}
+			
+			
 			
 			
 		});
@@ -508,11 +514,13 @@
 																		
 																		+ "</span>"
 																		
-																		+ "<div class='comment' >"
+																		+ "<div class='comment' id='commet_id' >"
 																
 																		+ "<textarea id='feed_txt' class='"+ value.seq  +"' wrap='hard' placeholder=''></textarea>"
 																		+ "<img  src='resources/images/main/reply-off.png' id='feed_edit_btn' >"
 																		+ "</div>"
+																		+ "<div id='btn_edit_delete'><span>삭제</span><span>취소</span></div>"
+																		
 																		
 																		+ "<div class='feed_id'>"
 																		+ value.reg_id
