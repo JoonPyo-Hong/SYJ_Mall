@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>카카오 프렌즈샵</title>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="./js/main.js"></script> 
+    <script type="text/javascript" src="./js/main.js"></script>
     <link rel="shortcut icon" href="./images/favicon.ico" type='image/x-ico' />
     <link rel="stylesheet" type="text/css" href="./css/fonts.css">
     <link rel="stylesheet" type="text/css" href="./css/common.css">
     <link rel="stylesheet" type="text/css" href="./css/main.css">
     <link rel="stylesheet" type="text/css" href="./css/new.css">
 </head>
+
 <body style="height : 2000px;">
     <div id="kakao-wrap" style="height: 100%;">
         <div id="kakao-head" style="height:100%">
-            <div id="inner-head" >
+            <div id="inner-head">
                 <div class="left-btn">
                     <!-- <button class="hamburger-menu"></button> -->
                     <!-- hamburger-menu -->
@@ -28,7 +31,7 @@
                     </label>
                     <!-- hamburger-menu open -->
                     <div class="navigation">
-                            <div class="navigation-inner" >
+                        <div class="navigation-inner">
                             <div class="user-info"><U id="login-need">로그인</U>이 필요해요!
                                 <span>비회원 주문조회</span>
                             </div>
@@ -38,7 +41,8 @@
                                     <li class="navigation-menu-li">장바구니 내역</li>
                                     <li class="navigation-menu-li">주문·배송 내역</li>
                                     <hr>
-                                    <li class="navigation-menu-li character-accordion-button">캐릭터<div class="drop-down"></div>
+                                    <li class="navigation-menu-li character-accordion-button">캐릭터<div class="drop-down">
+                                        </div>
                                     </li>
                                     <div class="li-sub-menu character-menu">
                                         <ul class="character-menu-ul">
@@ -59,7 +63,9 @@
                                             <li class="character li-Kumdori">꿈돌이</li>
                                         </ul>
                                     </div>
-                                    <li class="navigation-menu-li category-accordion-button">카테고리<div class="drop-down"></div></li>
+                                    <li class="navigation-menu-li category-accordion-button">카테고리<div class="drop-down">
+                                        </div>
+                                    </li>
                                     <div class="li-sub-menu category-menu">
                                         <ul class="category-menu-ul">
                                             <li class="category">전체</li>
@@ -88,9 +94,9 @@
                                 </ul>
                             </div>
                             <button class="login-or-out" id="sexy">로그인</button>
-                            </div>
-           
-                </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="title"><button class="title-logo"></button></div>
                 <div class="right-btn">
@@ -120,37 +126,50 @@
                         </ul>
                     </div>
                     <div class="container-wrap hot-wrap">
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
-                        <div class="item"></div>
+                        <div>
+                            <div class="basic-grid left-grid">
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                            </div>
+                            <div class="basic-grid normal-grid">
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="basic-grid right-grid">
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                            </div>
+                            <div class="basic-grid normal-grid">
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                                <div class="grid-img"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-<script>
-    
-    $(".login-or-out").click(function(){
-        alert($(this).attr('id'));
-    });
+    <script>
 
-</script>
+        $(".login-or-out").click(function () {
+            alert($(this).attr('id'));
+        });
+
+    </script>
 
 </body>
+
 </html>

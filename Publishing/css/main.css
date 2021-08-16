@@ -8,7 +8,7 @@
 }
 
 #login-need:hover {
-  cursor : pointer;
+  cursor: pointer;
 }
 
 #inner-head {
@@ -67,20 +67,17 @@
 
 #inner-content {
   /* width: 640px; */
-  border: 1px solid blue;
   margin: 0 auto;
   height: 100%;
 }
 
 /* 새로 추가한 부분 */
 #kakao-search-content {
-  border: 1px solid blue;
   margin: 0 auto;
   height: 100%;
 }
 
 /* 새로 추가한 부분 */
-
 
 .main-tab {
   width: 100%;
