@@ -9,17 +9,29 @@
 		var scroll = 0;
 		
 		
-		$(document).on("click", "#feed_edit_delete span", function() {
-	
-			
-			if($(this).attr("id") == "U"){
-				$("#feed_edti_img_div").show();
-				
+		$(document).on("click", "#btn_edit_delete span", function() {
+			if($(this).attr("id") == "D"){
+				$(this).parent().hide();
+				$(this).parent().prev().hide();
+				$(this).parent().prev().prev().show();
+				$(this).parent().prev().prev().children("#feed_edit_delete").hide();
 			}
 			
+		
+		});
+		
+		
+		$(document).on("click", "#feed_edit_delete span", function() {
+			//btn_edit_delete
 			
-			
-			
+			if($(this).attr("id") == "U"){
+		/*	alert($(this).parent().parent().next().next().attr('id'));
+			alert($(this).parent().parent().next().attr('id'));*/
+			$(this).parent().parent().hide();
+			$(this).parent().parent().next().show();
+			$(this).parent().parent().next().next().show();
+		
+			}
 		});
 		
 		
@@ -519,7 +531,7 @@
 																		+ "<textarea id='feed_txt' class='"+ value.seq  +"' wrap='hard' placeholder=''></textarea>"
 																		+ "<img  src='resources/images/main/reply-off.png' id='feed_edit_btn' >"
 																		+ "</div>"
-																		+ "<div id='btn_edit_delete'><span>삭제</span><span>취소</span></div>"
+																		+ "<div id='btn_edit_delete'><span id='D'>삭제</span><span id='Cs'>취소</span></div>"
 																		
 																		
 																		+ "<div class='feed_id'>"
