@@ -30,7 +30,7 @@
 </folder>
 </info>
 </editorArea>
-<editor focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="KAKAO.exerd" partName="KAKAO.exerd" title="KAKAO.exerd" tooltip="C:\Users\신승환\Desktop\java\SYJ_Mall\ERD\KAKAO.exerd" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="KAKAO.exerd" partName="KAKAO.exerd" title="KAKAO.exerd" tooltip="C:\Users\신승환\Desktop\java\SYJ_Mall\ERD\KAKAO.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/신승환/Desktop/java/SYJ_Mall/ERD/KAKAO.exerd"/>
 </editor>
 </editors>
@@ -58,7 +58,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="com.tomato.exerd.modelview3.ModelView3" activePerspective="com.tomato.exerd.perspective.design">
+<perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
