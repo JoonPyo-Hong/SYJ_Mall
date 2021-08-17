@@ -182,9 +182,9 @@ var {
     height: 10% !important;
   }
 
-  .container-wrap {
-    grid-template-rows: 200px 200px 200px 200px 200px 200px !important;
-    /* border: 1px solid red !important; */
+   .basic-grid {
+    grid-template-columns: 212px 212px 212px !important;
+    grid-template-rows: 212px 212px !important;
   }
 }
 
