@@ -532,7 +532,7 @@ body.s_no-scroll {
 .feed_id {
 	font-size: 14px;
 	font-weight: bold;
-	/* clear: both; */
+	clear: both; 
 }
 
 /* feed textarea */
@@ -866,6 +866,7 @@ body.s_no-scroll {
 
 #feed_edti_img_div {
 	float: right;
+	CLEAR: BOTH;
 }
 
 #btn_re_feed {
@@ -886,7 +887,7 @@ body.s_no-scroll {
 	float: right;
 	margin-top: 10px;
 	padding-top: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
 
 #btn_edit_delete span:nth-child(1) {
@@ -899,7 +900,10 @@ body.s_no-scroll {
 	border: 1px solid rgb(227, 229, 232);
 }
 
-
+#re_feed_edit_img, #feed_edit_img {
+    float: right;
+    CLEAR: BOTH;
+}
 img#feed_edit_btn {
     position: relative;
     top: -40px;
