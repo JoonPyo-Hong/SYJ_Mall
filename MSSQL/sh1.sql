@@ -318,3 +318,50 @@ alter table dbo.KAKAO_PRODUCT_PAYMENT add constraint PK__KAKAO_PRODUCT_PAYMENT__
 
 
 select count(*) from dbo.KAKAO_PRODUCT_PAYMENT with(nolock)
+
+
+ kakao_popular_product_list
+
+
+ /* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-13   
+	Description : 인기페이지 상품 바둑판처럼 배열하는 로직
+	     
+	History	: 2021-08-13 Seunghwan Shin	#최초 생성 : 아직 구매 로직이 없어서 이미지 뜨는지만 테스트
+			  2021-08-13 Seunghwan Shin	#가져올 상품 갯수 변경
+			  2021-08-14 Seunghwan Shin	#구매정보에 기반한 데이터 추가
+*/
+alter proc dbo.kakao_popular_product_list
+	@start_dt	varchar(25) -- 시작일짜
+,	@end_dt		varchar(25)--  끝 일자
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+
+	select
+		top(18)
+		pd.productId
+	,	replace(kpi.product_img,N' ',N'%20') as productImg
+	from 
+	(select
+		kpt.product_id as productId
+	,	count(*) as cnt
+	from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+	inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
+	where kpp.product_buy_dt between @start_dt and @end_dt
+	and kpt.del_yn = 'N'
+	group by kpt.product_id
+	) as pd
+	inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock,forceseek) on kpi.product_id = pd.productId
+	where kpi.rep_img_yn = 'Y' and kpi.head_img_yn = 'Y'
+	order by pd.cnt desc
+
+end
+
+
+
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
