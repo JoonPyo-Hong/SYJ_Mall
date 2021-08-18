@@ -91,6 +91,9 @@ input:checked[type="checkbox"] {
   background-color: #666;
   -webkit-appearance: checkbox;
 }
+input:focus {
+  outline: none;
+}
 
 input[type="text"],
 input[type="password"],
@@ -163,6 +166,10 @@ var {
 
   #inner-footer {
     width: 640px;
+  }
+
+  #inner-search {
+    width: 640px !important;
   }
 
   .navigation-inner {
