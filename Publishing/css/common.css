@@ -152,7 +152,16 @@ var {
   #inner-head {
     width: 640px;
   }
+
+  #inner-tab {
+    width: 640px;
+  }
+
   #inner-content {
+    width: 640px;
+  }
+
+  #inner-footer {
     width: 640px;
   }
 
