@@ -22,6 +22,11 @@
   bottom: 7px;
 }
 
+
+.grid-img {
+	border: 1px solid #D1D1D2;
+}
+
 .basic-grid {
   display: grid;
   grid-template-columns: 212px 212px 212px;
@@ -30,10 +35,6 @@
   grid-template-rows: 33.3vw 33.3vw;
   gap: 2px;
   margin-bottom: 2px;
-}
-
-.grid-img {
-  border: 1px solid red;
 }
 
 .left-grid > div:nth-child(1) {
