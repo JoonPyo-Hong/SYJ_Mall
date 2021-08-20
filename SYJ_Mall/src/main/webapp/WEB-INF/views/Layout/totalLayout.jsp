@@ -18,7 +18,7 @@
     
     <!-- 레이아웃 -->
     <div id="kakao-wrap">
-        <div id="kakao-head" >
+        <div id="kakao-head">
             <div id="inner-head">
                 <div class="left-btn">
                     <!-- <button class="hamburger-menu"></button> -->
@@ -102,8 +102,7 @@
                             	<div class="login-or-out" id="asd">로그아웃</div>
                             </c:if>
                             </div>
-           
-                </div>
+                	</div>
                 </div>
                 <div class="title"><button class="title-logo"></button></div>
                 <div class="right-btn">
@@ -157,9 +156,9 @@
 	var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
 	
-	
 	$(document).ready(function() {
-		// 왼쪽 사이드바 캐릭터 메뉴
+		
+		// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
 		$("li.character-accordion-button").on("click", function () {
 	
 			if (!left_side_var_chr) {
@@ -180,8 +179,8 @@
 	    		);
 			}
 		});
-	
-		// 왼쪽 사이드바 카테고리 메뉴
+		
+		// 왼쪽 사이드바 카테고리 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리2
 		$("li.category-accordion-button").on("click", function () {
 	
 		    if (!left_side_var_category) {
@@ -200,18 +199,30 @@
 		        left_side_var_category = false;
 		    }    
 		});
-
+		
+		
+		//왼쪽 사이드바 클릭하면 나오게 되는것
 		$("#burger-check").click(function(){
-		        wrapWindowByMask();
-		         
+		    //모달 띄우기    
+			wrapWindowByMask();
+		    //스크롤 이벤트 막기
+			$(document.body).css('overflow','hidden');
+			
 		});
-
+		
+		//모달제거 -> 바디를 아무데나 눌러서 사이드바 안보이게
 		$('#mask').click(function () {  
-		        $(this).hide();  
-		        $('.window').hide(); 
-		        $("#burger-check").prop("checked", false);
+				
+			$(this).hide();  
+			$('.window').hide(); 
+			$("#burger-check").prop("checked", false);
+			//스크롤 이벤트 막기 제거
+			$(document.body).css('overflow','visible');
+
 		}); 
 		
+		
+
 	    function wrapWindowByMask(){
 	        //화면의 높이와 너비를 구한다.
 	        var maskHeight = $(document).height();  
@@ -220,12 +231,12 @@
 	        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
 	        $('#mask').css({'width':maskWidth,'height':maskHeight});  
 			
-	        //애니메이션 효과
-	        //$('#mask').fadeIn(1000);      
+	        //애니메이션 효과    
 	        $('#mask').fadeTo("slow",0.8);    
 	    }
 		
-		
+	    
+	    //-----------로그인 관련------------
 	    //로그인 클릭
 	    $('#login-need').click(function(){
 	    	goLoginPage();
@@ -242,64 +253,11 @@
 	    	
 	    });
 	    
-	    
 	    function goLoginPage(){
 	    	location.href = "/SYJ_Mall/login.action";
 	    }
 		
 	});
-    
-    
-    
-   
-
-    // if (check == false) {
-        //     //$(".navigation").css("left",0);
-            
-        //     //$(".navigation-inner").css("left",0);
-           
-        //     //check = true;
-        // }
-
-        // if ( $("#burger-check").is(":checked") == false){
-        //     alert('asd');
-            
-        //     //$("body").css("background-color",'#4C4C4C');
-        // } else {
-            
-        //     $(".navigation").css("left",-325);
-        //     $(".navigation-inner").css("left",-325);
-        // }
-
-    //닫기 버튼을 눌렀을 때
-    // $('.window .close').click(function (e) {  
-    //     //링크 기본동작은 작동하지 않도록 한다.
-    //     e.preventDefault();  
-    //     $('#mask, .window').hide();  
-    // });    
-
-    // $(document).ready(function(){
-    //     //검은 막 띄우기
-    //     $('#burger-check').click(function(e){
-    //         e.preventDefault();
-    //         //if ( $("#burger-check").is(":checked")){
-    //         //$(".navigation").css("left",0);
-    //         //$(".navigation-inner").css("left",0);
-    //         //$("body").css("background-color",'#4C4C4C');
-    //         //} 
-    //         wrapWindowByMask();
-    //     });
-
-           
-
-    //     //검은 막을 눌렀을 때
-    //     $('#mask').click(function () {  
-    //         $(this).hide();  
-    //         $('.window').hide(); 
-    //         //$('.window').css('background-color','#FFF'); 
-    //     });      
-    // });
-    
 
 
     

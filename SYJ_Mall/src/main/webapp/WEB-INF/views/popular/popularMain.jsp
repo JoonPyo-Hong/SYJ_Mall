@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp" %>
-<link rel = "stylesheet" href = "resources/css/popular/popularMain.css"> 
+<link rel = "stylesheet" href = "resources/css/popular/popMain.css"> 
 
-
-<div class="container-wrap hot-wrap" id = "popularInnerContent">
+<div class="container-wrap hot-wrap" id = "popularInnerContent" style="height : 1000px;">
     
     <div>
         <div class="basic-grid left-grid">
@@ -61,30 +60,55 @@
 		
 		if(($(window).scrollTop() + $(window).height()) >= $(document).height()) {
 			//alert("caution");
-			paging++;
 			
 			if (paging <= 2){
+				
+				paging++;
+				
+				console.log('asd');
+				
 				$.ajax({
 	                type:"POST",
 	                url: "/SYJ_Mall/popularItemAjax.action" ,
 	                data : {"paging" : paging},
-	                dataType : "xml",
+	                dataType : "json",
 	                success : function(result) {
 	                    
-	                	console.log(result);
-	                	console.log(result["productId"]);
-	                	//console.log(result[productId]);
-	                	console.log(result.productId);
-	                	console.log(result[0]);
-	                	//var data = JSON.parse(result);
-	                	//console.log(data);
-	                	//type
+	                	$("#popularInnerContent").append
+	                	(
+	                			'<div>'
+	                	        +'<div class="basic-grid left-grid">'
+	                	        +'    <div class="grid-img" id="' + result[0].productId + '" style="background-image : url(' + result[0].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[1].productId + '" style="background-image : url(' + result[1].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[2].productId + '" style="background-image : url(' + result[2].productImg + ')"></div>'
+	                	        +'</div>'
+	                	        +'<div class="basic-grid normal-grid">'
+	                	        +'    <div class="grid-img" id="' + result[3].productId + '" style="background-image : url(' + result[3].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[4].productId + '" style="background-image : url(' + result[4].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[5].productId + '" style="background-image : url(' + result[5].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[6].productId + '" style="background-image : url(' + result[6].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[7].productId + '" style="background-image : url(' + result[7].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[8].productId + '" style="background-image : url(' + result[8].productImg + ')"></div>'
+	                	        +'</div>'
+	                	        +'</div>'
+	                	        +'<div>'
+	                	        +'<div class="basic-grid right-grid">'
+	                	        +'    <div class="grid-img" id="' + result[9].productId + '" style="background-image : url(' + result[9].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[10].productId + '" style="background-image : url(' + result[10].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[11].productId + '" style="background-image : url(' + result[11].productImg + ')"></div>'
+	                	        +'</div>'
+	                	        +'<div class="basic-grid normal-grid">'
+	                	        +'    <div class="grid-img" id="' + result[12].productId + '" style="background-image : url(' + result[12].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[13].productId + '" style="background-image : url(' + result[13].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[14].productId + '" style="background-image : url(' + result[14].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[15].productId + '" style="background-image : url(' + result[15].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[16].productId + '" style="background-image : url(' + result[16].productImg + ')"></div>'
+	                	        +'    <div class="grid-img" id="' + result[17].productId + '" style="background-image : url(' + result[17].productImg + ')"></div>'
+	                	        +'</div>'
+	                	        +'</div>'		
 	                	
-	                	//console.log(result.indexOf(0));
-	                	//console.log(typeof result.indexOf(0));
+	                	)
 	                	
-	                   //여기에 추가 로직이 들어가야 한다.
-	                   	
 	                },
 	                error: function(a,b,c) {
 						console.log(a,b,c);
@@ -92,13 +116,14 @@
 					}
 	            });	
 			}
-			
-			
-			
-		}
-		
+
+		}	
 	}
 	
+	//사진 클릭해줬을때 처리해줄것.
+	$(document).on("click",".grid-img",function(){
+	 	alert($(this).attr('id')); 
+  	});
 	
 	
 	

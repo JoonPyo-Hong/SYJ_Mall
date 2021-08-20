@@ -48,14 +48,8 @@ public class PopularService implements IPopularService{
 		String endDt = "2019-12-31";
 		List<PopularItemDTO> popularDtoList = dao.getPopularItem(startDt,endDt,paging);
 		
-		for (int i = 0; i < popularDtoList.size(); i++) {
-			System.out.println("getProductId : " + popularDtoList.get(i).getProductId());
-			System.out.println("getProductImg : " + popularDtoList.get(i).getProductImg());
-		}
-		
-		
+
 		return popularDtoList;
-		//return dao.getPopularItem(startDt,endDt,paging);
 	}
 	
 	
