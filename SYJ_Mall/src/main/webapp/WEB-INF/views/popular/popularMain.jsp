@@ -4,7 +4,7 @@
 <link rel = "stylesheet" href = "resources/css/popular/popularMain.css"> 
 
 
-<div class="container-wrap hot-wrap">
+<div class="container-wrap hot-wrap" id = "popularInnerContent">
     
     <div>
         <div class="basic-grid left-grid">
@@ -54,11 +54,47 @@
 	});
 	
 	
+	var paging = 1;//페이지 넘버
+	
 	//무한스크롤 지원해주기 위함!
 	window.onscroll = function(e) {
 		
 		if(($(window).scrollTop() + $(window).height()) >= $(document).height()) {
-			alert("caution");
+			//alert("caution");
+			paging++;
+			
+			if (paging <= 2){
+				$.ajax({
+	                type:"POST",
+	                url: "/SYJ_Mall/popularItemAjax.action" ,
+	                data : {"paging" : paging},
+	                dataType : "xml",
+	                success : function(result) {
+	                    
+	                	console.log(result);
+	                	console.log(result["productId"]);
+	                	//console.log(result[productId]);
+	                	console.log(result.productId);
+	                	console.log(result[0]);
+	                	//var data = JSON.parse(result);
+	                	//console.log(data);
+	                	//type
+	                	
+	                	//console.log(result.indexOf(0));
+	                	//console.log(typeof result.indexOf(0));
+	                	
+	                   //여기에 추가 로직이 들어가야 한다.
+	                   	
+	                },
+	                error: function(a,b,c) {
+						console.log(a,b,c);
+						console.log(typeof result);
+					}
+	            });	
+			}
+			
+			
+			
 		}
 		
 	}

@@ -10,9 +10,9 @@
 	
 	
 	<!-- 인기상품 진열 sp -->	
-	<select id="popularProductList" resultType="com.test.SYJ_Mall.popularItem.PopularItemDTO"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+	<select id="popularProductList" resultType="com.test.SYJ_Mall.popularItem.PopularItemDTO"  parameterType="com.test.SYJ_Mall.popularItem.PopularPagingDTO" statementType="CALLABLE" >
 		{
-			call dbo.kakao_popular_product_list (#{startDt},#{endDt})
+			call dbo.kakao_popular_product_list (#{startDt},#{endDt},#{paging})
 		}
 	</select>
 	
