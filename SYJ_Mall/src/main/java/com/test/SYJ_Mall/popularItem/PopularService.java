@@ -15,7 +15,7 @@ public class PopularService implements IPopularService{
 	
 	//인기상품 보여주기
 	@Override
-	public int getPopularProductList(HttpServletRequest request) {
+	public int getPopularProductList(HttpServletRequest request,int paging) {
 		try {
 			
 			//1. 인기상품 집계 시작일
@@ -23,7 +23,7 @@ public class PopularService implements IPopularService{
 			//1. 인기상품 집계 종료일
 			String endDt = "2019-12-31";
 			
-			List<PopularItemDTO> popularDtoList = dao.getPopularItem(startDt,endDt);
+			List<PopularItemDTO> popularDtoList = dao.getPopularItem(startDt,endDt,paging);
 			request.setAttribute("popularDtoList", popularDtoList);
 			request.setAttribute("seleted", "popular");//상단 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
 			
@@ -36,6 +36,26 @@ public class PopularService implements IPopularService{
 		
 		
 		
+	}
+	
+	//인기상품 보여주기 -> ajax 처리
+	@Override
+	public List<PopularItemDTO> getPopularProductAjax(int paging) {
+		
+		//1. 인기상품 집계 시작일
+		String startDt = "2017-01-01";
+		//1. 인기상품 집계 종료일
+		String endDt = "2019-12-31";
+		List<PopularItemDTO> popularDtoList = dao.getPopularItem(startDt,endDt,paging);
+		
+		for (int i = 0; i < popularDtoList.size(); i++) {
+			System.out.println("getProductId : " + popularDtoList.get(i).getProductId());
+			System.out.println("getProductImg : " + popularDtoList.get(i).getProductImg());
+		}
+		
+		
+		return popularDtoList;
+		//return dao.getPopularItem(startDt,endDt,paging);
 	}
 	
 	

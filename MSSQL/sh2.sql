@@ -865,3 +865,17 @@ re_feed
 
 
 
+
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
+
+begin tran
+
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock) where product_img like N'%(%'
+
+
+
+update dbo.KAKAO_PRODUCT_IMG set product_img = replace(product_img,N')',N'')
+
+rollback tran
