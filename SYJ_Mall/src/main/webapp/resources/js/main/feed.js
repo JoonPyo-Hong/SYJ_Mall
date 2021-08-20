@@ -29,7 +29,7 @@ $(document).on("click", "#btn_edit_delete span", function() {
 
 $(document).on("click", "#feed_edit_delete span", function() {
 	//btn_edit_delete
-	alert($(this).parent().val());
+	alert($(this).parent().next().attr('id'));
 
 	if ($(this).attr("id") == "U") {
 		/*	alert($(this).parent().parent().next().next().attr('id'));
@@ -542,8 +542,8 @@ function feed_select() {
 									"<div class='feed_content' >"
 									+ "<span id = 'feed_edit_img'" + " value ='" + value.seq + "'" + feed_diplay + ">"
 									+ "<div id ='feed_edti_img_div'><img src='resources/images/main/edit-regular-grey.png'></div>"
-									+ "<div id = 'feed_edit_delete' value= '"+ value.feed +"'><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
-
+									+ "<div id = 'feed_edit_delete' ><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
+									+"<input type ='hidden' id= '"+ value.feed +"' >"
 
 									+ "</span>"
 
