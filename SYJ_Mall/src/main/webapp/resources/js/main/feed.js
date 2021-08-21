@@ -10,8 +10,6 @@ var scroll = 0;
 
 
 $(document).on("click", "#btn_edit_delete span", function() {
-
-	if ($(this).attr("id") == "D") {
 		$(this).parent().hide();
 		$(this).parent().prev().hide();
 		$(this).parent().prev().prev().show();
@@ -21,6 +19,8 @@ $(document).on("click", "#btn_edit_delete span", function() {
 		$(this).parent().next().show();
 		$(this).parent().next().next().show();
 		$(this).parent().next().next().next().show();
+	if ($(this).attr("id") == "D") {
+	
 	}
 
 
@@ -29,11 +29,11 @@ $(document).on("click", "#btn_edit_delete span", function() {
 
 $(document).on("click", "#feed_edit_delete span", function() {
 	//btn_edit_delete
-	alert($(this).parent().next().attr('id'));
+/*	alert($(this).parent().next().attr('id'));*/
 
-	if ($(this).attr("id") == "U") {
 		/*	alert($(this).parent().parent().next().next().attr('id'));
 			alert($(this).parent().parent().next().attr('id'));*/
+	if ($(this).attr("id") == "U") {
 		$(this).parent().parent().hide();
 		$(this).parent().parent().next().show();
 		$(this).parent().parent().next().next().show();
@@ -534,7 +534,8 @@ function feed_select() {
 								feed_diplay = "";
 							}
 
-
+							var ph = value.feed;
+							ph = ph.replace('<br/>',' ');
 
 							state = false;
 							$("#feed_content_div")
@@ -549,7 +550,7 @@ function feed_select() {
 
 									+ "<div class='comment' id='commet_id' >"
 
-									+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder=''></textarea>"
+									+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder='"+ ph +"'></textarea>"
 									+ "<img  src='resources/images/main/reply-off.png' id='feed_edit_btn' >"
 									+ "</div>"
 									+ "<div id='btn_edit_delete'><span id='D'>삭제</span><span id='C'>취소</span></div>"
