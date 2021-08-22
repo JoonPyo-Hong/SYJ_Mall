@@ -26,6 +26,29 @@ $(document).on("click", "#btn_edit_delete span", function() {
 
 });
 
+$(document).on("click","#feed_edit_btn", function(){
+	var txt = $(this).prev().val();
+	var num = $(this).prev().attr("class");
+	if(txt != ""){
+	$.ajax({
+		url: "feed_edit.action",
+		type: 'post',
+		data: {
+			seq: num,
+			feed: txt
+		},
+		success: function(data) {
+
+		},
+		error: function() {
+			alert("에러");
+		}
+	});
+	
+	}
+	alert($(this).prev().val());
+});
+
 
 $(document).on("click", "#feed_edit_delete span", function() {
 	//btn_edit_delete

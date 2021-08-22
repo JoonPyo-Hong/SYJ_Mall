@@ -102,4 +102,7 @@
 		select
 		count(*) from dbo.feed with (nolock) where list_seq = #{seq}
 	</select>
+	<update id="feed_edit" parameterType="java.util.HashMap">
+		update feed set feed = #{feed} where seq = #{seq}
+	</update>
 </mapper>

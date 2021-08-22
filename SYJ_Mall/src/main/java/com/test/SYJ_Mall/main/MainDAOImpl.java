@@ -120,4 +120,10 @@ public class MainDAOImpl implements MainDAO {
 		
 		return session.selectOne("main.main_feed_count", seq);
 	}
+
+	@Override
+	public void feed_edit(Map<String, Object> map) {
+		
+		session.update("main.feed_edit", map);
+	}
 }

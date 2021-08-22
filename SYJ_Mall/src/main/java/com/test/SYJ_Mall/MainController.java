@@ -174,6 +174,13 @@ public class MainController {
 		return list;
 	}
 	
+	// 댓글 수정 (update)
+	@RequestMapping(value = "/feed_edit.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void feed_edit(@RequestParam Map<String, Object> map) {
+		service.feed_edit(map);
+	}
+		
 	// 댓글 텍스트(select)
 	@RequestMapping(value = "/main_feed.action", method = { RequestMethod.POST })
 	@ResponseBody

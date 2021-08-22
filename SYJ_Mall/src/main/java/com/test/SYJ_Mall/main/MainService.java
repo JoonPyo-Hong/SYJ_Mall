@@ -36,4 +36,6 @@ public interface MainService {
 
 	Object main_feed_count(Integer seq);
 
+	void feed_edit(Map<String, Object> map);
+
 }

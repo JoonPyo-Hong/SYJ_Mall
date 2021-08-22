@@ -102,4 +102,10 @@ public class MainServiceImpl implements MainService {
 
 	}
 
+	@Override
+	public void feed_edit(Map<String, Object> map) {
+		dao.feed_edit(map);
+		
+	}
+
 }
