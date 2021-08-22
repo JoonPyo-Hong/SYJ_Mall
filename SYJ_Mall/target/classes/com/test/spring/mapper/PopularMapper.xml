@@ -12,11 +12,19 @@
 	<!-- 인기상품 진열 sp -->	
 	<select id="popularProductList" resultType="com.test.SYJ_Mall.popularItem.PopularItemDTO"  parameterType="com.test.SYJ_Mall.popularItem.PopularPagingDTO" statementType="CALLABLE" >
 		{
-			call dbo.kakao_popular_product_list (#{startDt},#{endDt},#{paging})
+			call dbo.kakao_popular_product_list (#{paging},#{userSeq},#{basketList})
 		}
 	</select>
 	
-
+	
+	<!-- 회원이 선택한 아이템 장바구니에 넣어주기 -->
+	<select id="itemInputBasket" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec dbo.kakao_popular_product_input_basket #{userSeq},#{productId},@result output
+		select @result
+				
+	</select>
 
 
 </mapper>

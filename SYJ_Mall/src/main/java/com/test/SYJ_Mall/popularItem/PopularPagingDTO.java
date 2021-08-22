@@ -6,18 +6,17 @@ import lombok.Data;
 @Data
 public class PopularPagingDTO {
 	
-	private String startDt;
-	private String endDt;
+
 	private int paging;
+	private int userSeq;
+	private String  basketList;
 	
-	public PopularPagingDTO(String startDt, String endDt, int paging) {
+	
+	public PopularPagingDTO(int paging, int userSeq, String basketList) {
 		super();
-		this.startDt = startDt;
-		this.endDt = endDt;
 		this.paging = paging;
+		this.userSeq = userSeq;
+		this.basketList = basketList;
 	}
-	
-	
-	
-	
+
 }
