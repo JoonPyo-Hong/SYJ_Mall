@@ -1,6 +1,13 @@
 @charset "UTF-8";@charset "UTF-8";
 
 
+
+/* 추가해줄것 */
+.grid-img:hover {
+	cursor : pointer;
+}
+	
+
 .container-wrap {
   height: 100%;
 }
@@ -10,13 +17,12 @@
   background-size: cover;
 }
 
-.container-wrap .grid-img::before {
+.container-wrap .grid-img .basket {
   content: "";
   display: inline-block;
   position: absolute;
   width: 24px;
   height: 24px;
-  background-image: url(/SYJ_Mall/resources/images/hot/cart.png);
   background-size: cover;
   right: 7px;
   bottom: 7px;

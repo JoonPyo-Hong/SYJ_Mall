@@ -11,5 +11,6 @@ import lombok.Data;
 public class PopularItemDTO {
 	private int productId;
 	private String productImg;
+	private String basket;
 	
 }
