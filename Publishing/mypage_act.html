@@ -16,12 +16,13 @@
     <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="./css/common.css" />
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
-    <link rel="stylesheet" type="text/css" href="./css/new.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="./css/basket.css" /> -->
+    <link rel="stylesheet" type="text/css" href="./css/seen.css" />
+    <link rel="stylesheet" type="text/css" href="./css/act.css" />
   </head>
-
-  <body style="height: 2000px">
-    <div id="kakao-wrap" style="height: 100%">
-      <div id="kakao-head" style="height: 100%">
+  <body>
+    <div id="kakao-wrap"
+      <div id="kakao-head">
         <div id="inner-head">
           <div class="left-btn">
             <!-- <button class="hamburger-menu"></button> -->
@@ -34,7 +35,7 @@
             <div class="navigation">
               <div class="navigation-inner">
                 <div class="user-info">
-                  <u id="login-need">로그인</u>이 필요해요!
+                  <u>로그인</u>이 필요해요!
                   <span>비회원 주문조회</span>
                 </div>
                 <div class="banner"></div>
@@ -97,7 +98,7 @@
                     <hr />
                   </ul>
                 </div>
-                <button class="login-or-out" id="sexy">로그인</button>
+                <div class="login-or-out">로그인</div>
               </div>
             </div>
           </div>
@@ -107,68 +108,101 @@
             <button class="language"></button>
           </div>
         </div>
+        <div id="inner-tab">
+          <!-- 메인메뉴 tab -->
+          <div class="main-tab">
+            <ul class="main-tab-ul">
+              <li class="main-tab-li">오늘</li>
+              <li class="main-tab-li">신규</li>
+              <li class="main-tab-li">인기</li>
+              <li class="main-tab-li active">마이</li>
+            </ul>
+          </div>
+          <!-- 마이페이지 tab -->
+          <div class="mypage-tab">
+            <ul class="mypage-tab-ul">
+              <li class="mypage-tab-li">최근 본</li>
+              <li class="mypage-tab-li active">내 활동</li>
+              <li class="mypage-tab-li">장바구니</li>
+              <li class="mypage-tab-li ">주문내역</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="kakao-content">
+        <div id="inner-content">
+          <!-- 마이페이지 컨텐츠 -->
+          <div class="container-wrap mypage-seen-wrap">
+            <!-- 데이터 없을 시 -->
+            <!-- <div class="order-list-nodata">
+              <div class="standing-ryan"></div>
+              <div class="empty-message">내역이 없어요</div>
+            </div> -->
+            <!-- 데이터 있을 시 -->
+            <div class="act-list-wrap">
 
-        <div id="kakao-content">
-          <!-- <div id="kakao-search-content">
-                    <div class="main-tab">
-                        <ul class="main-tab-ul">
-                            <li class="main-tab-li active">오늘</li>
-                            <li class="main-tab-li">신규</li>
-                            <li class="main-tab-li">인기</li>
-                            <li class="main-tab-li">마이</li>
-                        </ul>
-                    </div>
-                </div>  -->
-          <div id="inner-content">
-            <div class="main-tab">
-              <ul class="main-tab-ul">
-                <li class="main-tab-li active">오늘</li>
-                <li class="main-tab-li">신규</li>
-                <li class="main-tab-li">인기</li>
-                <li class="main-tab-li">마이</li>
-              </ul>
-            </div>
-            <div class="container-wrap hot-wrap">
-              <div>
-                <div class="basic-grid left-grid">
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
+              <!-- 활동 이력 하나 -->
+              <div class="act-list-item">
+                <!-- 활동 내용 -->
+                <div class="act-content">
+                  <a href="#">
+                    <div class="act-img"></div>
+                  </a>
+                  <div class="act-text">
+                    <span class="act-name">웰컴 투 춘식이 방🏡</span>
+                    <span class="act-description">게시물에 댓글을 작성했습니다.</span>
+                    <span class="act-date">7분 전</span>
+                  </div>
                 </div>
-                <div class="basic-grid normal-grid">
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                </div>
+                <!-- 상품 삭제 -->
+                <div class="act-list-delete-btn"></div>
               </div>
-              <div>
-                <div class="basic-grid right-grid">
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
+
+              <!-- 활동 이력 하나 -->
+              <div class="act-list-item">
+                <!-- 활동 내용 -->
+                <div class="act-content">
+                  <a href="#">
+                    <div class="act-img coffee"></div>
+                  </a>
+                  <div class="act-text">
+                    <span class="act-name">커피 한 잔 할래요☕️ 커피 한 잔 할래요?🎤</span>
+                    <span class="act-description">게시물을 좋아했습니다.</span>
+                    <span class="act-date">2021.08.12</span>
+                  </div>
                 </div>
-                <div class="basic-grid normal-grid">
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                  <div class="grid-img"></div>
-                </div>
+                <!-- 상품 삭제 -->
+                <div class="act-list-delete-btn"></div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
+      <div id="kakao-footer">
+        <div id="inner-footer">
+          <div class="info-service">
+            <ul>
+              <li>제휴문의</li>
+              <span class="footer_divider"></span>
+              <li>고객문의</li>
+              <span class="footer_divider"></span>
+              <li>이용약관</li>
+              <span class="footer_divider"></span>
+              <li>개인정보처리방침</li>
+              <span class="footer_divider"></span>
+              <li>지식재산권보호센터</li>
+            </ul>
+          </div>
+          <div class="logo">
+            <div class="toggler">
+              <span class="toggler-logo"></span>
+              <span class="toggler-icon"></span>
+            </div>
+            <div class="best-family"></div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <script>
-      $(".login-or-out").click(function () {
-        alert($(this).attr("id"));
-      });
-    </script>
   </body>
 </html>

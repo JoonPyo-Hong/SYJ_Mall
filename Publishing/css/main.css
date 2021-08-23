@@ -368,7 +368,6 @@
 
 .mypage-tab {
   width: 100%;
-  /* border: 1px solid red; */
 }
 .mypage-tab-ul {
   display: flex;
@@ -391,6 +390,20 @@
 .mypage-tab-li.active {
   font-weight: bold;
   color: rgb(0, 0, 0);
+}
+
+.mypage-tab-li .basket-count {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 9px;
+  font-size: 11px;
+  margin-left: 2px;
+  margin-top: -2px;
+  background: rgb(255, 85, 117);
+  color: rgb(255, 255, 255);
 }
 
 /* 하단 */
