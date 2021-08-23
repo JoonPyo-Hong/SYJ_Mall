@@ -227,6 +227,13 @@ public interface ILoginService {
 	 */
 	Object instanceCookie(HttpServletRequest request, HttpServletResponse response, String cookieName);
 	
+	
+	/**
+	 * 메인페이지로 보내주기
+	 * @param request
+	 */
+	void goMain(HttpServletRequest request);
+	
 
 	
 

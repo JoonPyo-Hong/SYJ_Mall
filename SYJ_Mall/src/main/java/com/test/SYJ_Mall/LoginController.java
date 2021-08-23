@@ -101,7 +101,10 @@ public class LoginController {
 					String lastPage = (String)logService.instanceCookie(request,response,"lastPage");
 					
 					if (lastPage == null) {
-						return "forward:/main.action";//메인페이지로 이동
+						
+						logService.goMain(request);
+						
+						return "/tiles/mainStart.topping";//메인페이지로 이동
 					} else {
 						return "forward:/" + lastPage + ".action";
 					}

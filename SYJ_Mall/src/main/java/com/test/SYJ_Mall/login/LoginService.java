@@ -597,6 +597,26 @@ public class LoginService implements ILoginService {
 		
 		return result;
 	}
+
+	//메인페이지 보내주기
+	@Override
+	public void goMain(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
+		request.setAttribute("selected", "today");
+		
+		int seq = 0;
+
+		if (dto == null) {
+			seq = 0;
+		} else {
+			seq = dto.getUserSeq();
+		}
+		request.setAttribute("seq", seq);
+		
+		
+	}
 	
 	
 
