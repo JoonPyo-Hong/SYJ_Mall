@@ -38,7 +38,8 @@ $(document).on("click","#feed_edit_btn", function(){
 			feed: txt
 		},
 		success: function(data) {
-
+		scroll = $(document).scrollTop();
+		feed_select();
 		},
 		error: function() {
 			alert("에러");
@@ -296,6 +297,7 @@ function re_feed(seq) {
 								$("#feed_content_" + seq)
 									.append(
 										"<div class='feed_content feed_content2'>"
+										+ "<div id = 'feed_id'>" + value.reg_id  + "</div>"
 										+ "<div class='feed_content_div2'><span> "
 										+ value.re_feed
 										+ "</span>" + "</div>"
