@@ -58,6 +58,24 @@
   margin: 8px 13px 7px 2px;
 }
 
+/* header ver2 */
+
+.home-button {
+  width: 20px;
+  height: 20px;
+  background-image: url(./../images/main/gnb-home-18-black@2x.png);
+  background-size: cover;
+  margin: 8px 13px 7px 2px;
+}
+
+.back-button {
+  width: 20px;
+  height: 20px;
+  background-image: url(./../images/main/ic_back_2x.png);
+  background-size: cover;
+  margin: 8px 13px 7px 2px;
+}
+
 #inner-tab {
   margin: 0 auto;
   height: 100%;
@@ -442,7 +460,7 @@
 
 .footer_divider {
   height: 10px;
-  margin: 0px 5px;
+  margin: 0px 4px;
   border-left: 1px solid rgb(216, 216, 216);
 }
 
