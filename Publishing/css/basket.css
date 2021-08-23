@@ -1,0 +1,144 @@
+#mypage-basket-wrap {
+}
+
+hr.division {
+  height: 10px;
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgb(227, 229, 232);
+  background-color: rgb(247, 247, 247);
+  margin: 0 !important;
+}
+
+.basket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  padding-right: 15px;
+  padding-left: 20px;
+}
+
+.basket-header .basket-count {
+  display: flex;
+  font-size: 16px;
+  color: rgb(51, 51, 51);
+}
+
+.product-checkbox-label {
+  width: 20px;
+  height: 20px;
+  background: url(../images/mypage_basket/ico_checked.png) center center
+    no-repeat;
+  background-size: 20px 20px;
+}
+
+input[id="product-checkbox"] {
+  display: none;
+}
+
+input[id="product-checkbox"]:checked {
+  /* display: block; */
+  border: 1px solid red;
+}
+
+.basket-header .basket-count .basket-count-text {
+  margin-left: 10px;
+}
+
+.delete-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-count {
+  font-size: 14px;
+  color: rgb(102, 102, 102);
+  padding-right: 8px;
+}
+
+.delete-all-btn {
+  width: 27px;
+  height: 27px;
+  background-image: url(../images/mypage_seen/garbage-27-grey.png);
+  background-size: contain;
+}
+
+.basket-list-wrap {
+  overflow-y: auto;
+}
+
+/* 상품 하나 */
+.basket-list-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(242, 242, 242);
+  padding: 20px;
+}
+
+.basket-left {
+  display: flex;
+}
+
+.basket-check {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background: url(../images/mypage_basket/ico_checked.png) center center
+    no-repeat;
+  background-size: 20px 20px;
+}
+
+.basket-content {
+  display: flex;
+}
+
+.product-img {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: url(../images/mypage_seen/20210729161639822_8809814920656_AW_00.jpg)
+    no-repeat;
+  background-size: contain;
+}
+
+.product-img::after {
+  position: absolute;
+  inset: 0px;
+  background: rgba(0, 0, 0, 0.02);
+  content: "";
+  width: 100%;
+  z-index: 0;
+  padding-top: 100%;
+}
+
+.basket-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.basket-text .product-name {
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+}
+.basket-text .product-price {
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+}
+.basket-text .product-count {
+  width: 191px;
+  height: 35px;
+  border-radius: 4px;
+}
+
+.basket-list-delete-btn {
+  width: 24px;
+  height: 24px;
+  background: url(../images/mypage_seen/delete-small-18-light-grey.png)
+    no-repeat;
+  background-size: 16px 16px;
+  cursor: pointer;
+}
