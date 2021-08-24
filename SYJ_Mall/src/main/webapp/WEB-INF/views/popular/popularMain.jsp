@@ -114,36 +114,68 @@
 	 	alert($(this).attr('id')); 
   	});
 	
-	//장바구리 클릭해줬을때 처리해줄것. -> 쿠키에 넘길것!(비로그인시) or db에 넘길것(로그인 한 경우)	
+	//장바구니 클릭해줬을때 처리해줄것. -> 쿠키에 넘길것!(비로그인시) or db에 넘길것(로그인 한 경우)	
 	$(document).on("click",".basket",function(e){
 	 	const cart_yn  = $(this).css('background-image');
 	 	const product_id = $(this).parent().attr('id');//상품번호
-
+	
+	 	console.log(cart_yn);
+	 	console.log(product_id);
+	 	
 	 	//이미 장바구니에 담겼을 경우
 	    if (cart_yn.includes('cart_on')) {
 	 		//console.log('장바구니에서 나옴');
-	 		$(this).css('background-image','url(resources/images/hot/cart.png)');
 	 		
+	 		//1. 로그인시
+	 		<c:if test="${not empty userinfo}">
+	 			$.ajax({
+                	type:"GET",
+                	url: "/SYJ_Mall/popularItemBasketOutput.action" ,
+                	data : "productId=" + product_id,
+                	dataType : "json",
+               		success : function(result) {
+                	
+                		if (result == 1) {
+                			$('#' + product_id).children('.basket').css('background-image','url(resources/images/hot/cart.png)');
+                		}
+                	
+                	},
+                	error: function(a,b,c) {
+						console.log(a,b,c);
+					}
+            	});
+	 		</c:if>
+	 		//2. 비로그인시
+	 		<c:if test="${empty userinfo}">
 	 		
+	 		</c:if>
 	 		
 	 	} else {//장바구니에 안담긴경우
 	 		//console.log('장바구니에 담김');
-	 		$.ajax({
-                type:"GET",
-                url: "/SYJ_Mall/popularItemBasketInput.action" ,
-                data : "productId=" + product_id,
-                dataType : "json",
-                success : function(result) {
+	 	
+	 		//1. 로그인 시
+	 		<c:if test="${not empty userinfo}">
+	 			$.ajax({
+                	type:"GET",
+                	url: "/SYJ_Mall/popularItemBasketInput.action" ,
+                	data : "productId=" + product_id,
+                	dataType : "json",
+                	success : function(result) {
                 	
-                	if (result == 1) {
-                		$('#' + product_id).children('.basket').css('background-image','url(resources/images/hot/cart_on.png)');
-                	}
+                		if (result == 1) {
+                			$('#' + product_id).children('.basket').css('background-image','url(resources/images/hot/cart_on.png)');
+                		}
                 	
-                },
-                error: function(a,b,c) {
-					console.log(a,b,c);
-				}
-            }); 
+               	 	},
+               	 error: function(a,b,c) {
+						console.log(a,b,c);
+					}
+            	});
+	 		</c:if>
+	 		//2. 비로그인시
+			<c:if test="${empty userinfo}">
+	 			
+	 		</c:if>
 	 	}
 
 	 	//버블링 제거

@@ -42,7 +42,8 @@ public class PopularItemController {
 		} 
 		//2. 로그인 되어있지 않은 경우
 		else {
-			String basketList = "";
+			
+			String basketList = service.getCookieBasket(request,response);
 			result = service.getPopularProductList(request,1,0,basketList);
 			
 		}
@@ -125,6 +126,45 @@ public class PopularItemController {
 		
 		return -2;
 	}
+	
+	
+	//인기페이지 -> 장바구니에 담기
+	@RequestMapping(value = "/popularItemBasketOutput.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int popularItemBasketOutput(HttpServletRequest request, HttpServletResponse response) {
+		
+		int productId = Integer.parseInt(request.getParameter("productId"));//상품번호
+		HttpSession session = request.getSession();
+		
+		try {
+			
+			UserDTO userInfo = (UserDTO)session.getAttribute("userinfo");
+			
+			//1. 로그인 되어 있지 않은 경우
+			if (userInfo == null) {
+				System.out.println("로그인 안되어있음");
+			} 
+			//2. 로그인 되어 있는경우
+			else {
+				int userSeq = userInfo.getUserSeq();//유저 고유번호
+				int result = service.outputItemBasket(userSeq,productId);
+				
+				if (result == -2) {
+					throw new Exception();
+				}
+				
+				return result;
+				
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -2;
+		}
+		
+		return -2;
+		
+	}	
 	
 	
 	
