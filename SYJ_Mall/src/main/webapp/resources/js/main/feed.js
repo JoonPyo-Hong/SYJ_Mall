@@ -9,7 +9,27 @@ var feed_sel = "최신순";
 var scroll = 0;
 
 
+function feed_delete(f_seq) {
+
+	$.ajax({
+		url: "feed_delete.action",
+		type: 'post',
+		data: {
+			feed_seq: f_seq,
+		},
+		success: function(data) {
+
+		},
+		error: function() {
+			alert("에러");
+		}
+	});
+
+}
+
+
 $(document).on("click", "#btn_edit_delete span", function() {
+	if ($(this).attr("id") == "U") {
 		$(this).parent().hide();
 		$(this).parent().prev().hide();
 		$(this).parent().prev().prev().show();
@@ -19,9 +39,10 @@ $(document).on("click", "#btn_edit_delete span", function() {
 		$(this).parent().next().show();
 		$(this).parent().next().next().show();
 		$(this).parent().next().next().next().show();
-	if ($(this).attr("id") == "D") {
-	
 	}
+		if(confirm("삭제 하시겠습니까?")){
+			feed_delete($(this).parent().attr("class"));
+		}
 
 
 });
@@ -47,7 +68,7 @@ $(document).on("click","#feed_edit_btn", function(){
 	});
 	
 	}
-	alert($(this).prev().val());
+	
 });
 
 
@@ -68,6 +89,11 @@ $(document).on("click", "#feed_edit_delete span", function() {
 		$(this).parent().parent().next().next().next().next().next().hide();
 		$(this).parent().parent().next().next().next().next().next().hide();
 
+	}else if($(this).attr("id") == "D"){
+		
+		if(confirm("삭제 하시겠습니까?")){
+			feed_delete($(this).parent().attr("class"));
+		}
 	}
 });
 
@@ -287,12 +313,12 @@ function re_feed(seq) {
 								var re_feed_diplay = '';
 
 								if (value.member_seq == m_seq) {
-									re_feed_diplay = "style = 'display: none;'";
-								} else {
 									re_feed_diplay = "";
+								} else {
+									re_feed_diplay = "style = 'display: none;'";
 
 								}
-
+									
 
 								$("#feed_content_" + seq)
 									.append(
@@ -553,12 +579,13 @@ function feed_select() {
 							}
 
 							var feed_diplay = "";
-							if (value.memer_seq == m_seq) {
-								feed_diplay = style = 'display:none';
-							} else {
+							
+							if (value.member_seq == m_seq) {
 								feed_diplay = "";
+							} else {
+								feed_diplay = "style = 'display:none'";
 							}
-
+						
 							var ph = value.feed;
 							ph = ph.replace('<br/>',' ');
 
@@ -568,7 +595,7 @@ function feed_select() {
 									"<div class='feed_content' >"
 									+ "<span id = 'feed_edit_img'" + " value ='" + value.seq + "'" + feed_diplay + ">"
 									+ "<div id ='feed_edti_img_div'><img src='resources/images/main/edit-regular-grey.png'></div>"
-									+ "<div id = 'feed_edit_delete' ><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
+									+ "<div id = 'feed_edit_delete' class= '"+value.seq+"' ><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
 									+"<input type ='hidden' id= '"+ value.feed +"' >"
 
 									+ "</span>"
@@ -578,7 +605,7 @@ function feed_select() {
 									+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder='"+ ph +"'></textarea>"
 									+ "<img  src='resources/images/main/reply-off.png' id='feed_edit_btn' >"
 									+ "</div>"
-									+ "<div id='btn_edit_delete'><span id='D'>삭제</span><span id='C'>취소</span></div>"
+									+ "<div id='btn_edit_delete' class= '"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
 
 
 									+ "<div class='feed_id'>"
@@ -629,9 +656,7 @@ $('#feed_txt').click(function() {
 
 });
 $('.feed_img2').click(function() {
-	$('.' + l_seq).val('');
-	alert($('.' + l_seq).attr("class"));
-	return;
+	
 	if (m_seq == 0) {
 		openModal("modal1");
 		return;
@@ -639,9 +664,9 @@ $('.feed_img2').click(function() {
 	if ($('#feed_txt').val() == "") {
 		return;
 	}
-
+	$('#feed_txt').val("");
 	feed_insert();
-
+	
 });
 function feed_insert() {
 	var feed_txt = $('#feed_txt').val().replace(/(?:\r\n|\r|\n)/g,
