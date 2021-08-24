@@ -35,6 +35,17 @@ public class PopularDAO implements IPoupularDAO{
 		return template.selectOne("popuarItem.itemInputBasket", map);
 	}
 
+	//회원이 선택한 상품 장바구니에서 빼주기
+	@Override
+	public int outputItemBasket(int userSeq, int productId) {
+		
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("userSeq",userSeq);
+		map.put("productId",productId);
+		
+		return template.selectOne("popuarItem.itemOutputBasket", map);
+	}
+
 
 	
 }

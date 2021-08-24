@@ -1060,3 +1060,149 @@ begin
 	end
 
 end
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-21  
+	Description : 상품 장바구니로 보내는 로직
+	     
+	History	: 2021-08-21 Seunghwan Shin	#최초 생성
+			  2021-08-24 Seunghwan Shin	#장바구니에서 삭제했던 상품 다시 집어넣는 로직 추가
+			  
+*/
+alter proc dbo.kakao_popular_product_input_basket
+	@qoouser_seq	bigint		-- 회원 고유번호
+,	@product_id		bigint		-- 상품번호
+,	@result			int output	-- 결과값
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	begin try
+		-- 회원이 선택한 품목이 장바구니 내역에 없는경우
+		if not exists (select * from dbo.KAKAO_USER_SHOPPING_CART where qoouser_seq = @qoouser_seq and product_id = @product_id)
+		begin
+			begin tran
+			
+				insert into dbo.KAKAO_USER_SHOPPING_CART
+				(
+					qoouser_seq
+				,	product_id
+				,	product_count
+				,	cart_reg_dt
+				,	cart_chg_dt
+				,	cart_del_yn
+				)
+				values
+				(
+					@qoouser_seq
+				,	@product_id
+				,	1
+				,	getdate()
+				,	null
+				,	'N'
+				)
+			commit tran
+			
+			set @result = 1
+
+		end
+		--회원이 선택한 품목이 지난번에 장바구니에 집어넣었다가 장바구니에서 삭제한 경우
+		else if exists (select * from dbo.KAKAO_USER_SHOPPING_CART where qoouser_seq = @qoouser_seq and product_id = @product_id and cart_del_yn = 'Y')
+		begin
+			
+			begin tran
+
+				update dbo.KAKAO_USER_SHOPPING_CART
+				set cart_del_yn = 'N'
+				,	cart_chg_dt = getdate()
+				where qoouser_seq = @qoouser_seq and product_id = @product_id
+
+			commit tran
+
+			set @result = 1
+
+		end
+		-- 회원이 선택한 품목이 장바구니 내역에 있는경우
+		else
+		begin
+			set @result = -1
+		end
+
+	end try
+	begin catch
+		
+		set @result = -2--에러발생
+
+		rollback tran
+	end catch
+
+	
+end
+
+
+
+
+
+
+
+
+select * from dbo.KAKAO_USER_SHOPPING_CART with(nolock)
+
+
+
+Text
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-24
+	Description : 상품 장바구니에서 제외하는 로직
+	     
+	History	: 2021-08-24 Seunghwan Shin	#최초 생성
+			  
+*/
+CREATE proc dbo.kakao_popular_product_output_basket
+	@qoouser_seq	bigint		-- 회원 고유번호
+,	@product_id		bigint		-- 상품번호
+,	@result			int output	-- 결과값
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	begin try
+		-- 회원이 선택한 품목이 장바구니 내역에 있경우
+		if exists (select * from dbo.KAKAO_USER_SHOPPING_CART where qoouser_seq = @qoouser_seq and product_id = @product_id and cart_del_yn = 'N' )
+		begin
+			begin tran
+			
+				update dbo.KAKAO_USER_SHOPPING_CART
+				set cart_del_yn = 'Y'
+				,	cart_chg_dt = getdate()
+				where qoouser_seq = @qoouser_seq and product_id = @product_id
+
+			commit tran
+			
+			set @result = 1
+
+		end
+		-- 회원이 선택한 품목이 장바구니 내역에 없는경우
+		else
+		begin
+			set @result = -1
+		end
+
+	end try
+	begin catch
+		
+		set @result = -2--에러발생
+
+		rollback tran
+	end catch
+
+	
+end
+
+

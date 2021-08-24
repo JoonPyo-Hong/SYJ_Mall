@@ -63,12 +63,29 @@ public interface IPopularService {
 
 	
 	/**
-	 * 회원이 장바구리 클릭했을 때 db에 정보 넣어주기
+	 * 회원이 장바구니 클릭했을 때 db에 정보 넣어주기
 	 * @param userSeq		회원 고유번호
 	 * @param productId		상품 아이디
 	 * @return				1: 성공, -1: 실패, -2 : 에러발생 
 	 */
 	int inputItemBasket(int userSeq, int productId);
+	
+	/**
+	 * 회원이 장바구니 클릭했을 때 db에 정보 넣어주기 -> 장바구니 내역 삭제
+	 * @param userSeq		회원 고유번호
+	 * @param productId		상품 아이디
+	 * @return				1: 성공, -1: 실패, -2 : 에러발생 
+	 */
+	int outputItemBasket(int userSeq, int productId);
+	
+	
+	/**
+	 * 로그인 하지 않은 경우 쿠키에 있는 장바구니 내용 가져오기
+	 * @param request	
+	 * @param response
+	 * @return	쿠키에 존재하는 장바구니 내역
+	 */
+	String getCookieBasket(HttpServletRequest request, HttpServletResponse response);
 
 
 

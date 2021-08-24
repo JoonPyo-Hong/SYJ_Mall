@@ -121,7 +121,6 @@ public class LoginController {
 					else return "/testwaiting/kakaoerror";//문제생겼을시에 에러페이지로 이동
 					
 				} else if (loginCode == 2) {//보안정책을 따라야하는 경우 --> 사진을 골라야한다.
-					//System.out.println("보안정책을 따라야한다.");
 					
 					//자동로그인 방지 알고리즘
 					request = logService.AutoLoginBanned(request,userSeq,ip);
