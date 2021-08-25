@@ -38,4 +38,6 @@ public interface MainService {
 
 	void feed_edit(Map<String, Object> map);
 
+	void feed_delete(String feed_seq);
+
 }

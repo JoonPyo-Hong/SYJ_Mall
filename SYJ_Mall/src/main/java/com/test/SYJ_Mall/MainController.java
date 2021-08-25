@@ -180,6 +180,12 @@ public class MainController {
 	public void feed_edit(@RequestParam Map<String, Object> map) {
 		service.feed_edit(map);
 	}
+	// 댓글 수정 (delete)
+		@RequestMapping(value = "/feed_delete.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public void feed_delete(@RequestParam("list_seq") String feed_seq) {
+			service.feed_delete(feed_seq);
+		}
 		
 	// 댓글 텍스트(select)
 	@RequestMapping(value = "/main_feed.action", method = { RequestMethod.POST })

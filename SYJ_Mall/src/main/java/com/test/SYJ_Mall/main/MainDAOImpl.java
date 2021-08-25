@@ -126,4 +126,10 @@ public class MainDAOImpl implements MainDAO {
 		
 		session.update("main.feed_edit", map);
 	}
+
+	@Override
+	public void feed_delete(String feed_seq) {
+		session.delete("main.feed_delete", feed_seq);
+		
+	}
 }

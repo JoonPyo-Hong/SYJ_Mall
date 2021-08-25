@@ -105,4 +105,9 @@
 	<update id="feed_edit" parameterType="java.util.HashMap">
 		update feed set feed = #{feed} where seq = #{seq}
 	</update>
+	<delete id="feed_delete" parameterType="int">
+		delete
+		dbo.feed
+		where seq = #{feed_seq}
+	</delete>
 </mapper>
