@@ -85,17 +85,16 @@ public class KakaoCookie {
 				
 				if (cookies[i].getName().equals(cookieName)) {
 					cookies[i].setValue(setCookieVal);
-					cookies[i].setMaxAge(-1);
-					cookies[i].setPath("/");
+					//cookies[i].setMaxAge(-1);
+					//cookies[i].setPath("/");
 					response.addCookie(cookies[i]);
 					break;
 				}
 			}
-		}
-		
-		
+		}	
 	}
-	
+
+
 	/**
 	 * 쿠키이름에 해당하는 쿠키 삭제
 	 * @param request

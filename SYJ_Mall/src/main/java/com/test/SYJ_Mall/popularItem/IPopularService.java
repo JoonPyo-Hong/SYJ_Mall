@@ -86,6 +86,15 @@ public interface IPopularService {
 	 * @return	쿠키에 존재하는 장바구니 내역
 	 */
 	String getCookieBasket(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 로그인 하지 않은 경우 장바구니 클릭했을때 쿠키에 물품정보 넣어주기
+	 * @param request
+	 * @param response
+	 * @param productId	물품 아이디
+	 * @return			1 : 성공, -1 : 실패
+	 */
+	int inputItemBasketNonLogin(HttpServletRequest request, HttpServletResponse response, int productId);
 
 
 

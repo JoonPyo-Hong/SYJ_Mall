@@ -1143,6 +1143,8 @@ begin
 end
 
 
+select * from dbo.KAKAO_USER_SHOPPING_CART with(nolock)
+
 
 
 

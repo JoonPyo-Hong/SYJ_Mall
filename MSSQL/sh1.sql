@@ -366,7 +366,7 @@ end
 
 select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
 
-
+select * from dbo.KAKAO_PRODUCT_PAYMENT with(nolock)
 
 
 

@@ -42,10 +42,8 @@ public class PopularItemController {
 		} 
 		//2. 로그인 되어있지 않은 경우
 		else {
-			
 			String basketList = service.getCookieBasket(request,response);
 			result = service.getPopularProductList(request,1,0,basketList);
-			
 		}
 
 		if (result == 1) {
@@ -75,9 +73,8 @@ public class PopularItemController {
 			}
 			//2. 로그인 되어있지 않은 경우
 			else {
-				String cookieList = "";//쿠키리스트
-				return service.getPopularProductAjax(paging,cookieList);
-				//return 
+				String basketList = service.getCookieBasket(request,response);//쿠키리스트
+				return service.getPopularProductAjax(paging,basketList);
 			}
 			
 		} catch (Exception e) {
@@ -104,6 +101,7 @@ public class PopularItemController {
 			//1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
 				System.out.println("로그인 안되어있음");
+				return service.inputItemBasketNonLogin(request,response,productId);
 			} 
 			//2. 로그인 되어 있는경우
 			else {
@@ -119,16 +117,17 @@ public class PopularItemController {
 			}
 			
 		} catch(Exception e) {
+			System.out.println("문제생김");
 			e.printStackTrace();
 			
 			return -2;
 		}
 		
-		return -2;
+		//return -2;
 	}
 	
 	
-	//인기페이지 -> 장바구니에 담기
+	//인기페이지 -> 장바구니에  담긴것 지우기
 	@RequestMapping(value = "/popularItemBasketOutput.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public int popularItemBasketOutput(HttpServletRequest request, HttpServletResponse response) {
@@ -143,6 +142,7 @@ public class PopularItemController {
 			//1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
 				System.out.println("로그인 안되어있음");
+				
 			} 
 			//2. 로그인 되어 있는경우
 			else {
