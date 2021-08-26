@@ -140,13 +140,13 @@
 	            	
 	            	},
 	            	error: function(a,b,c) {
-					console.log(a,b,c);
+						console.log(a,b,c);
 				}
 	           });
 	 		
 	 		
 	 	} else {//장바구니에 안담긴경우
-	 		console.log('장바구니에 담김');
+	 		//console.log('장바구니에 담김');
 	 	
 	 		
 		 	$.ajax({
