@@ -41,7 +41,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");
-		
+
 		int seq = 0;
 
 		if (dto == null) {
@@ -173,45 +173,44 @@ public class MainController {
 		List<FeedDTO> list = service.feed_select(map);
 		return list;
 	}
-	
+
 	// 댓글 수정 (update)
 	@RequestMapping(value = "/feed_edit.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public void feed_edit(@RequestParam Map<String, Object> map) {
 		service.feed_edit(map);
 	}
-	// 댓글 수정 (delete)
-		@RequestMapping(value = "/feed_delete.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public void feed_delete(@RequestParam("list_seq") String feed_seq) {
-			service.feed_delete(feed_seq);
-		}
-		
+
+	// 댓글 삭제 (delete)
+	@RequestMapping(value = "/feed_delete.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void feed_delete(@RequestParam("list_seq") String feed_seq) {
+		service.feed_delete(feed_seq);
+	}
+
 	// 댓글 텍스트(select)
 	@RequestMapping(value = "/main_feed.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object main_feed(@RequestParam("seq") Integer seq) {
 		/* List<FeedDTO> list = service.main_feed(map); */
-		
-		
-	
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
-			map =  service.main_feed(seq);
+			map = service.main_feed(seq);
 			return map;
 		} catch (Exception e) {
 			return null;
 		}
-	
+
 	}
-	
+
 	// 댓글 개수(select)
 	@RequestMapping(value = "/main_feed_count.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object main_feed_count(@RequestParam("seq") Integer seq) {
-		
-		return  service.main_feed_count(seq);
-	
+
+		return service.main_feed_count(seq);
+
 	}
 
 	// 댓글 좋아요 갯수
@@ -227,15 +226,16 @@ public class MainController {
 	// 댓글 좋아요 업데이트 (Insert, Delete로 처리)
 	@RequestMapping(value = "/feed_heart_update.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public void feed_heart_update(@RequestParam("feed_seq") String feed_seq, @RequestParam("member_seq") String member_seq,@RequestParam("gubn") String gubn) {
+	public void feed_heart_update(@RequestParam("feed_seq") String feed_seq,
+			@RequestParam("member_seq") String member_seq, @RequestParam("gubn") String gubn) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("feed_seq", feed_seq);
 		map.put("member_seq", member_seq);
 		map.put("gubn", gubn);
 		service.feed_heart_update(map);
-		
+
 	}
-	
+
 	// 대댓글 (Insert)
 	@RequestMapping(value = "/re_feed_insert.action", method = { RequestMethod.POST })
 	@ResponseBody
@@ -243,6 +243,7 @@ public class MainController {
 
 		service.re_feed_insert(map);
 	}
+
 	// 대댓글 (Select)
 	@RequestMapping(value = "/re_feed_select.action", method = { RequestMethod.POST })
 	@ResponseBody
@@ -250,26 +251,27 @@ public class MainController {
 
 		return service.re_feed_select(feed_seq);
 	}
-	
+
 	// 대댓글 좋아요 업데이트 (Insert, Delete로 처리)
 	@RequestMapping(value = "/re_feed_heart_update.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public void re_feed_heart_update(@RequestParam("feed_seq") String feed_seq, @RequestParam("member_seq") String member_seq,@RequestParam("gubn") String gubn) {
+	public void re_feed_heart_update(@RequestParam("feed_seq") String feed_seq,
+			@RequestParam("member_seq") String member_seq, @RequestParam("gubn") String gubn) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("feed_seq", feed_seq);
 		map.put("member_seq", member_seq);
 		map.put("gubn", gubn);
 		service.re_feed_heart_update(map);
-		
+
 	}
-	
+
 	// 대댓글 좋아요 갯수
-		@RequestMapping(value = "/re_feed_heart.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public Object re_feed_heart(@RequestParam("feed_seq") int feed_seq) {
+	@RequestMapping(value = "/re_feed_heart.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object re_feed_heart(@RequestParam("feed_seq") int feed_seq) {
 
-			Integer count = service.re_feed_heart(feed_seq);
+		Integer count = service.re_feed_heart(feed_seq);
 
-			return count;
-		}
+		return count;
+	}
 }

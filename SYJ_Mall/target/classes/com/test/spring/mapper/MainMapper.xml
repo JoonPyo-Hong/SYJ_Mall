@@ -46,7 +46,8 @@
 	<select id="feed_select"
 		resultType="com.test.SYJ_Mall.main.FeedDTO"
 		parameterType="java.util.HashMap">
-		select * from dbo.feed a LEFT JOIN feed_heart b on a.seq = b.feed_seq where list_seq = #{list_seq} order by 
+		select * from dbo.feed a LEFT JOIN feed_heart b on a.seq = b.feed_seq
+		where list_seq = #{list_seq} order by
 		<choose>
 			<when test="sel == '최신순'">reg_dt desc</when>
 			<when test="sel == '과거순'">reg_dt asc</when>
@@ -78,14 +79,18 @@
 		select * from dbo.re_feed where feed_seq = #{feed_seq}
 		order by seq desc
 	</select>
-		<insert id="re_feed_heart_insert" parameterType="java.util.HashMap">
+	<insert id="re_feed_heart_insert"
+		parameterType="java.util.HashMap">
 		insert into
-		dbo.re_feed_heart values(#{feed_seq},#{member_seq})
+		dbo.re_feed_heart
+		values(#{feed_seq},#{member_seq})
 	</insert>
-	<delete id="re_feed_heart_delete" parameterType="java.util.HashMap">
+	<delete id="re_feed_heart_delete"
+		parameterType="java.util.HashMap">
 		delete
 		dbo.re_feed_heart
-		where feed_seq = #{feed_seq} and member_seq =
+		where feed_seq = #{feed_seq} and
+		member_seq =
 		#{member_seq}
 	</delete>
 	<select id="re_feed_heart" resultType="int" parameterType="int">
@@ -93,21 +98,26 @@
 		count(*) from dbo.re_feed_heart with (nolock) where feed_seq =
 		#{feed_seq}
 	</select>
-		<select id="main_feed"
-		resultType="java.util.HashMap"
+	<select id="main_feed" resultType="java.util.HashMap"
 		parameterType="int">
-		select top(1) * from dbo.feed a with(nolock) LEFT JOIN feed_heart b on a.seq = b.feed_seq where list_seq = #{seq} order by feed_seq desc
+		select top(1) * from dbo.feed a with(nolock) LEFT JOIN
+		feed_heart b on a.seq = b.feed_seq where list_seq = #{seq} order by
+		feed_seq desc
 	</select>
-		<select id="main_feed_count" resultType="int" parameterType="int">
+	<select id="main_feed_count" resultType="int"
+		parameterType="int">
 		select
-		count(*) from dbo.feed with (nolock) where list_seq = #{seq}
+		count(*) from dbo.feed with (nolock) where
+		list_seq = #{seq}
 	</select>
 	<update id="feed_edit" parameterType="java.util.HashMap">
-		update feed set feed = #{feed} where seq = #{seq}
+		update feed set feed =
+		#{feed} where seq = #{seq}
 	</update>
 	<delete id="feed_delete" parameterType="int">
 		delete
 		dbo.feed
-		where seq = #{feed_seq}
+		where seq =
+		#{feed_seq}
 	</delete>
 </mapper>
