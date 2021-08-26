@@ -53,16 +53,6 @@ public interface IPopularService {
 	
 	
 	/**
-	 * 쿠키객체 만들기
-	 * @param request
-	 * @param response
-	 * @param cookieName	쿠키이름
-	 * @return				쿠키이름에 대응하는 쿠키값
-	 */
-	Object generateCookie(HttpServletRequest request, HttpServletResponse response, String cookieName);
-
-	
-	/**
 	 * 회원이 장바구니 클릭했을 때 db에 정보 넣어주기
 	 * @param userSeq		회원 고유번호
 	 * @param productId		상품 아이디
@@ -95,6 +85,15 @@ public interface IPopularService {
 	 * @return			1 : 성공, -1 : 실패
 	 */
 	int inputItemBasketNonLogin(HttpServletRequest request, HttpServletResponse response, int productId);
+	
+	/**
+	 * 로그인 하지 않은 경우 장바구니 클릭했을때 쿠키에 물품정보 빼주기
+	 * @param request
+	 * @param response
+	 * @param productId	물품 아이디
+	 * @return			1 : 성공, -1 : 실패
+	 */
+	int outputItemBasketNonLogin(HttpServletRequest request, HttpServletResponse response, int productId);
 
 
 

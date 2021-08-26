@@ -37,12 +37,13 @@ public class PopularItemController {
 		//1. 로그인 되어 있는경우
 		if (userInfo != null) {
 			int userSeq = userInfo.getUserSeq();//유저 고유번호
-			String basketList = "";
+			String basketList = "";//일부로 공백을 넣어준다.
 			result = service.getPopularProductList(request,1,userSeq,basketList);
 		} 
 		//2. 로그인 되어있지 않은 경우
 		else {
 			String basketList = service.getCookieBasket(request,response);
+			System.out.println(basketList);
 			result = service.getPopularProductList(request,1,0,basketList);
 		}
 
@@ -74,6 +75,7 @@ public class PopularItemController {
 			//2. 로그인 되어있지 않은 경우
 			else {
 				String basketList = service.getCookieBasket(request,response);//쿠키리스트
+				System.out.println(basketList);
 				return service.getPopularProductAjax(paging,basketList);
 			}
 			
@@ -142,7 +144,7 @@ public class PopularItemController {
 			//1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
 				System.out.println("로그인 안되어있음");
-				
+				return service.outputItemBasketNonLogin(request,response,productId);
 			} 
 			//2. 로그인 되어 있는경우
 			else {
@@ -150,7 +152,7 @@ public class PopularItemController {
 				int result = service.outputItemBasket(userSeq,productId);
 				
 				if (result == -2) {
-					throw new Exception();
+					return -2;
 				}
 				
 				return result;
@@ -161,8 +163,6 @@ public class PopularItemController {
 			e.printStackTrace();
 			return -2;
 		}
-		
-		return -2;
 		
 	}	
 	

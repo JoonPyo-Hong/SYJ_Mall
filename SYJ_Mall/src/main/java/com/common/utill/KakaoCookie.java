@@ -54,17 +54,22 @@ public class KakaoCookie {
 		
 		Object object = null;
 		
-		Cookie[] cookies = request.getCookies();
-		
-		for (int i = 0; i < cookies.length; i++) {
-			if (cookies != null) {
-				if (cookies[i].getName().equals(cookieName)) {
-					object = cookies[i].getValue();
-					break;
-				}
-			} 
+		try {
+			Cookie[] cookies = request.getCookies();
+			
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies != null) {
+					if (cookies[i].getName().equals(cookieName)) {
+						object = cookies[i].getValue();
+						break;
+					}
+				} 
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return object;
 		}
-		
+
 		return object;
 	}
 	
