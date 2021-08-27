@@ -38,7 +38,7 @@ public class KakaoCookie {
 	public void generateCookie(HttpServletResponse response,String cookieName,String cookieValue,int setTimeSecond) {
 		
 		Cookie cookie = new Cookie(cookieName,cookieValue);
-		cookie.setMaxAge(setTimeSecond);//브라우저가 종료되면 쿠키를 만료시킨다.
+		cookie.setMaxAge(setTimeSecond);//지속시간을 정해준다.
 		cookie.setPath("/");//모든 경로에서 해당 쿠키를 접근가능하도록 설정해준다.
 		response.addCookie(cookie);
 		
@@ -80,7 +80,7 @@ public class KakaoCookie {
 	 * @param cookieName	쿠키이름
 	 * @param setCookieVal	쿠키값
 	 */
-	public void modifyCookie(HttpServletRequest request,HttpServletResponse response,String cookieName,String setCookieVal) {
+	public void modifyCookie(HttpServletRequest request,HttpServletResponse response,String cookieName,String setCookieVal,int setTime) {
 		
 		Cookie[] cookies = request.getCookies();
 		
@@ -90,8 +90,8 @@ public class KakaoCookie {
 				
 				if (cookies[i].getName().equals(cookieName)) {
 					cookies[i].setValue(setCookieVal);
-					//cookies[i].setMaxAge(-1);
-					//cookies[i].setPath("/");
+					cookies[i].setMaxAge(setTime);
+					cookies[i].setPath("/");
 					response.addCookie(cookies[i]);
 					break;
 				}

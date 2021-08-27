@@ -46,6 +46,31 @@ public class PopularDAO implements IPoupularDAO{
 		return template.selectOne("popuarItem.itemOutputBasket", map);
 	}
 
+	//쿠키에존재하는 상품 회원의 디비로 모두 넣어주기
+	@Override
+	public int setCookieToDbBasketList(int userSeq, String basketList) {
+		
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("productId",basketList);
+		
+		return template.selectOne("popuarItem.setCookieToDbBasketList", map);
+	}
+
+	//새로추가해야할 상품번호 리스트 반환
+	@Override
+	public String getCookieProductId(int userSeq, String basketList) {
+		
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("productId",basketList);
+		
+		List<String> list = template.selectList("popuarItem.getCookieProductId", map);
+		
+		
+		return null;
+	}
+
 
 	
 }

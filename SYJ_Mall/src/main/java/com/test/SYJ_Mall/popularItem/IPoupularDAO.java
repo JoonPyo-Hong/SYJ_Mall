@@ -34,6 +34,25 @@ public interface IPoupularDAO {
 	int outputItemBasket(int userSeq, int productId);
 
 
+	/**
+	 * 쿠키에존재하는 상품 회원의 디비로 모두 넣어주기
+	 * @param userSeq		회원고유번호
+	 * @param basketList	쿠키에 존재하는 상품리스트
+	 * @return				1: 성공, -1 : 실패
+	 */
+	int setCookieToDbBasketList(int userSeq, String basketList);
+
+
+	/**
+	 * 회원의 장바구니와 쿠키 장바구니를 비교
+	 * @param userSeq		회원번호
+	 * @param basketList	장바구니 리스트(쿠키)
+	 * @return				새로 추가해야할 상품번호
+	 */
+	String getCookieProductId(int userSeq, String basketList);
+
+	
+
 	
 
 
