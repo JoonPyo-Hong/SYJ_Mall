@@ -189,6 +189,25 @@ public class PopularService implements IPopularService{
 		}	
 	}
 	
+	//쿠키에 존재하는 상품정보 고객 db 에 넣어주기
+	@Override
+	public int cookieToDb(HttpServletRequest request, int userSeq) {
+		
+		KakaoCookie kc = new KakaoCookie();
+		String basketList = (String)kc.getCookieInfo(request, "basketList");
+		
+		//쿠키객체안에 상품리스트가 있는경우에만 연동시켜줄것임
+		if (basketList != null) {
+			
+			String basketProducts = dao.getCookieProductId(userSeq,basketList);
+			
+			return dao.setCookieToDbBasketList(userSeq,basketList);
+		}
+		
+		
+		return 0;
+	}
+	
 	
 	
 	

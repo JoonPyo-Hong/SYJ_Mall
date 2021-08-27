@@ -36,9 +36,11 @@ public class PopularItemController {
 		
 		//1. 로그인 되어 있는경우
 		if (userInfo != null) {
+			//여기서 기존에 있는 쿠키에 있는 장바구니 정보 모두 로그인되어있는 유저에게 넘길것이다.
 			int userSeq = userInfo.getUserSeq();//유저 고유번호
-			String basketList = "";//일부로 공백을 넣어준다.
-			result = service.getPopularProductList(request,1,userSeq,basketList);
+			int cookieToDb = service.cookieToDb(request,userSeq);
+			
+			result = service.getPopularProductList(request,1,userSeq,"");
 		} 
 		//2. 로그인 되어있지 않은 경우
 		else {
@@ -55,7 +57,7 @@ public class PopularItemController {
 	}
 	
 	
-	//인기페이지 -> 스크롤 내렸을 경우 물품 계속 불러오기 처이
+	//인기페이지 -> 스크롤 내렸을 경우 물품 계속 불러오기 처리
 	@RequestMapping(value = "/popularItemAjax.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public List<PopularItemDTO> popularItemAjax(HttpServletRequest request, HttpServletResponse response) {
