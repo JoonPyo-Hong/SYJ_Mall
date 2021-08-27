@@ -10,7 +10,6 @@ var scroll = 0;
 
 
 function feed_delete(f_seq) {
-
 	$.ajax({
 		url: "feed_delete.action",
 		type: 'post',
@@ -18,7 +17,7 @@ function feed_delete(f_seq) {
 			feed_seq: f_seq,
 		},
 		success: function(data) {
-
+			feed_select();
 		},
 		error: function() {
 			alert("에러");

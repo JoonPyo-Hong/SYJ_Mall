@@ -184,7 +184,7 @@ public class MainController {
 	// 댓글 삭제 (delete)
 	@RequestMapping(value = "/feed_delete.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public void feed_delete(@RequestParam("list_seq") String feed_seq) {
+	public void feed_delete(@RequestParam("feed_seq") Integer feed_seq) {
 		service.feed_delete(feed_seq);
 	}
 

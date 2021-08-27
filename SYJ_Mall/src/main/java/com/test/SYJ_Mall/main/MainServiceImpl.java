@@ -109,7 +109,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public void feed_delete(String feed_seq) {
+	public void feed_delete(Integer feed_seq) {
 		dao.feed_delete(feed_seq);
 		
 	}
