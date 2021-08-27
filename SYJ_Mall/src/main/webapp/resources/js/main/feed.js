@@ -9,6 +9,15 @@ var feed_sel = "최신순";
 var scroll = 0;
 
 
+
+$(document).on("click", "#re_feed_edit_img", function() {
+
+ var temp= $(this).attr('value');
+ alert(temp); 
+});
+
+
+
 function feed_delete(f_seq) {
 	$.ajax({
 		url: "feed_delete.action",
@@ -326,7 +335,9 @@ function re_feed(seq) {
 										+ "<div class='feed_content_div2'><span> "
 										+ value.re_feed
 										+ "</span>" + "</div>"
-										+ "<span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img src='resources/images/main/edit-regular-grey.png'></span>"
+										+ "<div><span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img src='resources/images/main/edit-regular-grey.png'>"
+										+"</span></div>"
+										+ "<div id='re_feed_edit_delete' value = '"+value.seq+"'><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
 										+ "<div class= 'feed_content_div3'><span>"
 										+ value.reg_dt
 										+ " </span>"

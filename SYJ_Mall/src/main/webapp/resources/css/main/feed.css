@@ -532,7 +532,7 @@ body.s_no-scroll {
 .feed_id {
 	font-size: 14px;
 	font-weight: bold;
-	clear: both; 
+	clear: both;
 }
 
 /* feed textarea */
@@ -883,7 +883,7 @@ body.s_no-scroll {
 }
 
 #btn_edit_delete {
-   display:none; 
+	display: none;
 	float: right;
 	margin-top: 10px;
 	padding-top: 10px;
@@ -901,11 +901,28 @@ body.s_no-scroll {
 }
 
 #re_feed_edit_img, #feed_edit_img {
-    float: right;
-    CLEAR: BOTH;
+	float: right;
+	CLEAR: BOTH;
 }
+
 img#feed_edit_btn {
-    position: relative;
-    top: -40px;
-    left: 555px;
+	position: relative;
+	top: -40px;
+	left: 555px;
+}
+
+#re_feed_edit_delete {
+	display: none;
+	float: right;
+	border-radius: 6px;
+	border: 1px solid rgb(242, 242, 242);
+	background-color: rgb(255, 255, 255);
+	background-color: rgb(255, 255, 255);
+	padding: 10px;
+	clear: both;
+}
+
+#re_feed_edit_delete span {
+	padding: 10px;
+	cursor: pointer;
 }
