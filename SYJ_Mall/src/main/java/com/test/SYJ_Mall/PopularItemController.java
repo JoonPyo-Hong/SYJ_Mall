@@ -102,7 +102,7 @@ public class PopularItemController {
 			
 			//1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
-				System.out.println("로그인 안되어있음");
+				//System.out.println("로그인 안되어있음");
 				return service.inputItemBasketNonLogin(request,response,productId);
 			} 
 			//2. 로그인 되어 있는경우
@@ -119,7 +119,7 @@ public class PopularItemController {
 			}
 			
 		} catch(Exception e) {
-			System.out.println("문제생김");
+			//System.out.println("문제생김");
 			e.printStackTrace();
 			
 			return -2;
@@ -143,7 +143,7 @@ public class PopularItemController {
 			
 			//1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
-				System.out.println("로그인 안되어있음");
+				//System.out.println("로그인 안되어있음");
 				return service.outputItemBasketNonLogin(request,response,productId);
 			} 
 			//2. 로그인 되어 있는경우
