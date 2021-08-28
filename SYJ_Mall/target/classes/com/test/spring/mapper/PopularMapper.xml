@@ -35,6 +35,16 @@
 				
 	</select>
 	
+	
+	<!-- 회원의 장바구니에 존재하는 물품리스트를 가져와준다. -->
+	<select id="getCookieProductId" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_cookie_product_user_nohave (#{userSeq})
+		}
+				
+	</select>
+	
+	
 	<!-- 쿠키에존재하는 상품 회원의 디비로 모두 넣어주기 -->
 	<select id="setCookieToDbBasketList" resultType="String"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
@@ -45,13 +55,7 @@
 	</select>
 	
 	
-	<select id="getCookieProductId" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
-		
-		declare @result int
-		exec dbo.kakao_popular_product_output_basket #{userSeq},#{productId},@result output
-		select @result
-				
-	</select>
+
 	
 
 </mapper>

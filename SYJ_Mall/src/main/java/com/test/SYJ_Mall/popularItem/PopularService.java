@@ -196,16 +196,49 @@ public class PopularService implements IPopularService{
 		KakaoCookie kc = new KakaoCookie();
 		String basketList = (String)kc.getCookieInfo(request, "basketList");
 		
-		//쿠키객체안에 상품리스트가 있는경우에만 연동시켜줄것임
-		if (basketList != null) {
+		try {
 			
-			String basketProducts = dao.getCookieProductId(userSeq,basketList);
+			//쿠키객체안에 상품리스트가 있는경우에만 연동시켜줄것임
+			if (basketList != null) {
+				
+				List<Integer> userList = dao.getCookieProductId(userSeq);//회원이 장바구니로 보내준 물품
+				String[] cookieProductArr = basketList.split("#");//쿠키에 남아있는 장바구니물품목록
+				
+				StringBuffer sb = new StringBuffer();
+				
+				for (int i = 0; i < cookieProductArr.length; i++) {
+					if (!cookieProductArr[i].equals("")) {
+						int cookieProductNum = Integer.parseInt(cookieProductArr[i]);
+						
+						if (userList.indexOf(cookieProductNum) == -1) {
+							sb.append(cookieProductNum);
+							sb.append("#");
+						}
+					}
+				}
+				
+				String newBasketList = sb.toString();
+				
+				//새로 넣어줄 물품이 존재하는 경우
+				if (sb.toString().length() != 0) {
+					newBasketList = newBasketList.substring(0,newBasketList.length()-1);
+					return dao.setCookieToDbBasketList(userSeq,newBasketList);
+				} 
+				else {
+				//새로 넣어줄 물품이 존재하지 않는 경우
+					return 1;
+				}
+				
+			} else {
+				return 1;
+			}
 			
-			return dao.setCookieToDbBasketList(userSeq,basketList);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
 		}
-		
-		
-		return 0;
+
 	}
 	
 	

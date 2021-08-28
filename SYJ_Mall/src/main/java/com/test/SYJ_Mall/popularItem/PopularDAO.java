@@ -35,6 +35,17 @@ public class PopularDAO implements IPoupularDAO{
 		return template.selectOne("popuarItem.itemInputBasket", map);
 	}
 
+	//새로추가해야할 상품번호 리스트 반환
+	@Override
+	public List<Integer> getCookieProductId(int userSeq) {
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+
+		return template.selectList("popuarItem.getCookieProductId", map);
+		
+	}
+	
 	//회원이 선택한 상품 장바구니에서 빼주기
 	@Override
 	public int outputItemBasket(int userSeq, int productId) {
@@ -57,19 +68,7 @@ public class PopularDAO implements IPoupularDAO{
 		return template.selectOne("popuarItem.setCookieToDbBasketList", map);
 	}
 
-	//새로추가해야할 상품번호 리스트 반환
-	@Override
-	public String getCookieProductId(int userSeq, String basketList) {
-		
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("userSeq",Integer.toString(userSeq));
-		map.put("productId",basketList);
-		
-		List<String> list = template.selectList("popuarItem.getCookieProductId", map);
-		
-		
-		return null;
-	}
+
 
 
 	
