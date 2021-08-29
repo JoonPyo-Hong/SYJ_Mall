@@ -79,7 +79,7 @@ INSERT INTO dbo.KAKAO_CHARACTER VALUES (1,N'라이언',N'resources/images/KAKAO_
 
 
 
-
+select * from dbo.KAKAO_CHARACTER with(nolock)
 
 
 
@@ -198,6 +198,8 @@ select * from dbo.KAKAO_PRODUCT_CATEGORY  with(nolock)
 
 select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
 
+select * from dbo.KAKAO_PRODUCT_CATEGORY
+
 
 DROP TABLE dbo.KAKAO_PRODUCT_CATEGORY
 
@@ -282,6 +284,9 @@ INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (7,N'휴대폰 악세서리',GETDA
 INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (7,N'무선이어폰 케이스',GETDATE(),NULL)
 INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (7,N'무선이어폰 액세서리',GETDATE(),NULL)
 
+
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
 select @@TRANCOUNT
 
 select * from dbo.KAKAO_PRODUCT_MAIN_CATEGORY  with(nolock)
@@ -320,6 +325,9 @@ INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (10,N'베이비드리밍',GETDATE(
 INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (10,N'해피위크',GETDATE(),NULL,N'resources/images/theme/200218_category_happweeks_M.jpg')
 INSERT INTO dbo.KAKAO_PRODUCT_CATEGORY VALUES (10,N'강다니엘에디션',GETDATE(),NULL,N'resources/images/theme/200206_category_DANIEL_M.jpg')
 
+select * from dbo.KAKAO_PRODUCT_CATEGORY with(nolock)
+
+select @@trancount
 
 commit tran
 
@@ -548,6 +556,8 @@ select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
 UPDATE dbo.KAKAO_PRODUCT_IMG SET product_img = N'resources/images/product/혼술 맥주잔 2P세트_라이언&춘식이/20210531112452113_8809721508909_BW_01.jpg' WHERE img_seq = 1
 UPDATE dbo.KAKAO_PRODUCT_IMG SET product_img = N'resources/images/product/혼술 맥주잔 2P세트_라이언&춘식이/20210531112452113_8809721508909_BW_01.jpg' WHERE img_seq = 2
 
+
+select * from dbo.KAKAO_PRODUCT_IMG with(nolock)
 
 
 /* KAKAO_USER_SHOPPING_CART - 고객 장바구니 */
@@ -1271,6 +1281,7 @@ end
 	Description : 회원의 장바구니에 존재하는 물품리스트를 가져와준다.
 	     
 	History	: 2021-08-28 Seunghwan Shin	#최초 생성
+			  2021-08-29 Seunghwan Shin	#조회쿼리에 cart_del_yn 추가	
 	Real DB : exec dbo.kakao_cookie_product_user_nohave 2000001 
 			  
 */
@@ -1282,7 +1293,8 @@ set transaction isolation level read uncommitted
 begin
 	
 	select 
-		product_id 
+		product_id as productId 
+	,	cart_del_yn as delYn
 	from dbo.KAKAO_USER_SHOPPING_CART with(nolock)
 	where qoouser_seq = @qoouser_seq
 		

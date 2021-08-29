@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall.popularItem;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -108,11 +109,6 @@ public class PopularService implements IPopularService{
 			//이미 장바구니에 담긴 번호인지 체크해준다.
 			String[] basketLists = basketList.split("#");			
 			
-			//확인용
-//			for (int i = 0; i < basketLists.length; i++) {
-//				System.out.println(basketLists[i]);
-//			}
-			
 			//장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
 			int index = Arrays.asList(basketLists).indexOf(Integer.toString(productId));
 			
@@ -157,9 +153,6 @@ public class PopularService implements IPopularService{
 			//이미 장바구니에 담긴 번호인지 체크해준다.
 			String[] basketLists = basketList.split("#");	
 			
-//			for (int i = 0; i < basketLists.length; i++) {
-//				System.out.println(basketLists[i]);
-//			}
 			
 			//장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
 			int index = Arrays.asList(basketLists).indexOf(Integer.toString(productId));
@@ -201,45 +194,84 @@ public class PopularService implements IPopularService{
 			//쿠키객체안에 상품리스트가 있는경우에만 연동시켜줄것임
 			if (basketList != null) {
 				
-				List<Integer> userList = dao.getCookieProductId(userSeq);//회원이 장바구니로 보내준 물품
-				String[] cookieProductArr = basketList.split("#");//쿠키에 남아있는 장바구니물품목록
+				List<UserProductDTO> userList = dao.getCookieProductId(userSeq);//회원이 장바구니로 보내준 물품 -> 문제없음
+				List<Integer> userProdList = new ArrayList<Integer>();
 				
-				StringBuffer sb = new StringBuffer();
+				for (int i = 0; i < userList.size(); i++) {
+					userProdList.add(userList.get(i).getProductId());
+				}
+				
+				
+				String[] cookieProductArr = basketList.split("#");//쿠키에 남아있는 장바구니 물품목록
+				
+				List<Integer> newAddProduct = new ArrayList<Integer>();//새롭게 회원 장바구니 db에 넣어줄 품목 
+				List<Integer> delAddProduct = new ArrayList<Integer>();//새롭게 넣어줄 품목이긴 한데 기존에 회원이 삭제를 했던 상품인경우 -> 삭제값을 n으로 돌려줄것이다.
+				
 				
 				for (int i = 0; i < cookieProductArr.length; i++) {
 					if (!cookieProductArr[i].equals("")) {
 						int cookieProductNum = Integer.parseInt(cookieProductArr[i]);
 						
-						if (userList.indexOf(cookieProductNum) == -1) {
-							sb.append(cookieProductNum);
-							sb.append("#");
+						int index = userProdList.indexOf(cookieProductNum);
+						
+						if (index == -1) {
+							newAddProduct.add(cookieProductNum);
+						} else if (userList.get(index).getDelYn().equals("Y")) {
+							delAddProduct.add(cookieProductNum);
 						}
 					}
 				}
 				
-				String newBasketList = sb.toString();
 				
-				//새로 넣어줄 물품이 존재하는 경우
-				if (sb.toString().length() != 0) {
-					newBasketList = newBasketList.substring(0,newBasketList.length()-1);
-					return dao.setCookieToDbBasketList(userSeq,newBasketList);
-				} 
-				else {
 				//새로 넣어줄 물품이 존재하지 않는 경우
+				if (newAddProduct.size() == 0 && delAddProduct.size() == 0) {
 					return 1;
+				} 
+					
+				//새로운 품목 넣어줘야 할 경우 -> 회원의 진짜 처음목록 (지웠던 적이 없는 목록)	
+				if (newAddProduct.size() != 0) {
+					String newBasketList = productCookieList(newAddProduct);
+					return dao.setCookieToDbBasketListNondeleted(userSeq,newBasketList);
 				}
-				
-			} else {
+					
+				//새로운 품목 넣어줘야 할 경우 -> 지웠던 적이 있는 목록
+				if (delAddProduct.size() != 0) {
+					String newBasketList = productCookieList(delAddProduct);
+					return dao.setCookieToDbBasketListDeleted(userSeq,newBasketList);
+				}
+					
+			} 
+			//쿠키객체안에 상품리스트가 없는경우
+			else {
 				return 1;
 			}
-			
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
+		
+		return 2;
 
+	}//cookieToDb
+	
+	//상품정보 리스트 #붙여서 반환
+	@Override
+	public String productCookieList(List<Integer> list) {
+		
+		StringBuffer sb = new StringBuffer();
+		
+		for (int productSeq : list) {
+			sb.append(Integer.toString(productSeq));
+			sb.append("#");
+		}
+		
+		String newBasketList = sb.toString();
+		newBasketList = newBasketList.substring(0,newBasketList.length()-1);
+		
+		return newBasketList;
 	}
+	
+	
 	
 	
 	

@@ -461,3 +461,142 @@ where rn between 1 and 18
 
 
 
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-29
+	Description : 쿠키에 들어있는 상품 회원의 db로 업데이트
+	     
+	History	: 2021-08-29 Seunghwan Shin	#최초 생성
+	Real DB : 
+			  
+*/
+alter proc dbo.kakao_cookie_product_to_db_delete
+	@qoouser_seq	bigint			-- 회원 고유번호
+,	@basket_list	varchar(1000)	-- 쿠키에 존재하는 물품 : 회원이 이미 가지고 있는 물품은 제외
+,	@result			int output -- 결과값 1: 성공 , -1 : 실패
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	begin try
+	
+		begin tran
+
+			update kus
+			set kus.cart_chg_dt = getdate()
+			,	kus.cart_del_yn = 'N'
+			from string_split(@basket_list,'#') ss
+			inner join dbo.KAKAO_USER_SHOPPING_CART kus on kus.product_id = convert(bigint,ss.value)
+			where qoouser_seq = @qoouser_seq		
+
+
+			set @result = 1	
+		commit tran
+	
+	end try
+	begin catch
+		rollback tran
+		set @result = -1
+	end catch
+		
+end
+
+
+select * from dbo.KAKAO_USER_SHOPPING_CART with(nolock)
+
+
+declare @result int
+exec dbo.kakao_cookie_product_to_db_delete 2000008,'1#2',@result output
+select @result
+
+
+
+select * from dbo.QOO10_USER_REAL  with(nolock) where qoouser_seq = 2000001
+
+
+select * from dbo.TBLBANNEDIPLIST with(nolock)
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-28
+	Description : 쿠키에 들어있는 상품 회원의 db로 업데이트
+	     
+	History	: 2021-08-28 Seunghwan Shin	#최초 생성
+	Real DB : exec dbo.kakao_cookie_product_to_db_notdelete
+			  
+*/
+alter proc dbo.kakao_cookie_product_to_db_notdelete
+	@qoouser_seq	bigint			-- 회원 고유번호
+,	@basket_list	varchar(1000)	-- 쿠키에 존재하는 물품 : 회원이 이미 가지고 있는 물품은 제외(한번도 지운적 없는 물품 인서트 시키기)
+,	@result			int output -- 결과값 1: 성공 , -1 : 실패
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	begin try
+	
+		begin tran
+
+			insert into dbo.KAKAO_USER_SHOPPING_CART
+			(
+				qoouser_seq
+			,	product_id
+			,	product_count
+			,	cart_reg_dt
+			,	cart_chg_dt
+			,	cart_del_yn
+			)
+			select
+				@qoouser_seq
+			,	convert(bigint,ss.value)
+			,	1
+			,	getdate()
+			,	null
+			,	'N'
+			from string_split(@basket_list,'#') ss
+
+
+			set @result = 1	
+		commit tran
+	
+	end try
+	begin catch
+		rollback tran
+		set @result = -1
+	end catch
+		
+end
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-08-28
+	Description : 회원의 장바구니에 존재하는 물품리스트를 가져와준다.
+	     
+	History	: 2021-08-28 Seunghwan Shin	#최초 생성
+			  2021-08-29 Seunghwan Shin	#조회쿼리에 cart_del_yn 추가	
+	Real DB : exec dbo.kakao_cookie_product_user_nohave 2000001 
+			  
+*/
+alter proc dbo.kakao_cookie_product_user_nohave
+	@qoouser_seq	bigint		-- 회원 고유번호
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	select 
+		product_id as productId 
+	,	cart_del_yn as delYn
+	from dbo.KAKAO_USER_SHOPPING_CART with(nolock)
+	where qoouser_seq = @qoouser_seq
+		
+end
+
+
+select * from dbo.KAKAO_USER_SHOPPING_CART with(nolock)

@@ -66,7 +66,7 @@ public class KakaoCookie {
 				} 
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return object;
 		}
 

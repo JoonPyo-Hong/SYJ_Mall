@@ -37,7 +37,7 @@ public class PopularDAO implements IPoupularDAO{
 
 	//새로추가해야할 상품번호 리스트 반환
 	@Override
-	public List<Integer> getCookieProductId(int userSeq) {
+	public List<UserProductDTO> getCookieProductId(int userSeq) {
 		
 		Map<String,Integer> map = new HashMap<String, Integer>();
 		map.put("userSeq",userSeq);
@@ -57,19 +57,27 @@ public class PopularDAO implements IPoupularDAO{
 		return template.selectOne("popuarItem.itemOutputBasket", map);
 	}
 
-	//쿠키에존재하는 상품 회원의 디비로 모두 넣어주기
+	//쿠키에존재하는 상품 회원의 디비로 모두 넣어주기 -> 지운적 없는 목록
 	@Override
-	public int setCookieToDbBasketList(int userSeq, String basketList) {
+	public int setCookieToDbBasketListNondeleted(int userSeq, String newBasketList) {
 		
-		Map<String,String> map = new HashMap<String, String>();
+		Map<String,String> map = new HashMap<String,String>();
 		map.put("userSeq",Integer.toString(userSeq));
-		map.put("productId",basketList);
+		map.put("productId",newBasketList);
 		
-		return template.selectOne("popuarItem.setCookieToDbBasketList", map);
+		return template.selectOne("popuarItem.setCookieToDbBasketListNondeleted", map);
+	}
+
+	//쿠키에존재하는 상품 회원의 디비로 모두 넣어주기 -> 지운적 있는 목록
+	@Override
+	public int setCookieToDbBasketListDeleted(int userSeq, String newBasketList) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("productId",newBasketList);
+		
+		return template.selectOne("popuarItem.setCookieToDbBasketListDeleted", map);
 	}
 
 
-
-
-	
 }

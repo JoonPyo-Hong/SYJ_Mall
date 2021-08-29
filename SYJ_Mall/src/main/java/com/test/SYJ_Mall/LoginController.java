@@ -80,7 +80,6 @@ public class LoginController {
 				
 				ip = logService.ipCheck(request);
 				
-				//Map<String,String> map = logService.getRSAkey(request);
 				Map<String,String> map = logService.getRSAkeySessionStay(request);
 				
 				String id = map.get("id");//아이디

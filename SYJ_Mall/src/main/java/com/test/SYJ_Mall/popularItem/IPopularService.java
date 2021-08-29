@@ -102,7 +102,12 @@ public interface IPopularService {
 	 * @return			1: 성공, -1 실패
 	 */
 	int cookieToDb(HttpServletRequest request, int userSeq);
-
-
+	
+	/**
+	 * 물품정보를 리스트형식으로 넣어주면 #을 붙여서 반환
+	 * @param list	상품정보리스트
+	 * @return		상품정보리스트 #을 붙여서 반환
+	 */
+	String productCookieList(List<Integer> list);
 
 }

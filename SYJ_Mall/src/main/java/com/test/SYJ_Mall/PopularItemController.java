@@ -40,12 +40,14 @@ public class PopularItemController {
 			int userSeq = userInfo.getUserSeq();//유저 고유번호
 			int cookieToDb = service.cookieToDb(request,userSeq);
 			
-			result = service.getPopularProductList(request,1,userSeq,"");
+			if (cookieToDb == 1) result = service.getPopularProductList(request,1,userSeq,"");
+			else result = -1;
+			//System.out.println("result : " + result);
 		} 
 		//2. 로그인 되어있지 않은 경우
 		else {
 			String basketList = service.getCookieBasket(request,response);
-			System.out.println(basketList);
+			//System.out.println(basketList);
 			result = service.getPopularProductList(request,1,0,basketList);
 		}
 
@@ -158,7 +160,6 @@ public class PopularItemController {
 				}
 				
 				return result;
-				
 			}
 			
 		} catch(Exception e) {
