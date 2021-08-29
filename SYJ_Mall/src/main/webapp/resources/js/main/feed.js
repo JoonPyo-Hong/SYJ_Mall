@@ -11,9 +11,12 @@ var scroll = 0;
 
 
 $(document).on("click", "#re_feed_edit_img", function() {
-
  var temp= $(this).attr('value');
- alert(temp); 
+ if( $(".re_feed_edit_delete_" + temp).css("display") == "none"){
+ 	$(".re_feed_edit_delete_" + temp).show();
+ }else{
+ 	$(".re_feed_edit_delete_" + temp).hide();
+ }
 });
 
 
@@ -42,8 +45,7 @@ $(document).on("click", "#btn_edit_delete span", function() {
 		$(this).parent().prev().hide();
 		$(this).parent().prev().prev().show();
 		$(this).parent().prev().prev().children("#feed_edit_delete").hide();
-		
-		
+			
 		$(this).parent().next().show();
 		$(this).parent().next().next().show();
 		$(this).parent().next().next().next().show();
@@ -335,9 +337,9 @@ function re_feed(seq) {
 										+ "<div class='feed_content_div2'><span> "
 										+ value.re_feed
 										+ "</span>" + "</div>"
-										+ "<div><span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img src='resources/images/main/edit-regular-grey.png'>"
+										+ "<div><span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img class='img_re' src='resources/images/main/edit-regular-grey.png'>"
+										+ "<div id='re_feed_edit_delete' class='re_feed_edit_delete_"+value.seq+"' value = '"+value.seq+"'><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
 										+"</span></div>"
-										+ "<div id='re_feed_edit_delete' value = '"+value.seq+"'><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
 										+ "<div class= 'feed_content_div3'><span>"
 										+ value.reg_dt
 										+ " </span>"

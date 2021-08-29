@@ -102,7 +102,7 @@
 		parameterType="int">
 		select top(1) * from dbo.feed a with(nolock) LEFT JOIN
 		feed_heart b on a.seq = b.feed_seq where list_seq = #{seq} order by
-		feed_seq desc
+		reg_dt desc
 	</select>
 	<select id="main_feed_count" resultType="int"
 		parameterType="int">

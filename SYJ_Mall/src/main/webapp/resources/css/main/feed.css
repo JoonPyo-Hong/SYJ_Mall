@@ -911,9 +911,13 @@ img#feed_edit_btn {
 	left: 555px;
 }
 
+span#re_feed_edit_img {
+	position: relative;
+	top: -100px;
+}
+
 #re_feed_edit_delete {
-	display: none;
-	float: right;
+	display:none;
 	border-radius: 6px;
 	border: 1px solid rgb(242, 242, 242);
 	background-color: rgb(255, 255, 255);
@@ -922,7 +926,11 @@ img#feed_edit_btn {
 	clear: both;
 }
 
+
 #re_feed_edit_delete span {
-	padding: 10px;
-	cursor: pointer;
+    padding: 10px;
+    cursor: pointer;
+}
+.img_re{
+	float: right;
 }
