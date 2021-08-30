@@ -41,7 +41,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");
-
+		
 		int seq = 0;
 
 		if (dto == null) {

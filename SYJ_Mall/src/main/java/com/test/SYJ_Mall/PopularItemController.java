@@ -42,12 +42,10 @@ public class PopularItemController {
 			
 			if (cookieToDb == 1) result = service.getPopularProductList(request,1,userSeq,"");
 			else result = -1;
-			//System.out.println("result : " + result);
 		} 
 		//2. 로그인 되어있지 않은 경우
 		else {
 			String basketList = service.getCookieBasket(request,response);
-			//System.out.println(basketList);
 			result = service.getPopularProductList(request,1,0,basketList);
 		}
 
@@ -123,13 +121,10 @@ public class PopularItemController {
 			}
 			
 		} catch(Exception e) {
-			//System.out.println("문제생김");
 			e.printStackTrace();
 			
 			return -2;
 		}
-		
-		//return -2;
 	}
 	
 	
@@ -147,7 +142,6 @@ public class PopularItemController {
 			
 			//1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
-				//System.out.println("로그인 안되어있음");
 				return service.outputItemBasketNonLogin(request,response,productId);
 			} 
 			//2. 로그인 되어 있는경우
@@ -168,11 +162,5 @@ public class PopularItemController {
 		}
 		
 	}	
-	
-	
-	
-	
-	
-	
-	
+
 }

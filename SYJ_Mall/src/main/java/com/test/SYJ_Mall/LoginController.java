@@ -61,9 +61,7 @@ public class LoginController {
 	public void loginVerificationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
 		PrintWriter out = response.getWriter();
-		//JSONObject obj = logService.picCheck(request);
 		int result = logService.userIdPwCheck(request);
-		
 		
 		out.print(result);			
 	}
