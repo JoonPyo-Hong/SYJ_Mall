@@ -9,6 +9,13 @@ var feed_sel = "최신순";
 var scroll = 0;
 
 
+$(document).on("click", "#re_feed_edit_delete span", function() {
+ 	var temp= $(this).attr('value');
+ 	if(temp = "U"){
+ 	 alert();
+ 	}
+});
+
 
 $(document).on("click", "#re_feed_edit_img", function() {
  var temp= $(this).attr('value');
@@ -40,7 +47,7 @@ function feed_delete(f_seq) {
 
 
 $(document).on("click", "#btn_edit_delete span", function() {
-	if ($(this).attr("id") == "U") {
+	if ($(this).attr("id") == "C") {
 		$(this).parent().hide();
 		$(this).parent().prev().hide();
 		$(this).parent().prev().prev().show();
@@ -49,12 +56,15 @@ $(document).on("click", "#btn_edit_delete span", function() {
 		$(this).parent().next().show();
 		$(this).parent().next().next().show();
 		$(this).parent().next().next().next().show();
-	}
+		
+	}else{
 		if(confirm("삭제 하시겠습니까?")){
 			feed_delete($(this).parent().attr("class"));
 		}
-
-
+		
+	}
+		
+	
 });
 
 $(document).on("click","#feed_edit_btn", function(){
@@ -334,10 +344,17 @@ function re_feed(seq) {
 									.append(
 										"<div class='feed_content feed_content2'>"
 										+ "<div id = 'feed_id'>" + value.reg_id  + "</div>"
-										+ "<div class='feed_content_div2'><span> "
+										
+										+ "<div class='comment comment_re' id='comment_re_"+value.seq +"' >"
+										+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder='"+ "ㅇ" +"'></textarea>"
+										+ "<img  src='resources/images/main/reply-off.png' id='' >"
+										+ "</div>"
+										+ "<div class='btn_edit_delete' class= '"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
+										
+										+ "<div class='feed_content_div2' id = 'feed_content_div2_"+value.seq+"' ><span> "
 										+ value.re_feed
 										+ "</span>" + "</div>"
-										+ "<div><span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img class='img_re' src='resources/images/main/edit-regular-grey.png'>"
+										+ "<div><span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img class='img_re' id = 'img_re_" +value.seq+"' src='resources/images/main/edit-regular-grey.png'>"
 										+ "<div id='re_feed_edit_delete' class='re_feed_edit_delete_"+value.seq+"' value = '"+value.seq+"'><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
 										+"</span></div>"
 										+ "<div class= 'feed_content_div3'><span>"

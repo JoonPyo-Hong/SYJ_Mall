@@ -900,6 +900,9 @@ body.s_no-scroll {
 	border: 1px solid rgb(227, 229, 232);
 }
 
+
+
+
 #re_feed_edit_img, #feed_edit_img {
 	float: right;
 	CLEAR: BOTH;
@@ -933,4 +936,26 @@ span#re_feed_edit_img {
 }
 .img_re{
 	float: right;
+}
+
+.btn_edit_delete {
+	display:none;
+	float: right;
+	margin-top: 10px;
+	padding-top: 10px;
+	margin-bottom: 30px;
+}
+
+.btn_edit_delete span:nth-child(1) {
+	padding: 8px;
+	border: 1px solid rgb(227, 229, 232);
+}
+
+.btn_edit_delete span:nth-child(2) {
+	padding: 8px;
+	border: 1px solid rgb(227, 229, 232);
+}
+
+.comment_re{
+	display: none;
 }
