@@ -62,49 +62,79 @@
   <div id="kakao-content">
     <div id="inner-content">
       <!-- 마이페이지 컨텐츠 -->
-      <div class="container-wrap mypage-seen-wrap">
+      <div class="container-wrap product-category-character">
         <!-- 데이터 없을 시 -->
         <!-- <div class="order-list-nodata">
               <div class="standing-ryan"></div>
               <div class="empty-message">내역이 없어요</div>
             </div> -->
         <!-- 데이터 있을 시 -->
-        <div class="act-list-wrap">
-
-          <!-- 활동 이력 하나 -->
-          <div class="act-list-item">
-            <!-- 활동 내용 -->
-            <div class="act-content">
-              <a href="#">
-                <div class="act-img"></div>
-              </a>
-              <div class="act-text">
-                <span class="act-name">웰컴 투 춘식이 방🏡</span>
-                <span class="act-description">게시물에 댓글을 작성했습니다.</span>
-                <span class="act-date">7분 전</span>
-              </div>
-            </div>
-            <!-- 상품 삭제 -->
-            <div class="act-list-delete-btn"></div>
+        <!-- select 선택 -->
+        <!-- 상품 -->
+        <!-- 카테고리 선택 배너 -->
+        <div class="category-banner">
+          <span class="category-title">라이언</span>
+          <img class="select-icon" src="./images/product_category/ico_category_header_fold.png" alt="foldWhite">
+          <select>
+            <option>전체</option>
+            <option>라이언</option>
+            <option>어피치</option>
+            <option>무지</option>
+            <option>프로도</option>
+            <option>네오</option>
+            <option>튜브</option>
+            <option>제이지</option>
+            <option>콘</option>
+            <option>춘식</option>
+            <option>죠르디</option>
+            <option>스카피</option>
+            <option>앙몬드</option>
+            <option>팬다주니어</option>
+            <option>케로&amp;베로니</option>
+            <option>꿈돌이</option>
+          </select>
+        </div>
+        <!-- 상품 정렬 및 개수 -->
+        <div class="category-header">
+          <div class="sort">
+            <span class="sort-title">신상품 순</span>
+            <img class="sort-icon" src="./images/product_category/dropdown_down.png">
           </div>
-
-          <!-- 활동 이력 하나 -->
-          <div class="act-list-item">
-            <!-- 활동 내용 -->
-            <div class="act-content">
-              <a href="#">
-                <div class="act-img coffee"></div>
-              </a>
-              <div class="act-text">
-                <span class="act-name">커피 한 잔 할래요☕️ 커피 한 잔 할래요?🎤</span>
-                <span class="act-description">게시물을 좋아했습니다.</span>
-                <span class="act-date">2021.08.12</span>
-              </div>
+          <div class="detail">
+            <div class="all-count">총 <b>258</b>개</div>
+            <div class="check-global">
+              <img src="./images/product_category/ico_checked.png">
+              <span>글로벌 배송 가능상품 보기</span>
             </div>
-            <!-- 상품 삭제 -->
-            <div class="act-list-delete-btn"></div>
           </div>
-
+        </div>
+        <!-- 해당 카테고리 상품 영역 -->
+        <div class="category-product-wrap">
+          <ul>
+            <li class="item-li">
+                <div class="thumbnail">
+                <!-- 솔드아웃 라벨 -->
+                <div class="soldout-label"></div>
+                </div>
+                <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
+                <div class="price">39,000원</div>
+            </li>
+            <li class="item-li">
+                <div class="thumbnail"></div>
+                <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
+                <div class="price">39,000원</div>
+            </li>
+            <li class="item-li">
+              <div class="thumbnail"></div>
+              <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
+              <div class="price">39,000원</div>
+          </li>
+          <li class="item-li">
+              <div class="thumbnail"></div>
+              <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
+              <div class="price">39,000원</div>
+          </li>
+        </ul>
         </div>
       </div>
     </div>
@@ -114,13 +144,13 @@
       <div class="info-service">
         <ul>
           <li>제휴문의</li>
-          <span class="footer_divider"></span>
+          <span class="footer-divider"></span>
           <li>고객문의</li>
-          <span class="footer_divider"></span>
+          <span class="footer-divider"></span>
           <li>이용약관</li>
-          <span class="footer_divider"></span>
+          <span class="footer-divider"></span>
           <li>개인정보처리방침</li>
-          <span class="footer_divider"></span>
+          <span class="footer-divider"></span>
           <li>지식재산권보호센터</li>
         </ul>
       </div>

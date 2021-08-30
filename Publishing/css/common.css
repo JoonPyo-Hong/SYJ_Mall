@@ -207,4 +207,21 @@ var {
     width: 290px !important;
     height: 290px !important;
   }
+
+  .category-product-wrap .item-li {
+    max-width: 290px !important;
+  }
+
+  .category-product-wrap .item-li .thumbnail {
+    width: 290px !important;
+    height: 290px !important;
+  }
+
+  .product-category-character .category-banner {
+    min-height: 220px !important;
+  }
+
+  .product-category-character .category-banner select {
+    min-height: 220px !important;
+  }
 }
