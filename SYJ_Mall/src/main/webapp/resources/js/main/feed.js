@@ -11,8 +11,16 @@ var scroll = 0;
 
 $(document).on("click", "#re_feed_edit_delete span", function() {
  	var temp= $(this).attr('value');
- 	if(temp = "U"){
- 	 alert();
+ 	var num= $(this).attr('id');
+ 	
+ 	if(temp == "U"){
+ 	 $("#img_re_" + num).hide();
+ 	 $("#feed_content_div2_" + num).hide();
+ 	 $("#feed_content_div3_" + num).hide();
+ 	 $(".feed_id_" + num).hide();
+ 	 
+ 	 $("#comment_re_" + num).show();
+ 	 $("#btn_edit_delete_" + num).show();
  	}
 });
 
@@ -342,22 +350,22 @@ function re_feed(seq) {
 
 								$("#feed_content_" + seq)
 									.append(
-										"<div class='feed_content feed_content2'>"
-										+ "<div id = 'feed_id'>" + value.reg_id  + "</div>"
+										"<div class='feed_content feed_content2' id='feed_content2_"+value.seq+"'>"
+										+ "<div id = 'feed_id' class='feed_id_"+value.seq+"'>" + value.reg_id  + "</div>"
 										
 										+ "<div class='comment comment_re' id='comment_re_"+value.seq +"' >"
 										+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder='"+ "ㅇ" +"'></textarea>"
 										+ "<img  src='resources/images/main/reply-off.png' id='' >"
 										+ "</div>"
-										+ "<div class='btn_edit_delete' class= '"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
+										+ "<div class='btn_edit_delete' id= 'btn_edit_delete_"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
 										
 										+ "<div class='feed_content_div2' id = 'feed_content_div2_"+value.seq+"' ><span> "
 										+ value.re_feed
 										+ "</span>" + "</div>"
 										+ "<div><span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img class='img_re' id = 'img_re_" +value.seq+"' src='resources/images/main/edit-regular-grey.png'>"
-										+ "<div id='re_feed_edit_delete' class='re_feed_edit_delete_"+value.seq+"' value = '"+value.seq+"'><span value='U' id='U'>수정</span><span value='D' id='D'>삭제</span></div>"
+										+ "<div id='re_feed_edit_delete' class='re_feed_edit_delete_"+value.seq+"' value = '"+value.seq+"'><span value='U' id='"+value.seq+"'>수정</span><span value='D' id='D'>삭제</span></div>"
 										+"</span></div>"
-										+ "<div class= 'feed_content_div3'><span>"
+										+ "<div class= 'feed_content_div3' id='feed_content_div3_"+value.seq+"'><span>"
 										+ value.reg_dt
 										+ " </span>"
 										+ "<span class='feed_heart2' value='" + value.seq + "'>"
@@ -631,10 +639,10 @@ function feed_select() {
 
 									+ "<div class='comment' id='commet_id' >"
 
-									+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder='"+ ph +"'></textarea>"
+									+ "<textarea id='re_feed_txt' class='re_feed_txt_" + value.seq + "' wrap='hard' placeholder='"+ ph +"'></textarea>"
 									+ "<img  src='resources/images/main/reply-off.png' id='feed_edit_btn' >"
 									+ "</div>"
-									+ "<div id='btn_edit_delete' class= '"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
+									+ "<div id='btn_edit_delete' class= 're_btn_edit_delete_"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
 
 
 									+ "<div class='feed_id'>"
