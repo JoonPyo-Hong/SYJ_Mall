@@ -521,6 +521,7 @@ body.s_no-scroll {
 	width: 600px;
 	display: felx;
 	height: auto;
+	clear: both;
 }
 
 .feed_content2 {
@@ -958,4 +959,10 @@ span#re_feed_edit_img {
 
 .comment_re{
 	display: none;
+}
+
+img.re_feed_img {
+    float: right;
+    position: absolute;
+    right: 16px;
 }

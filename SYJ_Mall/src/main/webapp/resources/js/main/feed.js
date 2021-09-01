@@ -9,6 +9,15 @@ var feed_sel = "최신순";
 var scroll = 0;
 
 
+
+$(document).on("click", ".btn_edit_delete span", function() {
+var num = $(this).parent().attr('id').split('_');
+num = num[3];
+alert(num);
+
+});
+
+
 $(document).on("click", "#re_feed_edit_delete span", function() {
  	var temp= $(this).attr('value');
  	var num= $(this).attr('id');
@@ -355,7 +364,7 @@ function re_feed(seq) {
 										
 										+ "<div class='comment comment_re' id='comment_re_"+value.seq +"' >"
 										+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder='"+ "ㅇ" +"'></textarea>"
-										+ "<img  src='resources/images/main/reply-off.png' id='' >"
+										+ "<img  src='resources/images/main/reply-off.png' class='re_feed_img' >"
 										+ "</div>"
 										+ "<div class='btn_edit_delete' id= 'btn_edit_delete_"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
 										
