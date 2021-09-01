@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <title>카카오 프렌즈샵</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
+    <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="./css/basket.css" /> -->
+    <link rel="stylesheet" type="text/css" href="./css/seen.css" />
+    <link rel="stylesheet" type="text/css" href="./css/act.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/product_category_character.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-  <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
-  <meta name="viewport"
-    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-  <title>카카오 프렌즈샵</title>
-  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="./js/main.js"></script>
-  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
-  <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
-  <link rel="stylesheet" type="text/css" href="./css/common.css" />
-  <link rel="stylesheet" type="text/css" href="./css/main.css" />
-  <!-- <link rel="stylesheet" type="text/css" href="./css/basket.css" /> -->
-  <link rel="stylesheet" type="text/css" href="./css/seen.css" />
-  <link rel="stylesheet" type="text/css" href="./css/act.css" />
-  <link rel="stylesheet" type="text/css" href="./css/product_category_character.css" />
-</head>
-
-<body>
-  <div id="kakao-wrap" <div id="kakao-head">
-    <div id="inner-head">
-      <div class="left-btn">
-        <!-- <button class="hamburger-menu"></button> -->
-        <button class="back-button"></button>
-        <!-- ic_back_2x.png -->
-        <!-- gnb-home-18-black@2x.png -->
-        <button class="home-button"></button>
-      </div>
-      <!-- <div class="title"><button class="title-logo"></button></div> -->
-      <div class="title">캐릭터</div>
-      <div class="right-btn">
-        <button class="search"></button>
-        <button class="language"></button>
-      </div>
-    </div>
-    <div id="inner-tab">
-      <!-- 메인메뉴 tab -->
-      <!-- <div class="main-tab">
+  <body>
+    <div id="kakao-wrap">
+      <div id="kakao-head">
+        <div id="inner-head">
+          <div class="left-btn">
+            <!-- <button class="hamburger-menu"></button> -->
+            <button class="back-button"></button>
+            <!-- ic_back_2x.png -->
+            <!-- gnb-home-18-black@2x.png -->
+            <button class="home-button"></button>
+          </div>
+          <!-- <div class="title"><button class="title-logo"></button></div> -->
+          <div class="title">캐릭터</div>
+          <div class="right-btn">
+            <button class="search"></button>
+            <button class="language"></button>
+          </div>
+        </div>
+        <div id="inner-tab">
+          <!-- 메인메뉴 tab -->
+          <!-- <div class="main-tab">
         <ul class="main-tab-ul">
           <li class="main-tab-li">오늘</li>
           <li class="main-tab-li">신규</li>
@@ -48,8 +54,8 @@
           <li class="main-tab-li active">마이</li>
         </ul>
       </div> -->
-      <!-- 마이페이지 tab -->
-      <!-- <div class="mypage-tab">
+          <!-- 마이페이지 tab -->
+          <!-- <div class="mypage-tab">
         <ul class="mypage-tab-ul">
           <li class="mypage-tab-li">최근 본</li>
           <li class="mypage-tab-li active">내 활동</li>
@@ -57,113 +63,127 @@
           <li class="mypage-tab-li ">주문내역</li>
         </ul>
       </div> -->
-    </div>
-  </div>
-  <div id="kakao-content">
-    <div id="inner-content">
-      <!-- 마이페이지 컨텐츠 -->
-      <div class="container-wrap product-category-character">
-        <!-- 데이터 없을 시 -->
-        <!-- <div class="order-list-nodata">
+        </div>
+      </div>
+      <div id="kakao-content">
+        <div id="inner-content">
+          <!-- 마이페이지 컨텐츠 -->
+          <div class="container-wrap product-category-character">
+            <!-- 데이터 없을 시 -->
+            <!-- <div class="order-list-nodata">
               <div class="standing-ryan"></div>
               <div class="empty-message">내역이 없어요</div>
             </div> -->
-        <!-- 데이터 있을 시 -->
-        <!-- select 선택 -->
-        <!-- 상품 -->
-        <!-- 카테고리 선택 배너 -->
-        <div class="category-banner">
-          <span class="category-title">라이언</span>
-          <img class="select-icon" src="./images/product_category/ico_category_header_fold.png" alt="foldWhite">
-          <select>
-            <option>전체</option>
-            <option>라이언</option>
-            <option>어피치</option>
-            <option>무지</option>
-            <option>프로도</option>
-            <option>네오</option>
-            <option>튜브</option>
-            <option>제이지</option>
-            <option>콘</option>
-            <option>춘식</option>
-            <option>죠르디</option>
-            <option>스카피</option>
-            <option>앙몬드</option>
-            <option>팬다주니어</option>
-            <option>케로&amp;베로니</option>
-            <option>꿈돌이</option>
-          </select>
-        </div>
-        <!-- 상품 정렬 및 개수 -->
-        <div class="category-header">
-          <div class="sort">
-            <span class="sort-title">신상품 순</span>
-            <img class="sort-icon" src="./images/product_category/dropdown_down.png">
-          </div>
-          <div class="detail">
-            <div class="all-count">총 <b>258</b>개</div>
-            <div class="check-global">
-              <img src="./images/product_category/ico_checked.png">
-              <span>글로벌 배송 가능상품 보기</span>
+            <!-- 데이터 있을 시 -->
+            <!-- select 선택 -->
+            <!-- 상품 -->
+            <!-- 카테고리 선택 배너 -->
+            <div class="category-banner">
+              <span class="category-title">라이언</span>
+              <img
+                class="select-icon"
+                src="./images/product_category/ico_category_header_fold.png"
+                alt="foldWhite"
+              />
+              <select>
+                <option>전체</option>
+                <option>라이언</option>
+                <option>어피치</option>
+                <option>무지</option>
+                <option>프로도</option>
+                <option>네오</option>
+                <option>튜브</option>
+                <option>제이지</option>
+                <option>콘</option>
+                <option>춘식</option>
+                <option>죠르디</option>
+                <option>스카피</option>
+                <option>앙몬드</option>
+                <option>팬다주니어</option>
+                <option>케로&amp;베로니</option>
+                <option>꿈돌이</option>
+              </select>
+            </div>
+            <!-- 상품 정렬 및 개수 -->
+            <div class="category-header">
+              <div class="sort">
+                <span class="sort-title">신상품 순</span>
+                <img
+                  class="sort-icon"
+                  src="./images/product_category/dropdown_down.png"
+                />
+              </div>
+              <div class="detail">
+                <div class="all-count">총 <b>258</b>개</div>
+                <div class="check-global">
+                  <img src="./images/product_category/ico_checked.png" />
+                  <span>글로벌 배송 가능상품 보기</span>
+                </div>
+              </div>
+            </div>
+            <!-- 해당 카테고리 상품 영역 -->
+            <div class="category-product-wrap">
+              <ul>
+                <li class="item-li">
+                  <div class="thumbnail">
+                    <!-- 솔드아웃 라벨 -->
+                    <div class="soldout-label"></div>
+                  </div>
+                  <div class="name">
+                    콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
+                  </div>
+                  <div class="price">39,000원</div>
+                </li>
+                <li class="item-li">
+                  <div class="thumbnail"></div>
+                  <div class="name">
+                    콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
+                  </div>
+                  <div class="price">39,000원</div>
+                </li>
+                <li class="item-li">
+                  <div class="thumbnail"></div>
+                  <div class="name">
+                    콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
+                  </div>
+                  <div class="price">39,000원</div>
+                </li>
+                <li class="item-li">
+                  <div class="thumbnail"></div>
+                  <div class="name">
+                    콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
+                  </div>
+                  <div class="price">39,000원</div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <!-- 해당 카테고리 상품 영역 -->
-        <div class="category-product-wrap">
-          <ul>
-            <li class="item-li">
-                <div class="thumbnail">
-                <!-- 솔드아웃 라벨 -->
-                <div class="soldout-label"></div>
-                </div>
-                <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
-                <div class="price">39,000원</div>
-            </li>
-            <li class="item-li">
-                <div class="thumbnail"></div>
-                <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
-                <div class="price">39,000원</div>
-            </li>
-            <li class="item-li">
-              <div class="thumbnail"></div>
-              <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
-              <div class="price">39,000원</div>
-          </li>
-          <li class="item-li">
-              <div class="thumbnail"></div>
-              <div class="name">콘센트 정리 트레이_라이언&춘식<span class="cart"></span></div>
-              <div class="price">39,000원</div>
-          </li>
-        </ul>
+      </div>
+      <div id="kakao-footer">
+        <div id="inner-footer">
+          <div class="info-service">
+            <ul>
+              <li>제휴문의</li>
+              <span class="footer-divider"></span>
+              <li>고객문의</li>
+              <span class="footer-divider"></span>
+              <li>이용약관</li>
+              <span class="footer-divider"></span>
+              <li>개인정보처리방침</li>
+              <span class="footer-divider"></span>
+              <li>지식재산권보호센터</li>
+            </ul>
+          </div>
+          <div class="logo">
+            <div class="toggler">
+              <span class="toggler-logo"></span>
+              <span class="toggler-icon"></span>
+            </div>
+            <div class="best-family"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="kakao-footer">
-    <div id="inner-footer">
-      <div class="info-service">
-        <ul>
-          <li>제휴문의</li>
-          <span class="footer-divider"></span>
-          <li>고객문의</li>
-          <span class="footer-divider"></span>
-          <li>이용약관</li>
-          <span class="footer-divider"></span>
-          <li>개인정보처리방침</li>
-          <span class="footer-divider"></span>
-          <li>지식재산권보호센터</li>
-        </ul>
-      </div>
-      <div class="logo">
-        <div class="toggler">
-          <span class="toggler-logo"></span>
-          <span class="toggler-icon"></span>
-        </div>
-        <div class="best-family"></div>
-      </div>
-    </div>
-  </div>
-  </div>
-</body>
-
+  </body>
 </html>

@@ -10,13 +10,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
-<link rel = "stylesheet" href = "resources/css/mainLayout/newMainLayout.css"> 
+<link rel = "stylesheet" href = "resources/css/mainLayout/totalMain.css"> 
+<link rel = "stylesheet" href = "resources/css/basket/basket.css"> 
 </head>
 <body>
 	<!-- 모달 -->
 	<div id="mask"></div>
     
-    <div id="kakao-wrap">
+   <div id="kakao-wrap">
       <div id="kakao-head">
         <div id="inner-head">
           <div class="left-btn">
@@ -40,7 +41,7 @@
                     <li class="navigation-menu-li">주문·배송 내역</li>
                     <hr />
                     <li class="navigation-menu-li character-accordion-button">
-                     		 캐릭터
+                      캐릭터
                       <div class="drop-down"></div>
                     </li>
                     <div class="li-sub-menu character-menu">
@@ -63,7 +64,7 @@
                       </ul>
                     </div>
                     <li class="navigation-menu-li category-accordion-button">
-                      		카테고리
+                      카테고리
                       <div class="drop-down"></div>
                     </li>
                     <div class="li-sub-menu category-menu">
@@ -242,9 +243,8 @@
           </div>
         </div>
       </div>
-    </div>    
-    
-    
+    </div>
+  
 
 <script>
 	
