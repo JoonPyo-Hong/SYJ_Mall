@@ -1,0 +1,518 @@
+@charset "UTF-8";
+
+@charset "UTF-8";
+
+#kakao-wrap {
+  margin: 0px auto;
+}
+
+#kakao-head {
+  width: 100%;
+  height: 50px;
+  height: auto;
+}
+
+#login-need:hover {
+  cursor: pointer;
+}
+
+#inner-head {
+  margin: 0 auto;
+  /* width: 640px; */
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  #inner-head {
+    /* width: 370px;
+    margin: 0 auto; */
+  }
+}
+
+/* .hamburger-menu {
+  width: 20px;
+  height: 20px;
+  background-image: url(./../images/main/ic_menu.png);
+  background-size: cover;
+  margin: 8px 3px 7px 13px;
+} */
+.title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.title-logo {
+  width: 147px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/main/new-logo-mo.png);
+  background-size: cover;
+}
+
+.search {
+  width: 20px;
+  height: 20px;
+  background-image: url(/SYJ_Mall/resources/images/main/ic_search.png);
+  background-size: cover;
+  margin: 8px 13px 7px 2px;
+}
+
+.language {
+  width: 20px;
+  height: 20px;
+  background-image: url(/SYJ_Mall/resources/images/main/ic-language-global.png);
+  background-size: cover;
+  margin: 8px 13px 7px 2px;
+}
+
+/* header ver2 */
+
+.home-button {
+  width: 20px;
+  height: 20px;
+  background-image: url(/SYJ_Mall/resources/images/main/gnb-home-18-black@2x.png);
+  background-size: cover;
+  margin: 8px 13px 7px 2px;
+}
+
+.back-button {
+  width: 20px;
+  height: 20px;
+  background-image: url(/SYJ_Mall/resources/images/main/ic_back_2x.png);
+  background-size: cover;
+  margin: 8px 13px 7px 2px;
+}
+
+#inner-tab {
+  margin: 0 auto;
+  height: auto;
+}
+
+/* 컨텐츠 */
+
+#kakao-content {
+  width: 100%;
+  height: 100%;
+}
+
+#inner-content {
+  /* width: 640px; */
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* 새로 추가한 부분 */
+#kakao-search-content {
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* 새로 추가한 부분 */
+
+.main-tab {
+  width: 100%;
+  background-color: #fff;
+}
+.main-tab-ul {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 17.5px;
+  border-bottom: 1px solid rgb(227, 229, 232);
+}
+
+.main-tab-li {
+  width: 25%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main-tab-li.active {
+  font-weight: bold;
+  border-bottom: 5px solid #1e1e1e;
+}
+
+/* 여기서부터 작업 */
+
+.burger-icon {
+  cursor: pointer;
+  display: inline-block;
+  z-index: 2;
+  user-select: none;
+  width: 20px;
+  height: 20px;
+  background-image: url(/SYJ_Mall/resources/images/main/ic_menu.png);
+  background-size: cover;
+  margin: 8px 3px 5px 13px;
+}
+
+.burger-check {
+  display: none;
+}
+
+.burger-check:checked ~ .navigation .navigation-inner {
+  left: 0 !important;
+}
+
+/* .burger-check:checked ~ .navigation .navi-overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+} */
+
+.navigation-inner {
+  position: absolute;
+  top: 0;
+  left: -325px;
+  width: 325px;
+  height: 100%;
+  z-index: 1;
+  background-color: #fff;
+  transition: 0.5s ease;
+  overflow-y: scroll;
+  border-right: 1px solid rgb(227, 229, 232);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* hamburger-menu open */
+
+.user-info {
+  padding: 32px 0px 18px 0px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 25px;
+}
+
+.user-info span {
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 15px;
+}
+
+.user-info span::after {
+  content: "";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-image: url(/SYJ_Mall/resources/images/main/right-arrow.png);
+  background-size: cover;
+  vertical-align: middle;
+  margin-left: 2px;
+  margin-top: -2px;
+}
+
+.banner {
+  height: 8%;
+  background-image: url(/SYJ_Mall/resources/images/main/navigation-banner.jpg);
+  background-size: cover;
+  margin: 0 10px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.navigation-menu {
+}
+
+.navigation-menu-ul hr {
+  height: 1px;
+  background-color: rgb(242, 242, 242);
+  border: 0;
+}
+
+.navigation-menu-li {
+  padding-left: 25px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-menu-li .drop-down {
+  width: 18px;
+  height: 18px;
+  background-image: url(/SYJ_Mall/resources/images/main/down-arrow.png);
+  background-size: cover;
+  margin-right: 25px;
+}
+
+/* li-sub-menu character */
+.character-menu {
+  display: none;
+}
+
+.character-menu-ul {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  /* height: 310px; */
+  padding: 30px 5px;
+}
+
+.character {
+  cursor: pointer;
+  width: 74px;
+  height: 74px;
+  text-align: center;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 15px;
+  color: #666;
+  font-weight: 300;
+}
+
+.character::before {
+  content: "";
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-image: url(/SYJ_Mall/resources/images/main/li-Ryan.png);
+  background-size: cover;
+  margin-bottom: 8px;
+}
+
+.li-Apeach::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Apeach.png);
+}
+
+.li-Muzi::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Muzi.png);
+}
+
+.li-Frodo::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Frodo.png);
+}
+
+.li-Neo::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Neo.png);
+}
+
+.li-Tube::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Tube.png);
+}
+
+.li-Jay::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Jay.png);
+}
+
+.li-Con::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Con.png);
+}
+
+.li-Choonsic::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Choonsic.png);
+}
+
+.li-Jordy::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Jordy.png);
+}
+
+.li-Scappy::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Scappy.png);
+}
+
+.li-Angmond::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Angmond.png);
+}
+
+.li-PendaJr::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-PendaJr.png);
+}
+
+.li-Kereberony::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Kereberony.png);
+}
+
+.li-Kumdori::before {
+  background-image: url(/SYJ_Mall/resources/images/main/li-Kumdori.png);
+}
+
+/* li-sub-menu category */
+.category-menu {
+  display: none;
+}
+
+.category-menu-ul {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 25px;
+}
+
+.category {
+  cursor: pointer;
+  width: 50%;
+  height: 45px;
+  line-height: 45px;
+  text-align: left;
+  font-size: 16px;
+  color: #666;
+  font-weight: 300;
+}
+
+.login-or-out {
+  width: 100%;
+  font-size: 14px;
+  color: #9a9a9e;
+  text-align: center;
+  margin-top: 24px;
+  cursor: pointer;
+  margin-bottom: 200px;
+}
+
+.login-or-out::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url(/SYJ_Mall/resources/images/main/login.png);
+  background-size: cover;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-top: -4px;
+}
+
+/* 마이페이지 탭 */
+
+.mypage-tab {
+  width: 100%;
+  height: 45px;
+}
+.mypage-tab-ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  padding: 0px 17.5px;
+  background-color: rgb(248, 248, 248);
+  color: rgb(155, 155, 155);
+}
+
+.mypage-tab-li {
+  width: 25%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mypage-tab-li.active {
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+
+.mypage-tab-li .basket-count {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 9px;
+  font-size: 11px;
+  margin-left: 2px;
+  margin-top: -2px;
+  background: rgb(255, 85, 117);
+  color: rgb(255, 255, 255);
+}
+
+/* 하단 */
+
+#kakao-footer {
+  width: 100%;
+  height: 50px;
+}
+
+#inner-footer {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fafafa;
+}
+
+.info-service {
+  width: 100%;
+  height: 100%;
+}
+
+.info-service ul {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 16px;
+}
+
+.info-service ul li {
+  font-size: 12px;
+  color: #666666;
+  cursor: pointer;
+}
+
+.footer-divider {
+  height: 10px;
+  margin: 0px 4px;
+  border-left: 1px solid rgb(216, 216, 216);
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 65px;
+}
+
+.toggler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggler-logo {
+  display: block;
+  width: 105px;
+  height: 12px;
+  background-image: url(/SYJ_Mall/resources/images/main/logo-footer-commerce.png);
+  background-size: cover;
+  margin-left: 16px;
+}
+
+.toggler-icon {
+  display: block;
+  width: 10px;
+  height: 12px;
+  background-image: url(/SYJ_Mall/resources/images/main/down-arrow.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: 1px;
+  margin-left: 5px;
+}
+
+.best-family {
+  width: 103px;
+  height: 28px;
+  background-image: url(/SYJ_Mall/resources/images/main/logo-footer-best-family.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 16px;
+}
