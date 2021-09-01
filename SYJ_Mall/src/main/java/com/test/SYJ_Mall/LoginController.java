@@ -85,7 +85,6 @@ public class LoginController {
 				
 				String encPw = logService.pwEnc(pw);//상대방이 입력한 pw를 암호화작업해준다.
 				
-				
 				List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
 				int userSeq = loginResult.get(0).getUserSeq();//유저 고유 코드
 				int loginCode = loginResult.get(0).getLoginCode();//로그인 결과
