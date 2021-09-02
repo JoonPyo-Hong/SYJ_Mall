@@ -114,4 +114,10 @@ public class MainServiceImpl implements MainService {
 		
 	}
 
+	@Override
+	public void re_feed_delete(Integer seq) {
+		dao.re_feed_delete(seq);
+		
+	}
+
 }

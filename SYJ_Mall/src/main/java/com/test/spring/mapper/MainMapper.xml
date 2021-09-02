@@ -120,4 +120,10 @@
 		where seq =
 		#{feed_seq}
 	</delete>
+	<delete id="re_feed_delete" parameterType="int">
+		delete
+		dbo.re_feed
+		where seq =
+		#{seq}
+	</delete>
 </mapper>

@@ -133,4 +133,10 @@ public class MainDAOImpl implements MainDAO {
 		session.delete("main.feed_delete", feed_seq);
 		
 	}
+
+	@Override
+	public void re_feed_delete(Integer seq) {
+		session.delete("main.re_feed_delete", seq);
+		
+	}
 }

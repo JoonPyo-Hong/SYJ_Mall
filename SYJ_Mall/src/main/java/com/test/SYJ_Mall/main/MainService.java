@@ -40,4 +40,6 @@ public interface MainService {
 
 	void feed_delete(Integer feed_seq);
 
+	void re_feed_delete(Integer seq);
+
 }

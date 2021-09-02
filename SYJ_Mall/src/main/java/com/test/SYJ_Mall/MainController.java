@@ -187,6 +187,13 @@ public class MainController {
 	public void feed_delete(@RequestParam("feed_seq") Integer feed_seq) {
 		service.feed_delete(feed_seq);
 	}
+	
+	// 대댓글 삭제 (delete)
+		@RequestMapping(value = "/re_feed_delete.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public void re_feed_delete(@RequestParam("seq") Integer seq) {
+			service.re_feed_delete(seq);
+		}
 
 	// 댓글 텍스트(select)
 	@RequestMapping(value = "/main_feed.action", method = { RequestMethod.POST })

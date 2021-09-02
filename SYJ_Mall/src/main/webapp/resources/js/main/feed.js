@@ -13,9 +13,47 @@ var scroll = 0;
 $(document).on("click", ".btn_edit_delete span", function() {
 var num = $(this).parent().attr('id').split('_');
 num = num[3];
-alert(num);
+
+if($(this).attr('id')=='C'){
+	 $("#img_re_" + num).show();
+ 	 $("#feed_content_div2_" + num).show();
+ 	 $("#feed_content_div3_" + num).show();
+ 	 $(".feed_id_" + num).show();
+ 	 $("#comment_re_" + num).hide();
+ 	 $("#btn_edit_delete_" + num).hide();
+}else{
+	if(confirm("삭제 하시겠습니까?")){
+	re_feed_delete(num);
+	 $("#img_re_" + num).show();
+ 	 $("#feed_content_div2_" + num).show();
+ 	 $("#feed_content_div3_" + num).show();
+ 	 $(".feed_id_" + num).show();
+ 	 $("#comment_re_" + num).hide();
+ 	 $("#btn_edit_delete_" + num).hide();
+ 	 }
+}
+
+
 
 });
+
+function re_feed_delete(num) {
+	$.ajax({
+		url: "re_feed_delete.action",
+		type: 'post',
+		data: {
+			seq: num,
+		},
+		success: function(data) {
+			feed_select();
+		},
+		error: function() {
+			alert("에러");
+		}
+	});
+
+}
+
 
 
 $(document).on("click", "#re_feed_edit_delete span", function() {
@@ -30,6 +68,10 @@ $(document).on("click", "#re_feed_edit_delete span", function() {
  	 
  	 $("#comment_re_" + num).show();
  	 $("#btn_edit_delete_" + num).show();
+ 	}else{
+ 		if(confirm("삭제 하시겠습니까?")){
+		re_feed_delete(num);
+		}
  	}
 });
 
@@ -372,7 +414,7 @@ function re_feed(seq) {
 										+ value.re_feed
 										+ "</span>" + "</div>"
 										+ "<div><span id = 're_feed_edit_img'" + "value ='" + value.seq + "'" + re_feed_diplay + "><img class='img_re' id = 'img_re_" +value.seq+"' src='resources/images/main/edit-regular-grey.png'>"
-										+ "<div id='re_feed_edit_delete' class='re_feed_edit_delete_"+value.seq+"' value = '"+value.seq+"'><span value='U' id='"+value.seq+"'>수정</span><span value='D' id='D'>삭제</span></div>"
+										+ "<div id='re_feed_edit_delete' class='re_feed_edit_delete_"+value.seq+"' value = '"+value.seq+"'><span value='U' id='"+value.seq+"'>수정</span><span value='D' id='"+value.seq+"'>삭제</span></div>"
 										+"</span></div>"
 										+ "<div class= 'feed_content_div3' id='feed_content_div3_"+value.seq+"'><span>"
 										+ value.reg_dt
