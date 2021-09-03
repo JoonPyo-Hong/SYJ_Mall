@@ -9,6 +9,25 @@ var feed_sel = "최신순";
 var scroll = 0;
 
 
+// 업데이트 기능 구현 할 것
+function re_feed_update() {
+	$.ajax({
+		url: "re_feed_update.action",
+		type: 'post',
+		data: {
+			seq: num,
+		},
+		success: function(data) {
+			feed_select();
+		},
+		error: function() {
+			alert("에러");
+		}
+	});
+
+}
+
+
 
 $(document).on("click", ".btn_edit_delete span", function() {
 var num = $(this).parent().attr('id').split('_');
@@ -391,7 +410,7 @@ function re_feed(seq) {
 
 								var re_feed_diplay = '';
 
-								if (value.member_seq == m_seq) {
+								if (value.member_seq == m_seq) { 
 									re_feed_diplay = "";
 								} else {
 									re_feed_diplay = "style = 'display: none;'";
