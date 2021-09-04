@@ -42,6 +42,8 @@ public interface MainDAO {
 
 	void re_feed_delete(Integer seq);
 
+	void re_feed_update(Map<String, Object> map);
+
 
 
 }

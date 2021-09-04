@@ -41,7 +41,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");
-		
+
 		int seq = 0;
 
 		if (dto == null) {
@@ -181,19 +181,26 @@ public class MainController {
 		service.feed_edit(map);
 	}
 
+	// 대댓글 수정 (update)
+	@RequestMapping(value = "/re_feed_update.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void re_feed_update(@RequestParam Map<String, Object> map) {
+		service.re_feed_update(map);
+	}
+
 	// 댓글 삭제 (delete)
 	@RequestMapping(value = "/feed_delete.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public void feed_delete(@RequestParam("feed_seq") Integer feed_seq) {
 		service.feed_delete(feed_seq);
 	}
-	
+
 	// 대댓글 삭제 (delete)
-		@RequestMapping(value = "/re_feed_delete.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public void re_feed_delete(@RequestParam("seq") Integer seq) {
-			service.re_feed_delete(seq);
-		}
+	@RequestMapping(value = "/re_feed_delete.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void re_feed_delete(@RequestParam("seq") Integer seq) {
+		service.re_feed_delete(seq);
+	}
 
 	// 댓글 텍스트(select)
 	@RequestMapping(value = "/main_feed.action", method = { RequestMethod.POST })

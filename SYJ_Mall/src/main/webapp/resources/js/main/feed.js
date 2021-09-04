@@ -9,13 +9,14 @@ var feed_sel = "최신순";
 var scroll = 0;
 
 
-// 업데이트 기능 구현 할 것
-function re_feed_update() {
+
+function re_feed_update(temp,txt) {
 	$.ajax({
 		url: "re_feed_update.action",
 		type: 'post',
 		data: {
-			seq: num,
+			seq: temp,
+			re_feed: txt
 		},
 		success: function(data) {
 			feed_select();
@@ -26,6 +27,26 @@ function re_feed_update() {
 	});
 
 }
+
+
+
+$(document).on("click", ".re_feed_img", function() {
+	var temp= $(this).attr('value');
+	var txt = $(".feed_txt_" + temp).val();
+
+	if(txt !=''){
+	 $("#img_re_" + temp).show();
+ 	 $("#feed_content_div2_" + temp).show();
+ 	 $("#feed_content_div3_" + temp).show();
+ 	 $(".feed_id_" + temp).show();
+ 	 $("#comment_re_" + temp).hide();
+ 	 $("#btn_edit_delete_" + temp).hide();
+ 	 
+	 re_feed_update(temp,txt);
+		
+	}
+	
+});
 
 
 
@@ -42,13 +63,13 @@ if($(this).attr('id')=='C'){
  	 $("#btn_edit_delete_" + num).hide();
 }else{
 	if(confirm("삭제 하시겠습니까?")){
-	re_feed_delete(num);
 	 $("#img_re_" + num).show();
  	 $("#feed_content_div2_" + num).show();
  	 $("#feed_content_div3_" + num).show();
  	 $(".feed_id_" + num).show();
  	 $("#comment_re_" + num).hide();
  	 $("#btn_edit_delete_" + num).hide();
+	re_feed_delete(num);
  	 }
 }
 
@@ -416,7 +437,8 @@ function re_feed(seq) {
 									re_feed_diplay = "style = 'display: none;'";
 
 								}
-									
+								var ph = value.re_feed;
+								ph = ph.replace('<br/>',' ');
 
 								$("#feed_content_" + seq)
 									.append(
@@ -424,8 +446,8 @@ function re_feed(seq) {
 										+ "<div id = 'feed_id' class='feed_id_"+value.seq+"'>" + value.reg_id  + "</div>"
 										
 										+ "<div class='comment comment_re' id='comment_re_"+value.seq +"' >"
-										+ "<textarea id='feed_txt' class='" + value.seq + "' wrap='hard' placeholder='"+ "ㅇ" +"'></textarea>"
-										+ "<img  src='resources/images/main/reply-off.png' class='re_feed_img' >"
+										+ "<textarea id='feed_txt' class='feed_txt_" + value.seq + "' wrap='hard' placeholder='"+ ph +"'></textarea>"
+										+ "<img  src='resources/images/main/reply-off.png' class='re_feed_img'  value = '"+ this.seq +"'>"
 										+ "</div>"
 										+ "<div class='btn_edit_delete' id= 'btn_edit_delete_"+value.seq+"'><span id='D'>삭제</span><span id='C'>취소</span></div>"
 										

@@ -139,4 +139,10 @@ public class MainDAOImpl implements MainDAO {
 		session.delete("main.re_feed_delete", seq);
 		
 	}
+
+	@Override
+	public void re_feed_update(Map<String, Object> map) {
+		session.update("main.re_feed_update", map);
+		
+	}
 }

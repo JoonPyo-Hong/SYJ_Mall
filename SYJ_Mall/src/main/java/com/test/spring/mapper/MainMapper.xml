@@ -126,4 +126,8 @@
 		where seq =
 		#{seq}
 	</delete>
+	<update id="re_feed_update" parameterType="java.util.HashMap">
+		update re_feed set re_feed =
+		#{re_feed} where seq = #{seq}
+	</update>
 </mapper>

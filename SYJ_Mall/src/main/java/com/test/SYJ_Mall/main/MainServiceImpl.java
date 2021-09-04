@@ -120,4 +120,10 @@ public class MainServiceImpl implements MainService {
 		
 	}
 
+	@Override
+	public void re_feed_update(Map<String, Object> map) {
+		dao.re_feed_update(map);
+		
+	}
+
 }
