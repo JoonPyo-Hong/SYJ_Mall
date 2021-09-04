@@ -1,6 +1,19 @@
 @charset "UTF-8";
 
-@charset "UTF-8";
+
+#login-need:hover {
+  cursor : pointer;
+}
+
+#mask {  
+    position:absolute;  
+    left:0;
+    top:0;
+    z-index:3;  
+    background-color:#4C4C4C;  
+    display:none;  
+}
+
 
 #kakao-wrap {
   margin: 0px auto;
@@ -174,7 +187,7 @@
   left: -325px;
   width: 325px;
   height: 100%;
-  z-index: 1;
+  z-index: 10;
   background-color: #fff;
   transition: 0.5s ease;
   overflow-y: scroll;
@@ -438,7 +451,7 @@
 
 #kakao-footer {
   width: 100%;
-  height: 50px;
+  height: auto;
 }
 
 #inner-footer {

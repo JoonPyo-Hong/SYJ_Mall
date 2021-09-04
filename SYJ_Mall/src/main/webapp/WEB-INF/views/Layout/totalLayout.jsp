@@ -10,14 +10,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
-<link rel = "stylesheet" href = "resources/css/mainLayout/mainTotalLayOuts.css"> 
-<link rel = "stylesheet" href = "resources/css/basket/basket.css"> 
+<link rel = "stylesheet" href = "resources/css/mainLayout/test2.css">
 </head>
 <body>
-	<!-- 모달 -->
-	<div id="mask"></div>
-    
-   <div id="kakao-wrap">
+<!-- 모달 -->
+<div id="mask"></div>
+	
+<div id="kakao-wrap">
       <div id="kakao-head">
         <div id="inner-head">
           <div class="left-btn">
@@ -30,10 +29,18 @@
             <!-- hamburger-menu open -->
             <div class="navigation">
               <div class="navigation-inner">
-                <div class="user-info">
-                  <u>로그인</u>이 필요해요!
+              <c:if test="${empty userinfo}">
+              	<div class="user-info">
+                  <u id=login-need>로그인</u>이 필요해요!
                   <span>비회원 주문조회</span>
                 </div>
+              </c:if>
+              <c:if test="${not empty userinfo}">
+              	<div class="user-info">
+                  <u>${userinfo.userName}</u>님 반가워요!
+                  <span>여기 바꿔야함</span>
+                </div>
+              </c:if>
                 <div class="banner"></div>
                 <div class="navigation-menu">
                   <ul class="navigation-menu-ul">
@@ -94,7 +101,12 @@
                     <hr />
                   </ul>
                 </div>
-                <div class="login-or-out">로그인</div>
+                <c:if test="${empty userinfo}">
+                	<div class="login-or-out">로그인</div>
+              	</c:if>
+              	<c:if test="${not empty userinfo}">
+                	<div class="login-or-out">로그아웃</div>
+              	</c:if>
               </div>
             </div>
           </div>
@@ -108,117 +120,45 @@
           <!-- 메인메뉴 tab -->
           <div class="main-tab">
             <ul class="main-tab-ul">
-              <li class="main-tab-li">오늘</li>
-              <li class="main-tab-li">신규</li>
-              <li class="main-tab-li">인기</li>
-              <li class="main-tab-li active">마이</li>
+            	<c:if test="${seleted eq 'today'}">
+              		<li class="main-tab-li active">오늘</li>
+              		<li class="main-tab-li">신규</li>
+              		<li class="main-tab-li">인기</li>
+              		<li class="main-tab-li">마이</li>
+              	</c:if>
+            	<c:if test="${seleted eq 'new'}">
+              		<li class="main-tab-li">오늘</li>
+              		<li class="main-tab-li active">신규</li>
+              		<li class="main-tab-li">인기</li>
+              		<li class="main-tab-li">마이</li>
+              	</c:if>
+              	<c:if test="${seleted eq 'popular'}">
+              		<li class="main-tab-li">오늘</li>
+              		<li class="main-tab-li">신규</li>
+              		<li class="main-tab-li active">인기</li>
+              		<li class="main-tab-li">마이</li>
+              	</c:if>
+              	<c:if test="${seleted eq 'my'}">
+              		<li class="main-tab-li">오늘</li>
+              		<li class="main-tab-li">신규</li>
+              		<li class="main-tab-li">인기</li>
+              		<li class="main-tab-li active">마이</li>
+              	</c:if>
             </ul>
           </div>
           <!-- 마이페이지 tab -->
-          <div class="mypage-tab">
-            <ul class="mypage-tab-ul">
-              <li class="mypage-tab-li">최근 본</li>
-              <li class="mypage-tab-li">내 활동</li>
-              <li class="mypage-tab-li active">장바구니
-                <span class="basket-count">2</span>
-              </li>
-              <li class="mypage-tab-li">주문내역</li>
-            </ul>
-          </div>
+          
+          
         </div>
       </div>
       <div id="kakao-content">
         <div id="inner-content">
-          <!-- 마이페이지 컨텐츠 -->
-          <div class="container-wrap mypage-basket-wrap">
-            <!-- 데이터 없을 시 -->
-            <!-- <div class="order-list-nodata">
-              <div class="standing-ryan"></div>
-              <div class="empty-message">내역이 없어요</div>
-            </div> -->
-            <!-- 데이터 있을 시 -->
-            <div class="basket-header">
-              <div class="basket-count">
-                <label class="product-checkbox-label" for="product-checkbox">
-                  <input id="product-checkbox" type="checkbox" class="product-checkbox-input">
-                </label>
-                <div class="basket-count-text">전체 <b>7</b></div>
-              </div>
-                <div class="delete-all">
-                  <div class="delete-count">2개 선택</div>
-                  <button class="delete-all-btn"></button>
-                </div>
-            </div>
-            <hr class="division">
-
-            <div class="basket-list-wrap">
-
-              <!-- 상품 하나 -->
-              <div class="basket-list-item">
-                <div class="basket-left">
-                  <!-- 상품 체크박스 -->
-                  <div class="basket-check">
-                    <label class="product-checkbox-label" for="product-checkbox">
-                      <input id="product-checkbox" type="checkbox" class="product-checkbox-input">
-                    </label>
-                  </div>
-                  <!-- 상품 내용 및 수량 -->
-                  <div class="basket-content">
-                    <a href="#">
-                      <div class="product-img"></div>
-                    </a>
-                    <div class="basket-text">
-                      <span class="product-name">워치전용 충전 거치대_라이언&춘식이</span>
-                      <span class="product-price">25,000원</span>
-                      <div class="product-count">
-                        <label content="4" class="select-box__Label-iihqm7-0">
-                          <select class="select-box__Select-iihqm7-2">
-                            <option value="1">2</option>
-                          </select>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- 상품 삭제 -->
-                <div class="basket-list-delete-btn"></div>
-              </div>
-
-              <!-- 상품 둘 -->
-              <div class="basket-list-item">
-                <div class="basket-left">
-                  <!-- 상품 체크박스 -->
-                  <div class="basket-check">
-                    <label class="product-checkbox-label" for="product-checkbox">
-                      <input id="product-checkbox" type="checkbox" class="product-checkbox-input">
-                    </label>
-                  </div>
-                  <!-- 상품 내용 및 수량 -->
-                  <div class="basket-content">
-                    <a href="#">
-                      <div class="product-img"></div>
-                    </a>
-                    <div class="basket-text">
-                      <span class="product-name">워치전용 충전 거치대_라이언&춘식이</span>
-                      <span class="product-price">25,000원</span>
-                      <div class="product-count">
-                        <label content="4" class="select-box__Label-iihqm7-0">
-                          <select class="select-box__Select-iihqm7-2">
-                            <option value="1">1</option>
-                          </select>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- 상품 삭제 -->
-                <div class="basket-list-delete-btn"></div>
-              </div>
-
-            </div>
-          </div>
+        	<!-- 여기에 타일즈 내용이 들어가야함 -->  
+        	<tiles:insertAttribute name="body" ignore="false"/>
         </div>
       </div>
+      
+      <!-- footer -->
       <div id="kakao-footer">
         <div id="inner-footer">
           <div class="info-service">
@@ -248,12 +188,13 @@
 
 <script>
 	
-
+	
 	var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
 	
+
 	$(document).ready(function() {
-		
+
 		// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
 		$("li.character-accordion-button").on("click", function () {
 	
@@ -299,10 +240,7 @@
 		
 		//왼쪽 사이드바 클릭하면 나오게 되는것
 		$("#burger-check").click(function(){
-		    //모달 띄우기    
-			wrapWindowByMask();
-		    //스크롤 이벤트 막기
-			$(document.body).css('overflow','hidden');
+		    openNavigation();
 			
 		});
 		
@@ -311,16 +249,51 @@
 				
 			$(this).hide();  
 			$('.window').hide(); 
-			$("#burger-check").prop("checked", false);
-			//스크롤 이벤트 막기 제거
-			$(document.body).css('overflow','visible');
-
+			closeNavigation();
 		}); 
-		
-		
 
-	    function wrapWindowByMask(){
-	        //화면의 높이와 너비를 구한다.
+
+	    
+	    /* -----------로그인 관련------------ */
+	    //로그인 클릭 -> 네비게이션 상단
+	    $('#login-need').click(function(){
+	    	closeNavigation();
+	    	goLoginPage();
+	    });
+	    
+	    //로그인 클릭 -> 네비게이션 하단
+	    $('.login-or-out').click(function(){
+	    	if ($(this).attr('id') == null) {
+	    		closeNavigation();
+	    		goLoginPage();
+	    	} else {
+	    		closeNavigation();
+	    		//로그아웃 -> 처리해야함
+	    		goLogOut();
+	    	}
+	    });
+	   
+	    //로그인 처리
+	    function goLoginPage() {
+	    	location.href = "/SYJ_Mall/login.action";
+	    }
+	    //로그아웃 처리
+	    function goLogOut() {
+	    	location.href = "/SYJ_Mall/userLogout.action";
+	    }
+	    
+	    
+	    /* -----------네비게이션 바 관련------------ */
+	    //네비게이션 바 숨김처리
+	    function closeNavigation() {
+	    	$("#burger-check").prop("checked", false);
+	    	$(document.body).css('overflow','visible');
+	    }
+	    
+	    //네비게이션 바 보임처리
+	    function openNavigation() {
+	    	
+	    	//화면의 높이와 너비를 구한다.
 	        var maskHeight = $(document).height();  
 	        var maskWidth = $(window).width();  
 			
@@ -328,31 +301,12 @@
 	        $('#mask').css({'width':maskWidth,'height':maskHeight});  
 			
 	        //애니메이션 효과    
-	        $('#mask').fadeTo("slow",0.8);    
+	        $('#mask').fadeTo("slow",0.8);  
+	        
+	        $(document.body).css('overflow','hidden');
 	    }
-		
 	    
-	    //-----------로그인 관련------------
-	    //로그인 클릭
-	    $('#login-need').click(function(){
-	    	goLoginPage();
-	    });
 	    
-	    $('.login-or-out').click(function(){
-	    	if ($(this).attr('id') == null) {
-	    		goLoginPage();
-	    	} else {
-	    		//로그아웃 -> 처리해야함
-	    		//goLoginPage();
-	    		location.href = "/SYJ_Mall/userLogout.action";
-	    	}
-	    	
-	    });
-	    
-	    function goLoginPage(){
-	    	location.href = "/SYJ_Mall/login.action";
-	    }
-		
 	});
 
 

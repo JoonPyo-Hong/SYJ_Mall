@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+
+
+/* 모달관련 */
 #mask {  
     position:absolute;  
     left:0;
@@ -9,6 +12,7 @@
     display:none;  
 }
 
+
 #kakao-wrap {
   margin: 0px auto;
 }
@@ -16,11 +20,9 @@
 #kakao-head {
   width: 100%;
   height: 50px;
+  height: auto;
 }
 
-#login-need:hover {
-  cursor: pointer;
-}
 
 #inner-head {
   margin: 0 auto;
@@ -78,7 +80,7 @@
 .home-button {
   width: 20px;
   height: 20px;
-  background-image: url(./../images/main/gnb-home-18-black@2x.png);
+  background-image: url(/SYJ_Mall/resources/images/main/gnb-home-18-black@2x.png);
   background-size: cover;
   margin: 8px 13px 7px 2px;
 }
@@ -93,7 +95,7 @@
 
 #inner-tab {
   margin: 0 auto;
-  height: 100%;
+  height: auto;
 }
 
 /* 컨텐츠 */
@@ -180,7 +182,7 @@
   left: -325px;
   width: 325px;
   height: 100%;
-  z-index: 1;
+  z-index: 10;
   background-color: #fff;
   transition: 0.5s ease;
   overflow-y: scroll;
@@ -375,6 +377,12 @@
   font-weight: 300;
 }
 
+/* 로그인 관련 */
+
+#login-need:hover {
+  cursor: pointer;
+}
+
 .login-or-out {
   width: 100%;
   font-size: 14px;
@@ -401,6 +409,7 @@
 
 .mypage-tab {
   width: 100%;
+  height: 45px;
 }
 .mypage-tab-ul {
   display: flex;
@@ -443,7 +452,7 @@
 
 #kakao-footer {
   width: 100%;
-  height: 50px;
+  height: auto;
 }
 
 #inner-footer {
