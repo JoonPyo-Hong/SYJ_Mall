@@ -115,6 +115,26 @@
                 <button class="search-close">취소</button>
               </div>
               <div class="search-bottom">
+                <div class = "search-result">
+                  <ul>
+                    <li class=""><a href="#">15cm 피규어-<span style="color : red;">라이언</span></a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+
+                  </ul>
+                </div>
                 <div class="character-wrap">
                   <ul>
                     <li class="character-li"><a href="#" class="ryan"></a>
@@ -181,6 +201,7 @@
                   </ul>
                 </div>
               </div>
+              <!-- search bottom -->
             </div>
           </div>
         </div>
@@ -247,6 +268,53 @@
     </div>
   </div>
   </div>
+
+<script>
+
+
+  //검색창 쓸때 이벤트
+  window.addEventListener(
+    "keyup",
+    function(){
+
+      //검색글자 길이
+      const SEARCHLEN = $('.search-input').val().length;
+
+      //검색글자가 있으면 .search-bottom 을 숨김
+      if (SEARCHLEN == 0) {
+        searchVisible(0);
+      } else {
+        searchVisible(1);
+      }
+  });
+
+
+  //취소버튼
+  $('.search-close').click(function(){
+    $('.search-input').val('');
+    searchVisible(0);
+    //그리고 뒤로 돌아가야함~
+  });
+  
+
+
+  //검색결과에 따라 내용 숨길지 정해주는 함수
+  function searchVisible(searchFlag) {
+    if (searchFlag == 0) {
+      $('.character-wrap').css('display','flex');
+      $('.category-wrap').css('visibility','visible');
+      $('.search-result').css('display','none');
+    } else {
+      $('.character-wrap').css('display','none');
+      $('.category-wrap').css('visibility','hidden');
+      $('.search-result').css('display','flex');
+    }
+  }
+
+
+
+</script>
+
 </body>
 
 </html>

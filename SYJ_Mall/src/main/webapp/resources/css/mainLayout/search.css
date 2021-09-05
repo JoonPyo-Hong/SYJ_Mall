@@ -1,5 +1,7 @@
+@charset "UTF-8";
+
 #search-wrap {
-  z-index: 9999;
+  z-index: -10;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -161,20 +163,16 @@
 #search-wrap .search-bottom .category-wrap ul li {
   padding: 0px 7px 9px 0px;
   height: 29px;
-  margin-top:3px;
-  /* border:1px solid red; */
 }
 
 #search-wrap .search-bottom .category-wrap ul li a {
-
-  border : 1px solid red;
   display: inline-block;
   height: 15px;
   line-height: 15px;
   padding: 6px 13px;
   border-radius: 51.2px;
   font-size: 14px;
-  /* border: 1px solid rgb(228, 228, 228); */
+  border: 1px solid rgb(228, 228, 228);
 }
 
 /* 신승환 서치결과 디자인 */

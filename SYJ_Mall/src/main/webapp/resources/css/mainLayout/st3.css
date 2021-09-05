@@ -1,5 +1,6 @@
+@charset "UTF-8";
+
 #search-wrap {
-  z-index: 9999;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -39,7 +40,7 @@
   padding: 0 20px 0 40px;
   border-radius: 21px;
   background-color: rgb(239, 240, 244);
-  background-image: url(./../images/search_wrap/regular-18-grey.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/regular-18-grey.png);
   background-size: 18px 18px;
   background-repeat: no-repeat;
   background-position-x: 12px;
@@ -73,56 +74,56 @@
 }
 
 #search-wrap .search-bottom .character-wrap ul a.ryan {
-  background-image: url(./../images/search_wrap/Ryan_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Ryan_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul a.apeach {
-  background-image: url(./../images/search_wrap/Apeach_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Apeach_71_color_210303.png);
 }
 #search-wrap .search-bottom .character-wrap ul a.muzi {
-  background-image: url(./../images/search_wrap/Muzi_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Muzi_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul a.frodo {
-  background-image: url(./../images/search_wrap/Frodo_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Frodo_71_color_210303.png);
 }
 #search-wrap .search-bottom .character-wrap ul a.neo {
-  background-image: url(./../images/search_wrap/Neo_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Neo_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul a.tube {
-  background-image: url(./../images/search_wrap/Tube_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Tube_71_color_210303.png);
 }
 #search-wrap .search-bottom .character-wrap ul a.jayz {
-  background-image: url(./../images/search_wrap/Jay-Z_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Jay-Z_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul a.con {
-  background-image: url(./../images/search_wrap/Con_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Con_71_color_210303.png);
 }
 #search-wrap .search-bottom .character-wrap ul a.choonsic {
-  background-image: url(./../images/search_wrap/Choonsic_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Choonsic_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul a.jordy {
-  background-image: url(./../images/search_wrap/Jordy_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Jordy_71_color_210303.png);
 }
 #search-wrap .search-bottom .character-wrap ul a.scappy {
-  background-image: url(./../images/search_wrap/Scappy_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Scappy_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul a.angmond {
-  background-image: url(./../images/search_wrap/Angmond_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Angmond_71_color_210303.png);
 }
 #search-wrap .search-bottom .character-wrap ul a.pendajr {
-  background-image: url(./../images/search_wrap/PendaJr_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/PendaJr_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul a.kereberony {
-  background-image: url(./../images/search_wrap/Kereberony_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Kereberony_71_color_210303.png);
 }
 #search-wrap .search-bottom .character-wrap ul a.kumdori {
-  background-image: url(./../images/search_wrap/Kumdori_71_color_210303.png);
+  background-image: url(/SYJ_Mall/resources/images/search_wrap/Kumdori_71_color_210303.png);
 }
 
 #search-wrap .search-bottom .character-wrap ul p {
@@ -161,20 +162,16 @@
 #search-wrap .search-bottom .category-wrap ul li {
   padding: 0px 7px 9px 0px;
   height: 29px;
-  margin-top:3px;
-  /* border:1px solid red; */
 }
 
 #search-wrap .search-bottom .category-wrap ul li a {
-
-  border : 1px solid red;
   display: inline-block;
   height: 15px;
   line-height: 15px;
   padding: 6px 13px;
   border-radius: 51.2px;
   font-size: 14px;
-  /* border: 1px solid rgb(228, 228, 228); */
+  border: 1px solid rgb(228, 228, 228);
 }
 
 /* 신승환 서치결과 디자인 */
@@ -194,5 +191,9 @@
   font-size: 1.3em;
   font-weight: lighter;
   font-family: AppleSDGothicNeo;
+}
+
+.category-li > a {
+	height : 30px;
 }
 

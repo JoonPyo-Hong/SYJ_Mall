@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.mypage-orderlist-wrap {
+  min-height: 750px;
+}
+
+.order-list-nodata {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 266px 0px;
+}
+
+.standing-ryan {
+  width: 184px;
+  height: 184px;
+  background-image: url(/SYJ_Mall/resources/images/mypage_orderlist/standing-ryan.png);
+  background-size: contain;
+}
+
+.empty-message {
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 0px;
+  color: rgb(154, 154, 158);
+}

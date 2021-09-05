@@ -41,27 +41,10 @@
 <script>
 	
 	var checkdDevice = 0;//맨처음 디바이스 체크!
-	
-	//PC, MOBILE 구별
-	function deviceCheck() {
-	    // 디바이스 종류 설정
-	    var pcDevice = "win16|win32|win64|mac|macintel";
-	 
-	    // 접속한 디바이스 환경
-	    if ( navigator.platform ) {
-	        if ( pcDevice.indexOf(navigator.platform.toLowerCase()) < 0 ) {
-	            //console.log('MOBILE');
-	            return 1//mobile
-	        } else {
-	            //console.log('PC');
-	        	//alert('pc');
-	        	return 2;//pc
-	        }
-	    }
-	}
-	
-	
 	var paging = 1;//페이지 넘버
+	
+	//디바이스 체크
+	
 	
 	window.addEventListener(
 			"scroll",
@@ -91,7 +74,7 @@
 				const WINDOW_HEIGHT = window.innerHeight;
 				const DOC_TOTAL_HEIGHT = document.body.offsetHeight;
 				
-				if ((SCROLLED_HEIGHT + WINDOW_HEIGHT >= DOC_TOTAL_HEIGHT * 0.9) && paging <= 2) {
+				if ((SCROLLED_HEIGHT + WINDOW_HEIGHT >= DOC_TOTAL_HEIGHT * 0.9) && paging <= 2 && searchYn == -1) {
 					//alert(height);
 					
 					paging++;

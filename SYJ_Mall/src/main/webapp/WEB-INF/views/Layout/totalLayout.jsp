@@ -11,6 +11,39 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
 <link rel = "stylesheet" href = "resources/css/mainLayout/test2.css">
+<link rel = "stylesheet" href = "resources/css/mainLayout/st4.css">
+<link rel = "stylesheet" href = "resources/css/mainLayout/ordertest1.css">
+<style>
+
+#search-wrap .search-bottom .category-wrap .title {
+  font-size: 15px;
+  letter-spacing: -0.23px;
+  margin-top: 20px;
+  margin-bottom: 2px;
+}
+
+#search-wrap .search-bottom .category-wrap ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#search-wrap .search-bottom .category-wrap ul li {
+  padding: 0px 7px 9px 0px;
+  height: 29px;
+  margin-top: 5px;
+}
+
+#search-wrap .search-bottom .category-wrap ul li a {
+  display: inline-block;
+  height: 30px;
+  line-height: 15px;
+  padding: 6px 13px;
+  border-radius: 51.2px;
+  font-size: 14px;
+  border: 1px solid rgb(228, 228, 228);
+}
+
+</style>
 </head>
 <body>
 <!-- 모달 -->
@@ -114,6 +147,104 @@
           <div class="right-btn">
             <button class="search"></button>
             <button class="language"></button>
+            <!-- 검색 돋보기 아이콘 클릭 시 전체 검색 창-->
+            <div id="search-wrap" style="display : none;">
+	            <div id="inner-search">
+	              <div class="search-form">
+	                <form>
+	                  <input class="search-input" />
+	                </form>
+	                <button class="search-close">취소</button>
+	              </div>
+	              <div class="search-bottom">
+	                <div class = "search-result">
+	                  <ul>
+	                    <li class=""><a href="#">15cm 피규어-<span style="color : red;">라이언</span></a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	
+	                  </ul>
+	                </div>
+	                <div class="character-wrap">
+	                  <ul>
+	                    <li class="character-li"><a href="#" class="ryan"></a>
+	                      <p>라이언</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="apeach"></a>
+	                      <p>어피치</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="muzi"></a>
+	                      <p>무지</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="frodo"></a>
+	                      <p>프로도</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="neo"></a>
+	                      <p>네오</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="tube"></a>
+	                      <p>튜브</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="jayz"></a>
+	                      <p>제이지</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="con"></a>
+	                      <p>콘</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="choonsic"></a>
+	                      <p>춘식</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="jordy"></a>
+	                      <p>죠르디</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="scappy"></a>
+	                      <p>스카피</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="angmond"></a>
+	                      <p>앙몬드</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="pendajr"></a>
+	                      <p>팬다주니어</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="kereberony"></a>
+	                      <p>케로&베로니</p>
+	                    </li>
+	                    <li class="character-li"><a href="#" class="kumdori"></a>
+	                      <p>꿈돌이</p>
+	                    </li>
+	                  </ul>
+	                </div>
+	                <hr>
+	                <div class="category-wrap">
+	                  <div class="title">카테고리</div>
+	                  <ul>
+	                    <li class="category-li"><a href="#" >전체</a></li>
+	                    <li class="category-li"><a href="#" >토이</a></li>
+	                    <li class="category-li"><a href="#" >리빙</a></li>
+	                    <li class="category-li"><a href="#" >잡화</a></li>
+	                    <li class="category-li"><a href="#" >문구</a></li>
+	                    <li class="category-li"><a href="#" >의류</a></li>
+	                    <li class="category-li"><a href="#" >디지털</a></li>
+	                    <li class="category-li"><a href="#" >여행/레져</a></li>
+	                    <li class="category-li"><a href="#" >식품</a></li>
+	                    <li class="category-li"><a href="#" >테마 기획전</a></li>
+	                  </ul>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
           </div>
         </div>
         <div id="inner-tab">
@@ -192,7 +323,24 @@
 	var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
 	
-
+	var searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
+	
+	
+	//PC, MOBILE 구별
+	function deviceCheck() {
+	    // 디바이스 종류 설정
+	    var pcDevice = "win16|win32|win64|mac|macintel";
+	 
+	    // 접속한 디바이스 환경
+	    if ( navigator.platform ) {
+	        if ( pcDevice.indexOf(navigator.platform.toLowerCase()) < 0 ) {
+	            return 1//mobile 인 경우
+	        } else {
+	        	return 2;//pc 인경우
+	        }
+	    }
+	}
+	
 	$(document).ready(function() {
 
 		// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
@@ -307,9 +455,72 @@
 	    }
 	    
 	    
+	    /* 검색관련 */
+	    $('.search').click(function(){
+	    	searchYn *= -1;
+	    	const devcheck = deviceCheck();
+	    	
+	    	if (searchYn == 1) {
+	    		$('#search-wrap').css('z-index',9999);
+	    		$('#search-wrap').css('display','flex');
+	    		$('#kakao-content').css('display','none');
+	    		
+	    		$('body').css('height','580px');
+	    		$('html').css('height','580px');
+	    		
+	    	} else {
+	    		$('#search-wrap').css('z-index',-10);
+	    		$('#search-wrap').css('display','none');
+	    		$('#kakao-content').css('display','flex');
+	    		
+	    		//const BODY = parseInt($('body').css('height').replace('px','')) //+ height;
+				//const HTML = parseInt($('html').css('height').replace('px','')) //+ height;
+	    	}
+	    });
+	    
+	    //검색창 쓸때 이벤트
+	    window.addEventListener(
+	      "keyup",
+	      function(){
+
+	        //검색글자 길이
+	        const SEARCHLEN = $('.search-input').val().length;
+
+	        //검색글자가 있으면 .search-bottom 을 숨김
+	        if (SEARCHLEN == 0) {
+	          searchVisible(0);
+	        } else {
+	          searchVisible(1);
+	        }
+	    });
+
+	
+	    //취소버튼
+	    $('.search-close').click(function(){
+	    	$('.search-input').val('');
+	      	searchVisible(0);
+	      	searchYn = -1;
+	      	$('#search-wrap').css('z-index',-10);
+  			$('#search-wrap').css('display','none');
+  			$('#kakao-content').css('display','flex');
+	    });
+	    
+	    //검색결과에 따라 내용 숨길지 정해주는 함수
+	    function searchVisible(searchFlag) {
+	      if (searchFlag == 0) {
+	        $('.character-wrap').css('display','flex');
+	        $('.category-wrap').css('visibility','visible');
+	        $('.search-result').css('display','none');
+	      } else {
+	        $('.character-wrap').css('display','none');
+	        $('.category-wrap').css('visibility','hidden');
+	        $('.search-result').css('display','flex');
+	      }
+	    }
+	    
 	});
 
-
+	
     
 </script>
 </body>
