@@ -158,7 +158,8 @@
 	              </div>
 	              <div class="search-bottom">
 	                <div class = "search-result">
-	                  <ul>
+	                  <!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
+	                  <ul> 
 	                    <li class=""><a href="#">15cm 피규어-<span style="color : red;">라이언</span></a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
@@ -174,7 +175,6 @@
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	
 	                  </ul>
 	                </div>
 	                <div class="character-wrap">
@@ -318,210 +318,233 @@
   
 
 <script>
-	
-	
+
 	var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
-	
+
 	var searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
-	
-	
+
 	//PC, MOBILE 구별
 	function deviceCheck() {
-	    // 디바이스 종류 설정
-	    var pcDevice = "win16|win32|win64|mac|macintel";
-	 
-	    // 접속한 디바이스 환경
-	    if ( navigator.platform ) {
-	        if ( pcDevice.indexOf(navigator.platform.toLowerCase()) < 0 ) {
-	            return 1//mobile 인 경우
-	        } else {
-	        	return 2;//pc 인경우
-	        }
-	    }
-	}
-	
-	$(document).ready(function() {
+		// 디바이스 종류 설정
+		var pcDevice = "win16|win32|win64|mac|macintel";
 
-		// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
-		$("li.character-accordion-button").on("click", function () {
-	
-			if (!left_side_var_chr) {
-	    		$(".character-menu").css("display", "inline-block");
-	    		left_side_var_chr = true;
-	    
-		    	$(".character-accordion-button .drop-down").css(
-		        	"transform",
-	        		"rotate(180deg)"
-	    		);   
+		// 접속한 디바이스 환경
+		if (navigator.platform) {
+			if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
+				return 1//mobile 인 경우
 			} else {
-		    	$(".character-menu").css("display", "none");
-		    	left_side_var_chr = false;
-	
-	    		$(".character-accordion-button .drop-down").css(
-	        		"transform",
-	        		"rotate(360deg)"
-	    		);
+				return 2;//pc 인경우
 			}
-		});
-		
-		// 왼쪽 사이드바 카테고리 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리2
-		$("li.category-accordion-button").on("click", function () {
-	
-		    if (!left_side_var_category) {
-		        $(".category-menu").css("display", "inline-block");
-		        $(".category-accordion-button .drop-down").css(
-		            "transform",
-		            "rotate(180deg)"
-		        );
-		        left_side_var_category = true;
-		    } else {
-		        $(".category-menu").css("display", "none");
-		        $(".category-accordion-button .drop-down").css(
-		            "transform",
-		            "rotate(360deg)"
-		        );
-		        left_side_var_category = false;
-		    }    
-		});
-		
-		
-		//왼쪽 사이드바 클릭하면 나오게 되는것
-		$("#burger-check").click(function(){
-		    openNavigation();
-			
-		});
-		
-		//모달제거 -> 바디를 아무데나 눌러서 사이드바 안보이게
-		$('#mask').click(function () {  
-				
-			$(this).hide();  
-			$('.window').hide(); 
-			closeNavigation();
-		}); 
+		}
+	}
 
+	$(document).ready(
+			function() {
 
-	    
-	    /* -----------로그인 관련------------ */
-	    //로그인 클릭 -> 네비게이션 상단
-	    $('#login-need').click(function(){
-	    	closeNavigation();
-	    	goLoginPage();
-	    });
-	    
-	    //로그인 클릭 -> 네비게이션 하단
-	    $('.login-or-out').click(function(){
-	    	if ($(this).attr('id') == null) {
-	    		closeNavigation();
-	    		goLoginPage();
-	    	} else {
-	    		closeNavigation();
-	    		//로그아웃 -> 처리해야함
-	    		goLogOut();
-	    	}
-	    });
-	   
-	    //로그인 처리
-	    function goLoginPage() {
-	    	location.href = "/SYJ_Mall/login.action";
-	    }
-	    //로그아웃 처리
-	    function goLogOut() {
-	    	location.href = "/SYJ_Mall/userLogout.action";
-	    }
-	    
-	    
-	    /* -----------네비게이션 바 관련------------ */
-	    //네비게이션 바 숨김처리
-	    function closeNavigation() {
-	    	$("#burger-check").prop("checked", false);
-	    	$(document.body).css('overflow','visible');
-	    }
-	    
-	    //네비게이션 바 보임처리
-	    function openNavigation() {
-	    	
-	    	//화면의 높이와 너비를 구한다.
-	        var maskHeight = $(document).height();  
-	        var maskWidth = $(window).width();  
-			
-	        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
-	        $('#mask').css({'width':maskWidth,'height':maskHeight});  
-			
-	        //애니메이션 효과    
-	        $('#mask').fadeTo("slow",0.8);  
-	        
-	        $(document.body).css('overflow','hidden');
-	    }
-	    
-	    
-	    /* 검색관련 */
-	    $('.search').click(function(){
-	    	searchYn *= -1;
-	    	const devcheck = deviceCheck();
-	    	
-	    	if (searchYn == 1) {
-	    		$('#search-wrap').css('z-index',9999);
-	    		$('#search-wrap').css('display','flex');
-	    		$('#kakao-content').css('display','none');
-	    		
-	    		$('body').css('height','580px');
-	    		$('html').css('height','580px');
-	    		
-	    	} else {
-	    		$('#search-wrap').css('z-index',-10);
-	    		$('#search-wrap').css('display','none');
-	    		$('#kakao-content').css('display','flex');
-	    		
-	    		//const BODY = parseInt($('body').css('height').replace('px','')) //+ height;
-				//const HTML = parseInt($('html').css('height').replace('px','')) //+ height;
-	    	}
-	    });
-	    
-	    //검색창 쓸때 이벤트
-	    window.addEventListener(
-	      "keyup",
-	      function(){
+				// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
+				$("li.character-accordion-button").on(
+						"click",
+						function() {
 
-	        //검색글자 길이
-	        const SEARCHLEN = $('.search-input').val().length;
+							if (!left_side_var_chr) {
+								$(".character-menu").css("display",
+										"inline-block");
+								left_side_var_chr = true;
 
-	        //검색글자가 있으면 .search-bottom 을 숨김
-	        if (SEARCHLEN == 0) {
-	          searchVisible(0);
-	        } else {
-	          searchVisible(1);
-	        }
-	    });
+								$(".character-accordion-button .drop-down")
+										.css("transform", "rotate(180deg)");
+							} else {
+								$(".character-menu").css("display", "none");
+								left_side_var_chr = false;
 
-	
-	    //취소버튼
-	    $('.search-close').click(function(){
-	    	$('.search-input').val('');
-	      	searchVisible(0);
-	      	searchYn = -1;
-	      	$('#search-wrap').css('z-index',-10);
-  			$('#search-wrap').css('display','none');
-  			$('#kakao-content').css('display','flex');
-	    });
-	    
-	    //검색결과에 따라 내용 숨길지 정해주는 함수
-	    function searchVisible(searchFlag) {
-	      if (searchFlag == 0) {
-	        $('.character-wrap').css('display','flex');
-	        $('.category-wrap').css('visibility','visible');
-	        $('.search-result').css('display','none');
-	      } else {
-	        $('.character-wrap').css('display','none');
-	        $('.category-wrap').css('visibility','hidden');
-	        $('.search-result').css('display','flex');
-	      }
-	    }
-	    
-	});
+								$(".character-accordion-button .drop-down")
+										.css("transform", "rotate(360deg)");
+							}
+						});
 
-	
-    
+				// 왼쪽 사이드바 카테고리 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리2
+				$("li.category-accordion-button").on(
+						"click",
+						function() {
+
+							if (!left_side_var_category) {
+								$(".category-menu").css("display",
+										"inline-block");
+								$(".category-accordion-button .drop-down").css(
+										"transform", "rotate(180deg)");
+								left_side_var_category = true;
+							} else {
+								$(".category-menu").css("display", "none");
+								$(".category-accordion-button .drop-down").css(
+										"transform", "rotate(360deg)");
+								left_side_var_category = false;
+							}
+						});
+
+				//왼쪽 사이드바 클릭하면 나오게 되는것
+				$("#burger-check").click(function() {
+					openNavigation();
+
+				});
+
+				//모달제거 -> 바디를 아무데나 눌러서 사이드바 안보이게
+				$('#mask').click(function() {
+
+					$(this).hide();
+					$('.window').hide();
+					closeNavigation();
+				});
+
+				/* -----------로그인 관련------------ */
+				//로그인 클릭 -> 네비게이션 상단
+				$('#login-need').click(function() {
+					closeNavigation();
+					goLoginPage();
+				});
+
+				//로그인 클릭 -> 네비게이션 하단
+				$('.login-or-out').click(function() {
+					if ($(this).attr('id') == null) {
+						closeNavigation();
+						goLoginPage();
+					} else {
+						closeNavigation();
+						//로그아웃 -> 처리해야함
+						goLogOut();
+					}
+				});
+
+				//로그인 처리
+				function goLoginPage() {
+					location.href = "/SYJ_Mall/login.action";
+				}
+				//로그아웃 처리
+				function goLogOut() {
+					location.href = "/SYJ_Mall/userLogout.action";
+				}
+
+				/* -----------네비게이션 바 관련------------ */
+				//네비게이션 바 숨김처리
+				function closeNavigation() {
+					$("#burger-check").prop("checked", false);
+					$(document.body).css('overflow', 'visible');
+				}
+
+				//네비게이션 바 보임처리
+				function openNavigation() {
+
+					//화면의 높이와 너비를 구한다.
+					var maskHeight = $(document).height();
+					var maskWidth = $(window).width();
+
+					//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+					$('#mask').css({
+						'width' : maskWidth,
+						'height' : maskHeight
+					});
+
+					//애니메이션 효과    
+					$('#mask').fadeTo("slow", 0.8);
+
+					$(document.body).css('overflow', 'hidden');
+				}
+
+				/* 검색관련 */
+				$('.search').click(function() {
+					searchYn *= -1;
+					const devcheck = deviceCheck();
+
+					if (searchYn == 1) {
+						$('#search-wrap').css('z-index', 9999);
+						$('#search-wrap').css('display', 'flex');
+						$('#kakao-content').css('display', 'none');
+						//$('#kakao-content').css('visibility','hidden');
+
+						$('body').css('height', '580px');
+						$('html').css('height', '580px');
+
+						if (deviceCheck() == 1) {
+							$('.search-input').css('width', '300px');
+						}
+
+					} else {
+						$('#search-wrap').css('z-index', -10);
+						$('#search-wrap').css('display', 'none');
+						//$('#kakao-content').css('display','flex');
+						//$('#kakao-content').css('visibility','visible');
+						$('#kakao-content').css('display', 'block');
+					}
+				});
+
+				//검색창 쓸때 이벤트
+				window.addEventListener("keyup", function() {
+
+					//검색글자 길이
+					const SEARCHLEN = $('.search-input').val().length;
+					const SEARCHVAL = $('.search-input').val();
+					
+					//검색글자가 있으면 .search-bottom 을 숨김
+					if (SEARCHLEN == 0) {
+						searchVisible(0);
+					} else {
+						searchVisible(1);
+						
+						//검색엔진 불러오기
+						$.ajax({
+							type : "GET",
+							url : "/SYJ_Mall/searchword.action",
+							data : "inputWord=" + SEARCHVAL,
+							dataType : "json",
+							success : function(result) {
+								//console.log(result[0]);
+								
+								//여기서 품목 불러오는 처리 수행해야함
+								var xxlen = result.length;
+								if (xxlen != 0 ) {
+									for (var i = 0; i < xxlen; i++) {
+										console.log("=================");
+										console.log(result[i].productSeq);
+										console.log(result[i].productName);
+									}
+								}
+								
+								
+							},
+							error : function(a, b, c) {
+								console.log(a, b, c);
+							}
+						});
+					}
+
+				});
+
+				//취소버튼
+				$('.search-close').click(function() {
+					$('.search-input').val('');
+					searchVisible(0);
+					searchYn = -1;
+					$('#search-wrap').css('z-index', -10);
+					$('#search-wrap').css('display', 'none');
+					$('#kakao-content').css('display', 'block');
+					//$('#kakao-content').css('display','flex');
+					//$('#kakao-content').css('visibility','visible');
+				});
+
+				//검색결과에 따라 내용 숨길지 정해주는 함수
+				function searchVisible(searchFlag) {
+					if (searchFlag == 0) {
+						$('.character-wrap').css('display', 'flex');
+						$('.category-wrap').css('visibility', 'visible');
+						$('.search-result').css('display', 'none');
+					} else {
+						$('.character-wrap').css('display', 'none');
+						$('.category-wrap').css('visibility', 'hidden');
+						$('.search-result').css('display', 'flex');
+					}
+				}
+
+			});
 </script>
 </body>
 </html>

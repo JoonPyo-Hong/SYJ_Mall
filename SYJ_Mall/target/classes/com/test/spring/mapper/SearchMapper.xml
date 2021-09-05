@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SYJSearch">
+
+	<select id="searchLittleProd" resultType="com.test.SYJ_Mall.search.SearchNameDTO" parameterType="String" statementType="CALLABLE" >
+		{
+			call dbo.kakao_search_product(#{inputWord})
+		}
+	</select>
+
+
+
+</mapper>

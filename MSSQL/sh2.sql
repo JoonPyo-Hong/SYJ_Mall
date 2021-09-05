@@ -1345,3 +1345,35 @@ begin tran
 insert into dbo.ADVERTISE_INFO values (N'JYP',N'jyp.jpg',N'https://www.jype.com/',1500000000)
 
 commit tran
+
+
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-09-05  
+	Description : 검색결과  
+	     
+	History	: 2021-09-05 Seunghwan Shin	#최초 생성 
+*/ 
+alter proc dbo.kakao_search_product
+	@input_word nvarchar(100)
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin 
+    
+	select
+		product_id as productSeq
+	,	product_nm as productName
+	from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+	where product_nm like N'%'+ @input_word  + N'%'
+	
+
+end
+
+
+--select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+
+exec dbo.kakao_search_product N'라이언'
