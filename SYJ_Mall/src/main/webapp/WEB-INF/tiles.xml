@@ -55,8 +55,10 @@
 		<put-attribute name = "body" value="/WEB-INF/views/my/myMain.jsp"/>	
 	</definition>
 	
-	
-	
+	<!-- 결제페이지 -->
+	<definition name = "/tiles/paymentStart.topping" extends="default">
+		<put-attribute name = "body" value="/WEB-INF/views/pay/payment.jsp"/>	
+	</definition>
 	
 	<!-- 재지정 -->
 	<definition name="newbdefault" template="/WEB-INF/views/Layout/totalLayout.jsp">
@@ -68,6 +70,11 @@
 	<definition name = "/tiles/popularItem.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/popular/popularMain.jsp"/>	
 	</definition>
+	
+	<!-- 결제페이지 -->
+	<definition name = "/tiles/paymentStart.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/pay/payment.jsp"/>	
+	</definition>	
 	
 	
 	
