@@ -17,6 +17,15 @@ public class SearchService implements ISearchService {
 		
 		List<SearchNameDTO> dtoList = dao.getProdInfo(inputWord);
 		
+		//상품에 해당하는 단어를 span 태그로 묶어서 빨간색으로 표시해줄것
+		for (SearchNameDTO dto : dtoList) {
+			//StringBuffer sb = new StringBuffer();
+			String name = dto.getProductName();
+			String repName = name.replaceAll(inputWord, "<span style='color: red;'>"+inputWord+"</span>");
+			
+			dto.setProductName(repName);
+		}
+		
 		
 		return dtoList;
 	}

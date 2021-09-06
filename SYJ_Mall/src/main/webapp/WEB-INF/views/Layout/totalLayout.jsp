@@ -159,8 +159,8 @@
 	              <div class="search-bottom">
 	                <div class = "search-result">
 	                  <!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
-	                  <ul> 
-	                    <li class=""><a href="#">15cm 피규어-<span style="color : red;">라이언</span></a></li>
+	                  <ul id="search-content-prod"> 
+	                    <!-- <li class=""><a href="#">15cm 피규어-<span style="color : red;">라이언</span></a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
@@ -174,7 +174,7 @@
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
 	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
+	                    <li class=""><a href="#">15cm 피규어-라이언</a></li> -->
 	                  </ul>
 	                </div>
 	                <div class="character-wrap">
@@ -503,9 +503,13 @@
 								var xxlen = result.length;
 								if (xxlen != 0 ) {
 									for (var i = 0; i < xxlen; i++) {
-										console.log("=================");
-										console.log(result[i].productSeq);
-										console.log(result[i].productName);
+										//console.log("=================");
+										//console.log(result[i].productSeq);
+										//console.log(result[i].productName);
+										$('#search-content-prod').append(
+												'<li class=""><a href="#' +result[i].productSeq+'">'
+												+ result[i].productName + '</a></li>'
+										)
 									}
 								}
 								
