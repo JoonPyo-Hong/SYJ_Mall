@@ -2,8 +2,26 @@
   border-top: 1px solid rgb(227, 229, 232);
 }
 
+/* 공통 체크박스 이미지 */
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  flex: 1 1 auto;
+  background-size: 25px;
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px;
+  background-image: url(../images/product_order/ico_checked.png);
+}
+
+input[type="checkbox"]:checked + label {
+  background-image: url(../images/product_order/ico_checked_ok.png);
+}
+
 /* order-section */
-/* 공통 */
 
 .order-section {
   padding: 25px;
@@ -18,16 +36,21 @@
   letter-spacing: -0.2px;
   color: rgb(0, 0, 0);
   padding-bottom: 11px;
+}
+
+.order-section-title.first-title {
   padding-top: 26px;
 }
+
 .order-section-title .point-popup {
+  text-decoration: underline;
   font-size: 13px;
   color: rgb(154, 154, 158);
 }
 
 /* 01 주문제품 영역 */
+/* 문 제품 아이템 리스트 */
 
-/* 상품 하나 */
 .product-item-list {
   display: flex;
   align-items: flex-start;
@@ -58,7 +81,7 @@
 }
 
 .product-text-row.name-row {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .product-list-delete-btn {
@@ -68,6 +91,26 @@
     no-repeat;
   background-size: 16px 16px;
   cursor: pointer;
+}
+
+.product-text-row.count-row {
+  align-items: flex-end;
+}
+
+.product-text-row .product-count {
+  width: 80px;
+  height: 35px;
+}
+
+.product-text-row .product-count select {
+  width: 80px;
+  height: 35px;
+  border: 1px solid rgb(227, 229, 232);
+  padding: 0px 10px;
+}
+
+.product-text-row .product-price {
+  font-size: 16px;
 }
 
 /* 상품 총 가격 */
@@ -97,8 +140,8 @@
 }
 
 /* 02 배송지정보 */
-
 /* 배송지 주소 입력 */
+
 .delivery-address {
   display: flex;
   flex-direction: column;
@@ -106,6 +149,7 @@
 
 .delivery-address .address-title {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding-top: 10px;
   margin-bottom: 7px;
@@ -126,6 +170,61 @@
 }
 
 .delivery-address .address-title .check-box label {
+  font-size: 15px;
+}
+
+.delivery-address .input-text-row {
+  margin-bottom: 8px;
+}
+
+.delivery-address .input-text-row input,
+textarea,
+select {
+  width: 100%;
+  height: 45px;
+  text-indent: 10px;
+  border: 1px solid rgb(227, 229, 232);
+  font-size: 16px;
+}
+
+.delivery-address .input-text-row.field-address {
+  position: relative;
+}
+
+.delivery-address .input-text-row.field-address .field-address-search-icon {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  display: block;
+  top: 0;
+  right: 2px;
+  background: url(../images/product_order/ico_search.png) center center
+    no-repeat;
+  background-size: 45%;
+  cursor: pointer;
+}
+
+.delivery-address .input-text-row textarea {
+  resize: none;
+  height: 70px;
+  line-height: 1.5;
+  text-indent: 10px;
+  padding: 15px 0;
+}
+
+.delivery-address .input-text-row .textarea-messages {
+  margin-top: 5px;
+  padding-bottom: 15px;
+  font-size: 13px;
+  color: rgb(154, 154, 154);
+}
+
+.delivery-address .check-box-area .check-box-container {
+  display: flex;
+  align-items: center;
+}
+
+.delivery-address .check-box-text {
   margin: 0px 10px;
   font-size: 15px;
 }
@@ -152,10 +251,102 @@
 }
 
 /* 03 결제하기 */
+/* 결제수단 선택 */
+.pay-select-wrap .pay-select-title {
+  font-weight: bold;
+  padding-top: 20px;
+  height: 38px;
+  font-size: 16px;
+}
+
+.pay-select-wrap .pay-select-title {
+  font-weight: bold;
+  padding-top: 20px;
+  height: 38px;
+  font-size: 16px;
+}
+
+.pay-select-wrap .pay-methods-paylabel-wrap {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.pay-select-wrap .pay-methods-paylabel {
+  display: block;
+  width: calc(50% - 3px);
+  height: 77px;
+  padding-top: 35px;
+  border: 2px solid rgb(227, 229, 232);
+  text-align: center;
+  color: rgb(212, 215, 225);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.pay-select-wrap .pay-methods-paylabel::before {
+  content: "";
+  display: block;
+  height: 28px;
+  background: url(../images/product_order/payment_kakaopay_default.png) center
+    center / auto 21px no-repeat;
+  margin-bottom: 18px;
+}
+
+.pay-select-wrap .pay-methods-paylabel.creditcard::before {
+  background: url(../images/product_order/payment_creditcard_default.png) center
+    center / auto 21px no-repeat;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.pay-select-wrap input[type="radio"]:checked + label {
+  border-color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+  z-index: 1;
+}
+
+.pay-select-wrap input[type="radio"]:checked + .pay-methods-paylabel::before {
+  background: url(../images/product_order/payment_kakaopay_selected.png) center
+    center / auto 21px no-repeat;
+}
+
+.pay-select-wrap
+  input[type="radio"]:checked
+  + .pay-methods-paylabel.creditcard::before {
+  background: url(../images/product_order/payment_creditcard_selected.png)
+    center center / auto 21px no-repeat;
+}
+
+.pay-select-wrap .pay-methods-help {
+  position: relative;
+  background: rgb(255, 234, 1);
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.pay-select-wrap .pay-methods-help::after {
+  display: inline-block;
+  content: "";
+  position: absolute;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  top: -9px;
+  left: 10%;
+  border-bottom: 10px solid rgb(255, 234, 1);
+}
+
+/* 최종 금액 및 포인트 사용 */
 .pay-list-ul {
   padding-top: 14px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(245, 246, 246);
 }
 
 .pay-list-li {
@@ -163,4 +354,133 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 24px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.pay-list-li input {
+  width: 270px;
+  height: 45px;
+  line-height: 23px;
+  font-size: 16px;
+  border-radius: 4px !important;
+  border: 1px solid rgb(227, 229, 232);
+  text-align: right;
+  padding: 0 15px;
+}
+
+.pay-list-li .point {
+  display: flex;
+  flex-direction: column;
+}
+
+.pay-list-li .point .total-point {
+  display: inline-block;
+  color: rgb(0, 135, 255);
+  font-weight: bold;
+  margin-left: 4px;
+  font-size: 13px;
+  line-height: 45px;
+}
+
+.pay-list-li .pay-detail-button {
+  width: 100px;
+  height: 46px;
+  font-size: 15px;
+  margin-left: 8px;
+  line-height: 46px;
+  background: rgb(239, 240, 244);
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.pay-list-li .total-price {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.pay-agree-wrapper {
+  margin-top: 20px;
+}
+
+.pay-agree-wrapper .check-box-area {
+  display: flex;
+  margin: 0px 0px 10px;
+}
+
+.pay-agree-wrapper .check-box-area .check-box-container {
+  display: flex;
+  align-items: center;
+  margin: 0px 0px 10px 10px;
+}
+
+.pay-agree-wrapper .check-box-area .check-box-label {
+  display: flex;
+}
+
+.pay-agree-wrapper .check-box-area .check-box-label .required {
+  margin-left: 7px;
+  font-size: 13px;
+  color: rgb(154, 154, 158);
+}
+
+.pay-agree-wrapper .check-box-area .check-box-text {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.pay-agree-wrapper .check-box-area .check-box-text.underline {
+  text-decoration: underline;
+}
+
+/* 결제하기 버튼 */
+.pay-buttont-wrap {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.pay-buttont-wrap .pay-button {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  background: rgb(212, 215, 225);
+  color: rgb(255, 255, 255);
+}
+
+.pay-notice-wrap {
+  padding: 20px;
+  background: rgb(247, 247, 247);
+}
+
+.pay-notice-wrap strong {
+  display: block;
+  padding-bottom: 3px;
+  font-size: 15px;
+}
+
+.pay-notice-wrap ul li {
+  position: relative;
+  padding-left: 7px;
+  margin-top: 6px;
+  font-size: 14px;
+  color: rgb(154, 154, 158);
+}
+
+.pay-notice-wrap ul li::before {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  background-color: rgb(154, 154, 158);
+  width: 3px;
+  height: 3px;
+  top: 8px;
+  left: 0px;
+  border-radius: 50%;
+  margin-right: 5px;
 }

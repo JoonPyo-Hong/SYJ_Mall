@@ -86,6 +86,10 @@ body {
   -webkit-text-size-adjust: none;
 }
 
+/* placeholder 색상 변경 */
+input::placeholder {color:#9a9a9e;}
+textarea::placeholder {color:#9a9a9e;}
+
 /* 뷰포트 변환시 폰트크기 자동확대 방지. */
 input:checked[type="checkbox"] {
   background-color: #666;
