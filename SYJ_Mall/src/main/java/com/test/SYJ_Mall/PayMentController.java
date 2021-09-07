@@ -14,6 +14,6 @@ public class PayMentController {
 	@RequestMapping(value = "/payment.action", method = { RequestMethod.GET })
 	public String main(Model model, HttpServletRequest request) {
 
-		return "/tiles/paymentStart.layout";
+		return "/pay/payment";
 	}
 }

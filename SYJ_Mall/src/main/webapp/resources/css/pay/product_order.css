@@ -1,0 +1,166 @@
+.product-order {
+  border-top: 1px solid rgb(227, 229, 232);
+}
+
+/* order-section */
+/* 공통 */
+
+.order-section {
+  padding: 25px;
+  border-bottom: 1px solid rgb(227, 229, 232);
+}
+
+.order-section-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: -0.2px;
+  color: rgb(0, 0, 0);
+  padding-bottom: 11px;
+  padding-top: 26px;
+}
+.order-section-title .point-popup {
+  font-size: 13px;
+  color: rgb(154, 154, 158);
+}
+
+/* 01 주문제품 영역 */
+
+/* 상품 하나 */
+.product-item-list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 15px 0px;
+  border-bottom: 1px solid rgb(242, 242, 242);
+}
+
+.product-img {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: url(../images/product_order/20210617184011808_8809721509685_8809721509685_AW_00.jpg)
+    no-repeat;
+  background-size: contain;
+}
+
+.product-text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-text-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.product-text-row.name-row {
+  margin-bottom: 20px;
+}
+
+.product-list-delete-btn {
+  width: 24px;
+  height: 24px;
+  background: url(../images/mypage_seen/delete-small-18-light-grey.png)
+    no-repeat;
+  background-size: 16px 16px;
+  cursor: pointer;
+}
+
+/* 상품 총 가격 */
+
+.product-total-price {
+  padding-top: 22px;
+  margin-top: 0px;
+}
+.product-total-price .price-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  line-height: 30px;
+}
+.product-total-price .price-list .title {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.product-total-price .price-list .price {
+  font-size: 16px;
+}
+
+.product-total-price .price-list .price.free {
+  color: rgb(154, 154, 158);
+}
+
+/* 02 배송지정보 */
+
+/* 배송지 주소 입력 */
+.delivery-address {
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-address .address-title {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  margin-bottom: 7px;
+}
+
+.delivery-address .address-title .sub-title {
+  height: 35px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 30px;
+}
+
+.delivery-address .address-title .check-box {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.delivery-address .address-title .check-box label {
+  margin: 0px 10px;
+  font-size: 15px;
+}
+
+/* 배달 도착 예정일 및 공지 */
+.delivery-information {
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 1px solid rgb(242, 242, 242);
+}
+
+.delivery-information .delivery-information-title {
+  padding-left: 25px;
+  font-size: 15px;
+  background-size: 18px;
+  margin-bottom: 10px;
+  background: url(../images/product_order/ico_deliver.png) no-repeat;
+  background-size: 20px auto;
+}
+
+.delivery-information .delivery-information-contents {
+  font-size: 13px;
+  color: rgb(154, 154, 158);
+}
+
+/* 03 결제하기 */
+.pay-list-ul {
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pay-list-li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
