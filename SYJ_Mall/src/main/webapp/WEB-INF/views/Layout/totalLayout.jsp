@@ -499,6 +499,7 @@
 							success : function(result) {
 								//console.log(result[0]);
 								
+								$('.search-content-context').remove();
 								//여기서 품목 불러오는 처리 수행해야함
 								var xxlen = result.length;
 								if (xxlen != 0 ) {
@@ -507,7 +508,7 @@
 										//console.log(result[i].productSeq);
 										//console.log(result[i].productName);
 										$('#search-content-prod').append(
-												'<li class=""><a href="#' +result[i].productSeq+'">'
+												'<li class="search-content-context"><a href="#' +result[i].productSeq+'">'
 												+ result[i].productName + '</a></li>'
 										)
 									}
