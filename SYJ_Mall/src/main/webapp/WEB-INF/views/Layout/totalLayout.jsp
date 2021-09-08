@@ -11,39 +11,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
 <link rel = "stylesheet" href = "resources/css/mainLayout/test2.css">
-<link rel = "stylesheet" href = "resources/css/mainLayout/st4.css">
+<link rel = "stylesheet" href = "resources/css/mainLayout/st5.css">
 <link rel = "stylesheet" href = "resources/css/mainLayout/ordertest1.css">
-<style>
-
-#search-wrap .search-bottom .category-wrap .title {
-  font-size: 15px;
-  letter-spacing: -0.23px;
-  margin-top: 20px;
-  margin-bottom: 2px;
-}
-
-#search-wrap .search-bottom .category-wrap ul {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#search-wrap .search-bottom .category-wrap ul li {
-  padding: 0px 7px 9px 0px;
-  height: 29px;
-  margin-top: 5px;
-}
-
-#search-wrap .search-bottom .category-wrap ul li a {
-  display: inline-block;
-  height: 30px;
-  line-height: 15px;
-  padding: 6px 13px;
-  border-radius: 51.2px;
-  font-size: 14px;
-  border: 1px solid rgb(228, 228, 228);
-}
-
-</style>
 </head>
 <body>
 <!-- 모달 -->
@@ -152,7 +121,7 @@
 	            <div id="inner-search">
 	              <div class="search-form">
 	                <form>
-	                  <input class="search-input" />
+	                  <input class="search-input" type="text" />
 	                </form>
 	                <button class="search-close">취소</button>
 	              </div>
@@ -160,21 +129,7 @@
 	                <div class = "search-result">
 	                  <!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
 	                  <ul id="search-content-prod"> 
-	                    <!-- <li class=""><a href="#">15cm 피규어-<span style="color : red;">라이언</span></a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
-	                    <li class=""><a href="#">15cm 피규어-라이언</a></li> -->
+	                 	<!-- 상품이름 리스트 -->
 	                  </ul>
 	                </div>
 	                <div class="character-wrap">
@@ -319,10 +274,10 @@
 
 <script>
 
-	var left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
-	var left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
+	let left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
+	let left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
 
-	var searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
+	let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
 
 	//PC, MOBILE 구별
 	function deviceCheck() {
@@ -435,8 +390,8 @@
 				function openNavigation() {
 
 					//화면의 높이와 너비를 구한다.
-					var maskHeight = $(document).height();
-					var maskWidth = $(window).width();
+					let maskHeight = $(document).height();
+					let maskWidth = $(window).width();
 
 					//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
 					$('#mask').css({
@@ -459,7 +414,6 @@
 						$('#search-wrap').css('z-index', 9999);
 						$('#search-wrap').css('display', 'flex');
 						$('#kakao-content').css('display', 'none');
-						//$('#kakao-content').css('visibility','hidden');
 
 						$('body').css('height', '580px');
 						$('html').css('height', '580px');
@@ -471,15 +425,14 @@
 					} else {
 						$('#search-wrap').css('z-index', -10);
 						$('#search-wrap').css('display', 'none');
-						//$('#kakao-content').css('display','flex');
-						//$('#kakao-content').css('visibility','visible');
 						$('#kakao-content').css('display', 'block');
 					}
 				});
 
 				//검색창 쓸때 이벤트
-				window.addEventListener("keyup", function() {
-
+				$('.search-input').keyup(function(e){
+					
+					console.log(e.keyCode);
 					//검색글자 길이
 					const SEARCHLEN = $('.search-input').val().length;
 					const SEARCHVAL = $('.search-input').val();
@@ -497,19 +450,18 @@
 							data : "inputWord=" + SEARCHVAL,
 							dataType : "json",
 							success : function(result) {
-								//console.log(result[0]);
-								
+								//기존에 존재하는 li 태그 모두 지워줌
 								$('.search-content-context').remove();
+								
 								//여기서 품목 불러오는 처리 수행해야함
-								var xxlen = result.length;
-								if (xxlen != 0 ) {
-									for (var i = 0; i < xxlen; i++) {
-										//console.log("=================");
-										//console.log(result[i].productSeq);
-										//console.log(result[i].productName);
+								let prodLen = result.length;
+								
+								if (prodLen != 0 ) {
+									for (let i = 0; i < prodLen; i++) {
+										//키워드가 들어가는 품목 보여주기
 										$('#search-content-prod').append(
-												'<li class="search-content-context"><a href="#' +result[i].productSeq+'">'
-												+ result[i].productName + '</a></li>'
+												'<li class="search-content-context"><a href="/SYJ_Mall/searchresult.action?inputName=' + result[i].inputName+'&productSeq='+result[i].productSeq +'">'
+												+ result[i].searchName + '</a></li>'
 										)
 									}
 								}
@@ -523,7 +475,10 @@
 					}
 
 				});
+				
 
+				
+				
 				//취소버튼
 				$('.search-close').click(function() {
 					$('.search-input').val('');
@@ -532,8 +487,6 @@
 					$('#search-wrap').css('z-index', -10);
 					$('#search-wrap').css('display', 'none');
 					$('#kakao-content').css('display', 'block');
-					//$('#kakao-content').css('display','flex');
-					//$('#kakao-content').css('visibility','visible');
 				});
 
 				//검색결과에 따라 내용 숨길지 정해주는 함수

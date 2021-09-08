@@ -162,11 +162,7 @@
         	
         	var username = document.getElementById("inputid").value;//유저가 작성한 아이디
       	    var password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
-			
-      	    //console.log(username);
-      	  	//console.log(password);
-      	    
-      	    
+
       	    try {
       	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
       	        var rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;

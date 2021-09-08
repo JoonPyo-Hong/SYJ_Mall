@@ -10,5 +10,6 @@ public interface ISearchDAO {
 	 * @return	품목정보
 	 */
 	List<SearchNameDTO> getProdInfo(String inputWord);
+	
 
 }
