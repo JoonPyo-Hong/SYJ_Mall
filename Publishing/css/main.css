@@ -126,6 +126,8 @@
   text-align: center;
   font-size: 16px;
   cursor: pointer;
+  box-sizing: border-box;
+  border-bottom: 5px solid transparent;
 }
 
 .main-tab-li.active {
