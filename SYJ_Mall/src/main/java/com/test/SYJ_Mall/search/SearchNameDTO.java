@@ -6,6 +6,7 @@ import lombok.Data;
 public class SearchNameDTO {
 	
 	private int productSeq;
-	private String productName;
+	private String inputName;
+	private String searchName;
 	
 }

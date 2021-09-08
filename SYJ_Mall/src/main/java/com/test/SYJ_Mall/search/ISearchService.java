@@ -13,5 +13,7 @@ public interface ISearchService {
 	 * @return	해당단어를 가지고 있는 품목의 정보
 	 */
 	List<SearchNameDTO> getProdLittelInfo(String inputWord);
+	
+
 
 }

@@ -1355,7 +1355,8 @@ commit tran
 	Create date : 2021-09-05  
 	Description : 검색결과  
 	     
-	History	: 2021-09-05 Seunghwan Shin	#최초 생성 
+	History	: 2021-09-05 Seunghwan Shin	#최초 생성
+			  2021-09-08 Seunghwan Shin	#searchName 행 생성
 */ 
 alter proc dbo.kakao_search_product
 	@input_word nvarchar(100)
@@ -1366,14 +1367,13 @@ begin
     
 	select
 		product_id as productSeq
-	,	product_nm as productName
+	,	@input_word as inputName
+	,	replace(product_nm,@input_word,'<span style="color : red;">' + @input_word + '</span>') as searchName
 	from dbo.KAKAO_PRODUCT_TABLE with(nolock)
 	where product_nm like N'%'+ @input_word  + N'%'
 	
 
 end
 
-
---select * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
 
 exec dbo.kakao_search_product N'라이언'

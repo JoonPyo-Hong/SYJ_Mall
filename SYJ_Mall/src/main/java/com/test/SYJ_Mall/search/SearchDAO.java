@@ -17,4 +17,6 @@ public class SearchDAO implements ISearchDAO {
 		
 		return template.selectList("SYJSearch.searchLittleProd",inputWord);
 	}
+	
+
 }

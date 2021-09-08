@@ -60,13 +60,17 @@
 		<put-attribute name = "body" value="/WEB-INF/views/pay/payment.jsp"/>	
 	</definition>
 	
-	<!-- 재지정 -->
+	
+	<!-- 구분 위에꺼는 안쓸거임 -->
+	
+	
+	<!-- 메인 타일즈 -->
 	<definition name="newbdefault" template="/WEB-INF/views/Layout/totalLayout.jsp">
 		<!-- <put-attribute name="header" value="/WEB-INF/views/mainTiles/mainTop.jsp" /> -->
 		<put-attribute name="body" value="" />
 	</definition>
 	
-	
+	<!-- 인기페이지 -->
 	<definition name = "/tiles/popularItem.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/popular/popularMain.jsp"/>	
 	</definition>
@@ -76,7 +80,7 @@
 		<put-attribute name = "body" value="/WEB-INF/views/pay/payment.jsp"/>	
 	</definition>	
 	
-	
-	
 
+		
+	
 </tiles-definitions>
