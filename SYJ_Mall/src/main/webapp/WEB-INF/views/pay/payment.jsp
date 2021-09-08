@@ -78,7 +78,9 @@
 					<!-- 상품 주문서 -->
 					<!-- 01 주문제품 -->
 					<div class="order-section">
-						<div class="order-section-title">01 주문제품</div>
+						<div class="order-section-title first-title">01 주문제품</div>
+						<!-- 주문 제품 아이템 리스트 -->
+						<!-- 하나 -->
 						<div class="product-item-list">
 							<div class="product-img">
 								<a href="#">
@@ -87,19 +89,44 @@
 							</div>
 							<div class="product-text">
 								<div class="product-text-row name-row">
-									<div class="product-name">워치전용 충전 거치대_라이언&춘식이</div>
+									<div class="product-name">춘식이 폭신폭신 페이스 쿠션</div>
 									<div class="product-list-delete-btn"></div>
 								</div>
-								<div class="product-text-row">
+								<div class="product-text-row count-row">
 									<div class="product-count">
-										<label content="4" class="select-box__Label-iihqm7-0">
-											<select class="select-box__Select-iihqm7-2">
+										<label content="4" class="select-box-label"> <select
+											class="select-box-select">
 												<option value="1">1</option>
 												<option value="2">2</option>
 										</select>
 										</label>
 									</div>
 									<div class="product-price">36,000원</div>
+								</div>
+							</div>
+						</div>
+						<!-- 둘 -->
+						<div class="product-item-list">
+							<div class="product-img">
+								<a href="#">
+									<div class="product-img"></div>
+								</a>
+							</div>
+							<div class="product-text">
+								<div class="product-text-row name-row">
+									<div class="product-name">춘식이 말랑쿠션</div>
+									<div class="product-list-delete-btn"></div>
+								</div>
+								<div class="product-text-row count-row">
+									<div class="product-count">
+										<label content="4" class="select-box-label"> <select
+											class="select-box-select">
+												<option value="1">1</option>
+												<option value="2">2</option>
+										</select>
+										</label>
+									</div>
+									<div class="product-price">49,000원</div>
 								</div>
 							</div>
 						</div>
@@ -123,79 +150,50 @@
 							<div class="address-title">
 								<div class="sub-title">받는분</div>
 								<div class="check-box">
-									<label for="sameAsBuyer" class="check-box__Label-sc-1p7znud-3"><span
-										class="check-box__Text-sc-1p7znud-4">주문고객과 동일</span></label>
-									<div class="check-box__CheckBoxContainer-sc-1p7znud-6">
-										<input type="checkbox"
-											class="check-box__InputCheckBox-sc-1p7znud-5"
-											id="sameAsBuyer" name="sameAsBuyer" checked="" /><label
-											for="sameAsBuyer"></label>
-									</div>
+									<label for="sameAsBuyer" class="check-box-label"> <span
+										class="check-box-text">주문고객과 동일</span>
+									</label> <input type="checkbox"
+										class="check-box__InputCheckBox-sc-1p7znud-5" id="sameAsBuyer"
+										name="sameAsBuyer" checked="" /> <label for="sameAsBuyer"></label>
 								</div>
 							</div>
+							<!-- 입력 창 -->
 							<!-- 나라 -->
-							<div class="select-country__CountryWrap-sc">
-								<label content="한국" height="45"
-									class="select__Label-sc-1x3hzs7-0 "><select height="45"
-									class="select__Select-sc-1x3hzs7-1 kPJRTF"
-									name="shippingCountry">
+							<div class="input-text-row select-country">
+								<label content="한국" height="45" class="select-label"> <select
+									height="45" class="select-select" name="shippingCountry">
 										<option value="KR">한국</option>
 								</select></label>
 							</div>
-							<div required="" class="input-text__InputTextWrap">
+							<div required="" class="input-text-row field-name">
 								<input placeholder="이름" error="0" align="left" padding="15"
-									class="input-text__CustomText-sc-1ihjajs-1 kSCrfF"
-									name="shippingName" value="" />
+									class="input-text" name="shippingName" value="" />
 							</div>
-							<div class="field-phone__PhoneWrap">
-								<span class="field-phone__InputTextWrap">
-									<div required=""
-										class="input-text__InputTextWrap-sc-1ihjajs-0 ">
-										<input type="tel" placeholder="전화번호 (-없이 입력)" error="0"
-											align="left" padding="15"
-											class="input-text__CustomText-sc-1ihjajs-1 kSCrfF"
-											name="shippingPhone" value="" />
-									</div>
-								</span>
+							<div class="input-text-row field-phone">
+								<input placeholder="전화번호 (-없이 입력)" error="0" align="left"
+									padding="15" class="input-text" name="shippingName" value="" />
 							</div>
-							<div class="field-address__AddressSearch-sc-1oj7856-0 ">
-								<div required="" class="input-text__InputTextWrap-sc-1ihjajs-0 ">
-									<input placeholder="주소 찾기" readonly="" error="0" align="left"
-										padding="15" name="shippingAddress1" value=""
-										style="display: none" />
-									<div class="field-address__CustomValue-sc-1oj7856-2 efjLkX">
-										주소 찾기</div>
-								</div>
-								<div class="field-address__SearchIcon-sc-1oj7856-1 LwkbN">
-									주소 찾기</div>
+							<div class="input-text-row field-address">
+								<input placeholder="주소 찾기" error=" 0" align="left" padding="15"
+									class="input-text" name="shippingName" value="" />
+								<div class="field-address-search-icon"></div>
 							</div>
-							<div required="" class="input-text__InputTextWrap-sc-1ihjajs-0 ">
-								<input placeholder="나머지 주소" error="0" align="left" padding="15"
-									class="input-text__CustomText-sc-1ihjajs-1 kSCrfF"
-									name="shippingAddress2" value="" />
+							<div class="input-text-row field-address-detail">
+								<input placeholder="나머지 주소" error=" 0" align="left" padding="15"
+									class="input-text" name="shippingName" value="" />
 							</div>
-							<textarea maxlength="50"
-								placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"
-								class="textarea__CustomTextArea-sc-1avhspc-0 "
-								name="shippingMemo"></textarea>
-							<p class="textarea__HelpMessages-sc-1avhspc-1 ">50자 이내로
-								입력해주세요 (0 / 50)</p>
+							<div class="input-text-row field-text-area">
+								<textarea maxlength="50"
+									placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
+								<p class="textarea-messages">50자 이내로 입력해주세요 (0 / 50)</p>
+							</div>
 							<!-- 자동 저장 -->
-							<div class="tab-new__CheckboxWrap ">
-								<div
-									class="
-                      check-box__AreaCheckbox-sc-1p7znud-0
-                      check-box__AreaLeftCheckbox-sc-1p7znud-2
-                      gbMEDt
-                      cwRylY
-                    ">
-									<div class="check-box__CheckBoxContainer ">
-										<input type="checkbox" class="check-box__InputCheckBox "
-											id="saveAddress" name="saveAddress" /><label
-											for="saveAddress"></label>
-									</div>
-									<label for="saveAddress" class="check-box__Label"><span
-										class="check-box__Text-sc-1p7znud-4">내 정보 및 기본 배송지로 저장</span></label>
+							<div class="check-box-area">
+								<div class="check-box-container">
+									<input type="checkbox" class="check-box-input" id="saveAddress"
+										name="saveAddress" /> <label for="saveAddress"></label> <label
+										for="saveAddress" class="check-box-label"><span
+										class="check-box-text">내 정보 및 기본 배송지로 저장</span></label>
 								</div>
 							</div>
 						</div>
@@ -217,71 +215,99 @@
 						<ul class="pay-list-ul">
 							<li class="pay-list-li">
 								<div>상품가</div>
-								<div>85,000원</div>
+								<div>
+									<b>85,000원</b>
+								</div>
 							</li>
 							<li class="pay-list-li">
 								<div>배송비</div>
 								<div>무료</div>
 							</li>
 							<li class="pay-list-li">
-								<div>포인트</div>
+								<div class="point">
+									포인트
+									<div class="total-point">(0p)</div>
+								</div>
 								<div>
-									<input type="tel" align="right" padding="15"
-										class="input-text__CustomText-sc-1ihjajs-1" name="pointToUse"
-										value="0">
+									<input align="right" padding="15" class="input-text" value="0">
 								</div>
 							</li>
 							<li class="pay-list-li">
 								<div>기프트카드</div>
 								<div>
-									<button type="button" class="pay-detail__Button">카드 조회</button>
+									<button type="button" class="pay-detail-button">카드 조회</button>
 								</div>
 							</li>
 							<li class="pay-list-li">
-								<div>최종 결제금액</div>
-								<div>85,000원</div>
+								<div>
+									<b>최종 결제금액</b>
+								</div>
+								<div class="total-price">
+									<b>85,000원</b>
+								</div>
 							</li>
 						</ul>
 						<!-- 결제수단 선택 -->
 						<div class="pay-select-wrap">
 							<div class="pay-select-title">결제수단 선택</div>
-							<div class="pay-methods__PayLabelWrap-sc-1k6buzz-1 ">
-								<label for="kakaopay"
-									class="pay-methods__PayLabel-sc-1k6buzz-2 pay-methods__LabelKakaopay-sc-1k6buzz-3  ">카카오페이
-									<input id="kakaopay" type="radio" value="kakaopay" checked="">
-								</label> <label for="creditcard"
-									class="pay-methods__PayLabel-sc-1k6buzz-2 pay-methods__LabelCard-sc-1k6buzz-4  ">신용카드
-									<input id="creditcard" type="radio" value="creditcard">
-								</label>
+							<div class="pay-methods-paylabel-wrap">
+								<input id="kakaopay" type="radio" value="kakaopay" checked=""
+									name="paylabel"> <label for="kakaopay"
+									class="pay-methods-paylabel kakaopay">카카오페이</label> <input
+									id="creditcard" type="radio" value="creditcard" name="paylabel">
+								<label for="creditcard" class="pay-methods-paylabel creditcard">신용카드</label>
 							</div>
-							<p
-								class="pay-methods__Help-sc-1k6buzz-6 pay-methods__KakaopayHelp-sc-1k6buzz-7  ">
+							<p class="pay-methods-help">
 								<strong>카카오페이</strong>로 간편하고 안전하게 결제!
 							</p>
 						</div>
-						<div
-							class="check-box__AreaCheckbox check-box__AreaLeftCheckbox-sc-1p7znud-2  ">
-							<div class="check-box__CheckBoxContainer-sc-1p7znud-6 cdrBpL">
-								<input type="checkbox" required=""
-									class="check-box__InputCheckBox-sc-1p7znud-5 fcEqTp"
-									id="agree1" name="agree1"><label for="agree1"></label>
+						<div class="pay-agree-wrapper">
+							<div class="check-box-area">
+								<div class="check-box-container">
+									<input type="checkbox" class="check-box-input" id="agree1"
+										name="agree1" /> <label for="agree1"></label> <label
+										for="agree1" class="check-box-label"> <span
+										class="check-box-text underline">상품 주문 및 배송정보 수집에 동의합니다<span
+											class="required">[필수]</span></span>
+									</label>
+								</div>
 							</div>
-							<label for="agree1" class="check-box__Label-sc-1p7znud-3 "><span
-								class="check-box__Text-sc-1p7znud-4 ccvlHl">상품 주문 및 배송정보
-									수집에 동의합니다</span><span class="check-box__Required-sc-1p7znud-7 hwvnDj">[필수]</span></label>
-						</div>
-						<div class="check-box__AreaCheckboxcheck-box__AreaLeftCheckbox">
-							<div class="check-box__CheckBoxContainer">
-								<input type="checkbox" required=""
-									class="check-box__InputCheckBox" id="agree2" name="agree2"><label
-									for="agree2"></label>
+							<div class="check-box-area">
+								<div class="check-box-container">
+									<input type="checkbox" class="check-box-input" id="agree2"
+										name="agree2" /> <label for="agree2"></label> <label
+										for="agree2" class="check-box-label"> <span
+										class="check-box-text">주문 상품의 명시내용과 사용조건을 확인하였으며, 취소환불
+											규정에 동의합니다<span class="required">[필수]</span>
+									</span>
+									</label>
+								</div>
 							</div>
-							<label for="agree2" class="check-box__Label"><span
-								class="check-box__Text">주문 상품의 명시내용과 사용조건을 확인하였으며, 취소환불
-									규정에 동의합니다</span><span class="check-box__Required">[필수]</span></label>
 						</div>
-						<div class="pay-buttont-wrap"></div>
-						<div class="pay-notice-wrap"></div>
+						<!-- 결제하기 버튼 -->
+						<div class="pay-buttont-wrap">
+							<button type="button" class="pay-button">결제하기</button>
+						</div>
+						<div class="pay-notice-wrap">
+							<strong class="notice__Title-c5fdj-1 etxuRQ">글로벌 배송 유의사항</strong>
+							<ul>
+								<li class="notice__Li-c5fdj-2 bACJGW">결제수단별 기준 통화가 달라 최종
+									결제금액에 차이가 날 수 있습니다. (신용카드 : KRW / 페이팔 : USD)</li>
+								<li class="notice__Li-c5fdj-2 bACJGW">글로벌 배송비는 상품 무게와 배송박스
+									무게를 합산하여 책정합니다.</li>
+								<li class="notice__Li-c5fdj-2 bACJGW">주문하신 상품 부피에 따라 1개의
+									주문건을 1박스로 포장할 수 없는 경우 박스가 추가됩니다.</li>
+								<li class="notice__Li-c5fdj-2 bACJGW">현재 고객님께서 신청하신 배송은 글로벌
+									배송으로, “주문접수” 상태에서만 구매 취소가 가능합니다. 이후 배송단계부터는 교환/취소/반품이 불가함을 원칙으로
+									하되, 상품에 원시적인 하자가 있어 회사가 승인하는 경우에만 교환이 가능합니다. 상품의 원시적 하자에 따른 교환을
+									요청하시려면 객관적 증빙 자료를 바탕으로 1:1 문의 게시판 또는 이메일
+									(global@kakaofriends.com)로 연락주시기 바랍니다.</li>
+								<li class="notice__Li-c5fdj-2 bACJGW">해외 통관 거부, 주소지 불명, 수취인
+									거부에 따른 반송은 구매자 귀책으로 간주하여 이로 인하여 발생하는 추가 배송비는 고객님께서 부담하셔야 합니다.
+									또한 글로벌 배송 서비스 이용시 배송 국가에 따라 발생할 수 있는 관세 및 각종 세금 등 기타 비용은 수취인이
+									부담하셔야 합니다.</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -310,5 +336,9 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	<script type="text/javascript">
+	
+	</script>
 </body>
 </html>
