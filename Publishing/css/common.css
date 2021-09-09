@@ -221,6 +221,15 @@ var {
     height: 290px !important;
   }
 
+  .search-product-wrap .item-li {
+    max-width: 290px !important;
+  }
+
+  .search-product-wrap .item-li .thumbnail {
+    width: 290px !important;
+    height: 290px !important;
+  }
+
   .new-product-item-wrap .item-li {
     max-width: 275px !important;
   }
@@ -242,4 +251,6 @@ var {
   .product-category-character .category-banner select {
     min-height: 220px !important;
   }
+
+
 }
