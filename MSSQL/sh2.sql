@@ -1377,3 +1377,46 @@ end
 
 
 exec dbo.kakao_search_product N'라이언'
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-09-09  
+	Description : 물품 검색결과 -> 물품의 정보를 가져와준다. 
+	     
+	History	: 2021-09-09 Seunghwan Shin	#최초 생성
+
+*/ 
+create proc dbo.kakao_search_product_result
+	@input_name nvarchar(100)
+,	@prod_seq varchar(10)
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin 
+    
+	if (@prod_seq is null)
+	begin
+		select
+			product_id as prodId
+		,	product_nm as prodNm
+		,	product_count as prodCnt
+		,	product_price as prodPrice
+		,	discount_rate as discRate
+		from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+		where product_nm like N'%' + @input_name + N'%'
+	end
+	else
+	begin
+		select
+			product_id as prodId
+		,	product_nm as prodNm
+		,	product_count as prodCnt
+		,	product_price as prodPrice
+		,	discount_rate as discRate
+		from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+		where  product_id = convert(bigint,@prod_seq)
+	end
+
+end

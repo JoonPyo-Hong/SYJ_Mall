@@ -1,6 +1,8 @@
 package com.test.SYJ_Mall.search;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,20 @@ public class SearchDAO implements ISearchDAO {
 		
 		return template.selectList("SYJSearch.searchLittleProd",inputWord);
 	}
+	
+	//검색조건에 맞는 상품정보를 가져와준다
+	@Override
+	public List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq) {
+		
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("inputName",inputName);
+		map.put("productSeq",productSeq);
+		
+		return template.selectList("SYJSearch.searchProdDetil",map);
+	}
+	
+	
 	
 
 }

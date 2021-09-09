@@ -11,7 +11,7 @@ import lombok.Data;
 public class SearchProductDTO {
 
 	private int prodId;
-	private int prodNm;
+	private String prodNm;
 	private int prodCnt;
 	private int prodPrice;
 	private int discRate;

@@ -10,7 +10,14 @@
 			call dbo.kakao_search_product(#{inputWord})
 		}
 	</select>
-
+	
+	
+	<select id="searchProdDetil" resultType="com.test.SYJ_Mall.search.SearchProductDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_search_product_result(#{inputName},#{productSeq})
+		}
+	</select>
+	
 
 
 </mapper>
