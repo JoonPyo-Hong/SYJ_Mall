@@ -338,7 +338,31 @@
 	</div>
 	</div>
 	<script type="text/javascript">
+		/* var formData = {
+			p_seq: [ "1", "2", "3" ],
+			sum: [ "10", "15", "20" ]
+			};
+		function test() {
+				$.ajax({
+					url : "payment_test.action",
+					type : 'post',
+					data : formData,
+					success : function(data) {
+						count = data;
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+				
+		}
 	
+		
+		window.onload = function() {
+			test();
+		} */
+
+			
 	</script>
 </body>
 </html>
