@@ -11,5 +11,13 @@ public interface ISearchDAO {
 	 */
 	List<SearchNameDTO> getProdInfo(String inputWord);
 	
+	/**
+	 * 검색조건에 맞는 상품정보를 가져와준다
+	 * @param inputName		상품이름
+	 * @param productSeq	상품번호
+	 * @return
+	 */
+	List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq);
+	
 
 }

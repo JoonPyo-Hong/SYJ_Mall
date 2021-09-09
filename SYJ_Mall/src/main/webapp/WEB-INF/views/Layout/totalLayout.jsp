@@ -120,8 +120,8 @@
             <div id="search-wrap" style="display : none;">
 	            <div id="inner-search">
 	              <div class="search-form">
-	                <form>
-	                  <input class="search-input" type="text" />
+	                <form action = "searchresult.action" method="GET" id="search_enter">
+	                  <input class="search-input" type="text" name="inputName"/>
 	                </form>
 	                <button class="search-close">취소</button>
 	              </div>
@@ -432,7 +432,6 @@
 				//검색창 쓸때 이벤트
 				$('.search-input').keyup(function(e){
 					
-					console.log(e.keyCode);
 					//검색글자 길이
 					const SEARCHLEN = $('.search-input').val().length;
 					const SEARCHVAL = $('.search-input').val();
@@ -465,8 +464,6 @@
 										)
 									}
 								}
-								
-								
 							},
 							error : function(a, b, c) {
 								console.log(a, b, c);
@@ -476,7 +473,11 @@
 
 				});
 				
-
+				//엔터키 눌러준 경우에
+				$('.search-input').keydown(function(e) {
+					if (e.keyCode == 13) $('.search-input').submit();
+				});
+				
 				
 				
 				//취소버튼
