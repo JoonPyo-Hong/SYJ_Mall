@@ -87,8 +87,12 @@ body {
 }
 
 /* placeholder 색상 변경 */
-input::placeholder {color:#9a9a9e;}
-textarea::placeholder {color:#9a9a9e;}
+input::placeholder {
+  color: #9a9a9e;
+}
+textarea::placeholder {
+  color: #9a9a9e;
+}
 
 /* 뷰포트 변환시 폰트크기 자동확대 방지. */
 input:checked[type="checkbox"] {
@@ -236,13 +240,12 @@ var {
 
   .new-product-item-wrap .item-li .thumbnail {
     width: 275px !important;
-    height:275px !important;
+    height: 275px !important;
   }
 
-  .new-product-new .product-new-banner .post-slider .post-wrapper .post img{
-    max-height:  360px !important;
+  .new-product-new .product-new-banner .post-slider .post-wrapper .post img {
+    max-height: 360px !important;
   }
-  
 
   .product-category-character .category-banner {
     min-height: 220px !important;
@@ -252,5 +255,18 @@ var {
     min-height: 220px !important;
   }
 
-
+  /* 검색 결과 팝업창 사이즈 */
+  .character-modal-wrap {
+    width: 640px !important;
+    max-width: 640px !important;
+    padding: 20px 19px !important;
+  }
+  .character-modal-wrap .character-list  {
+    margin: 8px !important;
+  }
+  .character-modal-wrap .character-list .character-image {
+    width: 70px !important;
+    height: 70px !important;
+    background-size: 70px 70px !important;
+  }
 }

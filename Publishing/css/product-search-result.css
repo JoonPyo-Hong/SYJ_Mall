@@ -11,7 +11,8 @@
 .standing-ryan {
   width: 184px;
   height: 184px;
-  background: url(../images/product_search-result/img_empty_ryan.png) center no-repeat;
+  background: url(../images/product_search_result/img_empty_ryan.png) center
+    no-repeat;
   background-size: contain;
 }
 
@@ -23,7 +24,7 @@
   color: #000000;
 }
 
-.empty-sub-message{
+.empty-sub-message {
   font-size: 13px;
   line-height: 20px;
   letter-spacing: -0.25px;
@@ -31,10 +32,7 @@
   text-align: center;
 }
 
-
-
-
-.product-search-result{
+.product-search-result {
   border-top: 1px solid rgb(227, 229, 232);
 }
 
@@ -44,8 +42,7 @@
   justify-content: center;
 }
 
-
-.search-banner .search-text{
+.search-banner .search-text {
   font-size: 24px;
   line-height: 30px;
   padding: 20px 30px;
@@ -69,7 +66,6 @@ hr.division {
 .search-header .sort-wrap {
   display: flex;
   align-items: center;
-
 }
 
 .search-header .sort {
@@ -83,11 +79,9 @@ hr.division {
 
 .search-header .sort-divider {
   width: 1px;
-  height:20px;
-  background-color:rgb(227, 229, 232)
+  height: 20px;
+  background-color: rgb(227, 229, 232);
 }
-
-
 
 .search-header .sort .sort-title {
   font-size: 16px;
@@ -125,10 +119,6 @@ hr.division {
   height: 20px;
   margin-right: 6px;
 }
-
-
-
-
 
 /* 해당 검색 상품 영역 */
 .search-product-wrap {
@@ -197,4 +187,114 @@ hr.division {
 .search-product-wrap .item-li .price {
   font-size: 16px;
   font-weight: bold;
+}
+
+/* 모달 작업 */
+
+.overlay-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.character-modal-wrap {
+  position: absolute;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  padding: 25px 12px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  bottom: 0;
+}
+
+.character-modal-wrap .character-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.character-modal-wrap .character-list .character-image {
+  width: 60px;
+  height: 60px;
+  background-size: 60px 60px;
+  background-repeat: no-repeat;
+}
+
+.character-modal-wrap .character-list .character-text {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.character-modal-wrap .character-list.all .character-image {
+  background-image: url(../images/product_search_result/category_group_on.png);
+}
+
+.character-modal-wrap .character-list.ryan .character-image {
+  background-image: url(../images/product_search_result/Ryan_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.apeach .character-image {
+  background-image: url(../images/product_search_result/Apeach_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.muzi .character-image {
+  background-image: url(../images/product_search_result/Muzi_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.frodo .character-image {
+  background-image: url(../images/product_search_result/Frodo_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.neo .character-image {
+  background-image: url(../images/product_search_result/Neo_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.tube .character-image {
+  background-image: url(../images/product_search_result/Tube_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.jay .character-image {
+  background-image: url(../images/product_search_result/Jay-Z_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.con .character-image {
+  background-image: url(../images/product_search_result/Con_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.choonsic .character-image {
+  background-image: url(../images/product_search_result/Choonsic_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.jordy .character-image {
+  background-image: url(../images/product_search_result/Jordy_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.scappy .character-image {
+  background-image: url(../images/product_search_result/Scappy_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.angmond .character-image {
+  background-image: url(../images/product_search_result/Angmond_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.pendaJr .character-image {
+  background-image: url(../images/product_search_result/PendaJr_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.kereberony .character-image {
+  background-image: url(../images/product_search_result/Kereberony_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.kumdori .character-image {
+  background-image: url(../images/product_search_result/Kumdori_71_color_210303.png);
 }
