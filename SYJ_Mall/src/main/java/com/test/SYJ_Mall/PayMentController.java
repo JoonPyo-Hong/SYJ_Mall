@@ -1,5 +1,8 @@
 package com.test.SYJ_Mall;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.login.UserDTO;
 
@@ -15,66 +20,30 @@ import com.test.SYJ_Mall.login.UserDTO;
 public class PayMentController {
 
 	// 결제 페이지
-	@RequestMapping(value = "/payment.action", method = { RequestMethod.GET })
-	public String payment(Model model, HttpServletRequest request) {
-
+	@RequestMapping(value = "/payment.action", method = { RequestMethod.POST })
+	public String payment(Model model, HttpServletRequest request, @RequestParam Map<String, Object> map) {
+		System.out.println(map.get("p_seq"));
+		System.out.println(map.get("sum"));
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");
 
 		int m_seq = 0;
-		
+
 		if (dto == null) {
 			m_seq = 1;
 		} else {
 			m_seq = dto.getUserSeq();
 		}
-		String[] p_seq;
-		String[] sum;
-		if(request.getParameterValues("p_seq") !=null && request.getParameterValues("sum")!=null) {
-			p_seq = request.getParameterValues("p_seq");
-			sum = request.getParameterValues("sum");
-			
-			for (int i = 0; i < p_seq.length; i++) {
-				System.out.println(sum[i]);
-			}
-			for (int i = 0; i < sum.length; i++) {
-				System.out.println(sum[i]);
-			}
-			model.addAttribute("p_seq", p_seq);		
-			model.addAttribute("sum", sum);
-		}
-			
-		model.addAttribute("m_seq", m_seq);
+	
+	
 
+	model.addAttribute("m_seq",m_seq);
 
-		return "/pay/payment";
+	return"/pay/payment";
+
 	}
-//	
-//	// 결제 페이지 테스트
-//	@RequestMapping(value = "/payment_test.action", method = { RequestMethod.POST })
-//	public void payment_test(Model model, HttpServletRequest request) {
-//		System.out.println("test");
-//		System.out.println(request);
-//		System.out.println(request.toString());
-//
-//		String[] p_seq;
-//		String[] sum;
-//		if(request.getParameterValues("p_seq") !=null && request.getParameterValues("sum")!=null) {
-//			p_seq = request.getParameterValues("p_seq");
-//			sum = request.getParameterValues("sum");
-//			
-//			for (int i = 0; i < p_seq.length; i++) {
-//				System.out.println(p_seq[i]);
-//			}
-//			for (int i = 0; i < sum.length; i++) {
-//				System.out.println(sum[i]);
-//			}
-//		
-//		}
-//			
-//	
-//
-//
-//	}
+
+
+
 }
