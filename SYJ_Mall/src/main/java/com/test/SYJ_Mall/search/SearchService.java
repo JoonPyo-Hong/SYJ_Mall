@@ -43,6 +43,7 @@ public class SearchService implements ISearchService {
 				System.out.println(dto.getProdId());
 				System.out.println(dto.getProdNm());
 				System.out.println(dto.getProdPrice());
+				System.out.println(dto.getPicUrl());
 			}
 			
 			

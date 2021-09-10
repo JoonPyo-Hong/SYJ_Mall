@@ -1379,16 +1379,18 @@ end
 exec dbo.kakao_search_product N'라이언'
 
 
-
 /* 
 	Author      : Seunghwan Shin 
 	Create date : 2021-09-09  
 	Description : 물품 검색결과 -> 물품의 정보를 가져와준다. 
 	     
 	History	: 2021-09-09 Seunghwan Shin	#최초 생성
+			  2021-09-10 Seunghwan Shin	#join 절 추가
+	Real DB : exec dbo.kakao_search_product_result N'라이언', null
+			  exec dbo.kakao_search_product_result N'라이언', 48	
 
 */ 
-create proc dbo.kakao_search_product_result
+alter proc dbo.kakao_search_product_result
 	@input_name nvarchar(100)
 ,	@prod_seq varchar(10)
 as 
@@ -1399,24 +1401,32 @@ begin
 	if (@prod_seq is null)
 	begin
 		select
-			product_id as prodId
-		,	product_nm as prodNm
-		,	product_count as prodCnt
-		,	product_price as prodPrice
-		,	discount_rate as discRate
-		from dbo.KAKAO_PRODUCT_TABLE with(nolock)
-		where product_nm like N'%' + @input_name + N'%'
+			kpt.product_id as prodId
+		,	kpt.product_nm as prodNm
+		,	kpt.product_count as prodCnt
+		,	kpt.product_price as prodPrice
+		,	kpt.discount_rate as discRate
+		,	kpi.product_img as picUrl
+		from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+		inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+		where kpt.product_nm like N'%' + @input_name + N'%'
+		and kpi.rep_img_yn = 'Y'
+		and kpi.head_img_yn = 'Y'
 	end
 	else
 	begin
 		select
-			product_id as prodId
-		,	product_nm as prodNm
-		,	product_count as prodCnt
-		,	product_price as prodPrice
-		,	discount_rate as discRate
-		from dbo.KAKAO_PRODUCT_TABLE with(nolock)
-		where  product_id = convert(bigint,@prod_seq)
+			kpt.product_id as prodId
+		,	kpt.product_nm as prodNm
+		,	kpt.product_count as prodCnt
+		,	kpt.product_price as prodPrice
+		,	kpt.discount_rate as discRate
+		,	kpi.product_img as picUrl
+		from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+		inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+		where kpt.product_id = convert(bigint,@prod_seq)
+		and kpi.rep_img_yn = 'Y'
+		and kpi.head_img_yn = 'Y'
 	end
 
 end
