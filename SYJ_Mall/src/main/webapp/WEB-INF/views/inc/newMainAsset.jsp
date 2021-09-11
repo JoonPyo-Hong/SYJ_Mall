@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link rel = "stylesheet" href = "resources/css/bootstrap.css">
-<link rel = "stylesheet" href = "resources/css/jquery-ui.css">
-<script src = "resources/js/jquery-1.12.4.js"></script>
-<script src = "resources/js/jquery-ui.js"></script>
-<script src = "resources/js/bootstrap.js"></script>
+<link rel="stylesheet" href="resources/css/bootstrap.css">
+<link rel="stylesheet" href="resources/css/jquery-ui.css">
+<script src="resources/js/jquery-1.12.4.js"></script>
+<script src="resources/js/jquery-ui.js"></script>
+<script src="resources/js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="resources/css/icofont/icofont.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -18,143 +19,94 @@
 <style>
 
 /* reset */
-body,
-div,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-pre,
-code,
-form,
-fieldset,
-legend,
-textarea,
-p,
-blockquote,
-th,
-td,
-input,
-select,
-textarea,
-button {
-  margin: 0;
-  padding: 0;
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code,
+	form, fieldset, legend, textarea, p, blockquote, th, td, input, select,
+	textarea, button {
+	margin: 0;
+	padding: 0;
 }
 
-fieldset,
-img {
-  border: 0 none;
+fieldset, img {
+	border: 0 none;
 }
 
-dl,
-ul,
-ol,
-menu,
-li {
-  list-style: none;
+dl, ul, ol, menu, li {
+	list-style: none;
 }
 
-blockquote,
-q {
-  quotes: none;
+blockquote, q {
+	quotes: none;
 }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
+blockquote:before, blockquote:after, q:before, q:after {
+	content: "";
+	content: none;
 }
 
-input,
-select,
-textarea,
-button {
-  vertical-align: middle;
-  font-size: 100%;
+input, select, textarea, button {
+	vertical-align: middle;
+	font-size: 100%;
 }
 
 input::-ms-clear {
-  display: none;
+	display: none;
 }
 
 button {
-  border: 0 none;
-  background-color: transparent;
-  cursor: pointer;
+	border: 0 none;
+	background-color: transparent;
+	cursor: pointer;
 }
 
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 body {
-  -webkit-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
 }
 
 /* 뷰포트 변환시 폰트크기 자동확대 방지. */
 input:checked[type="checkbox"] {
-  background-color: #666;
-  -webkit-appearance: checkbox;
-}
-input:focus {
-  outline: none;
+	background-color: #666;
+	-webkit-appearance: checkbox;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="submit"],
-input[type="search"],
-input[type="tel"],
-input[type="email"],
-html input[type="button"],
-input[type="reset"] {
-  -webkit-appearance: none;
-  border-radius: 0;
+input:focus {
+	outline: none;
+}
+
+input[type="text"], input[type="password"], input[type="submit"], input[type="search"],
+	input[type="tel"], input[type="email"], html input[type="button"],
+	input[type="reset"] {
+	-webkit-appearance: none;
+	border-radius: 0;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
-  -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 
 body {
-  background: #fff;
+	background: #fff;
 }
 
-body,
-th,
-td,
-input,
-select,
-textarea,
-button {
-  font-size: 14px;
-  line-height: 1.5;
-  font-family: "AppleSDGothicNeo", "맑은 고딕", sans-serif;
-  color: #1e1e1e;
+body, th, td, input, select, textarea, button {
+	font-size: 14px;
+	line-height: 1.5;
+	font-family: "AppleSDGothicNeo", "맑은 고딕", sans-serif;
+	color: #1e1e1e;
 }
 
 /* color값은 디자인가이드에 맞게사용 */
-
 a {
-  color: #1e1e1e;
-  text-decoration: none;
+	color: #1e1e1e;
+	text-decoration: none;
 }
 
-a:active,
-a:hover {
-  text-decoration: none;
+a:active, a:hover {
+	text-decoration: none;
 }
 
 /* address,
@@ -167,80 +119,74 @@ var {
   font-style: normal;
   font-weight: normal;
 } */
-
-@media (min-width: 640px) {
-  #inner-head {
-    width: 640px;
-  }
-
-  #inner-tab {
-    width: 640px;
-  }
-
-  #inner-content {
-    width: 640px;
-  }
-
-  #inner-footer {
-    width: 640px;
-  }
-
-  #inner-search {
-    width: 640px !important;
-  }
-
-  .navigation-inner {
-    left: -400px !important;
-    width: 400px !important;
-  }
-  .banner {
-    height: 10% !important;
-  }
-
-  .basic-grid {
-    grid-template-columns: 212px 212px 212px !important;
-    grid-template-rows: 212px 212px !important;
-  }
-
-  .product-detail-wrap .main-image {
-    /* height: 640px !important;
+@media ( min-width : 640px) {
+	#inner-head {
+		width: 640px;
+	}
+	#inner-tab {
+		width: 640px;
+	}
+	#inner-content {
+		width: 640px;
+	}
+	#inner-footer {
+		width: 640px;
+	}
+	#inner-search {
+		width: 640px !important;
+	}
+	.navigation-inner {
+		left: -400px !important;
+		width: 400px !important;
+	}
+	.banner {
+		height: 10% !important;
+	}
+	.basic-grid {
+		grid-template-columns: 212px 212px 212px !important;
+		grid-template-rows: 212px 212px !important;
+	}
+	.product-detail-wrap .main-image {
+		/* height: 640px !important;
     width: 640px !important; */
-  }
-
-  .detail-recommended .item-li {
-    max-width: 290px !important;
-  }
-
-  .detail-recommended .item-li .thumbnail {
-    width: 290px !important;
-    height: 290px !important;
-  }
-
-  .detail-recently-viewed .item-li {
-    max-width: 290px !important;
-  }
-
-  .detail-recently-viewed .item-li .thumbnail {
-    width: 290px !important;
-    height: 290px !important;
-  }
-
-  .category-product-wrap .item-li {
-    max-width: 290px !important;
-  }
-
-  .category-product-wrap .item-li .thumbnail {
-    width: 290px !important;
-    height: 290px !important;
-  }
-
-  .product-category-character .category-banner {
-    min-height: 220px !important;
-  }
-
-  .product-category-character .category-banner select {
-    min-height: 220px !important;
-  }
+		
+	}
+	.detail-recommended .item-li {
+		max-width: 290px !important;
+	}
+	.detail-recommended .item-li .thumbnail {
+		width: 290px !important;
+		height: 290px !important;
+	}
+	.detail-recently-viewed .item-li {
+		max-width: 290px !important;
+	}
+	.detail-recently-viewed .item-li .thumbnail {
+		width: 290px !important;
+		height: 290px !important;
+	}
+	.category-product-wrap .item-li {
+		max-width: 290px !important;
+	}
+	.category-product-wrap .item-li .thumbnail {
+		width: 290px !important;
+		height: 290px !important;
+	}
+	.product-category-character .category-banner {
+		min-height: 220px !important;
+	}
+	.product-category-character .category-banner select {
+		min-height: 220px !important;
+	}
 }
 
+
+.search-product-wrap .item-li {
+	max-width: 290px !important;
+}
+
+.search-product-wrap .item-li .thumbnail {
+	width: 290px !important;
+	height: 290px !important;
+}
 </style>

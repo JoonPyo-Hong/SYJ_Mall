@@ -53,8 +53,40 @@ public class SearchController {
 
 		if (result == 1) return "/search/searchMain";
 		else return null;
-		
 
+	}
+	
+	//검색하고 -> 뒤로가기처리
+	@RequestMapping(value = "/searchback.action", method = { RequestMethod.GET })
+	public String searchback(HttpServletRequest request, HttpServletResponse response) {
+
+		//어떤페이지를 마지막으로 방문했는지 쿠키정보를 조회해 봐야한다.
+		String lastPage = (String)service.instanceCookie(request,response,"lastPage");
+		
+		if (lastPage == null) {
+			
+			service.goMain(request);
+			
+			return "/tiles/mainStart.topping";//메인페이지로 이동
+			
+		} else {
+			//마지막 페이지로 이동
+			return "forward:/" + lastPage + ".action";
+		}
+	}
+	
+	
+	//검색하고 -> 메인페이지로 보내주기
+	@RequestMapping(value = "/searchbackmain.action", method = { RequestMethod.GET })
+	public String searchbackmain(HttpServletRequest request, HttpServletResponse response) {
+
+		//어떤페이지를 마지막으로 방문했는지 쿠키정보를 조회해 봐야한다.
+		Object lastPage = service.instanceCookie(request,response,"lastPage");
+	
+		service.goMain(request);
+			
+		return "/tiles/mainStart.topping";//메인페이지로 이동
+		
 	}
 
 }
