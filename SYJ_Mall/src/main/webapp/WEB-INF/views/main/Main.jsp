@@ -38,7 +38,13 @@
 
 </head>
 <body>
-	<button id ='test'>test</button>
+	<form class="form-login" action = "/SYJ_Mall/payment.action" method = "post">
+	<input type = "hidden" class="input" name = "p_seq" value ='1,2,3'>
+	<input type = "hidden" class="input" name = "sum" value='10,20,30'>
+	<button class="btn" type="submit">test </button>
+	</form>
+
+
 
 	<div id="modal"></div>
 	<div class="modal-con modal1">

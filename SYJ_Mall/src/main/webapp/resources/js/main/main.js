@@ -1,26 +1,5 @@
 
-	function test() {
-			$.ajax({
-				url : "payment.action",
-				type : 'post',
-				data : {
-					p_seq : '1,2,3',
-					sum : '10,20,30'
-				},
-				success : function(data) {
 
-				},
-				error : function() {
-					alert("에러");
-				}
-			});
-
-		}
-			$(document).on("click", "#test", function(e) {
-			test();
-
-		});
-		
 
 
 		$(document).on(

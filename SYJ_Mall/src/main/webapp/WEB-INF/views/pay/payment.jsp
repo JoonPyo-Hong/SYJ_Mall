@@ -27,6 +27,13 @@
 	href="resources/css/pay/product_order.css" />
 </head>
 <body>
+<c:forEach var="p_seq" items="${list1}">
+${p_seq}<br>
+</c:forEach>
+<c:forEach var="sum" items="${list2}">
+${sum}<br>
+</c:forEach>
+
 	<div id="kakao-wrap">
 		<div id="kakao-head">
 			<div id="inner-head">
@@ -337,27 +344,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		function test() {
-			$.ajax({
-				url : "payment_test.action",
-				type : 'post',
-				data : {
-					p_seq : '1,2,3',
-					sum : '10,20,30'
-				},
-				success : function(data) {
-
-				},
-				error : function() {
-					alert("에러");
-				}
-			});
-
-		}
 		
-		
-
-		test();
 	</script>
 </body>
 </html>
