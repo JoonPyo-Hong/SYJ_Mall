@@ -4,19 +4,28 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="SYJSearch">
-
+	
+	<!-- 검색어에 따라 자동으로 물품 보여주는 sp -->
 	<select id="searchLittleProd" resultType="com.test.SYJ_Mall.search.SearchNameDTO" parameterType="String" statementType="CALLABLE" >
 		{
 			call dbo.kakao_search_product(#{inputWord})
 		}
 	</select>
 	
-	
+	<!-- 해당 검색을 통해서 가져온 상품의 정보들 -->
 	<select id="searchProdDetil" resultType="com.test.SYJ_Mall.search.SearchProductDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		{
-			call dbo.kakao_search_product_result(#{inputName},#{productSeq})
+			call dbo.kakao_search_product_result(#{inputName},#{productSeq},#{pagingCount})
 		}
 	</select>
+	
+	<!-- 해당 검색조건으로 필터링 된 상품이 총 몇개인지 -->
+	<select id="searchProdCount" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_search_product_result_count(#{inputName},#{productSeq})
+		}
+	</select>
+	
 	
 
 

@@ -40,11 +40,8 @@
 
 <script>
 	
-	var checkdDevice = 0;//맨처음 디바이스 체크!
-	var paging = 1;//페이지 넘버
-	
-	//디바이스 체크
-	
+	let checkdDevice = 0;//맨처음 디바이스 체크!
+	let paging = 1;//페이지 넘버
 	
 	window.addEventListener(
 			"scroll",
@@ -52,7 +49,7 @@
 				
 				
 				const DEV = deviceCheck();
-				var height;
+				let height;
 				
 				if (checkdDevice == 0) {
 					checkdDevice = 1;

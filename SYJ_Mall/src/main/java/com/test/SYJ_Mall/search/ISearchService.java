@@ -3,6 +3,7 @@ package com.test.SYJ_Mall.search;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 /**
  * 검색서비스
  * @author shin
@@ -22,6 +23,29 @@ public interface ISearchService {
 	 * @return	1: 성공, -1: 실패
 	 */
 	int getSearchResultProd(HttpServletRequest request);
+	
+	/**
+	 * 마지막 접속 페이지 쿠키 가져오기
+	 * @param request		
+	 * @param response		
+	 * @param cookieName	쿠키이름
+	 * @return				해당 쿠키이름에 대응되는 value
+	 */
+	Object instanceCookie(HttpServletRequest request, HttpServletResponse response, String cookieName);
+	
+	/**
+	 * 메인페이지로 보내주기
+	 * @param request
+	 */
+	void goMain(HttpServletRequest request);
+	
+	/**
+	 * 무한스크롤을 통하여 가져올 물품들
+	 * @param inputWord		입력단어
+	 * @param paging		페이징 변수
+	 * @return				물품dto 리스트
+	 */
+	List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging);
 	
 
 

@@ -22,7 +22,7 @@
 </head>
 
 <body>
-  <div class="overlay-wrap">
+  <div class="overlay-wrap" style="visibility: hidden;">
     <div class="character-modal-wrap">
       <div class="character-list all">
         <div class="character-image"></div>
@@ -139,12 +139,12 @@
           <hr class="division" />
           <!-- ##### 마이페이지랑 데이터 없을 때 태그 위치가 다릅니다 ##### -->
           <!-- 데이터 없을 시 -->
-          <!-- <div class="search-list-nodata">
+          <div class="search-list-nodata"  style="display : none;">
             <div class="standing-ryan"></div>
             <div class="empty-message">검색 결과가 없습니다.</div>
             <div class="empty-sub-message">다른 검색어를 입력하시거나,</div>
             <div class="empty-sub-message">철자 및 띄어쓰기를 확인해주세요.</div>
-          </div> -->
+          </div>
           <!-- 데이터 있을 시 -->
           <!-- 상품 정렬 및 개수 -->
           <div class="search-header">
@@ -168,7 +168,7 @@
             </div>
           </div>
           <!-- 해당 검색 상품 영역 -->
-          <div class="search-product-wrap">
+          <div class="search-product-wrap" >
             <ul>
               <li class="item-li">
                 <div class="thumbnail">
@@ -178,7 +178,8 @@
                 <div class="name">
                   콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
                 </div>
-                <div class="price">39,000원</div>
+                <div class="price" style="color : #FF447F;">50% 18,500원</div>
+                <div class="price" style="text-decoration:line-through; color : #9A9A9E;">39,000원</div>
               </li>
               <li class="item-li">
                 <div class="thumbnail"></div>

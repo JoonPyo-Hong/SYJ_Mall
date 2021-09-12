@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link rel = "stylesheet" href = "resources/css/bootstrap.css">
-<link rel = "stylesheet" href = "resources/css/jquery-ui.css">
-<script src = "resources/js/jquery-1.12.4.js"></script>
-<script src = "resources/js/jquery-ui.js"></script>
-<script src = "resources/js/bootstrap.js"></script>
+<link rel="stylesheet" href="resources/css/bootstrap.css">
+<link rel="stylesheet" href="resources/css/jquery-ui.css">
+<script src="resources/js/jquery-1.12.4.js"></script>
+<script src="resources/js/jquery-ui.js"></script>
+<script src="resources/js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="resources/css/icofont/icofont.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -101,6 +102,14 @@ table {
 
 body {
   -webkit-text-size-adjust: none;
+}
+
+/* placeholder 색상 변경 */
+input::placeholder {
+  color: #9a9a9e;
+}
+textarea::placeholder {
+  color: #9a9a9e;
 }
 
 /* 뷰포트 변환시 폰트크기 자동확대 방지. */
@@ -234,6 +243,28 @@ var {
     height: 290px !important;
   }
 
+  .search-product-wrap .item-li {
+    max-width: 290px !important;
+  }
+
+  .search-product-wrap .item-li .thumbnail {
+    width: 290px !important;
+    height: 290px !important;
+  }
+
+  .new-product-item-wrap .item-li {
+    max-width: 275px !important;
+  }
+
+  .new-product-item-wrap .item-li .thumbnail {
+    width: 275px !important;
+    height: 275px !important;
+  }
+
+  .new-product-new .product-new-banner .post-slider .post-wrapper .post img {
+    max-height: 360px !important;
+  }
+
   .product-category-character .category-banner {
     min-height: 220px !important;
   }
@@ -241,6 +272,22 @@ var {
   .product-category-character .category-banner select {
     min-height: 220px !important;
   }
+
+  /* 검색 결과 팝업창 사이즈 */
+  .character-modal-wrap {
+    width: 640px !important;
+    max-width: 640px !important;
+    padding: 20px 19px !important;
+  }
+  .character-modal-wrap .character-list  {
+    margin: 8px !important;
+  }
+  .character-modal-wrap .character-list .character-image {
+    width: 70px !important;
+    height: 70px !important;
+    background-size: 70px 70px !important;
+  }
 }
+
 
 </style>
