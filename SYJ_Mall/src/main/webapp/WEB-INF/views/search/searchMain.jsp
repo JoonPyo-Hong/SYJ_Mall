@@ -247,8 +247,8 @@
 					
 					
 					<!-- 해당 검색 상품 영역 -->
-					<div class="search-product-wrap" >
-						<ul>
+					<div class="search-product-wrap" style="border: 1px solid red;">
+						<ul id = "search-item-lists">
 							<li class="item-li">
 								<div class="thumbnail">
 									<!-- 솔드아웃 라벨 -->
@@ -260,6 +260,20 @@
 								<div class="price" style="color: #FF447F;">50% 18,500원</div>
 								<div class="price"
 									style="text-decoration: line-through; color: #9A9A9E;">39,000원</div>
+							</li>
+							<li class="item-li">
+								<div class="thumbnail"></div>
+								<div class="name">
+									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
+								</div>
+								<div class="price">39,000원</div>
+							</li>
+							<li class="item-li">
+								<div class="thumbnail"></div>
+								<div class="name">
+									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
+								</div>
+								<div class="price">39,000원</div>
 							</li>
 							<li class="item-li">
 								<div class="thumbnail"></div>
@@ -317,7 +331,7 @@
 <script>
 
 let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
-
+let checkdDevice = 0;//맨처음 디바이스 체크!
 
 //PC, MOBILE 구별
 function deviceCheck() {
@@ -444,7 +458,110 @@ $(document).ready(
 			$('.home-button').click(function(){
 				location.href = "/SYJ_Mall/searchbackmain.action";	
 			});
+
 		});
+		
+		
+		let scount = 0;//총 몇번의 페이지 로딩이 있을것인지 처리해준다.
+		
+		//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
+		window.addEventListener(
+				"scroll",
+				function scrollEvent(){
+					
+					const DEV = deviceCheck();
+					let height = 1195;
+					
+					if (checkdDevice == 0) {
+						checkdDevice = 1;
+						
+						if (DEV == 1) {
+							alert();
+							$('#kakao-content').css('height','1200px');
+							$('#inner-content').css('height','1200px');
+							
+						}
+						else if (DEV == 2) {
+							$('#kakao-content').css('height','1386px');
+							$('#inner-content').css('height','1386px');
+							height = 1195;
+						}
+					} 
+					
+					
+					const SCROLLED_HEIGHT = window.scrollY;
+					const WINDOW_HEIGHT = window.innerHeight;
+					const DOC_TOTAL_HEIGHT = document.body.offsetHeight;	
+					
+
+					if ((SCROLLED_HEIGHT + WINDOW_HEIGHT >= DOC_TOTAL_HEIGHT * 0.9) && scount < 6) {
+						
+						scount++;
+						
+						const INNER = parseInt($('#inner-content').css('height').replace('px','')) + height;
+						const KAKAO_CONTENT = parseInt($('#kakao-content').css('height').replace('px','')) + height;
+						const BODY = parseInt($('body').css('height').replace('px','')) + height;
+						const HTML = parseInt($('html').css('height').replace('px','')) + height;
+						
+						$('#inner-content').css('height',INNER + 'px');
+						$('#kakao-content').css('height',KAKAO_CONTENT + 'px');
+						$('body').css('height',BODY + 'px');
+						$('HTML').css('height',HTML + 'px');
+						
+						$('#search-item-lists').append(
+								
+							'<li class="item-li">'
+							+	'<div class="thumbnail"></div>'
+							+	'<div class="name">'
+							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
+							+	'</div>'
+							+	'<div class="price">39,000원</div>'
+							+'</li>'
+							
+							+'<li class="item-li">'
+							+	'<div class="thumbnail"></div>'
+							+	'<div class="name">'
+							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
+							+	'</div>'
+							+	'<div class="price">39,000원</div>'
+							+'</li>'
+							
+							+'<li class="item-li">'
+							+	'<div class="thumbnail"></div>'
+							+	'<div class="name">'
+							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
+							+	'</div>'
+							+	'<div class="price">39,000원</div>'
+							+'</li>'
+							
+							+'<li class="item-li">'
+							+	'<div class="thumbnail"></div>'
+							+	'<div class="name">'
+							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
+							+	'</div>'
+							+	'<div class="price">39,000원</div>'
+							+'</li>'
+							
+							+'<li class="item-li">'
+							+	'<div class="thumbnail"></div>'
+							+	'<div class="name">'
+							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
+							+	'</div>'
+							+	'<div class="price">39,000원</div>'
+							+'</li>'
+							
+							+'<li class="item-li">'
+							+	'<div class="thumbnail"></div>'
+							+	'<div class="name">'
+							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
+							+	'</div>'
+							+	'<div class="price">39,000원</div>'
+							+'</li>'
+						)
+						
+					}
+		});		
+		
 		
 		
 		/* sold out 처리도 해줘야할것이다. */

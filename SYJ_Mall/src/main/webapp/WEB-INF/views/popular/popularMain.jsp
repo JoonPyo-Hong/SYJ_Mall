@@ -43,9 +43,6 @@
 	let checkdDevice = 0;//맨처음 디바이스 체크!
 	let paging = 1;//페이지 넘버
 	
-	//디바이스 체크
-	
-	
 	window.addEventListener(
 			"scroll",
 			function scrollEvent(){
