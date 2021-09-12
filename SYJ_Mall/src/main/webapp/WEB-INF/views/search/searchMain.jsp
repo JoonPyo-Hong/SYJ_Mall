@@ -13,7 +13,7 @@
 <title>카카오 프렌즈샵</title>
 <link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
-<link rel="stylesheet" href="resources/css/search/productSearchResult1.css">
+<link rel="stylesheet" href="resources/css/search/testest22.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel = "stylesheet" href = "resources/css/mainLayout/searchLayout.css">
 <style>
@@ -249,53 +249,13 @@
 					<!-- 해당 검색 상품 영역 -->
 					<div class="search-product-wrap" style="border: 1px solid red;">
 						<ul id = "search-item-lists">
-							<li class="item-li">
-								<div class="thumbnail">
-									<!-- 솔드아웃 라벨 -->
-									<div class="soldout-label"></div>
-								</div>
-								<div class="name">
-									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
-								</div>
-								<div class="price" style="color: #FF447F;">50% 18,500원</div>
-								<div class="price"
-									style="text-decoration: line-through; color: #9A9A9E;">39,000원</div>
-							</li>
-							<li class="item-li">
-								<div class="thumbnail"></div>
-								<div class="name">
-									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
-								</div>
-								<div class="price">39,000원</div>
-							</li>
-							<li class="item-li">
-								<div class="thumbnail"></div>
-								<div class="name">
-									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
-								</div>
-								<div class="price">39,000원</div>
-							</li>
-							<li class="item-li">
-								<div class="thumbnail"></div>
-								<div class="name">
-									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
-								</div>
-								<div class="price">39,000원</div>
-							</li>
-							<li class="item-li">
-								<div class="thumbnail"></div>
-								<div class="name">
-									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
-								</div>
-								<div class="price">39,000원</div>
-							</li>
-							<li class="item-li">
-								<div class="thumbnail"></div>
-								<div class="name">
-									콘센트 정리 트레이_라이언&춘식<span class="cart"></span>
-								</div>
-								<div class="price">39,000원</div>
-							</li>
+							<c:forEach var="dto" items="${searchProdto}">
+								<li class="item-li">
+                					<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
+                					<div class="name">${dto.prodNm}<span class="cart"></span></div>
+                					<div class="price">${dto.prodPrice} 원</div>
+              					</li>
+							</c:forEach>
 						</ul>
 					</div>
 					</c:if>
@@ -462,15 +422,20 @@ $(document).ready(
 		});
 		
 		
-		let scount = 0;//총 몇번의 페이지 로딩이 있을것인지 처리해준다.
+		let totalProdCounting  = ${searchProdCount};
+		let totalPagingCount = ${pageAjaxCount};
+		let paging = 1;//페이징
+		let height = 0;//높이지정
+		const userinputName = "${userinputName}";//유저가 넘긴 검색단어정보
 		
 		//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
 		window.addEventListener(
 				"scroll",
 				function scrollEvent(){
 					
+					console.log(totalPagingCount);
+					
 					const DEV = deviceCheck();
-					let height = 1195;
 					
 					if (checkdDevice == 0) {
 						checkdDevice = 1;
@@ -482,9 +447,14 @@ $(document).ready(
 							
 						}
 						else if (DEV == 2) {
-							$('#kakao-content').css('height','1386px');
-							$('#inner-content').css('height','1386px');
-							height = 1195;
+							//pc인 경우
+							//$('#kakao-content').css('height','1386px');
+							//$('#inner-content').css('height','1386px');
+							$('#kakao-content').css('height','1420px');
+							$('#inner-content').css('height','1420px');
+
+							height = 1240;//1230;
+							
 						}
 					} 
 					
@@ -494,9 +464,11 @@ $(document).ready(
 					const DOC_TOTAL_HEIGHT = document.body.offsetHeight;	
 					
 
-					if ((SCROLLED_HEIGHT + WINDOW_HEIGHT >= DOC_TOTAL_HEIGHT * 0.9) && scount < 6) {
+					if ((SCROLLED_HEIGHT + WINDOW_HEIGHT >= DOC_TOTAL_HEIGHT * 0.9) && paging < totalPagingCount) {
 						
-						scount++;
+						alert("plus");
+						paging++;
+						alert(paging);
 						
 						const INNER = parseInt($('#inner-content').css('height').replace('px','')) + height;
 						const KAKAO_CONTENT = parseInt($('#kakao-content').css('height').replace('px','')) + height;
@@ -508,56 +480,39 @@ $(document).ready(
 						$('body').css('height',BODY + 'px');
 						$('HTML').css('height',HTML + 'px');
 						
-						$('#search-item-lists').append(
-								
-							'<li class="item-li">'
-							+	'<div class="thumbnail"></div>'
-							+	'<div class="name">'
-							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
-							+	'</div>'
-							+	'<div class="price">39,000원</div>'
-							+'</li>'
-							
-							+'<li class="item-li">'
-							+	'<div class="thumbnail"></div>'
-							+	'<div class="name">'
-							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
-							+	'</div>'
-							+	'<div class="price">39,000원</div>'
-							+'</li>'
-							
-							+'<li class="item-li">'
-							+	'<div class="thumbnail"></div>'
-							+	'<div class="name">'
-							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
-							+	'</div>'
-							+	'<div class="price">39,000원</div>'
-							+'</li>'
-							
-							+'<li class="item-li">'
-							+	'<div class="thumbnail"></div>'
-							+	'<div class="name">'
-							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
-							+	'</div>'
-							+	'<div class="price">39,000원</div>'
-							+'</li>'
-							
-							+'<li class="item-li">'
-							+	'<div class="thumbnail"></div>'
-							+	'<div class="name">'
-							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
-							+	'</div>'
-							+	'<div class="price">39,000원</div>'
-							+'</li>'
-							
-							+'<li class="item-li">'
-							+	'<div class="thumbnail"></div>'
-							+	'<div class="name">'
-							+		'콘센트 정리 트레이_라이언&춘식<span class="cart"></span>'
-							+	'</div>'
-							+	'<div class="price">39,000원</div>'
-							+'</li>'
-						)
+						$.ajax({
+				        	type:"POST",
+				            url: "/SYJ_Mall/searchresultscroll.action" ,
+				            data : {"paging" : paging, "inputWord" : userinputName},
+				            dataType : "json",
+				            success : function(result) {
+				                
+				            	let selectCount = result.length;
+				            	
+				            	console.log("selectCount : " + selectCount);
+				            	
+				            	for (let i = 0; i < selectCount; i++) {
+				            		
+				            		let url = "'" + result[i].picUrl + "'";
+				            		
+				            		$('#search-item-lists').append(
+						            		
+				            			'<li class="item-li">'
+										+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+										+	'<div class="name">'
+										+		 result[i].prodNm+ '<span class="cart"></span>'
+										+	'</div>'
+										+	'<div class="price">' + result[i].prodPrice + '원</div>'
+										+'</li>'
+							            	
+					            	);
+				            		
+				            	}	
+				            },
+				            error: function(a,b,c) {
+									console.log(a,b,c);
+							}
+				        	});	
 						
 					}
 		});		

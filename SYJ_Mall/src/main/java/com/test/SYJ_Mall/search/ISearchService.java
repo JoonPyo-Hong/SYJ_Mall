@@ -39,6 +39,14 @@ public interface ISearchService {
 	 */
 	void goMain(HttpServletRequest request);
 	
+	/**
+	 * 무한스크롤을 통하여 가져올 물품들
+	 * @param inputWord		입력단어
+	 * @param paging		페이징 변수
+	 * @return				물품dto 리스트
+	 */
+	List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging);
+	
 
 
 }
