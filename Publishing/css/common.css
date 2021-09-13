@@ -261,12 +261,20 @@ var {
     max-width: 640px !important;
     padding: 20px 19px !important;
   }
-  .character-modal-wrap .character-list  {
+  .character-modal-wrap .character-list {
     margin: 8px !important;
   }
   .character-modal-wrap .character-list .character-image {
     width: 70px !important;
     height: 70px !important;
     background-size: 70px 70px !important;
+  }
+
+  .sort-modal-wrap {
+    width: 640px !important;
+  }
+
+  .sort-modal-wrap .sort-list {
+    max-width: 640px !important;
   }
 }

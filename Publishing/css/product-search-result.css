@@ -190,7 +190,7 @@ hr.division {
 }
 
 /* 모달 작업 */
-
+/* 모달창 배경 검정색 레이어드 화면 */
 .overlay-wrap {
   display: flex;
   align-items: center;
@@ -202,6 +202,7 @@ hr.division {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+/* 캐릭터 모달창 */
 .character-modal-wrap {
   position: absolute;
   height: auto;
@@ -297,4 +298,45 @@ hr.division {
 
 .character-modal-wrap .character-list.kumdori .character-image {
   background-image: url(../images/product_search_result/Kumdori_71_color_210303.png);
+}
+
+/* 정렬 모달창 */
+.sort-modal-wrap {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  bottom: 0;
+  width: 400px;
+}
+
+.sort-modal-wrap .sort-list {
+  max-width: 400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0px 17px;
+}
+
+.sort-modal-wrap .sort-list:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+.sort-modal-wrap .sort-list:hover .sort-text {
+  color: rgb(0, 0, 0);
+}
+
+.sort-modal-wrap .sort-list .sort-text {
+  font-size: 16px;
+  color: rgb(154, 154, 158);
+}
+
+.sort-modal-wrap .sort-list img {
+  width: 20px;
+  height: 22px;
+  margin-bottom: 2px;
 }
