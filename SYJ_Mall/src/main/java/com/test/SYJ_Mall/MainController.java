@@ -146,7 +146,7 @@ public class MainController {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("num1", num1);
 		map.put("num2", num2);
-		List<MainDTO> list1 = service.list(map);
+		List<MainDTO> list1 = service.list(map); 
 		model.addAttribute("list1", list1);
 
 		List<String> list2 = service.img(seq);
