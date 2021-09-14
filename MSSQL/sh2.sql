@@ -1431,7 +1431,6 @@ begin
 
 end
 
-
 /* 
 	Author      : Seunghwan Shin 
 	Create date : 2021-09-09  
@@ -1440,11 +1439,13 @@ end
 	History	: 2021-09-09 Seunghwan Shin	#최초 생성
 			  2021-09-10 Seunghwan Shin	#join 절 추가
 			  2021-09-12 Seunghwan Shin	#paging 기능 추가
-	Real DB : exec dbo.kakao_search_product_result N'라이언', null
-			  exec dbo.kakao_search_product_result N'라이언', 48	
+			  2021-09-14 Seunghwan Shin	#화폐 따옴표 단위 추가
+	
+	Real DB : exec dbo.kakao_search_product_result N'라이언', null, 1
+			  exec dbo.kakao_search_product_result N'라이언', 48, 1	
 
 */ 
-alter proc dbo.kakao_search_product_result
+CREATE proc dbo.kakao_search_product_result
 	@input_name nvarchar(100)
 ,	@prod_seq varchar(10)
 ,	@paging varchar(10)
@@ -1461,9 +1462,10 @@ begin
 			m.product_id as prodId
 		,	m.product_nm as prodNm
 		,	m.product_count as prodCnt
-		,	m.product_price as prodPrice
+		,	format(m.product_price,'#,#') as prodPrice
 		,	m.discount_rate as discRate
 		,	m.product_img as picUrl
+		,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
 		from
 		(
 			select
@@ -1488,9 +1490,10 @@ begin
 			kpt.product_id as prodId
 		,	kpt.product_nm as prodNm
 		,	kpt.product_count as prodCnt
-		,	kpt.product_price as prodPrice
+		,	format(kpt.product_price,'#,#') as prodPrice
 		,	kpt.discount_rate as discRate
 		,	kpi.product_img as picUrl
+		,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
 		from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
 		inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
 		where kpt.product_id = convert(bigint,@prod_seq)
@@ -1500,9 +1503,10 @@ begin
 end
 
 
-exec dbo.kakao_search_product_result N'춘식', null,1
+select @@TRANCOUNT
 
-exec dbo.kakao_search_product_result N'춘식', null,2
+
+exec dbo.kakao_search_product_result N'라이언', null, 1
 
 
 
