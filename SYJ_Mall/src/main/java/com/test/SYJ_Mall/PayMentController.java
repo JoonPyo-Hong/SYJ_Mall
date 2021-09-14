@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.SYJ_Mall.login.UserDTO;
-
+import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.pay.PayMentService;
+import com.test.SYJ_Mall.pay.ProductDTO;
 
 @Controller
 public class PayMentController {
@@ -34,12 +35,12 @@ public class PayMentController {
 		if(map.get("p_seq") != null) {
 			String str1 = (String) map.get("p_seq");
 			String str2 = (String) map.get("sum");
-			String [] temp1 = str1.split(",");
+//			String [] temp1 = str1.split(",");
 			String [] temp2 = str2.split(",");
-			List<String> list1 = new ArrayList<String>();
+			List<ProductDTO> list1 =  service.PaySelect(str1);
 			List<String> list2 = new ArrayList<String>();
-			for(int i=0; i<temp1.length; i++) {
-				list1.add(temp1[i]);
+			String txt = "";
+			for(int i=0; i<temp2.length; i++) {
 				list2.add(temp2[i]);
 			}
 			model.addAttribute("list1",list1);
