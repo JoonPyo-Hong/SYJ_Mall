@@ -249,6 +249,8 @@
 					<!-- 해당 검색 상품 영역 -->
 					<div class="search-product-wrap" style="border: 1px solid red;">
 						<ul id = "search-item-lists">
+							
+							<!-- 여기서부터 조건이 붙어야 한다.***** -->
 							<c:forEach var="dto" items="${searchProdto}">
 								<li class="item-li">
                 					<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
@@ -256,6 +258,7 @@
                 					<div class="price">${dto.prodPrice} 원</div>
               					</li>
 							</c:forEach>
+							
 						</ul>
 					</div>
 					</c:if>
@@ -489,25 +492,61 @@ $(document).ready(
 				                
 				            	let selectCount = result.length;
 				            	
-				            	console.log("selectCount : " + selectCount);
+				            	//console.log("selectCount : " + selectCount);
 				            	
 				            	for (let i = 0; i < selectCount; i++) {
 				            		
 				            		let url = "'" + result[i].picUrl + "'";
 				            		
-				            		$('#search-item-lists').append(
-						            		
-				            			'<li class="item-li">'
-										+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
-										+	'<div class="name">'
-										+		 result[i].prodNm+ '<span class="cart"></span>'
-										+	'</div>'
-										+	'<div class="price">' + result[i].prodPrice + '원</div>'
-										+'</li>'
-							            	
-					            	);
-				            		
-				            	}	
+				            		//재고가 있는경우와 없는경우로 나눠준다.
+				            		//1. 재고 없는 경우
+				            		if (result[i].prodCnt == 0) {
+				            			$('#search-item-lists').append(
+							            		
+						            			'<li class="item-li">'
+												+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
+												+	'<div class="name">'
+												+		 result[i].prodNm+ '<span class="cart"></span>'
+												+	'</div>'
+												+	'<div class="price">' + result[i].prodPrice + '원</div>'
+												+'</li>'
+									            	
+							            	);
+				            		}
+				            		//2. 재고 있는 경우
+				            		else {
+				            			//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
+					            		//1. 할인안되는 품목인 경우
+					            		if(result[i].discRate == 0) {
+					            			$('#search-item-lists').append(
+								            		
+							            			'<li class="item-li">'
+													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+													+	'<div class="name">'
+													+		 result[i].prodNm+ '<span class="cart"></span>'
+													+	'</div>'
+													+	'<div class="price">' + result[i].prodPrice + '원</div>'
+													+'</li>'
+										            	
+								            	);
+					            		} 
+					            		//2. 할인되는 품목인 경우
+					            		else {
+					            			$('#search-item-lists').append(
+								            		
+							            			'<li class="item-li">'
+													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+													+	'<div class="name">'
+													+		 result[i].prodNm+ '<span class="cart"></span>'
+													+	'</div>'
+													+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
+													+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
+													+'</li>'
+										            	
+								            	);
+					            		}
+				            		}//else
+				            	}//for	
 				            },
 				            error: function(a,b,c) {
 									console.log(a,b,c);

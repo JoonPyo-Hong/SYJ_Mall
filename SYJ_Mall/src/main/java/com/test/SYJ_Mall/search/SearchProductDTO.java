@@ -13,9 +13,10 @@ public class SearchProductDTO {
 	private int prodId;
 	private String prodNm;
 	private int prodCnt;
-	private int prodPrice;
+	//private int prodPrice;
+	private String prodPrice;
 	private int discRate;
 	private String picUrl;
-	
+	private String dcPrice;
 	
 }

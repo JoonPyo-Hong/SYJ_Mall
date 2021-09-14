@@ -115,7 +115,7 @@ public class SearchService implements ISearchService {
 	@Override
 	public List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging) {
 		
-		System.out.println("??? : " + paging);
+		//System.out.println("??? : " + paging);
 		
 		List<SearchProductDTO> searchProdtoAjax = dao.getSearchResultProds(inputWord,null,paging);//6n 개를 가져와준다.
 		
