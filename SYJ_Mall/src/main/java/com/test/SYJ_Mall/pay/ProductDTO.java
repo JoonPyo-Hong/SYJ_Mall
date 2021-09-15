@@ -8,5 +8,5 @@ public class ProductDTO {
 	private String product_id;
 	private String product_nm;
 	private String product_price;
-	private String product_product_img;
+	private String product_img;
 }

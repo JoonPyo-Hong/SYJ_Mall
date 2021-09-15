@@ -27,12 +27,7 @@
 	href="resources/css/pay/product_order.css" />
 </head>
 <body>
-<c:forEach var="p_seq" items="${list1}">
-${p_seq}<br>
-</c:forEach>
-<c:forEach var="sum" items="${list2}">
-${sum}<br>
-</c:forEach>
+
 
 	<div id="kakao-wrap">
 		<div id="kakao-head">
@@ -88,7 +83,9 @@ ${sum}<br>
 						<div class="order-section-title first-title">01 주문제품</div>
 						<!-- 주문 제품 아이템 리스트 -->
 						<!-- 하나 -->
-						<div class="product-item-list">
+					
+						<c:forEach var="p_seq" items="${list1}">						
+							<div class="product-item-list">
 							<div class="product-img">
 								<a href="#">
 									<div class="product-img"></div>
@@ -96,24 +93,30 @@ ${sum}<br>
 							</div>
 							<div class="product-text">
 								<div class="product-text-row name-row">
-									<div class="product-name">춘식이 폭신폭신 페이스 쿠션</div>
+									<div class="product-name">${p_seq.product_nm}</div>
 									<div class="product-list-delete-btn"></div>
 								</div>
 								<div class="product-text-row count-row">
 									<div class="product-count">
 										<label content="4" class="select-box-label"> <select
 											class="select-box-select">
-												<option value="1">1</option>
-												<option value="2">2</option>
+											<c:forEach var="i" begin='1' end='100' varStatus="stat1">
+										
+													<option value="${i}">${i}</option>	
+											</c:forEach>
 										</select>
 										</label>
 									</div>
-									<div class="product-price">36,000원</div>
+									<div class="product-price">${p_seq.product_price}원</div>
 								</div>
 							</div>
 						</div>
+						</c:forEach>	
+						<c:forEach var="sum" items="${list2}" varStatus="stat">
+										${sum}
+						</c:forEach>
 						<!-- 둘 -->
-						<div class="product-item-list">
+						<!-- <div class="product-item-list">
 							<div class="product-img">
 								<a href="#">
 									<div class="product-img"></div>
@@ -136,7 +139,7 @@ ${sum}<br>
 									<div class="product-price">49,000원</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="product-total-price">
 							<div class="price-list">
 								<span class="title">상품가</span> <span class="price">85,000원</span>

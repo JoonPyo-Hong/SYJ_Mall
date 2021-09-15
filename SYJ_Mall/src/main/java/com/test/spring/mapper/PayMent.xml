@@ -6,10 +6,10 @@
 
 <mapper namespace="payment">
 	<select id="PaySelect"
-		resultType="com.test.SYJ_Mall.pay.ProductDTO" parameterType="string">
+		resultType="com.test.SYJ_Mall.pay.ProductDTO" parameterType="String">
 		select
 		a.product_id,a.product_nm,a.product_price,b.product_img from
-		KAKAO_PRODUCT_TABLE a left join KAKAO_PRODUCT_IMG b on a.product_id
-		=b.product_id where a.product_id in  (${str1}) and rep_img_yn = 'Y'
+		dbo.KAKAO_PRODUCT_TABLE a with(nolock) left join dbo.KAKAO_PRODUCT_IMG b with(nolock) on a.product_id
+		=b.product_id where a.product_id in  (${value}) and rep_img_yn = 'Y'
 	</select>
 </mapper>
