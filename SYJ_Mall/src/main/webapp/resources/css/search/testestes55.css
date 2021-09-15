@@ -186,6 +186,15 @@ hr.division {
   background-repeat: no-repeat;
 }
 
+.search-product-wrap .item-li .name .alarm {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/ico-notification-empty-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .search-product-wrap .item-li .price {
   font-size: 16px;
   font-weight: bold;
