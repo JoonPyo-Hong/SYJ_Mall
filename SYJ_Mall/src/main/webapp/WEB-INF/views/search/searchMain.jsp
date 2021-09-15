@@ -252,10 +252,7 @@
 							
 							<!-- 여기서부터 조건이 붙어야 한다.***** -->
 							<c:forEach var="dto" items="${searchProdto}">
-								
-								
-								
-								
+
 								<!-- 상품재고가 없는 경우 -->
 								<c:if test="${dto.prodCnt eq 0}">
 								<li class="item-li">
@@ -481,10 +478,10 @@ $(document).ready(
 							//pc인 경우
 							//$('#kakao-content').css('height','1386px');
 							//$('#inner-content').css('height','1386px');
-							$('#kakao-content').css('height','1420px');
-							$('#inner-content').css('height','1420px');
+							$('#kakao-content').css('height','1470px');
+							$('#inner-content').css('height','1470px');
 
-							height = 1240;//1230;
+							height = 1290;//1230;
 							
 						}
 					} 
