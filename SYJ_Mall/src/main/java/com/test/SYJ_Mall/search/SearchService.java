@@ -123,4 +123,6 @@ public class SearchService implements ISearchService {
 	}
 	
 	
+	//프론트에서 글자 이쁘게 처리
+	
 }

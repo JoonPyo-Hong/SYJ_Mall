@@ -16,7 +16,7 @@ public class PayMentDAOImpl implements PayMentDAO{
 		@Override
 		public List<ProductDTO> PaySelect(String str1) {
 			// TODO Auto-generated method stub
-			System.out.println(str1);
+			//System.out.println(str1);
 			return session.selectList("payment.PaySelect", str1);
 		}
 }

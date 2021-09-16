@@ -13,7 +13,7 @@
 <title>카카오 프렌즈샵</title>
 <link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
-<link rel="stylesheet" href="resources/css/search/testest22.css">
+<link rel="stylesheet" href="resources/css/search/testestes55.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel = "stylesheet" href = "resources/css/mainLayout/searchLayout.css">
 <style>
@@ -253,17 +253,18 @@
 							<!-- 여기서부터 조건이 붙어야 한다.***** -->
 							<c:forEach var="dto" items="${searchProdto}">
 
-								<!-- 상품재고가 없는 경우 -->
 								<c:if test="${dto.prodCnt eq 0}">
+								<!-- 상품재고가 없는 경우 -->
 								<li class="item-li">
                 					<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
-                					<div class="name">${dto.prodNm}<span class="cart"></span></div>
+                					<div class="name">${dto.prodNm}<span class="alarm"></span></div>
                 					<div class="price">${dto.prodPrice} 원</div>
               					</li>
               					</c:if>
               					
-              					<!-- 상품재고는 있고 할인이 없는경우 -->
+              					
               					<c:if test="${dto.prodCnt ne 0 && dto.discRate eq 0}">
+              					<!-- 상품재고는 있고 할인이 없는경우 -->
 									<li class="item-li">	
                 						<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
                 						<div class="name">${dto.prodNm}<span class="cart"></span></div>
@@ -272,13 +273,13 @@
               					</c:if>
               					
               					
-              					<!-- 상품재고는 있고 할인이 있는 경우 -->
               					<c:if test="${dto.prodCnt ne 0 && dto.discRate ne 0}">
+              					<!-- 상품재고는 있고 할인이 있는 경우 -->
 									<li class="item-li">	
                 						<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
                 						<div class="name">${dto.prodNm}<span class="cart"></span></div>
-                						<div class="price" style="color : #FF447F;">${dto.discRate} % ${dto.dcPrice} 원</div>
-                						<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice} 원</div>
+                						<div class="price" style="color : #FF447F;">${dto.discRate}% ${dto.dcPrice}원</div>
+                						<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice}원</div>
               						</li>
               					</c:if>
               					
