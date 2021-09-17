@@ -63,9 +63,9 @@ input[type="checkbox"]:checked + label {
   position: relative;
   width: 100px;
   height: 100px;
-  background: url(../images/product_order/20210617184011808_8809721509685_8809721509685_AW_00.jpg)
-    no-repeat;
-  background-size: contain;
+  background:no-repeat;
+  background-size: cover;/*contain; 바꿨는데 나중에 확인ㄴ*/
+ 
 }
 
 .product-text {

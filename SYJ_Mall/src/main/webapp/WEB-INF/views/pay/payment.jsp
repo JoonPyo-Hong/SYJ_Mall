@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,9 +85,10 @@
 						<!-- 주문 제품 아이템 리스트 -->
 						<!-- 하나 -->
 					
-						<c:forEach var="p_seq" items="${list1}">						
+						<c:forEach var="p_seq" items="${list1}" varStatus="stat">	
+
 							<div class="product-item-list">
-							<div class="product-img">
+							<div class="product-img" style="background-image: url('${p_seq.product_img}');">
 								<a href="#">
 									<div class="product-img"></div>
 								</a>
@@ -100,21 +102,28 @@
 									<div class="product-count">
 										<label content="4" class="select-box-label"> <select
 											class="select-box-select">
+											
 											<c:forEach var="i" begin='1' end='100' varStatus="stat1">
-										
-													<option value="${i}">${i}</option>	
+											<c:choose>
+												<c:when test="${list2[stat.index] eq i}">
+													<option selected="selected" value="${i}">${i}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${i}">${i}</option>
+												</c:otherwise>
+											</c:choose>
 											</c:forEach>
 										</select>
 										</label>
 									</div>
-									<div class="product-price">${p_seq.product_price}원</div>
+									<div class="product-price">${fn:replace(p_seq.product_price, '.0000', '')}원</div>
+									
 								</div>
 							</div>
 						</div>
+						
 						</c:forEach>	
-						<c:forEach var="sum" items="${list2}" varStatus="stat">
-										${sum}
-						</c:forEach>
+	
 						<!-- 둘 -->
 						<!-- <div class="product-item-list">
 							<div class="product-img">
