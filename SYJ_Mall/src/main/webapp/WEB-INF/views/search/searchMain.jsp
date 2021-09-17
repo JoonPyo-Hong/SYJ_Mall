@@ -13,7 +13,7 @@
 <title>카카오 프렌즈샵</title>
 <link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
-<link rel="stylesheet" href="resources/css/search/testestes55.css">
+<link rel="stylesheet" href="resources/css/search/productSearchResult5.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel = "stylesheet" href = "resources/css/mainLayout/searchLayout.css">
 <style>
@@ -255,9 +255,12 @@
 
 								<c:if test="${dto.prodCnt eq 0}">
 								<!-- 상품재고가 없는 경우 -->
-								<li class="item-li">
+								<li class="item-li" id="prodt${dto.prodId}">
                 					<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
-                					<div class="name">${dto.prodNm}<span class="alarm"></span></div>
+                					<div class="name">
+                						<div class="nametext">${dto.prodNm}</div>
+                						<span class="alarm"></span>
+                					</div>
                 					<div class="price">${dto.prodPrice} 원</div>
               					</li>
               					</c:if>
@@ -265,9 +268,12 @@
               					
               					<c:if test="${dto.prodCnt ne 0 && dto.discRate eq 0}">
               					<!-- 상품재고는 있고 할인이 없는경우 -->
-									<li class="item-li">	
+									<li class="item-li" id="prodt${dto.prodId}"> 	
                 						<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                						<div class="name">${dto.prodNm}<span class="cart"></span></div>
+                						<div class="name">
+                							<div class="nametext">${dto.prodNm}</div>
+                							<span class="cart"></span>
+                						</div>
                 						<div class="price">${dto.prodPrice} 원</div>
               						</li>
               					</c:if>
@@ -275,9 +281,12 @@
               					
               					<c:if test="${dto.prodCnt ne 0 && dto.discRate ne 0}">
               					<!-- 상품재고는 있고 할인이 있는 경우 -->
-									<li class="item-li">	
+									<li class="item-li" id="prodt${dto.prodId}">	
                 						<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                						<div class="name">${dto.prodNm}<span class="cart"></span></div>
+                						<div class="name">
+                							<div class="nametext">${dto.prodNm}</div>
+                							<span class="cart"></span>
+                						</div>
                 						<div class="price" style="color : #FF447F;">${dto.discRate}% ${dto.dcPrice}원</div>
                 						<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice}원</div>
               						</li>
@@ -477,12 +486,11 @@ $(document).ready(
 						}
 						else if (DEV == 2) {
 							//pc인 경우
-							//$('#kakao-content').css('height','1386px');
-							//$('#inner-content').css('height','1386px');
-							$('#kakao-content').css('height','1470px');
-							$('#inner-content').css('height','1470px');
+						
+							$('#kakao-content').css('height','1405px');
+							$('#inner-content').css('height','1405px');
 
-							height = 1290;//1230;
+							height = 1230;
 							
 						}
 					} 
@@ -529,10 +537,11 @@ $(document).ready(
 				            		if (result[i].prodCnt == 0) {
 				            			$('#search-item-lists').append(
 							            		
-						            			'<li class="item-li">'
+						            			'<li class="item-li" id="prodt'+ result[i].prodId + '">'
 												+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
 												+	'<div class="name">'
-												+		 result[i].prodNm+ '<span class="cart"></span>'
+												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+												+		'<span class="cart"></span>'
 												+	'</div>'
 												+	'<div class="price">' + result[i].prodPrice + '원</div>'
 												+'</li>'
@@ -546,10 +555,11 @@ $(document).ready(
 					            		if(result[i].discRate == 0) {
 					            			$('#search-item-lists').append(
 								            		
-							            			'<li class="item-li">'
+					            					'<li class="item-li" id="prodt'+ result[i].prodId + '">'
 													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
 													+	'<div class="name">'
-													+		 result[i].prodNm+ '<span class="cart"></span>'
+													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+													+ 		'<span class="cart"></span>'
 													+	'</div>'
 													+	'<div class="price">' + result[i].prodPrice + '원</div>'
 													+'</li>'
@@ -560,10 +570,11 @@ $(document).ready(
 					            		else {
 					            			$('#search-item-lists').append(
 								            		
-							            			'<li class="item-li">'
+					            					'<li class="item-li" id="prodt'+ result[i].prodId + '">'
 													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
 													+	'<div class="name">'
-													+		 result[i].prodNm+ '<span class="cart"></span>'
+													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+													+ 		'<span class="cart"></span>'
 													+	'</div>'
 													+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
 													+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
@@ -585,72 +596,44 @@ $(document).ready(
 		
 		
 		/* sold out 처리도 해줘야할것이다. */
-		/* 아래부분은 일단 장바구니 클릭하면 담기는 로직 */
 		
-		//사진 클릭해줬을때 처리해줄것. -> 상품페이지로 넘길것
-		$(document).on("click",".grid-img",function(){
-		 	alert($(this).attr('id')); 
-			});
+		/* 상품 클릭할때 생기는 이벤트 */
+		$(document).on("click",".item-li",function(){
+			let prodt_id = $(this).attr('id');
+			alert(prodt_id);
+		});
 		
-		//장바구니 클릭해줬을때 처리해줄것. -> 쿠키에 넘길것!(비로그인시) or db에 넘길것(로그인 한 경우)	
-		$(document).on("click",".basket",function(e){
-		 	const cart_yn  = $(this).css('background-image');
-		 	const product_id = $(this).parent().attr('id');//상품번호
+		/* 아래부분은 일단 장바구니 또는 알림표시 클릭하면 생기는 이벤트 */	
+		$(document).on("click",".cart",function(e){
+			
+			let prodt_id = $(this).parent().parent().attr('id');
+			
+			$(this).attr('class','incart');
+			e.stopPropagation();  
+		});
 		
-		 	console.log(cart_yn);
-		 	console.log(product_id);
-		 	
-		 	//이미 장바구니에 담겼을 경우
-		    if (cart_yn.includes('cart_on')) {
-		 		//console.log('장바구니에서 나옴');
-		 		
-		 		
-			 	$.ajax({
-		            	type:"GET",
-		            	url: "/SYJ_Mall/popularItemBasketOutput.action" ,
-		            	data : "productId=" + product_id,
-		            	dataType : "json",
-		            	success : function(result) {
-		            	
-		            		if (result == 1) {
-		            			$('#' + product_id).children('.basket').css('background-image','url(resources/images/hot/cart.png)');
-		            		}
-		            	
-		            	},
-		            	error: function(a,b,c) {
-							console.log(a,b,c);
-					}
-		           });
-		 		
-		 		
-		 	} else {//장바구니에 안담긴경우
-		 		//console.log('장바구니에 담김');
-		 	
-		 		
-			 	$.ajax({
-		            	type:"GET",
-		            	url: "/SYJ_Mall/popularItemBasketInput.action" ,
-		            	data : "productId=" + product_id,
-		            	dataType : "json",
-		            	success : function(result) {
-		            		
-		            		console.log(result);
-		            		
-		            		if (result == 1) {
-		            			$('#' + product_id).children('.basket').css('background-image','url(resources/images/hot/cart_on.png)');
-		            		}
-		            	
-		             	},
-		             error: function(a,b,c) {
-						console.log(a,b,c);
-					}
-		        });
-		 		
-		 	}
+		$(document).on("click",".incart",function(e){
+			let prodt_id = $(this).parent().parent().attr('id');
+			
+			$(this).attr('class','cart');
+			e.stopPropagation();  
+		});
+
+		$(document).on("click",".alarm",function(e){
+			let prodt_id = $(this).parent().parent().attr('id');
+			
+			$(this).attr('class','inalarm');
+			e.stopPropagation();  
+		});
+
+		$(document).on("click",".inalarm",function(e){
+			let prodt_id = $(this).parent().parent().attr('id');
+			
+			$(this).attr('class','alarm');
+			e.stopPropagation();  
+		});
+
 		
-		 	//버블링 제거
-		 	e.stopPropagation();  
-			});
 		
 
 </script>

@@ -134,16 +134,17 @@ hr.division {
 }
 
 .search-product-wrap .item-li {
-  margin-bottom: 40px;
-  max-width: 160px !important;
+  max-width: 160px;
+  min-height: 280px;
+  max-height: 280px;
 }
 
 .search-product-wrap .item-li .thumbnail {
   position: relative;
   width: 160px;
   height: 160px;
-  background-image: url(/SYJ_Mall/resources/images/product_category/20210819161132067_8809814920946_8809814920946_AW_00.jpg);
   background-size: contain;
+  background-repeat: no-repeat;
   margin-right: 20px;
   margin-bottom: 12px;
 }
@@ -168,6 +169,10 @@ hr.division {
   background-size: contain;
 }
 
+.search-product-wrap .item-li:hover {
+	cursor : pointer;
+}
+
 .search-product-wrap .item-li .name {
   display: flex;
   justify-content: space-between;
@@ -177,11 +182,62 @@ hr.division {
   margin: 15px 0 5px;
 }
 
+.search-product-wrap .item-li .name .nametext {
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .search-product-wrap .item-li .name .cart {
+  flex-shrink: 0;
   display: inline-block;
   width: 24px;
   height: 24px;
   background-image: url(/SYJ_Mall/resources/images/product_category/Small_30_off.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.search-product-wrap .item-li .name .cart {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/Small_30_off.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.search-product-wrap .item-li .name .incart {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/Small_30_on.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.search-product-wrap .item-li .name .alarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/ico-notification-empty-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.search-product-wrap .item-li .name .inalarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/ico-notification-solid-24.png);
   background-size: contain;
   background-repeat: no-repeat;
 }

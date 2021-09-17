@@ -1560,5 +1560,93 @@ exec dbo.kakao_search_product_result_count N'라이언', 48
 
 
 
+--진행중
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-09-17  
+	Description : 물품 검색결과 -> 물품의 정보를 가져와준다.(로그인 하지 않았을 경우) 
+	     
+	History	: 2021-09-17 Seunghwan Shin	#최초 생성
+			  
+	
+	Real DB : 
+
+*/ 
+CREATE proc dbo.kakao_search_product_result_not_login
+	@input_name nvarchar(100)
+,	@prod_seq varchar(10)
+,	@paging varchar(10)
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin 
+    
+	declare @paging_num int = convert(int,@paging)
+
+	if (@prod_seq is null)
+	begin
+		select
+			m.product_id as prodId
+		,	m.product_nm as prodNm
+		,	m.product_count as prodCnt
+		,	format(m.product_price,'#,#') as prodPrice
+		,	m.discount_rate as discRate
+		,	m.product_img as picUrl
+		,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
+		from
+		(
+			select
+				row_number() over (order by kpt.product_id desc) as rn
+			,	kpt.product_id 
+			,	kpt.product_nm 
+			,	kpt.product_count 
+			,	kpt.product_price 
+			,	kpt.discount_rate 
+			,	kpi.product_img 
+			from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+			inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+			where kpt.product_nm like N'%' + @input_name + N'%'
+			and kpi.rep_img_yn = 'Y'
+			and kpi.head_img_yn = 'Y'
+		) as m
+		where m.rn between (@paging_num * 6) - 5 and (@paging_num * 6)
+	end
+	else
+	begin
+		select
+			kpt.product_id as prodId
+		,	kpt.product_nm as prodNm
+		,	kpt.product_count as prodCnt
+		,	format(kpt.product_price,'#,#') as prodPrice
+		,	kpt.discount_rate as discRate
+		,	kpi.product_img as picUrl
+		,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
+		from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+		inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+		where kpt.product_id = convert(bigint,@prod_seq)
+		and kpi.rep_img_yn = 'Y'
+		and kpi.head_img_yn = 'Y'
+	end
+end
+
+
+
+
+select
+				row_number() over (order by kpt.product_id desc) as rn
+			,	kpt.product_id 
+			,	kpt.product_nm 
+			,	kpt.product_count 
+			,	kpt.product_price 
+			,	kpt.discount_rate 
+			,	kpi.product_img 
+			from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+			inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+			where kpt.product_nm like N'%라이언%'
+			and kpi.rep_img_yn = 'Y'
+			and kpi.head_img_yn = 'Y'
+
+
 
 

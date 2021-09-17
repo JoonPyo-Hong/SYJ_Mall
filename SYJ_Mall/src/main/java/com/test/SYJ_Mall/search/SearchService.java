@@ -29,13 +29,16 @@ public class SearchService implements ISearchService {
 	@Override
 	public int getSearchResultProd(HttpServletRequest request) {
 		
+		//로그인이 된 경우와 되지 않은 경우로 나누어서 로직을 설계해줘야 한다.
+		
+		
 		try {
 			
 			String inputName = request.getParameter("inputName");// 넘겨준 단어 -> 검색에 적은 단어(엔터를 안치고 온 경우)
 			String productSeq = request.getParameter("productSeq");// 넘겨준 단어 -> 검색에 적은 단어에 매치되는 상품번호(엔터를 안치고 온 경우)
 			
-			System.out.println(inputName);
-			System.out.println(productSeq);
+			//System.out.println(inputName);
+			//System.out.println(productSeq);
 			
 			
 			List<SearchProductDTO> searchProdto = dao.getSearchResultProds(inputName,productSeq,1);//처음데이터를 가져오는 것이므로 1 을 넣어준다. => 6개만 가져와준다.
