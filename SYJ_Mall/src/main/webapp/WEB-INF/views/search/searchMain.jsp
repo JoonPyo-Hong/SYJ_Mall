@@ -219,6 +219,8 @@
 					</div>
 					</c:if>
 					
+					
+					
 					<c:if test = "${searchProdCount != 0}">
 					<!-- 데이터 있을 시 -->
 					<!-- 상품 정렬 및 개수 -->
@@ -252,51 +254,97 @@
 							
 							<!-- 여기서부터 조건이 붙어야 한다.***** -->
 							<c:forEach var="dto" items="${searchProdto}">
-
-								<c:if test="${dto.prodCnt eq 0}">
-								<!-- 상품재고가 없는 경우 -->
-								<li class="item-li" id="prodt${dto.prodId}">
-                					<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
-                					<div class="name">
-                						<div class="nametext">${dto.prodNm}</div>
-                						<span class="alarm"></span>
-                					</div>
-                					<div class="price">${dto.prodPrice} 원</div>
-              					</li>
-              					</c:if>
-              					
-              					
-              					<c:if test="${dto.prodCnt ne 0 && dto.discRate eq 0}">
-              					<!-- 상품재고는 있고 할인이 없는경우 -->
-									<li class="item-li" id="prodt${dto.prodId}"> 	
-                						<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                						<div class="name">
-                							<div class="nametext">${dto.prodNm}</div>
-                							<span class="cart"></span>
-                						</div>
-                						<div class="price">${dto.prodPrice} 원</div>
-              						</li>
-              					</c:if>
-              					
-              					
-              					<c:if test="${dto.prodCnt ne 0 && dto.discRate ne 0}">
-              					<!-- 상품재고는 있고 할인이 있는 경우 -->
-									<li class="item-li" id="prodt${dto.prodId}">	
-                						<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                						<div class="name">
-                							<div class="nametext">${dto.prodNm}</div>
-                							<span class="cart"></span>
-                						</div>
-                						<div class="price" style="color : #FF447F;">${dto.discRate}% ${dto.dcPrice}원</div>
-                						<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice}원</div>
-              						</li>
-              					</c:if>
-              					
+								<c:choose>
+									<c:when test="${empty userinfo}">
+										<c:choose>
+											<c:when test = "${dto.prodCnt eq 0}">
+											<!-- 상품재고가 없는 경우 -->
+												<li class="item-li" id="prodt${dto.prodId}">
+                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
+                									<div class="name">
+                										<div class="nametext">${dto.prodNm}</div>
+                										<span class="alarm"></span>
+                									</div>
+                									<div class="price">${dto.prodPrice} 원</div>
+              									</li>	
+											</c:when>
+											
+											
+											<c:when test = "${dto.prodCnt ne 0 && dto.discRate eq 0}">
+											<!-- 상품재고는 있고 할인이 없는경우 -->
+												<li class="item-li" id="prodt${dto.prodId}"> 	
+                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
+                									<div class="name">
+                										<div class="nametext">${dto.prodNm}</div>
+                										<span class="${dto.cookieBasket}"></span>
+                									</div>
+                									<div class="price">${dto.prodPrice} 원</div>
+              									</li>	
+											</c:when>
+											
+											
+											<c:when test = "${dto.prodCnt ne 0 && dto.discRate ne 0}">
+											<!-- 상품재고는 있고 할인이 있는 경우 -->
+												<li class="item-li" id="prodt${dto.prodId}">	
+                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
+                									<div class="name">
+                										<div class="nametext">${dto.prodNm}</div>
+                										<span class="${dto.cookieBasket}"></span>
+                									</div>
+                									<div class="price" style="color : #FF447F;">${dto.discRate}% ${dto.dcPrice}원</div>
+                									<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice}원</div>
+              									</li>	
+											</c:when>
+										</c:choose>
+									</c:when>
+									<c:when test="${not empty userinfo}">
+										<c:choose>
+											<c:when test = "${dto.prodCnt eq 0}">
+											<!-- 상품재고가 없는 경우 -->
+												<li class="item-li" id="prodt${dto.prodId}">
+                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
+                									<div class="name">
+                										<div class="nametext">${dto.prodNm}</div>
+                										<span class="${dto.alarmYn}"></span>
+                									</div>
+                									<div class="price">${dto.prodPrice} 원</div>
+              									</li>	
+											</c:when>
+											
+											
+											<c:when test = "${dto.prodCnt ne 0 && dto.discRate eq 0}">
+											<!-- 상품재고는 있고 할인이 없는경우 -->
+												<li class="item-li" id="prodt${dto.prodId}"> 	
+                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
+                									<div class="name">
+                										<div class="nametext">${dto.prodNm}</div>
+                										<span class="${dto.cookieBasket}"></span>
+                									</div>
+                									<div class="price">${dto.prodPrice} 원</div>
+              									</li>	
+											</c:when>
+											
+											
+											<c:when test = "${dto.prodCnt ne 0 && dto.discRate ne 0}">
+											<!-- 상품재고는 있고 할인이 있는 경우 -->
+												<li class="item-li" id="prodt${dto.prodId}">	
+                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
+                									<div class="name">
+                										<div class="nametext">${dto.prodNm}</div>
+                										<span class="${dto.cookieBasket}"></span>
+                									</div>
+                									<div class="price" style="color : #FF447F;">${dto.discRate}% ${dto.dcPrice}원</div>
+                									<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice}원</div>
+              									</li>	
+											</c:when>
+										</c:choose>
+									</c:when>
+								</c:choose>
 							</c:forEach>
-							
 						</ul>
 					</div>
 					</c:if>
+					
 				</div>
 			</div>
 		</div>
@@ -541,7 +589,7 @@ $(document).ready(
 												+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
 												+	'<div class="name">'
 												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-												+		'<span class="cart"></span>'
+												+		'<span class="'+result[i].alarmYn+'"></span>'
 												+	'</div>'
 												+	'<div class="price">' + result[i].prodPrice + '원</div>'
 												+'</li>'
@@ -559,7 +607,7 @@ $(document).ready(
 													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
 													+	'<div class="name">'
 													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-													+ 		'<span class="cart"></span>'
+													+ 		'<span class="' + result[i].cookieBasket + '"></span>'
 													+	'</div>'
 													+	'<div class="price">' + result[i].prodPrice + '원</div>'
 													+'</li>'
@@ -574,7 +622,7 @@ $(document).ready(
 													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
 													+	'<div class="name">'
 													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-													+ 		'<span class="cart"></span>'
+													+ 		'<span class="' + result[i].cookieBasket + '"></span>'
 													+	'</div>'
 													+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
 													+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'

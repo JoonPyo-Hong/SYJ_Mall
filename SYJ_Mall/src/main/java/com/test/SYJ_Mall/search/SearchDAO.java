@@ -20,7 +20,7 @@ public class SearchDAO implements ISearchDAO {
 		return template.selectList("SYJSearch.searchLittleProd",inputWord);
 	}
 	
-	//검색조건에 맞는 상품정보를 가져와준다
+	//검색조건에 맞는 상품정보를 가져와준다 -> 로그인 안되어 있는 경우
 	@Override
 	public List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq,int pagingCount, String basketList) {
 		
@@ -48,7 +48,17 @@ public class SearchDAO implements ISearchDAO {
 		return template.selectOne("SYJSearch.searchProdCount",map);
 	}
 	
-	
-	
+	@Override
+	public List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq,int pagingCount) {
+		
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("inputName",inputName);
+		map.put("productSeq",productSeq);
+		map.put("pagingCount",Integer.toString(pagingCount));
+		
+		return template.selectList("SYJSearch.searchProdDetilLogOn",map);
+	}
 
 }

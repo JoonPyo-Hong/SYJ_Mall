@@ -12,7 +12,7 @@ public interface ISearchDAO {
 	List<SearchNameDTO> getProdInfo(String inputWord);
 	
 	/**
-	 * 검색조건에 맞는 상품정보를 가져와준다
+	 * 검색조건에 맞는 상품정보를 가져와준다 -> 로그인 안되어있는 경우
 	 * @param inputName		상품이름
 	 * @param productSeq	상품번호
 	 * @param pagingCount	상품 페이징 카운트
@@ -28,6 +28,16 @@ public interface ISearchDAO {
 	 * @return				총상품 갯수
 	 */
 	int getSearchResultProdsCount(String inputName, String productSeq);
+	
+	/**
+	 * 검색조건에 맞는 상품정보를 가져와준다 -> 로그인 되어 있는 경우
+	 * @param userSeq		
+	 * @param inputName		상품이름
+	 * @param productSeq	상품번호	
+	 * @param pagingCount	상품 페이징 카운트
+	 * @return
+	 */
+	List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq, int pagingCount);
 	
 
 }

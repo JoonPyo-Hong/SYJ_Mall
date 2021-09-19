@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.search.ISearchService;
 import com.test.SYJ_Mall.search.SearchNameDTO;
 import com.test.SYJ_Mall.search.SearchProductDTO;
@@ -64,15 +66,30 @@ public class SearchController {
 	public List<SearchProductDTO> searchresultscroll(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
+			//로그인정보 존재하는 경우랑 존재하지 않는경우로 나누어서 정보 가져와줘야한다.
+			HttpSession session = request.getSession();
+			UserDTO uDto = (UserDTO)session.getAttribute("userinfo");
+			
 			String inputWord = request.getParameter("inputWord");// 넘겨준 단어
 			int paging = Integer.parseInt(request.getParameter("paging"));//페이징 변수
+			
+			List<SearchProductDTO> prodto;//무한스크롤을 통하여 가져올 물품들
+			
+			if (uDto == null) {
+			//로그인 하지 않은 경우	
+				prodto = service.getAjaxProdInfo(inputWord,paging,request);
+			}
+			else {
+			//로그인 한 경우	
+				prodto = service.getAjaxProdInfoLogOn(uDto.getUserSeq(),inputWord,paging);
+			}
 			
 			System.out.println("inputWord : " + inputWord);
 			System.out.println("paging : " + paging);
 			
-			List<SearchProductDTO> prodto = service.getAjaxProdInfo(inputWord,paging,request);//무한스크롤을 통하여 가져올 물품들
+			//List<SearchProductDTO> prodto = service.getAjaxProdInfo(inputWord,paging,request);//무한스크롤을 통하여 가져올 물품들
 			
-			System.out.println("prodtosize : " + prodto.size());
+			//System.out.println("prodtosize : " + prodto.size());
 			
 			return prodto;
 		} catch(Exception e) {

@@ -47,13 +47,22 @@ public interface ISearchService {
 	 */
 	
 	/**
-	 * 무한스크롤을 통하여 가져올 물품들
+	 * 무한스크롤을 통하여 가져올 물품들 로그인 안한 경우
 	 * @param inputWord		입력단어
 	 * @param paging		페이징 변수
 	 * @param request		request 객체
 	 * @return				물품dto 리스트
 	 */
 	List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging, HttpServletRequest request);
+	
+	/**
+	 * 무한스크롤을 통하여 가져올 물품들 로그인 한 경우
+	 * @param userSeq		유저고유번호
+	 * @param inputWord		입력단어
+	 * @param paging		페이징 변수
+	 * @return				물품dto 리스트
+	 */
+	List<SearchProductDTO> getAjaxProdInfoLogOn(int userSeq, String inputWord, int paging);
 	
 
 

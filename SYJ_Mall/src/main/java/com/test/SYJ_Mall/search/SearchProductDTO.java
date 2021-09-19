@@ -18,5 +18,6 @@ public class SearchProductDTO {
 	private String picUrl;
 	private String dcPrice;
 	private String cookieBasket;
+	private String alarmYn;
 	
 }
