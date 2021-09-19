@@ -45,7 +45,7 @@ public class SearchController {
 		}
 	}
 
-	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기
+	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기 -> 첫번째로 가져온 경우
 	@RequestMapping(value = "/searchresult.action", method = { RequestMethod.GET })
 	public String searchresult(HttpServletRequest request, HttpServletResponse response) {
 
@@ -58,7 +58,7 @@ public class SearchController {
 	}
 	
 	
-	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기 -> 무한스크롤
+	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기 -> 무한스크롤 즉 두번째 이상부터 가져오는 경우
 	@RequestMapping(value = "/searchresultscroll.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public List<SearchProductDTO> searchresultscroll(HttpServletRequest request, HttpServletResponse response) {
@@ -70,7 +70,7 @@ public class SearchController {
 			System.out.println("inputWord : " + inputWord);
 			System.out.println("paging : " + paging);
 			
-			List<SearchProductDTO> prodto = service.getAjaxProdInfo(inputWord,paging);//무한스크롤을 통하여 가져올 물품들
+			List<SearchProductDTO> prodto = service.getAjaxProdInfo(inputWord,paging,request);//무한스크롤을 통하여 가져올 물품들
 			
 			System.out.println("prodtosize : " + prodto.size());
 			

@@ -25,33 +25,31 @@ public class PopularItemController {
 	@RequestMapping(value = "/popularMain.action", method = { RequestMethod.GET,RequestMethod.POST })
 	public String popularItemMain(HttpServletRequest request, HttpServletResponse response) {
 		
-		HttpSession session = request.getSession();
-		UserDTO userInfo = (UserDTO)session.getAttribute("userinfo");
-		
-		//마지막 페이지 정보 쿠키에 넘기는 작업
-		KakaoCookie ck = new KakaoCookie();
-		ck.generateCookie(response, "lastPage", "popularMain");
-		
-		int result = -1;//결과값
-		
-		//1. 로그인 되어 있는경우
-		if (userInfo != null) {
-			//여기서 기존에 있는 쿠키에 있는 장바구니 정보 모두 로그인되어있는 유저에게 넘길것이다.
-			int userSeq = userInfo.getUserSeq();//유저 고유번호
-			int cookieToDb = service.cookieToDb(request,userSeq);
+		try {
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO)session.getAttribute("userinfo");
+			//마지막 페이지 정보 쿠키에 넘기는 작업
+			KakaoCookie ck = new KakaoCookie();
+			ck.generateCookie(response, "lastPage", "popularMain");
 			
-			if (cookieToDb == 1) result = service.getPopularProductList(request,1,userSeq,"");
-			else result = -1;
-		} 
-		//2. 로그인 되어있지 않은 경우
-		else {
-			String basketList = service.getCookieBasket(request,response);
-			result = service.getPopularProductList(request,1,0,basketList);
-		}
-
-		if (result == 1) {
-			return "/tiles/popularItem.layout";
-		} else {
+			int popResult = -1;
+			
+			if (userInfo == null) {
+			//로그인 된 경우
+				String basketList = service.getCookieBasket(request,response);
+				popResult = service.getPopularProductList(request,1,0,basketList);
+			} 
+			else {
+			//로그인 되지 않은 경우
+				int userSeq = userInfo.getUserSeq();//유저 고유번호
+				popResult = service.getPopularProductList(request,1,userSeq,"");
+			}
+			
+			if (popResult == 1) return "/tiles/popularItem.layout";
+			else throw new Exception();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
 			return "/testwaiting/kakaoerror";
 		}	
 	}

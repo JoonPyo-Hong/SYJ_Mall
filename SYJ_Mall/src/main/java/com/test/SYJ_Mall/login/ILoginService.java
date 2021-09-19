@@ -46,7 +46,7 @@ public interface ILoginService {
 	 * @param request	request 객체
 	 * @param userSeq	유저 고유번호
 	 */
-	void loginSuccess(HttpServletRequest request, int userSeq);
+	int loginSuccess(HttpServletRequest request, int userSeq) throws Exception;
 	
 	/**
 	 * 자동로그인 방지
@@ -233,6 +233,13 @@ public interface ILoginService {
 	 * @param request
 	 */
 	void goMain(HttpServletRequest request);
+	
+	/**
+	 * 물품정보를 리스트형식으로 넣어주면 #을 붙여서 반환
+	 * @param list	상품정보리스트
+	 * @return		상품정보리스트 #을 붙여서 반환
+	 */
+	String productCookieList(List<Integer> list);
 	
 
 	

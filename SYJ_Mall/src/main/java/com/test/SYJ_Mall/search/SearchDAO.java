@@ -22,13 +22,15 @@ public class SearchDAO implements ISearchDAO {
 	
 	//검색조건에 맞는 상품정보를 가져와준다
 	@Override
-	public List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq,int pagingCount) {
+	public List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq,int pagingCount, String basketList) {
 		
 		Map<String,String> map = new HashMap<String, String>();
 		
 		map.put("inputName",inputName);
 		map.put("productSeq",productSeq);
 		map.put("pagingCount",Integer.toString(pagingCount));
+		map.put("basketList",basketList);
+		
 		
 		return template.selectList("SYJSearch.searchProdDetil",map);
 	}

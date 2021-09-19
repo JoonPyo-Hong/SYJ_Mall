@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.common.utill.AdverDTO;
+import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
 @Repository
 public class LoginDAO implements ILoginDAO {
@@ -190,6 +191,37 @@ public class LoginDAO implements ILoginDAO {
 		
 		
 		return template.selectOne("SYJDB.modifyUserPwReturnNew",map);
+	}
+
+	//새로추가해야할 상품번호 리스트 반환
+	@Override
+	public List<UserProductDTO> getCookieProductId(int userSeq) {
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		
+		return template.selectList("SYJDB.getCookieProductId", map);
+	}
+
+	
+	@Override
+	public int setCookieToDbBasketListNondeleted(int userSeq, String newBasketList) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("productId",newBasketList);
+		
+		
+		return template.selectOne("SYJDB.setCookieToDbBasketListNondeleted", map);
+	}
+
+	
+	@Override
+	public int setCookieToDbBasketListDeleted(int userSeq, String newBasketList) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("productId",newBasketList);
+		
+		return template.selectOne("SYJDB.setCookieToDbBasketListDeleted", map);
 	}
 }
 

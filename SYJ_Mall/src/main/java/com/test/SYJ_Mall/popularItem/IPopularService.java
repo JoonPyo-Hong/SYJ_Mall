@@ -95,13 +95,6 @@ public interface IPopularService {
 	 */
 	int outputItemBasketNonLogin(HttpServletRequest request, HttpServletResponse response, int productId);
 	
-	/**
-	 * 쿠키정보에 장바구니 물품 고객의 디비로 옮겨주기
-	 * @param request
-	 * @param userSeq	고객번호
-	 * @return			1: 성공, -1 실패
-	 */
-	int cookieToDb(HttpServletRequest request, int userSeq);
 	
 	/**
 	 * 물품정보를 리스트형식으로 넣어주면 #을 붙여서 반환

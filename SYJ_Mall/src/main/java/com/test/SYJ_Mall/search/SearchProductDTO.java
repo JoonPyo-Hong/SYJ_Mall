@@ -17,5 +17,6 @@ public class SearchProductDTO {
 	private int discRate;
 	private String picUrl;
 	private String dcPrice;
+	private String cookieBasket;
 	
 }

@@ -12,10 +12,10 @@
 		}
 	</select>
 	
-	<!-- 해당 검색을 통해서 가져온 상품의 정보들 -->
+	<!-- 해당 검색을 통해서 가져온 상품의 정보들 로그인이 안된 경우-->
 	<select id="searchProdDetil" resultType="com.test.SYJ_Mall.search.SearchProductDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		{
-			call dbo.kakao_search_product_result(#{inputName},#{productSeq},#{pagingCount})
+			call dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList})
 		}
 	</select>
 	
