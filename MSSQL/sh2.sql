@@ -1741,3 +1741,139 @@ begin
 	end
 end
 
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-09-20
+	Description : 상품 알람정보에 넣어주는 로직
+	     
+	History	: 2021-09-20 Seunghwan Shin	#최초 생성
+	Real DB : 
+			  
+			  
+*/
+CREATE proc dbo.kakao_popular_product_alaram_input
+	@qoouser_seq	bigint		-- 회원 고유번호
+,	@product_id		bigint		-- 상품번호
+,	@result			int output	-- 결과값
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	begin try
+		if not exists (select * from dbo.KAKAO_USER_ALRAM_INFO with(nolock) where qoouser_seq = @qoouser_seq and product_id = @product_id)
+		begin
+			begin tran
+				
+				insert into dbo.KAKAO_USER_ALRAM_INFO
+				(
+					qoouser_seq
+				,	product_id
+				,	reg_dt
+				,	chg_dt
+				,	del_yn
+				)
+				values
+				(
+					@qoouser_seq
+				,	@product_id
+				,	getdate()
+				,	null
+				,	'N'
+				)
+
+			commit tran
+			set @result = 1
+		end
+		else if exists (select * from dbo.KAKAO_USER_ALRAM_INFO with(nolock) where qoouser_seq = @qoouser_seq and product_id = @product_id and del_yn = 'Y')
+		begin
+			begin tran
+
+				update dbo.KAKAO_USER_ALRAM_INFO
+				set del_yn = 'N'
+				where qoouser_seq = @qoouser_seq 
+				and product_id = @product_id
+
+			commit tran
+			set @result = 1
+		end
+		else
+		begin
+			set @result = -1
+		end
+	end try
+	begin catch
+		rollback tran
+		set @result = -1
+	end catch
+
+end
+
+
+
+
+
+/* KAKAO_USER_ALRAM_INFO - 고객 상품정보 알람 */
+CREATE TABLE [dbo].[KAKAO_USER_ALRAM_INFO] (
+	[qoouser_seq] [BIGINT] NOT NULL,  /* 회원 고유 번호 - qoouser_seq */
+	[product_id] [BIGINT] NOT NULL,  /* 상품고유번호 - product_id */
+	[reg_dt] [DATETIME] NOT NULL,  /* 등록날짜 - reg_dt */
+	[chg_dt] [DATETIME],  /* 수정 날짜 - chg_dt */
+	[del_yn] [CHAR](1) NOT NULL /* 삭제여부 - del_yn */
+)
+GO
+
+alter table dbo.KAKAO_USER_ALRAM_INFO add constraint PK__KAKAO_USER_ALRAM_INFO__QOOUSER_SEQ__PRODUCT_ID PRIMARY KEY (qoouser_seq,product_id)
+
+
+SELECT * FROM dbo.KAKAO_USER_ALRAM_INFO WITH(NOLOCK)
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-09-20
+	Description : 상품 알람정보에 빼주는 로직
+	     
+	History	: 2021-09-20 Seunghwan Shin	#최초 생성
+	Real DB : 
+			  
+			  
+*/
+CREATE proc dbo.kakao_popular_product_alaram_output
+	@qoouser_seq	bigint		-- 회원 고유번호
+,	@product_id		bigint		-- 상품번호
+,	@result			int output	-- 결과값
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	begin try
+		if exists (select * from dbo.KAKAO_USER_ALRAM_INFO with(nolock) where qoouser_seq = @qoouser_seq and product_id = @product_id and del_yn = 'N')
+		begin
+			begin tran
+
+				update dbo.KAKAO_USER_ALRAM_INFO
+				set del_yn = 'Y'
+				,	chg_dt = getdate()
+				where qoouser_seq = @qoouser_seq 
+				and product_id = @product_id
+
+			commit tran
+			set @result = 1
+		end
+		else
+		begin
+			set @result = -1
+		end
+	end try
+	begin catch
+		rollback tran
+		set @result = -1
+	end catch
+
+end
+
+
+

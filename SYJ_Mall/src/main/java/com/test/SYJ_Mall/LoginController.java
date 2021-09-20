@@ -3,6 +3,7 @@ package com.test.SYJ_Mall;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public class LoginController {
 	}
 
 	// 로그인페이지에서 정보를 넘겨주는곳
-	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST })
+	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST})
 	public String loginVerification(HttpServletRequest request, HttpServletResponse response) {
 
 		String ip = "";// 아이피 주소
@@ -103,9 +104,22 @@ public class LoginController {
 					if (lastPage == null) {
 
 						logService.goMain(request);
-
+						
 						return "/tiles/mainStart.topping";// 메인페이지로 이동
-					} else {
+					} 
+					else if (lastPage.indexOf("?") != -1) {
+						//get방식으로 처리
+						//System.out.println("여기도착");
+						//System.out.println(lastPage);
+						//여기 redirect 로 처리해줘야함
+						String encodedParam = URLEncoder.encode("라이언", "UTF-8");
+						//return "forward:/userLoginGet.action";
+						
+						
+						return "redirect:/searchresult.action?inputName=" + encodedParam;
+					}
+					else {
+						System.out.println("여기오면 안되는데;");
 						return "forward:/" + lastPage + ".action";
 					}
 				} else {

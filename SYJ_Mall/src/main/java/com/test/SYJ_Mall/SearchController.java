@@ -52,7 +52,7 @@ public class SearchController {
 	public String searchresult(HttpServletRequest request, HttpServletResponse response) {
 
 		// 결과 -> jsp 로 옮길지 말지 정해준다.
-		int result = service.getSearchResultProd(request);
+		int result = service.getSearchResultProd(request,response);
 
 		if (result == 1) return "/search/searchMain";
 		else return null;
@@ -84,13 +84,9 @@ public class SearchController {
 				prodto = service.getAjaxProdInfoLogOn(uDto.getUserSeq(),inputWord,paging);
 			}
 			
-			System.out.println("inputWord : " + inputWord);
-			System.out.println("paging : " + paging);
-			
-			//List<SearchProductDTO> prodto = service.getAjaxProdInfo(inputWord,paging,request);//무한스크롤을 통하여 가져올 물품들
-			
-			//System.out.println("prodtosize : " + prodto.size());
-			
+			//System.out.println("inputWord : " + inputWord);
+			//System.out.println("paging : " + paging);
+
 			return prodto;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -132,5 +128,43 @@ public class SearchController {
 		return "/tiles/mainStart.topping";//메인페이지로 이동
 		
 	}
+	
+	//ajax 처리 -> 회원이 상품을 장바구니에 추가해준 경우
+	@RequestMapping(value = "/searchItemBasketInput.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int searchItemBasketInput(HttpServletRequest request, HttpServletResponse response) {
+
+		return service.searchInputItem(request,response);
+		
+	}
+	
+	//ajax 처리 -> 회원이 상품을 장바구니에 빼주는 경우
+	@RequestMapping(value = "/searchItemBasketOutput.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int searchItemBasketOutput(HttpServletRequest request, HttpServletResponse response) {
+
+		return service.searchOutputItem(request,response);
+		
+	}
+	
+	
+	//ajax 처리 -> 회원이 상품을 알림에 추가해준 경우
+	@RequestMapping(value = "/searchItemAlarmInput.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int searchItemAlarmInput(HttpServletRequest request, HttpServletResponse response) {
+
+		return service.searchInputAlarm(request);
+
+	}
+	
+	//ajax 처리 -> 회원이 상품을 알림에 제거해준 경우
+	@RequestMapping(value = "/searchItemAlarmOutput.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int searchItemAlarmOutput(HttpServletRequest request, HttpServletResponse response) {
+
+		return service.searchOutputAlarm(request);
+
+	}
+	
 
 }

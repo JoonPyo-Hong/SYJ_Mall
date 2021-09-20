@@ -4,35 +4,90 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="SYJSearch">
-	
-	<!-- 검색어에 따라 자동으로 물품 보여주는 sp -->
-	<select id="searchLittleProd" resultType="com.test.SYJ_Mall.search.SearchNameDTO" parameterType="String" statementType="CALLABLE" >
-		{
-			call dbo.kakao_search_product(#{inputWord})
-		}
-	</select>
-	
-	<!-- 해당 검색을 통해서 가져온 상품의 정보들 로그인이 안된 경우-->
-	<select id="searchProdDetil" resultType="com.test.SYJ_Mall.search.SearchProductDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
-		{
-			call dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList})
-		}
-	</select>
-	
-	<!-- 해당 검색조건으로 필터링 된 상품이 총 몇개인지 -->
-	<select id="searchProdCount" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
-		{
-			call dbo.kakao_search_product_result_count(#{inputName},#{productSeq})
-		}
-	</select>
-	
-	<!-- 해당 검색을 통해서 가져온 상품의 정보들 로그인이된 경우-->
-	<select id="searchProdDetilLogOn" resultType="com.test.SYJ_Mall.search.SearchProductDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
-		{
-			call dbo.kakao_search_product_result(#{userSeq},#{inputName},#{productSeq},#{pagingCount})
-		}
-	</select>
-	
 
+	<!-- 검색어에 따라 자동으로 물품 보여주는 sp -->
+	<select id="searchLittleProd"
+		resultType="com.test.SYJ_Mall.search.SearchNameDTO"
+		parameterType="String" statementType="CALLABLE">
+		{
+		call dbo.kakao_search_product(#{inputWord})
+		}
+	</select>
+
+	<!-- 해당 검색을 통해서 가져온 상품의 정보들 로그인이 안된 경우 -->
+	<select id="searchProdDetil"
+		resultType="com.test.SYJ_Mall.search.SearchProductDTO"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+		{
+		call
+		dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList})
+		}
+	</select>
+
+	<!-- 해당 검색조건으로 필터링 된 상품이 총 몇개인지 -->
+	<select id="searchProdCount" resultType="Integer"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+		{
+		call dbo.kakao_search_product_result_count(#{inputName},#{productSeq})
+		}
+	</select>
+
+	<!-- 해당 검색을 통해서 가져온 상품의 정보들 로그인이된 경우 -->
+	<select id="searchProdDetilLogOn"
+		resultType="com.test.SYJ_Mall.search.SearchProductDTO"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+		{
+		call
+		dbo.kakao_search_product_result(#{userSeq},#{inputName},#{productSeq},#{pagingCount})
+		}
+	</select>
+	
+	
+	<!-- 회원이 선택한 아이템 장바구니에 넣어주기 -->
+	<select id="searchItemInputBasket" resultType="Integer"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+
+		declare @result int
+		exec dbo.kakao_popular_product_input_basket
+		#{userSeq},#{productId},@result output
+		select @result
+
+	</select>
+	
+	<!-- 회원이 선택한 아이템 장바구니에서 빼주기 -->
+	<select id="searchItemOutputBasket" resultType="Integer"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+
+		declare @result int
+		exec dbo.kakao_popular_product_output_basket
+		#{userSeq},#{productId},@result output
+		select @result
+
+	</select>
+	
+	<!-- 회원이 선택한 아이템 알람에 넣어주기 -->
+	<select id="searchItemInputAlarm" resultType="Integer"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+
+		declare @result int
+		exec dbo.kakao_popular_product_alaram_input
+		#{userSeq},#{productId},@result output
+		select @result
+
+	</select>
+	
+	<!-- 회원이 선택한 아이템 알람에서 빼주기 -->
+	<select id="searchItemOutputAlarm" resultType="Integer"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+
+		declare @result int
+		exec dbo.kakao_popular_product_alaram_output
+		#{userSeq},#{productId},@result output
+		select @result
+
+	</select>
+	
+	
+	
 
 </mapper>
