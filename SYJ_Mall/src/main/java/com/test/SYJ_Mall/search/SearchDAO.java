@@ -60,5 +60,49 @@ public class SearchDAO implements ISearchDAO {
 		
 		return template.selectList("SYJSearch.searchProdDetilLogOn",map);
 	}
+	
+	//상품정보 장바구니에 넣어주기
+	@Override
+	public int inputSearchItemBasket(int userSeq, int productId) {
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("productId",productId);
+		
+		return template.selectOne("SYJSearch.searchItemInputBasket",map);
+	}
+	
+	//상품정보 장바구니에서 빼주기
+	@Override
+	public int outputSearchItemBasket(int userSeq, int productId) {
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("productId",productId);
+		
+		return template.selectOne("SYJSearch.searchItemOutputBasket",map);
+	}
+
+	//상품정보 알람에 넣어주기
+	@Override
+	public int addProdtAlarm(int userSeq, int productId) {
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("productId",productId);
+		
+		return template.selectOne("SYJSearch.searchItemInputAlarm",map);
+	}
+	
+	//상품정보 알람에서 빼주기
+	@Override
+	public int deleteProdtAlarm(int userSeq, int productId) {
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("productId",productId);
+		
+		return template.selectOne("SYJSearch.searchItemOutputAlarm",map);
+	}
 
 }

@@ -22,7 +22,7 @@ public interface ISearchService {
 	 * @param request
 	 * @return	1: 성공, -1: 실패
 	 */
-	int getSearchResultProd(HttpServletRequest request);
+	int getSearchResultProd(HttpServletRequest request,HttpServletResponse response);
 	
 	/**
 	 * 마지막 접속 페이지 쿠키 가져오기
@@ -63,6 +63,36 @@ public interface ISearchService {
 	 * @return				물품dto 리스트
 	 */
 	List<SearchProductDTO> getAjaxProdInfoLogOn(int userSeq, String inputWord, int paging);
+	
+	/**
+	 * 상품을 장바구니에 넣어주는 경우
+	 * @param request
+	 * @param response
+	 * @return	1: 성공, -1: 오류  
+	 */
+ 	int searchInputItem(HttpServletRequest request,HttpServletResponse response);
+ 	
+ 	/**
+ 	 * 상품을 장바구니에서 빼주는 경우
+ 	 * @param request
+ 	 * @param response
+ 	 * @return	1: 성공, -1: 오류  
+ 	 */
+	int searchOutputItem(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 상품을 알람에 넣어주는 경우
+	 * @param request
+	 * @return	1: 성공, -1: 실패
+	 */
+	int searchInputAlarm(HttpServletRequest request);
+	
+	/**
+	 * 상품을 알람에서 뺴주는 경우
+	 * @param request
+	 * @return	1: 성공, -1: 실패
+	 */
+	int searchOutputAlarm(HttpServletRequest request);
 	
 
 

@@ -259,7 +259,7 @@
 										<c:choose>
 											<c:when test = "${dto.prodCnt eq 0}">
 											<!-- 상품재고가 없는 경우 -->
-												<li class="item-li" id="prodt${dto.prodId}">
+												<li class="item-li" id="${dto.prodId}">
                 									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
                 									<div class="name">
                 										<div class="nametext">${dto.prodNm}</div>
@@ -272,7 +272,7 @@
 											
 											<c:when test = "${dto.prodCnt ne 0 && dto.discRate eq 0}">
 											<!-- 상품재고는 있고 할인이 없는경우 -->
-												<li class="item-li" id="prodt${dto.prodId}"> 	
+												<li class="item-li" id="${dto.prodId}"> 	
                 									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
                 									<div class="name">
                 										<div class="nametext">${dto.prodNm}</div>
@@ -285,7 +285,7 @@
 											
 											<c:when test = "${dto.prodCnt ne 0 && dto.discRate ne 0}">
 											<!-- 상품재고는 있고 할인이 있는 경우 -->
-												<li class="item-li" id="prodt${dto.prodId}">	
+												<li class="item-li" id="${dto.prodId}">	
                 									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
                 									<div class="name">
                 										<div class="nametext">${dto.prodNm}</div>
@@ -301,7 +301,7 @@
 										<c:choose>
 											<c:when test = "${dto.prodCnt eq 0}">
 											<!-- 상품재고가 없는 경우 -->
-												<li class="item-li" id="prodt${dto.prodId}">
+												<li class="item-li" id="${dto.prodId}">
                 									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
                 									<div class="name">
                 										<div class="nametext">${dto.prodNm}</div>
@@ -314,7 +314,7 @@
 											
 											<c:when test = "${dto.prodCnt ne 0 && dto.discRate eq 0}">
 											<!-- 상품재고는 있고 할인이 없는경우 -->
-												<li class="item-li" id="prodt${dto.prodId}"> 	
+												<li class="item-li" id="${dto.prodId}"> 	
                 									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
                 									<div class="name">
                 										<div class="nametext">${dto.prodNm}</div>
@@ -327,7 +327,7 @@
 											
 											<c:when test = "${dto.prodCnt ne 0 && dto.discRate ne 0}">
 											<!-- 상품재고는 있고 할인이 있는 경우 -->
-												<li class="item-li" id="prodt${dto.prodId}">	
+												<li class="item-li" id="${dto.prodId}">	
                 									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
                 									<div class="name">
                 										<div class="nametext">${dto.prodNm}</div>
@@ -585,7 +585,7 @@ $(document).ready(
 				            		if (result[i].prodCnt == 0) {
 				            			$('#search-item-lists').append(
 							            		
-						            			'<li class="item-li" id="prodt'+ result[i].prodId + '">'
+						            			'<li class="item-li" id="'+ result[i].prodId + '">'
 												+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
 												+	'<div class="name">'
 												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
@@ -603,7 +603,7 @@ $(document).ready(
 					            		if(result[i].discRate == 0) {
 					            			$('#search-item-lists').append(
 								            		
-					            					'<li class="item-li" id="prodt'+ result[i].prodId + '">'
+					            					'<li class="item-li" id="'+ result[i].prodId + '">'
 													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
 													+	'<div class="name">'
 													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
@@ -618,7 +618,7 @@ $(document).ready(
 					            		else {
 					            			$('#search-item-lists').append(
 								            		
-					            					'<li class="item-li" id="prodt'+ result[i].prodId + '">'
+					            					'<li class="item-li" id="'+ result[i].prodId + '">'
 													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
 													+	'<div class="name">'
 													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
@@ -652,32 +652,109 @@ $(document).ready(
 		});
 		
 		/* 아래부분은 일단 장바구니 또는 알림표시 클릭하면 생기는 이벤트 */	
+		
+		//1.상품 카트에 담아주기
 		$(document).on("click",".cart",function(e){
 			
 			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			//console.log(prodt_id);
 			
-			$(this).attr('class','incart');
+			$.ajax({
+            	type:"GET",
+            	url: "/SYJ_Mall/searchItemBasketInput.action",
+            	data : "productId=" + prodt_id,
+            	dataType : "json",
+            	success : function(result) {
+            	
+            		if (result == 1) {
+            			//$("#"+prodt_id).attr('class','incart');
+            			$(prodt_this).attr('class','incart');
+            		}
+            	
+            	},
+            	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+           });
 			e.stopPropagation();  
 		});
 		
+		//2. 해당 상품 카트에서 빼주기
 		$(document).on("click",".incart",function(e){
-			let prodt_id = $(this).parent().parent().attr('id');
 			
-			$(this).attr('class','cart');
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			
+			$.ajax({
+            	type:"GET",
+            	url: "/SYJ_Mall/searchItemBasketOutput.action",
+            	data : "productId=" + prodt_id,
+            	dataType : "json",
+            	success : function(result) {
+            	
+            		if (result == 1) {
+            			$(prodt_this).attr('class','cart');
+            		}
+            	
+            	},
+            	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+           });
+			
 			e.stopPropagation();  
 		});
-
+		
+		//3. 해당 상품 알림에 넣어주기
 		$(document).on("click",".alarm",function(e){
-			let prodt_id = $(this).parent().parent().attr('id');
 			
-			$(this).attr('class','inalarm');
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			
+			$.ajax({
+            	type:"GET",
+            	url: "/SYJ_Mall/searchItemAlarmInput.action",
+            	data : "productId=" + prodt_id,
+            	dataType : "json",
+            	success : function(result) {
+            	
+            		if (result == 1) {
+            			$(prodt_this).attr('class','inalarm');
+            		} else if (result == -2) {
+            			alert("로그인 요망");//이쪽 부분 이쁘게 모달로 처리해야한다.
+            			location.href = "/SYJ_Mall/login.action";
+            		}
+            	},
+            	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+           });
 			e.stopPropagation();  
 		});
 
+		//4. 해당 상품 알림에서 빼주기
 		$(document).on("click",".inalarm",function(e){
 			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
 			
-			$(this).attr('class','alarm');
+			$.ajax({
+            	type:"GET",
+            	url: "/SYJ_Mall/searchItemAlarmOutput.action",
+            	data : "productId=" + prodt_id,
+            	dataType : "json",
+            	success : function(result) {
+            	
+            		if (result == 1) {
+            			$(prodt_this).attr('class','alarm');
+            		}
+            	
+            	},
+            	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+           });
+			
 			e.stopPropagation();  
 		});
 
