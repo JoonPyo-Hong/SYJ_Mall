@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,84 +81,77 @@
 					<!-- 데이터 있을 시 -->
 					<!-- 상품 주문서 -->
 					<!-- 01 주문제품 -->
+					<c:set var="num" value="0"></c:set>
 					<div class="order-section">
 						<div class="order-section-title first-title">01 주문제품</div>
 						<!-- 주문 제품 아이템 리스트 -->
 						<!-- 하나 -->
-					
-						<c:forEach var="p_seq" items="${list1}" varStatus="stat">	
+
+						<c:forEach var="p_seq" items="${list1}" varStatus="stat">
 
 							<div class="product-item-list">
-							<div class="product-img" style="background-image: url('${p_seq.product_img}');">
-								<a href="#">
-									<div class="product-img"></div>
-								</a>
-							</div>
-							<div class="product-text">
-								<div class="product-text-row name-row">
-									<div class="product-name">${p_seq.product_nm}</div>
-									<div class="product-list-delete-btn"></div>
+								<div class="product-img"
+									style="background-image: url('${p_seq.product_img}');">
+									<a href="#">
+										<div class="product-img"></div>
+									</a>
 								</div>
-								<div class="product-text-row count-row">
-									<div class="product-count">
-										<label content="4" class="select-box-label"> <select
-											class="select-box-select">
-											
-											<c:forEach var="i" begin='1' end='100' varStatus="stat1">
-											<c:choose>
-												<c:when test="${list2[stat.index] eq i}">
-													<option selected="selected" value="${i}">${i}</option>
-												</c:when>
-												<c:otherwise>
-													<option value="${i}">${i}</option>
-												</c:otherwise>
-											</c:choose>
-											</c:forEach>
-										</select>
-										</label>
+								<div class="product-text">
+									<div class="product-text-row name-row">
+										<div class="product-name">${p_seq.product_nm}</div>
+										<div class="product-list-delete-btn"></div>
 									</div>
-									<div class="product-price">${fn:replace(p_seq.product_price, '.0000', '')}원</div>
-									
+									<div class="product-text-row count-row">
+										<div class="product-count">
+											<label content="4" class="select-box-label"> <select
+												class="select-box-select">
+
+													<c:forEach var="i" begin='1' end='100' varStatus="stat1">
+														<c:choose>
+															<c:when test="${list2[stat.index] eq i}">
+																<option selected="selected" value="${i}">${i}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${i}">${i}</option>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+											</select>
+											</label>
+										</div>
+										<c:set var="money"
+											value="${fn:replace(p_seq.product_price, '.0000', '')}"></c:set>
+										<div class="product-price">
+											<fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${money}" />
+											원
+										</div>
+										<c:set var="num"
+											value="${num + fn:replace(p_seq.product_price, '.0000', '')}" />
+									</div>
 								</div>
 							</div>
-						</div>
-						
-						</c:forEach>	
+						</c:forEach>
 	
-						<!-- 둘 -->
-						<!-- <div class="product-item-list">
-							<div class="product-img">
-								<a href="#">
-									<div class="product-img"></div>
-								</a>
-							</div>
-							<div class="product-text">
-								<div class="product-text-row name-row">
-									<div class="product-name">춘식이 말랑쿠션</div>
-									<div class="product-list-delete-btn"></div>
-								</div>
-								<div class="product-text-row count-row">
-									<div class="product-count">
-										<label content="4" class="select-box-label"> <select
-											class="select-box-select">
-												<option value="1">1</option>
-												<option value="2">2</option>
-										</select>
-										</label>
-									</div>
-									<div class="product-price">49,000원</div>
-								</div>
-							</div>
-						</div> -->
 						<div class="product-total-price">
 							<div class="price-list">
-								<span class="title">상품가</span> <span class="price">85,000원</span>
+								<span class="title">상품가</span> <span class="price"><div
+										class="product-price">
+										<fmt:formatNumber type="number" maxFractionDigits="3"
+											value="${num}" />
+										원
+									</div></span>
 							</div>
 							<div class="price-list">
 								<span class="title">배송비</span> <span class="price free">무료</span>
 							</div>
 							<div class="price-list">
-								<span class="title"><b>총합</b></span> <span class="price"><b>85,000원</b></span>
+								<span class="title"><b>총합</b></span> <span class="price"><b><div
+											class="product-price">
+											<fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${num}" />
+											원
+										</div></b></span>
 							</div>
 						</div>
 					</div>
@@ -180,7 +174,9 @@
 							<!-- 나라 -->
 							<div class="input-text-row select-country">
 								<label content="한국" height="45" class="select-label"> <select
-									height="45" class="select-select" name="shippingCountry">
+									`
+									height="45" class="select-select"
+									name="shippingCountry">
 										<option value="KR">한국</option>
 								</select></label>
 							</div>
@@ -235,7 +231,8 @@
 							<li class="pay-list-li">
 								<div>상품가</div>
 								<div>
-									<b>85,000원</b>
+									<b><fmt:formatNumber type="number" maxFractionDigits="3"
+											value="${num}" /> 원</b>
 								</div>
 							</li>
 							<li class="pay-list-li">
@@ -262,7 +259,8 @@
 									<b>최종 결제금액</b>
 								</div>
 								<div class="total-price">
-									<b>85,000원</b>
+									<b><fmt:formatNumber type="number" maxFractionDigits="3"
+											value="${num}" /> 원</b>
 								</div>
 							</li>
 						</ul>
