@@ -132,7 +132,7 @@
 								</div>
 							</div>
 						</c:forEach>
-	
+
 						<div class="product-total-price">
 							<div class="price-list">
 								<span class="title">상품가</span> <span class="price"><div
@@ -163,8 +163,8 @@
 							<div class="address-title">
 								<div class="sub-title">받는분</div>
 								<div class="check-box">
-									<label for="sameAsBuyer" class="check-box-label"> <span
-										class="check-box-text">주문고객과 동일</span>
+									<label for="sameAsBuyer" id="chk_info" class="check-box-label">
+										<span class="check-box-text">주문고객과 동일</span>
 									</label> <input type="checkbox"
 										class="check-box__InputCheckBox-sc-1p7znud-5" id="sameAsBuyer"
 										name="sameAsBuyer" checked="" /> <label for="sameAsBuyer"></label>
@@ -174,38 +174,41 @@
 							<!-- 나라 -->
 							<div class="input-text-row select-country">
 								<label content="한국" height="45" class="select-label"> <select
-									`
-									height="45" class="select-select"
+									
+									height="45" class="select-select" id="shipping_country"
 									name="shippingCountry">
 										<option value="KR">한국</option>
 								</select></label>
 							</div>
 							<div required="" class="input-text-row field-name">
-								<input placeholder="이름" error="0" align="left" padding="15"
-									class="input-text" name="shippingName" value="" />
-							</div>
-							<div class="input-text-row field-phone">
-								<input placeholder="전화번호 (-없이 입력)" error="0" align="left"
+								<input id="shipping_name" placeholder="이름" error="0" align="left"
 									padding="15" class="input-text" name="shippingName" value="" />
 							</div>
+							<div class="input-text-row field-phone">
+								<input id="shipping_phone_number" placeholder="전화번호 (-없이 입력)" error="0"
+									align="left" padding="15" class="input-text"
+									name="shippingName" value="" />
+							</div>
 							<div class="input-text-row field-address">
-								<input placeholder="주소 찾기" error=" 0" align="left" padding="15"
-									class="input-text" name="shippingName" value="" />
+								<input id="shipping_main_adress" placeholder="주소 찾기" error=" 0"
+									align="left" padding="15" class="input-text"
+									name="shippingName" value="" />
 								<div class="field-address-search-icon"></div>
 							</div>
 							<div class="input-text-row field-address-detail">
-								<input placeholder="나머지 주소" error=" 0" align="left" padding="15"
-									class="input-text" name="shippingName" value="" />
+								<input id="shipping_sub_adress" placeholder="나머지 주소" error=" 0"
+									align="left" padding="15" class="input-text"
+									name="shippingName" value="" />
 							</div>
 							<div class="input-text-row field-text-area">
-								<textarea maxlength="50"
+								<textarea maxlength="50" id="shipping_message"
 									placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
 								<p class="textarea-messages">50자 이내로 입력해주세요 (0 / 50)</p>
 							</div>
 							<!-- 자동 저장 -->
 							<div class="check-box-area">
 								<div class="check-box-container">
-									<input type="checkbox" class="check-box-input" id="saveAddress"
+									<input type="checkbox" class="check-box-input" id="shipping_addres"
 										name="saveAddress" /> <label for="saveAddress"></label> <label
 										for="saveAddress" class="check-box-label"><span
 										class="check-box-text">내 정보 및 기본 배송지로 저장</span></label>
@@ -354,7 +357,11 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		
+		$(document).on("click", "#sameAsBuyer", function(e) {
+			//alert();
+
+		});
+	
 	</script>
 </body>
 </html>
