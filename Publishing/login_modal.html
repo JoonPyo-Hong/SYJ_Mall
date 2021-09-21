@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>카카오 프렌즈샵</title>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
+  <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
+  <link rel="stylesheet" type="text/css" href="./css/common.css" />
+  <link rel="stylesheet" type="text/css" href="./css/main.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="./css/basket.css" /> -->
+  <link rel="stylesheet" type="text/css" href="./css/seen.css" />
+  <link rel="stylesheet" type="text/css" href="./css/act.css" />
+  <link rel="stylesheet" type="text/css" href="./css/product-search-result.css" />
+  <link rel="stylesheet" type="text/css" href="./css/login_modal.css" />
+</head>
+
+<body>
+  <!-- 로그인 모달창 -->
+  <div class="overlay-wrap">
+    <div class="login-modal-wrap">
+      <div class="modal-close">
+        <div class="close-btn"></div>
+      </div>
+      <img class="login-img" src="./images/login_modal/character-3-d-apeach-128-2.png" />
+      <div class="login-text">
+        <h3>앗! 로그인</h3>
+        <p>로그인 후 재입고 알림을 신청해주세요<br />
+          지금 로그인 화면으로 이동하시겠어요?
+        </p>
+      </div>
+      <div class="login-btn">
+        <button>
+          <span class="login-kakao"></span>
+          <p>로그인하기</p>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="kakao-wrap">
+    <div id="kakao-head">
+      <div id="inner-head">
+        <div class="left-btn">
+          <!-- <button class="hamburger-menu"></button> -->
+          <button class="back-button"></button>
+          <!-- ic_back_2x.png -->
+          <!-- gnb-home-18-black@2x.png -->
+          <button class="home-button"></button>
+        </div>
+        <!-- <div class="title"><button class="title-logo"></button></div> -->
+        <div class="title">검색</div>
+        <div class="right-btn">
+          <button class="search"></button>
+          <button class="language"></button>
+        </div>
+      </div>
+      <div id="inner-tab">
+        <!-- 메인메뉴 tab -->
+        <!-- <div class="main-tab">
+        <ul class="main-tab-ul">
+          <li class="main-tab-li">오늘</li>
+          <li class="main-tab-li">신규</li>
+          <li class="main-tab-li">인기</li>
+          <li class="main-tab-li active">마이</li>
+        </ul>
+      </div> -->
+        <!-- 마이페이지 tab -->
+        <!-- <div class="mypage-tab">
+        <ul class="mypage-tab-ul">
+          <li class="mypage-tab-li">최근 본</li>
+          <li class="mypage-tab-li active">내 활동</li>
+          <li class="mypage-tab-li">장바구니</li>
+          <li class="mypage-tab-li ">주문내역</li>
+        </ul>
+      </div> -->
+      </div>
+    </div>
+    <div id="kakao-content">
+      <div id="inner-content">
+        <!-- 마이페이지 컨텐츠 -->
+        <div class="container-wrap product-search-result">
+          <!-- 검색 결과 배너 -->
+          <div class="search-banner">
+            <span class="search-text"><b>'라이언'</b> 검색결과</span>
+          </div>
+          <hr class="division" />
+          <!-- ##### 마이페이지랑 데이터 없을 때 태그 위치가 다릅니다 ##### -->
+          <!-- 데이터 없을 시 -->
+          <div class="search-list-nodata" style="display : none;">
+            <div class="standing-ryan"></div>
+            <div class="empty-message">검색 결과가 없습니다.</div>
+            <div class="empty-sub-message">다른 검색어를 입력하시거나,</div>
+            <div class="empty-sub-message">철자 및 띄어쓰기를 확인해주세요.</div>
+          </div>
+          <!-- 데이터 있을 시 -->
+          <!-- 상품 정렬 및 개수 -->
+          <div class="search-header">
+            <div class="sort-wrap">
+              <div class="sort">
+                <span class="sort-title">캐릭터 전체</span>
+                <img class="sort-icon" src="./images/product_category/dropdown_down.png" />
+              </div>
+              <div class="sort-divider"></div>
+              <div class="sort">
+                <span class="sort-title">판매량 순</span>
+                <img class="sort-icon" src="./images/product_category/dropdown_down.png" />
+              </div>
+            </div>
+            <div class="detail">
+              <div class="all-count">총 <b>258</b>개</div>
+              <div class="check-global">
+                <img src="./images/product_category/ico_checked.png" />
+                <span>글로벌 배송 가능상품 보기</span>
+              </div>
+            </div>
+          </div>
+          <!-- 해당 검색 상품 영역 -->
+          <div class="search-product-wrap">
+            <ul>
+              <li class="item-li">
+                <div class="thumbnail">
+                  <!-- 솔드아웃 라벨 -->
+                  <div class="soldout-label"></div>
+                </div>
+                <div class="name">
+                  <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                  <span class="cart"></span>
+                </div>
+                <div class="price" style="color : #FF447F;">50% 18,500원</div>
+                <div class="price" style="text-decoration:line-through; color : #9A9A9E;">39,000원</div>
+              </li>
+              <li class="item-li">
+                <div class="thumbnail"></div>
+                <div class="name">
+                  <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                  <span class="cart"></span>
+                </div>
+                <div class="price">39,000원</div>
+              </li>
+              <li class="item-li">
+                <div class="thumbnail"></div>
+                <div class="name">
+                  <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                  <span class="cart"></span>
+                </div>
+                <div class="price">39,000원</div>
+              </li>
+              <li class="item-li">
+                <div class="thumbnail"></div>
+                <div class="name">
+                  <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                  <span class="cart"></span>
+                </div>
+                <div class="price">39,000원</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="kakao-footer">
+      <div id="inner-footer">
+        <div class="info-service">
+          <ul>
+            <li>제휴문의</li>
+            <span class="footer-divider"></span>
+            <li>고객문의</li>
+            <span class="footer-divider"></span>
+            <li>이용약관</li>
+            <span class="footer-divider"></span>
+            <li>개인정보처리방침</li>
+            <span class="footer-divider"></span>
+            <li>지식재산권보호센터</li>
+          </ul>
+        </div>
+        <div class="logo">
+          <div class="toggler">
+            <span class="toggler-logo"></span>
+            <span class="toggler-icon"></span>
+          </div>
+          <div class="best-family"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
