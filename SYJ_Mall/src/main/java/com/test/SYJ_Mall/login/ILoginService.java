@@ -241,6 +241,13 @@ public interface ILoginService {
 	 */
 	String productCookieList(List<Integer> list);
 	
+	/**
+	 * get방식의 url 한글을 인코딩 해주기 위함
+	 * @param lastPage	마지막 페이지 url 주소
+	 * @return			인코딩된 url 주소
+	 */
+	String urlEncoder(String lastPage);
+	
 
 	
 

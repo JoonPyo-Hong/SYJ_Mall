@@ -3,7 +3,6 @@ package com.test.SYJ_Mall;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -102,24 +101,15 @@ public class LoginController {
 
 				if (logResult == 1) {
 					if (lastPage == null) {
-
 						logService.goMain(request);
-						
 						return "/tiles/mainStart.topping";// 메인페이지로 이동
 					} 
 					else if (lastPage.indexOf("?") != -1) {
-						//get방식으로 처리
-						//System.out.println("여기도착");
-						//System.out.println(lastPage);
-						//여기 redirect 로 처리해줘야함
-						String encodedParam = URLEncoder.encode("라이언", "UTF-8");
-						//return "forward:/userLoginGet.action";
-						
-						
-						return "redirect:/searchresult.action?inputName=" + encodedParam;
+						//인코딩 처리를 잘 해줘야한다.
+						String url = logService.urlEncoder(lastPage);
+						return "redirect:/" + url;
 					}
 					else {
-						System.out.println("여기오면 안되는데;");
 						return "forward:/" + lastPage + ".action";
 					}
 				} else {

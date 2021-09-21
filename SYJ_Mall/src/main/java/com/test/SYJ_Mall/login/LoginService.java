@@ -2,6 +2,7 @@ package com.test.SYJ_Mall.login;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -690,6 +691,28 @@ public class LoginService implements ILoginService {
 			seq = dto.getUserSeq();
 		}
 		request.setAttribute("seq", seq);
+
+	}
+	
+	//url 인코딩작업
+	@Override
+	public String urlEncoder(String lastPage) {
+		
+		StringBuffer sb = new StringBuffer();
+		try {
+			for (int i = 0; i < lastPage.length(); i++) {
+				if (Character.getType(lastPage.charAt(i))==5) {
+					sb.append(URLEncoder.encode(lastPage.substring(i,i+1),"UTF-8"));
+				} else {
+					sb.append(lastPage.substring(i,i+1));
+				}
+			}
+			
+			return sb.toString();
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 
 	}
 

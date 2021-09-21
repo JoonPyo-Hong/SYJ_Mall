@@ -666,7 +666,9 @@ $(document).ready(
             	data : "productId=" + prodt_id,
             	dataType : "json",
             	success : function(result) {
-            	
+            		
+            		console.log(result);
+            		
             		if (result == 1) {
             			//$("#"+prodt_id).attr('class','incart');
             			$(prodt_this).attr('class','incart');
@@ -692,7 +694,7 @@ $(document).ready(
             	data : "productId=" + prodt_id,
             	dataType : "json",
             	success : function(result) {
-            	
+            		console.log(result);
             		if (result == 1) {
             			$(prodt_this).attr('class','cart');
             		}
@@ -718,7 +720,7 @@ $(document).ready(
             	data : "productId=" + prodt_id,
             	dataType : "json",
             	success : function(result) {
-            	
+            		console.log(result);
             		if (result == 1) {
             			$(prodt_this).attr('class','inalarm');
             		} else if (result == -2) {
@@ -744,7 +746,7 @@ $(document).ready(
             	data : "productId=" + prodt_id,
             	dataType : "json",
             	success : function(result) {
-            	
+            		console.log(result);
             		if (result == 1) {
             			$(prodt_this).attr('class','alarm');
             		}

@@ -1663,12 +1663,13 @@ end
 			  2021-09-12 Seunghwan Shin	#paging 기능 추가
 			  2021-09-14 Seunghwan Shin	#화폐 따옴표 단위 추가
 			  2021-09-19 Seunghwan Shin #알람정보 추가
+			  2021-09-21 Seunghwan Shin #장바구니정보, 알림정보 누락되어 수정
 	
 	Real DB : exec dbo.kakao_search_product_result N'라이언', null, 1
 			  exec dbo.kakao_search_product_result N'라이언', 48, 1	
 
 */ 
-alter proc dbo.kakao_search_product_result
+CREATE proc dbo.kakao_search_product_result
 	@qoouser_seq varchar(10)
 ,	@input_name nvarchar(100)
 ,	@prod_seq varchar(10)
@@ -1703,9 +1704,11 @@ begin
 			,	kpt.product_price 
 			,	kpt.discount_rate 
 			,	kpi.product_img
-			,	case when kusc.product_id is null then 'cart'
+			,	case when kusc.cart_del_yn is null then 'cart'
+					 when kusc.cart_del_yn = 'Y' then 'cart'
 					 else 'incart' end as cart
-			,	case when kuai.product_id is null then 'alarm'
+			,	case when kuai.del_yn is null then 'alarm'
+					 when kuai.del_yn = 'Y' then 'alarm'
 					 else 'inalarm' end as alarmYn
 			from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
 			inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
@@ -1727,9 +1730,11 @@ begin
 		,	kpt.discount_rate as discRate
 		,	kpi.product_img as picUrl
 		,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
-		,	case when kusc.product_id is null then 'cart'
-					 else 'incart' end as cookieBasket
-		,	case when kuai.product_id is null then 'alarm'
+		,	case when kusc.cart_del_yn is null then 'cart'
+					 when kusc.cart_del_yn = 'Y' then 'cart'
+					 else 'incart' end as cart
+			,	case when kuai.del_yn is null then 'alarm'
+					 when kuai.del_yn = 'Y' then 'alarm'
 					 else 'inalarm' end as alarmYn
 		from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
 		inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
@@ -1740,6 +1745,10 @@ begin
 		and kpi.head_img_yn = 'Y'
 	end
 end
+
+
+
+
 
 
 /* 

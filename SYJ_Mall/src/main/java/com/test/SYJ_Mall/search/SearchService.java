@@ -67,7 +67,6 @@ public class SearchService implements ISearchService {
 				//마지막 방문페이지정보 쿠키에 저장
 				ck.generateCookie(response, "lastPage", "searchresult.action?inputName="+inputName);
 				//searchresult.action?inputName=라이언&productSeq=36
-				//ck.generateCookie(response, "lastPage", "searchresult.action?inputName="+inputName+"&productSeq=");
 				
 				request.setAttribute("userinputName", inputName);
 			}
