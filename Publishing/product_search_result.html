@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- 캐릭터 모달창 -->
   <div class="overlay-wrap" id="testmodal2" style="visibility: hidden;">
     <div class="character-modal-wrap">
@@ -260,31 +260,32 @@
   <script>
 
     //판매량순! ~~ 순 정하는 필터링
-    $('#content-sort-name').click(function(){
-      $('#testmodal1').css('visibility','visible');
+    $('#content-sort-name').click(function () {
+      $('#testmodal1').css('visibility', 'visible');
+      $('.sort-modal-wrap').css('bottom', '0');
     });
-    
-    $('#buy-sort').click(function(){
+
+    $('#buy-sort').click(function () {
       all_delete();
       $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('판매량순');
     });
 
-    $('#new-sort').click(function(){
+    $('#new-sort').click(function () {
       all_delete();
       $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('신상품순');
     });
 
-    $('#low-price-sort').click(function(){
+    $('#low-price-sort').click(function () {
       all_delete();
-       $(this).append('<img src="./images/product_search_result/check.png">');
+      $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('낮은 가격순');
     });
 
-    $('#high-price-sort').click(function(){
+    $('#high-price-sort').click(function () {
       all_delete();
-       $(this).append('<img src="./images/product_search_result/check.png">');
+      $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('높은 가격순');
     });
 
@@ -295,19 +296,20 @@
       $('#low-price-sort').find('img').remove();
       $('#high-price-sort').find('img').remove();
     }
-    
+
 
     //캐릭터별 모달
-    $("#char-sort-name").click(function(){
-      $('#testmodal2').css("visibility","visible");
+    $("#char-sort-name").click(function () {
+      $('#testmodal2').css("visibility", "visible");
     });
 
     //모달 제거하는 용도
-    $('.overlay-wrap').click(function(){
-      $('.overlay-wrap').css('visibility','hidden');
+    $('.overlay-wrap').click(function () {
+      $('.overlay-wrap').css('visibility', 'hidden');
+      $('.sort-modal-wrap').css('bottom', '-200px');
     });
 
-    
+
 
   </script>
 
