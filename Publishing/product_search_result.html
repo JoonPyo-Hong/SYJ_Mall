@@ -27,7 +27,7 @@
     <div class="sort-modal-wrap">
       <div class="sort-list" id="buy-sort">
         <div class="sort-text">판매량순</div>
-        <img class="sort-images" src="./images/product_search_result/check.png">
+        <img src="./images/product_search_result/check.png">
       </div>
       <div class="sort-list" id="new-sort">
         <div class="sort-text">신상품순</div>
@@ -266,25 +266,25 @@
     
     $('#buy-sort').click(function(){
       all_delete();
-      $(this).append('<img id="sort-images" src="./images/product_search_result/check.png">');
+      $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('판매량순');
     });
 
     $('#new-sort').click(function(){
       all_delete();
-      $(this).append('<img id="sort-images" src="./images/product_search_result/check.png">');
+      $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('신상품순');
     });
 
     $('#low-price-sort').click(function(){
       all_delete();
-       $(this).append('<img id="sort-images" src="./images/product_search_result/check.png">');
+       $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('낮은 가격순');
     });
 
     $('#high-price-sort').click(function(){
       all_delete();
-       $(this).append('<img id="sort-images" src="./images/product_search_result/check.png">');
+       $(this).append('<img src="./images/product_search_result/check.png">');
       $('#content-sort-name').text('높은 가격순');
     });
 
