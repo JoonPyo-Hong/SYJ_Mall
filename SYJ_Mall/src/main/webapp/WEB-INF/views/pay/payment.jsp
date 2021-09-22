@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ page import="java.util.Date"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +48,11 @@
 					<button class="language"></button>
 				</div>
 			</div>
+
+
+
+
+
 			<div id="inner-tab">
 				<!-- 메인메뉴 tab -->
 				<!-- <div class="main-tab">
@@ -174,19 +179,19 @@
 							<!-- 나라 -->
 							<div class="input-text-row select-country">
 								<label content="한국" height="45" class="select-label"> <select
-									
 									height="45" class="select-select" id="shipping_country"
 									name="shippingCountry">
 										<option value="KR">한국</option>
 								</select></label>
 							</div>
 							<div required="" class="input-text-row field-name">
-								<input id="shipping_name" placeholder="이름" error="0" align="left"
-									padding="15" class="input-text" name="shippingName" value="" />
+								<input id="shipping_name" placeholder="이름" error="0"
+									align="left" padding="15" class="input-text"
+									name="shippingName" value="" />
 							</div>
 							<div class="input-text-row field-phone">
-								<input id="shipping_phone_number" placeholder="전화번호 (-없이 입력)" error="0"
-									align="left" padding="15" class="input-text"
+								<input id="shipping_phone_number" placeholder="전화번호 (-없이 입력)"
+									error="0" align="left" padding="15" class="input-text"
 									name="shippingName" value="" />
 							</div>
 							<div class="input-text-row field-address">
@@ -208,16 +213,24 @@
 							<!-- 자동 저장 -->
 							<div class="check-box-area">
 								<div class="check-box-container">
-									<input type="checkbox" class="check-box-input" id="shipping_addres"
-										name="saveAddress" /> <label for="saveAddress"></label> <label
-										for="saveAddress" class="check-box-label"><span
-										class="check-box-text">내 정보 및 기본 배송지로 저장</span></label>
+									<input type="checkbox" class="check-box-input"
+										id="shipping_addres" name="saveAddress" /> <label
+										for="saveAddress"></label> <label for="saveAddress"
+										class="check-box-label"><span class="check-box-text">내
+											정보 및 기본 배송지로 저장</span></label>
 								</div>
 							</div>
 						</div>
 						<!-- 배달 도착 예정일 및 공지 -->
+						<c:set var="now"
+							value="<%=new Date(new Date().getTime() + (60 * 60 * 24 * 1000) * 2)%>" />
+						<fmt:formatDate value="${now}" pattern="E" var="today" />
+
 						<div class="delivery-information">
-							<p class="delivery-information-title">9/7(화) 도착 예정</p>
+							<p class="delivery-information-title">
+								<fmt:formatDate value="${now}" type="DATE" pattern="MM/dd" />
+								(${today}) 도착 예정
+							</p>
 							<div class="delivery-information-contents">
 								<p>오후 3시 이전 주문 시 당일 출고</p>
 								<p>출고 후 평균 1~2영업일 이내 수령 (상황에 따라 변동 가능)</p>
@@ -306,7 +319,7 @@
 						</div>
 						<!-- 결제하기 버튼 -->
 						<div class="pay-buttont-wrap">
-							<button type="button" class="pay-button">결제하기</button>
+							<button type="button" class="pay-button" id="pay-button">결제하기</button>
 						</div>
 						<div class="pay-notice-wrap">
 							<strong class="notice__Title-c5fdj-1 etxuRQ">글로벌 배송 유의사항</strong>
@@ -361,7 +374,34 @@
 			//alert();
 
 		});
-	
+
+		// 유효성 작업 중
+		$(document).on("click", "#pay-button", function(e) {
+			if ($('#shipping_name').val() == "") {
+				alert("input_1");
+				return;
+			}
+			if ($('#shipping_phone_number').val() == "") {
+				alert("input_2");
+				return;
+			}
+			if ($('#shipping_main_adress').val() == "") {
+				alert("input_3");
+				return;
+			}
+			if ($('#shipping_sub_adress').val() == "") {
+				alert("input_4");
+				return;
+			}
+			if (!$("#agree1").prop("checked")) {
+				alert("chk_1");
+				return;
+			}
+			if (!$("#agree2").prop("checked")) {
+				alert("chk_2");
+				return;
+			}
+		});
 	</script>
 </body>
 </html>
