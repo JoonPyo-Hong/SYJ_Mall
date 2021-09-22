@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+/* 모달 작업 */
+
+/* 정렬 모달창 */
+.login-modal-wrap {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  bottom: 50%;
+  margin-bottom: -175.5px;
+  width: 310px;
+  /* height: 350px; */
+  border-radius: 16px;
+}
+
+.login-modal-wrap .modal-close {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-modal-wrap .modal-close .close-btn {
+  width: 24px;
+  height: 24px;
+  background: url(/SYJ_Mall/resources/images/login_modal/close-24.png) no-repeat;
+  background-size: contain;
+  margin-right: 15px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.login-modal-wrap .login-img {
+  margin-bottom: 6px;
+  width: 128px;
+  height: 128px;
+}
+
+.login-modal-wrap .login-text {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+.login-modal-wrap .login-text p {
+  font-weight: normal;
+  font-size: 16px;
+  text-align: center;
+  padding: 0px 10px 20px;
+}
+
+.login-modal-wrap .login-btn {
+  margin-bottom: 40px;
+}
+
+.login-modal-wrap .login-btn button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  min-height: 48px;
+  border-radius: 35px;
+  text-align: center;
+  background-color: rgb(255, 235, 0);
+}
+
+.login-modal-wrap .login-btn button .login-kakao {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url(/SYJ_Mall/resources/images/login_modal/kakaotalk-tiny-brown.png) no-repeat;
+  background-size: contain;
+}
+
+.login-modal-wrap .login-btn button p {
+  font-weight: bold;
+  font-size: 15px;
+  letter-spacing: -0.25px;
+  margin-left: 5px;
+}
+
+/* 
+.sort-modal-wrap .sort-list {
+  max-width: 400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0px 17px;
+}
+
+.sort-modal-wrap .sort-list:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+.sort-modal-wrap .sort-list:hover .sort-text {
+  color: rgb(0, 0, 0);
+}
+
+.sort-modal-wrap .sort-list .sort-text {
+  font-size: 16px;
+  color: rgb(154, 154, 158);
+}
+
+.sort-modal-wrap .sort-list img {
+  width: 20px;
+  height: 22px;
+  margin-bottom: 2px;
+} */

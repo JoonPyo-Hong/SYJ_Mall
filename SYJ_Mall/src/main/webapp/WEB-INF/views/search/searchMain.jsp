@@ -11,18 +11,61 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
-<link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
+<link rel="stylesheet"
+	href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
-<link rel="stylesheet" href="resources/css/search/productSearchResult5.css">
+<link rel="stylesheet"
+	href="resources/css/search/productSearchResult5.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
-<link rel = "stylesheet" href = "resources/css/mainLayout/searchLayout.css">
+<link rel="stylesheet" href="resources/css/search/searchLoginModal.css">
+<link rel="stylesheet" href="resources/css/mainLayout/searchLayout.css">
 <style>
-
 </style>
 </head>
 <body>
 
-	<div class="overlay-wrap" style="visibility: hidden;">
+	<!-- 로그인 모달창 -->
+	<div class="overlay-wrap" id="login-product-modal" style="visibility: hidden;">
+		<div class="login-modal-wrap">
+			<div class="modal-close">
+				<div class="close-btn"></div>
+			</div>
+			<img class="login-img"
+				src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png" />
+			<div class="login-text">
+				<h3>앗! 로그인</h3>
+				<p>
+					로그인 후 재입고 알림을 신청해주세요<br/> 지금 로그인 화면으로 이동하시겠어요?
+				</p>
+			</div>
+			<div class="login-btn">
+				<button>
+					<span class="login-kakao"></span>
+					<p>로그인하기</p>
+				</button>
+			</div>
+		</div>
+	</div>
+	<!-- 정렬 모달창 -->
+	<div class="overlay-wrap" id="product-sorted-modal" style="visibility: hidden;">
+		<div class="sort-modal-wrap">
+			<div class="sort-list">
+				<div class="sort-text">판매량순</div>
+				<img src="./images/product_search_result/check.png">
+			</div>
+			<div class="sort-list">
+				<div class="sort-text">신상품순</div>
+			</div>
+			<div class="sort-list">
+				<div class="sort-text">낮은 가격순</div>
+			</div>
+			<div class="sort-list">
+				<div class="sort-text">높은가격순</div>
+			</div>
+		</div>
+	</div>
+	<!-- 캐릭터 모달창 -->
+	<div class="overlay-wrap" id="charac-modal" style="visibility: hidden;">
 		<div class="character-modal-wrap">
 			<div class="character-list all">
 				<div class="character-image"></div>
@@ -111,7 +154,8 @@
 							<div class="search-form">
 								<form action="searchresult.action" method="GET"
 									id="search_enter">
-									<input class="search-input" type="text" name="inputName" autocomplete="off"/>
+									<input class="search-input" type="text" name="inputName"
+										autocomplete="off" />
 								</form>
 								<button class="search-close">취소</button>
 							</div>
@@ -208,143 +252,158 @@
 					</div>
 					<hr class="division" />
 					<!-- ##### 마이페이지랑 데이터 없을 때 태그 위치가 다릅니다 ##### -->
-					
-					<c:if test = "${searchProdCount == 0}">
-					<!-- 데이터 없을 시 -->
-					<div class="search-list-nodata">
-						<div class="standing-ryan"></div>
-						<div class="empty-message">검색 결과가 없습니다.</div>
-						<div class="empty-sub-message">다른 검색어를 입력하시거나,</div>
-						<div class="empty-sub-message">철자 및 띄어쓰기를 확인해주세요.</div>
-					</div>
+
+					<c:if test="${searchProdCount == 0}">
+						<!-- 데이터 없을 시 -->
+						<div class="search-list-nodata">
+							<div class="standing-ryan"></div>
+							<div class="empty-message">검색 결과가 없습니다.</div>
+							<div class="empty-sub-message">다른 검색어를 입력하시거나,</div>
+							<div class="empty-sub-message">철자 및 띄어쓰기를 확인해주세요.</div>
+						</div>
 					</c:if>
-					
-					
-					
-					<c:if test = "${searchProdCount != 0}">
-					<!-- 데이터 있을 시 -->
-					<!-- 상품 정렬 및 개수 -->
-					<div class="search-header" >
-						<div class="sort-wrap">
-							<div class="sort">
-								<span class="sort-title">캐릭터 전체</span> <img class="sort-icon"
-									src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+
+
+
+					<c:if test="${searchProdCount != 0}">
+						<!-- 데이터 있을 시 -->
+						<!-- 상품 정렬 및 개수 -->
+						<div class="search-header">
+							<div class="sort-wrap">
+								<div class="sort">
+									<span class="sort-title">캐릭터 전체</span> <img class="sort-icon"
+										src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+								</div>
+								<div class="sort-divider"></div>
+								<div class="sort">
+									<span class="sort-title">판매량 순</span> <img class="sort-icon"
+										src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+								</div>
 							</div>
-							<div class="sort-divider"></div>
-							<div class="sort">
-								<span class="sort-title">판매량 순</span> <img class="sort-icon"
-									src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							<div class="detail">
+								<div class="all-count">
+									총 <b>${searchProdCount}</b>개
+								</div>
+								<div class="check-global">
+									<img
+										src="/SYJ_Mall/resources/images/product_category/ico_checked.png" />
+									<span>글로벌 배송 가능상품 보기</span>
+								</div>
 							</div>
 						</div>
-						<div class="detail">
-							<div class="all-count">
-								총 <b>${searchProdCount}</b>개
-							</div>
-							<div class="check-global">
-								<img src="/SYJ_Mall/resources/images/product_category/ico_checked.png" /> <span>글로벌
-									배송 가능상품 보기</span>
-							</div>
+
+
+						<!-- 해당 검색 상품 영역 -->
+						<div class="search-product-wrap" style="border: 1px solid red;">
+							<ul id="search-item-lists">
+
+								<!-- 여기서부터 조건이 붙어야 한다.***** -->
+								<c:forEach var="dto" items="${searchProdto}">
+									<c:choose>
+										<c:when test="${empty userinfo}">
+											<c:choose>
+												<c:when test="${dto.prodCnt eq 0}">
+													<!-- 상품재고가 없는 경우 -->
+													<li class="item-li" id="${dto.prodId}">
+														<div class="thumbnail"
+															style="background-image : url('${dto.picUrl}'); ">
+															<div class="soldout-label"></div>
+														</div>
+														<div class="name">
+															<div class="nametext">${dto.prodNm}</div>
+															<span class="alarm"></span>
+														</div>
+														<div class="price">${dto.prodPrice}원</div>
+													</li>
+												</c:when>
+
+
+												<c:when test="${dto.prodCnt ne 0 && dto.discRate eq 0}">
+													<!-- 상품재고는 있고 할인이 없는경우 -->
+													<li class="item-li" id="${dto.prodId}">
+														<div class="thumbnail"
+															style="background-image : url('${dto.picUrl}'); "></div>
+														<div class="name">
+															<div class="nametext">${dto.prodNm}</div>
+															<span class="${dto.cookieBasket}"></span>
+														</div>
+														<div class="price">${dto.prodPrice}원</div>
+													</li>
+												</c:when>
+
+
+												<c:when test="${dto.prodCnt ne 0 && dto.discRate ne 0}">
+													<!-- 상품재고는 있고 할인이 있는 경우 -->
+													<li class="item-li" id="${dto.prodId}">
+														<div class="thumbnail"
+															style="background-image : url('${dto.picUrl}'); "></div>
+														<div class="name">
+															<div class="nametext">${dto.prodNm}</div>
+															<span class="${dto.cookieBasket}"></span>
+														</div>
+														<div class="price" style="color: #FF447F;">${dto.discRate}%
+															${dto.dcPrice}원</div>
+														<div class="price"
+															style="text-decoration: line-through; color: #9A9A9E;">${dto.prodPrice}원</div>
+													</li>
+												</c:when>
+											</c:choose>
+										</c:when>
+										<c:when test="${not empty userinfo}">
+											<c:choose>
+												<c:when test="${dto.prodCnt eq 0}">
+													<!-- 상품재고가 없는 경우 -->
+													<li class="item-li" id="${dto.prodId}">
+														<div class="thumbnail"
+															style="background-image : url('${dto.picUrl}'); ">
+															<div class="soldout-label"></div>
+														</div>
+														<div class="name">
+															<div class="nametext">${dto.prodNm}</div>
+															<span class="${dto.alarmYn}"></span>
+														</div>
+														<div class="price">${dto.prodPrice}원</div>
+													</li>
+												</c:when>
+
+
+												<c:when test="${dto.prodCnt ne 0 && dto.discRate eq 0}">
+													<!-- 상품재고는 있고 할인이 없는경우 -->
+													<li class="item-li" id="${dto.prodId}">
+														<div class="thumbnail"
+															style="background-image : url('${dto.picUrl}'); "></div>
+														<div class="name">
+															<div class="nametext">${dto.prodNm}</div>
+															<span class="${dto.cookieBasket}"></span>
+														</div>
+														<div class="price">${dto.prodPrice}원</div>
+													</li>
+												</c:when>
+
+
+												<c:when test="${dto.prodCnt ne 0 && dto.discRate ne 0}">
+													<!-- 상품재고는 있고 할인이 있는 경우 -->
+													<li class="item-li" id="${dto.prodId}">
+														<div class="thumbnail"
+															style="background-image : url('${dto.picUrl}'); "></div>
+														<div class="name">
+															<div class="nametext">${dto.prodNm}</div>
+															<span class="${dto.cookieBasket}"></span>
+														</div>
+														<div class="price" style="color: #FF447F;">${dto.discRate}%
+															${dto.dcPrice}원</div>
+														<div class="price"
+															style="text-decoration: line-through; color: #9A9A9E;">${dto.prodPrice}원</div>
+													</li>
+												</c:when>
+											</c:choose>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+							</ul>
 						</div>
-					</div>
-					
-					
-					<!-- 해당 검색 상품 영역 -->
-					<div class="search-product-wrap" style="border: 1px solid red;">
-						<ul id = "search-item-lists">
-							
-							<!-- 여기서부터 조건이 붙어야 한다.***** -->
-							<c:forEach var="dto" items="${searchProdto}">
-								<c:choose>
-									<c:when test="${empty userinfo}">
-										<c:choose>
-											<c:when test = "${dto.prodCnt eq 0}">
-											<!-- 상품재고가 없는 경우 -->
-												<li class="item-li" id="${dto.prodId}">
-                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
-                									<div class="name">
-                										<div class="nametext">${dto.prodNm}</div>
-                										<span class="alarm"></span>
-                									</div>
-                									<div class="price">${dto.prodPrice} 원</div>
-              									</li>	
-											</c:when>
-											
-											
-											<c:when test = "${dto.prodCnt ne 0 && dto.discRate eq 0}">
-											<!-- 상품재고는 있고 할인이 없는경우 -->
-												<li class="item-li" id="${dto.prodId}"> 	
-                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                									<div class="name">
-                										<div class="nametext">${dto.prodNm}</div>
-                										<span class="${dto.cookieBasket}"></span>
-                									</div>
-                									<div class="price">${dto.prodPrice} 원</div>
-              									</li>	
-											</c:when>
-											
-											
-											<c:when test = "${dto.prodCnt ne 0 && dto.discRate ne 0}">
-											<!-- 상품재고는 있고 할인이 있는 경우 -->
-												<li class="item-li" id="${dto.prodId}">	
-                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                									<div class="name">
-                										<div class="nametext">${dto.prodNm}</div>
-                										<span class="${dto.cookieBasket}"></span>
-                									</div>
-                									<div class="price" style="color : #FF447F;">${dto.discRate}% ${dto.dcPrice}원</div>
-                									<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice}원</div>
-              									</li>	
-											</c:when>
-										</c:choose>
-									</c:when>
-									<c:when test="${not empty userinfo}">
-										<c:choose>
-											<c:when test = "${dto.prodCnt eq 0}">
-											<!-- 상품재고가 없는 경우 -->
-												<li class="item-li" id="${dto.prodId}">
-                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "><div class="soldout-label"></div></div>
-                									<div class="name">
-                										<div class="nametext">${dto.prodNm}</div>
-                										<span class="${dto.alarmYn}"></span>
-                									</div>
-                									<div class="price">${dto.prodPrice} 원</div>
-              									</li>	
-											</c:when>
-											
-											
-											<c:when test = "${dto.prodCnt ne 0 && dto.discRate eq 0}">
-											<!-- 상품재고는 있고 할인이 없는경우 -->
-												<li class="item-li" id="${dto.prodId}"> 	
-                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                									<div class="name">
-                										<div class="nametext">${dto.prodNm}</div>
-                										<span class="${dto.cookieBasket}"></span>
-                									</div>
-                									<div class="price">${dto.prodPrice} 원</div>
-              									</li>	
-											</c:when>
-											
-											
-											<c:when test = "${dto.prodCnt ne 0 && dto.discRate ne 0}">
-											<!-- 상품재고는 있고 할인이 있는 경우 -->
-												<li class="item-li" id="${dto.prodId}">	
-                									<div class="thumbnail" style="background-image : url('${dto.picUrl}'); "></div>
-                									<div class="name">
-                										<div class="nametext">${dto.prodNm}</div>
-                										<span class="${dto.cookieBasket}"></span>
-                									</div>
-                									<div class="price" style="color : #FF447F;">${dto.discRate}% ${dto.dcPrice}원</div>
-                									<div class="price" style="text-decoration:line-through; color : #9A9A9E;">${dto.prodPrice}원</div>
-              									</li>	
-											</c:when>
-										</c:choose>
-									</c:when>
-								</c:choose>
-							</c:forEach>
-						</ul>
-					</div>
 					</c:if>
-					
+
 				</div>
 			</div>
 		</div>
@@ -374,7 +433,7 @@
 	</div>
 
 
-<script>
+	<script>
 
 let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
 let checkdDevice = 0;//맨처음 디바이스 체크!
@@ -724,8 +783,9 @@ $(document).ready(
             		if (result == 1) {
             			$(prodt_this).attr('class','inalarm');
             		} else if (result == -2) {
-            			alert("로그인 요망");//이쪽 부분 이쁘게 모달로 처리해야한다.
-            			location.href = "/SYJ_Mall/login.action";
+            			//alert("로그인 요망");//이쪽 부분 이쁘게 모달로 처리해야한다.
+            			//location.href = "/SYJ_Mall/login.action";
+            			$('#login-product-modal').css('visibility','visible');
             		}
             	},
             	error: function(a,b,c) {
@@ -734,7 +794,18 @@ $(document).ready(
            });
 			e.stopPropagation();  
 		});
-
+		
+		//로그인 모달창 로그인하기
+		$(document).on("click",".login-btn",function(){
+			$('#login-product-modal').css('visibility','hidden');
+			location.href = "/SYJ_Mall/login.action";
+		}); 
+		
+		//로그인 모달창 돌아가기
+		$(document).on("click",".close-btn",function(){
+			$('#login-product-modal').css('visibility','hidden');
+		}); 
+		
 		//4. 해당 상품 알림에서 빼주기
 		$(document).on("click",".inalarm",function(e){
 			let prodt_id = $(this).parent().parent().attr('id');
