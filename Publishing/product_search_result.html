@@ -42,7 +42,7 @@
   </div>
   
   <!-- 캐릭터 모달창 -->
-  <div class="overlay-wrap" style="visibility: hidden;">
+  <div class="overlay-wrap" id="testmodal2" style="visibility: hidden;">
     <div class="character-modal-wrap">
       <div class="character-list all">
         <div class="character-image"></div>
@@ -169,13 +169,13 @@
           <!-- 상품 정렬 및 개수 -->
           <div class="search-header">
             <div class="sort-wrap">
-              <div class="sort">
-                <span class="sort-title" id="char-sort-name">캐릭터 전체</span>
+              <div class="sort" id="char-sort-name">
+                <span class="sort-title">캐릭터 전체</span>
                 <img class="sort-icon" src="./images/product_category/dropdown_down.png" />
               </div>
               <div class="sort-divider"></div>
-              <div class="sort">
-                <span class="sort-title" id="content-sort-name">판매량 순</span>
+              <div class="sort" id="content-sort-name">
+                <span class="sort-title">판매량 순</span>
                 <img class="sort-icon" src="./images/product_category/dropdown_down.png" />
               </div>
             </div>
@@ -260,7 +260,7 @@
   <script>
 
     //판매량순! ~~ 순 정하는 필터링
-    $('.sort').click(function(){
+    $('#content-sort-name').click(function(){
       $('#testmodal1').css('visibility','visible');
     });
     
@@ -288,12 +288,6 @@
       $('#content-sort-name').text('높은 가격순');
     });
 
-    
-    //모달 제거하는 용도
-    $('.overlay-wrap').click(function(){
-      $('.overlay-wrap').css('visibility','hidden');
-    });
-
     //정렬 체크 해제하는 용도
     function all_delete() {
       $('#buy-sort').find('img').remove();
@@ -301,6 +295,19 @@
       $('#low-price-sort').find('img').remove();
       $('#high-price-sort').find('img').remove();
     }
+    
+
+    //캐릭터별 모달
+    $("#char-sort-name").click(function(){
+      $('#testmodal2').css("visibility","visible");
+    });
+
+    //모달 제거하는 용도
+    $('.overlay-wrap').click(function(){
+      $('.overlay-wrap').css('visibility','hidden');
+    });
+
+    
 
   </script>
 
