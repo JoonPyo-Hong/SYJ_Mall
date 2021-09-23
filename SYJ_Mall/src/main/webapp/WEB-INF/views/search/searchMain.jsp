@@ -15,7 +15,7 @@
 	href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
 <link rel="stylesheet"
-	href="resources/css/search/productSearchResult5.css">
+	href="resources/css/search/productSearchResult6.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel="stylesheet" href="resources/css/search/searchLoginModal.css">
 <link rel="stylesheet" href="resources/css/mainLayout/searchLayout.css">
@@ -47,19 +47,19 @@
 		</div>
 	</div>
 	<!-- 정렬 모달창 -->
-	<div class="overlay-wrap" id="product-sorted-modal" style="visibility: hidden;">
+	<div class="overlay-wrap" id="sort-modal" style="visibility: hidden;">
 		<div class="sort-modal-wrap">
-			<div class="sort-list">
+			<div class="sort-list" id="buy-sort">
 				<div class="sort-text">판매량순</div>
-				<img src="./images/product_search_result/check.png">
+				<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
 			</div>
-			<div class="sort-list">
+			<div class="sort-list" id="new-sort">
 				<div class="sort-text">신상품순</div>
 			</div>
-			<div class="sort-list">
+			<div class="sort-list" id="low-price-sort">
 				<div class="sort-text">낮은 가격순</div>
 			</div>
-			<div class="sort-list">
+			<div class="sort-list" id="high-price-sort">
 				<div class="sort-text">높은가격순</div>
 			</div>
 		</div>
@@ -271,12 +271,12 @@
 						<div class="search-header">
 							<div class="sort-wrap">
 								<div class="sort">
-									<span class="sort-title">캐릭터 전체</span> <img class="sort-icon"
+									<span class="sort-title" id="char-sort-name">캐릭터 전체</span> <img class="sort-icon"
 										src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 								</div>
 								<div class="sort-divider"></div>
 								<div class="sort">
-									<span class="sort-title">판매량 순</span> <img class="sort-icon"
+									<span class="sort-title" id="content-sort-name">판매량순</span> <img class="sort-icon"
 										src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 								</div>
 							</div>
@@ -830,11 +830,66 @@ $(document).ready(
 			
 			e.stopPropagation();  
 		});
-
 		
 		
+		/*--------------------필터링 조건---------------------------*/
+		//~~ 순 정하는 필터링
+		$('#content-sort-name').click(function() {
+			$('#sort-modal').css('visibility', 'visible');
+			$('.sort-modal-wrap').css('bottom', '0');
+			$(document.body).css('overflow', 'hidden');
+		});
+		
+		
+		$('#buy-sort').click(function () {
+		      all_delete();
+		      $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
+		      $('#content-sort-name').text('판매량순');
+		});
+		
+		$('#new-sort').click(function () {
+		    all_delete();
+		    $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
+			$('#content-sort-name').text('신상품순');
+		});
 
-</script>
+		$('#low-price-sort').click(function () {
+			all_delete();
+		    $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
+		    $('#content-sort-name').text('낮은 가격순');
+		});
+		    
+		$('#high-price-sort').click(function () {
+			all_delete();
+		    $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
+		    $('#content-sort-name').text('높은 가격순');
+		});
+		  
+		
+		//정렬 체크 해제하는 용도
+		function all_delete() {
+			$('#buy-sort').find('img').remove();
+			$('#new-sort').find('img').remove();
+			$('#low-price-sort').find('img').remove();
+			$('#high-price-sort').find('img').remove();
+		}
+	    
+		//캐릭터별 모달
+	    $("#char-sort-name").click(function () {
+	      $('#charac-modal').css("visibility", "visible");
+	      $('.character-modal-wrap').css('bottom', '0');
+	      $(document.body).css('overflow','hidden');
+	    });
+
+	    //모달 제거하는 용도
+	    $('.overlay-wrap').click(function () {
+	      $('.overlay-wrap').css('visibility', 'hidden');
+	      $('.sort-modal-wrap').css('bottom', '-200px');
+	      $('.character-modal-wrap').css('bottom', '-400px');
+	      $(document.body).css('overflow','visible');
+	    });
+		
+	</script>
 
 
 

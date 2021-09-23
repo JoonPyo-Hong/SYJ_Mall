@@ -50,7 +50,9 @@ public class SearchController {
 	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기 -> 첫번째로 가져온 경우
 	@RequestMapping(value = "/searchresult.action", method = { RequestMethod.GET })
 	public String searchresult(HttpServletRequest request, HttpServletResponse response) {
-
+		
+		//여기서 필터별로 정렬옵션을 추가해줘야 한다.
+		
 		// 결과 -> jsp 로 옮길지 말지 정해준다.
 		int result = service.getSearchResultProd(request,response);
 
