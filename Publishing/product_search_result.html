@@ -169,13 +169,13 @@
           <!-- 상품 정렬 및 개수 -->
           <div class="search-header">
             <div class="sort-wrap">
-              <div class="sort" id="char-sort-name">
-                <span class="sort-title">캐릭터 전체</span>
+              <div class="sort">
+                <span class="sort-title" id="char-sort-name">캐릭터 전체</span>
                 <img class="sort-icon" src="./images/product_category/dropdown_down.png" />
               </div>
               <div class="sort-divider"></div>
-              <div class="sort" id="content-sort-name">
-                <span class="sort-title">판매량 순</span>
+              <div class="sort" >
+                <span class="sort-title" id="content-sort-name">판매량 순</span>
                 <img class="sort-icon" src="./images/product_category/dropdown_down.png" />
               </div>
             </div>
@@ -262,7 +262,8 @@
     //판매량순! ~~ 순 정하는 필터링
     $('#content-sort-name').click(function () {
       $('#testmodal1').css('visibility', 'visible');
-      $('.sort-modal-wrap').css('bottom', '0');
+      $('.sort-modal-wrap').css('bottom', '0');ㄹ
+      $(document.body).css('overflow','hidden');
     });
 
     $('#buy-sort').click(function () {
@@ -301,12 +302,16 @@
     //캐릭터별 모달
     $("#char-sort-name").click(function () {
       $('#testmodal2').css("visibility", "visible");
+      $('.character-modal-wrap').css('bottom', '0');
+      $(document.body).css('overflow','hidden');
     });
 
     //모달 제거하는 용도
     $('.overlay-wrap').click(function () {
       $('.overlay-wrap').css('visibility', 'hidden');
       $('.sort-modal-wrap').css('bottom', '-200px');
+      $('.character-modal-wrap').css('bottom', '-400px');
+      $(document.body).css('overflow','visible');
     });
 
 

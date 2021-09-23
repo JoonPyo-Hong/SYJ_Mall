@@ -225,6 +225,8 @@ hr.division {
   display: flex;
   flex-wrap: wrap;
   bottom: 0;
+  bottom: -400px;
+  transition: all ease-in 0.5s;
 }
 
 .character-modal-wrap .character-list {
