@@ -1890,3 +1890,217 @@ end
 
 
 
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-09-17  
+	Description : 물품 검색결과 -> 물품의 정보를 가져와준다.(로그인 하지 않았을 경우) 
+	     
+	History	: 2021-09-17 Seunghwan Shin	#최초 생성
+			  2021-09-19 Seunghwan Shin	#장바구니,알림 정보 속성 추가
+			  2021-09-21 Seunghwan Shin	#조인순서 변경
+			  2021-09-23 Seunghwan Shin	#필터링 조건 추가
+			  
+	
+	Real DB :	exec dbo.kakao_search_product_result_not_login N'라', null, 1, '118#117#119#31',1
+				exec dbo.kakao_search_product_result_not_login N'라', null, 1, '118#117#119#31',2
+				exec dbo.kakao_search_product_result_not_login N'라', null, 1, '118#117#119#31',3
+				exec dbo.kakao_search_product_result_not_login N'라', null, 1, '118#117#119#31',4
+				exec dbo.kakao_search_product_result_not_login N'라', 117, 1, '118#117#119#31'
+
+*/ 
+alter proc dbo.kakao_search_product_result_not_login
+	@input_name nvarchar(100)
+,	@prod_seq varchar(10)
+,	@paging varchar(10)
+,	@basket_info varchar(3000)	-- 쿠키정보
+,	@sorted_option int -- 1:판매량순, 2:신상품순, 3:낮은가격순, 4:높은 가격순
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin 
+    
+	declare @paging_num int = convert(int,@paging)
+	
+
+	if (@prod_seq is null)
+	begin
+		--판매량순
+		if(@sorted_option = 1)
+		begin
+			
+			declare @buy_date_standard datetime = '2020-10-10'--그냥 기준으로 잡아놓은것
+			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
+
+			select
+				m.product_id as prodId
+			,	m.product_nm as prodNm
+			,	m.product_count as prodCnt
+			,	format(m.product_price,'#,#') as prodPrice
+			,	m.discount_rate as discRate
+			,	m.product_img as picUrl
+			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
+			,	m.cookieBasket as cookieBasket
+			,	'alarm' as alarmYn
+			from
+			(
+				select
+					row_number() over (order by sm.cnt desc) as rn
+				,	kpt.product_id 
+				,	kpt.product_nm 
+				,	kpt.product_count 
+				,	kpt.product_price 
+				,	kpt.discount_rate 
+				,	kpi.product_img 
+				,	case when ss.value is null then 'cart'
+						 else 'incart' end as cookieBasket
+				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+				inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+				inner join 
+				(
+					select 
+						product_id
+					,	count(*) as cnt
+					from dbo.KAKAO_PRODUCT_PAYMENT with(nolock)
+					where product_buy_dt between @buy_date_past and @buy_date_standard 
+					group by product_id
+				) sm on sm.product_id = kpt.product_id
+				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) =  kpt.product_id
+				where kpt.product_nm like N'%' + @input_name + N'%'
+				and kpi.rep_img_yn = 'Y'
+				and kpi.head_img_yn = 'Y'
+			) as m
+			where m.rn between (@paging_num * 6) - 5 and (@paging_num * 6)
+		end
+		--최신제품 순
+		else if(@sorted_option = 2)
+		begin
+
+			select
+				m.product_id as prodId
+			,	m.product_nm as prodNm
+			,	m.product_count as prodCnt
+			,	format(m.product_price,'#,#') as prodPrice
+			,	m.discount_rate as discRate
+			,	m.product_img as picUrl
+			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
+			,	m.cookieBasket as cookieBasket
+			,	'alarm' as alarmYn
+			from
+			(
+				select
+					row_number() over (order by kpt.reg_dt desc) as rn
+				,	kpt.product_id 
+				,	kpt.product_nm 
+				,	kpt.product_count 
+				,	kpt.product_price 
+				,	kpt.discount_rate 
+				,	kpi.product_img 
+				,	case when ss.value is null then 'cart'
+						 else 'incart' end as cookieBasket
+				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+				inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) =  kpt.product_id
+				where kpt.product_nm like N'%' + @input_name + N'%'
+				and kpi.rep_img_yn = 'Y'
+				and kpi.head_img_yn = 'Y'
+			) as m
+			where m.rn between (@paging_num * 6) - 5 and (@paging_num * 6)
+		end
+		else if(@sorted_option = 3)
+		begin
+			--낮은 가격순
+			select
+				m.product_id as prodId
+			,	m.product_nm as prodNm
+			,	m.product_count as prodCnt
+			,	format(m.product_price,'#,#') as prodPrice
+			,	m.discount_rate as discRate
+			,	m.product_img as picUrl
+			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
+			,	m.cookieBasket as cookieBasket
+			,	'alarm' as alarmYn
+			from
+			(
+				select
+					row_number() over (order by kpt.product_price) as rn
+				,	kpt.product_id 
+				,	kpt.product_nm 
+				,	kpt.product_count 
+				,	kpt.product_price 
+				,	kpt.discount_rate 
+				,	kpi.product_img 
+				,	case when ss.value is null then 'cart'
+						 else 'incart' end as cookieBasket
+				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+				inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) =  kpt.product_id
+				where kpt.product_nm like N'%' + @input_name + N'%'
+				and kpi.rep_img_yn = 'Y'
+				and kpi.head_img_yn = 'Y'
+			) as m
+			where m.rn between (@paging_num * 6) - 5 and (@paging_num * 6)
+		end
+		else if(@sorted_option = 4)
+		begin
+			--높은 가격순
+			select
+				m.product_id as prodId
+			,	m.product_nm as prodNm
+			,	m.product_count as prodCnt
+			,	format(m.product_price,'#,#') as prodPrice
+			,	m.discount_rate as discRate
+			,	m.product_img as picUrl
+			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
+			,	m.cookieBasket as cookieBasket
+			,	'alarm' as alarmYn
+			from
+			(
+				select
+					row_number() over (order by kpt.product_price desc) as rn
+				,	kpt.product_id 
+				,	kpt.product_nm 
+				,	kpt.product_count 
+				,	kpt.product_price 
+				,	kpt.discount_rate 
+				,	kpi.product_img 
+				,	case when ss.value is null then 'cart'
+						 else 'incart' end as cookieBasket
+				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+				inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) =  kpt.product_id
+				where kpt.product_nm like N'%' + @input_name + N'%'
+				and kpi.rep_img_yn = 'Y'
+				and kpi.head_img_yn = 'Y'
+			) as m
+			where m.rn between (@paging_num * 6) - 5 and (@paging_num * 6)
+		end
+	end
+	else
+	begin
+		select
+			kpt.product_id as prodId
+		,	kpt.product_nm as prodNm
+		,	kpt.product_count as prodCnt
+		,	format(kpt.product_price,'#,#') as prodPrice
+		,	kpt.discount_rate as discRate
+		,	kpi.product_img as picUrl
+		,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
+		,	case when ss.value is null then 'cart'
+					 else 'incart' end as cookieBasket
+		,	'alarm' as alarmYn
+		from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+		inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+		left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) =  kpt.product_id
+		where kpt.product_id = convert(bigint,@prod_seq)
+		and kpi.rep_img_yn = 'Y'
+		and kpi.head_img_yn = 'Y'
+	end
+end
+
+
+
+
+
+
+
+

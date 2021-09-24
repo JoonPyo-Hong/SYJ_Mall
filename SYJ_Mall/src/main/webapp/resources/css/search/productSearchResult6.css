@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 /* 검색결과 없을 시 */
-
 .search-list-nodata {
   display: flex;
   justify-content: center;
@@ -169,6 +168,10 @@ hr.division {
   background-size: contain;
 }
 
+.search-product-wrap .item-li:hover {
+	cursor : pointer;
+}
+
 .search-product-wrap .item-li .name {
   display: flex;
   justify-content: space-between;
@@ -244,7 +247,6 @@ hr.division {
 }
 
 /* 모달 작업 */
-
 .overlay-wrap {
   display: flex;
   align-items: center;
@@ -254,8 +256,10 @@ hr.division {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
+  transition: all ease-in 0.3s;	
 }
 
+/* 캐릭터 모달창 */
 .character-modal-wrap {
   position: absolute;
   height: auto;
@@ -265,7 +269,8 @@ hr.division {
   padding-bottom: 100px;
   display: flex;
   flex-wrap: wrap;
-  bottom: 0;
+  bottom: -400px;
+  transition: all ease-in 0.5s;
 }
 
 .character-modal-wrap .character-list {
@@ -352,3 +357,48 @@ hr.division {
 .character-modal-wrap .character-list.kumdori .character-image {
   background-image: url(/SYJ_Mall/resources/images/product_search_result/Kumdori_71_color_210303.png);
 }
+
+
+/* 정렬 모달창 */
+.sort-modal-wrap {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  bottom: -200px;
+  width: 400px;
+  transition: all ease-in 0.3s;
+}
+
+.sort-modal-wrap .sort-list {
+  max-width: 400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0px 17px;
+}
+
+.sort-modal-wrap .sort-list:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+.sort-modal-wrap .sort-list:hover .sort-text {
+  color: rgb(0, 0, 0);
+}
+
+.sort-modal-wrap .sort-list .sort-text {
+  font-size: 16px;
+  color: rgb(154, 154, 158);
+}
+
+.sort-modal-wrap .sort-list img {
+  width: 20px;
+  height: 22px;
+  margin-bottom: 2px;
+}
+
+
