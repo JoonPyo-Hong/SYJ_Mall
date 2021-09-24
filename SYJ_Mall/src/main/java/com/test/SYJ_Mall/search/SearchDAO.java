@@ -22,7 +22,7 @@ public class SearchDAO implements ISearchDAO {
 	
 	//검색조건에 맞는 상품정보를 가져와준다 -> 로그인 안되어 있는 경우
 	@Override
-	public List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq,int pagingCount, String basketList) {
+	public List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq,int pagingCount, String basketList,String sortedOption) {
 		
 		Map<String,String> map = new HashMap<String, String>();
 		
@@ -30,6 +30,7 @@ public class SearchDAO implements ISearchDAO {
 		map.put("productSeq",productSeq);
 		map.put("pagingCount",Integer.toString(pagingCount));
 		map.put("basketList",basketList);
+		map.put("sortedOption",sortedOption);
 		
 		
 		return template.selectList("SYJSearch.searchProdDetil",map);
@@ -49,7 +50,7 @@ public class SearchDAO implements ISearchDAO {
 	}
 	
 	@Override
-	public List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq,int pagingCount) {
+	public List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq,int pagingCount,String sortedOption) {
 		
 		Map<String,String> map = new HashMap<String, String>();
 		
@@ -57,6 +58,7 @@ public class SearchDAO implements ISearchDAO {
 		map.put("inputName",inputName);
 		map.put("productSeq",productSeq);
 		map.put("pagingCount",Integer.toString(pagingCount));
+		map.put("sortedOption", sortedOption);
 		
 		return template.selectList("SYJSearch.searchProdDetilLogOn",map);
 	}

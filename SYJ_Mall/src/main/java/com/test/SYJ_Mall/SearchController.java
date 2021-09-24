@@ -51,8 +51,6 @@ public class SearchController {
 	@RequestMapping(value = "/searchresult.action", method = { RequestMethod.GET })
 	public String searchresult(HttpServletRequest request, HttpServletResponse response) {
 		
-		//여기서 필터별로 정렬옵션을 추가해줘야 한다.
-		
 		// 결과 -> jsp 로 옮길지 말지 정해준다.
 		int result = service.getSearchResultProd(request,response);
 
@@ -72,18 +70,22 @@ public class SearchController {
 			HttpSession session = request.getSession();
 			UserDTO uDto = (UserDTO)session.getAttribute("userinfo");
 			
+
 			String inputWord = request.getParameter("inputWord");// 넘겨준 단어
 			int paging = Integer.parseInt(request.getParameter("paging"));//페이징 변수
+			String sortedOption = request.getParameter("sortedOption");//정렬필터링 옵션
+			
+			//System.out.println("???" + sortedOption);
 			
 			List<SearchProductDTO> prodto;//무한스크롤을 통하여 가져올 물품들
 			
 			if (uDto == null) {
 			//로그인 하지 않은 경우	
-				prodto = service.getAjaxProdInfo(inputWord,paging,request);
+				prodto = service.getAjaxProdInfo(inputWord,paging,request,sortedOption);
 			}
 			else {
 			//로그인 한 경우	
-				prodto = service.getAjaxProdInfoLogOn(uDto.getUserSeq(),inputWord,paging);
+				prodto = service.getAjaxProdInfoLogOn(uDto.getUserSeq(),inputWord,paging,sortedOption);
 			}
 			
 			//System.out.println("inputWord : " + inputWord);

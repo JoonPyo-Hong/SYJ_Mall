@@ -20,7 +20,7 @@
 		parameterType="java.util.HashMap" statementType="CALLABLE">
 		{
 		call
-		dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList})
+		dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList},#{sortedOption})
 		}
 	</select>
 
@@ -38,7 +38,7 @@
 		parameterType="java.util.HashMap" statementType="CALLABLE">
 		{
 		call
-		dbo.kakao_search_product_result(#{userSeq},#{inputName},#{productSeq},#{pagingCount})
+		dbo.kakao_search_product_result(#{userSeq},#{inputName},#{productSeq},#{pagingCount},#{sortedOption})
 		}
 	</select>
 	

@@ -17,9 +17,10 @@ public interface ISearchDAO {
 	 * @param productSeq	상품번호
 	 * @param pagingCount	상품 페이징 카운트
 	 * @param basketList	쿠키정보에 담긴 장바구니 상품 리스트
+	 * @param sortedOption	정렬옵션
 	 * @return
 	 */
-	List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq, int pagingCount, String basketList);
+	List<SearchProductDTO> getSearchResultProds(String inputName, String productSeq, int pagingCount, String basketList,String sortedOption);
 	
 	/**
 	 * 검색조건에 맞는 상품 총 갯수를 가져와준다.
@@ -35,9 +36,12 @@ public interface ISearchDAO {
 	 * @param inputName		상품이름
 	 * @param productSeq	상품번호	
 	 * @param pagingCount	상품 페이징 카운트
+	 * @param sortedOption	정렬옵션
 	 * @return
 	 */
-	List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq, int pagingCount);
+	List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq, int pagingCount,String sortedOption);
+	
+	
 	
 	/**
 	 * 상품을 장바구니에 넣기 

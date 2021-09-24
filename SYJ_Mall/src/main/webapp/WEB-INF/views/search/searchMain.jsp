@@ -51,16 +51,27 @@
 		<div class="sort-modal-wrap">
 			<div class="sort-list" id="buy-sort">
 				<div class="sort-text">판매량순</div>
-				<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				<c:if test="${sortedOption eq 1}">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
 			</div>
 			<div class="sort-list" id="new-sort">
 				<div class="sort-text">신상품순</div>
+				<c:if test="${sortedOption eq 2}">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
 			</div>
 			<div class="sort-list" id="low-price-sort">
 				<div class="sort-text">낮은 가격순</div>
+				<c:if test="${sortedOption eq 3}">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
 			</div>
 			<div class="sort-list" id="high-price-sort">
 				<div class="sort-text">높은가격순</div>
+				<c:if test="${sortedOption eq 4}">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -276,8 +287,18 @@
 								</div>
 								<div class="sort-divider"></div>
 								<div class="sort">
-									<span class="sort-title" id="content-sort-name">판매량순</span> <img class="sort-icon"
-										src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+									<c:if test="${sortedOption eq 1}">
+										<span class="sort-title" id="content-sort-name">판매량순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+									</c:if>
+									<c:if test="${sortedOption eq 2}">
+										<span class="sort-title" id="content-sort-name">신상품순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+									</c:if>
+									<c:if test="${sortedOption eq 3}">
+										<span class="sort-title" id="content-sort-name">낮은 가격순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+									</c:if>
+									<c:if test="${sortedOption eq 4}">
+										<span class="sort-title" id="content-sort-name">높은 가격순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+									</c:if>
 								</div>
 							</div>
 							<div class="detail">
@@ -437,6 +458,7 @@
 
 let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
 let checkdDevice = 0;//맨처음 디바이스 체크!
+let filter_option = ${sortedOption};//정렬필터링 옵션
 
 //PC, MOBILE 구별
 function deviceCheck() {
@@ -627,7 +649,7 @@ $(document).ready(
 						$.ajax({
 				        	type:"POST",
 				            url: "/SYJ_Mall/searchresultscroll.action" ,
-				            data : {"paging" : paging, "inputWord" : userinputName},
+				            data : {"paging" : paging, "inputWord" : userinputName,"sortedOption" : filter_option},
 				            dataType : "json",
 				            success : function(result) {
 				                
@@ -842,37 +864,60 @@ $(document).ready(
 		
 		
 		$('#buy-sort').click(function () {
-		      all_delete();
-		      $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
-		      $('#content-sort-name').text('판매량순');
+			<c:if test="${empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
+			</c:if>
+			<c:if test="${not empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
+			</c:if>
+		    //const productSeq = ${productSeq};
+			
+			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
+			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
 		});
 		
 		$('#new-sort').click(function () {
-		    all_delete();
-		    $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
-			$('#content-sort-name').text('신상품순');
+			<c:if test="${empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
+			</c:if>
+			<c:if test="${not empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
+			</c:if>
+			
+			//const productSeq = ${productSeq};
+			
+			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
+			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
 		});
 
 		$('#low-price-sort').click(function () {
-			all_delete();
-		    $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
-		    $('#content-sort-name').text('낮은 가격순');
+			<c:if test="${empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
+			</c:if>
+			<c:if test="${not empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
+			</c:if>
+			
+			//const productSeq = ${productSeq};
+			
+			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
+			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
 		});
 		    
 		$('#high-price-sort').click(function () {
-			all_delete();
-		    $(this).append('<img src="/SYJ_Mall/resources/images/product_search_result/check.png">');
-		    $('#content-sort-name').text('높은 가격순');
+			<c:if test="${empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
+			</c:if>
+			<c:if test="${not empty productSeq}">
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
+			</c:if>
+			
+			//const productSeq = ${productSeq};
+			
+			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
+			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
 		});
 		  
-		
-		//정렬 체크 해제하는 용도
-		function all_delete() {
-			$('#buy-sort').find('img').remove();
-			$('#new-sort').find('img').remove();
-			$('#low-price-sort').find('img').remove();
-			$('#high-price-sort').find('img').remove();
-		}
 	    
 		//캐릭터별 모달
 	    $("#char-sort-name").click(function () {
@@ -880,7 +925,7 @@ $(document).ready(
 	      $('.character-modal-wrap').css('bottom', '0');
 	      $(document.body).css('overflow','hidden');
 	    });
-
+		
 	    //모달 제거하는 용도
 	    $('.overlay-wrap').click(function () {
 	      $('.overlay-wrap').css('visibility', 'hidden');
