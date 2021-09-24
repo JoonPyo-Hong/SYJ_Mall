@@ -35,6 +35,17 @@ public class SearchService implements ISearchService {
 			
 			String inputName = request.getParameter("inputName");// 넘겨준 단어 -> 검색에 적은 단어(엔터를 안치고 온 경우)
 			String productSeq = request.getParameter("productSeq");// 넘겨준 단어 -> 검색에 적은 단어에 매치되는 상품번호(엔터를 안치고 온 경우)
+			String sortedOption;//정렬옵션
+			
+			if (request.getParameter("sortedOption") == null) {
+				request.setAttribute("sortedOption", "1");
+				sortedOption = "1";
+			} else {
+				sortedOption = request.getParameter("sortedOption");//정렬옵션
+				request.setAttribute("sortedOption", sortedOption);
+			}
+
+			if (productSeq != null) request.setAttribute("productSeq", productSeq);
 			
 			HttpSession session = request.getSession();
 			UserDTO userDto = (UserDTO)session.getAttribute("userinfo");//유저 정보 객체
@@ -52,11 +63,11 @@ public class SearchService implements ISearchService {
 				String basketList = (String)kc.getCookieInfo(request, "basketList");//12#45# 이와 같은형식의 상품번호정보가 존재함
 			
 				//System.out.println("basketList : " + basketList);
-				searchProdto = dao.getSearchResultProds(inputName,productSeq,1,basketList);//처음데이터를 가져오는 것이므로 1 을 넣어준다. => 6개만 가져와준다.
+				searchProdto = dao.getSearchResultProds(inputName,productSeq,1,basketList,sortedOption);//처음데이터를 가져오는 것이므로 1 을 넣어준다. => 6개만 가져와준다.
 			} 
 			else {
 			//유저 정보가 있는 경우 -> 로그인을 한 경우
-				searchProdto = dao.getSearchResultProdsLogon(userDto.getUserSeq(),inputName,productSeq,1);	
+				searchProdto = dao.getSearchResultProdsLogon(userDto.getUserSeq(),inputName,productSeq,1,sortedOption);	
 			}
 			
 			
@@ -123,22 +134,22 @@ public class SearchService implements ISearchService {
 	
 	//무한스크롤을 통해 가져올 물품 리스트 -> 로그인 하지 않은 경우
 	@Override
-	public List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging,HttpServletRequest request) {
+	public List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging,HttpServletRequest request,String sortedOption) {
 		
 		//System.out.println("??? : " + paging);
 		KakaoCookie kc = new KakaoCookie();
 		String basketList = (String)kc.getCookieInfo(request, "basketList");//12#45# 이와 같은형식의 상품번호정보가 존재함
 		
-		List<SearchProductDTO> searchProdtoAjax = dao.getSearchResultProds(inputWord,null,paging,basketList);//6n 개를 가져와준다.
+		List<SearchProductDTO> searchProdtoAjax = dao.getSearchResultProds(inputWord,null,paging,basketList,sortedOption);//6n 개를 가져와준다.
 		
 		return searchProdtoAjax;
 	}
 	
 	//무한스크롤을 통해 가져올 물품 리스트 -> 로그인 한 경우
 	@Override
-	public List<SearchProductDTO> getAjaxProdInfoLogOn(int userSeq, String inputWord, int paging) {
+	public List<SearchProductDTO> getAjaxProdInfoLogOn(int userSeq, String inputWord, int paging,String sortedOption) {
 		
-		return dao.getSearchResultProdsLogon(userSeq,inputWord,null,paging);
+		return dao.getSearchResultProdsLogon(userSeq,inputWord,null,paging,sortedOption);
 	}
 
 	//상품을 장바구니 목록에 넣어주는 경우

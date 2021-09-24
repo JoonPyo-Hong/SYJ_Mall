@@ -39,30 +39,27 @@ public interface ISearchService {
 	 */
 	void goMain(HttpServletRequest request);
 	
-	/**
-	 * 무한스크롤을 통하여 가져올 물품들
-	 * @param inputWord		입력단어
-	 * @param paging		페이징 변수
-	 * @return				물품dto 리스트
-	 */
-	
+
 	/**
 	 * 무한스크롤을 통하여 가져올 물품들 로그인 안한 경우
 	 * @param inputWord		입력단어
 	 * @param paging		페이징 변수
 	 * @param request		request 객체
+	 * @param sortedOption	정렬옵션
 	 * @return				물품dto 리스트
 	 */
-	List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging, HttpServletRequest request);
+	List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging, HttpServletRequest request,String sortedOption);
+	
 	
 	/**
 	 * 무한스크롤을 통하여 가져올 물품들 로그인 한 경우
 	 * @param userSeq		유저고유번호
 	 * @param inputWord		입력단어
 	 * @param paging		페이징 변수
+	 * @param sortedOption	정렬옵션
 	 * @return				물품dto 리스트
 	 */
-	List<SearchProductDTO> getAjaxProdInfoLogOn(int userSeq, String inputWord, int paging);
+	List<SearchProductDTO> getAjaxProdInfoLogOn(int userSeq, String inputWord, int paging,String sortedOption);
 	
 	/**
 	 * 상품을 장바구니에 넣어주는 경우
