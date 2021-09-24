@@ -198,7 +198,7 @@
 								<input id="shipping_main_adress" placeholder="주소 찾기" error=" 0"
 									align="left" padding="15" class="input-text"
 									name="shippingName" value="" />
-								<div class="field-address-search-icon"></div>
+								<div class="field-address-search-icon" id="juso"></div>
 							</div>
 							<div class="input-text-row field-address-detail">
 								<input id="shipping_sub_adress" placeholder="나머지 주소" error=" 0"
@@ -370,6 +370,11 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		$(document).on("click", "#juso", function(e) {
+		//alert();
+			window.open("/SYJ_Mall/jusoPopup.action","jusoPopup","width=570,height=420, scrollbars=yes, resizable=yes"); 
+		});
+	
 		$(document).on("click", "#sameAsBuyer", function(e) {
 			//alert();
 
