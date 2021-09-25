@@ -80,10 +80,4 @@ public class PayMentController {
 		// service.shpping(map);
 	}
 
-	// 주소 api 팝업창
-    @RequestMapping(value="/jusoPopup.action", method=RequestMethod.GET)
-    public String popupGet(Model model) throws Exception {
-        
-        return "/pay/jusoPopup";
-    }
 }

@@ -195,6 +195,7 @@
 									name="shippingName" value="" />
 							</div>
 							<div class="input-text-row field-address">
+							<!-- shipping_main_adress --> 
 								<input id="shipping_main_adress" placeholder="주소 찾기" error=" 0"
 									align="left" padding="15" class="input-text"
 									name="shippingName" value="" />
@@ -369,10 +370,22 @@
 			</div>
 		</div>
 	</div>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
 		$(document).on("click", "#juso", function(e) {
 		//alert();
-			window.open("/SYJ_Mall/jusoPopup.action","jusoPopup","width=570,height=420, scrollbars=yes, resizable=yes"); 
+			new daum.Postcode({
+	            oncomplete: function(data) {
+	  
+	                var roadAddr = data.roadAddress; 
+	               
+	           
+	                document.getElementById("shipping_main_adress").value = roadAddr;
+ 
+	
+	            }
+	        }).open();
+	    
 		});
 	
 		$(document).on("click", "#sameAsBuyer", function(e) {
