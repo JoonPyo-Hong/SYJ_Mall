@@ -18,7 +18,7 @@ public class SearchService implements ISearchService {
 
 	@Autowired
 	ISearchDAO dao;
-
+	
 	// 단어를 포함하는 상품정보 가져와주기
 	@Override
 	public List<SearchNameDTO> getProdLittelInfo(String inputWord) {

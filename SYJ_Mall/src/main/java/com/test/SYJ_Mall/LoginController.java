@@ -392,7 +392,7 @@ public class LoginController {
 		String userPhone = request.getParameter("kakaoPhone");
 
 		// 임시비밀번호 생성
-		int result = logService.sendPw(userId, userEmail, userPhone);
+		int result = logService.emailCertify(userId, userEmail, userPhone);
 
 		if (result == 1) {
 			String sendEmail = sfc.maskingMail(userEmail);

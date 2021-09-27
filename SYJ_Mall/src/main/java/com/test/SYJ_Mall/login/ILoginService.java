@@ -18,6 +18,9 @@ import org.json.simple.JSONObject;
  */
 public interface ILoginService {
 	
+	
+	int emailCertify(String userId,String userEmail,String userPhone);
+	
 	/**
 	 * 접속자의 ip를 체크함
 	 * @param request 	request 객체
