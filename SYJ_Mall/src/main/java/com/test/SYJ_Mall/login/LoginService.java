@@ -9,10 +9,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,10 +39,6 @@ import com.common.utill.SendEmail;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
-import javax.mail.internet.MimeMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-
 /**
  * 로그인 서비스 객체
  * 
@@ -48,42 +51,66 @@ public class LoginService implements ILoginService {
 	@Autowired
 	private ILoginDAO dao;
 	
-	@Autowired
-	private JavaMailSender mailSender;
+	//@Autowired
+	//private JavaMailSender mailSender;
 	
 	
 	@Override
 	public int emailCertify(String userId,String userEmail,String userPhone) {
+		
 		try {
 			// 임시비밀번호 생성
 			Encryption enc = new Encryption();
 			String instPw = enc.randomPw();// 임시비밀번호
-			String encInstPw = enc.returnEncVoca(instPw);// 암호화된 임시비밀번호
+			String encInstPw = enc.returnEncVoca(instPw);// 암호화된 임시비밀번호			
 			
 			// 디비에 접근해서 고객의 비밀번호 변경 -> 임시비밀번호로 변경한다.
-			int modifyResult = dao.modifyUserPw(userId, userEmail, userPhone, encInstPw);
+			int modifyResult = dao.modifyUserPw(userId, userEmail, userPhone, encInstPw);			
 			
 			if (modifyResult == 1) {
-				MimeMessage message = mailSender.createMimeMessage();
-			    MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			    
-			    messageHelper.setFrom("ssh9308@gmail.com"); // 보내는사람 생략하거나 하면 정상작동을 안함
-			    messageHelper.setTo(userEmail); // 받는사람 이메일
-			    messageHelper.setSubject("카카오 임시비밀번호 보내드립니다."); // 메일제목은 생략이 가능하다
-			    
-			    StringBuffer sb = new StringBuffer();
+				
+				final String user = "ssh9308@gmail.com"; //gmail 계정
+				final String password = enc.returnDcyVoca("*x&+$@*P!+#*x&&P?+&P!**P");//gmail 패스워드
+				
+				// SMTP 서버 정보를 설정한다.
+		        Properties prop = new Properties();
+		        prop.put("mail.smtp.host", "smtp.gmail.com"); 
+		        prop.put("mail.smtp.port", 465); 
+		        prop.put("mail.smtp.auth", "true"); 
+		        prop.put("mail.smtp.ssl.enable", "true"); 
+		        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+				
+		        Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+		            protected PasswordAuthentication getPasswordAuthentication() {
+		                return new PasswordAuthentication(user, password);
+		            }
+		        });
+				
+		        MimeMessage message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress(user));
+		        
+	            //수신자메일주소
+	            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail)); 
+	            
+	            // Subject
+	            message.setSubject("카카오 임시비밀번호 보내드립니다."); //메일 제목을 입력
+	            
+	            StringBuffer sb = new StringBuffer();
 				sb.append("안녕하세요\n");
 				sb.append("고객님의 임시비밀번호는 : ");
 				sb.append(instPw);
 				sb.append(" 입니다.\n");
 				sb.append("감사합니다.");
-			    
-			   
-			    messageHelper.setText(sb.toString()); // 메일 내용
+	            
+				// Text
+	            message.setText(sb.toString());    //메일 내용을 입력
 
-			    mailSender.send(message);
-			    
-			    return 1;
+	            // send the message
+	            Transport.send(message); ////전송
+	            //System.out.println("message sent successfully...");
+	            
+	            
+	            return 1;
 			} else {
 				return -1;
 			}
@@ -92,6 +119,7 @@ public class LoginService implements ILoginService {
 			e.printStackTrace();
 			return -1;
 		}
+
 
 	}
 	
