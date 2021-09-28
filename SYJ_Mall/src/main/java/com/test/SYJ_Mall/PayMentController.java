@@ -57,7 +57,11 @@ public class PayMentController {
 		} else {
 			m_seq = dto.getUserSeq();
 		}
-
+		
+		int last_seq = service.last_seq();
+		last_seq +=1;
+		//System.out.println(last_seq);
+		model.addAttribute("last_seq", last_seq);
 		model.addAttribute("m_seq", m_seq);
 
 		return "/pay/payment";

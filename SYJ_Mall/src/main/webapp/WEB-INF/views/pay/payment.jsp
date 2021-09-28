@@ -370,6 +370,7 @@
 			</div>
 		</div>
 	</div>
+	<input type="text" id="last_seq" value ="${last_seq}">
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
 	
@@ -412,10 +413,6 @@
 		// 유효성
 		$(document).on("click", "#pay-button", function(e) {
 	
-		
-			
-			
-
 			if ($('#shipping_name').val() == "") {
 				alert("input_1");
 				return;

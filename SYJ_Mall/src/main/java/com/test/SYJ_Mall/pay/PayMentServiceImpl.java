@@ -15,4 +15,10 @@ public class PayMentServiceImpl implements PayMentService{
 		// TODO Auto-generated method stub
 		return dao.PaySelect(str1);
 	}
+
+	@Override
+	public int last_seq() {
+		// TODO Auto-generated method stub
+		return dao.last_seq();
+	}
 }

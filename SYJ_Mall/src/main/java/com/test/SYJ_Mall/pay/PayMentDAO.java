@@ -6,4 +6,6 @@ public interface PayMentDAO {
 
 	List<ProductDTO> PaySelect(String str1);
 
+	int last_seq();
+
 }

@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.test.SYJ_Mall.main.MainDAO;
+
 @Repository
 public class PayMentDAOImpl implements PayMentDAO{
 
@@ -18,5 +18,11 @@ public class PayMentDAOImpl implements PayMentDAO{
 			// TODO Auto-generated method stub
 			//System.out.println(str1);
 			return session.selectList("payment.PaySelect", str1);
+		}
+
+		@Override
+		public int last_seq() {
+			// TODO Auto-generated method stub
+			return session.selectOne("payment.last_seq");
 		}
 }

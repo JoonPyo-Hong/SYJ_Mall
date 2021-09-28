@@ -12,4 +12,9 @@
 		dbo.KAKAO_PRODUCT_TABLE a with(nolock) left join dbo.KAKAO_PRODUCT_IMG b with(nolock) on a.product_id
 		=b.product_id where a.product_id in  (${value}) and rep_img_yn = 'Y'
 	</select>
+	
+	<select id="last_seq"
+		resultType="int">
+	    select top(1) seq from dbo.KAKAO_ORDER order by seq desc
+	</select>
 </mapper>
