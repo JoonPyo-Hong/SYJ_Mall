@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="COMMONSP">
+
+	<!--에러요인 집어넣어주기  -->
+	<insert id="errorMsgInput" parameterType="java.util.HashMap" statementType="CALLABLE">
+		
+		{
+			call dbo.kakao_error_log(#{ip},#{errormsg})
+		}
+		
+	</insert>
+
+</mapper>

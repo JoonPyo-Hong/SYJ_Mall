@@ -154,15 +154,6 @@ public interface ILoginService {
 	int findUserPw(String userId, String userEmail, String userPhone);
 	
 	/**
-	 * 비밀번호 찾기 - 비밀번호를 변경하고 고객에게 임시비밀번호 발급
-	 * @param userId	고객의 아이디
-	 * @param userEmail	고객의 이메일
-	 * @param userPhone	고객의 전화번호
-	 * @return			1: 성공, -1: 실패
-	 */
-	int sendPw(String userId, String userEmail, String userPhone);
-	
-	/**
 	 * 회원가입 - 고객이 입력한 전화번호가 중복되지 않는지 체크
 	 * @param request	request 객체	
 	 * @return			1 : 중복안됨, -1 : 중복됨

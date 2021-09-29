@@ -35,7 +35,6 @@ import com.common.utill.Encryption;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.RSAalgorithm;
-import com.common.utill.SendEmail;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
@@ -107,8 +106,6 @@ public class LoginService implements ILoginService {
 
 	            // send the message
 	            Transport.send(message); ////전송
-	            //System.out.println("message sent successfully...");
-	            
 	            
 	            return 1;
 			} else {
@@ -589,40 +586,6 @@ public class LoginService implements ILoginService {
 	public int findUserPw(String userId, String userEmail, String userPhone) {
 
 		return dao.findUserPwExist(userId, userEmail, userPhone);
-	}
-
-	// 비밀번호 찾기 - 비밀번호를 변경하고 고객에게 임시비밀번호 발급
-	@Override
-	public int sendPw(String userId, String userEmail, String userPhone) {
-
-		// 임시비밀번호 생성
-		Encryption enc = new Encryption();
-		String instPw = enc.randomPw();// 임시비밀번호
-		String encInstPw = enc.returnEncVoca(instPw);// 암호화된 임시비밀번호
-
-		// 디비에 접근해서 고객의 비밀번호 변경 -> 임시비밀번호로 변경한다.
-		int modifyResult = dao.modifyUserPw(userId, userEmail, userPhone, encInstPw);
-
-		if (modifyResult == 1) {
-			// 고객의 메일로 임시비밀번호 발급
-			SendEmail se = new SendEmail();
-			final String NVPW = "@*@#@@#&!!*@&*&@&!&&!!@+";
-			final String NVID = "ssh9308@naver.com";
-
-			StringBuffer sb = new StringBuffer();
-			sb.append("안녕하세요\n");
-			sb.append("고객님의 임시비밀번호는 : ");
-			sb.append(instPw);
-			sb.append(" 입니다.\n");
-			sb.append("감사합니다.");
-
-			se.sendMail("카카오 임시비밀번호 보내드립니다.", sb.toString(), NVID, NVPW, userEmail);
-
-			return 1;
-		} else {
-			return -1;
-		}
-
 	}
 
 	// 로그인 - 유저가 임시비밀번호 발급받아서 새 비밀번호 지정이 필요함
