@@ -15,6 +15,6 @@
 	
 	<select id="last_seq"
 		resultType="int">
-	    select top(1) seq from dbo.KAKAO_ORDER order by seq desc
+	    select top(1) seq from dbo.KAKAO_SHIPPING order by seq desc
 	</select>
 </mapper>

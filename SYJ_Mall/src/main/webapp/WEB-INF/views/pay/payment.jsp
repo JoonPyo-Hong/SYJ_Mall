@@ -370,9 +370,12 @@
 			</div>
 		</div>
 	</div>
-	<input type="text" id="last_seq" value ="${last_seq}">
+	<input type="text" id="last_seq" type ="hidden" value ="${last_seq}">
+	<input type="text" id="m_seq" type ="hidden" value ="${m_seq}">
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
+	var last_seq = $('#last_seq').val();
+	var m_seq = $('#m_seq').val();
 	
 	$(document).on("click", "#shipping_main_adress", function(e) {
 		//alert();
