@@ -2,7 +2,11 @@ package com.common.utill;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+/**
+ * 공통 DB 객체
+ * @author shin
+ *
+ */
 public class DBUtil {
 	
 	private Connection conn = null;
@@ -17,7 +21,6 @@ public class DBUtil {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 			conn = DriverManager.getConnection(url, id, pw);
-			// System.out.println("성공"); //db 연결되었는지 확인해준다.
 
 			return conn;
 

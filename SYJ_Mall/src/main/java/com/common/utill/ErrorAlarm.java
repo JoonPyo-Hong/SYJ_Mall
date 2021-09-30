@@ -2,7 +2,6 @@ package com.common.utill;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
 import java.util.HashMap;
 
 /**
@@ -12,7 +11,7 @@ import java.util.HashMap;
  *
  */
 public class ErrorAlarm {
-
+	
 	private Exception e;
 	private String ip;
 
@@ -34,7 +33,7 @@ public class ErrorAlarm {
 	public void sendErrorMassegeAdmin() {
 		
 		
-		String[] userEmail = {"ssh9308@naver.com"};//,"yeemi227@naver.com","wnsvy4231@naver.com"};
+		String[] userEmail = {"ssh9308@naver.com","yeemi227@naver.com","wnsvy4231@naver.com"};
 		
 		StringWriter errors = new StringWriter();
 		errors.append("ip : ");
@@ -44,7 +43,7 @@ public class ErrorAlarm {
 
 		MessageSender ms = new MessageSender("Error into SYJ_Mall!", errors.toString(), userEmail);
 
-		int result = ms.sendDefaultMassage();
+		int result = ms.sendDefaultMassages();
 		
 		System.out.println("result : " + result);
 	}
@@ -53,31 +52,18 @@ public class ErrorAlarm {
 	 * 에러요인 db에 넣어주기
 	 */
 	public void inputErrorToDb() {
-		Connection conn;
-		CallableStatement stat;
-		ResultSet rs;
-		PreparedStatement pstat;
+		CommonDAO dao = new CommonDAO();
 		
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		
-		//System.out.println(errors.toString());
-		//System.out.println(e);
-		//System.out.println(ip);
-		
 		HashMap<String, String> map = new HashMap<String, String>();
-		//map.put("errormsg", errors.toString());
-		//map.put("ip", this.ip);
+		map.put("errormsg", errors.toString());
+		map.put("ip", this.ip);
 		
-		//map.put("ipaddress", "123:123");
-		//map.put("userSeq", "1");
-		
-		//System.out.println(map.get("errormsg"));
-		//System.out.println(map.get("ip"));
-		
+		dao.inputErrorToDb(map);
+		dao.close();
 
-		//template.insert("COMMONSP.errorMsgInputs", map);
-		
 	}
 
 }
