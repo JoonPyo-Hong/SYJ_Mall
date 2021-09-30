@@ -17,4 +17,6 @@
 		resultType="int">
 	    select top(1) seq from dbo.KAKAO_SHIPPING order by seq desc
 	</select>
+	<insert id="order"></insert>
+	<insert id="shipping"></insert>
 </mapper>

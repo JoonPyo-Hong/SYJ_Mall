@@ -442,13 +442,18 @@
 			}
 
 			$.ajax({
-				url : "order.action",
+				url : "shpping.action",
 				type : 'post',
 				data : {
+					l_seq: last_seq,
 					shipping_name : $('#shipping_name').val(),
 					shipping_phone_number : $('#shipping_phone_number').val(),
 					shipping_main_adress : $('#shipping_main_adress').val(),
 					shipping_sub_adress : $('#shipping_sub_adress').val(),
+					shipping_message : $('#shipping_message').val(),
+					pay : "K", // K - 카카오페이, S - 신용카드
+					stat : "S1",// 진행중 완성 등..
+					price : ${num}
 				},
 				success : function(data) {
 
@@ -463,9 +468,10 @@
 
 			// 1, 2, 3 .. 순서가 아닌 뒤죽박죽 작동 동기방식으로 처리해도 되지만 순서상관 없어서 냅둠
 			$.ajax({
-					url : "shpping.action",
+					url : "order.action",
 					type : 'post',
 					data : {
+						l_seq: last_seq,
 						p_seq: ${p_seq.product_id},
 						sum : ${list2[stat.index]},
 					},
