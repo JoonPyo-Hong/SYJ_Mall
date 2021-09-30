@@ -191,12 +191,6 @@ public interface ILoginService {
 	 */
 	int autoLoginPassLogOn(HttpServletRequest request);
     
-	/**
-	 * 에러가 발생했을때 처리
-	 * @param e		에러요인
-	 * @param ip	에러를 발생시킨 ip
-	 */
-	void errorEruptionTodb(Exception e, String ip);
 	
 	/**
 	 * 로그인 버튼 누른후 -> 존재하는 아이디가 맞는지 체크 (모달창)

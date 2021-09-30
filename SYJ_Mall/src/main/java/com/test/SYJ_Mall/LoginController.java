@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
@@ -141,8 +142,10 @@ public class LoginController {
 		} catch (Exception e) {
 
 			// 위의 에러를 디비에 넣어줘야 한다.
-			logService.errorEruptionTodb(e, ip);
-
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
+			
 			return "/testwaiting/kakaoerror";
 		}
 
@@ -191,8 +194,11 @@ public class LoginController {
 			}
 
 		} catch (Exception e) {
+			
 			// 허용없이 들어올때 벤을 시켜줘야 한다.
-			logService.errorEruptionTodb(e, ic.getClientIP(request));
+			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
 			return "/testwaiting/kakaoerror";
 		}
 	}
@@ -216,7 +222,11 @@ public class LoginController {
 
 			return "/login/UserAutoLoginFail";
 		} catch (Exception e) {
-			logService.errorEruptionTodb(e, ic.getClientIP(request));
+			
+			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
+			
 			return "/testwaiting/kakaoerror";
 		}
 
@@ -241,8 +251,12 @@ public class LoginController {
 		try {
 			int result = logService.setRSAkey(request);// rsa대칭키 생성
 		} catch (Exception e) {
-			logService.errorEruptionTodb(e, ic.getClientIP(request));
-			e.getMessage();
+			
+			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
+			
+			return "/testwaiting/kakaoerror";
 		}
 
 		return "/login/usersignup";
@@ -258,8 +272,12 @@ public class LoginController {
 		try {
 			int result = logService.userSignUp(request, dto);
 		} catch (Exception e) {
-			logService.errorEruptionTodb(e, ic.getClientIP(request));
-			e.printStackTrace();
+			
+			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
+			
+			return "/testwaiting/kakaoerror";
 		}
 
 		return "/login/UserLoginSuccess";
@@ -407,17 +425,27 @@ public class LoginController {
 	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
 	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 
-		int result = logService.remodiftUserPw(request);
-
-		if (result == 1) {
-			return "/login/UserRedefinedPwSuccess";
-			// return "redirect:/login.action";//메인페이지로 보내준다.
-		} else {
+		try {
+			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
+			
+			int result = logService.remodiftUserPw(request);
+			
+			if (result == 1) {
+				return "/login/UserRedefinedPwSuccess";
+				// return "redirect:/login.action";//메인페이지로 보내준다.
+			} else {
+				throw new Exception("admin throw Exception");
+			}
+			
+		} catch(Exception e) {
+			
+			ErrorAlarm ea = new ErrorAlarm(e);
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
+			
 			return "/testwaiting/kakaoerror";
 		}
-
 	}
 
 	/*------------------------------------------------------------------------------------------------------------------------------*/
