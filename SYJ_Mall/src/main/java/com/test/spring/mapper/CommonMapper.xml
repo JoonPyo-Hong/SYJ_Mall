@@ -7,7 +7,7 @@
 <mapper namespace="COMMONSP">
 
 	<!--에러요인 집어넣어주기  -->
-	<insert id="errorMsgInput" parameterType="java.util.HashMap" statementType="CALLABLE">
+	<insert id="errorMsgInputs" parameterType="java.util.HashMap" statementType="CALLABLE">
 		
 		{
 			call dbo.kakao_error_log(#{ip},#{errormsg})

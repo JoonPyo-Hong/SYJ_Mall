@@ -2,118 +2,82 @@ package com.common.utill;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Connection;
 import java.util.HashMap;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 에러알람
+ * 
  * @author shin
  *
  */
 public class ErrorAlarm {
-	
-	@Autowired
-	private SqlSessionTemplate template;
-	
+
 	private Exception e;
 	private String ip;
-	
+
 	public ErrorAlarm(Exception e, String ip) {
 		this.e = e;
 		this.ip = ip;
 	}
 	
+	public ErrorAlarm(Exception e) {
+		this.e = e;
+		this.ip = "none";
+	}
+	
 	/**
 	 * 에러요인 메시지로 보내주기
-	 * @param userEmail
-	 * @return
+	 * 
+	 * @param userEmail 유저 이메일(복수여도 상관없음)
 	 */
-	public int sendErrorMassege(String[] userEmail) {
+	public void sendErrorMassegeAdmin() {
 		
-		try {
-			
-			Encryption enc = new Encryption();
-			
-			final String USER = "ssh9308@gmail.com"; //gmail 계정
-			final String PASSWORD = enc.returnDcyVoca("*x&+$@*P!+#*x&&P?+&P!**P");//gmail 패스워드
-			
-			// SMTP 서버 정보를 설정한다.
-	        Properties prop = new Properties();
-	        prop.put("mail.smtp.host", "smtp.gmail.com"); 
-	        prop.put("mail.smtp.port", 465); 
-	        prop.put("mail.smtp.auth", "true"); 
-	        prop.put("mail.smtp.ssl.enable", "true"); 
-	        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-			
-	        Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
-	            protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication(USER, PASSWORD);
-	            }
-	        });
-			
-	        MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(USER));
-	        
-            //수신자메일주소
-            InternetAddress[] toAddr = new InternetAddress[userEmail.length];
-            
-            for (int i = 0; i < toAddr.length; i++) {
-            	toAddr[i] = new InternetAddress(userEmail[i]);
-            }
-            message.setRecipients(Message.RecipientType.TO, toAddr); //수신자 셋팅
+		
+		String[] userEmail = {"ssh9308@naver.com"};//,"yeemi227@naver.com","wnsvy4231@naver.com"};
+		
+		StringWriter errors = new StringWriter();
+		errors.append("ip : ");
+		errors.append(this.ip + "\n");
+		errors.append("Error contents : \n");
+		e.printStackTrace(new PrintWriter(errors));
 
-            // Subject
-            message.setSubject("Error into SYJ_Mall!"); //메일 제목을 입력
-            
-            StringWriter errors = new StringWriter();
-            errors.append("ip : ");
-            errors.append(this.ip);
-            errors.append("Error contents : \n");
-            e.printStackTrace(new PrintWriter(errors));
-            
-            // Text
-            message.setText(errors.toString());//메일 내용을 입력
-	        
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return -1;
-		}
+		MessageSender ms = new MessageSender("Error into SYJ_Mall!", errors.toString(), userEmail);
+
+		int result = ms.sendDefaultMassage();
 		
+		System.out.println("result : " + result);
 	}
-	
+
 	/**
 	 * 에러요인 db에 넣어주기
-	 * @return 1: 성공, -1: 실패
 	 */
-	public int inputErrorToDb() {
+	public void inputErrorToDb() {
+		Connection conn;
+		CallableStatement stat;
+		ResultSet rs;
+		PreparedStatement pstat;
 		
-		try {
-			
-			StringWriter errors = new StringWriter();
-			e.printStackTrace(new PrintWriter(errors));
-			
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("errormsg", errors.toString());
-			map.put("ip", this.ip);
-			
-			template.insert("COMMONSP.errorMsgInput",map);
-			
-			return 1;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return -1;
-		}
+		StringWriter errors = new StringWriter();
+		e.printStackTrace(new PrintWriter(errors));
+		
+		//System.out.println(errors.toString());
+		//System.out.println(e);
+		//System.out.println(ip);
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		//map.put("errormsg", errors.toString());
+		//map.put("ip", this.ip);
+		
+		//map.put("ipaddress", "123:123");
+		//map.put("userSeq", "1");
+		
+		//System.out.println(map.get("errormsg"));
+		//System.out.println(map.get("ip"));
+		
 
+		//template.insert("COMMONSP.errorMsgInputs", map);
+		
 	}
-	
+
 }

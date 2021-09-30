@@ -32,6 +32,7 @@ import com.common.utill.AdverDTO;
 import com.common.utill.AutoLoginPic;
 import com.common.utill.CommonDate;
 import com.common.utill.Encryption;
+import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.RSAalgorithm;
@@ -105,7 +106,7 @@ public class LoginService implements ILoginService {
 	            message.setText(sb.toString());    //메일 내용을 입력
 
 	            // send the message
-	            Transport.send(message); ////전송
+	            Transport.send(message); //전송
 	            
 	            return 1;
 			} else {
@@ -170,10 +171,15 @@ public class LoginService implements ILoginService {
 		}
 
 		try {
+			
 			int result = setRSAkey(request);
+			
 		} catch (Exception e) {
 			error = -1;
-			errorEruptionTodb(e, ic.getClientIP(request));// 오류가 발생하면 오류를 디비에 넣어준다.
+			
+			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
 		}
 
 		return error;
@@ -599,7 +605,9 @@ public class LoginService implements ILoginService {
 			int val = setRSAkey(request);
 			return 1;
 		} catch (Exception e) {
-			errorEruptionTodb(e, ip);
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
 			return -1;
 		}
 	}
@@ -668,16 +676,6 @@ public class LoginService implements ILoginService {
 		}
 	}
 
-	// 에러 발생했을때 디비에 넣어주기
-	@Override
-	public void errorEruptionTodb(Exception e, String ip) {
-
-		StringWriter errors = new StringWriter();
-		e.printStackTrace(new PrintWriter(errors));
-
-		dao.errorIntoDb(errors.toString(), ip);
-	}
-
 	// 존재하는 아이디인지 체크 - 모달창 띄워줄것
 	@Override
 	public int userIdPwCheck(HttpServletRequest request) {
@@ -701,7 +699,11 @@ public class LoginService implements ILoginService {
 			return result;
 
 		} catch (Exception e) {
-			errorEruptionTodb(e, ip);
+			
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
+			
 			return 505;
 		}
 	}
@@ -741,6 +743,7 @@ public class LoginService implements ILoginService {
 	public String urlEncoder(String lastPage) {
 		
 		StringBuffer sb = new StringBuffer();
+		
 		try {
 			for (int i = 0; i < lastPage.length(); i++) {
 				if (Character.getType(lastPage.charAt(i))==5) {
@@ -752,7 +755,10 @@ public class LoginService implements ILoginService {
 			
 			return sb.toString();
 		} catch(Exception e) {
-			e.printStackTrace();
+			ErrorAlarm ea = new ErrorAlarm(e);
+			ea.sendErrorMassegeAdmin();
+			ea.inputErrorToDb();
+			
 			return null;
 		}
 
