@@ -45,6 +45,7 @@ public class LoginService implements ILoginService {
 	
 	
 	@Override
+	//임시비밀번호 생성후 -> 메일로 보내주기
 	public int emailCertify(String userId,String userEmail,String userPhone) {
 		
 		try {
@@ -55,6 +56,7 @@ public class LoginService implements ILoginService {
 			
 			// 디비에 접근해서 고객의 비밀번호 변경 -> 임시비밀번호로 변경한다.
 			int modifyResult = dao.modifyUserPw(userId, userEmail, userPhone, encInstPw);			
+			
 			
 			if (modifyResult == 1) {
 				
@@ -67,6 +69,7 @@ public class LoginService implements ILoginService {
 				
 				MessageSender ms = new MessageSender("카카오 임시비밀번호 보내드립니다.", sb.toString(), userEmail);
 				
+				ms.sendDefaultMassage();
 	            
 	            return 1;
 			} else {
@@ -276,7 +279,7 @@ public class LoginService implements ILoginService {
 			for (int i = 0; i < userList.size(); i++) {
 				userProdList.add(userList.get(i).getProductId());
 			}
-
+			
 			String[] cookieProductArr = basketList.split("#");// 쿠키에 남아있는 장바구니 물품목록
 			List<Integer> newAddProduct = new ArrayList<Integer>();// 새롭게 회원 장바구니 db에 넣어줄 품목
 			List<Integer> delAddProduct = new ArrayList<Integer>();// 새롭게 넣어줄 품목이긴 한데 기존에 회원이 삭제를 했던 상품인경우 -> 삭제값을 N으로 돌려줄것이다.

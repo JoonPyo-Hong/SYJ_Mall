@@ -38,8 +38,8 @@ public class MessageSender {
 
 	}
 
-	//메일보내기 -한명에게만 보내기
-	public int sendDefaultMassage() {
+	//메일보내기-다수에게 보내기
+	public int sendDefaultMassages() {
 
 		try {
 
@@ -93,8 +93,8 @@ public class MessageSender {
 
 	}
 
-	// 메일보내기 - 다수의 사람들에게 보내기
-	public int sendDefaultMassages() {
+	//메일보내기 - 특정 한사람에게 보내주기
+	public int sendDefaultMassage() {
 
 		try {
 
