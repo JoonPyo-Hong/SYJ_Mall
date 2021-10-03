@@ -170,11 +170,11 @@
 								</form>
 								<button class="search-close">취소</button>
 							</div>
-							<div class="search-bottom">
+							<div class="search-bottom" style="border : 1px solid red;">
 								<div class="search-result">
-									<!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
+								<!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
 									<ul id="search-content-prod">
-										<!-- 상품이름 리스트 -->
+									<!-- 상품이름 리스트 -->
 									</ul>
 								</div>
 								<div class="character-wrap">
@@ -482,8 +482,11 @@ $(document).ready(
 			$('.search').click(function() {
 				searchYn *= -1;
 				const devcheck = deviceCheck();
-
+				
+				//검색창이 떠야하는 경우
 				if (searchYn == 1) {
+					$(document.body).css('overflow','hidden');
+					//$("#inner-search").css('overflow','visible');
 					$('#search-wrap').css('z-index', 9999);
 					$('#search-wrap').css('display', 'flex');
 					$('#kakao-content').css('display', 'none');
@@ -575,6 +578,7 @@ $(document).ready(
 					$('.search-result').css('display', 'flex');
 				}
 			}
+		
 
 			/* 뒤로가기 관련 */
 			$('.back-button').click(function(){
@@ -608,9 +612,11 @@ $(document).ready(
 						checkdDevice = 1;
 						
 						if (DEV == 1) {
-							alert();
-							$('#kakao-content').css('height','1200px');
-							$('#inner-content').css('height','1200px');
+							//모바일인 경우
+							$('#kakao-content').css('height','1015px');
+							$('#inner-content').css('height','1015px');
+							
+							height = 842;
 							
 						}
 						else if (DEV == 2) {
