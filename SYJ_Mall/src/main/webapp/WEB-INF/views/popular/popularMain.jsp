@@ -51,7 +51,7 @@
 				const DEV = deviceCheck();
 				let height;
 				
-				if (checkdDevice == 0) {
+				 if (checkdDevice == 0) {
 					checkdDevice = 1;
 					
 					if (DEV == 1) {
@@ -62,7 +62,7 @@
 						$('#kakao-content').css('height','1710px');
 						$('#inner-content').css('height','1710px');
 					}
-				}
+				} 
 				
 				if (DEV == 1) {height = 1015;}
 				else if (DEV == 2) {height = 1710;}
@@ -70,6 +70,7 @@
 				const SCROLLED_HEIGHT = window.scrollY;
 				const WINDOW_HEIGHT = window.innerHeight;
 				const DOC_TOTAL_HEIGHT = document.body.offsetHeight;
+				
 				
 				if ((SCROLLED_HEIGHT + WINDOW_HEIGHT >= DOC_TOTAL_HEIGHT * 0.9) && paging <= 2 && searchYn == -1) {
 					//alert(height);

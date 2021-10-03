@@ -40,6 +40,8 @@
 		$('#banner_my').click(function(){
 			location.href = "/SYJ_Mall/myStart.action";
 		});
+		
+		
 
 	</script>
 

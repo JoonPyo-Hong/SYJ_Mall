@@ -106,7 +106,7 @@
           <button class="search"></button>
           <button class="language"></button>
           <!-- 검색 돋보기 아이콘 클릭 시 전체 검색 창-->
-          <div id="search-wrap">
+          <div id="search-wrap" style="overflow:scroll;">
             <div id="inner-search">
               <div class="search-form">
                 <form>
@@ -114,9 +114,9 @@
                 </form>
                 <button class="search-close">취소</button>
               </div>
-              <div class="search-bottom">
-                <div class = "search-result">
-                  <ul style="height:1000px;">
+              <div class="search-bottom" style="overflow:scroll;">
+                <div class = "search-result" style="overflow:scroll;">
+                  <ul style="overflow:scroll;">
                     <li class=""><a href="#">15cm 피규어-<span style="color : red;">라이언</span></a></li>
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
@@ -153,7 +153,7 @@
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
-                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
+                    <li class=""><a href="#">15cm 피규어-라이언</a></li>
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
                     <li class=""><a href="#">15cm 피규어-라이언</a></li>
@@ -328,6 +328,7 @@
       if (SEARCHLEN == 0) {
         searchVisible(0);
       } else {
+
         searchVisible(1);
       }
   });

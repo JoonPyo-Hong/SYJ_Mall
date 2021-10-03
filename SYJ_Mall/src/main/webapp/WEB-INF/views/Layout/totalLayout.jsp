@@ -117,7 +117,7 @@
             <button class="search"></button>
             <button class="language"></button>
             <!-- 검색 돋보기 아이콘 클릭 시 전체 검색 창-->
-            <div id="search-wrap" style="display : none;">
+            <div id="search-wrap" style="display : none; overflow:scroll;">
 	            <div id="inner-search">
 	              <div class="search-form">
 	                <form action = "searchresult.action" method="GET" id="search_enter">

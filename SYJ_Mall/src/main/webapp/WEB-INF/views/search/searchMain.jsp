@@ -14,16 +14,14 @@
 <link rel="stylesheet"
 	href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
-<link rel="stylesheet"
-	href="resources/css/search/productSearchResult6.css">
+<link rel="stylesheet" href="resources/css/search/productSearchResult6.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel="stylesheet" href="resources/css/search/searchLoginModal.css">
-<link rel="stylesheet" href="resources/css/mainLayout/searchLayout.css">
+<link rel="stylesheet" href="resources/css/mainLayout/searchTest.css">
 <style>
 </style>
 </head>
 <body>
-
 	<!-- 로그인 모달창 -->
 	<div class="overlay-wrap" id="login-product-modal" style="visibility: hidden;">
 		<div class="login-modal-wrap">
@@ -315,7 +313,7 @@
 
 
 						<!-- 해당 검색 상품 영역 -->
-						<div class="search-product-wrap" style="border: 1px solid red;">
+						<div class="search-product-wrap" style="border: 1px solid red; overflow: scroll;">
 							<ul id="search-item-lists">
 
 								<!-- 여기서부터 조건이 붙어야 한다.***** -->
@@ -486,7 +484,6 @@ $(document).ready(
 				//검색창이 떠야하는 경우
 				if (searchYn == 1) {
 					$(document.body).css('overflow','hidden');
-					//$("#inner-search").css('overflow','visible');
 					$('#search-wrap').css('z-index', 9999);
 					$('#search-wrap').css('display', 'flex');
 					$('#kakao-content').css('display', 'none');
@@ -517,7 +514,6 @@ $(document).ready(
 					searchVisible(0);
 				} else {
 					searchVisible(1);
-					
 					//검색엔진 불러오기
 					$.ajax({
 						type : "GET",
@@ -579,7 +575,7 @@ $(document).ready(
 				}
 			}
 		
-
+			
 			/* 뒤로가기 관련 */
 			$('.back-button').click(function(){
 				location.href = "/SYJ_Mall/searchback.action";	
@@ -660,8 +656,7 @@ $(document).ready(
 				            success : function(result) {
 				                
 				            	let selectCount = result.length;
-				            	
-				            	//console.log("selectCount : " + selectCount);
+				            
 				            	
 				            	for (let i = 0; i < selectCount; i++) {
 				            		
