@@ -440,7 +440,7 @@
 				alert("chk_2");
 				return;
 			}
-
+			var adress = $('#shipping_main_adress').val() + $('#shipping_sub_adress').val();
 			$.ajax({
 				url : "shpping.action",
 				type : 'post',
@@ -448,8 +448,7 @@
 					l_seq: last_seq,
 					shipping_name : $('#shipping_name').val(),
 					shipping_phone_number : $('#shipping_phone_number').val(),
-					shipping_main_adress : $('#shipping_main_adress').val(),
-					shipping_sub_adress : $('#shipping_sub_adress').val(),
+					shipping_adress : adress,
 					shipping_message : $('#shipping_message').val(),
 					pay : "K", // K - 카카오페이, S - 신용카드
 					stat : "S1",// 진행중 완성 등..

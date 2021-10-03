@@ -72,7 +72,7 @@ public class PayMentController {
 	@RequestMapping(value = "/order.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public void order(@RequestParam Map<String, Object> map) {
-		System.out.println(map.get("p_seq"));
+		//System.out.println(map.get("p_seq"));
 		service.order(map);
 		// service.order(map);
 	}
@@ -81,7 +81,7 @@ public class PayMentController {
 	@RequestMapping(value = "/shpping.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public void shpping(@RequestParam Map<String, Object> map) {
-		System.out.println(map.get("shipping_name"));
+		//System.out.println(map.get("shipping_name"));
 		service.shpping(map);
 		// service.shpping(map);
 	}

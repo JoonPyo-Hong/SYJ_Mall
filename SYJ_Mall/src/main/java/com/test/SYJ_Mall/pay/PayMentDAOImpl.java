@@ -30,12 +30,22 @@ public class PayMentDAOImpl implements PayMentDAO{
 		@Override
 		public void order(Map<String, Object> map) {
 			// TODO Auto-generated method stub
-			//session.insert("payment.order",map);
+			session.insert("payment.order",map);
 		}
 
 		@Override
 		public void shpping(Map<String, Object> map) {
-			//session.insert("payment.shpping",map);
+			/*
+			 * System.out.println(map.get("l_seq"));
+			 * System.out.println(map.get("shipping_name"));
+			 * System.out.println(map.get("shipping_phone_number"));
+			 * System.out.println(map.get("shipping_adress"));
+			 * System.out.println(map.get("shipping_message"));
+			 * System.out.println(map.get("pay")); System.out.println(map.get("stat"));
+			 * System.out.println(map.get("price"));
+			 */
+			
+			session.insert("payment.shipping",map);
 			
 		}
 }

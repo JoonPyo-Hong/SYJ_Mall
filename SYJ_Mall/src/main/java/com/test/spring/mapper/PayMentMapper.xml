@@ -17,6 +17,10 @@
 		resultType="int">
 	    select top(1) seq from dbo.KAKAO_SHIPPING order by seq desc
 	</select>
-	<insert id="order"></insert>
-	<insert id="shipping"></insert>
+	<insert id="order" parameterType="java.util.HashMap">
+		insert into dbo.KAKAO_ORDER values (#{l_seq},#{p_seq},#{sum})
+	</insert>
+	<insert id="shipping" parameterType="java.util.HashMap">
+		insert into dbo.KAKAO_SHIPPING (seq,reg_nm,reg_phone_num,adress,message,pay,stat,price) values (#{l_seq},#{shipping_name},#{shipping_phone_number},#{shipping_adress},#{shipping_message},#{pay},#{stat},#{price})
+	</insert>
 </mapper>
