@@ -195,10 +195,10 @@
 									name="shippingName" value="" />
 							</div>
 							<div class="input-text-row field-address">
-							<!-- shipping_main_adress --> 
-								<input id="shipping_main_adress" readonly="readonly" placeholder="주소 찾기" error=" 0"
-									align="left" padding="15" class="input-text"
-									name="shippingName" value="" />
+								<!-- shipping_main_adress -->
+								<input id="shipping_main_adress" readonly="readonly"
+									placeholder="주소 찾기" error=" 0" align="left" padding="15"
+									class="input-text" name="shippingName" value="" />
 								<div class="field-address-search-icon" id="juso"></div>
 							</div>
 							<div class="input-text-row field-address-detail">
@@ -214,9 +214,12 @@
 							<!-- 자동 저장 -->
 							<div class="check-box-area">
 								<div class="check-box-container">
-									<input type="checkbox" class="check-box-input"
-										id="shipping_addres" name="saveAddress" /> <label
-										for="saveAddress"></label> <label for="saveAddress"
+					
+										<input type="checkbox"
+										class="check-box__InputCheckBox-sc-1p7znud-5" id="shipping_addres"
+										name="shipping_addres" checked="" />
+										 <label
+										for="shipping_addres"></label> <label for="shipping_addres"
 										class="check-box-label"><span class="check-box-text">내
 											정보 및 기본 배송지로 저장</span></label>
 								</div>
@@ -262,7 +265,7 @@
 									<div class="total-point">(0p)</div>
 								</div>
 								<div>
-									<input align="right" padding="15" class="input-text" value="0">
+									<input readonly="readonly" align="right" padding="15" class="input-text" value="0">
 								</div>
 							</li>
 							<li class="pay-list-li">
@@ -285,10 +288,10 @@
 						<div class="pay-select-wrap">
 							<div class="pay-select-title">결제수단 선택</div>
 							<div class="pay-methods-paylabel-wrap">
-								<input id="kakaopay" type="radio" value="kakaopay" checked=""
+								<input id="kakaopay" type="radio" value="K" checked=""
 									name="paylabel"> <label for="kakaopay"
 									class="pay-methods-paylabel kakaopay">카카오페이</label> <input
-									id="creditcard" type="radio" value="creditcard" name="paylabel">
+									id="creditcard" type="radio" value="C" name="paylabel">
 								<label for="creditcard" class="pay-methods-paylabel creditcard">신용카드</label>
 							</div>
 							<p class="pay-methods-help">
@@ -370,12 +373,15 @@
 			</div>
 		</div>
 	</div>
-	<input type="text" id="last_seq" type ="hidden" value ="${last_seq}">
-	<input type="text" id="m_seq" type ="hidden" value ="${m_seq}">
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<input type="text" id="last_seq"  style="display: none;" value="${last_seq}">
+	<input type="text" id="m_seq" style="display: none;" value="${m_seq}">
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
 	var last_seq = $('#last_seq').val();
 	var m_seq = $('#m_seq').val();
+	
+    
 	
 	$(document).on("click", "#shipping_main_adress", function(e) {
 		//alert();
@@ -441,6 +447,9 @@
 				return;
 			}
 			var adress = $('#shipping_main_adress').val() + $('#shipping_sub_adress').val();
+			var radioVal = $('input[name="paylabel"]:checked').val();
+			
+			
 			$.ajax({
 				url : "shpping.action",
 				type : 'post',
@@ -450,8 +459,8 @@
 					shipping_phone_number : $('#shipping_phone_number').val(),
 					shipping_adress : adress,
 					shipping_message : $('#shipping_message').val(),
-					pay : "K", // K - 카카오페이, S - 신용카드
-					stat : "S1",// 진행중 완성 등..
+					pay : radioVal, // K - 카카오페이, S - 신용카드
+					stat : "S1",// 진행중 완성 등.. S1 고정
 					price : ${num}
 				},
 				success : function(data) {
