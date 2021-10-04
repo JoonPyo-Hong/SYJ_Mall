@@ -237,7 +237,7 @@
           
         </div>
       </div>
-      <div id="kakao-content">
+      <div id="kakao-content" stlye="overflow:scroll;">
         <div id="inner-content">
         	<!-- 여기에 타일즈 내용이 들어가야함 -->  
         	<tiles:insertAttribute name="body" ignore="false"/>

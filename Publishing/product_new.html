@@ -22,7 +22,9 @@
   <!-- 슬라이드 라이브러리 -->
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+  <!-- 스와이퍼 라이브러리 -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 
 <body>
@@ -134,6 +136,7 @@
         </div> -->
       </div>
     </div>
+    <!-- 여기서부터 내용을 넣어줘야한다. -->
     <div id="kakao-content">
       <div id="inner-content">
         <!-- 마이페이지 컨텐츠 -->
@@ -144,39 +147,41 @@
               <div class="empty-message">내역이 없어요</div>
             </div> -->
           <!-- 데이터 있을 시 -->
+
+
           <!-- 배너 슬라이드 -->
           <div class="product-new-banner">
             <div class="post-slider">
               <div class="post-wrapper">
-                <div class="post">
+                <div class="post" id = "1">
                   <img src="./../images/product_new/banner_20210906174400_mobile_kr.jpg">
                   <div class="banner-text">
                     <p class="title">양 볼에 고구마 가득</p>
                     <p class="sub-title">춘식이 폰그립 폰케이스</p>
                   </div>
                 </div>
-                <div class="post">
+                <div class="post" id = "2">
                   <img src="./../images/product_new/banner_20210903094056_mobile_kr.jpg">
                   <div class="banner-text">
                     <p class="title">집콕엔 청소도 즐겁게</p>
                     <p class="sub-title">라이언과 춘식이의 집콕놀이 </p>
                   </div>
                 </div>
-                <div class="post">
+                <div class="post" id = "3">
                   <img src="./../images/product_new/banner_20210826174841_mobile_kr.jpg">
                   <div class="banner-text">
                     <p class="title">춘식이에게 새로운 캣타워를</p>
                     <p class="sub-title">워치 전용 충전 거치대</p>
                   </div>
                 </div>
-                <div class="post">
+                <div class="post" id = "4">
                   <img src="./../images/product_new/banner_20210819103906_mobile_kr.jpg">
                   <div class="banner-text">
                     <p class="title">배출량에 따라 효율적으로</p>
                     <p class="sub-title">편리한 분리수거함</p>
                   </div>
                 </div>
-                <div class="post">
+                <div class="post" id = "5">
                   <img src="./../images/product_new/banner_20210809090322_mobile_kr.jpg">
                   <div class="banner-text">
                     <p class="title">웰컴 투 춘식이의 방</p>
@@ -280,6 +285,10 @@
 
         </div>
       </div>
+
+
+<!-- -------------------------------------------- -->
+
     </div>
     <div id="kakao-footer">
       <div id="inner-footer">
@@ -307,14 +316,24 @@
     </div>
   </div>
   <script>
+    
+    //슬라이드 관련
     $('.post-wrapper').slick({
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 2000,
+      autoplaySpeed: 3000,
       nextArrow: $('.next'),
       prevArrow: $('.prev'),
     });
+
+    $('.post').click(function(){
+      console.log($(this).attr('id'));
+    });
+    
+
+    
+
   </script>
 </body>
 

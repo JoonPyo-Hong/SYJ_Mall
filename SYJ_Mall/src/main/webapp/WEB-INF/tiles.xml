@@ -61,8 +61,7 @@
 	</definition>
 	
 	
-	<!-- 구분 위에꺼는 안쓸거임 -->
-	
+	<!-- 구분 위에꺼는 안쓸거임 : 아래 타일즈를 쓸 예정 --> 	
 	
 	<!-- 메인 타일즈 -->
 	<definition name="newbdefault" template="/WEB-INF/views/Layout/totalLayout.jsp">
@@ -73,6 +72,11 @@
 	<!-- 인기페이지 -->
 	<definition name = "/tiles/popularItem.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/popular/popularMain.jsp"/>	
+	</definition>
+	
+	<!-- 신규 페이지 -->
+	<definition name = "/tiles/newProduct.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/newProduct/newProduct.jsp"/>	
 	</definition>
 	
 	<!-- 결제페이지 -->

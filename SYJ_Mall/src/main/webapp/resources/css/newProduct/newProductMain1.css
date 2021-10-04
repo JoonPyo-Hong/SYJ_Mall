@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* 배너 */
 .post-slider {
 }
@@ -35,16 +37,15 @@
 }
 
 .new-product-new .product-new-banner {
-   /* padding: 0px; 
-  width: auto; 
-   height: 300px; 
-   border:1px solid red; 
-   display: flex;
+  /* padding: 0px; */
+  /* width: auto; */
+  /* height: 300px; */
+  /* border:1px solid red; */
+  /* display: flex;
   align-items: center;
-  position: relative;    
-  background-image: url(./../images/product_new/banner_20210906174400_mobile_kr.jpg); 
-   min-height: 225px;  */
-  height:auto;
+  position: relative; */
+  /* background-image: url(./../images/product_new/banner_20210906174400_mobile_kr.jpg); */
+  /* min-height: 225px; */
   cursor: pointer;
 }
 
@@ -89,7 +90,7 @@
   position: relative;
   width: 160px;
   height: 160px;
-  background-image: url(./../images/product_category/20210819161132067_8809814920946_8809814920946_AW_00.jpg);
+  background-image: url(/SYJ_Mall/resources/images/product_category/20210819161132067_8809814920946_8809814920946_AW_00.jpg);
   background-size: contain;
   margin-right: 20px;
   margin-bottom: 12px;
@@ -111,7 +112,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background-image: url(./../images/product_category/tag-soldout.png);
+  background-image: url(/SYJ_Mall/resources/images/product_category/tag-soldout.png);
   background-size: contain;
 }
 
@@ -138,7 +139,7 @@
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-image: url(./../images/product_category/Small_30_off.png);
+  background-image: url(/SYJ_Mall/resources/images/product_category/Small_30_off.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -176,7 +177,7 @@ a.theme-more-view::after {
   margin-top: -4px;
   margin-left: 2px;
   background-size: 13px;
-  background-image: url(./../images/product_new/more-black.png);
+  background-image: url(/SYJ_Mall/resources/images/product_new/more-black.png);
 }
 
 /* 새로 */
