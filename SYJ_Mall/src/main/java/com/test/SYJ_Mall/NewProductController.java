@@ -20,7 +20,9 @@ public class NewProductController {
 		@RequestMapping(value = "/newProductMain.action", method = { RequestMethod.GET })
 		public String popularItemMain(HttpServletRequest request, HttpServletResponse response) {
 			
-			request.setAttribute("seleted", "new");//상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
+			//request.setAttribute("seleted", "new");//상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
+			
+			int result = service.getNewProductInfo(request,response);
 			
 			return "/tiles/newProduct.layout";
 		}

@@ -1,13 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
-	href="resources/css/newProduct/newProductMain1.css">
+	href="resources/css/newProduct/newProductMain3.css">
 <!-- 슬라이드 라이브러리 -->
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script type="text/javascript"
 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+<style>
+
+@media screen and (max-width: 640px) {
+.new-product-new .product-new-banner {
+  	height: 210px;
+  }
+}
+
+</style>
 <div class="container-wrap new-product-new">
 	<!-- 데이터 없을 시 -->
 	<!-- <div class="order-list-nodata">
@@ -71,41 +80,21 @@
 		<!-- 상품 리스트 공통 UI -->
 		<div class="new-product-item-wrap">
 			<ul>
-				<li class="item-li">
-					<div class="thumbnail">
-						<!-- 솔드아웃 라벨 -->
-						<div class="soldout-label"></div>
-					</div>
-					<div class="name">
-						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-						<span class="cart"></span>
-					</div>
-					<div class="price">39,000원</div>
-				</li>
-				<li class="item-li">
-					<div class="thumbnail"></div>
-					<div class="name">
-						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-						<span class="cart"></span>
-					</div>
-					<div class="price">39,000원</div>
-				</li>
-				<li class="item-li">
-					<div class="thumbnail"></div>
-					<div class="name">
-						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-						<span class="cart"></span>
-					</div>
-					<div class="price">39,000원</div>
-				</li>
-				<li class="item-li">
-					<div class="thumbnail"></div>
-					<div class="name">
-						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-						<span class="cart"></span>
-					</div>
-					<div class="price">39,000원</div>
-				</li>
+				<c:forEach var="rtdto" items="${recommendTheme}">
+					<li class="item-li">
+						<div class="thumbnail">
+							<c:if test="${rtdto.prodCnt eq 0}">
+								<div class="soldout-label">
+							</c:if>
+						</div>	
+						</div>
+						<div class="name">
+							<div class="nametext">${rtdto.prodNm}</div>
+							<span class="cart"></span>
+						</div>
+						<div class="price">39,000원</div>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 		<a href="#" class="theme-more-view">더 보기</a>
@@ -152,6 +141,111 @@
 					</div>
 					<div class="price">39,000원</div>
 				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				<li class="item-li">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+						<span class="cart"></span>
+					</div>
+					<div class="price">39,000원</div>
+				</li>
+				
 			</ul>
 		</div>
 	</div>
