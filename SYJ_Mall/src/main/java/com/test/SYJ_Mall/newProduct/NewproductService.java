@@ -38,6 +38,11 @@ public class NewproductService implements INewProductService {
 				// 로그인 되지 않은 경우
 				String basketList = getCookieBasket(request, response);
 				List<RecommendThemeDTO> rtp = dao.getNewRecommendThemeNoLogin(request,basketList,themeNum);
+				
+				for (RecommendThemeDTO dto : rtp) {
+					System.out.println(dto.getProdNm());
+				}
+				
 				String themeSubject = rtp.get(0).getCategoryNm();//테마 이름
 				
 				request.setAttribute("recommendTheme",rtp);

@@ -90,8 +90,7 @@
   position: relative;
   width: 160px;
   height: 160px;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-size: contain;
   margin-right: 20px;
   margin-bottom: 12px;
 }

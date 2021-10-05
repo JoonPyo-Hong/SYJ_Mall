@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
+
 <link rel="stylesheet"
-	href="resources/css/newProduct/newProductMain3.css">
+	href="resources/css/newProduct/newProductMain5.css">
 <!-- 슬라이드 라이브러리 -->
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -9,13 +11,11 @@
 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <style>
-
 @media screen and (max-width: 640px) {
-.new-product-new .product-new-banner {
-  	height: 210px;
-  }
+	.new-product-new .product-new-banner {
+		height: 210px;
+	}
 }
-
 </style>
 <div class="container-wrap new-product-new">
 	<!-- 데이터 없을 시 -->
@@ -76,24 +76,35 @@
 	<div class="product-new-section theme-wrap">
 		<!-- 추천 신규 테마 -->
 		<div class="sub-title">추천 신규 테마</div>
-		<div class="title">대형인형</div>
+		<div class="title">${themeSubject}</div>
 		<!-- 상품 리스트 공통 UI -->
 		<div class="new-product-item-wrap">
 			<ul>
 				<c:forEach var="rtdto" items="${recommendTheme}">
-					<li class="item-li">
-						<div class="thumbnail">
-							<c:if test="${rtdto.prodCnt eq 0}">
-								<div class="soldout-label">
-							</c:if>
-						</div>	
-						</div>
-						<div class="name">
-							<div class="nametext">${rtdto.prodNm}</div>
-							<span class="cart"></span>
-						</div>
-						<div class="price">39,000원</div>
-					</li>
+					<c:choose>
+						<c:when test="${rtdto.prodCnt eq 0}">
+							<li class="item-li" id="${rtdto.prodId}">
+								<div class="thumbnail" style="background-image: url(/SYJ_Mall/${rtdto.picUrl})">
+									<div class="soldout-label"></div>
+								</div>
+								<div class="name">
+									<div class="nametext">${rtdto.prodNm}</div>
+									<span class="${rtdto.cookieBasket}"></span>
+								</div>
+								<div class="price">${rtdto.prodPrice}원</div>
+							</li>
+						</c:when>
+						<c:when test="${rtdto.prodCnt ne 0}">
+							<li class="item-li" id="${rtdto.prodId}">
+								<div class="thumbnail" style="background-image: url(/SYJ_Mall/${rtdto.picUrl})"></div>
+								<div class="name">
+									<div class="nametext">${rtdto.prodNm}</div>
+									<span class="${rtdto.cookieBasket}"></span>
+								</div>
+								<div class="price">${rtdto.prodPrice}원</div>
+							</li>
+						</c:when>
+					</c:choose>
 				</c:forEach>
 			</ul>
 		</div>
@@ -245,7 +256,7 @@
 					</div>
 					<div class="price">39,000원</div>
 				</li>
-				
+
 			</ul>
 		</div>
 	</div>
@@ -271,5 +282,4 @@
 	$('.post').click(function() {
 		console.log($(this).attr('id'));
 	});
-	
 </script>

@@ -2737,6 +2737,10 @@ end
 
 
 
+
+
+ exec dbo.kakao_recommend_new_theme_no_login null, 2
+
 /* 
 	Author      : Seunghwan Shin 
 	Create date : 2021-10-05   
@@ -2769,13 +2773,13 @@ begin
 			from
 			(
 				select
-					row_number() over (order by kpt.reg_dt desc) as rn
+					row_number() over (order by kpt.reg_dt) as rn
 				,	kpt.product_id 
 				,	kpt.product_nm 
 				,	kpt.product_count 
 				,	kpt.product_price 
 				,	kpt.discount_rate 
-				,	kpi.product_img
+				,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
 				,	kpc.category_nm
 				,	case when ss.value is null then 'cart'
 						 else 'incart' end as cookieBasket
@@ -2790,3 +2794,5 @@ begin
 			) as m
 			where m.rn between 1 and 4
 end
+
+

@@ -13,7 +13,7 @@
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
 		statementType="CALLABLE">
 		{
-		call dbo.kakao_recommend_new_theme_no_login(#{charNum},#{charNum})
+		call dbo.kakao_recommend_new_theme_no_login(#{basketList},#{themeNum})
 		}
 	</select>
 
