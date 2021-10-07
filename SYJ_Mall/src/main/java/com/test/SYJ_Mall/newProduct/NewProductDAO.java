@@ -23,8 +23,8 @@ public class NewProductDAO implements INewProductDAO {
 		map.put("basketList",basketList);
 		map.put("themeNum",Integer.toString(themeNum));//추천물품 번호
 		
-		System.out.println(basketList);
-		System.out.println(themeNum);
+		//System.out.println(basketList);
+		//System.out.println(themeNum);
 		
 		return template.selectList("newProducts.newProductRecommendTheme",map);
 	}

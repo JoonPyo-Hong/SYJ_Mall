@@ -2687,6 +2687,7 @@ end
 	Description : 추천 신규 테마 비로그인 상태
 	     
 	History	: 2021-10-05 Seunghwan Shin	#최초 생성
+			  2021-10-07 Seunghwan Shin	#조인순서 변경	
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_no_login '119#118#9', 2
 
@@ -2713,19 +2714,19 @@ begin
 			from
 			(
 				select
-					row_number() over (order by kpt.reg_dt desc) as rn
+					row_number() over (order by kpt.reg_dt) as rn
 				,	kpt.product_id 
 				,	kpt.product_nm 
 				,	kpt.product_count 
 				,	kpt.product_price 
 				,	kpt.discount_rate 
-				,	kpi.product_img
+				,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
 				,	kpc.category_nm
 				,	case when ss.value is null then 'cart'
 						 else 'incart' end as cookieBasket
-				from dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock)
-				inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.category_code = kpc.category_code  
-				inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+				inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+				inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
 				where kpc.category_code = convert(int,@theme_num)
 				and kpi.rep_img_yn = 'Y'
@@ -2734,6 +2735,8 @@ begin
 			) as m
 			where m.rn between 1 and 4
 end
+
+
 
 
 
