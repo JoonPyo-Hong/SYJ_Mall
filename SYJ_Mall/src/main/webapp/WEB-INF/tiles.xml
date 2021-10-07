@@ -61,6 +61,8 @@
 	</definition>
 	
 	
+	
+	
 	<!-- 구분 위에꺼는 안쓸거임 : 아래 타일즈를 쓸 예정 --> 	
 	
 	<!-- 메인 타일즈 -->
@@ -83,6 +85,11 @@
 	<definition name = "/tiles/paymentStart.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/pay/payment.jsp"/>	
 	</definition>	
+	
+	<!-- 안내페이지 -->
+	<definition name = "/tiles/infoStart.topping" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/info/info.jsp"/>	
+	</definition>
 	
 
 		
