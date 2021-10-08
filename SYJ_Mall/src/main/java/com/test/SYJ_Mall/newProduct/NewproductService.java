@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.ErrorAlarm;
+import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.test.SYJ_Mall.login.UserDTO;
 
@@ -23,40 +25,46 @@ public class NewproductService implements INewProductService {
 		
 		try {
 			HttpSession session = request.getSession();
-			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");//유저객체
 			
-			int themeNum = 2;//테마 번호
+			int themeNum = 2;//테마 번호--> 지정해주면 바뀐다.
 			
 			// 상단에 표시될 페이지
 			request.setAttribute("seleted", "new");// 상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
 
 			// 마지막 페이지 정보 쿠키에 넘기는 작업
 			KakaoCookie ck = new KakaoCookie();
-			ck.generateCookie(response, "lastPage", "newProductMain");
+			ck.generateCookie(response, "lastPage", "newProductMain");//마지막페이지
 
 			if (userInfo == null) {
 				// 로그인 되지 않은 경우
 				String basketList = getCookieBasket(request, response);
-				List<RecommendThemeDTO> rtp = dao.getNewRecommendThemeNoLogin(request,basketList,themeNum);
-				
-				for (RecommendThemeDTO dto : rtp) {
-					System.out.println(dto.getProdNm());
-				}
-				
+				List<RecommendThemeDTO> rtp = dao.getNewRecommendThemeNoLogin(basketList,themeNum);
+							
 				String themeSubject = rtp.get(0).getCategoryNm();//테마 이름
 				
-				request.setAttribute("recommendTheme",rtp);
-				request.setAttribute("themeSubject",themeSubject);
+				request.setAttribute("recommendTheme",rtp);//추천테마 관련 객체들
+				request.setAttribute("themeSubject",themeSubject);//추천테마 주제
 				
 			} else {
 				// 로그인이 된 경우
+				List<RecommendThemeDTO> rtp = dao.getNewRecommendTheme(userInfo.getUserSeq(),themeNum);
 				
+				String themeSubject = rtp.get(0).getCategoryNm();//테마 이름
+				
+				request.setAttribute("recommendTheme",rtp);//추천테마 관련 객체들
+				request.setAttribute("themeSubject",themeSubject);//추천테마 주제
 				
 			}
 			
 			return 1;
 		} catch(Exception e) {
-			e.printStackTrace();
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+			
+			ErrorAlarm ea = new ErrorAlarm(e,ip);
+			ea.errorDbAndMail();
+			
 			return -1;
 		}
 	}

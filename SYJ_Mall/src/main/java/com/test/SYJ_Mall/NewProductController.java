@@ -12,18 +12,19 @@ import com.test.SYJ_Mall.newProduct.INewProductService;
 
 @Controller
 public class NewProductController {
-	
+
 	@Autowired
 	private INewProductService service;
-	
-	//인기페이지 처음 메인화면
-		@RequestMapping(value = "/newProductMain.action", method = { RequestMethod.GET })
-		public String popularItemMain(HttpServletRequest request, HttpServletResponse response) {
-			
-			//request.setAttribute("seleted", "new");//상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
-			
-			int result = service.getNewProductInfo(request,response);
-			
+
+	// 인기페이지 처음 메인화면
+	@RequestMapping(value = "/newProductMain.action", method = { RequestMethod.GET, RequestMethod.POST })
+	public String popularItemMain(HttpServletRequest request, HttpServletResponse response) {
+
+		int result = service.getNewProductInfo(request, response);
+
+		if (result == 1)
 			return "/tiles/newProduct.layout";
-		}
+		else
+			return "/testwaiting/kakaoerror";
+	}
 }

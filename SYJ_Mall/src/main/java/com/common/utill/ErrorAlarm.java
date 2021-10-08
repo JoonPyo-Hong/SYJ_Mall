@@ -32,7 +32,7 @@ public class ErrorAlarm {
 	 */
 	public void sendErrorMassegeAdmin() {
 		
-		
+		//관리자 주소
 		String[] userEmail = {"ssh9308@naver.com","yeemi227@naver.com","wnsvy4231@naver.com"};
 		
 		StringWriter errors = new StringWriter();
@@ -64,6 +64,14 @@ public class ErrorAlarm {
 		dao.inputErrorToDb(map);
 		dao.close();
 
+	}
+	
+	/**
+	 * 둘다 해주기
+	 */
+	public void errorDbAndMail() {
+		sendErrorMassegeAdmin();
+		inputErrorToDb();
 	}
 
 }

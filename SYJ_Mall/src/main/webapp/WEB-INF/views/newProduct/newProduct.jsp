@@ -347,6 +347,7 @@
 
 
 <script>
+	
 	//슬라이드 관련
 	$('.post-wrapper').slick({
 		slidesToShow : 1,
@@ -360,4 +361,10 @@
 	$('.post').click(function() {
 		console.log($(this).attr('id'));
 	});
+	
+	
+	//장바구니,알림창 관련 
+	
+	
+	
 </script>
