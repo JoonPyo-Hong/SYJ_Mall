@@ -8,12 +8,21 @@ public interface INewProductDAO {
 	
 	/**
 	 * 추천신규테마 불러오기
-	 * @param request
 	 * @param basketList	장바구니 정보
 	 * @param themeNum		테마번호
-	 * @return
+	 * @return				물품객체
 	 */
-	List<RecommendThemeDTO> getNewRecommendThemeNoLogin(HttpServletRequest request, String basketList,int themeNum);
+	List<RecommendThemeDTO> getNewRecommendThemeNoLogin(String basketList,int themeNum);
+	
+	/**
+	 * 추천신규테마 불러오기
+	 * @param userSeq	유저 고유번호
+	 * @param themeNum	테마번호
+	 * @return			물품객체
+	 */
+	List<RecommendThemeDTO> getNewRecommendTheme(int userSeq, int themeNum);
+	
+
 	
 
 

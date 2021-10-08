@@ -92,6 +92,7 @@ public class LoginController {
 			List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
 			int userSeq = loginResult.get(0).getUserSeq();// 유저 고유 코드
 			int loginCode = loginResult.get(0).getLoginCode();// 로그인 결과
+			
 
 			if (loginCode == 0) {// 로그인 성공
 				// System.out.println("로그인 성공");
@@ -99,7 +100,7 @@ public class LoginController {
 				int logResult = logService.loginSuccess(request, userSeq);// 로그인 인증티켓 발급
 
 				String lastPage = (String) logService.instanceCookie(request, response, "lastPage");
-
+				
 				if (logResult == 1) {
 					if (lastPage == null) {
 						logService.goMain(request);

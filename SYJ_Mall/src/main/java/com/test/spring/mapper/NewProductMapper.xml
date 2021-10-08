@@ -7,13 +7,24 @@
 
 <mapper namespace="newProducts">
 
-	<!-- 신규 상단 배너 정보 불러오기 -->
+	<!-- 신규 상단 배너 정보 불러오기 로그인 안된 상태-->
 	<select id="newProductRecommendTheme"
 		parameterType="java.util.HashMap"
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
 		statementType="CALLABLE">
 		{
 		call dbo.kakao_recommend_new_theme_no_login(#{basketList},#{themeNum})
+		}
+	</select>
+	
+	
+	<!-- 신규 상단 배너 정보 불러오기  로그인 된 상태-->
+	<select id="newProductRecommendThemeLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login(#{userSeq},#{themeNum})
 		}
 	</select>
 
