@@ -21,4 +21,12 @@ public interface INewProductService {
 	 * @return	쿠키에 존재하는 장바구니 내역
 	 */
 	String getCookieBasket(HttpServletRequest request, HttpServletResponse response);
+
+	/**
+	 * 장바구니 클릭 기능
+	 * @param request
+	 * @param response
+	 * @return		
+	 */
+	int setnewProductBasket(HttpServletRequest request, HttpServletResponse response);
 }

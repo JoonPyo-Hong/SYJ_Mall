@@ -15,16 +15,13 @@ public class NewProductDAO implements INewProductDAO {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	//추천 신규 테마 가져오기
+	//추천 신규 테마 가져오기-로그인 되지 않은 경우
 	@Override
 	public List<RecommendThemeDTO> getNewRecommendThemeNoLogin(String basketList,int themeNum) {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("basketList",basketList);
 		map.put("themeNum",Integer.toString(themeNum));//추천물품 번호
-		
-		//System.out.println(basketList);
-		//System.out.println(themeNum);
 		
 		return template.selectList("newProducts.newProductRecommendTheme",map);
 	}
@@ -39,6 +36,14 @@ public class NewProductDAO implements INewProductDAO {
 		map.put("themeNum",themeNum);//추천물품 번호
 		
 		return template.selectList("newProducts.newProductRecommendThemeLogin",map);
+	}
+
+	
+	//최상단 신규물품 리스트 가져오기
+	@Override
+	public List<RecommendTopProdDTO> getRecommendTopProdDTOList() {
+		
+		return template.selectList("newProducts.newProductRecommendTop");
 	}
 	
 

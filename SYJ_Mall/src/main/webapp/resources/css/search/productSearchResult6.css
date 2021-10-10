@@ -190,15 +190,6 @@ hr.division {
   text-overflow: ellipsis;
 }
 
-.search-product-wrap .item-li .name .cart {
-  flex-shrink: 0;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  background-image: url(/SYJ_Mall/resources/images/product_category/Small_30_off.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
 
 .search-product-wrap .item-li .name .cart {
   flex-shrink: 0;
