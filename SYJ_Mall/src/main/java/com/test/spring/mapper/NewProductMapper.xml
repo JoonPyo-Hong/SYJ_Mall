@@ -27,7 +27,16 @@
 		call dbo.kakao_recommend_new_theme_login(#{userSeq},#{themeNum})
 		}
 	</select>
-
+	
+	
+	<!-- 신규 최상단 배너 물품정보 불러오기-->
+	<select id="newProductRecommendTop"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendTopProdDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_top_banner_list
+		}
+	</select>
 
 
 </mapper>

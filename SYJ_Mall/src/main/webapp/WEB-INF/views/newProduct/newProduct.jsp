@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 
 <link rel="stylesheet"
-	href="resources/css/newProduct/newProductMain5.css">
+	href="resources/css/newProduct/newProductMain9.css">
 <!-- 슬라이드 라이브러리 -->
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -30,46 +30,16 @@
 	<div class="product-new-banner">
 		<div class="post-slider">
 			<div class="post-wrapper">
-				<div class="post" id="1">
+				<c:forEach var="rectopdto" items="${recommendThemeTop}">
+				<div class="post" id="${rectopdto.prodId}">
 					<img
-						src="./../images/product_new/banner_20210906174400_mobile_kr.jpg">
+						src="${rectopdto.prodPicUrl}">
 					<div class="banner-text">
-						<p class="title">양 볼에 고구마 가득</p>
-						<p class="sub-title">춘식이 폰그립 폰케이스</p>
+						<p class="title">${rectopdto.prodSubject}</p>
+						<p class="sub-title">${rectopdto.prodDetail}</p>
 					</div>
 				</div>
-				<div class="post" id="2">
-					<img
-						src="./../images/product_new/banner_20210903094056_mobile_kr.jpg">
-					<div class="banner-text">
-						<p class="title">집콕엔 청소도 즐겁게</p>
-						<p class="sub-title">라이언과 춘식이의 집콕놀이</p>
-					</div>
-				</div>
-				<div class="post" id="3">
-					<img
-						src="./../images/product_new/banner_20210826174841_mobile_kr.jpg">
-					<div class="banner-text">
-						<p class="title">춘식이에게 새로운 캣타워를</p>
-						<p class="sub-title">워치 전용 충전 거치대</p>
-					</div>
-				</div>
-				<div class="post" id="4">
-					<img
-						src="./../images/product_new/banner_20210819103906_mobile_kr.jpg">
-					<div class="banner-text">
-						<p class="title">배출량에 따라 효율적으로</p>
-						<p class="sub-title">편리한 분리수거함</p>
-					</div>
-				</div>
-				<div class="post" id="5">
-					<img
-						src="./../images/product_new/banner_20210809090322_mobile_kr.jpg">
-					<div class="banner-text">
-						<p class="title">웰컴 투 춘식이의 방</p>
-						<p class="sub-title">춘식이의 방 둘러 보기</p>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -347,7 +317,6 @@
 
 
 <script>
-	
 	//슬라이드 관련
 	$('.post-wrapper').slick({
 		slidesToShow : 1,
@@ -358,13 +327,56 @@
 		prevArrow : $('.prev'),
 	});
 
-	$('.post').click(function() {
+	/* $('.post').click(function() {
 		console.log($(this).attr('id'));
 	});
+	 */
+
+	/* 상품 클릭할때 생기는 이벤트  -> 상품페이지로 보내줄것이다.*/
+	$(document).on("click", ".item-li", function() {
+		let prodt_id = $(this).attr('id');
+		alert(prodt_id);
+	});
+
+	//장바구니에 상품을 넣는 경우
+	$(document).on("click", ".cart", function(e) {
+		let prodt_id = $(this).parent().parent().attr('id');//아이디 번호
+		console.log(prodt_id);
+		cartAjax(prodt_id);
+		e.stopPropagation();
+	});
 	
+	//장바구니에서 상품을 빼는 경우
+	$(document).on("click", ".incart", function(e) {
+		let prodt_id = $(this).parent().parent().attr('id');//아이디 번호
+		cartAjax(prodt_id);
+		e.stopPropagation();
+	});
 	
-	//장바구니,알림창 관련 
-	
-	
-	
+	//장바구니 관련 함수
+	function cartAjax(prodt_id) {
+		$.ajax({
+			type : "GET",
+			url : "/SYJ_Mall/newProductBasket.action",
+			data : "productId=" + prodt_id,
+			dataType : "json",
+			success : function(result) {
+				if (result == 1) {
+					$('#'+prodt_id).children('.name').children('span').attr('class', 'incart');
+				} else if (result == -1) {
+					$('#'+prodt_id).children('.name').children('span').attr('class', 'cart');
+				}
+			},
+			error : function(a, b, c) {
+				console.log(a, b, c);
+			}
+		});
+	}
+
+	//알림창 관련
 </script>
+
+
+
+
+

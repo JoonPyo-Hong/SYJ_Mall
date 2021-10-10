@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import org.springframework.stereotype.Repository;
+
 public class CommonDAO {
 
 	// DB 담당
@@ -52,6 +54,6 @@ public class CommonDAO {
 		}
 	}
 
-	// 오류 사항 DB에 넣어주기
+	
 
 }

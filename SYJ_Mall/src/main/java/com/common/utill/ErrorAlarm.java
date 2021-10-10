@@ -67,7 +67,7 @@ public class ErrorAlarm {
 	}
 	
 	/**
-	 * 둘다 해주기
+	 * 에러요인 메시지로 보내주기 + 에러요인 db에 넣어주기
 	 */
 	public void errorDbAndMail() {
 		sendErrorMassegeAdmin();

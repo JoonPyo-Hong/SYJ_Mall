@@ -22,6 +22,12 @@ public interface INewProductDAO {
 	 */
 	List<RecommendThemeDTO> getNewRecommendTheme(int userSeq, int themeNum);
 	
+	/**
+	 * 최상단 신규물품 가져오기
+	 * @return
+	 */
+	List<RecommendTopProdDTO> getRecommendTopProdDTOList();
+	
 
 	
 
