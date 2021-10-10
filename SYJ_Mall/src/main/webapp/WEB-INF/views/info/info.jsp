@@ -49,7 +49,7 @@
 		</div>
 		<div class="swiper-pagination"></div>
 	</div>
-
+	<div class="language-tab__TabWrap-sc-cgukfq-0 kkhjuY"><ul class="language-tab__TabList-sc-cgukfq-1 kHcMe"><li class="language-tab__TabItem-sc-cgukfq-2 dhCuzP"><a href="#" class="language-tab__TabItemLink-sc-cgukfq-3 llXddO">한국어</a></li><li class="language-tab__TabItem-sc-cgukfq-2 hlEGfu"><a href="#" class="language-tab__TabItemLink-sc-cgukfq-3 bzPCRo">English</a></li><li class="language-tab__TabItem-sc-cgukfq-2 dhCuCj"><a href="#" class="language-tab__TabItemLink-sc-cgukfq-3 bzPCRo">日本語</a></li><li class="language-tab__TabItem-sc-cgukfq-2 RLhIf"><a href="#" class="language-tab__TabItemLink-sc-cgukfq-3 bzPCRo">中文(简体)</a></li><li class="language-tab__TabItem-sc-cgukfq-2 RLhMY"><a href="#" class="language-tab__TabItemLink-sc-cgukfq-3 bzPCRo">中文(繁體)</a></li></ul></div>
 
 	<script type="text/javascript">
 		var mySwiper = new Swiper('.swiper-container', {
