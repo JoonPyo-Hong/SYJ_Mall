@@ -363,7 +363,7 @@
 			success : function(result) {
 				if (result == 1) {
 					$('#'+prodt_id).children('.name').children('span').attr('class', 'incart');
-				} else if (result == -1) {
+				} else if (result == 2) {
 					$('#'+prodt_id).children('.name').children('span').attr('class', 'cart');
 				}
 			},

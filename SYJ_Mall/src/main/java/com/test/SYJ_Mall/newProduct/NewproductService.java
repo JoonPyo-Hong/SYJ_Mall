@@ -43,7 +43,6 @@ public class NewproductService implements INewProductService {
 			List<RecommendTopProdDTO> recTopPrdList = dao.getRecommendTopProdDTOList();
 			request.setAttribute("recommendThemeTop", recTopPrdList);
 
-			//System.out.println(recTopPrdList.size());
 
 			if (userInfo == null) {
 				// 로그인 되지 않은 경우
@@ -105,7 +104,8 @@ public class NewproductService implements INewProductService {
 			}
 		}
 	}
-
+	
+	
 	// 장바구니 처리 기능
 	@Override
 	public int setnewProductBasket(HttpServletRequest request, HttpServletResponse response) {
@@ -152,13 +152,18 @@ public class NewproductService implements INewProductService {
 
 					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
 
-					return -1;// 장바구니 해제
+					return 2;// 장바구니 해제
 				}
 			}
 			// 2. 로그인 되어 있는 경우
 			else {
+				int userSeq = userInfo.getUserSeq();//유저 고유번호
+				cdao = new CommonDAO();
+				int result = cdao.setBasketProdt(userSeq,prodtId);
+				cdao.close();
 				
-				
+				System.out.println(result);
+				return result;
 				
 			}
 
@@ -168,9 +173,9 @@ public class NewproductService implements INewProductService {
 
 			ErrorAlarm ea = new ErrorAlarm(e, ip);
 			ea.errorDbAndMail();
+			return -100;
 		}
 
-		return 0;
 	}
 
 }

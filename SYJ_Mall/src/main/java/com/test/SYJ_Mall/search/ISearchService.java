@@ -62,12 +62,12 @@ public interface ISearchService {
 	List<SearchProductDTO> getAjaxProdInfoLogOn(int userSeq, String inputWord, int paging,String sortedOption);
 	
 	/**
-	 * 상품을 장바구니에 넣어주는 경우
+	 * 장바구니 처리
 	 * @param request
 	 * @param response
-	 * @return	1: 성공, -1: 오류  
+	 * @return	1: 추가, 2: 제거, -1: 오류  
 	 */
- 	int searchInputItem(HttpServletRequest request,HttpServletResponse response);
+ 	int searchBasketItem(HttpServletRequest request,HttpServletResponse response);
  	
  	/**
  	 * 상품을 장바구니에서 빼주는 경우

@@ -151,11 +151,11 @@ public class SearchController {
 	}
 	
 	//ajax 처리 -> 회원이 상품을 장바구니에 추가해준 경우
-	@RequestMapping(value = "/searchItemBasketInput.action", method = { RequestMethod.GET })
+	@RequestMapping(value = "/searchItemBasketSet.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public int searchItemBasketInput(HttpServletRequest request, HttpServletResponse response) {
 
-		return service.searchInputItem(request,response);
+		return service.searchBasketItem(request,response);
 		
 	}
 	

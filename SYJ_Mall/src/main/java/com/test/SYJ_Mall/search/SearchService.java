@@ -10,6 +10,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.CommonDAO;
+import com.common.utill.ErrorAlarm;
+import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.test.SYJ_Mall.login.UserDTO;
 
@@ -18,6 +21,7 @@ public class SearchService implements ISearchService {
 
 	@Autowired
 	ISearchDAO dao;
+	private CommonDAO cdao;
 	
 	// 단어를 포함하는 상품정보 가져와주기
 	@Override
@@ -154,56 +158,124 @@ public class SearchService implements ISearchService {
 
 	//상품을 장바구니 목록에 넣어주는 경우
 	@Override
-	public int searchInputItem(HttpServletRequest request, HttpServletResponse response) {
-		
-		int productId = Integer.parseInt(request.getParameter("productId"));//상품번호
-		HttpSession session = request.getSession();//로그인 상태인지 아닌지 체크해준다.
+	public int searchBasketItem(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
+			int prodtId = Integer.parseInt(request.getParameter("productId"));
+			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
 			
-			UserDTO userInfo = (UserDTO)session.getAttribute("userinfo");
-			
-			//1. 로그인 되어 있지 않은 경우
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+
+			// 1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
 				KakaoCookie kc = new KakaoCookie();
-				String basketList = (String)kc.getCookieInfo(request, "basketList");
-				
-				//이미 장바구니에 담긴 번호인지 체크해준다.
-				String[] basketLists = basketList.split("#");		
-				
-				//장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
-				int index = Arrays.asList(basketLists).indexOf(Integer.toString(productId));
-				
-				//해당 물품이 없는 경우 -> 상품 쿠키 객체에 물품 아이디를 추가해준다.
+				String basketList = (String) kc.getCookieInfo(request, "basketList");
+
+				// 이미 장바구니에 담긴 번호인지 체크해준다.
+				String[] basketLists = basketList.split("#");
+
+				// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
+				int index = Arrays.asList(basketLists).indexOf(Integer.toString(prodtId));
+
+				// 해당 물품이 없는 경우 -> 상품 쿠키 객체에 물품 아이디를 추가해준다.
 				if (index == -1) {
-					
+
 					StringBuffer sb = new StringBuffer();
 					sb.append(basketList);
-					sb.append(Integer.toString(productId));
+					sb.append(Integer.toString(prodtId));
 					sb.append("#");
-					
-					kc.modifyCookie(request, response, "basketList", sb.toString(), 60*60*24*7);
-					
-					return 1;
+
+					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
+
+					return 1;// 장바구니 추가
 				} else {
-				//해당 물품이 존재하는경우 -> 아무일도 없던걸로 취급
-					return -1;
+					// 해당 물품이 존재하는경우 -> 장바구니에서 빼주기
+					StringBuffer sb = new StringBuffer();
+
+					for (int i = 0; i < basketLists.length; i++) {
+						// 빼려고하는 상품 번호는 그냥 안넣으면 된다.
+						if (!basketLists[i].equals(Integer.toString(prodtId))) {
+							sb.append(basketLists[i]);
+							sb.append("#");
+						}
+					}
+
+					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
+
+					return 2;// 장바구니 해제
 				}
 			}
-			//2. 로그인 되어 있는 경우
+			// 2. 로그인 되어 있는 경우
 			else {
 				int userSeq = userInfo.getUserSeq();//유저 고유번호
-				int result = dao.inputSearchItemBasket(userSeq,productId);
+				cdao = new CommonDAO();
+				int result = cdao.setBasketProdt(userSeq,prodtId);
+				cdao.close();
 				
-				if (result == -2) throw new Exception();
+				System.out.println(result);
+				return result;
+				
 			}
-			
-			
-			return 1;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return -1;
+
+		} catch (Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -100;
 		}
+		
+		
+		
+//		int productId = Integer.parseInt(request.getParameter("productId"));//상품번호
+//		HttpSession session = request.getSession();//로그인 상태인지 아닌지 체크해준다.
+//		
+//		try {
+//			
+//			UserDTO userInfo = (UserDTO)session.getAttribute("userinfo");
+//			
+//			//1. 로그인 되어 있지 않은 경우
+//			if (userInfo == null) {
+//				KakaoCookie kc = new KakaoCookie();
+//				String basketList = (String)kc.getCookieInfo(request, "basketList");
+//				
+//				//이미 장바구니에 담긴 번호인지 체크해준다.
+//				String[] basketLists = basketList.split("#");		
+//				
+//				//장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
+//				int index = Arrays.asList(basketLists).indexOf(Integer.toString(productId));
+//				
+//				//해당 물품이 없는 경우 -> 상품 쿠키 객체에 물품 아이디를 추가해준다.
+//				if (index == -1) {
+//					
+//					StringBuffer sb = new StringBuffer();
+//					sb.append(basketList);
+//					sb.append(Integer.toString(productId));
+//					sb.append("#");
+//					
+//					kc.modifyCookie(request, response, "basketList", sb.toString(), 60*60*24*7);
+//					
+//					return 1;
+//				} else {
+//				//해당 물품이 존재하는경우 -> 아무일도 없던걸로 취급
+//					return -1;
+//				}
+//			}
+//			//2. 로그인 되어 있는 경우
+//			else {
+//				int userSeq = userInfo.getUserSeq();//유저 고유번호
+//				int result = dao.inputSearchItemBasket(userSeq,productId);
+//				
+//				if (result == -2) throw new Exception();
+//			}
+//			
+//			
+//			return 1;
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			return -1;
+//		}
 		
 	}
 	

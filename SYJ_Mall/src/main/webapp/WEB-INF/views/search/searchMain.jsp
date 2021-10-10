@@ -735,7 +735,7 @@ $(document).ready(
 		
 		/* 아래부분은 일단 장바구니 또는 알림표시 클릭하면 생기는 이벤트 */	
 		
-		//1.상품 카트에 담아주기
+		//1.상품 카트에 관련
 		$(document).on("click",".cart",function(e){
 			
 			let prodt_id = $(this).parent().parent().attr('id');
@@ -744,16 +744,16 @@ $(document).ready(
 			
 			$.ajax({
             	type:"GET",
-            	url: "/SYJ_Mall/searchItemBasketInput.action",
+            	url: "/SYJ_Mall/searchItemBasketSet.action",
             	data : "productId=" + prodt_id,
             	dataType : "json",
             	success : function(result) {
             		
-            		console.log(result);
-            		
             		if (result == 1) {
             			//$("#"+prodt_id).attr('class','incart');
             			$(prodt_this).attr('class','incart');
+            		} else if (result == 2) {
+            			$(prodt_this).attr('class','cart');
             		}
             	
             	},
@@ -765,7 +765,7 @@ $(document).ready(
 		});
 		
 		//2. 해당 상품 카트에서 빼주기
-		$(document).on("click",".incart",function(e){
+		/* $(document).on("click",".incart",function(e){
 			
 			let prodt_id = $(this).parent().parent().attr('id');
 			let prodt_this = $(this);
@@ -788,7 +788,7 @@ $(document).ready(
            });
 			
 			e.stopPropagation();  
-		});
+		}); */
 		
 		//3. 해당 상품 알림에 넣어주기
 		$(document).on("click",".alarm",function(e){
