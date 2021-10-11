@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 
 <link rel="stylesheet"
-	href="resources/css/newProduct/newProductMain9.css">
+	href="resources/css/newProduct/newProductMain10.css">
 <!-- 슬라이드 라이브러리 -->
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -17,6 +17,7 @@
 	}
 }
 </style>
+
 <div class="container-wrap new-product-new">
 	<!-- 데이터 없을 시 -->
 	<!-- <div class="order-list-nodata">
@@ -31,14 +32,13 @@
 		<div class="post-slider">
 			<div class="post-wrapper">
 				<c:forEach var="rectopdto" items="${recommendThemeTop}">
-				<div class="post" id="${rectopdto.prodId}">
-					<img
-						src="${rectopdto.prodPicUrl}">
-					<div class="banner-text">
-						<p class="title">${rectopdto.prodSubject}</p>
-						<p class="sub-title">${rectopdto.prodDetail}</p>
+					<div class="post" id="${rectopdto.prodId}">
+						<img src="${rectopdto.prodPicUrl}">
+						<div class="banner-text">
+							<p class="title">${rectopdto.prodSubject}</p>
+							<p class="sub-title">${rectopdto.prodDetail}</p>
+						</div>
 					</div>
-				</div>
 				</c:forEach>
 			</div>
 		</div>
@@ -327,10 +327,6 @@
 		prevArrow : $('.prev'),
 	});
 
-	/* $('.post').click(function() {
-		console.log($(this).attr('id'));
-	});
-	 */
 
 	/* 상품 클릭할때 생기는 이벤트  -> 상품페이지로 보내줄것이다.*/
 	$(document).on("click", ".item-li", function() {
@@ -341,20 +337,22 @@
 	//장바구니에 상품을 넣는 경우
 	$(document).on("click", ".cart", function(e) {
 		let prodt_id = $(this).parent().parent().attr('id');//아이디 번호
-		console.log(prodt_id);
-		cartAjax(prodt_id);
+		let prodt_this = $(this);
+		//console.log(prodt_id);
+		cartAjax(prodt_id,prodt_this);
 		e.stopPropagation();
 	});
 	
 	//장바구니에서 상품을 빼는 경우
 	$(document).on("click", ".incart", function(e) {
 		let prodt_id = $(this).parent().parent().attr('id');//아이디 번호
-		cartAjax(prodt_id);
+		let prodt_this = $(this);
+		cartAjax(prodt_id,prodt_this);
 		e.stopPropagation();
 	});
 	
 	//장바구니 관련 함수
-	function cartAjax(prodt_id) {
+	function cartAjax(prodt_id,prodt_this) {
 		$.ajax({
 			type : "GET",
 			url : "/SYJ_Mall/newProductBasket.action",
@@ -362,9 +360,9 @@
 			dataType : "json",
 			success : function(result) {
 				if (result == 1) {
-					$('#'+prodt_id).children('.name').children('span').attr('class', 'incart');
+					$(prodt_this).attr('class', 'incart');
 				} else if (result == 2) {
-					$('#'+prodt_id).children('.name').children('span').attr('class', 'cart');
+					$(prodt_this).attr('class', 'cart');
 				}
 			},
 			error : function(a, b, c) {
@@ -372,8 +370,50 @@
 			}
 		});
 	}
-
-	//알림창 관련
+	
+	//상품 알림 관련 -> 알림에 넣어주기
+	$(document).on("click",".alarm",function(e){
+		
+		let prodt_id = $(this).parent().parent().attr('id');
+		let prodt_this = $(this);
+		
+		new_prod_alarm(prodt_id,prodt_this);
+		e.stopPropagation();  
+	});
+	
+	//상품 알림 관련 -> 알림에서 빼주기
+	$(document).on("click",".inalarm",function(e){
+		
+		let prodt_id = $(this).parent().parent().attr('id');
+		let prodt_this = $(this);
+		new_prod_alarm(prodt_id,prodt_this);
+		e.stopPropagation();  
+	});
+	
+	//상품 알림창 관련 
+	function new_prod_alarm(prodt_id,prodt_this) {
+			$.ajax({
+            	type:"GET",
+            	url: "/SYJ_Mall/searchItemAlarm.action",
+            	data : "productId=" + prodt_id,
+            	dataType : "json",
+            	success : function(result) {
+            		console.log(result);
+            		if (result == 1) {
+            			$(prodt_this).attr('class','inalarm');
+            		} else if (result == 2) {
+            			$(prodt_this).attr('class','alarm');
+            		} else {
+            			login_modal_open();
+            		}
+            	},
+            	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+           });
+		}
+		
+	
 </script>
 
 

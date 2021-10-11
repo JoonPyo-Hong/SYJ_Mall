@@ -14,7 +14,8 @@
 <link rel="stylesheet"
 	href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
-<link rel="stylesheet" href="resources/css/search/productSearchResult6.css">
+<link rel="stylesheet"
+	href="resources/css/search/productSearchResult6.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel="stylesheet" href="resources/css/search/searchLoginModal.css">
 <link rel="stylesheet" href="resources/css/mainLayout/searchTest.css">
@@ -23,7 +24,8 @@
 </head>
 <body>
 	<!-- 로그인 모달창 -->
-	<div class="overlay-wrap" id="login-product-modal" style="visibility: hidden;">
+	<div class="overlay-wrap" id="login-product-modal"
+		style="visibility: hidden;">
 		<div class="login-modal-wrap">
 			<div class="modal-close">
 				<div class="close-btn"></div>
@@ -33,7 +35,7 @@
 			<div class="login-text">
 				<h3>앗! 로그인</h3>
 				<p>
-					로그인 후 재입고 알림을 신청해주세요<br/> 지금 로그인 화면으로 이동하시겠어요?
+					로그인 후 재입고 알림을 신청해주세요<br /> 지금 로그인 화면으로 이동하시겠어요?
 				</p>
 			</div>
 			<div class="login-btn">
@@ -50,25 +52,29 @@
 			<div class="sort-list" id="buy-sort">
 				<div class="sort-text">판매량순</div>
 				<c:if test="${sortedOption eq 1}">
-					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 			<div class="sort-list" id="new-sort">
 				<div class="sort-text">신상품순</div>
 				<c:if test="${sortedOption eq 2}">
-					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 			<div class="sort-list" id="low-price-sort">
 				<div class="sort-text">낮은 가격순</div>
 				<c:if test="${sortedOption eq 3}">
-					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 			<div class="sort-list" id="high-price-sort">
 				<div class="sort-text">높은가격순</div>
 				<c:if test="${sortedOption eq 4}">
-					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 		</div>
@@ -168,11 +174,11 @@
 								</form>
 								<button class="search-close">취소</button>
 							</div>
-							<div class="search-bottom" style="border : 1px solid red;">
+							<div class="search-bottom" style="border: 1px solid red;">
 								<div class="search-result">
-								<!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
+									<!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
 									<ul id="search-content-prod">
-									<!-- 상품이름 리스트 -->
+										<!-- 상품이름 리스트 -->
 									</ul>
 								</div>
 								<div class="character-wrap">
@@ -280,22 +286,31 @@
 						<div class="search-header">
 							<div class="sort-wrap">
 								<div class="sort">
-									<span class="sort-title" id="char-sort-name">캐릭터 전체</span> <img class="sort-icon"
+									<span class="sort-title" id="char-sort-name">캐릭터 전체</span> <img
+										class="sort-icon"
 										src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 								</div>
 								<div class="sort-divider"></div>
 								<div class="sort">
 									<c:if test="${sortedOption eq 1}">
-										<span class="sort-title" id="content-sort-name">판매량순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+										<span class="sort-title" id="content-sort-name">판매량순</span>
+										<img class="sort-icon"
+											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 									</c:if>
 									<c:if test="${sortedOption eq 2}">
-										<span class="sort-title" id="content-sort-name">신상품순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+										<span class="sort-title" id="content-sort-name">신상품순</span>
+										<img class="sort-icon"
+											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 									</c:if>
 									<c:if test="${sortedOption eq 3}">
-										<span class="sort-title" id="content-sort-name">낮은 가격순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+										<span class="sort-title" id="content-sort-name">낮은 가격순</span>
+										<img class="sort-icon"
+											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 									</c:if>
 									<c:if test="${sortedOption eq 4}">
-										<span class="sort-title" id="content-sort-name">높은 가격순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+										<span class="sort-title" id="content-sort-name">높은 가격순</span>
+										<img class="sort-icon"
+											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 									</c:if>
 								</div>
 							</div>
@@ -313,7 +328,8 @@
 
 
 						<!-- 해당 검색 상품 영역 -->
-						<div class="search-product-wrap" style="border: 1px solid red; overflow: scroll;">
+						<div class="search-product-wrap"
+							style="border: 1px solid red; overflow: scroll;">
 							<ul id="search-item-lists">
 
 								<!-- 여기서부터 조건이 붙어야 한다.***** -->
@@ -735,13 +751,27 @@ $(document).ready(
 		
 		/* 아래부분은 일단 장바구니 또는 알림표시 클릭하면 생기는 이벤트 */	
 		
-		//1.상품 카트에 관련
+		//상품 카트에 관련 -> 카트에 넣어주기
 		$(document).on("click",".cart",function(e){
 			
 			let prodt_id = $(this).parent().parent().attr('id');
 			let prodt_this = $(this);
-			//console.log(prodt_id);
+			search_prod_basket(prodt_id,prodt_this);
 			
+			e.stopPropagation();  
+		});
+		//상품 카트에 관련 -> 카트에서 빼주기
+		$(document).on("click",".incart",function(e){
+			
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			search_prod_basket(prodt_id,prodt_this);
+			
+			e.stopPropagation();  
+		});
+		
+		//상품카트 관련 공통 함수
+		function search_prod_basket(prodt_id,prodt_this) {
 			$.ajax({
             	type:"GET",
             	url: "/SYJ_Mall/searchItemBasketSet.action",
@@ -761,51 +791,40 @@ $(document).ready(
 					console.log(a,b,c);
 			}
            });
-			e.stopPropagation();  
-		});
+		}
 		
-		//2. 해당 상품 카트에서 빼주기
-		/* $(document).on("click",".incart",function(e){
-			
-			let prodt_id = $(this).parent().parent().attr('id');
-			let prodt_this = $(this);
-			
-			$.ajax({
-            	type:"GET",
-            	url: "/SYJ_Mall/searchItemBasketOutput.action",
-            	data : "productId=" + prodt_id,
-            	dataType : "json",
-            	success : function(result) {
-            		console.log(result);
-            		if (result == 1) {
-            			$(prodt_this).attr('class','cart');
-            		}
-            	
-            	},
-            	error: function(a,b,c) {
-					console.log(a,b,c);
-			}
-           });
-			
-			e.stopPropagation();  
-		}); */
-		
-		//3. 해당 상품 알림에 넣어주기
+		//상품 알림 관련 -> 알림에 넣어주기
 		$(document).on("click",".alarm",function(e){
 			
 			let prodt_id = $(this).parent().parent().attr('id');
 			let prodt_this = $(this);
+			search_prod_alarm(prodt_id,prodt_this);
+			e.stopPropagation();  
+		});
+		
+		//상품 알림 관련 -> 알림에서 빼주기
+		$(document).on("click",".inalarm",function(e){
 			
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			search_prod_alarm(prodt_id,prodt_this);
+			e.stopPropagation();  
+		});
+		
+		//상품알림 관련 공통 함수
+		function search_prod_alarm(prodt_id,prodt_this) {
 			$.ajax({
             	type:"GET",
-            	url: "/SYJ_Mall/searchItemAlarmInput.action",
+            	url: "/SYJ_Mall/searchItemAlarm.action",
             	data : "productId=" + prodt_id,
             	dataType : "json",
             	success : function(result) {
             		console.log(result);
             		if (result == 1) {
             			$(prodt_this).attr('class','inalarm');
-            		} else if (result == -2) {
+            		} else if (result == 2) {
+            			$(prodt_this).attr('class','alarm');
+            		} else {
             			//alert("로그인 요망");//이쪽 부분 이쁘게 모달로 처리해야한다.
             			//location.href = "/SYJ_Mall/login.action";
             			$('#login-product-modal').css('visibility','visible');
@@ -815,8 +834,8 @@ $(document).ready(
 					console.log(a,b,c);
 			}
            });
-			e.stopPropagation();  
-		});
+		}
+		
 		
 		//로그인 모달창 로그인하기
 		$(document).on("click",".login-btn",function(){
@@ -828,32 +847,6 @@ $(document).ready(
 		$(document).on("click",".close-btn",function(){
 			$('#login-product-modal').css('visibility','hidden');
 		}); 
-		
-		//4. 해당 상품 알림에서 빼주기
-		$(document).on("click",".inalarm",function(e){
-			let prodt_id = $(this).parent().parent().attr('id');
-			let prodt_this = $(this);
-			
-			$.ajax({
-            	type:"GET",
-            	url: "/SYJ_Mall/searchItemAlarmOutput.action",
-            	data : "productId=" + prodt_id,
-            	dataType : "json",
-            	success : function(result) {
-            		console.log(result);
-            		if (result == 1) {
-            			$(prodt_this).attr('class','alarm');
-            		}
-            	
-            	},
-            	error: function(a,b,c) {
-					console.log(a,b,c);
-			}
-           });
-			
-			e.stopPropagation();  
-		});
-		
 		
 		/*--------------------필터링 조건---------------------------*/
 		//~~ 순 정하는 필터링

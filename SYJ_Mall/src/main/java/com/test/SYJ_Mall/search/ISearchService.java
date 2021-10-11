@@ -69,27 +69,13 @@ public interface ISearchService {
 	 */
  	int searchBasketItem(HttpServletRequest request,HttpServletResponse response);
  	
- 	/**
- 	 * 상품을 장바구니에서 빼주는 경우
- 	 * @param request
- 	 * @param response
- 	 * @return	1: 성공, -1: 오류  
- 	 */
-	int searchOutputItem(HttpServletRequest request, HttpServletResponse response);
-	
 	/**
-	 * 상품을 알람에 넣어주는 경우
+	 * 상품 알람 관련
 	 * @param request
 	 * @return	1: 성공, -1: 실패
 	 */
-	int searchInputAlarm(HttpServletRequest request);
+	int searchProdtAlarm(HttpServletRequest request);
 	
-	/**
-	 * 상품을 알람에서 뺴주는 경우
-	 * @param request
-	 * @return	1: 성공, -1: 실패
-	 */
-	int searchOutputAlarm(HttpServletRequest request);
 	
 
 

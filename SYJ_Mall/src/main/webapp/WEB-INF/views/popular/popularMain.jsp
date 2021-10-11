@@ -42,6 +42,7 @@
 	
 	let checkdDevice = 0;//맨처음 디바이스 체크!
 	let paging = 1;//페이지 넘버
+	let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
 	
 	window.addEventListener(
 			"scroll",

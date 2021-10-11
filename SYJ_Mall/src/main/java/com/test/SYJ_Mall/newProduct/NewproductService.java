@@ -43,7 +43,6 @@ public class NewproductService implements INewProductService {
 			List<RecommendTopProdDTO> recTopPrdList = dao.getRecommendTopProdDTOList();
 			request.setAttribute("recommendThemeTop", recTopPrdList);
 
-
 			if (userInfo == null) {
 				// 로그인 되지 않은 경우
 				String basketList = getCookieBasket(request, response);
@@ -104,8 +103,7 @@ public class NewproductService implements INewProductService {
 			}
 		}
 	}
-	
-	
+
 	// 장바구니 처리 기능
 	@Override
 	public int setnewProductBasket(HttpServletRequest request, HttpServletResponse response) {
@@ -113,7 +111,7 @@ public class NewproductService implements INewProductService {
 		try {
 			int prodtId = Integer.parseInt(request.getParameter("productId"));
 			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
-			
+
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
 
 			// 1. 로그인 되어 있지 않은 경우
@@ -157,14 +155,14 @@ public class NewproductService implements INewProductService {
 			}
 			// 2. 로그인 되어 있는 경우
 			else {
-				int userSeq = userInfo.getUserSeq();//유저 고유번호
+				int userSeq = userInfo.getUserSeq();// 유저 고유번호
 				cdao = new CommonDAO();
-				int result = cdao.setBasketProdt(userSeq,prodtId);
+				int result = cdao.setBasketProdt(userSeq, prodtId);
 				cdao.close();
-				
+
 				System.out.println(result);
 				return result;
-				
+
 			}
 
 		} catch (Exception e) {
@@ -176,6 +174,42 @@ public class NewproductService implements INewProductService {
 			return -100;
 		}
 
+	}
+
+	// 물품알림 기능 관련
+	@Override
+	public int setnewProductAlarm(HttpServletRequest request) {
+		try {
+
+			int productId = Integer.parseInt(request.getParameter("productId"));// 상품번호
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+
+			// --- 알람 서비스는 로그인이 되어야만 진행이 될수 있는 서비스이다.
+
+			// 1. 로그인이 안되어있는 경우
+			if (userInfo == null) {
+
+				return -2;// 로그인이 되어있지 않으면 알람서비스를 이용할 수 없음. -> 로그인 유도
+			}
+			// 2. 로그인이 되어있는 경우
+			else {
+				int userSeq = userInfo.getUserSeq();// 유저 고유번호
+				cdao = new CommonDAO();
+				int result = cdao.setAlarmProdt(userSeq, productId);
+				cdao.close();
+
+				return result;
+			}
+
+		} catch (Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
 	}
 
 }

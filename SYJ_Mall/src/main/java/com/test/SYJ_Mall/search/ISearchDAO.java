@@ -41,39 +41,5 @@ public interface ISearchDAO {
 	 */
 	List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq, int pagingCount,String sortedOption);
 	
-	
-	
-	/**
-	 * 상품을 장바구니에 넣기 
-	 * @param userSeq		유저고유번호
-	 * @param productId		상품고유번호
-	 * @return				1: 성공, -1: 실패
-	 */
-	int inputSearchItemBasket(int userSeq, int productId);
-	
-	/**
-	 * 상품을 장바구니에서 빼기
-	 * @param userSeq		유저 고유번호
-	 * @param productId		상품고유번호
-	 * @return				1: 성공, -1 : 실패
-	 */
-	int outputSearchItemBasket(int userSeq, int productId);
-	
-	/**
-	 * 상품을 알람에 넣어주기
-	 * @param userSeq		유저 고유번소
-	 * @param productId		상품 고유번호
-	 * @return				1: 성공, -1: 실패
-	 */
-	int addProdtAlarm(int userSeq, int productId);
-	
-	/**
-	 * 상품을 알람에서 뺴주기
-	 * @param userSeq		유저 고유번호
-	 * @param productId		상품 고유번호
-	 * @return				1: 성공, -1 : 실패
-	 */
-	int deleteProdtAlarm(int userSeq, int productId);
-	
 
 }
