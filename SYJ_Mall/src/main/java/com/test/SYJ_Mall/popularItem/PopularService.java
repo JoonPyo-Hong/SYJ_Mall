@@ -1,7 +1,6 @@
 package com.test.SYJ_Mall.popularItem;
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -26,7 +26,14 @@ public interface INewProductService {
 	 * 장바구니 클릭 기능
 	 * @param request
 	 * @param response
-	 * @return		
+	 * @return	1: 물품추가, 2: 물품제거, -1: 오류	
 	 */
 	int setnewProductBasket(HttpServletRequest request, HttpServletResponse response);
+
+	/**
+	 * 알림관련 기능
+	 * @param request
+	 * @return	1: 물품추가, 2: 물품제거, -1: 오류	
+	 */
+	int setnewProductAlarm(HttpServletRequest request);
 }

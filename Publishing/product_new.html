@@ -19,6 +19,7 @@
   <!-- <link rel="stylesheet" type="text/css" href="./css/seen.css" /> -->
   <!-- <link rel="stylesheet" type="text/css" href="./css/act.css" /> -->
   <link rel="stylesheet" type="text/css" href="./css/product_new.css" />
+  <link rel="stylesheet" type="text/css" href="./css/login_modal.css" />
   <!-- 슬라이드 라이브러리 -->
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -38,6 +39,29 @@
 </head>
 
 <body>
+<!-- 로그인 모달창 -->
+<div class="overlay-wrap" id="login-product-modal">
+	<div class="login-modal-wrap">
+		<div class="modal-close">
+			<div class="close-btn"></div>
+		</div>
+		<img class="login-img"
+			src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png" />
+		<div class="login-text">
+			<h3>앗! 로그인</h3>
+			<p>
+				로그인 후 재입고 알림을 신청해주세요<br /> 지금 로그인 화면으로 이동하시겠어요?
+			</p>
+		</div>
+		<div class="login-btn">
+			<button>
+				<span class="login-kakao"></span>
+				<p>로그인하기</p>
+			</button>
+		</div>
+	</div>
+</div>
+
   <div id="kakao-wrap">
     <div id="kakao-head">
       <div id="inner-head">
@@ -437,8 +461,40 @@
       console.log($(this).attr('id'));
     });
     
+    $('.cart').click(function(){
+      const scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+      $('.overlay-wrap').css('top',scrollLocation + 'px');
+      $(document.body).css('overflow', 'hidden');
 
+    });
+
+    //로그인 모달창 로그인하기
+  	$(document).on("click",".login-btn",function(){
+       
+		  //$('#login-product-modal').css('visibility','hidden');
+		  //location.href = "/SYJ_Mall/login.action";
+	  }); 
+	
+	//로그인 모달창 돌아가기
+	$(document).on("click",".close-btn",function(){
+		//$('#login-product-modal').css('visibility','hidden');
+    $('.overlay-wrap').css('top','-1400px');
+    $(document.body).css('overflow', 'scroll');
+	}); 
     
+  window.addEventListener('scroll', () => {
+	  let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+	  let windowHeight = window.innerHeight; // 스크린 창
+	  let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
+
+    console.log("present : " + scrollLocation);
+    console.log("screen : " +  windowHeight);
+    console.log("full : " + fullHeight);
+    
+	  // if(scrollLocation + windowHeight >= fullHeight){
+		//   console.log('끝')
+	  // }
+  });
 
   </script>
 </body>

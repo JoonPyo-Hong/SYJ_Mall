@@ -29,10 +29,17 @@ public class NewProductController {
 			return "/testwaiting/kakaoerror";
 	}
 
-	//ajax 처리 장바구니 클릭해주는 기능
+	// ajax 처리 장바구니 클릭해주는 기능
 	@RequestMapping(value = "/newProductBasket.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public int newProductBascket(HttpServletRequest request, HttpServletResponse response) {
-		return service.setnewProductBasket(request,response);
+		return service.setnewProductBasket(request, response);
+	}
+
+	// ajax 처리 장바구니 클릭해주는 기능
+	@RequestMapping(value = "/newProductAlarm.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int newProductAlarm(HttpServletRequest request, HttpServletResponse response) {
+		return service.setnewProductAlarm(request);
 	}
 }

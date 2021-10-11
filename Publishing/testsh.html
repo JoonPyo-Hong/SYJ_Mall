@@ -12,21 +12,61 @@
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="./js/main.js"></script>
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
+<style>
+.overlay-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  height : 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: -2000px;
+  /* background-color: red; */
+}
+
+</style>
+
 </head>
 
 <body style= "height :2000px;">
-
-    <div id = "test1" style = "border: 1px solid red; height :2000px;">
-        <div id = "test2" style = "background-color: blue; height :4000px; z-index: 9;"> </div>
+    <button id="btn">click!</button>
+    <div class="overlay-wrap" id="login-product-modal">
+    
     </div>
+    
+    <!-- <div style="height: 1000px; border: 1px solid blue;">
 
+      asdasdasd
+    </div> -->
 
+    <div style="margin-top: 200px;">
+      <button id="btn2" >click!</button>
+    </div> 
     
 
 
   <script>
+    $('#btn').click(function(){
+      const legth = document.documentElement.scrollTop;
+      $('.overlay-wrap').css('top',legth + 'px');
+    });
 
+    $('#btn2').click(function(){
+      const legth = document.documentElement.scrollTop;
+      $('.overlay-wrap').css('top',legth + 'px');
+    });
 
+  
+    window.addEventListener('scroll', () => {
+	    let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+	    let windowHeight = window.innerHeight; // 스크린 창
+	    let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
+
+	    
+
+    });
 
   </script>
 
