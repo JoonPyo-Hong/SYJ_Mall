@@ -35,7 +35,7 @@ public class NewProductController {
 	public int newProductBascket(HttpServletRequest request, HttpServletResponse response) {
 		return service.setnewProductBasket(request, response);
 	}
-
+	
 	// ajax 처리 장바구니 클릭해주는 기능
 	@RequestMapping(value = "/newProductAlarm.action", method = { RequestMethod.GET })
 	@ResponseBody

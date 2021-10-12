@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="resources/css/mainLayout/orderlist.css">
 <link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
 </head>
-<body>
+<body style="overflow-y: scroll;">
 	<!-- 모달 -->
 	<div id="mask"></div>
 
@@ -180,13 +180,14 @@
 
 			</div>
 		</div>
-		<div id="kakao-content" style="overflow: scroll;">
-			<div id="inner-content">
+		<div id="kakao-content">
+			<div id="inner-content" style="overflow: scroll;">
+			<!-- style="overflow: scroll;" -->
 				<!-- 여기에 타일즈 내용이 들어가야함 -->
 				<tiles:insertAttribute name="body" ignore="false" />
 			</div>
 		</div>
-
+		
 		<!-- footer -->
 		<div id="kakao-footer">
 			<div id="inner-footer">
@@ -373,7 +374,10 @@
 		  	//로그인 모달창 돌아가기
 			$(document).on("click",".close-btn",function(){
 				login_modal_close();
-			}); 
+			});
+			
+			
+		  	
 	
 </script>
 </body>
