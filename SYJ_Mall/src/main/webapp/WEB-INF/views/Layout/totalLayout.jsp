@@ -15,7 +15,7 @@
 	href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/searchLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/orderlist.css">
-<link rel="stylesheet" href="resources/css/mainLayout/loginModal1.css">
+<link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
 </head>
 <body>
 	<!-- 모달 -->
