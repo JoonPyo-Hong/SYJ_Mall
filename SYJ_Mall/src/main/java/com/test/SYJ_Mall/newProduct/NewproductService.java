@@ -42,20 +42,28 @@ public class NewproductService implements INewProductService {
 			// 공통부분 - 상단 물품 배너 리스트
 			List<RecommendTopProdDTO> recTopPrdList = dao.getRecommendTopProdDTOList();
 			request.setAttribute("recommendThemeTop", recTopPrdList);
-
+			
+			//새로나온 친구들 상품 목록
+			double newFriendsCount = dao.getNewFriendsCount() / 8.0;//총갯수 에서 페이징 변수를 만들어준다.
+			request.setAttribute("newFriendsCount", (int)Math.ceil(newFriendsCount));
+			
+			int firstPaging = 1;//처음 페이징
+			
 			if (userInfo == null) {
 				// 로그인 되지 않은 경우
 				String basketList = getCookieBasket(request, response);
-				List<RecommendThemeDTO> rtp = dao.getNewRecommendThemeNoLogin(basketList, themeNum);
-
+				List<RecommendThemeDTO> rtp = dao.getNewRecommendThemeNoLogin(basketList, themeNum);//신규테마물품
+				List<NewFriendsProdDTO> newFdtoList = dao.getNewFriendDtosNologin(basketList,firstPaging);//새로운 친구들
+				
 				String themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
 
 				request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
 				request.setAttribute("themeSubject", themeSubject);// 추천테마 주제
+				request.setAttribute("newFdtoList", newFdtoList);//새로운 친구들 상품 객체
 
 			} else {
 				// 로그인이 된 경우
-				List<RecommendThemeDTO> rtp = dao.getNewRecommendTheme(userInfo.getUserSeq(), themeNum);
+				List<RecommendThemeDTO> rtp = dao.getNewRecommendTheme(userInfo.getUserSeq(), themeNum);//신규테마물품
 
 				String themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
 
@@ -210,6 +218,41 @@ public class NewproductService implements INewProductService {
 			ea.errorDbAndMail();
 			return -1;
 		}
+	}
+	
+	//새로나온 친구들 물품 무한스크롤
+	@Override
+	public List<NewFriendsProdDTO> getNewFriendsProdts(HttpServletRequest request,HttpServletResponse response) {
+		
+		try {
+			int presentPaging = Integer.parseInt(request.getParameter("newFriendsPaging"));//현재페이지 숫자
+			
+			//로그인 상태인지 아닌지 체크를 해줘야한다.
+			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			//로그인 하지 않은 경우
+			if (userInfo == null) {
+				String basketList = getCookieBasket(request, response);
+				return dao.getNewFriendDtosNologin(basketList,presentPaging);
+			} 
+			//로그인 한 경우
+			else {
+				return null;
+			}
+			
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return null;
+		}
+		
+		
+		
 	}
 
 }

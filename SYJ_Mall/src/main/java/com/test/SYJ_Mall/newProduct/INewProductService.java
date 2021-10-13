@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.newProduct;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,4 +38,12 @@ public interface INewProductService {
 	 * @return	1: 물품추가, 2: 물품제거, -1: 오류	
 	 */
 	int setnewProductAlarm(HttpServletRequest request);
+
+	/**
+	 * 새로나온 친구들 물품 무한스크롤
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	List<NewFriendsProdDTO> getNewFriendsProdts(HttpServletRequest request,HttpServletResponse response);
 }

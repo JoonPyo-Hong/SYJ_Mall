@@ -2,13 +2,13 @@ package com.test.SYJ_Mall.newProduct;
 
 import lombok.Data;
 /**
- * 추천상품 객체
+ * 새로나온 친구들 물품객체
  * @author shin
  *
  */
 @Data
-public class RecommendThemeDTO {
-
+public class NewFriendsProdDTO {
+	
 	private int prodId;
 	private String prodNm;
 	private int prodCnt;
@@ -17,8 +17,6 @@ public class RecommendThemeDTO {
 	private String picUrl;
 	private String dcPrice;
 	private String cookieBasket;
-	private String categoryNm;
 	private String alarmYn;
-	
 	
 }

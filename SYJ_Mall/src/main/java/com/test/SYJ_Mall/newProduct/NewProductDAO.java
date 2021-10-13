@@ -45,7 +45,26 @@ public class NewProductDAO implements INewProductDAO {
 		
 		return template.selectList("newProducts.newProductRecommendTop");
 	}
-	
+
+	//새로나온 친구 물품 갯수
+	@Override
+	public int getNewFriendsCount() {
+		
+		return template.selectOne("newProducts.newFriendsProductCount");
+	}
+
+	//새로나온 친구들 물품 - 로그인 하지 않은 경우
+	@Override
+	public List<NewFriendsProdDTO> getNewFriendDtosNologin(String basketList, int paging) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("basketList",basketList);
+		map.put("paging",Integer.toString(paging));
+		
+		return template.selectList("newProducts.newFriendsProductNotLogin",map);
+	}
+
+
 
 	
 	

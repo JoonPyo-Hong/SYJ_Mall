@@ -28,6 +28,21 @@ public interface INewProductDAO {
 	 */
 	List<RecommendTopProdDTO> getRecommendTopProdDTOList();
 	
+	/**
+	 * 새로나온 친구 물품 갯수
+	 * @return	물품의 갯수
+	 */
+	int getNewFriendsCount();
+	
+	/**
+	 * 새로나온 친구들 물품객체 - 로그인 안된 경우
+	 * @param basketList	장바구니 물품 객체
+	 * @param paging	페이징 변수
+	 * @return				
+	 */
+	List<NewFriendsProdDTO> getNewFriendDtosNologin(String basketList, int paging);
+	
+	
 
 	
 
