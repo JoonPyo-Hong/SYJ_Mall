@@ -30,12 +30,11 @@
 #language {
 	width: 640px;
 	height: 90px;
-	border: 1px solid black;
 	text-align: center
 }
 
 #language ul {
-padding:40px 18px;
+	padding: 40px 18px;
 	width: 460px;
 	height: 32px;
 	text-align: center;
@@ -54,19 +53,52 @@ padding:40px 18px;
 }
 
 #language a {
-	color: rgb(178, 178, 178)
-	text-decoration: none;
+	color: rgb(178, 178, 178) text-decoration: none;
 }
 
 #language a:hover {
 	cursor: pointer;
 }
-.a_select{
-	padding-bottom:5px;
+
+.a_select {
+	padding-bottom: 5px;
 	border-bottom: 2px solid black;
 }
-.a_un_select{
+
+.a_un_select {
 	color: rgb(178, 178, 178);
+}
+
+.content {
+	padding-top: 20px;
+	//border: 1px solid black;
+}
+.content_img img {
+	width: 640px;
+	height: 435px;
+}
+.content_map{
+	//border: 1px solid black;
+	width: 600px;
+	height: 490px;
+	margin: 30px 20px;
+}
+.title{
+	margin-bottom: 17px;
+	width: 600px;
+	height: 33px;
+	font-size: 22px;
+	font-weight: bold;
+}
+.txt{
+	line-height: 27px;
+    font-size: 15px;
+    color: black;
+}
+.txt img{
+	width: 27px;
+	height: 27px;
+	margin-right: 5px;
 }
 </style>
 </head>
@@ -99,6 +131,26 @@ padding:40px 18px;
 			<li><a class="a_un_select">中文(简体)</a></li>
 			<li><a class="a_un_select">中文(繁體)</a></li>
 		</ul>
+	</div>
+	<div class="content">
+		<div class="content_img">
+			<img alt="" src="resources/images/info/bg_storeInfo_05_M.jpg">
+		</div>
+		<div class="content_map">
+		<div class="title">강남 플래그십 스토어</div>
+		<div class="txt" id="txt1">
+			<img src='resources/images/info/ico_map.png'></img>
+			02-6494-1100 (매장)
+		</div>
+		<div class="txt" id="txt2">
+			<img src='resources/images/info/ico_phone.png'></img>
+			매일 10:30 - 22:00
+		</div>
+			<div class="txt" id="txt3">
+				<img src='resources/images/info/ico_time.png'></img> 서울 서초구
+				서초동 1305-7 유창빌딩 1~2층
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript">
 		var mySwiper = new Swiper('.swiper-container', {
