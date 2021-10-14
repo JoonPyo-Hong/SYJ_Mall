@@ -70,37 +70,44 @@
 }
 
 .content {
-	padding-top: 20px;
-	//border: 1px solid black;
+	padding-top: 20px; //
+	border: 1px solid black;
 }
+
 .content_img img {
 	width: 640px;
 	height: 435px;
 }
-.content_map{
-	//border: 1px solid black;
+
+.content_map { //
+	border: 1px solid black;
 	width: 600px;
 	height: 490px;
 	margin: 30px 20px;
 }
-.title{
+
+.title {
 	margin-bottom: 17px;
 	width: 600px;
 	height: 33px;
 	font-size: 22px;
 	font-weight: bold;
 }
-.txt{
+
+.txt {
 	line-height: 27px;
-    font-size: 15px;
-    color: black;
+	font-size: 15px;
+	color: black;
+	margin-bottom: 5px;
 }
-.txt img{
+
+.txt img {
 	width: 27px;
 	height: 27px;
 	margin-right: 5px;
 }
 </style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=870121f6abb2197a2dd62290574add55"></script>
 </head>
 <body>
 	<div class="swiper-container slide">
@@ -137,22 +144,26 @@
 			<img alt="" src="resources/images/info/bg_storeInfo_05_M.jpg">
 		</div>
 		<div class="content_map">
-		<div class="title">강남 플래그십 스토어</div>
-		<div class="txt" id="txt1">
-			<img src='resources/images/info/ico_map.png'></img>
-			02-6494-1100 (매장)
-		</div>
-		<div class="txt" id="txt2">
-			<img src='resources/images/info/ico_phone.png'></img>
-			매일 10:30 - 22:00
-		</div>
-			<div class="txt" id="txt3">
-				<img src='resources/images/info/ico_time.png'></img> 서울 서초구
-				서초동 1305-7 유창빌딩 1~2층
+			<div class="title">강남 플래그십 스토어</div>
+			<div class="txt" id="txt1">
+				<img src='resources/images/info/ico_map.png'></img> 02-6494-1100
+				(매장)
 			</div>
+			<div class="txt" id="txt2">
+				<img src='resources/images/info/ico_phone.png'></img> 매일 10:30 -
+				22:00
+			</div>
+			<div class="txt" id="txt3">
+				<img src='resources/images/info/ico_time.png'></img> 서울 서초구 서초동
+				1305-7 유창빌딩 1~2층
+			</div>
+			<div id="map" style="width:600;height:311px; margin-top: 40px;"></div>
 		</div>
 	</div>
+	
 	<script type="text/javascript">
+	
+	
 		var mySwiper = new Swiper('.swiper-container', {
 			loop : true,
 			pagination : {
@@ -168,7 +179,15 @@
 				prevEl : '.swiper-button-prev',
 			},
 
-		})
+		});
+		
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 	</script>
 </body>
 </html>
