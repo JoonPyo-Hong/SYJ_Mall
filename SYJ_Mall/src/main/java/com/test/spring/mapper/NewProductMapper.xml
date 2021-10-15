@@ -60,7 +60,7 @@
 		resultType="com.test.SYJ_Mall.newProduct.NewFriendsProdDTO"
 		statementType="CALLABLE">
 		{
-		call dbo.kakao_new_product(#{basketList},#{paging})
+		call dbo.kakao_new_product(#{userSeq},#{paging})
 		}
 	</select>
 

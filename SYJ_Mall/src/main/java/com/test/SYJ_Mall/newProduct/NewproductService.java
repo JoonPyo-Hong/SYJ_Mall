@@ -67,7 +67,7 @@ public class NewproductService implements INewProductService {
 				List<NewFriendsProdDTO> newFdtoList = dao.getNewFriendDtos(userInfo.getUserSeq(),firstPaging);//새로운 친구들
 				
 				String themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
-
+				
 				request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
 				request.setAttribute("themeSubject", themeSubject);// 추천테마 주제
 				request.setAttribute("newFdtoList", newFdtoList);//새로운 친구들 상품 객체
@@ -240,6 +240,7 @@ public class NewproductService implements INewProductService {
 			} 
 			//로그인 한 경우
 			else {
+				//여기 아직 지정 안해줬구나
 				return null;
 			}
 			

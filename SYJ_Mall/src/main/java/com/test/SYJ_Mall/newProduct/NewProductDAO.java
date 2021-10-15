@@ -70,7 +70,7 @@ public class NewProductDAO implements INewProductDAO {
 		
 		HashMap<String,Integer> map = new HashMap<String, Integer>();
 		map.put("userSeq", userSeq);
-		map.put("userSeq", paging);
+		map.put("paging", paging);
 		
 		return template.selectList("newProducts.newFriendsProduct",map);
 	}
