@@ -64,11 +64,13 @@ public class NewproductService implements INewProductService {
 			} else {
 				// 로그인이 된 경우
 				List<RecommendThemeDTO> rtp = dao.getNewRecommendTheme(userInfo.getUserSeq(), themeNum);//신규테마물품
-
+				List<NewFriendsProdDTO> newFdtoList = dao.getNewFriendDtos(userInfo.getUserSeq(),firstPaging);//새로운 친구들
+				
 				String themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
 
 				request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
 				request.setAttribute("themeSubject", themeSubject);// 추천테마 주제
+				request.setAttribute("newFdtoList", newFdtoList);//새로운 친구들 상품 객체
 
 			}
 

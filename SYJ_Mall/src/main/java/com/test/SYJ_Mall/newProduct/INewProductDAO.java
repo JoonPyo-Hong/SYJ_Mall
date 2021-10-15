@@ -37,10 +37,18 @@ public interface INewProductDAO {
 	/**
 	 * 새로나온 친구들 물품객체 - 로그인 안된 경우
 	 * @param basketList	장바구니 물품 객체
-	 * @param paging	페이징 변수
+	 * @param paging		페이징 변수
 	 * @return				
 	 */
 	List<NewFriendsProdDTO> getNewFriendDtosNologin(String basketList, int paging);
+	
+	/**
+	 * 새로나온 친구들 물품객체 - 로그인 된 경우
+	 * @param userSeq		유저 고유번호
+	 * @param paging		페이징변수
+	 * @return
+	 */
+	List<NewFriendsProdDTO> getNewFriendDtos(int userSeq, int paging);
 	
 	
 

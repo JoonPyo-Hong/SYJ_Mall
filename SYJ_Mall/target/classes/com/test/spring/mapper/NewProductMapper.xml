@@ -54,6 +54,15 @@
 		call dbo.kakao_new_product_not_login(#{basketList},#{paging})
 		}
 	</select>
+	
+	<!-- 새로나온 친구들 물품 불러오기-->
+	<select id="newFriendsProduct"
+		resultType="com.test.SYJ_Mall.newProduct.NewFriendsProdDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_new_product(#{basketList},#{paging})
+		}
+	</select>
 
 
 </mapper>

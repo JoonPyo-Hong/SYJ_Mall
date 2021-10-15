@@ -64,6 +64,17 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.newFriendsProductNotLogin",map);
 	}
 
+	//새로나온 친구들 물품 - 로그인 한 경우
+	@Override
+	public List<NewFriendsProdDTO> getNewFriendDtos(int userSeq, int paging) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq", userSeq);
+		map.put("userSeq", paging);
+		
+		return template.selectList("newProducts.newFriendsProduct",map);
+	}
+
 
 
 	

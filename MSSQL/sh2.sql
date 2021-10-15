@@ -2681,123 +2681,12 @@ end
 
 
 
-/* 
-	Author      : Seunghwan Shin 
-	Create date : 2021-10-05   
-	Description : 추천 신규 테마 비로그인 상태
-	     
-	History	: 2021-10-05 Seunghwan Shin	#최초 생성
-			  2021-10-07 Seunghwan Shin	#조인순서 변경	
-	
-	Real DB : exec dbo.kakao_recommend_new_theme_no_login '119#118#9', 2
-
-*/
-alter proc dbo.kakao_recommend_new_theme_no_login
-	@basket_info varchar(3000)	-- 쿠키정보
-,	@theme_num varchar(25)
-as 
-set nocount on 
-set transaction isolation level read uncommitted 
-begin
-
-			select
-				m.product_id as prodId
-			,	m.product_nm as prodNm
-			,	m.product_count as prodCnt
-			,	format(m.product_price,'#,#') as prodPrice
-			,	m.discount_rate as discRate
-			,	m.product_img as picUrl
-			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
-			,	m.cookieBasket as cookieBasket
-			,	m.category_nm as categoryNm
-			,	null as alarmYn
-			from
-			(
-				select
-					row_number() over (order by kpt.reg_dt) as rn
-				,	kpt.product_id 
-				,	kpt.product_nm 
-				,	kpt.product_count 
-				,	kpt.product_price 
-				,	kpt.discount_rate 
-				,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-				,	kpc.category_nm
-				,	case when ss.value is null then 'cart'
-						 else 'incart' end as cookieBasket
-				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
-				inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
-				inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-				where kpc.category_code = convert(int,@theme_num)
-				and kpi.rep_img_yn = 'Y'
-				and kpi.head_img_yn = 'Y'
-
-			) as m
-			where m.rn between 1 and 4
-end
-
-
 
 
 
 
 
  exec dbo.kakao_recommend_new_theme_no_login null, 2
-
-/* 
-	Author      : Seunghwan Shin 
-	Create date : 2021-10-05   
-	Description : 추천 신규 테마 비로그인 상태
-	     
-	History	: 2021-10-05 Seunghwan Shin	#최초 생성
-	
-	Real DB : exec dbo.kakao_recommend_new_theme_no_login '119#118#9', 2
-
-*/
-alter proc dbo.kakao_recommend_new_theme_no_login
-	@basket_info varchar(3000)	-- 쿠키정보
-,	@theme_num varchar(25)
-as 
-set nocount on 
-set transaction isolation level read uncommitted 
-begin
-
-			select
-				m.product_id as prodId
-			,	m.product_nm as prodNm
-			,	m.product_count as prodCnt
-			,	format(m.product_price,'#,#') as prodPrice
-			,	m.discount_rate as discRate
-			,	m.product_img as picUrl
-			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
-			,	m.cookieBasket as cookieBasket
-			,	m.category_nm as categoryNm
-			,	null as alarmYn
-			from
-			(
-				select
-					row_number() over (order by kpt.reg_dt) as rn
-				,	kpt.product_id 
-				,	kpt.product_nm 
-				,	kpt.product_count 
-				,	kpt.product_price 
-				,	kpt.discount_rate 
-				,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-				,	kpc.category_nm
-				,	case when ss.value is null then 'cart'
-						 else 'incart' end as cookieBasket
-				from dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock)
-				inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.category_code = kpc.category_code  
-				inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
-				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-				where kpc.category_code = convert(int,@theme_num)
-				and kpi.rep_img_yn = 'Y'
-				and kpi.head_img_yn = 'Y'
-
-			) as m
-			where m.rn between 1 and 4
-end
-
 
 
 
@@ -3113,6 +3002,124 @@ begin
 			) as m
 			where m.rn between 8*@paging_int-7 and 8*@paging_int
 end
+
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-10-05   
+	Description : 추천 신규 테마 비로그인 상태
+	     
+	History	: 2021-10-05 Seunghwan Shin	#최초 생성
+			  2021-10-07 Seunghwan Shin	#조인순서 변경
+			  2021-10-15 Seunghwan Shin	#alarmYn 컬럼 변경
+	
+	Real DB : exec dbo.kakao_recommend_new_theme_no_login '119#118#9', 2
+
+*/
+alter proc dbo.kakao_recommend_new_theme_no_login
+	@basket_info varchar(3000)	-- 쿠키정보
+,	@theme_num varchar(25)
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+
+			select
+				m.product_id as prodId
+			,	m.product_nm as prodNm
+			,	m.product_count as prodCnt
+			,	format(m.product_price,'#,#') as prodPrice
+			,	m.discount_rate as discRate
+			,	m.product_img as picUrl
+			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
+			,	m.cookieBasket as cookieBasket
+			,	m.category_nm as categoryNm
+			,	'alarm' as alarmYn
+			from
+			(
+				select
+					row_number() over (order by kpt.reg_dt) as rn
+				,	kpt.product_id 
+				,	kpt.product_nm 
+				,	kpt.product_count 
+				,	kpt.product_price 
+				,	kpt.discount_rate 
+				,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
+				,	kpc.category_nm
+				,	case when ss.value is null then 'cart'
+						 else 'incart' end as cookieBasket
+				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+				inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+				inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
+				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
+				where kpc.category_code = convert(int,@theme_num)
+				and kpi.rep_img_yn = 'Y'
+				and kpi.head_img_yn = 'Y'
+
+			) as m
+			where m.rn between 1 and 4
+end
+
+
+
+
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-10-15   
+	Description : 새로나온 친구들 상품 목록 - 로그인 시
+	     
+	History	: 2021-10-15 Seunghwan Shin	#최초 생성	
+	
+	Real DB : exec dbo.kakao_new_product 2000001,1
+
+*/
+CREATE proc dbo.kakao_new_product
+	@user_seq bigint--유저 번호
+,	@paging int --페이징 정보
+as 
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+		
+
+			select
+				m.product_id as prodId
+			,	m.product_nm as prodNm
+			,	m.product_count as prodCnt
+			,	format(m.product_price,'#,#') as prodPrice
+			,	m.discount_rate as discRate
+			,	m.product_img as picUrl
+			,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
+			,	m.cookieBasket as cookieBasket
+			,	m.alamYn as alarmYn
+			from
+			(
+				select
+					row_number() over (order by kpt.reg_dt desc) as rn
+				,	kpt.product_id 
+				,	kpt.product_nm 
+				,	kpt.product_count 
+				,	kpt.product_price 
+				,	kpt.discount_rate 
+				,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
+				,	case when kusc.product_id is null then 'cart'
+						 else 'incart' end as cookieBasket
+				,	case when kuai.product_id is null then 'alarm'
+						 else 'inalarm' end as alamYn
+				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
+				inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
+				left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock,forceseek) on kpt.product_id = kusc.product_id and kusc.qoouser_seq = @user_seq and kusc.cart_del_yn = 'N'
+				left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.product_id = kpt.product_id and kuai.qoouser_seq = @user_seq and kuai.del_yn = 'N'
+				where kpi.rep_img_yn = 'Y'
+				and kpi.head_img_yn = 'Y'
+
+			) as m
+			where m.rn between 8*@paging-7 and 8*@paging
+end
+
 
 
 

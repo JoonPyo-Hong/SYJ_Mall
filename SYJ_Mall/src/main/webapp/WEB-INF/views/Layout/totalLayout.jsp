@@ -355,8 +355,8 @@
 			
 			//로그인 모달 열기
 			function login_modal_open() {
-				const scrollLocation = document.documentElement.scrollTop;//현재 스크롤바 위치
-			    $('.overlay-wrapper').css('top',scrollLocation + 'px');
+			    const scrollLocation = window.scrollY;
+				$('.overlay-wrapper').css('top',scrollLocation + 'px');
 			    $(document.body).css('overflow', 'hidden');
 			}
 			
