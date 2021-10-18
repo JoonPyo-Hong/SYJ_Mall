@@ -46,7 +46,7 @@
 	</select>
 	
 	
-	<!-- 새로나온 친구들 물품 불러오기-->
+	<!-- 새로나온 친구들 물품 불러오기 로그인 안한 경우-->
 	<select id="newFriendsProductNotLogin"
 		resultType="com.test.SYJ_Mall.newProduct.NewFriendsProdDTO"
 		statementType="CALLABLE">
@@ -55,7 +55,7 @@
 		}
 	</select>
 	
-	<!-- 새로나온 친구들 물품 불러오기-->
+	<!-- 새로나온 친구들 물품 불러오기 로그인 한 경우-->
 	<select id="newFriendsProduct"
 		resultType="com.test.SYJ_Mall.newProduct.NewFriendsProdDTO"
 		statementType="CALLABLE">

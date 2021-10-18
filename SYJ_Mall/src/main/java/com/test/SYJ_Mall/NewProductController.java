@@ -20,7 +20,7 @@ public class NewProductController {
 	@Autowired
 	private INewProductService service;
 
-	// 인기페이지 처음 메인화면
+	// 신규페이지 처음 메인화면
 	@RequestMapping(value = "/newProductMain.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String popularItemMain(HttpServletRequest request, HttpServletResponse response) {
 
@@ -38,7 +38,7 @@ public class NewProductController {
 	public int newProductBascket(HttpServletRequest request, HttpServletResponse response) {
 		return service.setnewProductBasket(request, response);
 	}
-
+	
 	// ajax 처리 장바구니 클릭해주는 기능
 	@RequestMapping(value = "/newProductAlarm.action", method = { RequestMethod.GET })
 	@ResponseBody
@@ -52,5 +52,4 @@ public class NewProductController {
 	public List<NewFriendsProdDTO> newFriendsProduct(HttpServletRequest request, HttpServletResponse response) {
 		return service.getNewFriendsProdts(request,response);
 	}
-
 }

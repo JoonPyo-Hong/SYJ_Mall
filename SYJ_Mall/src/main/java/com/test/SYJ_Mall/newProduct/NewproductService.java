@@ -240,8 +240,7 @@ public class NewproductService implements INewProductService {
 			} 
 			//로그인 한 경우
 			else {
-				//여기 아직 지정 안해줬구나
-				return null;
+				return dao.getNewFriendDtos(userInfo.getUserSeq(),presentPaging);
 			}
 			
 			
