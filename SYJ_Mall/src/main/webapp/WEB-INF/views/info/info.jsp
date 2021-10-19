@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,25 +143,24 @@
 		</ul>
 	</div>
 	<div class="content">
+		<c:forEach var="temp" items="${list}">
 		<div class="content_img">
-			<img alt="" src="resources/images/info/bg_storeInfo_05_M.jpg">
+			<img alt="" src="resources/images/info/${temp.image_url}">
 		</div>
 		<div class="content_map">
-			<div class="title">강남 플래그십 스토어</div>
+			<div class="title">${temp.title}</div>
 			<div class="txt" id="txt1">
-				<img src='resources/images/info/ico_map.png'></img> 02-6494-1100
-				(매장)
+				<img src='resources/images/info/ico_map.png'></img> ${temp.phone_number}
 			</div>
 			<div class="txt" id="txt2">
-				<img src='resources/images/info/ico_phone.png'></img> 매일 10:30 -
-				22:00
+				<img src='resources/images/info/ico_phone.png'></img> ${temp.opening_hours}
 			</div>
 			<div class="txt" id="txt3">
-				<img src='resources/images/info/ico_time.png'></img> 서울 서초구 서초동
-				1305-7 유창빌딩 1~2층
+				<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
 			</div>
 			<div id="map" style="width:600;height:311px; margin-top: 40px;"></div>
 		</div>
+		</c:forEach>
 	</div>
 	
 	<script type="text/javascript">

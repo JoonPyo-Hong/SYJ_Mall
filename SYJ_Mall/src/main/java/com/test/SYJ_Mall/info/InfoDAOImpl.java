@@ -14,7 +14,7 @@ public class InfoDAOImpl implements InfoDAO{
 	@Override
 	public List<InfoDTO> InfoSelect() {
 		// TODO Auto-generated method stub
-		return session.selectList("info.img");
+		return session.selectList("info.InfoSelect");
 	}
 
 }

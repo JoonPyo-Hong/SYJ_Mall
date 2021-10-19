@@ -6,7 +6,8 @@
 
 <mapper namespace="info">
 	
-	<!-- <select id="noticelist"
-		resultType="com.test.SYJ_Mall.board.BoardDTO">
-	</select> -->
+	<select id="InfoSelect"
+		resultType="com.test.SYJ_Mall.info.InfoDTO">
+		select * from dbo.kakao_info with(nolock)
+	</select> 
 </mapper>
