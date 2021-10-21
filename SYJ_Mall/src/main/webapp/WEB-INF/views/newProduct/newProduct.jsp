@@ -102,7 +102,7 @@
 		</div>
 		<a href="#" class="theme-more-view">더 보기</a>
 	</div>
-	<div class="product-new-section new-theme-wrap">
+	<div class="product-new-section new-theme-wrap" id="testest">
 		<!-- 오늘 업데이트 했어요-->
 		<div class="sub-title">오늘 업데이트 했어요</div>
 		<div class="title">새로나온 친구들</div>
@@ -269,12 +269,13 @@
 
 						const scrollHeight = document.getElementById('inner-content').scrollHeight;
 						const scrollTop = document.getElementById('inner-content').scrollTop;
+						const height = $('#inner-content').height();
 						
 						//console.log("scrollHeight : " + scrollHeight);
 						//console.log("scrollTop : " + scrollTop);
-						
-						if (scrollTop > scrollHeight * 0.58 && new_friends_count <= new_friends_total) {
-							
+						//console.log("height : " + height);
+					
+						if ((scrollTop + height >= scrollHeight) && new_friends_count <= new_friends_total) {	
 							$.ajax({
 								type : "GET",
 								url : "/SYJ_Mall/newFriendsProduct.action",
@@ -344,12 +345,8 @@
 									console.log(a, b, c);
 								}
 							});
-							
-							
-
-
 							new_friends_count++;//페이징 카운트 늘리기
-						}
+						} 
 
 					});
 </script>

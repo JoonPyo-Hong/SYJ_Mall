@@ -258,9 +258,9 @@
 			</div>
 		</div>
 		<div id="kakao-content">
-			<div id="inner-content">
+			<div id="inner-content" style="overflow: scroll;">
 				<!-- 마이페이지 컨텐츠 -->
-				<div class="container-wrap product-search-result">
+				<div id="testest" class="container-wrap product-search-result">
 					<!-- 검색 결과 배너 -->
 					<div class="search-banner">
 						<span class="search-text"><b>'${userinputName}'</b> 검색결과</span>
@@ -612,61 +612,26 @@ $(document).ready(
 		const userinputName = "${userinputName}";//유저가 넘긴 검색단어정보
 		
 		//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
-		window.addEventListener(
+		$('#inner-content').on(
 				"scroll",
-				function scrollEvent(){
-					
-					console.log(totalPagingCount);
-					
-					const DEV = deviceCheck();
-					
-					if (checkdDevice == 0) {
-						checkdDevice = 1;
-						
-						if (DEV == 1) {
-							//모바일인 경우
-							$('#kakao-content').css('height','1015px');
-							$('#inner-content').css('height','1015px');
-							
-							height = 842;
-							
-						}
-						else if (DEV == 2) {
-							//pc인 경우
-						
-							$('#kakao-content').css('height','1405px');
-							$('#inner-content').css('height','1405px');
+				function(){
 
-							height = 1230;
-							
-						}
-					} 
+					const scrollHeight = document.getElementById('inner-content').scrollHeight;
+					const scrollTop = document.getElementById('inner-content').scrollTop;
+					const height = $('#inner-content').height();
 					
+					console.log("scrollHeight : " + scrollHeight);
+					console.log("scrollTop : " + scrollTop);
+					console.log("height : " + height);
 					
-					const SCROLLED_HEIGHT = window.scrollY;
-					const WINDOW_HEIGHT = window.innerHeight;
-					const DOC_TOTAL_HEIGHT = document.body.offsetHeight;	
-					
+					if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
 
-					if ((SCROLLED_HEIGHT + WINDOW_HEIGHT >= DOC_TOTAL_HEIGHT * 0.9) && paging < totalPagingCount) {
-						
-						alert("plus");
 						paging++;
-						alert(paging);
-						
-						const INNER = parseInt($('#inner-content').css('height').replace('px','')) + height;
-						const KAKAO_CONTENT = parseInt($('#kakao-content').css('height').replace('px','')) + height;
-						const BODY = parseInt($('body').css('height').replace('px','')) + height;
-						const HTML = parseInt($('html').css('height').replace('px','')) + height;
-						
-						$('#inner-content').css('height',INNER + 'px');
-						$('#kakao-content').css('height',KAKAO_CONTENT + 'px');
-						$('body').css('height',BODY + 'px');
-						$('HTML').css('height',HTML + 'px');
 						
 						$.ajax({
 				        	type:"POST",
 				            url: "/SYJ_Mall/searchresultscroll.action" ,
+				            async : false,
 				            data : {"paging" : paging, "inputWord" : userinputName,"sortedOption" : filter_option},
 				            dataType : "json",
 				            success : function(result) {
@@ -825,8 +790,6 @@ $(document).ready(
             		} else if (result == 2) {
             			$(prodt_this).attr('class','alarm');
             		} else {
-            			//alert("로그인 요망");//이쪽 부분 이쁘게 모달로 처리해야한다.
-            			//location.href = "/SYJ_Mall/login.action";
             			$('#login-product-modal').css('visibility','visible');
             		}
             	},

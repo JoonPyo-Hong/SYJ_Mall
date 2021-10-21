@@ -48,13 +48,12 @@
 			'scroll',
 			function() {
 
-				let scrollHeight = document.getElementById('inner-content').scrollHeight;
+				const scrollHeight = document.getElementById('inner-content').scrollHeight;
 				const scrollTop = document.getElementById('inner-content').scrollTop;
+				const height = $('#inner-content').height();
 				
-				if (paging == 1) scrollHeight = Math.ceil(scrollHeight * 0.18);	
-				else scrollHeight = Math.ceil(scrollHeight * 0.5);
 				
-				if (scrollTop >= scrollHeight && paging < total_count-1 && searchYn == -1) {
+				if ((scrollTop + height >= scrollHeight) && paging < total_count-1 && searchYn == -1) {
 					paging++;
 					
 					$.ajax({
@@ -65,7 +64,7 @@
 			            dataType : "json",
 			            success : function(result) {
 			                    
-			            console.log("================================!==========================");	
+			            
 			            	
 			            $("#popularInnerContent").append
 			            (
