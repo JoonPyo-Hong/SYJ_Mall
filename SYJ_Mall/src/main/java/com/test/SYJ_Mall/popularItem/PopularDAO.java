@@ -47,5 +47,12 @@ public class PopularDAO implements IPoupularDAO{
 		return template.selectOne("popuarItem.itemOutputBasket", map);
 	}
 
+	//인기상품 갯수
+	@Override
+	public int getPopularItemCount() {
+		
+		return template.selectOne("popuarItem.popularProductListCount");
+	}
+
 
 }

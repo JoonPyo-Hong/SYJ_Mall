@@ -19,7 +19,17 @@
 		(#{paging},#{userSeq},#{basketList})
 		}
 	</select>
-
+	
+	<!-- 인기상품 총갯수 -->
+	<select id="popularProductListCount"
+		resultType="Integer"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_popular_product_count
+		}
+	</select>
+	
+	
 
 	<!-- 회원이 선택한 아이템 장바구니에 넣어주기 -->
 	<select id="itemInputBasket" resultType="Integer"

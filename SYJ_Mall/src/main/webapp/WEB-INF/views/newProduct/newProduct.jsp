@@ -279,6 +279,7 @@
 								type : "GET",
 								url : "/SYJ_Mall/newFriendsProduct.action",
 								data : "newFriendsPaging=" + new_friends_count,
+								async : false,
 								dataType : "json",
 								success : function(result) {
 									let selectCount = result.length;

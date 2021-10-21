@@ -34,6 +34,13 @@ public interface IPoupularDAO {
 	int outputItemBasket(int userSeq, int productId);
 
 
+	/**
+	 * 인기상품 갯수
+	 * @return 인기상품 갯수
+	 */
+	int getPopularItemCount();
+
+
 
 
 	

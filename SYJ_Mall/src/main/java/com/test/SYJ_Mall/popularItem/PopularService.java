@@ -24,9 +24,11 @@ public class PopularService implements IPopularService{
 	public int getPopularProductList(HttpServletRequest request, int paging, int userSeq, String basketList) {
 		try {
 			
+			int popularDtoListCount = (int)Math.ceil(dao.getPopularItemCount() / 18.0);
 			List<PopularItemDTO> popularDtoList = dao.getPopularItem(paging,userSeq,basketList);
 			request.setAttribute("popularDtoList", popularDtoList);
 			request.setAttribute("seleted", "popular");//상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
+			request.setAttribute("popularDtoListCount", popularDtoListCount);
 			
 			return 1;
 		} catch(Exception e) {
@@ -83,9 +85,6 @@ public class PopularService implements IPopularService{
 			
 		} else {
 		//쿠키내에 장바구니 내역이 있는경우	
-			
-			//System.out.println("쿠키내에 basketList가 있음");
-			//System.out.println("basketList : " + basketList);
 			
 			if (basketList.length() != 0) {
 				basketList = basketList.substring(0,basketList.length()-1);
