@@ -49,6 +49,7 @@ public class SearchDAO implements ISearchDAO {
 		return template.selectOne("SYJSearch.searchProdCount",map);
 	}
 	
+	//검색조건에 맞는 상품정보를 가져와준다 -> 로그인 되어 있는 경우
 	@Override
 	public List<SearchProductDTO> getSearchResultProdsLogon(int userSeq, String inputName, String productSeq,int pagingCount,String sortedOption) {
 		
