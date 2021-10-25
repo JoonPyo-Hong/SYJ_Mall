@@ -109,6 +109,15 @@
 	height: 27px;
 	margin-right: 5px;
 }
+#adress_detail{
+	color: rgb(74, 144, 226);
+	text-decoration: underline;
+	margin-bottom: 40px;
+    margin-left: 40px;
+}
+#adress_detail a:active, a:hover {
+	text-decoration: none;
+}
 </style>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=870121f6abb2197a2dd62290574add55"></script>
@@ -161,7 +170,10 @@
 				<div class="txt" id="txt3">
 					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
 				</div>
-				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 40px;"></div>
+				<c:if test="${ !empty temp.adress_detail }">
+					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
+				</c:if>
+				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
 			</div>
 			<%-- <c:out value="${stat.count}"></c:out> --%>
 			<c:set var="count" value="${stat.count}" />
