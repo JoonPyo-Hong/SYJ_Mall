@@ -139,6 +139,7 @@
 	
 	//취소버튼
 	$('.search-close').click(function() {
+		//alert('${lastPages}');
 		location.href = "${lastPage}";
 	});
 

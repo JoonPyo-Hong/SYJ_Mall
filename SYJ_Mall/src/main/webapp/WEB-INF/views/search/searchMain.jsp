@@ -437,106 +437,12 @@ function deviceCheck() {
 $(document).ready(
 		function() {
 
-			/*----------------------- 검색관련 -------------------------------*/
+			
+			/* 검색관련 */
 			$('.search').click(function() {
-				searchYn *= -1;
-				const devcheck = deviceCheck();
-				
-				//검색창이 떠야하는 경우
-				if (searchYn == 1) {
-					$(document.body).css('overflow','hidden');
-					$('#search-wrap').css('z-index', 9999);
-					$('#search-wrap').css('display', 'flex');
-					$('#kakao-content').css('display', 'none');
-
-					$('body').css('height', '580px');
-					$('html').css('height', '580px');
-
-					if (deviceCheck() == 1) {
-						$('.search-input').css('width', '300px');
-					}
-
-				} else {
-					$('#search-wrap').css('z-index', -10);
-					$('#search-wrap').css('display', 'none');
-					$('#kakao-content').css('display', 'block');
-				}
+				location.href = "/SYJ_Mall/searchStart.action";
 			});
 
-			//검색창 쓸때 이벤트
-			$('.search-input').keyup(function(e){
-				
-				//검색글자 길이
-				const SEARCHLEN = $('.search-input').val().length;
-				const SEARCHVAL = $('.search-input').val();
-				
-				//검색글자가 있으면 .search-bottom 을 숨김
-				if (SEARCHLEN == 0) {
-					searchVisible(0);
-				} else {
-					searchVisible(1);
-					//검색엔진 불러오기
-					$.ajax({
-						type : "GET",
-						url : "/SYJ_Mall/searchword.action",
-						data : "inputWord=" + SEARCHVAL,
-						dataType : "json",
-						success : function(result) {
-							//기존에 존재하는 li 태그 모두 지워줌
-							$('.search-content-context').remove();
-							
-							//여기서 품목 불러오는 처리 수행해야함
-							let prodLen = result.length;
-							
-							if (prodLen != 0 ) {
-								for (let i = 0; i < prodLen; i++) {
-									//키워드가 들어가는 품목 보여주기
-									$('#search-content-prod').append(
-											'<li class="search-content-context"><a href="/SYJ_Mall/searchresult.action?inputName=' + result[i].inputName+'&productSeq='+result[i].productSeq +'">'
-											+ result[i].searchName + '</a></li>'
-									)
-								}
-							}
-						},
-						error : function(a, b, c) {
-							console.log(a, b, c);
-						}
-					});
-				}
-
-			});
-			
-			//엔터키 눌러준 경우에
-			$('.search-input').keydown(function(e) {
-				if (e.keyCode == 13) $('.search-input').submit();
-			});
-			
-			
-			
-			//취소버튼
-			$('.search-close').click(function() {
-				$('.search-input').val('');
-				searchVisible(0);
-				searchYn = -1;
-				$('#search-wrap').css('z-index', -10);
-				$('#search-wrap').css('display', 'none');
-				$('#kakao-content').css('display', 'block');
-			});
-
-			//검색결과에 따라 내용 숨길지 정해주는 함수
-			function searchVisible(searchFlag) {
-				if (searchFlag == 0) {
-					$('.character-wrap').css('display', 'flex');
-					$('.category-wrap').css('visibility', 'visible');
-					$('.search-result').css('display', 'none');
-				} else {
-					$('.character-wrap').css('display', 'none');
-					$('.category-wrap').css('visibility', 'hidden');
-					$('.search-result').css('display', 'flex');
-				}
-			}
-		
-			
 			/* 뒤로가기 관련 */
 			$('.back-button').click(function(){
 				location.href = "/SYJ_Mall/searchback.action";	
@@ -597,7 +503,7 @@ $(document).ready(
 												+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
 												+	'<div class="name">'
 												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-												+		'<span class="'+result[i].alarmYn+'"></span>'
+												+		'<span class="' + result[i].alarmYn + '"></span>'
 												+	'</div>'
 												+	'<div class="price">' + result[i].prodPrice + '원</div>'
 												+'</li>'

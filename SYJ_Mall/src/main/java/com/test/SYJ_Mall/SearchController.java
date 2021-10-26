@@ -28,19 +28,12 @@ public class SearchController {
 	@Autowired
 	private ISearchService service;
 
-	// 검색어 치면 해당하는 상품 보내주기 -> ajax 처리
+	// 검색어 누르는순간 처리 -> 검색어 치면 해당하는 상품 보내주기 -> ajax 처리
 	@RequestMapping(value = "/searchStart.action", method = { RequestMethod.GET })
 	public String searchStart(HttpServletRequest request, HttpServletResponse response) {
 
-		String lastPage = (String) service.instanceCookie(request, response, "lastPage");
-
-		if (lastPage == null) {
-			request.setAttribute("lastPage", "/SYJ_Mall/main.action");
-		} else {
-			// 마지막 페이지로 이동
-			request.setAttribute("lastPage", "/SYJ_Mall/" + lastPage + ".action");
-		}
-
+		int lastPageIndex = service.lastPageIndexing(request,response);
+		
 		return "/search/searchStart";
 	}
 
@@ -50,12 +43,12 @@ public class SearchController {
 	public List<SearchNameDTO> searchword(HttpServletRequest request, HttpServletResponse response) {
 
 		String inputWord = request.getParameter("inputWord");// 넘겨준 단어
-
+		
 		// 넘겨줄 단어를 가지고 해당단어를 포함하는 품목을 가져온다.
 		try {
-
+			
 			List<SearchNameDTO> searchProdList = service.getProdLittelInfo(inputWord);
-
+			
 			return searchProdList;
 		} catch (Exception e) {
 			e.printStackTrace();

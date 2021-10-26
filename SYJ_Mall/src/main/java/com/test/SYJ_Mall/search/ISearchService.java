@@ -76,6 +76,14 @@ public interface ISearchService {
 	 */
 	int searchProdtAlarm(HttpServletRequest request);
 	
+	/**
+	 * 마지막 페이지 관련 인덱싱 작업
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int lastPageIndexing(HttpServletRequest request,HttpServletResponse response);
+	
 	
 
 

@@ -34,7 +34,7 @@ public class NewproductService implements INewProductService {
 
 			// 상단에 표시될 페이지
 			request.setAttribute("seleted", "new");// 상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
-
+			
 			// 마지막 페이지 정보 쿠키에 넘기는 작업
 			KakaoCookie ck = new KakaoCookie();
 			ck.generateCookie(response, "lastPage", "newProductMain");// 마지막페이지
