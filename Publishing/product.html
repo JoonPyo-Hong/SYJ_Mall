@@ -24,86 +24,16 @@
         <div id="kakao-head">
             <div id="inner-head">
                 <div class="left-btn">
-                    <!-- <button class="hamburger-menu"></button> -->
-                    <!-- hamburger-menu -->
-                    <input class="burger-check" type="checkbox" id="burger-check" />
-                    <label class="burger-icon" for="burger-check">
-                        <span class="burger-sticks"></span>
-                    </label>
-                    <!-- hamburger-menu open -->
-                    <div class="navigation">
-                        <div class="navigation-inner">
-                            <div class="user-info"><U>로그인</U>이 필요해요!
-                                <span>비회원 주문조회</span>
-                            </div>
-                            <div class="banner"></div>
-                            <div class="navigation-menu">
-                                <ul class="navigation-menu-ul">
-                                    <li class="navigation-menu-li">장바구니 내역</li>
-                                    <li class="navigation-menu-li">주문·배송 내역</li>
-                                    <hr>
-                                    <li class="navigation-menu-li character-accordion-button">캐릭터<div class="drop-down">
-                                        </div>
-                                    </li>
-                                    <div class="li-sub-menu character-menu">
-                                        <ul class="character-menu-ul">
-                                            <li class="character li-Ryan">라이언</li>
-                                            <li class="character li-Apeach">어피치</li>
-                                            <li class="character li-Muzi">무지</li>
-                                            <li class="character li-Frodo">프로도</li>
-                                            <li class="character li-Neo">네오</li>
-                                            <li class="character li-Tube">튜브</li>
-                                            <li class="character li-Jay">제이지</li>
-                                            <li class="character li-Con">콘</li>
-                                            <li class="character li-Choonsic">춘식</li>
-                                            <li class="character li-Jordy">죠르디</li>
-                                            <li class="character li-Scappy">스카피</li>
-                                            <li class="character li-Angmond">앙몬드</li>
-                                            <li class="character li-PendaJr">팬다주니어</li>
-                                            <li class="character li-Kereberony">케로&베로니</li>
-                                            <li class="character li-Kumdori">꿈돌이</li>
-                                        </ul>
-                                    </div>
-                                    <li class="navigation-menu-li category-accordion-button">카테고리<div class="drop-down">
-                                        </div>
-                                    </li>
-                                    <div class="li-sub-menu category-menu">
-                                        <ul class="category-menu-ul">
-                                            <li class="category">전체</li>
-                                            <li class="category">테마 기획전</li>
-                                            <li class="category">토이</li>
-                                            <li class="category">리빙</li>
-                                            <li class="category">잡화</li>
-                                            <li class="category">문구</li>
-                                            <li class="category">의류</li>
-                                            <li class="category">파자마</li>
-                                            <li class="category">여행/레져</li>
-                                            <li class="category">생활테크</li>
-                                            <li class="category">폰 액세서리</li>
-                                            <li class="category">식품</li>
-                                        </ul>
-                                    </div>
-                                    <hr>
-                                    <li class="navigation-menu-li">공지사항</li>
-                                    <li class="navigation-menu-li">고객센터</li>
-                                    <hr>
-                                    <li class="navigation-menu-li">기프트카드 조회·환불</li>
-                                    <hr>
-                                    <li class="navigation-menu-li">브랜드 스토리</li>
-                                    <li class="navigation-menu-li">매장안내</li>
-                                    <hr>
-                                </ul>
-                            </div>
-                            <div class="login-or-out">로그인</div>
-                        </div>
-
-                    </div>
+                    <button class="back-button"></button>
+                    <button class="home-button"></button>
                 </div>
-                <div class="title"><button class="title-logo"></button></div>
+                <div class="title">제품 상세</div>
                 <div class="right-btn">
                     <button class="search"></button>
                     <button class="language"></button>
                 </div>
+            </div>
+            <div id="inner-tab">
             </div>
         </div>
         <div id="kakao-content">
@@ -191,14 +121,113 @@
                     </div>
                     <!-- 상품 아래 하단 버튼 -->
                     <div class="detail-etc">
-                        <button>
+                        <button class="detail-btn">
                             <div>세부정보</div>
                             <div class="drop-down-icon"></div>
                         </button>
-                        <button>
-                            <div>배송·반품<span class="sub-title">국내배송만 가능한 상품입니다 </span></div>
+                        <div class="detail-contents">
+                            <ul>
+                                <li>품명 및 모델명 : 라이언과 춘식이의 만년달력 8809814921707
+                                </li>
+                                <li>법에 의한 인증, 허가 등을 받았음을 확인할 수 있는 경우 그에 대한 사항 : 해당없음
+                                </li>
+                                <li>제조국 또는 원산지 : 중국
+                                </li>
+                                <li>제조자, 수입품의 경우 수입자를 함께 표기 : ㈜클로스업
+                                </li>
+                                <li>품질보증 기준 : 본 제품은 공정거래위원회 고시 소비자 분쟁해결기준에 의거 교환 및 보상을 받으실 수 있습니다.
+                                </li>
+                                <li>A/S 책임자와 전화번호 또는 소비자상담 관련 전화번호 : 카카오프렌즈 고객센터 1577-6263
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="delivery-btn">
+                            <div>배송·반품<span class="sub-title">국내배송만 가능한 상품입니다</span></div>
                             <div class="drop-down-icon"></div>
                         </button>
+
+                        <div class="delivery-detail-wrap">
+                            <div class="delivery-tab">
+                                <div class="delivery-tab-btn active" data-tab="tab-1">국내 배송</div>
+                                <div class="delivery-tab-btn" data-tab="tab-2">글로벌 배송</div>
+                            </div>
+                            <div id="tab-1" class="delivery-contents active">
+                                <span>배송</span>
+                                <ul>
+                                    <li>배송사 : CJ대한통운</li>
+                                    <li>배송비 : 국내 3,000원 (3만 원 이상 구매 시 무료배송)</li>
+                                    <li>오후 3시 이전 결제 완료 주문건은 당일 출고, 오후 3시 이후 주문 건은 익일 출고됩니다.</li>
+                                    <li>출고 이후 영업일 기준 평균 3일 이내 제품을 수령하실 수 있습니다.</li>
+                                    <li>단, 제품의 재고 상황, 배송량, 배송 지역에 따라 배송기일이 추가로 소요될 수 있는 점 양해 부탁드립니다</li>
+                                    <li>주문취소 및 배송지 변경은 “주문접수” 단계에서만 가능합니다. 마이페이지에서 취소·변경하실 수 있습니다.</li>
+                                </ul>
+                                <span>취소·교환·반품</span>
+                                <ul>
+                                    <li>주문취소 및 배송지 변경은 “주문접수” 단계에서만 가능합니다. 마이페이지에서 취소·변경하실 수 있습니다.</li>
+                                    <li>교환·반품은 배송완료 후 7일 이내만 가능합니다. 단, 재화 등의 내용이 표시, 광고 내용과 다르거나 계약내용을 다르게 이행한 경우에는 재화
+                                        등을
+                                        공급받은 날로부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날로부터 30일 이내에 교환·반품이 가능합니다.</li>
+                                    <li>상품의 불량·하자 및 표시광고 및 계약 내용이 다른 경우 해당 상품의 회수 비용은 무료이나, 고객님의 단순변심에 의한 교환·반품일 경우에는
+                                        교환·반품
+                                        배송비를 고객님께서 직접 부담하셔야 합니다.</li>
+                                    <li>상품 불량·하자의 경우, 상품 불량을 증명할 수 있는 사진과 함께 마이페이지 1:1 문의로 접수해주시면 확인 뒤 교환·반품이 진행됩니다.
+                                    </li>
+                                    <li>여러 상품을 함께 주문 시 2개 이상의 택배 박스로 분할 출고 될 수 있으며, 단순변심에 의한 교환/반품 시 배송비는 송장 별로 발생됩니다.
+                                    </li>
+                                    <li>미성년자가 구매하는 경우, 법정대리인이 동의하지 않으면 미성년자 또는 법정대리인이 구매를 취소할 수 있습니다.</li>
+                                </ul>
+                                <span>교환·반품이 불가한 경우</span>
+                                <ul>
+                                    <li>이용자에게 책임 있는 사유로 재화 등이 멸실 또는 훼손된 경우
+                                    </li>
+                                    <li>포장이 훼손되어 상품가치가 상실된 경우 (예: 택과 라벨이 훼손된 경우 등)
+                                    </li>
+                                    <li>이용자의 사용 또는 일부 소비에 의해 재화 등의 가치가 현저히 감소한 경우
+                                    </li>
+                                    <li>복제가 가능한 재화 등의 포장을 훼손한 경우
+                                    </li>
+                                    <li>시간 경과에 의해 재판매가 곤란할 정도로 상품의 가치가 현저히 감소한 경우
+                                    </li>
+                                    <li>고객의 주문에 따라 개별 생산되는 상품의 경우
+                                    </li>
+                                </ul>
+                                <span>환불</span>
+                                <ul>
+                                    <li>주문취소 및 반품 시 환불은 주문 시 이용하신 결제수단으로 2~7 영업일 이내 환불됩니다.</li>
+                                </ul>
+                                <span>기타 문의</span>
+                                <ul>
+                                    <li>기타 교환 및 반품에 대한 문의는 1:1 문의하기 또는 1577-6263으로 문의해주세요.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="tab-2" class=" delivery-contents">
+                                <span>배송</span>
+                                <ul>
+                                    <li>배송사 : EMS</li>
+                                    <li>배송비 : EMS 요금 적용 (국가별 배송비는 글로벌 배송 안내페이지를 참고해주세요)</li>
+                                    <li>배송기간 : 주문일로부터 1~3일 이내 출고</li>
+                                    <li> 단, 상품의 재고상황, 배송량에 따라 배송기일이 추가 소요될 수 있는 점 양해 부탁드립니다..</li>
+                                    <li>단, 제품의 재고 상황, 배송량, 배송 지역에 따라 배송기일이 추가로 소요될 수 있는 점 양해 부탁드립니다</li>
+                                    <li>주문취소 및 배송지 변경은 “주문접수” 단계에서만 가능합니다. 마이페이지에서 취소·변경하실 수 있습니다.</li>
+                                </ul>
+                                <span>취소·교환·반품</span>
+                                <ul>
+                                    <li>주문취소 및 배송지 변경은 “주문접수” 단계에서만 가능합니다. 마이페이지에서 취소·변경하실 수 있습니다.</li>
+                                    <li>글로벌 배송 구매 시, 단순 변심에 의한 교환 및 반품이 불가합니다.</li>
+                                </ul>
+                                <span>통관·관세</span>
+                                <ul>
+                                    <li>국가 세관 규정에 따르면, 배송 과정에서 나라별로 관세가 발생할 수 있으며 관세는 고객 부담입니다. 상세 문의사항은 가까운 우체국이나 세관 또는
+                                        거주하시는 국가의 우체국에 문의바랍니다.</li>
+                                    <li>배송 국가별 금지· 제한 품목을 주문 전 확인 바랍니다.</li>
+                                </ul>
+                                <span>기타 문의</span>
+                                <ul>
+                                    <li>기타 문의사항은 1:1 문의하기 또는 global@kakaofriends.com 으로 문의해주세요.</li>
+                                </ul>
+                            </div>
+                        </div>
                         <button>
                             <div>실시간 문의</div>
                             <div class="inquiry">상담하기</div>
@@ -349,9 +378,58 @@
             </div>
         </div>
     </div>
-
-
     </div>
+    <script>
+        $(document).ready(function () {
+
+            $('.delivery-tab .delivery-tab-btn').click(function () {
+                var tab_id = $(this).attr('data-tab');
+
+                $('.delivery-tab .delivery-tab-btn').removeClass('active');
+                $('.delivery-contents').removeClass('active');
+
+                $(this).addClass('active');
+                $("#" + tab_id).addClass('active');
+            })
+
+            $('.detail-etc .detail-btn').click(function () {
+                // 세부 정보
+                if ($('.detail-etc  .detail-contents').css('display') == 'block') {
+                    $('.detail-etc .detail-btn').removeClass('active');
+                    $('.detail-etc  .detail-contents').css('display', 'none');
+                } else {
+                    $('.detail-etc .detail-btn').addClass('active');
+                    $('.detail-etc  .detail-contents').css('display', 'block');
+                }
+            })
+
+            $('.detail-etc .delivery-btn').click(function () {
+                // 배송 반품 버튼
+                if ($('.detail-etc  .delivery-detail-wrap').css('display') == 'block') {
+                    $('.detail-etc .delivery-btn').removeClass('active');
+                    $('.detail-etc  .delivery-detail-wrap').css('display', 'none');
+                } else {
+                    $('.detail-etc .delivery-btn').addClass('active');
+                    $('.detail-etc  .delivery-detail-wrap').css('display', 'block');
+                }
+            })
+
+
+            // function dp_menu() {
+            //     let click = document.getElementById("drop-content");
+            //     if (click.style.display === "none") {
+            //         click.style.display = "block";
+
+            //     } else {
+            //         click.style.display = "none";
+
+            //     }
+            // }
+
+
+
+        })
+    </script>
 </body>
 
 </html>

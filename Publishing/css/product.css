@@ -123,6 +123,10 @@
   background-size: cover;
 }
 
+.detail-etc button.active .drop-down-icon {
+  transform: rotate(180deg);
+}
+
 .detail-etc button .inquiry {
   font-size: 15px;
   font-weight: 400;
@@ -145,6 +149,104 @@ hr.division {
   border: none;
   border-top: 1px solid rgb(227, 229, 232);
   background-color: rgb(247, 247, 247);
+}
+
+/* 세부정보 탭 */
+.detail-etc .detail-contents {
+  display: none;
+  font-size: 15px;
+  padding: 0px 20px 50px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: rgb(51, 51, 51);
+  position: relative;
+}
+
+.detail-etc .detail-contents ul li {
+  position: relative;
+  padding-left: 8px;
+}
+
+.detail-etc .detail-contents ul li::before {
+  position: absolute;
+  left: 0px;
+  content: "";
+  width: 2.5px;
+  height: 2.5px;
+  background-color: rgb(51, 51, 51);
+  border-radius: 50%;
+  top: 10px;
+}
+
+/* 배송 반품 탭 */
+.detail-etc .delivery-detail-wrap {
+  display: none;
+}
+
+.detail-etc .delivery-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 0px;
+  margin-top: 40px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.detail-etc .delivery-tab .delivery-tab-btn {
+  flex: 1 1 0%;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
+  height: 30px;
+  margin: 0 20px;
+  color: rgb(154, 154, 154);
+  border-bottom: 1px solid rgb(227, 229, 232);
+}
+
+.detail-etc .delivery-tab .delivery-tab-btn.active {
+  color: rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(60, 64, 75);
+}
+
+.detail-etc .delivery-contents {
+  display: none;
+  font-size: 15px;
+  padding: 0px 20px 50px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: rgb(51, 51, 51);
+  position: relative;
+}
+
+.detail-etc .delivery-contents.active {
+  display: block;
+}
+
+.detail-etc .delivery-contents ul li {
+  position: relative;
+  padding-left: 8px;
+}
+
+.detail-etc .delivery-contents span {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.detail-etc .delivery-contents ul li::before {
+  position: absolute;
+  left: 0px;
+  content: "";
+  width: 2.5px;
+  height: 2.5px;
+  background-color: rgb(51, 51, 51);
+  border-radius: 50%;
+  top: 10px;
 }
 
 /* 리뷰 */
