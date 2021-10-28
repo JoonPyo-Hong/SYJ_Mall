@@ -9,5 +9,21 @@
 	<select id="InfoSelect"
 		resultType="com.test.SYJ_Mall.info.InfoDTO">
 		select * from dbo.kakao_info with(nolock)
+	</select>
+	<select id="InfoSelect_en"
+		resultType="com.test.SYJ_Mall.info.InfoDTO">
+		select * from dbo.kakao_info_en with(nolock)
 	</select> 
+	<select id="InfoSelect_jp"
+		resultType="com.test.SYJ_Mall.info.InfoDTO">
+		select * from dbo.kakao_info_jp with(nolock)
+	</select> 
+	<select id="InfoSelect_cn"
+		resultType="com.test.SYJ_Mall.info.InfoDTO">
+		select * from dbo.kakao_info_cn with(nolock)
+	</select> 
+	<select id="InfoSelect_cn2"
+		resultType="com.test.SYJ_Mall.info.InfoDTO">
+		select * from dbo.kakao_info_cn2 with(nolock)
+	</select>  
 </mapper>

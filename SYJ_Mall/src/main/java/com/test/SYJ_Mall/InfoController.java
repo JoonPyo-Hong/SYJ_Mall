@@ -33,7 +33,16 @@ public class InfoController {
 	public String info(Model model, HttpServletRequest request, @RequestParam Map<String, Object> map) {
 		
 		List<InfoDTO> list = service.InfoSelect();
+		List<InfoDTO> list2 = service.InfoSelect_en();
+		List<InfoDTO> list3 = service.InfoSelect_jp();
+		List<InfoDTO> list4 = service.InfoSelect_cn();
+		List<InfoDTO> list5 = service.InfoSelect_cn2();
+		
 		model.addAttribute("list", list);
+		model.addAttribute("list2", list2);
+		model.addAttribute("list3", list3);
+		model.addAttribute("list4", list4);
+		model.addAttribute("list5", list5);
 		return "/tiles/infoStart.topping";
 	}
 

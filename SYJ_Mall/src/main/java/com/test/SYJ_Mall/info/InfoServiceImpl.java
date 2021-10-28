@@ -16,5 +16,25 @@ public class InfoServiceImpl  implements InfoService{
 		// TODO Auto-generated method stub
 		return dao.InfoSelect();
 	}
+	@Override
+	public List<InfoDTO> InfoSelect_en() {
+		// TODO Auto-generated method stub
+		return dao.InfoSelect_en();
+	}
+	@Override
+	public List<InfoDTO> InfoSelect_jp() {
+		// TODO Auto-generated method stub
+		return dao.InfoSelect_jp();
+	}
+	@Override
+	public List<InfoDTO> InfoSelect_cn() {
+		// TODO Auto-generated method stub
+		return dao.InfoSelect_cn();
+	}
+	@Override
+	public List<InfoDTO> InfoSelect_cn2() {
+		// TODO Auto-generated method stub
+		return dao.InfoSelect_cn2();
+	}
 
 }

@@ -17,4 +17,28 @@ public class InfoDAOImpl implements InfoDAO{
 		return session.selectList("info.InfoSelect");
 	}
 
+	@Override
+	public List<InfoDTO> InfoSelect_en() {
+		// TODO Auto-generated method stub
+		return session.selectList("info.InfoSelect_en");
+	}
+
+	@Override
+	public List<InfoDTO> InfoSelect_jp() {
+		// TODO Auto-generated method stub
+		return session.selectList("info.InfoSelect_jp");
+	}
+
+	@Override
+	public List<InfoDTO> InfoSelect_cn() {
+		// TODO Auto-generated method stub
+		return session.selectList("info.InfoSelect_cn");
+	}
+
+	@Override
+	public List<InfoDTO> InfoSelect_cn2() {
+		// TODO Auto-generated method stub
+		return session.selectList("info.InfoSelect_cn2");
+	}
+
 }
