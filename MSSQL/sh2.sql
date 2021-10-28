@@ -2635,4 +2635,29 @@ end
 
 
 
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-10-28
+	Description : 쿠키에 들어있는 상품 회원의 db로 업데이트
+	     
+	History	: 2021-10-28 Seunghwan Shin	#최초 생성
+	Real DB : exec dbo.kakao_char_product_img_url 1
+			  
+*/
+CREATE proc dbo.kakao_char_product_img_url
+	@char_seq	bigint			-- 캐릭터 번호
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+	
+	select 
+		char_head_img as charImg 
+	from dbo.KAKAO_CHARACTER with(nolock)
+	where char_seq = @char_seq
+
+		
+end
+
+
 
