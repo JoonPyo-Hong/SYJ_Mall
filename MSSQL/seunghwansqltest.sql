@@ -1,4 +1,7 @@
 
+sp_help
+sp_helptext
+
 DROP TABLE dbo.KAKAO_PRODUCT_TABLE
 
 /* KAKAO_PRODUCT_TABLE - 상품정보 */
