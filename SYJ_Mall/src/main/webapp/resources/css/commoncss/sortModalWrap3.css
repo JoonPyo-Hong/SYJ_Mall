@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+/* 모달 작업 */
+.overlay-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all ease-in 0.3s;	
+}
+
+/* 정렬 모달창 */
+.sort-modal-wrap {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  bottom: -200px;
+  width: 400px;
+  transition: all ease-in 0.3s;
+}
+
+.sort-modal-wrap .sort-list {
+  max-width: 400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0px 17px;
+}
+
+.sort-modal-wrap .sort-list:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+.sort-modal-wrap .sort-list:hover .sort-text {
+  color: rgb(0, 0, 0);
+}
+
+.sort-modal-wrap .sort-list .sort-text {
+  font-size: 16px;
+  color: rgb(154, 154, 158);
+}
+
+.sort-modal-wrap .sort-list img {
+  width: 20px;
+  height: 22px;
+  margin-bottom: 2px;
+}
+
+
+
+/* 캐릭터 모달창 */
+.character-modal-wrap {
+  position: absolute;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  padding: 25px 12px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  bottom: -400px;
+  transition: all ease-in 0.5s;
+}
+
+.character-modal-wrap .character-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.character-modal-wrap .character-list .character-image {
+  width: 60px;
+  height: 60px;
+  background-size: 60px 60px;
+  background-repeat: no-repeat;
+}
+
+.character-modal-wrap .character-list .character-text {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.character-modal-wrap .character-list.all .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/category_group_on.png);
+}
+
+.character-modal-wrap .character-list.ryan .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Ryan_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.apeach .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Apeach_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.muzi .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Muzi_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.frodo .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Frodo_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.neo .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Neo_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.tube .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Tube_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.jay .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Jay-Z_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.con .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Con_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.choonsic .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Choonsic_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.jordy .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Jordy_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.scappy .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Scappy_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.angmond .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Angmond_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.pendaJr .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/PendaJr_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.kereberony .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Kereberony_71_color_210303.png);
+}
+
+.character-modal-wrap .character-list.kumdori .character-image {
+  background-image: url(/SYJ_Mall/resources/images/product_search_result/Kumdori_71_color_210303.png);
+}
+
+
+

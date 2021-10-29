@@ -1,0 +1,240 @@
+@charset "UTF-8";
+
+/* 검색결과 없을 시 */
+.search-list-nodata {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 100px 0px;
+}
+
+.standing-ryan {
+  width: 184px;
+  height: 184px;
+  background: url(/SYJ_Mall/resources/images/product_search_result/img_empty_ryan.png) center
+    no-repeat;
+  background-size: contain;
+}
+
+.empty-message {
+  font-size: 20px;
+  line-height: 30px;
+  margin-bottom: 5px;
+  letter-spacing: -0.25px;
+  color: #000000;
+}
+
+.empty-sub-message {
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.25px;
+  color: rgb(154, 154, 158);
+  text-align: center;
+}
+
+.product-search-result {
+  border-top: 1px solid rgb(227, 229, 232);
+}
+
+.search-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-banner .search-text {
+  font-size: 24px;
+  line-height: 30px;
+  padding: 20px 30px;
+}
+
+hr.division {
+  height: 10px;
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgb(227, 229, 232);
+  background-color: rgb(247, 247, 247);
+  margin: 0 !important;
+}
+
+.search-header {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.search-header .sort-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.search-header .sort {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgb(242, 242, 242);
+}
+
+.search-header .sort-divider {
+  width: 1px;
+  height: 20px;
+  background-color: rgb(227, 229, 232);
+}
+
+.search-header .sort .sort-title {
+  font-size: 16px;
+  color: rgb(17, 17, 17);
+  margin-right: 2px;
+  padding: 0px 20px;
+}
+
+.search-header .sort .sort-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.search-header .detail {
+  /* width: 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 30px;
+}
+
+.search-header .detail .all-count {
+  font-size: 16px;
+}
+
+.search-header .detail .check-global {
+  display: flex;
+  font-size: 16px;
+}
+
+.search-header .detail .check-global img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+/* 해당 검색 상품 영역 */
+.search-product-wrap {
+  padding: 0px 20px;
+}
+
+.search-product-wrap ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.search-product-wrap .item-li {
+  max-width: 160px;
+  min-height: 280px;
+  max-height: 280px;
+}
+
+.search-product-wrap .item-li .thumbnail {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 20px;
+  margin-bottom: 12px;
+}
+
+.search-product-wrap .item-li .thumbnail::after {
+  position: absolute;
+  inset: 0px;
+  background: rgba(0, 0, 0, 0.02);
+  content: "";
+  width: 100%;
+  z-index: 0;
+  padding-top: 100%;
+}
+
+.search-product-wrap .item-li .thumbnail .soldout-label {
+  width: 61px;
+  height: 22px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/tag-soldout.png);
+  background-size: contain;
+}
+
+.search-product-wrap .item-li:hover {
+	cursor : pointer;
+}
+
+.search-product-wrap .item-li .name {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #777777;
+  font-weight: 400;
+  margin: 15px 0 5px;
+}
+
+.search-product-wrap .item-li .name .nametext {
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.search-product-wrap .item-li .name .cart {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/Small_30_off.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.search-product-wrap .item-li .name .incart {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/Small_30_on.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.search-product-wrap .item-li .name .alarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/ico-notification-empty-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.search-product-wrap .item-li .name .inalarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product_category/ico-notification-solid-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.search-product-wrap .item-li .price {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+

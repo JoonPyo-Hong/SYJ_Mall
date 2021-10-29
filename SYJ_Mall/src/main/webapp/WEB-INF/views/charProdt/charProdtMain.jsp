@@ -17,9 +17,10 @@
 <link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
 <link rel="stylesheet"
 	href="resources/css/charProdt/product_category_character3.css">
+<link rel="stylesheet" href="resources/css/commoncss/sortModalWrap3.css">
 </head>
 <body>
-	
+
 	<!-- 로그인 모달창 -->
 	<div class="overlay-wrap" id="login-product-modal"
 		style="visibility: hidden;">
@@ -43,8 +44,40 @@
 			</div>
 		</div>
 	</div>
-	
-	<!-- 로그인 모달 필요 -->
+	<!-- 정렬 모달창 -->
+	<div class="overlay-wrap" id="sort-modal" style="visibility: hidden;">
+		<div class="sort-modal-wrap">
+			<div class="sort-list" id="buy-sort">
+				<div class="sort-text">판매량순</div>
+				<c:if test="${sortedOption eq 1}">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
+			</div>
+			<div class="sort-list" id="new-sort">
+				<div class="sort-text">신상품순</div>
+				<c:if test="${sortedOption eq 2}">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
+			</div>
+			<div class="sort-list" id="low-price-sort">
+				<div class="sort-text">낮은 가격순</div>
+				<c:if test="${sortedOption eq 3}">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
+			</div>
+			<div class="sort-list" id="high-price-sort">
+				<div class="sort-text">높은가격순</div>
+				<c:if test="${sortedOption eq 4}">
+					<img
+						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+				</c:if>
+			</div>
+		</div>
+	</div>
+
 	<div id="kakao-wrap">
 		<div id="kakao-head">
 			<div id="inner-head">
@@ -58,39 +91,59 @@
 					<button class="language"></button>
 				</div>
 			</div>
-			<div id="inner-tab">
-			</div>
+			<div id="inner-tab"></div>
 		</div>
 		<div id="kakao-content">
-			<div class="container-wrap product-category-character" style="margin: 0px auto;">
-				<div class="category-banner" style=" background: url(/SYJ_Mall/${charPicUrl}) right 0px /
+			<div class="container-wrap product-category-character"
+				style="margin: 0px auto;">
+				<div class="category-banner"
+					style=" background: url(/SYJ_Mall/${charHeadPicUrl}) right 0px /
     cover no-repeat;">
-					<span class="category-title">라이언</span> <img class="select-icon"
+					<span class="category-title">${charHeadName}</span> <img
+						class="select-icon"
 						src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png"
-						alt="foldWhite" /> <select>
-						<option>전체</option>
-						<option>라이언</option>
-						<option>어피치</option>
-						<option>무지</option>
-						<option>프로도</option>
-						<option>네오</option>
-						<option>튜브</option>
-						<option>제이지</option>
-						<option>콘</option>
-						<option>춘식</option>
-						<option>죠르디</option>
-						<option>스카피</option>
-						<option>앙몬드</option>
-						<option>팬다주니어</option>
-						<option>케로&amp;베로니</option>
-						<option>꿈돌이</option>
+						alt="foldWhite" /> <select id="select_char">
+						<option value="0">-------------캐릭터 선택-------------</option>
+						<option value="1">라이언</option>
+						<option value="2">어피치</option>
+						<option value="3">무지</option>
+						<option value="4">프로도</option>
+						<option value="5">네오</option>
+						<option value="6">튜브</option>
+						<option value="7">제이지</option>
+						<option value="8">콘</option>
+						<option value="9">춘식</option>
+						<option value="10">죠르디</option>
+						<option value="11">스카피</option>
+						<option value="12">앙몬드</option>
+						<option value="13">팬다주니어</option>
+						<option value="14">케로&amp;베로니</option>
+						<option value="15">꿈돌이</option>
 					</select>
 				</div>
 				<!-- 상품 정렬 및 개수 -->
 				<div class="category-header">
 					<div class="sort">
-						<span class="sort-title">신상품 순</span> <img class="sort-icon"
-							src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+						<c:if test="${sortedOption eq 1}">
+							<span class="sort-title" id="content-sort-name">판매량순</span>
+							<img class="sort-icon"
+								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+						</c:if>
+						<c:if test="${sortedOption eq 2}">
+							<span class="sort-title" id="content-sort-name">신상품순</span>
+							<img class="sort-icon"
+								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+						</c:if>
+						<c:if test="${sortedOption eq 3}">
+							<span class="sort-title" id="content-sort-name">낮은 가격순</span>
+							<img class="sort-icon"
+								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+						</c:if>
+						<c:if test="${sortedOption eq 4}">
+							<span class="sort-title" id="content-sort-name">높은 가격순</span>
+							<img class="sort-icon"
+								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+						</c:if>
 					</div>
 					<div class="detail">
 						<div class="all-count">
@@ -105,7 +158,7 @@
 				</div>
 			</div>
 
-			<div id="inner-content" style="overflow:scroll;">
+			<div id="inner-content" style="overflow: scroll;">
 				<!-- 상품 -->
 				<!-- 카테고리 선택 배너 -->
 
@@ -175,7 +228,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script>
 	
 	/* 검색관련 */
@@ -193,6 +246,11 @@
 		location.href = "/SYJ_Mall/searchbackmain.action";	
 	});
 	
+	/* 상위 캐릭터 변경  */
+	$('#select_char').change(function(){
+		const char_num = $(this).val();//캐릭터 번호
+		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=" + char_num;
+	});
 	
 	
 	//상품알림 관련 공통 함수
@@ -220,8 +278,81 @@
 	
 	
 	/*--------------------필터링 조건---------------------------*/
+	$('.sort-title').click(function() {
+			$('#sort-modal').css('visibility', 'visible');
+			$('.sort-modal-wrap').css('bottom', '0');
+			$(document.body).css('overflow', 'hidden');
+	});
+	
+	$('#buy-sort').click(function () {
+		<c:if test="${empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
+		</c:if>
+		<c:if test="${not empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
+		</c:if>
+	    //const productSeq = ${productSeq};
+		
+		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
+		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
+	});
+	
+	$('#new-sort').click(function () {
+		<c:if test="${empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
+		</c:if>
+		<c:if test="${not empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
+		</c:if>
+		
+		//const productSeq = ${productSeq};
+		
+		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
+		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
+	});
+
+	$('#low-price-sort').click(function () {
+		<c:if test="${empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
+		</c:if>
+		<c:if test="${not empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
+		</c:if>
+		
+		//const productSeq = ${productSeq};
+		
+		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
+		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
+	});
+	    
+	$('#high-price-sort').click(function () {
+		<c:if test="${empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
+		</c:if>
+		<c:if test="${not empty productSeq}">
+			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
+		</c:if>
+		
+		//const productSeq = ${productSeq};
+		
+		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
+		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
+	});
+	
+	
+	
+	
+	//모달 제거하는 용도
+    $('.overlay-wrap').click(function () {
+      $('.overlay-wrap').css('visibility', 'hidden');
+      $('.sort-modal-wrap').css('bottom', '-200px');
+      //$('.character-modal-wrap').css('bottom', '-400px');
+      $(document.body).css('overflow','visible');
+    });
+	
+	
 	
 	</script>
-	
+
 </body>
 </html>

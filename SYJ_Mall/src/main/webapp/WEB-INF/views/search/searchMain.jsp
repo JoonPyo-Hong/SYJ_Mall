@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +14,11 @@
 	href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/search/act1.css">
 <link rel="stylesheet"
-	href="resources/css/search/productSearchResult6.css">
+	href="resources/css/search/productSearchResult7.css">
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel="stylesheet" href="resources/css/search/searchLoginModal.css">
 <link rel="stylesheet" href="resources/css/mainLayout/searchTest.css">
+<link rel="stylesheet" href="resources/css/commoncss/sortModalWrap3.css">
 <style>
 </style>
 </head>

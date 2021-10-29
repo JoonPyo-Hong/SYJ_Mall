@@ -9,10 +9,10 @@
   	
   	<select id="prodtCharSortImg"
 		parameterType="Integer"
-		resultType="String"
+		resultType="com.test.SYJ_Mall.charProdt.CharHeadTitleDTO"
 		statementType="CALLABLE">
 		{
-			call dbo.kakao_char_product_img_url(#{charSeq})
+			call dbo.kakao_char_product_head_data(#{charSeq})
 		}
 	</select>
   	
