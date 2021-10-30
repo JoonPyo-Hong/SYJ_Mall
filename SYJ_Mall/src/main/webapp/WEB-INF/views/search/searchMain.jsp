@@ -152,109 +152,16 @@
 		<div id="kakao-head">
 			<div id="inner-head">
 				<div class="left-btn">
-					<!-- <button class="hamburger-menu"></button> -->
 					<button class="back-button"></button>
-					<!-- ic_back_2x.png -->
-					<!-- gnb-home-18-black@2x.png -->
 					<button class="home-button"></button>
 				</div>
-				<!-- <div class="title"><button class="title-logo"></button></div> -->
 				<div class="title">검색</div>
 				<div class="right-btn">
 					<button class="search"></button>
 					<button class="language"></button>
-					<!-- 검색 돋보기 아이콘 클릭 시 전체 검색 창-->
-					<div id="search-wrap" style="display: none;">
-						<div id="inner-search">
-							<div class="search-form">
-								<form action="searchresult.action" method="GET"
-									id="search_enter">
-									<input class="search-input" type="text" name="inputName"
-										autocomplete="off" />
-								</form>
-								<button class="search-close">취소</button>
-							</div>
-							<div class="search-bottom" style="border: 1px solid red;">
-								<div class="search-result">
-									<!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
-									<ul id="search-content-prod">
-										<!-- 상품이름 리스트 -->
-									</ul>
-								</div>
-								<div class="character-wrap">
-									<ul>
-										<li class="character-li"><a href="#" class="ryan"></a>
-											<p>라이언</p></li>
-										<li class="character-li"><a href="#" class="apeach"></a>
-											<p>어피치</p></li>
-										<li class="character-li"><a href="#" class="muzi"></a>
-											<p>무지</p></li>
-										<li class="character-li"><a href="#" class="frodo"></a>
-											<p>프로도</p></li>
-										<li class="character-li"><a href="#" class="neo"></a>
-											<p>네오</p></li>
-										<li class="character-li"><a href="#" class="tube"></a>
-											<p>튜브</p></li>
-										<li class="character-li"><a href="#" class="jayz"></a>
-											<p>제이지</p></li>
-										<li class="character-li"><a href="#" class="con"></a>
-											<p>콘</p></li>
-										<li class="character-li"><a href="#" class="choonsic"></a>
-											<p>춘식</p></li>
-										<li class="character-li"><a href="#" class="jordy"></a>
-											<p>죠르디</p></li>
-										<li class="character-li"><a href="#" class="scappy"></a>
-											<p>스카피</p></li>
-										<li class="character-li"><a href="#" class="angmond"></a>
-											<p>앙몬드</p></li>
-										<li class="character-li"><a href="#" class="pendajr"></a>
-											<p>팬다주니어</p></li>
-										<li class="character-li"><a href="#" class="kereberony"></a>
-											<p>케로&베로니</p></li>
-										<li class="character-li"><a href="#" class="kumdori"></a>
-											<p>꿈돌이</p></li>
-									</ul>
-								</div>
-								<hr>
-								<div class="category-wrap">
-									<div class="title">카테고리</div>
-									<ul>
-										<li class="category-li"><a href="#">전체</a></li>
-										<li class="category-li"><a href="#">토이</a></li>
-										<li class="category-li"><a href="#">리빙</a></li>
-										<li class="category-li"><a href="#">잡화</a></li>
-										<li class="category-li"><a href="#">문구</a></li>
-										<li class="category-li"><a href="#">의류</a></li>
-										<li class="category-li"><a href="#">디지털</a></li>
-										<li class="category-li"><a href="#">여행/레져</a></li>
-										<li class="category-li"><a href="#">식품</a></li>
-										<li class="category-li"><a href="#">테마 기획전</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div id="inner-tab">
-				<!-- 메인메뉴 tab -->
-				<!-- <div class="main-tab">
-        <ul class="main-tab-ul">
-          <li class="main-tab-li">오늘</li>
-          <li class="main-tab-li">신규</li>
-          <li class="main-tab-li">인기</li>
-          <li class="main-tab-li active">마이</li>
-        </ul>
-      </div> -->
-				<!-- 마이페이지 tab -->
-				<!-- <div class="mypage-tab">
-        <ul class="mypage-tab-ul">
-          <li class="mypage-tab-li">최근 본</li>
-          <li class="mypage-tab-li active">내 활동</li>
-          <li class="mypage-tab-li">장바구니</li>
-          <li class="mypage-tab-li ">주문내역</li>
-        </ul>
-      </div> -->
 			</div>
 		</div>
 		<div id="kakao-content">

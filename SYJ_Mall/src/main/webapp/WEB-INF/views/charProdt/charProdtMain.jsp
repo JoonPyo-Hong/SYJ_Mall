@@ -92,8 +92,6 @@
 				</div>
 			</div>
 			<div id="inner-tab"></div>
-		</div>
-		<div id="kakao-content">
 			<div class="container-wrap product-category-character"
 				style="margin: 0px auto;">
 				<div class="category-banner"
@@ -157,8 +155,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div id="kakao-content">
 
-			<div id="inner-content" style="overflow: scroll;">
+			<div id="inner-content" style="overflow:scroll;">
 				<!-- 상품 -->
 				<!-- 카테고리 선택 배너 -->
 
@@ -185,7 +185,48 @@
 							<div class="price">39,000원</div>
 						</li>
 						<li class="item-li">
+							<div class="thumbnail">
+								<!-- 솔드아웃 라벨 -->
+								<div class="soldout-label"></div>
+							</div>
+							<div class="name">
+								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+								<span class="cart"></span>
+							</div>
+							<div class="price">39,000원</div>
+						</li>
+						<li class="item-li">
 							<div class="thumbnail"></div>
+							<div class="name">
+								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+								<span class="cart"></span>
+							</div>
+							<div class="price">39,000원</div>
+						</li>
+						<li class="item-li">
+							<div class="thumbnail">
+								<!-- 솔드아웃 라벨 -->
+								<div class="soldout-label"></div>
+							</div>
+							<div class="name">
+								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+								<span class="cart"></span>
+							</div>
+							<div class="price">39,000원</div>
+						</li>
+						<li class="item-li">
+							<div class="thumbnail"></div>
+							<div class="name">
+								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+								<span class="cart"></span>
+							</div>
+							<div class="price">39,000원</div>
+						</li>
+						<li class="item-li">
+							<div class="thumbnail">
+								<!-- 솔드아웃 라벨 -->
+								<div class="soldout-label"></div>
+							</div>
 							<div class="name">
 								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
 								<span class="cart"></span>
@@ -284,7 +325,7 @@
 			$(document.body).css('overflow', 'hidden');
 	});
 	
-	$('#buy-sort').click(function () {
+	/* $('#buy-sort').click(function () {
 		<c:if test="${empty productSeq}">
 			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
 		</c:if>
@@ -338,7 +379,7 @@
 		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
 		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
 	});
-	
+	 */
 	
 	
 	
