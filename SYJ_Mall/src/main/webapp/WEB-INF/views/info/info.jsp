@@ -178,6 +178,131 @@
 			<%-- <c:out value="${stat.count}"></c:out> --%>
 			<c:set var="count" value="${stat.count}" />
 		</c:forEach>
+		<c:forEach var="temp" items="${list}" varStatus="stat">
+			<div class="content_img">
+				<img alt="" src="resources/images/info/${temp.image_url}">
+			</div>
+			<div class="content_map">
+				<div class="title">${temp.title}</div>
+				<div class="txt" id="txt1">
+					<img src='resources/images/info/ico_map.png'></img>
+					${temp.phone_number}
+				</div>
+				<div class="txt" id="txt2">
+					<img src='resources/images/info/ico_phone.png'></img>
+					${temp.opening_hours}
+				</div>
+				<div class="txt" id="txt3">
+					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
+				</div>
+				<c:if test="${ !empty temp.adress_detail }">
+					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
+				</c:if>
+				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+			</div>
+			<%-- <c:out value="${stat.count}"></c:out> --%>
+			<c:set var="count" value="${stat.count}" />
+		</c:forEach>
+		<c:forEach var="temp" items="${list2}" varStatus="stat">
+			<div class="content_img">
+				<img alt="" src="resources/images/info/${temp.image_url}">
+			</div>
+			<div class="content_map">
+				<div class="title">${temp.title}</div>
+				<div class="txt" id="txt1">
+					<img src='resources/images/info/ico_map.png'></img>
+					${temp.phone_number}
+				</div>
+				<div class="txt" id="txt2">
+					<img src='resources/images/info/ico_phone.png'></img>
+					${temp.opening_hours}
+				</div>
+				<div class="txt" id="txt3">
+					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
+				</div>
+				<c:if test="${ !empty temp.adress_detail }">
+					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
+				</c:if>
+				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+			</div>
+			<%-- <c:out value="${stat.count}"></c:out> --%>
+			<c:set var="count" value="${stat.count}" />
+		</c:forEach>
+		<c:forEach var="temp" items="${list3}" varStatus="stat">
+			<div class="content_img">
+				<img alt="" src="resources/images/info/${temp.image_url}">
+			</div>
+			<div class="content_map">
+				<div class="title">${temp.title}</div>
+				<div class="txt" id="txt1">
+					<img src='resources/images/info/ico_map.png'></img>
+					${temp.phone_number}
+				</div>
+				<div class="txt" id="txt2">
+					<img src='resources/images/info/ico_phone.png'></img>
+					${temp.opening_hours}
+				</div>
+				<div class="txt" id="txt3">
+					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
+				</div>
+				<c:if test="${ !empty temp.adress_detail }">
+					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
+				</c:if>
+				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+			</div>
+			<c:forEach var="temp" items="${list5}" varStatus="stat">
+			<div class="content_img">
+				<img alt="" src="resources/images/info/${temp.image_url}">
+			</div>
+			<div class="content_map">
+				<div class="title">${temp.title}</div>
+				<div class="txt" id="txt1">
+					<img src='resources/images/info/ico_map.png'></img>
+					${temp.phone_number}
+				</div>
+				<div class="txt" id="txt2">
+					<img src='resources/images/info/ico_phone.png'></img>
+					${temp.opening_hours}
+				</div>
+				<div class="txt" id="txt3">
+					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
+				</div>
+				<c:if test="${ !empty temp.adress_detail }">
+					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
+				</c:if>
+				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+			</div>
+			<%-- <c:out value="${stat.count}"></c:out> --%>
+			<c:set var="count" value="${stat.count}" />
+		</c:forEach>
+			<%-- <c:out value="${stat.count}"></c:out> --%>
+			<c:set var="count" value="${stat.count}" />
+		</c:forEach>
+		<c:forEach var="temp" items="${list4}" varStatus="stat">
+			<div class="content_img">
+				<img alt="" src="resources/images/info/${temp.image_url}">
+			</div>
+			<div class="content_map">
+				<div class="title">${temp.title}</div>
+				<div class="txt" id="txt1">
+					<img src='resources/images/info/ico_map.png'></img>
+					${temp.phone_number}
+				</div>
+				<div class="txt" id="txt2">
+					<img src='resources/images/info/ico_phone.png'></img>
+					${temp.opening_hours}
+				</div>
+				<div class="txt" id="txt3">
+					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
+				</div>
+				<c:if test="${ !empty temp.adress_detail }">
+					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
+				</c:if>
+				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+			</div>
+			<%-- <c:out value="${stat.count}"></c:out> --%>
+			<c:set var="count" value="${stat.count}" />
+		</c:forEach>
 		<%--<c:out value="${count}"></c:out>--%>
 	</div>
 
