@@ -109,12 +109,14 @@
 	height: 27px;
 	margin-right: 5px;
 }
-#adress_detail{
+
+#adress_detail {
 	color: rgb(74, 144, 226);
 	text-decoration: underline;
 	margin-bottom: 40px;
-    margin-left: 40px;
+	margin-left: 40px;
 }
+
 #adress_detail a:active, a:hover {
 	text-decoration: none;
 }
@@ -173,7 +175,8 @@
 				<c:if test="${ !empty temp.adress_detail }">
 					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
 				</c:if>
-				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+				<div id="map_${stat.count}"
+					style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
 			</div>
 			<%-- <c:out value="${stat.count}"></c:out> --%>
 			<c:set var="count" value="${stat.count}" />
@@ -198,13 +201,14 @@
 				<c:if test="${ !empty temp.adress_detail }">
 					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
 				</c:if>
-				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+				<div id="map_${stat.count}"
+					style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
 			</div>
 			<%-- <c:out value="${stat.count}"></c:out> --%>
 			<c:set var="count" value="${stat.count}" />
 		</c:forEach>
 		<c:forEach var="temp" items="${list2}" varStatus="stat">
-			<div class="content_img">
+			<div class="content_img" id="list2" style="display: none;">
 				<img alt="" src="resources/images/info/${temp.image_url}">
 			</div>
 			<div class="content_map">
@@ -223,13 +227,14 @@
 				<c:if test="${ !empty temp.adress_detail }">
 					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
 				</c:if>
-				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+				<div id="map_${stat.count}"
+					style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
 			</div>
 			<%-- <c:out value="${stat.count}"></c:out> --%>
 			<c:set var="count" value="${stat.count}" />
 		</c:forEach>
 		<c:forEach var="temp" items="${list3}" varStatus="stat">
-			<div class="content_img">
+			<div class="content_img" id="list3" style="display: none;">
 				<img alt="" src="resources/images/info/${temp.image_url}">
 			</div>
 			<div class="content_map">
@@ -248,38 +253,12 @@
 				<c:if test="${ !empty temp.adress_detail }">
 					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
 				</c:if>
-				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+				<div id="map_${stat.count}"
+					style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
 			</div>
-			<c:forEach var="temp" items="${list5}" varStatus="stat">
-			<div class="content_img">
-				<img alt="" src="resources/images/info/${temp.image_url}">
-			</div>
-			<div class="content_map">
-				<div class="title">${temp.title}</div>
-				<div class="txt" id="txt1">
-					<img src='resources/images/info/ico_map.png'></img>
-					${temp.phone_number}
-				</div>
-				<div class="txt" id="txt2">
-					<img src='resources/images/info/ico_phone.png'></img>
-					${temp.opening_hours}
-				</div>
-				<div class="txt" id="txt3">
-					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
-				</div>
-				<c:if test="${ !empty temp.adress_detail }">
-					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
-				</c:if>
-				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
-			</div>
-			<%-- <c:out value="${stat.count}"></c:out> --%>
-			<c:set var="count" value="${stat.count}" />
-		</c:forEach>
-			<%-- <c:out value="${stat.count}"></c:out> --%>
-			<c:set var="count" value="${stat.count}" />
 		</c:forEach>
 		<c:forEach var="temp" items="${list4}" varStatus="stat">
-			<div class="content_img">
+			<div class="content_img" id="list4" style="display: none;">
 				<img alt="" src="resources/images/info/${temp.image_url}">
 			</div>
 			<div class="content_map">
@@ -298,7 +277,37 @@
 				<c:if test="${ !empty temp.adress_detail }">
 					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
 				</c:if>
-				<div id="map_${stat.count}" style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+				<div id="map_${stat.count}"
+					style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
+			</div>
+			<%-- <c:out value="${stat.count}"></c:out> --%>
+			<c:set var="count" value="${stat.count}" />
+
+			<%-- <c:out value="${stat.count}"></c:out> --%>
+			<c:set var="count" value="${stat.count}" />
+		</c:forEach>
+		<c:forEach var="temp" items="${list5}" varStatus="stat">
+			<div class="content_img" id="list5" style="display: none;">
+				<img alt="" src="resources/images/info/${temp.image_url}">
+			</div>
+			<div class="content_map">
+				<div class="title">${temp.title}</div>
+				<div class="txt" id="txt1">
+					<img src='resources/images/info/ico_map.png'></img>
+					${temp.phone_number}
+				</div>
+				<div class="txt" id="txt2">
+					<img src='resources/images/info/ico_phone.png'></img>
+					${temp.opening_hours}
+				</div>
+				<div class="txt" id="txt3">
+					<img src='resources/images/info/ico_time.png'></img> ${temp.adress}
+				</div>
+				<c:if test="${ !empty temp.adress_detail }">
+					<a id="adress_detail" href="${temp.adress_detail}">지도 자세히 보기</a>
+				</c:if>
+				<div id="map_${stat.count}"
+					style="width: 600; height: 311px; margin-top: 30px; margin-bottom: 10px;"></div>
 			</div>
 			<%-- <c:out value="${stat.count}"></c:out> --%>
 			<c:set var="count" value="${stat.count}" />
@@ -307,9 +316,11 @@
 	</div>
 
 	<script type="text/javascript">
-		var count = ${count};
-	
-				
+		var count = $
+		{
+			count
+		};
+
 		var mySwiper = new Swiper('.swiper-container', {
 			loop : true,
 			pagination : {
@@ -326,17 +337,18 @@
 			},
 
 		});
-	
-		for(var i = 1; i <=count; i++){
+
+		for (var i = 1; i <= count; i++) {
 			var container = document.getElementById('map_' + i); //지도를 담을 영역의 DOM 레퍼런스
 			var options = { //지도를 생성할 때 필요한 기본 옵션
-				center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-				level: 3 //지도의 레벨(확대, 축소 정도)
+				center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+				level : 3
+			//지도의 레벨(확대, 축소 정도)
 			};
-	
+
 			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-			
-		}		
+
+		}
 	</script>
 </body>
 </html>
