@@ -34,7 +34,8 @@ public class SearchController {
 
 		int lastPageIndex = service.lastPageIndexing(request,response);
 		
-		return "/search/searchStart";
+		if (lastPageIndex == 1) return "/search/searchStart";
+		else return "/testwaiting/kakaoerror";
 	}
 
 	// 검색어 치면 해당하는 상품 보내주기 -> ajax 처리
@@ -112,7 +113,7 @@ public class SearchController {
 
 		// 어떤페이지를 마지막으로 방문했는지 쿠키정보를 조회해 봐야한다.
 		String lastPage = (String) service.instanceCookie(request, response, "lastPage");
-
+		
 		if (lastPage == null) {
 
 			service.goMain(request);

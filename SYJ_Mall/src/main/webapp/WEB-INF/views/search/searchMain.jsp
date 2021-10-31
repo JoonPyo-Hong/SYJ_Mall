@@ -161,8 +161,7 @@
 					<button class="language"></button>
 				</div>
 			</div>
-			<div id="inner-tab">
-			</div>
+			<div id="inner-tab"></div>
 		</div>
 		<div id="kakao-content">
 			<div id="inner-content" style="overflow: scroll;">
@@ -322,29 +321,11 @@
 
 	<script>
 
-let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
-let checkdDevice = 0;//맨처음 디바이스 체크!
-let filter_option = ${sortedOption};//정렬필터링 옵션
+	let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
+	let checkdDevice = 0;//맨처음 디바이스 체크!
+	let filter_option = ${sortedOption};//정렬필터링 옵션
 
-//PC, MOBILE 구별
-function deviceCheck() {
-	// 디바이스 종류 설정
-	var pcDevice = "win16|win32|win64|mac|macintel";
 
-	// 접속한 디바이스 환경
-	if (navigator.platform) {
-		if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
-			return 1//mobile 인 경우
-		} else {
-			return 2;//pc 인경우
-		}
-	}
-}
-
-$(document).ready(
-		function() {
-
-			
 			/* 검색관련 */
 			$('.search').click(function() {
 				location.href = "/SYJ_Mall/searchStart.action";
@@ -360,7 +341,7 @@ $(document).ready(
 				location.href = "/SYJ_Mall/searchbackmain.action";	
 			});
 
-		});
+
 		
 		
 		let totalProdCounting  = ${searchProdCount};

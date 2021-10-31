@@ -291,8 +291,8 @@ public class SearchService implements ISearchService {
 			if (lastPage == null) {
 				request.setAttribute("lastPage", "/SYJ_Mall/main.action");
 			} else {
-				
-				if (lastPage.indexOf("searchresult.action?") == -1) {
+
+				if (lastPage.indexOf(".action?") == -1) {
 					request.setAttribute("lastPage", "/SYJ_Mall/" + lastPage + ".action");
 				} else {
 					request.setAttribute("lastPage", "/SYJ_Mall/" + lastPage);

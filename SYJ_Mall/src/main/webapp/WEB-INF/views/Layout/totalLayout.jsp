@@ -220,21 +220,6 @@
 	let left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	let left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
 
-	//PC, MOBILE 구별
-	function deviceCheck() {
-		// 디바이스 종류 설정
-		var pcDevice = "win16|win32|win64|mac|macintel";
-
-		// 접속한 디바이스 환경
-		if (navigator.platform) {
-			if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
-				return 1//mobile 인 경우
-			} else {
-				return 2;//pc 인경우
-			}
-		}
-	}
-
 	$(document).ready(
 			function() {
 
