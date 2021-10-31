@@ -37,13 +37,13 @@ public class InfoController {
 		List<InfoDTO> list3 = service.InfoSelect_jp();
 		List<InfoDTO> list4 = service.InfoSelect_cn();
 		List<InfoDTO> list5 = service.InfoSelect_cn2();
-		
+		System.out.println(list2.size());
 		model.addAttribute("list", list);
 		model.addAttribute("list2", list2);
 		model.addAttribute("list3", list3);
 		model.addAttribute("list4", list4);
 		model.addAttribute("list5", list5);
-		return "/tiles/infoStart.topping";
+		return "/tiles/infoStart.layout";
 	}
 
 }

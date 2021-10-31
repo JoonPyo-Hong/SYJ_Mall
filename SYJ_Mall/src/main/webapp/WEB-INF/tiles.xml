@@ -87,7 +87,7 @@
 	</definition>	
 	
 	<!-- 안내페이지 -->
-	<definition name = "/tiles/infoStart.topping" extends="newbdefault">
+	<definition name = "/tiles/infoStart.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/info/info.jsp"/>	
 	</definition>
 	
