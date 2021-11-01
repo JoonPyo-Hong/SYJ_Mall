@@ -7,6 +7,7 @@
   
   <mapper namespace="prodtCharSort">
   	
+  	<!-- 캐릭터별 제품 상단 이미지 이름 갯수 -->
   	<select id="prodtCharSortImg"
 		parameterType="Integer"
 		resultType="com.test.SYJ_Mall.charProdt.CharHeadTitleDTO"
@@ -15,5 +16,17 @@
 			call dbo.kakao_char_product_head_data(#{charSeq})
 		}
 	</select>
+	
+	<!-- 캐릭터별 제품 목록 객체 -->
+	<select id="prodtsChars"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.charProdt.CharProdtDTO"
+		statementType="CALLABLE">
+		{
+			call dbo.kakao_char_product_nologin(#{charSeq},#{sortedOption},#{paging},#{basketList})
+		}
+	</select>
+	
+	
   	
   </mapper>
