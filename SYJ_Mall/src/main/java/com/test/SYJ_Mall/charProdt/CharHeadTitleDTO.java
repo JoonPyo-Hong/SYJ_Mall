@@ -9,7 +9,8 @@ import lombok.Data;
  */
 @Data
 public class CharHeadTitleDTO {
-	private String charName;
-	private String charImg;
+	private String charName;//캐릭터 이름
+	private String charImg;//캐릭터 이미지
+	private int charCount;//캐릭터 품목 총 갯수
 
 }

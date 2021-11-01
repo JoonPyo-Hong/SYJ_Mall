@@ -145,7 +145,7 @@
 					</div>
 					<div class="detail">
 						<div class="all-count">
-							총 <b>258</b>개
+							총 <b>${charHeadCount}</b>개
 						</div>
 						<div class="check-global">
 							<img
@@ -325,69 +325,33 @@
 			$(document.body).css('overflow', 'hidden');
 	});
 	
-	/* $('#buy-sort').click(function () {
-		<c:if test="${empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
-		</c:if>
-		<c:if test="${not empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
-		</c:if>
-	    //const productSeq = ${productSeq};
-		
-		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
-		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
+	//판매량 순
+	$('#buy-sort').click(function () {
+		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=1";
 	});
 	
+	//신제품 순
 	$('#new-sort').click(function () {
-		<c:if test="${empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
-		</c:if>
-		<c:if test="${not empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
-		</c:if>
-		
-		//const productSeq = ${productSeq};
-		
-		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
-		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
+		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=2";
 	});
-
+	
+	//낮은 가격 순
 	$('#low-price-sort').click(function () {
-		<c:if test="${empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
-		</c:if>
-		<c:if test="${not empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
-		</c:if>
-		
-		//const productSeq = ${productSeq};
-		
-		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
-		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
+		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=3";
 	});
-	    
+	
+	//높은 가격 순
 	$('#high-price-sort').click(function () {
-		<c:if test="${empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
-		</c:if>
-		<c:if test="${not empty productSeq}">
-			location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
-		</c:if>
-		
-		//const productSeq = ${productSeq};
-		
-		//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
-		//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
+		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=4";
 	});
-	 */
+	 
 	
 	
 	
 	//모달 제거하는 용도
-    $('.overlay-wrap').click(function () {
+    $('.overlay-wrap').click(function() {
       $('.overlay-wrap').css('visibility', 'hidden');
       $('.sort-modal-wrap').css('bottom', '-200px');
-      //$('.character-modal-wrap').css('bottom', '-400px');
       $(document.body).css('overflow','visible');
     });
 	
