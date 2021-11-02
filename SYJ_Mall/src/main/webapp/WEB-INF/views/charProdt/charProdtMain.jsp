@@ -16,7 +16,7 @@
 	href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
 <link rel="stylesheet"
-	href="resources/css/charProdt/product_category_character3.css">
+	href="resources/css/charProdt/product_category_character5.css">
 <link rel="stylesheet" href="resources/css/commoncss/sortModalWrap3.css">
 </head>
 <body>
@@ -33,7 +33,7 @@
 			<div class="login-text">
 				<h3>앗! 로그인</h3>
 				<p>
-					로그인 후 재입고 알림을 신청해주세요<br /> 지금 로그인 화면으로 이동하시겠어요?
+					로그인 후 재입고 알림을 신청해주세요<br/> 지금 로그인 화면으로 이동하시겠어요?
 				</p>
 			</div>
 			<div class="login-btn">
@@ -158,89 +158,60 @@
 		</div>
 		<div id="kakao-content">
 
-			<div id="inner-content" style="overflow:scroll;">
+			<div id="inner-content" style="overflow: scroll;">
 				<!-- 상품 -->
 				<!-- 카테고리 선택 배너 -->
 
 				<!-- 해당 카테고리 상품 영역 -->
 				<div class="category-product-wrap">
-					<ul>
-						<li class="item-li">
-							<div class="thumbnail">
-								<!-- 솔드아웃 라벨 -->
-								<div class="soldout-label"></div>
-							</div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
-						<li class="item-li">
-							<div class="thumbnail"></div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
-						<li class="item-li">
-							<div class="thumbnail">
-								<!-- 솔드아웃 라벨 -->
-								<div class="soldout-label"></div>
-							</div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
-						<li class="item-li">
-							<div class="thumbnail"></div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
-						<li class="item-li">
-							<div class="thumbnail">
-								<!-- 솔드아웃 라벨 -->
-								<div class="soldout-label"></div>
-							</div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
-						<li class="item-li">
-							<div class="thumbnail"></div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
-						<li class="item-li">
-							<div class="thumbnail">
-								<!-- 솔드아웃 라벨 -->
-								<div class="soldout-label"></div>
-							</div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
-						<li class="item-li">
-							<div class="thumbnail"></div>
-							<div class="name">
-								<div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-								<span class="cart"></span>
-							</div>
-							<div class="price">39,000원</div>
-						</li>
+					<ul id="char-item-lists">
+						<c:forEach var="dto" items="${charProdts}">
+							<c:if test="${dto.prodCnt eq 0}">
+								<!-- 상품재고가 없는 경우 -->
+								<li class="item-li" id="${dto.prodId}">
+									<div class="thumbnail"
+										style="background-image : url('${dto.picUrl}'); ">
+										<div class="soldout-label"></div>
+									</div>
+									<div class="name">
+										<div class="nametext">${dto.prodNm}</div>
+										<span class="alarm"></span>
+									</div>
+									<div class="price">${dto.prodPrice}원</div>
+								</li>
+							</c:if>
+
+
+							<c:if test="${dto.prodCnt ne 0 && dto.discRate eq 0}">
+								<!-- 상품재고는 있고 할인이 없는경우 -->
+								<li class="item-li" id="${dto.prodId}">
+									<div class="thumbnail"
+										style="background-image : url('${dto.picUrl}'); "></div>
+									<div class="name">
+										<div class="nametext">${dto.prodNm}</div>
+										<span class="${dto.cookieBasket}"></span>
+									</div>
+									<div class="price">${dto.prodPrice}원</div>
+								</li>
+							</c:if>
+
+
+							<c:if test="${dto.prodCnt ne 0 && dto.discRate ne 0}">
+								<!-- 상품재고는 있고 할인이 있는 경우 -->
+								<li class="item-li" id="${dto.prodId}">
+									<div class="thumbnail"
+										style="background-image : url('${dto.picUrl}'); "></div>
+									<div class="name">
+										<div class="nametext">${dto.prodNm}</div>
+										<span class="${dto.cookieBasket}"></span>
+									</div>
+									<div class="price" style="color: #FF447F;">${dto.discRate}%
+										${dto.dcPrice}원</div>
+									<div class="price"
+										style="text-decoration: line-through; color: #9A9A9E;">${dto.prodPrice}원</div>
+								</li>
+							</c:if>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -318,6 +289,106 @@
 	}	
 	
 	
+	
+	let paging = ${paging};
+	let totalPagingCount = ${pageAjaxCount};
+	let charSeq = ${charSeq};
+	
+	//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
+	$('#inner-content').on(
+			"scroll",
+			function(){
+
+				const scrollHeight = document.getElementById('inner-content').scrollHeight;
+				const scrollTop = document.getElementById('inner-content').scrollTop;
+				const height = $('#inner-content').height();
+				
+				console.log("scrollHeight : " + scrollHeight);
+				console.log("scrollTop : " + scrollTop);
+				console.log("height : " + height);
+				
+				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
+
+					paging++;
+					
+					$.ajax({
+			        	type:"POST",
+			            url: "/SYJ_Mall/charAtProdtStart.action" ,
+			            async : false,
+			            data : {"paging" : paging, "charSeq" : charSeq,"sortedOption" : filter_option},
+			            dataType : "json",
+			            success : function(result) {
+			                
+			            	let selectCount = result.length;
+			            
+			            	
+			            	for (let i = 0; i < selectCount; i++) {
+			            		
+			            		let url = "'" + result[i].picUrl + "'";
+			            		
+			            		//재고가 있는경우와 없는경우로 나눠준다.
+			            		//1. 재고 없는 경우
+			            		if (result[i].prodCnt == 0) {
+			            			$('#char-item-lists').append(
+						            		
+					            			'<li class="item-li" id="'+ result[i].prodId + '">'
+											+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
+											+	'<div class="name">'
+											+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+											+		'<span class="' + result[i].alarmYn + '"></span>'
+											+	'</div>'
+											+	'<div class="price">' + result[i].prodPrice + '원</div>'
+											+'</li>'
+								            	
+						            	);
+			            		}
+			            		//2. 재고 있는 경우
+			            		else {
+			            			//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
+				            		//1. 할인안되는 품목인 경우
+				            		if(result[i].discRate == 0) {
+				            			$('#char-item-lists').append(
+							            		
+				            					'<li class="item-li" id="'+ result[i].prodId + '">'
+												+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+												+	'<div class="name">'
+												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+												+ 		'<span class="' + result[i].cookieBasket + '"></span>'
+												+	'</div>'
+												+	'<div class="price">' + result[i].prodPrice + '원</div>'
+												+'</li>'
+									            	
+							            	);
+				            		} 
+				            		//2. 할인되는 품목인 경우
+				            		else {
+				            			$('#char-item-lists').append(
+							            		
+				            					'<li class="item-li" id="'+ result[i].prodId + '">'
+												+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+												+	'<div class="name">'
+												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+												+ 		'<span class="' + result[i].cookieBasket + '"></span>'
+												+	'</div>'
+												+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
+												+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
+												+'</li>'
+									            	
+							            	);
+				            		}
+			            		}//else
+			            	}//for	
+			            },
+			            error: function(a,b,c) {
+								console.log(a,b,c);
+						}
+			        	});	
+					
+				}
+	});	
+	
+	
+	
 	/*--------------------필터링 조건---------------------------*/
 	$('.sort-title').click(function() {
 			$('#sort-modal').css('visibility', 'visible');
@@ -346,14 +417,15 @@
 	});
 	 
 	
-	
-	
 	//모달 제거하는 용도
     $('.overlay-wrap').click(function() {
       $('.overlay-wrap').css('visibility', 'hidden');
       $('.sort-modal-wrap').css('bottom', '-200px');
       $(document.body).css('overflow','visible');
     });
+	
+	
+	
 	
 	
 	

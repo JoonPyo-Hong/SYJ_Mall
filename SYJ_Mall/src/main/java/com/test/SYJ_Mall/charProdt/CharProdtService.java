@@ -50,7 +50,8 @@ public class CharProdtService implements ICharProdtService{
 			String charHeadName = headDto.get(0).getCharName();//캐릭터 이름
 			String charHeadPicUrl = headDto.get(0).getCharImg();//캐릭터 사진
 			int charHeadCount = headDto.get(0).getCharCount();//캐릭터 품목 갯수
-			int pageAjaxCount = (int) Math.ceil(charHeadCount / 6.0);// 6개씩 끊어서 출력해주기
+			int pageAjaxCount = (int) Math.ceil(charHeadCount / 6.0);// 6개씩 끊어서 출력해주기 -> 페이지가 몇개 나오는지 계산
+			int paging = 1;
 			
 			request.setAttribute("charSeq", charSeq);
 			request.setAttribute("charHeadName", charHeadName);
@@ -58,7 +59,7 @@ public class CharProdtService implements ICharProdtService{
 			request.setAttribute("charHeadCount", charHeadCount);
 			request.setAttribute("sortedOption", sortedOption);
 			request.setAttribute("pageAjaxCount", pageAjaxCount);
-			
+			request.setAttribute("paging", paging);
 			// 마지막 페이지 정보 쿠키에 넘기는 작업
 			KakaoCookie ck = new KakaoCookie();
 			ck.generateCookie(response, "lastPage", "/SYJ_Mall/charAtProdtStart.action?charSeq=" + charSeq);// 마지막페이지
@@ -68,14 +69,7 @@ public class CharProdtService implements ICharProdtService{
 			if (userInfo == null) {
 				// 로그인 되지 않은 경우
 				String basketList = (String)ck.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
-				int paging = 1;
 				charProdts = dao.getCharProdts(charSeq,sortedOption,paging,basketList);
-				
-				
-				for (CharProdtDTO dtos : charProdts) {
-					System.out.println(dtos.getProdId() + " , " + dtos.getProdNm());
-				}
-				System.out.println("=============================");
 				 
 				request.setAttribute("charProdts", charProdts);//임시
 				
@@ -96,6 +90,47 @@ public class CharProdtService implements ICharProdtService{
 			ea.errorDbAndMail();
 			return -1;
 		}
+	}
+	
+	//캐릭터별 상품 무한스크롤
+	@Override
+	public List<CharProdtDTO> getCharProdtAjax(HttpServletRequest request) {
+		
+		try {
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");//유저객체
+			String charSeq = request.getParameter("charSeq");//어떤 캐릭터인지 정해준다.
+			String sortedOption = request.getParameter("sortedOption");
+			int paging = (Integer)request.getAttribute("paging");
+			
+			
+			if (userInfo == null) {
+			//로그인 되지 않은 경우	
+				KakaoCookie ck = new KakaoCookie();
+				String basketList = (String)ck.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
+				
+				return dao.getCharProdts(charSeq,sortedOption,paging,basketList);
+				
+			} else {
+			//로그인 된 경우-->아래는 임시로 해놓음
+				KakaoCookie ck = new KakaoCookie();
+				String basketList = (String)ck.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
+				
+				return dao.getCharProdts(charSeq,sortedOption,paging,basketList);
+			}
+			
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return null;
+		}
+		
+		
+		
 	}
 
 	
