@@ -43,6 +43,7 @@ public class InfoController {
 		model.addAttribute("list4", list4);
 		model.addAttribute("list5", list5);
 		return "/tiles/infoStart.layout";
+		//return "/tiles/mainStart.topping";
 	}
 
 }
