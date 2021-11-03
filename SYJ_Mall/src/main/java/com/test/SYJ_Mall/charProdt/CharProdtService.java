@@ -50,7 +50,7 @@ public class CharProdtService implements ICharProdtService{
 			String charHeadName = headDto.get(0).getCharName();//캐릭터 이름
 			String charHeadPicUrl = headDto.get(0).getCharImg();//캐릭터 사진
 			int charHeadCount = headDto.get(0).getCharCount();//캐릭터 품목 갯수
-			int pageAjaxCount = (int) Math.ceil(charHeadCount / 6.0);// 6개씩 끊어서 출력해주기 -> 페이지가 몇개 나오는지 계산
+			int pageAjaxCount = (int) Math.ceil(charHeadCount / 8.0);// 6개씩 끊어서 출력해주기 -> 페이지가 몇개 나오는지 계산
 			int paging = 1;
 			
 			request.setAttribute("charSeq", charSeq);
@@ -101,8 +101,7 @@ public class CharProdtService implements ICharProdtService{
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");//유저객체
 			String charSeq = request.getParameter("charSeq");//어떤 캐릭터인지 정해준다.
 			String sortedOption = request.getParameter("sortedOption");
-			int paging = (Integer)request.getAttribute("paging");
-			
+			int paging = Integer.parseInt(request.getParameter("paging"));//nullpointer?
 			
 			if (userInfo == null) {
 			//로그인 되지 않은 경우	
@@ -118,7 +117,6 @@ public class CharProdtService implements ICharProdtService{
 				
 				return dao.getCharProdts(charSeq,sortedOption,paging,basketList);
 			}
-			
 			
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();

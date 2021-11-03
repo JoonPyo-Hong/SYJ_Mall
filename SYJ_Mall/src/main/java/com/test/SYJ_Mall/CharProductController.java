@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.CommonDAO;
+import com.common.utill.MasterDTO;
 import com.test.SYJ_Mall.charProdt.CharProdtDTO;
 import com.test.SYJ_Mall.charProdt.ICharProdtService;
 
@@ -30,6 +32,7 @@ public class CharProductController {
 	@RequestMapping(value = "/charAtProdtStart.action", method = { RequestMethod.GET })
 	public String charProdtStart(HttpServletRequest request, HttpServletResponse response) {
 		
+		
 		int result = service.setCharProdtStart(request,response);
 		
 		if (result == 1) {
@@ -37,6 +40,7 @@ public class CharProductController {
 		} else {
 			return "/testwaiting/kakaoerror";
 		}
+	
 	}
 	
 	

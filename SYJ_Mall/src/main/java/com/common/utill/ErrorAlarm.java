@@ -3,6 +3,7 @@ package com.common.utill;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 에러알람
@@ -31,10 +32,12 @@ public class ErrorAlarm {
 	 * @param userEmail 유저 이메일(복수여도 상관없음)
 	 */
 	public void sendErrorMassegeAdmin() {
+		CommonDAO dao = new CommonDAO();
 		
-		//관리자 주소
-		String[] userEmail = {"ssh9308@naver.com","yeemi227@naver.com","wnsvy4231@naver.com"};
-		
+		//관리자 주소-> db에서 받아와야함.
+		//String[] userEmail = {"ssh9308@naver.com","yeemi227@naver.com","wnsvy4231@naver.com"};
+		List<String> userEmail = dao.getAdminEmailAddress();
+ 		
 		StringWriter errors = new StringWriter();
 		errors.append("ip : ");
 		errors.append(this.ip + "\n");
@@ -47,7 +50,7 @@ public class ErrorAlarm {
 		
 		System.out.println("result : " + result);
 	}
-
+	
 	/**
 	 * 에러요인 db에 넣어주기
 	 */

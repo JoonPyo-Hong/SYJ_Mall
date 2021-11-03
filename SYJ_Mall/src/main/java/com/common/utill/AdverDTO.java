@@ -1,7 +1,5 @@
 package com.common.utill;
 
-import java.util.Date;
-
 import lombok.Data;
 /**
  * 광고객체
