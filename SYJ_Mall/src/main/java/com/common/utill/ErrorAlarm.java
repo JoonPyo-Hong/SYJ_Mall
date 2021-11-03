@@ -35,7 +35,6 @@ public class ErrorAlarm {
 		CommonDAO dao = new CommonDAO();
 		
 		//관리자 주소-> db에서 받아와야함.
-		//String[] userEmail = {"ssh9308@naver.com","yeemi227@naver.com","wnsvy4231@naver.com"};
 		List<String> userEmail = dao.getAdminEmailAddress();
  		
 		StringWriter errors = new StringWriter();
