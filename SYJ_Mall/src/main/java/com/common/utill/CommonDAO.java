@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 공통 DB 담당 클래스
@@ -108,5 +110,70 @@ public class CommonDAO {
 		return result;
 
 	}
+	
+	/**
+	 * 관리자들 이메일 정보 일괄로 가져오기
+	 * @return 관리자들 이메일
+	 */
+	public List<String> getAdminEmailAddress() {
+
+		try {
+			
+			String sql = "{call kakao_admin_info}";
+			stat = conn.prepareCall(sql);
+			boolean result = stat.execute();
+			
+			List<String> adminList = new ArrayList<String>();
+
+			if (result) {
+				rs = stat.getResultSet();
+				while(rs.next()) {
+					adminList.add(rs.getString("adminEmail"));
+				}	
+			}
+			
+			stat.close();
+			rs.close();
+			return adminList;
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * 마스터 정보 가져오기
+	 * @return
+	 */
+	public MasterDTO getMasterData() {
+		
+		try {
+			
+			String sql = "{call kakao_admin_master}";
+			
+			stat = conn.prepareCall(sql);
+			stat.execute();
+			MasterDTO dto = new MasterDTO();
+			
+			rs = stat.getResultSet();
+			
+			if (rs.next()) {
+				
+				dto.setMasterEmail(rs.getString("masterEmail"));
+				dto.setMasterKey(rs.getString("masterKey"));
+				dto.setMasterPw(rs.getString("masterPw"));
+			}
+			
+			
+			return dto;
+			
+		} catch(Exception e) {
+			return null;
+		}
+		
+	}
+	
+	
+	
 
 }

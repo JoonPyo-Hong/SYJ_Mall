@@ -1,5 +1,6 @@
 package com.common.utill;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -19,10 +20,11 @@ public class MessageSender {
 
 	private String inputSubject;// 제목
 	private String inputContents;// 내용
-	private String[] addressee;// 수신인들
+	//private String[] addressee;// 수신인들
+	private List<String> addressee;// 수신인들
 	private String addresse;// 수신인
 
-	public MessageSender(String inputSubject, String inputContents, String[] addressee) {
+	public MessageSender(String inputSubject, String inputContents, List<String> addressee) {
 
 		this.inputSubject = inputSubject;
 		this.inputContents = inputContents;
@@ -44,9 +46,13 @@ public class MessageSender {
 		try {
 
 			Encryption enc = new Encryption();
-
-			final String USER = "ssh9308@gmail.com"; // gmail 계정
-			final String PASSWORD = enc.returnDcyVoca("*x&+$@*P!+#*x&&P?+&P!**P");// gmail 패스워드
+			
+			//이것도 따로  db 처리를 해줘야 한다.
+			CommonDAO dao = new CommonDAO();
+			MasterDTO dto = dao.getMasterData();
+			
+			final String USER = dto.getMasterEmail(); // gmail 계정
+			final String PASSWORD = enc.returnDcyVoca(dto.getMasterPw(),dto.getMasterKey());
 
 			// SMTP 서버 정보를 설정한다.
 			Properties prop = new Properties();
@@ -55,7 +61,7 @@ public class MessageSender {
 			prop.put("mail.smtp.auth", "true");
 			prop.put("mail.smtp.ssl.enable", "true");
 			prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
+			
 			Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(USER, PASSWORD);
@@ -66,11 +72,11 @@ public class MessageSender {
 			message.setFrom(new InternetAddress(USER));
 
 			// 수신자메일주소
-			InternetAddress[] toAddr = new InternetAddress[addressee.length];
+			InternetAddress[] toAddr = new InternetAddress[addressee.size()];
 			
 			for (int i = 0; i < toAddr.length; i++) {
-				toAddr[i] = new InternetAddress(addressee[i]);
-				System.out.println(addressee[i]);
+				toAddr[i] = new InternetAddress(addressee.get(i));
+				System.out.println(addressee.get(i));
 			}
 
 			message.setRecipients(Message.RecipientType.TO, toAddr); // 수신자 셋팅

@@ -291,6 +291,7 @@
 	
 	
 	let paging = ${paging};
+	let sortedOption = ${sortedOption};
 	let totalPagingCount = ${pageAjaxCount};
 	let charSeq = ${charSeq};
 	
@@ -303,9 +304,9 @@
 				const scrollTop = document.getElementById('inner-content').scrollTop;
 				const height = $('#inner-content').height();
 				
-				console.log("scrollHeight : " + scrollHeight);
-				console.log("scrollTop : " + scrollTop);
-				console.log("height : " + height);
+				//console.log("scrollHeight : " + scrollHeight);
+				//console.log("scrollTop : " + scrollTop);
+				//console.log("height : " + height);
 				
 				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
 
@@ -315,7 +316,7 @@
 			        	type:"POST",
 			            url: "/SYJ_Mall/charAtProdtStart.action" ,
 			            async : false,
-			            data : {"paging" : paging, "charSeq" : charSeq,"sortedOption" : filter_option},
+			            data : {"paging" : paging, "charSeq" : charSeq,"sortedOption" : sortedOption},
 			            dataType : "json",
 			            success : function(result) {
 			                

@@ -2855,9 +2855,49 @@ begin
 end
 
 
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-11-03   
+	Description : 관리자 이메일 반환
+	     
+	History	: 2021-11-03 Seunghwan Shin	#최초 생성  
+*/
+CREATE proc dbo.kakao_admin_info
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+
+	select
+		admin_email as adminEmail
+	from dbo.ADMIN_INFO_TABLE with(nolock)
+
+end
 
 
 
 
 
 
+
+/* 
+	Author      : Seunghwan Shin 
+	Create date : 2021-11-03   
+	Description : 관리자 마스터 기밀정보반환
+	     
+	History	: 2021-11-03 Seunghwan Shin	#최초 생성  
+*/
+alter proc dbo.kakao_admin_master
+as
+set nocount on 
+set transaction isolation level read uncommitted 
+begin
+
+	select
+		admin_email as masterEmail
+	,	admin_master_key as masterKey
+	,	admin_master_pw as masterPw
+	from dbo.ADMIN_INFO_TABLE with(nolock)
+	where admin_level = 0
+
+end
