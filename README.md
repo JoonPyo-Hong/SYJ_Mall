@@ -499,9 +499,9 @@
 		</tr>
 		<tr>
 			<th>데이터 연동 및 sp생성</th>
-			<th>신승환</th>
 			<th></th>
-			<th>진행중</th>
+			<th></th>
+			<th></th>
 		</tr>
         	<tr>
 			<th>스키마설계</th>
