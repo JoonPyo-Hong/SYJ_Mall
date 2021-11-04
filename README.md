@@ -20,14 +20,12 @@
 			<th>완료</th>
 		</tr>
 		<tr>
-			<th></th>
 			<th>ERD 구조 설계</th>
 			<th>신승환</th>
 			<th>완료</th>
 			<th>완료</th>
 		</tr>
 		<tr>
-			<th></th>
 			<th>
 				실제 데이터 삽입
 			</th>
@@ -42,7 +40,6 @@
 			</th>
 		</tr>
 		<tr>
-			<th></th>
 			<th>
 				SMTP 메일기능
 			</th>
