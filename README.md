@@ -54,5 +54,5 @@
 			</th>
 		</tr>
 
-	</table>
+</table>
 
