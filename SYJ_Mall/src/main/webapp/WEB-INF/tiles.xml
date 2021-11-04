@@ -91,6 +91,7 @@
 		<put-attribute name = "body" value="/WEB-INF/views/info/info.jsp"/>	
 	</definition>
 	
+	
 
 		
 	
