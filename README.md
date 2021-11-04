@@ -90,7 +90,7 @@
 			<th>진행중</th>
 		</tr>
         	<tr>
-			<th>판매량/가격 순 필터링</th>
+			<th>판매량/가격 순/신상품 필터링</th>
 			<th>신승환</th>
 			<th>완료</th>
 			<th>완료</th>
@@ -434,6 +434,74 @@
 			<th>신승환</th>
 			<th></th>
 			<th>진행중</th>
+		</tr>
+		<tr>
+			<th rowspan="5">캐릭터별 상품내역</th>
+			<th>퍼블리싱</th>
+			<th>최예림</th>
+			<th>완료</th>
+			<th>완료</th>
+		</tr>
+        	<tr>
+			<th>데이터 연동 및 sp생성</th>
+			<th>신승환</th>
+			<th></th>
+			<th>진행중</th>
+		</tr>
+        	<tr>
+			<th>장바구니/알람 연동</th>
+			<th>신승환</th>
+			<th></th>
+			<th>진행중</th>
+		</tr>
+        	<tr>
+			<th>장바구니/알람 연동</th>
+			<th>신승환</th>
+			<th></th>
+			<th>진행중</th>
+		</tr>
+        	<tr>
+			<th>스키마설계</th>
+			<th>신승환</th>
+			<th>완료</th>
+			<th>완료</th>
+		</tr>
+        	<tr>
+			<th rowspan="6">카테고리별 상품내역</th>
+			<th>퍼블리싱</th>
+			<th>최예림</th>
+			<th></th>
+			<th>진행중</th>
+		</tr>
+        	<tr>
+			<th>캐릭터 필터</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+        	<tr>
+			<th>판매량/가격 순/신상품 필터링</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+        	<tr>
+			<th>페이지 무한스크롤</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+        	<tr>
+			<th>카테고리 필터</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+        	<tr>
+			<th>스키마설계</th>
+			<th>신승환</th>
+			<th>완료</th>
+			<th>완료</th>
 		</tr>
         
 </table>
