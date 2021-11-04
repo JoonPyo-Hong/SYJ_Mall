@@ -170,7 +170,7 @@
 			<th>완료</th>
 		</tr>
         	<tr>
-			<th rowspan="6">메인페이지 - 오늘</th>
+			<th rowspan="7">메인페이지 - 오늘</th>
 			<th>퍼블리싱</th>
 			<th>홍준표</th>
 			<th>완료</th>
