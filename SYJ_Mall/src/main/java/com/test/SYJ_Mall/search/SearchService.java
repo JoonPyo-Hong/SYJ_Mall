@@ -185,9 +185,11 @@ public class SearchService implements ISearchService {
 			if (userInfo == null) {
 				KakaoCookie kc = new KakaoCookie();
 				String basketList = (String) kc.getCookieInfo(request, "basketList");
-
+				String[] basketLists;
+				
 				// 이미 장바구니에 담긴 번호인지 체크해준다.
-				String[] basketLists = basketList.split("#");
+				if (basketList == null) basketLists = new String[0];
+				else basketLists = basketList.split("#");
 
 				// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
 				int index = Arrays.asList(basketLists).indexOf(Integer.toString(prodtId));

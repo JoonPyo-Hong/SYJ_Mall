@@ -304,9 +304,6 @@
 				const scrollTop = document.getElementById('inner-content').scrollTop;
 				const height = $('#inner-content').height();
 				
-				//console.log("scrollHeight : " + scrollHeight);
-				//console.log("scrollTop : " + scrollTop);
-				//console.log("height : " + height);
 				
 				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
 
@@ -389,47 +386,100 @@
 	});	
 	
 	
+	/*--------------------장바구니/알람 조건---------------------------*/
+	//상품카트 관련 공통 함수
+		function search_prod_basket(prodt_id, prodt_this) {
+			$.ajax({
+				type : "GET",
+				url : "/SYJ_Mall/charItemBasketSet.action",
+				data : "productId=" + prodt_id,
+				dataType : "json",
+				success : function(result) {
+
+					if (result == 1) {
+						$(prodt_this).attr('class', 'incart');
+					} else if (result == 2) {
+						$(prodt_this).attr('class', 'cart');
+					}
+
+				},
+				error : function(a, b, c) {
+					console.log(a, b, c);
+				}
+			});
+		}
+		
+		/* 상품 클릭할때 생기는 이벤트 */
+		$(document).on("click",".item-li",function(){
+			let prodt_id = $(this).attr('id');
+			alert(prodt_id);
+		});
+		
+		//상품 카트에 관련 -> 카트에 넣어주기
+		$(document).on("click",".cart",function(e){
+			
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			
+			search_prod_basket(prodt_id,prodt_this);
+			
+			e.stopPropagation();  
+		});
+		
+		//상품 카트에 관련 -> 카트에서 빼주기
+		$(document).on("click",".incart",function(e){
+			
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			search_prod_basket(prodt_id,prodt_this);
+			
+			e.stopPropagation();  
+		});
+		
+		
 	
-	/*--------------------필터링 조건---------------------------*/
-	$('.sort-title').click(function() {
+	
+		/*--------------------필터링 조건---------------------------*/
+		$('.sort-title').click(function() {
 			$('#sort-modal').css('visibility', 'visible');
 			$('.sort-modal-wrap').css('bottom', '0');
 			$(document.body).css('overflow', 'hidden');
-	});
-	
-	//판매량 순
-	$('#buy-sort').click(function () {
-		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=1";
-	});
-	
-	//신제품 순
-	$('#new-sort').click(function () {
-		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=2";
-	});
-	
-	//낮은 가격 순
-	$('#low-price-sort').click(function () {
-		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=3";
-	});
-	
-	//높은 가격 순
-	$('#high-price-sort').click(function () {
-		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=4";
-	});
-	 
-	
-	//모달 제거하는 용도
-    $('.overlay-wrap').click(function() {
-      $('.overlay-wrap').css('visibility', 'hidden');
-      $('.sort-modal-wrap').css('bottom', '-200px');
-      $(document.body).css('overflow','visible');
-    });
-	
-	
-	
-	
-	
-	
+		});
+
+		//판매량 순
+		$('#buy-sort')
+				.click(
+						function() {
+							location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=1";
+						});
+
+		//신제품 순
+		$('#new-sort')
+				.click(
+						function() {
+							location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=2";
+						});
+
+		//낮은 가격 순
+		$('#low-price-sort')
+				.click(
+						function() {
+							location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=3";
+						});
+
+		//높은 가격 순
+		$('#high-price-sort')
+				.click(
+						function() {
+							location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=${charSeq}&sortedOption=4";
+						});
+
+		//모달 제거하는 용도
+		$('.overlay-wrap').click(function() {
+			$('.overlay-wrap').css('visibility', 'hidden');
+			$('.sort-modal-wrap').css('bottom', '-200px');
+			$(document.body).css('overflow', 'visible');
+		});
 	</script>
 
 </body>

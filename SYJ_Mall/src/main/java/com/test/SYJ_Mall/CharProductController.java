@@ -43,12 +43,23 @@ public class CharProductController {
 	
 	}
 	
-	
+	//캐릭터 상품 무한스크롤
 	@RequestMapping(value = "/charAtProdtStart.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public List<CharProdtDTO> charProdtScroll(HttpServletRequest request, HttpServletResponse response) {
 		
 		return service.getCharProdtAjax(request);
 	}
+	
+	@RequestMapping(value = "/charItemBasketSet.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int charItemBasketSet(HttpServletRequest request, HttpServletResponse response) {
+		
+		return service.charProdtBasketItem(request,response);
+	
+	}
+	
+	
+	
 
 }

@@ -26,5 +26,12 @@ public interface ICharProdtService {
 	 */
 	List<CharProdtDTO> getCharProdtAjax(HttpServletRequest request);
 	
+	/**
+	 * 캐릭터별 상품 장바구니 관련
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int charProdtBasketItem(HttpServletRequest request, HttpServletResponse response);
 	
 }
