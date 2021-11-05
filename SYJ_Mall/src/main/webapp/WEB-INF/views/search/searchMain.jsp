@@ -321,9 +321,9 @@
 
 	<script>
 
-	let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
-	let checkdDevice = 0;//맨처음 디바이스 체크!
-	let filter_option = ${sortedOption};//정렬필터링 옵션
+		//let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
+		//let checkdDevice = 0;//맨처음 디바이스 체크!
+		let filter_option = ${sortedOption};//정렬필터링 옵션
 
 
 			/* 검색관련 */
@@ -529,7 +529,9 @@
             		} else if (result == 2) {
             			$(prodt_this).attr('class','alarm');
             		} else {
+            			//로그인해야 알람을 넣어줄 수 있는 경우
             			$('#login-product-modal').css('visibility','visible');
+            			$(document.body).css('overflow','hidden');
             		}
             	},
             	error: function(a,b,c) {
@@ -566,10 +568,7 @@
 			<c:if test="${not empty productSeq}">
 				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
 			</c:if>
-		    //const productSeq = ${productSeq};
-			
-			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
-			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
+
 		});
 		
 		$('#new-sort').click(function () {
@@ -579,11 +578,7 @@
 			<c:if test="${not empty productSeq}">
 				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
 			</c:if>
-			
-			//const productSeq = ${productSeq};
-			
-			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
-			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
+
 		});
 
 		$('#low-price-sort').click(function () {
@@ -593,11 +588,7 @@
 			<c:if test="${not empty productSeq}">
 				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
 			</c:if>
-			
-			//const productSeq = ${productSeq};
-			
-			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
-			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
+
 		});
 		    
 		$('#high-price-sort').click(function () {
@@ -607,11 +598,7 @@
 			<c:if test="${not empty productSeq}">
 				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
 			</c:if>
-			
-			//const productSeq = ${productSeq};
-			
-			//if (productSeq != null) location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
-			//else location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
+
 		});
 		  
 	    
