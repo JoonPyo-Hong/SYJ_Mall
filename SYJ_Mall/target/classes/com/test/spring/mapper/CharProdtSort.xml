@@ -28,5 +28,16 @@
 	</select>
 	
 	
+	<!-- 캐릭터별 제품 목록 객체 로그인 한 경우-->
+	<select id="prodtsCharsLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.charProdt.CharProdtDTO"
+		statementType="CALLABLE">
+		{
+			call dbo.kakao_char_product_login(#{charSeq},#{sortedOption},#{paging},#{userSeq})
+		}
+	</select>
+	
+	
   	
   </mapper>

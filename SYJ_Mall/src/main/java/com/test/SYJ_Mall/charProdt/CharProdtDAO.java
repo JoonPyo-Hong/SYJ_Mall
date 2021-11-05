@@ -36,6 +36,19 @@ public class CharProdtDAO implements ICharProdtDAO{
 		return template.selectList("prodtCharSort.prodtsChars",map);
 	}
 	
+	//캐릭터 해당 세부상품 가져와주기 -- 로그인된 경우
+	@Override
+	public List<CharProdtDTO> getCharProdtsLogin(String charSeq, String sortedOption, int paging, int userSeq) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("charSeq", Integer.parseInt(charSeq));
+		map.put("sortedOption", Integer.parseInt(sortedOption));
+		map.put("paging", paging);
+		map.put("userSeq", userSeq);
+		
+		return template.selectList("prodtCharSort.prodtsCharsLogin",map);
+	}
+	
 
 	
 	

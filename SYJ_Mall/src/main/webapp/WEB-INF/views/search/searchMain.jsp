@@ -149,8 +149,8 @@
 		</div>
 	</div>
 	<div id="kakao-wrap">
-		<div id="kakao-head">
-			<div id="inner-head">
+		<div id="kakao-head" style="position:fixed; z-index: 10;">
+			<div id="inner-head" style="background-color : #FFFFFF;">
 				<div class="left-btn">
 					<button class="back-button"></button>
 					<button class="home-button"></button>
@@ -163,8 +163,9 @@
 			</div>
 			<div id="inner-tab"></div>
 		</div>
-		<div id="kakao-content">
-			<div id="inner-content" style="overflow: scroll;">
+		<div id="kakao-content" style="overflow: scroll;">
+			<div style="height:100px;"></div>
+			<div id="inner-content">
 				<!-- 마이페이지 컨텐츠 -->
 				<div id="testest" class="container-wrap product-search-result">
 					<!-- 검색 결과 배너 -->

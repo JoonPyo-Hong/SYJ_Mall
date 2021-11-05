@@ -85,9 +85,8 @@ public class KakaoCookie {
 		Cookie[] cookies = request.getCookies();
 		
 		if (cookies != null) {
-			
+		//쿠키 객체가 존재는 하는경우
 			for (int i = 0; i < cookies.length; i++) {
-				
 				if (cookies[i].getName().equals(cookieName)) {
 					cookies[i].setValue(setCookieVal);
 					cookies[i].setMaxAge(setTime);
@@ -96,7 +95,13 @@ public class KakaoCookie {
 					break;
 				}
 			}
-		}	
+			//쿠키 객체는 존재하지만 해당이름을 가진 쿠키객체가 존재하지 않는 경우
+			generateCookie(response, cookieName, setCookieVal, setTime);
+
+		} else {
+		//쿠키 객체 자체가 존재하지 않는 경우	
+			generateCookie(response, cookieName, setCookieVal, setTime);
+		}
 	}
 
 

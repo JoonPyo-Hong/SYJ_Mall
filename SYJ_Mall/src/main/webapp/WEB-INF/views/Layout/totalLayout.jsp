@@ -45,8 +45,8 @@
 	</div>
 
 	<div id="kakao-wrap">
-		<div id="kakao-head">
-			<div id="inner-head">
+		<div id="kakao-head" style="position:fixed; z-index: 10;">
+			<div id="inner-head" style="background-color : #FFFFFF;">
 				<div class="left-btn">
 					<!-- <button class="hamburger-menu"></button> -->
 					<!-- hamburger-menu -->
@@ -180,8 +180,9 @@
 
 			</div>
 		</div>
-		<div id="kakao-content">
-			<div id="inner-content" style="overflow: scroll;">
+		<div id="kakao-content" style="overflow: scroll;">
+			<div style="height:100px;"></div>
+			<div id="inner-content">
 			<!-- style="overflow: scroll;" -->
 				<!-- 여기에 타일즈 내용이 들어가야함 -->
 				<tiles:insertAttribute name="body" ignore="false" />
