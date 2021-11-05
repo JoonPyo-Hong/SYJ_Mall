@@ -185,6 +185,8 @@ public class SearchService implements ISearchService {
 			if (userInfo == null) {
 				KakaoCookie kc = new KakaoCookie();
 				String basketList = (String) kc.getCookieInfo(request, "basketList");
+				
+				// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
 				String[] basketLists;
 				
 				// 이미 장바구니에 담긴 번호인지 체크해준다.
@@ -198,7 +200,9 @@ public class SearchService implements ISearchService {
 				if (index == -1) {
 
 					StringBuffer sb = new StringBuffer();
-					sb.append(basketList);
+
+					if (basketList != null) sb.append(basketList);
+					
 					sb.append(Integer.toString(prodtId));
 					sb.append("#");
 

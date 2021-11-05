@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utill.CommonDAO;
+import com.common.utill.KakaoCookie;
 import com.common.utill.MasterDTO;
 import com.test.SYJ_Mall.charProdt.CharProdtDTO;
 import com.test.SYJ_Mall.charProdt.ICharProdtService;
@@ -31,7 +32,6 @@ public class CharProductController {
 	//캐릭터별 페이지 안내 -> 라이언,춘식 등등
 	@RequestMapping(value = "/charAtProdtStart.action", method = { RequestMethod.GET })
 	public String charProdtStart(HttpServletRequest request, HttpServletResponse response) {
-		
 		
 		int result = service.setCharProdtStart(request,response);
 		

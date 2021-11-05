@@ -56,13 +56,7 @@ public class CharProdtService implements ICharProdtService{
 			int pageAjaxCount = (int) Math.ceil(charHeadCount / 8.0);// 6개씩 끊어서 출력해주기 -> 페이지가 몇개 나오는지 계산
 			int paging = 1;
 			
-			request.setAttribute("charSeq", charSeq);
-			request.setAttribute("charHeadName", charHeadName);
-			request.setAttribute("charHeadPicUrl", charHeadPicUrl);
-			request.setAttribute("charHeadCount", charHeadCount);
-			request.setAttribute("sortedOption", sortedOption);
-			request.setAttribute("pageAjaxCount", pageAjaxCount);
-			request.setAttribute("paging", paging);
+			
 			// 마지막 페이지 정보 쿠키에 넘기는 작업
 			KakaoCookie ck = new KakaoCookie();
 			ck.generateCookie(response, "lastPage", "/SYJ_Mall/charAtProdtStart.action?charSeq=" + charSeq);// 마지막페이지
@@ -74,17 +68,20 @@ public class CharProdtService implements ICharProdtService{
 				String basketList = (String)ck.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
 				charProdts = dao.getCharProdts(charSeq,sortedOption,paging,basketList);
 				
-				System.out.println(basketList);
-				
-				request.setAttribute("charProdts", charProdts);//임시
-				
-				
 			} else {
 				// 로그인이 된 경우 -- 아래는 임시
-				
+				int userSeq = userInfo.getUserSeq();
+				charProdts = dao.getCharProdtsLogin(charSeq,sortedOption,paging,userSeq);
 			}
 			
-			
+			request.setAttribute("charSeq", charSeq);
+			request.setAttribute("charHeadName", charHeadName);
+			request.setAttribute("charHeadPicUrl", charHeadPicUrl);
+			request.setAttribute("charHeadCount", charHeadCount);
+			request.setAttribute("sortedOption", sortedOption);
+			request.setAttribute("pageAjaxCount", pageAjaxCount);
+			request.setAttribute("paging", paging);
+			request.setAttribute("charProdts", charProdts);
 			
 			return 1;
 		} catch(Exception e) {
@@ -150,7 +147,7 @@ public class CharProdtService implements ICharProdtService{
 				KakaoCookie kc = new KakaoCookie();
 				String basketList = (String) kc.getCookieInfo(request, "basketList");
 				
-				// 이미 장바구니에 담긴 번호인지 체크해준다.-->null check 해줘야한다.
+				// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
 				String[] basketLists;
 				
 				if (basketList == null) basketLists = new String[0];
@@ -163,15 +160,15 @@ public class CharProdtService implements ICharProdtService{
 				// 해당 물품이 없는 경우 -> 상품 쿠키 객체에 물품 아이디를 추가해준다.
 				if (index == -1) {
 					
-					//System.out.println("here");
-					
 					StringBuffer sb = new StringBuffer();
-					sb.append(basketList);
+					
+					if (basketList != null) sb.append(basketList);
+					
 					sb.append(Integer.toString(prodtId));
 					sb.append("#");
 
 					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
-
+					
 					return 1;// 장바구니 추가
 				} else {
 					// 해당 물품이 존재하는경우 -> 장바구니에서 빼주기

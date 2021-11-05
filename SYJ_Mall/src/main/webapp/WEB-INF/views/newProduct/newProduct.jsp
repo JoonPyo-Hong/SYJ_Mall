@@ -263,17 +263,17 @@
 	let new_friends_total = ${newFriendsCount};//새로운 친구 물품 갯수 -> 전체 페이징
 	let new_friends_count = 2;//페이징변수
 
-	$('#inner-content').on(
+	$('#kakao-content').on(
 					'scroll',
 					function() {
 
-						const scrollHeight = document.getElementById('inner-content').scrollHeight;
-						const scrollTop = document.getElementById('inner-content').scrollTop;
-						const height = $('#inner-content').height();
+						const scrollHeight = document.getElementById('kakao-content').scrollHeight;
+						const scrollTop = document.getElementById('kakao-content').scrollTop;
+						const height = $('#kakao-content').height();
 						
-						//console.log("scrollHeight : " + scrollHeight);
-						//console.log("scrollTop : " + scrollTop);
-						//console.log("height : " + height);
+						console.log("scrollHeight : " + scrollHeight);
+						console.log("scrollTop : " + scrollTop);
+						console.log("height : " + height);
 					
 						if ((scrollTop + height >= scrollHeight) && new_friends_count <= new_friends_total) {	
 							$.ajax({

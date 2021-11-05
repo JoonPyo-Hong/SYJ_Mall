@@ -26,6 +26,16 @@ public interface ICharProdtDAO {
 	 */
 	List<CharProdtDTO> getCharProdts(String charSeq, String sortedOption, int paging, String basketList);
 	
+	/**
+	 * 캐릭터에 해당되는 세부상품 가져오기 - 로그인된 경우
+	 * @param charSeq		캐릭터 번호
+	 * @param sortedOption	정렬옵션
+	 * @param paging		페이지 번호
+	 * @param userSeq		유저고유번호
+	 * @return				세부상품 객체
+	 */
+	List<CharProdtDTO> getCharProdtsLogin(String charSeq, String sortedOption, int paging, int userSeq);
+	
 	
 	
 
