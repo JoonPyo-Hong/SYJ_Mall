@@ -18,9 +18,7 @@
 <link rel="stylesheet" href="resources/css/search/seen1.css">
 <link rel="stylesheet" href="resources/css/search/searchLoginModal.css">
 <link rel="stylesheet" href="resources/css/mainLayout/searchTest.css">
-<link rel="stylesheet" href="resources/css/commoncss/sortModalWrap3.css">
-<style>
-</style>
+<link rel="stylesheet" href="resources/css/commoncss/sortModalWrap4.css"> 
 </head>
 <body>
 	<!-- 로그인 모달창 -->
@@ -47,7 +45,8 @@
 		</div>
 	</div>
 	<!-- 정렬 모달창 -->
-	<div class="overlay-wrap" id="sort-modal" style="visibility: hidden;">
+	<div class="overlay-wrap" id="sort-modal"
+		style="visibility: hidden; z-index: 20;">
 		<div class="sort-modal-wrap">
 			<div class="sort-list" id="buy-sort">
 				<div class="sort-text">판매량순</div>
@@ -80,7 +79,7 @@
 		</div>
 	</div>
 	<!-- 캐릭터 모달창 -->
-	<div class="overlay-wrap" id="charac-modal" style="visibility: hidden;">
+	<div class="overlay-wrap" id="charac-modal" style="visibility: hidden; z-index: 20;">
 		<div class="character-modal-wrap">
 			<div class="character-list all">
 				<div class="character-image"></div>
@@ -149,8 +148,8 @@
 		</div>
 	</div>
 	<div id="kakao-wrap">
-		<div id="kakao-head" style="position:fixed; z-index: 10;">
-			<div id="inner-head" style="background-color : #FFFFFF;">
+		<div id="kakao-head" style="position: fixed; z-index: 10; background-color: #FFFFFF;">
+			<div id="inner-head">
 				<div class="left-btn">
 					<button class="back-button"></button>
 					<button class="home-button"></button>
@@ -161,18 +160,64 @@
 					<button class="language"></button>
 				</div>
 			</div>
-			<div id="inner-tab"></div>
+			<div id="inner-tab">
+				<!-- 검색 결과 배너 -->
+				<div class="search-banner">
+					<span class="search-text"><b>'${userinputName}'</b> 검색결과</span>
+				</div>
+				<hr class="division" />
+				<!-- 상품 정렬 및 개수 -->
+				<div class="search-header">
+					<div class="sort-wrap">
+						<div class="sort">
+							<span class="sort-title" id="char-sort-name">캐릭터 전체</span> <img
+								class="sort-icon"
+								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+						</div>
+						<div class="sort-divider"></div>
+						<div class="sort">
+							<c:if test="${sortedOption eq 1}">
+								<span class="sort-title" id="content-sort-name">판매량순</span>
+								<img class="sort-icon"
+									src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							</c:if>
+							<c:if test="${sortedOption eq 2}">
+								<span class="sort-title" id="content-sort-name">신상품순</span>
+								<img class="sort-icon"
+									src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							</c:if>
+							<c:if test="${sortedOption eq 3}">
+								<span class="sort-title" id="content-sort-name">낮은 가격순</span>
+								<img class="sort-icon"
+									src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							</c:if>
+							<c:if test="${sortedOption eq 4}">
+								<span class="sort-title" id="content-sort-name">높은 가격순</span>
+								<img class="sort-icon"
+									src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							</c:if>
+						</div>
+					</div>
+					<div class="detail">
+						<div class="all-count">
+							총 <b>${searchProdCount}</b>개
+						</div>
+						<div class="check-global">
+							<img
+								src="/SYJ_Mall/resources/images/product_category/ico_checked.png" />
+							<span>글로벌 배송 가능상품 보기</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<div id="kakao-content" style="overflow: scroll;">
-			<div style="height:100px;"></div>
+			<div style="height: 230px;"></div>
 			<div id="inner-content">
 				<!-- 마이페이지 컨텐츠 -->
 				<div id="testest" class="container-wrap product-search-result">
-					<!-- 검색 결과 배너 -->
-					<div class="search-banner">
-						<span class="search-text"><b>'${userinputName}'</b> 검색결과</span>
-					</div>
-					<hr class="division" />
+
 					<!-- ##### 마이페이지랑 데이터 없을 때 태그 위치가 다릅니다 ##### -->
 
 					<c:if test="${searchProdCount == 0}">
@@ -189,54 +234,11 @@
 
 					<c:if test="${searchProdCount != 0}">
 						<!-- 데이터 있을 시 -->
-						<!-- 상품 정렬 및 개수 -->
-						<div class="search-header">
-							<div class="sort-wrap">
-								<div class="sort">
-									<span class="sort-title" id="char-sort-name">캐릭터 전체</span> <img
-										class="sort-icon"
-										src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
-								</div>
-								<div class="sort-divider"></div>
-								<div class="sort">
-									<c:if test="${sortedOption eq 1}">
-										<span class="sort-title" id="content-sort-name">판매량순</span>
-										<img class="sort-icon"
-											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
-									</c:if>
-									<c:if test="${sortedOption eq 2}">
-										<span class="sort-title" id="content-sort-name">신상품순</span>
-										<img class="sort-icon"
-											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
-									</c:if>
-									<c:if test="${sortedOption eq 3}">
-										<span class="sort-title" id="content-sort-name">낮은 가격순</span>
-										<img class="sort-icon"
-											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
-									</c:if>
-									<c:if test="${sortedOption eq 4}">
-										<span class="sort-title" id="content-sort-name">높은 가격순</span>
-										<img class="sort-icon"
-											src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
-									</c:if>
-								</div>
-							</div>
-							<div class="detail">
-								<div class="all-count">
-									총 <b>${searchProdCount}</b>개
-								</div>
-								<div class="check-global">
-									<img
-										src="/SYJ_Mall/resources/images/product_category/ico_checked.png" />
-									<span>글로벌 배송 가능상품 보기</span>
-								</div>
-							</div>
-						</div>
+
 
 
 						<!-- 해당 검색 상품 영역 -->
-						<div class="search-product-wrap"
-							style="border: 1px solid red; overflow: scroll;">
+						<div class="search-product-wrap">
 							<ul id="search-item-lists">
 
 								<!-- 여기서부터 조건이 붙어야 한다.***** -->
@@ -352,13 +354,13 @@
 		const userinputName = "${userinputName}";//유저가 넘긴 검색단어정보
 		
 		//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
-		$('#inner-content').on(
+		$('#kakao-content').on(
 				"scroll",
 				function(){
 
-					const scrollHeight = document.getElementById('inner-content').scrollHeight;
-					const scrollTop = document.getElementById('inner-content').scrollTop;
-					const height = $('#inner-content').height();
+					const scrollHeight = document.getElementById('kakao-content').scrollHeight;
+					const scrollTop = document.getElementById('kakao-content').scrollTop;
+					const height = $('#kakao-content').height();
 					
 					//console.log("scrollHeight : " + scrollHeight);
 					//console.log("scrollTop : " + scrollTop);
@@ -558,6 +560,7 @@
 		$('#content-sort-name').click(function() {
 			$('#sort-modal').css('visibility', 'visible');
 			$('.sort-modal-wrap').css('bottom', '0');
+			$('#kakao-footer').css('background-color','#4C4C4C');
 			$(document.body).css('overflow', 'hidden');
 		});
 		
@@ -607,15 +610,17 @@
 	    $("#char-sort-name").click(function () {
 	      $('#charac-modal').css("visibility", "visible");
 	      $('.character-modal-wrap').css('bottom', '0');
+	      $('#kakao-footer').css('background-color','#4C4C4C');
 	      $(document.body).css('overflow','hidden');
 	    });
 		
 	    //모달 제거하는 용도
 	    $('.overlay-wrap').click(function () {
-	      $('.overlay-wrap').css('visibility', 'hidden');
-	      $('.sort-modal-wrap').css('bottom', '-200px');
-	      $('.character-modal-wrap').css('bottom', '-400px');
-	      $(document.body).css('overflow','visible');
+	    	$('.overlay-wrap').css('visibility', 'hidden');
+	      	$('.sort-modal-wrap').css('bottom', '-180px');
+	     	$('.character-modal-wrap').css('bottom', '-180px');
+	      	$('#kakao-footer').css('background-color','#FFF');
+	      	$(document.body).css('overflow','visible');
 	    });
 		
 	</script>

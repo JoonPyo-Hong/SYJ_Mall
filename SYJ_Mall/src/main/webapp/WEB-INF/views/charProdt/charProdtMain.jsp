@@ -12,12 +12,22 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
-<link rel="stylesheet"
-	href="resources/css/mainLayout/mainTilesLayout.css">
+<link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
-<link rel="stylesheet"
-	href="resources/css/charProdt/product_category_character5.css">
+<link rel="stylesheet" href="resources/css/charProdt/product_category_character5.css">
 <link rel="stylesheet" href="resources/css/commoncss/sortModalWrap3.css">
+<style>
+	#media-vacant {
+  		height:230px;
+  	}
+  	@media (min-width: 640px) {
+  		#media-vacant {
+  			height:350px;
+  		}
+  	}
+  	
+
+</style>
 </head>
 <body>
 
@@ -45,7 +55,7 @@
 		</div>
 	</div>
 	<!-- 정렬 모달창 -->
-	<div class="overlay-wrap" id="sort-modal" style="visibility: hidden;">
+	<div class="overlay-wrap" id="sort-modal" style="visibility: hidden; z-index: 20;">
 		<div class="sort-modal-wrap">
 			<div class="sort-list" id="buy-sort">
 				<div class="sort-text">판매량순</div>
@@ -79,8 +89,8 @@
 	</div>
 
 	<div id="kakao-wrap">
-		<div id="kakao-head">
-			<div id="inner-head">
+		<div id="kakao-head" style="position:fixed; z-index: 10;">
+			<div id="inner-head" style="background-color : #FFFFFF;">
 				<div class="left-btn">
 					<button class="back-button"></button>
 					<button class="home-button"></button>
@@ -120,7 +130,7 @@
 					</select>
 				</div>
 				<!-- 상품 정렬 및 개수 -->
-				<div class="category-header">
+				<div class="category-header" style="background-color : #FFFFFF;">
 					<div class="sort">
 						<c:if test="${sortedOption eq 1}">
 							<span class="sort-title" id="content-sort-name">판매량순</span>
@@ -143,7 +153,7 @@
 								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</c:if>
 					</div>
-					<div class="detail">
+					<div class="detail" style="background-color : #FFFFFF;">
 						<div class="all-count">
 							총 <b>${charHeadCount}</b>개
 						</div>
@@ -156,9 +166,9 @@
 				</div>
 			</div>
 		</div>
-		<div id="kakao-content">
-
-			<div id="inner-content" style="overflow: scroll;">
+		<div id="kakao-content" style="overflow: scroll;">
+			<div id="media-vacant"></div>
+			<div id="inner-content">
 				<!-- 상품 -->
 				<!-- 카테고리 선택 배너 -->
 
@@ -296,13 +306,13 @@
 	let charSeq = ${charSeq};
 	
 	//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
-	$('#inner-content').on(
+	$('#kakao-content').on(
 			"scroll",
 			function(){
 
-				const scrollHeight = document.getElementById('inner-content').scrollHeight;
-				const scrollTop = document.getElementById('inner-content').scrollTop;
-				const height = $('#inner-content').height();
+				const scrollHeight = document.getElementById('kakao-content').scrollHeight;
+				const scrollTop = document.getElementById('kakao-content').scrollTop;
+				const height = $('#kakao-content').height();
 				
 				
 				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
@@ -443,6 +453,7 @@
 		$('.sort-title').click(function() {
 			$('#sort-modal').css('visibility', 'visible');
 			$('.sort-modal-wrap').css('bottom', '0');
+			$('#kakao-footer').css('background-color','#4C4C4C');
 			$(document.body).css('overflow', 'hidden');
 		});
 
@@ -478,6 +489,7 @@
 		$('.overlay-wrap').click(function() {
 			$('.overlay-wrap').css('visibility', 'hidden');
 			$('.sort-modal-wrap').css('bottom', '-200px');
+			$('#kakao-footer').css('background-color','#FFF');
 			$(document.body).css('overflow', 'visible');
 		});
 	</script>

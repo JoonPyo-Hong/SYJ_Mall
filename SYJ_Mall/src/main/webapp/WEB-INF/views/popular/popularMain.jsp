@@ -44,13 +44,13 @@
 	let paging = 1;//페이지 넘버
 	let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
 	
-	$('#inner-content').on(
+	$('#kakao-content').on(
 			'scroll',
 			function() {
 
-				const scrollHeight = document.getElementById('inner-content').scrollHeight;
-				const scrollTop = document.getElementById('inner-content').scrollTop;
-				const height = $('#inner-content').height();
+				const scrollHeight = document.getElementById('kakao-content').scrollHeight;
+				const scrollTop = document.getElementById('kakao-content').scrollTop;
+				const height = $('#kakao-content').height();
 				
 				
 				if ((scrollTop + height >= scrollHeight) && paging < total_count-1 && searchYn == -1) {
