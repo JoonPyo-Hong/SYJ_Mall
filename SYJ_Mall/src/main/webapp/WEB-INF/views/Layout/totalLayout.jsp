@@ -22,7 +22,7 @@
 	<div id="mask"></div>
 
 	<!-- 로그인 모달 -->
-	<div class="overlay-wrapper" id="login-product-modal">
+	<div class="overlay-wrapper" id="login-product-modal" style="z-index:20;">
 		<div class="login-modal-wrap">
 			<div class="modal-close">
 				<div class="close-btn"></div>
@@ -45,7 +45,7 @@
 	</div>
 
 	<div id="kakao-wrap">
-		<div id="kakao-head" style="position:fixed; z-index: 10;">
+		<div id="kakao-head" >
 			<div id="inner-head" style="background-color : #FFFFFF;">
 				<div class="left-btn">
 					<!-- <button class="hamburger-menu"></button> -->
@@ -181,7 +181,6 @@
 			</div>
 		</div>
 		<div id="kakao-content" style="overflow: scroll;">
-			<div style="height:100px;"></div>
 			<div id="inner-content">
 			<!-- style="overflow: scroll;" -->
 				<!-- 여기에 타일즈 내용이 들어가야함 -->

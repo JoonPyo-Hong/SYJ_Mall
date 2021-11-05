@@ -310,6 +310,8 @@ var {
   .sort-modal-wrap .sort-list {
     max-width: 640px !important;
   }
+  
+  
 }
 
 
