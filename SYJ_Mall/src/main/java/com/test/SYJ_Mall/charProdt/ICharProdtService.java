@@ -34,4 +34,11 @@ public interface ICharProdtService {
 	 */
 	int charProdtBasketItem(HttpServletRequest request, HttpServletResponse response);
 	
+	/**
+	 * 캐릭터별 상품 알람 기능 관련
+	 * @param request
+	 * @return
+	 */
+	int charProdtAlarmItem(HttpServletRequest request);
+	
 }

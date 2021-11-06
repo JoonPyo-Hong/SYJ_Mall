@@ -33,7 +33,7 @@
 
 	<!-- 로그인 모달창 -->
 	<div class="overlay-wrap" id="login-product-modal"
-		style="visibility: hidden;">
+		style="visibility: hidden; z-index : 20;">
 		<div class="login-modal-wrap">
 			<div class="modal-close">
 				<div class="close-btn"></div>
@@ -446,8 +446,61 @@
 			e.stopPropagation();  
 		});
 		
+		//상품알림 관련 공통 함수
+		function search_prod_alarm(prodt_id,prodt_this) {
+			$.ajax({
+            	type:"GET",
+            	url: "/SYJ_Mall/charItemAlarmSet.action",
+            	data : "productId=" + prodt_id,
+            	dataType : "json",
+            	success : function(result) {
+            		console.log(result);
+            		if (result == 1) {
+            			$(prodt_this).attr('class','inalarm');
+            		} else if (result == 2) {
+            			$(prodt_this).attr('class','alarm');
+            		} else {
+            			//로그인해야 알람을 넣어줄 수 있는 경우
+            			$('#login-product-modal').css('visibility','visible');
+            			$(document.body).css('overflow','hidden');
+            		}
+            	},
+            	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+           });
+		}
 		
-	
+		//상품 알림 관련 -> 알림에 넣어주기
+		$(document).on("click",".alarm",function(e){
+			
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			search_prod_alarm(prodt_id,prodt_this);
+			e.stopPropagation();  
+		});
+		
+		//상품 알림 관련 -> 알림에서 빼주기
+		$(document).on("click",".inalarm",function(e){
+			
+			let prodt_id = $(this).parent().parent().attr('id');
+			let prodt_this = $(this);
+			search_prod_alarm(prodt_id,prodt_this);
+			e.stopPropagation();  
+		});
+		
+		
+		//로그인 모달창 로그인하기
+		$(document).on("click",".login-btn",function(){
+			$('#login-product-modal').css('visibility','hidden');
+			location.href = "/SYJ_Mall/login.action";
+		}); 
+		
+		//로그인 모달창 돌아가기
+		$(document).on("click",".close-btn",function(){
+			$('#login-product-modal').css('visibility','hidden');
+		}); 
+		
 	
 		/*--------------------필터링 조건---------------------------*/
 		$('.sort-title').click(function() {
