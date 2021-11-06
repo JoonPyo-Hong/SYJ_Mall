@@ -1,0 +1,181 @@
+/* 카테고리 선택 배너 */
+.category-banner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: url(../images/product_category/Category_Ryan_210303.jpg) right 0px /
+    cover no-repeat;
+  background-color: #ededed;
+  margin-top: -3px;
+  min-height: 111px;
+}
+
+.category-banner .category-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  margin-left: 20px;
+}
+
+/* 상품 정렬 및 개수 */
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* padding: 0px 20px; */
+  cursor: pointer;
+}
+
+.category-header .sort {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgb(242, 242, 242);
+}
+
+.category-header .sort .sort-title {
+  font-size: 16px;
+  color: rgb(17, 17, 17);
+  margin-right: 2px;
+}
+
+.category-header .sort .sort-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.category-header .category-tab {
+  width: 100%;
+}
+
+.category-header .category-tab ul {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  height: 50px;
+  border-bottom: 1px solid rgb(242, 242, 242);
+}
+
+.category-header .category-tab ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  height: 50px;
+}
+
+.category-header .category-tab ul li.active {
+  font-weight: bold;
+  border-bottom: 2px solid #1e1e1e;
+}
+
+.category-header .detail {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.category-header .detail .all-count {
+  font-size: 16px;
+}
+
+.category-header .detail .check-global {
+  display: flex;
+  font-size: 16px;
+}
+
+.category-header .detail .check-global img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+/* 해당 카테고리 상품 영역 */
+.category-product-wrap {
+  padding: 0px 20px;
+  margin-top: 20px;
+}
+
+.category-product-wrap ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.category-product-wrap .item-li {
+  /* margin-bottom: 40px; */
+  max-width: 160px;
+  min-height: 280px;
+  max-height: 280px;
+}
+
+.category-product-wrap .item-li .thumbnail {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  background-image: url(./../images/product_category/20210819161132067_8809814920946_8809814920946_AW_00.jpg);
+  background-size: contain;
+  margin-right: 20px;
+  margin-bottom: 12px;
+}
+
+.category-product-wrap .item-li .thumbnail::after {
+  position: absolute;
+  inset: 0px;
+  background: rgba(0, 0, 0, 0.02);
+  content: "";
+  width: 100%;
+  z-index: 0;
+  padding-top: 100%;
+}
+
+.category-product-wrap .item-li .thumbnail .soldout-label {
+  width: 61px;
+  height: 22px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-image: url(./../images/product_category/tag-soldout.png);
+  background-size: contain;
+}
+
+.category-product-wrap .item-li .name {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #777777;
+  font-weight: 400;
+  margin: 15px 0 5px;
+}
+
+.category-product-wrap .item-li .name .nametext {
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-product-wrap .item-li .name .cart {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(./../images/product_category/Small_30_off.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.category-product-wrap .item-li .price {
+  font-size: 16px;
+  font-weight: bold;
+}
