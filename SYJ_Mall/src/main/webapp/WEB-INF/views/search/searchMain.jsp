@@ -81,67 +81,67 @@
 	<!-- 캐릭터 모달창 -->
 	<div class="overlay-wrap" id="charac-modal" style="visibility: hidden; z-index: 20;">
 		<div class="character-modal-wrap">
-			<div class="character-list all">
+			<div class="character-list all" id="0">
 				<div class="character-image"></div>
 				<div class="character-text">전체</div>
 			</div>
-			<div class="character-list ryan">
+			<div class="character-list ryan" id="1">
 				<div class="character-image"></div>
 				<div class="character-text">라이언</div>
 			</div>
-			<div class="character-list apeach">
+			<div class="character-list apeach" id="2">
 				<div class="character-image"></div>
 				<div class="character-text">어피치</div>
 			</div>
-			<div class="character-list muzi">
+			<div class="character-list muzi" id="3">
 				<div class="character-image"></div>
 				<div class="character-text">무지</div>
 			</div>
-			<div class="character-list frodo">
+			<div class="character-list frodo" id="4">
 				<div class="character-image"></div>
 				<div class="character-text">프로도</div>
 			</div>
-			<div class="character-list neo">
+			<div class="character-list neo" id="5">
 				<div class="character-image"></div>
 				<div class="character-text">네오</div>
 			</div>
-			<div class="character-list tube">
+			<div class="character-list tube" id="6">
 				<div class="character-image"></div>
 				<div class="character-text">튜브</div>
 			</div>
-			<div class="character-list jay">
+			<div class="character-list jay" id="7">
 				<div class="character-image"></div>
 				<div class="character-text">제이지</div>
 			</div>
-			<div class="character-list con">
+			<div class="character-list con" id="8">
 				<div class="character-image"></div>
 				<div class="character-text">콘</div>
 			</div>
-			<div class="character-list choonsic">
+			<div class="character-list choonsic" id="9">
 				<div class="character-image"></div>
 				<div class="character-text">춘식</div>
 			</div>
-			<div class="character-list jordy">
+			<div class="character-list jordy" id="10">
 				<div class="character-image"></div>
 				<div class="character-text">죠르디</div>
 			</div>
-			<div class="character-list scappy">
+			<div class="character-list scappy" id="11">
 				<div class="character-image"></div>
 				<div class="character-text">스카피</div>
 			</div>
-			<div class="character-list angmond">
+			<div class="character-list angmond" id="12">
 				<div class="character-image"></div>
 				<div class="character-text">앙몬드</div>
 			</div>
-			<div class="character-list pendaJr">
+			<div class="character-list pendaJr" id="13">
 				<div class="character-image"></div>
 				<div class="character-text">팬다주니어</div>
 			</div>
-			<div class="character-list kereberony">
+			<div class="character-list kereberony" id="14">
 				<div class="character-image"></div>
 				<div class="character-text">케로&베로니</div>
 			</div>
-			<div class="character-list kumdori">
+			<div class="character-list kumdori" id="15">
 				<div class="character-image"></div>
 				<div class="character-text">꿈돌이</div>
 			</div>
@@ -324,34 +324,31 @@
 
 	<script>
 
-		//let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
-		//let checkdDevice = 0;//맨처음 디바이스 체크!
 		let filter_option = ${sortedOption};//정렬필터링 옵션
+		let sortedCharOption = ${sortedCharOption};//캐릭터 필터링 옵션
 
+		/* 검색관련 */	
+		$('.search').click(function() {
+			location.href = "/SYJ_Mall/searchStart.action";
+		});
 
-			/* 검색관련 */
-			$('.search').click(function() {
-				location.href = "/SYJ_Mall/searchStart.action";
-			});
-
-			/* 뒤로가기 관련 */
-			$('.back-button').click(function(){
-				location.href = "/SYJ_Mall/searchback.action";	
-			});	
+		/* 뒤로가기 관련 */
+		$('.back-button').click(function(){
+			location.href = "/SYJ_Mall/searchback.action";	
+		});	
 			
-			/* 메인페이지로 보내주기 */
-			$('.home-button').click(function(){
-				location.href = "/SYJ_Mall/searchbackmain.action";	
-			});
+		/* 메인페이지로 보내주기 */
+		$('.home-button').click(function(){
+			location.href = "/SYJ_Mall/searchbackmain.action";	
+		});
 
 
-		
-		
 		let totalProdCounting  = ${searchProdCount};
 		let totalPagingCount = ${pageAjaxCount};
 		let paging = 1;//페이징
 		let height = 0;//높이지정
 		const userinputName = "${userinputName}";//유저가 넘긴 검색단어정보
+		const productSeq = "${productSeq}";
 		
 		//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
 		$('#kakao-content').on(
@@ -374,12 +371,11 @@
 				        	type:"POST",
 				            url: "/SYJ_Mall/searchresultscroll.action" ,
 				            async : false,
-				            data : {"paging" : paging, "inputWord" : userinputName,"sortedOption" : filter_option},
+				            data : {"paging" : paging, "inputWord" : userinputName,"sortedOption" : filter_option, "sortedCharOption" : sortedCharOption},
 				            dataType : "json",
 				            success : function(result) {
 				                
 				            	let selectCount = result.length;
-				            
 				            	
 				            	for (let i = 0; i < selectCount; i++) {
 				            		
@@ -567,45 +563,59 @@
 		
 		$('#buy-sort').click(function () {
 			<c:if test="${empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1";
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=1&sortedCharOption="+ sortedCharOption;
 			</c:if>
 			<c:if test="${not empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1";
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=1&sortedCharOption="+ sortedCharOption;
 			</c:if>
 
 		});
 		
 		$('#new-sort').click(function () {
 			<c:if test="${empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2";
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=2&sortedCharOption="+ sortedCharOption;
 			</c:if>
 			<c:if test="${not empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2";
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=2&sortedCharOption="+ sortedCharOption;
 			</c:if>
 
 		});
 
 		$('#low-price-sort').click(function () {
 			<c:if test="${empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3";
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=3&sortedCharOption="+ sortedCharOption;
 			</c:if>
 			<c:if test="${not empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3";
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=3&sortedCharOption="+ sortedCharOption;
 			</c:if>
 
 		});
 		    
 		$('#high-price-sort').click(function () {
 			<c:if test="${empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4";
+				location.href = "/SYJ_Mall/searchresult.action?inputName=${userinputName}&sortedOption=4&sortedCharOption="+ sortedCharOption;
 			</c:if>
 			<c:if test="${not empty productSeq}">
-				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4";
+				location.href = "/SYJ_Mall/searchresult.action?productSeq=${productSeq}&sortedOption=4&sortedCharOption="+ sortedCharOption;
 			</c:if>
 
 		});
-		  
-	    
+		
+		
+		//캐릭터순 필터
+	    $('.character-list').click(function(){
+	    	
+	    	sortedCharOption = $(this).attr('id');
+	    	
+	    	if (userinputName == null) {
+	    		location.href = "/SYJ_Mall/searchresult.action?productSeq=" + productSeq + "&sortedOption=" + filter_option + "&sortedCharOption=" + sortedCharOption;
+	    	} else {
+		    	location.href = "/SYJ_Mall/searchresult.action?inputName=" + userinputName + "&sortedOption=" + filter_option + "&sortedCharOption=" + sortedCharOption;
+	    	}
+	    	
+	    });
+		
+		
 		//캐릭터별 모달
 	    $("#char-sort-name").click(function () {
 	      $('#charac-modal').css("visibility", "visible");

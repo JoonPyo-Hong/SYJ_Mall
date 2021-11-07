@@ -84,14 +84,17 @@ public class SearchController {
 			String inputWord = request.getParameter("inputWord");// 넘겨준 단어
 			int paging = Integer.parseInt(request.getParameter("paging"));// 페이징 변수
 			String sortedOption = request.getParameter("sortedOption");// 정렬필터링 옵션
-
-			// System.out.println("???" + sortedOption);
+			String sortedCharOption = request.getParameter("sortedCharOption");//캐릭터 필터링 옵션
+			
+			//System.out.println("sortedCharOption : " + sortedCharOption);
+			//System.out.println("paging : " + paging);
+			//System.out.println("inputWord : " + inputWord);
 
 			List<SearchProductDTO> prodto;// 무한스크롤을 통하여 가져올 물품들
 
 			if (uDto == null) {
 				// 로그인 하지 않은 경우
-				prodto = service.getAjaxProdInfo(inputWord, paging, request, sortedOption);
+				prodto = service.getAjaxProdInfo(inputWord, paging, request, sortedOption,sortedCharOption);
 			} else {
 				// 로그인 한 경우
 				prodto = service.getAjaxProdInfoLogOn(uDto.getUserSeq(), inputWord, paging, sortedOption);
