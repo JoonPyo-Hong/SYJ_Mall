@@ -14,20 +14,8 @@
 <title>카카오 프렌즈샵</title>
 <link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
-<link rel="stylesheet" href="resources/css/charProdt/product_category_character5.css">
-<link rel="stylesheet" href="resources/css/commoncss/sortModalWrap3.css">
-<style>
-	#media-vacant {
-  		height:230px;
-  	}
-  	@media (min-width: 640px) {
-  		#media-vacant {
-  			height:350px;
-  		}
-  	}
-  	
-
-</style>
+<link rel="stylesheet" href="resources/css/charProdt/product_category_character6.css">
+<link rel="stylesheet" href="resources/css/commoncss/sortModalWrap4.css">
 </head>
 <body>
 
@@ -541,7 +529,7 @@
 		//모달 제거하는 용도
 		$('.overlay-wrap').click(function() {
 			$('.overlay-wrap').css('visibility', 'hidden');
-			$('.sort-modal-wrap').css('bottom', '-200px');
+			$('.sort-modal-wrap').css('bottom', '-170px');
 			$('#kakao-footer').css('background-color','#FFF');
 			$(document.body).css('overflow', 'visible');
 		});

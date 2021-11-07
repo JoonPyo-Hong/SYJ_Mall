@@ -48,7 +48,7 @@ public interface ISearchService {
 	 * @param sortedOption	정렬옵션
 	 * @return				물품dto 리스트
 	 */
-	List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging, HttpServletRequest request,String sortedOption);
+	List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging, HttpServletRequest request,String sortedOption,String sortedCharOption);
 	
 	
 	/**
