@@ -269,6 +269,22 @@ var {
     width: 640px;
   }
 
+  .product-category .category-banner {
+    min-height: 220px !important;
+  }
+
+  .product-category .category-banner select {
+    min-height: 220px !important;
+  }
+
+  .product-category {
+    width: 640px;
+  }
+
+  .category-header .category-tab ul li {
+    padding: 0 15px !important;
+  }
+
   /* 검색 결과 팝업창 사이즈 */
   .character-modal-wrap {
     width: 640px !important;
