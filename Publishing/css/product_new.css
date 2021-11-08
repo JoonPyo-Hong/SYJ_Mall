@@ -1,51 +1,70 @@
-/* 배너 */
-.post-slider {
-}
-.post-slider .post-wrapper {
+/* 배너 신규 CSS  */
+.new-product-new .swiper {
   min-height: 225px;
-  margin: 0px auto;
-}
-.post-slider .post-wrapper .post {
   position: relative;
-  display: inline-block;
-  background: gray;
+  cursor: pointer;
 }
 
-/* 슬라이더 이미지 내부 */
-.post-slider .post-wrapper .post img {
+.new-product-new .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.new-product-new .swiper-slide img {
   max-height: 225px;
+  position: relative;
 }
 
-.post-slider .post-wrapper .post .banner-text {
+/* 배너 이미지 텍스트 */
+.new-product-new .swiper-slide .banner-text {
   position: absolute;
   left: 40px;
   bottom: 20px;
   color: rgb(255, 255, 255);
+  text-align: left;
 }
 
-.post-slider .post-wrapper .post p.title {
+.new-product-new .swiper-slide .banner-text p.title {
   font-size: 24px;
   letter-spacing: -0.19px;
   font-weight: bold;
 }
-.post-slider .post-wrapper .post p.sub-title {
+.new-product-new .swiper-slide .banner-text p.sub-title {
   font-size: 16px;
   line-height: 1.63;
   letter-spacing: -0.25px;
 }
 
-.new-product-new .product-new-banner {
-   /* padding: 0px; 
-  width: auto; 
-   height: 300px; 
-   border:1px solid red; 
-   display: flex;
-  align-items: center;
-  position: relative;    
-  background-image: url(./../images/product_new/banner_20210906174400_mobile_kr.jpg); 
-   min-height: 225px;  */
-  height:auto;
-  cursor: pointer;
+.new-product-new .swiper-pagination {
+  color: #fff;
+  width: 95% !important;
+  text-align: right !important;
+  height: 30px;
+}
+
+.new-product-new .swiper-button-next img,
+.new-product-new .swiper-button-prev img {
+  width: 15px;
+  height: 25px;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
 }
 
 /* section 공통 */
