@@ -51,7 +51,7 @@ public class MainController {
 		}
 		model.addAttribute("seq", seq);
 
-		return "/tiles/mainStart.topping";
+		return "/tiles/mainStart.layout";
 	}
 
 	// 무한 스크롤

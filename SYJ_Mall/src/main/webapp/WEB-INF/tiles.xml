@@ -70,7 +70,10 @@
 		<!-- <put-attribute name="header" value="/WEB-INF/views/mainTiles/mainTop.jsp" /> -->
 		<put-attribute name="body" value="" />
 	</definition>
-	
+	<!-- 오늘페이지 -->
+	<definition name = "/tiles/mainStart.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/main/Main.jsp"/>	
+	</definition>
 	<!-- 인기페이지 -->
 	<definition name = "/tiles/popularItem.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/popular/popularMain.jsp"/>	
