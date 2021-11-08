@@ -150,28 +150,28 @@
 				<div class="main-tab">
 					<ul class="main-tab-ul">
 						<c:if test="${seleted eq 'today'}">
-							<li class="main-tab-li active">오늘</li>
-							<li class="main-tab-li">신규</li>
-							<li class="main-tab-li">인기</li>
-							<li class="main-tab-li">마이</li>
+							<li class="main-tab-li active" id="main_today">오늘</li>
+							<li class="main-tab-li" id="main_new">신규</li>
+							<li class="main-tab-li" id="main_popular">인기</li>
+							<li class="main-tab-li" id="main_my">마이</li>
 						</c:if>
 						<c:if test="${seleted eq 'new'}">
-							<li class="main-tab-li">오늘</li>
-							<li class="main-tab-li active">신규</li>
-							<li class="main-tab-li">인기</li>
-							<li class="main-tab-li">마이</li>
+							<li class="main-tab-li" id="main_today">오늘</li>
+							<li class="main-tab-li active" id="main_new">신규</li>
+							<li class="main-tab-li" id="main_popular">인기</li>
+							<li class="main-tab-li" id="main_my">마이</li>
 						</c:if>
 						<c:if test="${seleted eq 'popular'}">
-							<li class="main-tab-li">오늘</li>
-							<li class="main-tab-li">신규</li>
-							<li class="main-tab-li active">인기</li>
-							<li class="main-tab-li">마이</li>
+							<li class="main-tab-li" id="main_today">오늘</li>
+							<li class="main-tab-li" id="main_new">신규</li>
+							<li class="main-tab-li active" id="main_popular">인기</li>
+							<li class="main-tab-li" id="main_my">마이</li>
 						</c:if>
 						<c:if test="${seleted eq 'my'}">
-							<li class="main-tab-li">오늘</li>
-							<li class="main-tab-li">신규</li>
-							<li class="main-tab-li">인기</li>
-							<li class="main-tab-li active">마이</li>
+							<li class="main-tab-li" id="main_today">오늘</li>
+							<li class="main-tab-li" id="main_new">신규</li>
+							<li class="main-tab-li" id="main_popular">인기</li>
+							<li class="main-tab-li active" id="main_my">마이</li>
 						</c:if>
 					</ul>
 				</div>
@@ -361,8 +361,17 @@
 				login_modal_close();
 			});
 			
-			
-		  	
+			/* -----------오늘/신규/인기/마이 탭 이동하기------------ */
+		  	$('.main-tab-li').click(function(){
+		  		
+		  		const main_val = $(this).attr('id');
+		  		
+		  		if (main_val == 'main_today') location.href = "/SYJ_Mall/main.action";
+		  		else if (main_val == 'main_new') location.href = "/SYJ_Mall/newProductMain.action";
+		  		else if (main_val == 'main_popular') location.href = "/SYJ_Mall/popularMain.action";
+		  		else location.href = "/SYJ_Mall/main.action";//여기는 추후에 처리해줘야함
+		  		
+		  	});
 	
 </script>
 </body>

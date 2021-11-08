@@ -248,7 +248,7 @@
 
 	/* 뒤로가기 관련 */
 	$('.back-button').click(function(){
-		location.href = "/SYJ_Mall/searchback.action";	
+		window.history.go(-1);	
 	});	
 	
 	/* 메인페이지로 보내주기 */
