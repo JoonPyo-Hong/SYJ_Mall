@@ -66,48 +66,48 @@
 							시크릿 포레스트의 사고뭉치<br> 다섯 복숭아, 피치파이브!
 						</div>
 						<img
-							src="./../images/product-detail/20210803160153497_peachfiv_러피치.jpg"
+							src="resources/images/product-detail/20210803160153497_peachfiv_러피치.jpg"
 							class="detaul-content-image">
 						<div class="detaul-content-text">
 							순수한 매력과 초절정의 귀여움이 넘치는 사랑스러운 러피치!<br> 항상 몰려다니기를 좋아하는 신비한 세쌍둥이
 							털복숭아 퍼피치가 함께 등장 했어요.
 						</div>
 						<img
-							src="./../images/product-detail/20210622211801186_8809721509937_BW_00.jpg"
+							src="resources/images/product-detail/20210622211801186_8809721509937_BW_00.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210622211807615_8809721509937_BW_02.jpg"
+							src="resources/images/product-detail/20210622211807615_8809721509937_BW_02.jpg"
 							class="detaul-content-image">
 						<div class="detaul-content-text">
 							달콤한 복숭아 안에 퍼.피.치가 쏙!<br> 복숭아 안의 퍼피치는 분리될 수 있답니다.
 						</div>
 						<img
-							src="./../images/product-detail/20210622211813042_8809721509937_BW_03.jpg"
+							src="resources/images/product-detail/20210622211813042_8809721509937_BW_03.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210622211821956_8809721509937_BW_05.jpg"
+							src="resources/images/product-detail/20210622211821956_8809721509937_BW_05.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210622211825936_8809721509937_BW_06.jpg"
+							src="resources/images/product-detail/20210622211825936_8809721509937_BW_06.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210622211831716_8809721509937_BW_08.jpg"
+							src="resources/images/product-detail/20210622211831716_8809721509937_BW_08.jpg"
 							class="detaul-content-image">
 						<div class="detaul-content-text">말랑말랑 귀여운 퍼피치와 복숭아가 떼구르르~</div>
 						<img
-							src="./../images/product-detail/20210622211835912_8809721509937_BW_09.jpg"
+							src="resources/images/product-detail/20210622211835912_8809721509937_BW_09.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802154818202_8809721509937_BW_00.jpg"
+							src="resources/images/product-detail/20210802154818202_8809721509937_BW_00.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802154818270_8809721509937_BW_01.jpg"
+							src="resources/images/product-detail/20210802154818270_8809721509937_BW_01.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802154818276_8809721509937_BW_02.jpg"
+							src="resources/images/product-detail/20210802154818276_8809721509937_BW_02.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802154818371_8809721509937_BW_03.jpg"
+							src="resources/images/product-detail/20210802154818371_8809721509937_BW_03.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802154818433_8809721509937_BW_04.jpg"
+							src="resources/images/product-detail/20210802154818433_8809721509937_BW_04.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802154818523_8809721509937_BW_05.jpg"
+							src="resources/images/product-detail/20210802154818523_8809721509937_BW_05.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802154818653_8809721509937_BW_06.jpg"
+							src="resources/images/product-detail/20210802154818653_8809721509937_BW_06.jpg"
 							class="detaul-content-image"> <img
-							src="./../images/product-detail/20210802170327762_210719_CP_plush_toy_M.jpg"
+							src="resources/images/product-detail/20210802170327762_210719_CP_plush_toy_M.jpg"
 							class="detaul-content-image">
 					</div>
 					<!-- 상품 아래 하단 버튼 -->
