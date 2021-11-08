@@ -34,35 +34,35 @@
 				</div>
 				<div class="character-wrap">
 					<ul>
-						<li class="character-li"><a href="#" class="ryan"></a>
+						<li class="character-li" id="1"><a href="#" class="ryan"></a>
 							<p>라이언</p></li>
-						<li class="character-li"><a href="#" class="apeach"></a>
+						<li class="character-li" id="2"><a href="#" class="apeach"></a>
 							<p>어피치</p></li>
-						<li class="character-li"><a href="#" class="muzi"></a>
+						<li class="character-li" id="3"><a href="#" class="muzi"></a>
 							<p>무지</p></li>
-						<li class="character-li"><a href="#" class="frodo"></a>
+						<li class="character-li" id="4"><a href="#" class="frodo"></a>
 							<p>프로도</p></li>
-						<li class="character-li"><a href="#" class="neo"></a>
+						<li class="character-li" id="5"><a href="#" class="neo"></a>
 							<p>네오</p></li>
-						<li class="character-li"><a href="#" class="tube"></a>
+						<li class="character-li" id="6"><a href="#" class="tube"></a>
 							<p>튜브</p></li>
-						<li class="character-li"><a href="#" class="jayz"></a>
+						<li class="character-li" id="7"><a href="#" class="jayz"></a>
 							<p>제이지</p></li>
-						<li class="character-li"><a href="#" class="con"></a>
+						<li class="character-li" id="8"><a href="#" class="con"></a>
 							<p>콘</p></li>
-						<li class="character-li"><a href="#" class="choonsic"></a>
+						<li class="character-li" id="9"><a href="#" class="choonsic"></a>
 							<p>춘식</p></li>
-						<li class="character-li"><a href="#" class="jordy"></a>
+						<li class="character-li" id="10"><a href="#" class="jordy"></a>
 							<p>죠르디</p></li>
-						<li class="character-li"><a href="#" class="scappy"></a>
+						<li class="character-li" id="11"><a href="#" class="scappy"></a>
 							<p>스카피</p></li>
-						<li class="character-li"><a href="#" class="angmond"></a>
+						<li class="character-li" id="12"><a href="#" class="angmond"></a>
 							<p>앙몬드</p></li>
-						<li class="character-li"><a href="#" class="pendajr"></a>
+						<li class="character-li" id="13"><a href="#" class="pendajr"></a>
 							<p>팬다주니어</p></li>
-						<li class="character-li"><a href="#" class="kereberony"></a>
+						<li class="character-li" id="14"><a href="#" class="kereberony"></a>
 							<p>케로&베로니</p></li>
-						<li class="character-li"><a href="#" class="kumdori"></a>
+						<li class="character-li" id="15"><a href="#" class="kumdori"></a>
 							<p>꿈돌이</p></li>
 					</ul>
 				</div>
@@ -131,6 +131,17 @@
 		}
 	});
 	
+	
+	//캐릭터 눌러줬을 경우에
+	$('.character-li').click(function(){
+		
+		const charSeq = $(this).attr('id');
+		
+		location.href = "/SYJ_Mall/charAtProdtStart.action?charSeq=" + charSeq;
+		
+	});
+	
+	
 	//엔터키 눌러준 경우에
 	$('.search-input').keydown(function(e) {
 		if (e.keyCode == 13) $('.search-input').submit();
@@ -138,7 +149,6 @@
 	
 	//취소버튼
 	$('.search-close').click(function() {
-		//alert('${lastPages}');
 		location.href = "${lastPage}";
 	});
 

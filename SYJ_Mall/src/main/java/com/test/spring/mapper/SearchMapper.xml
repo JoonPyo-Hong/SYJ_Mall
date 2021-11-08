@@ -20,7 +20,7 @@
 		parameterType="java.util.HashMap" statementType="CALLABLE">
 		{
 		call
-		dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList},#{sortedOption})
+		dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList},#{sortedOption},#{sortedCharOption})
 		}
 	</select>
 
@@ -28,7 +28,7 @@
 	<select id="searchProdCount" resultType="Integer"
 		parameterType="java.util.HashMap" statementType="CALLABLE">
 		{
-		call dbo.kakao_search_product_result_count(#{inputName},#{productSeq})
+		call dbo.kakao_search_product_result_count(#{inputName},#{productSeq},#{sortedCharOption})
 		}
 	</select>
 

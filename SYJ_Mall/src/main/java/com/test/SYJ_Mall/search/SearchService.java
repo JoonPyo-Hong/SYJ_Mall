@@ -39,35 +39,49 @@ public class SearchService implements ISearchService {
 
 			String inputName = request.getParameter("inputName");// 넘겨준 단어 -> 검색에 적은 단어
 			String productSeq = request.getParameter("productSeq");// 넘겨준 단어 -> 검색에 적은 단어에 매치되는 상품번호(엔터를 안치고 온 경우)
-			String sortedOption;// 정렬옵션
-
-			if (request.getParameter("sortedOption") == null) {
+			String sortedOption = request.getParameter("sortedOption");// 정렬옵션
+			String sortedCharOption = request.getParameter("sortedCharOption");//캐릭터 필터링 옵션
+			
+			//필터링 옵션
+			if (sortedOption == null) {
 				request.setAttribute("sortedOption", "1");
-				sortedOption = "1";
-			} else {
-				sortedOption = request.getParameter("sortedOption");// 정렬옵션
-				request.setAttribute("sortedOption", sortedOption);
+				sortedOption = "1";	
 			}
+			
+			//캐릭터 필터링 옵션
+			if (sortedCharOption == null) {
+				request.setAttribute("sortedCharOption", "0");
+				sortedCharOption = "0";	
+			}
+			
+//			if (request.getParameter("sortedOption") == null) {
+//				request.setAttribute("sortedOption", "1");
+//				sortedOption = "1";
+//			} else {
+//				sortedOption = request.getParameter("sortedOption");// 정렬옵션
+//				request.setAttribute("sortedOption", sortedOption);
+//			}
 
 			if (productSeq != null) {
 				request.setAttribute("productSeq", productSeq);
 				// request.setAttribute("lastPage", "/SYJ_Mall/" + lastPage + ".action");
 				// searchresult.action?inputName=라이언&productSeq=35
 				// 마지막 페이지 지정
-				request.setAttribute("lastPage",
-						"/SYJ_Mall/searchresult.action?inputName=" + inputName + "&productSeq=" + productSeq);
+				request.setAttribute("lastPage","/SYJ_Mall/searchresult.action?inputName=" + inputName + "&productSeq=" + productSeq);
 			} else {
 				// 마지막 페이지 지정
 				request.setAttribute("lastPage", "/SYJ_Mall/searchresult.action?inputName=" + inputName);
 			}
-
+			
 			HttpSession session = request.getSession();
 			UserDTO userDto = (UserDTO) session.getAttribute("userinfo");// 유저 정보 객체
 
 			List<SearchProductDTO> searchProdto;// 검색 상품정보 객체 리스트
 
-			int totalProdCount = dao.getSearchResultProdsCount(inputName, productSeq);// 검색한 물품의 총 갯수 출력
+			int totalProdCount = dao.getSearchResultProdsCount(inputName, productSeq, sortedCharOption);// 검색한 물품의 총 갯수 출력
 			int pageAjaxCount = (int) Math.ceil(totalProdCount / 6.0);// 6개씩 끊어서 출력해주기
+			
+			
 			KakaoCookie ck = new KakaoCookie();
 
 			if (userDto == null) {
@@ -77,7 +91,7 @@ public class SearchService implements ISearchService {
 				String basketList = (String) kc.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
 
 				// System.out.println("basketList : " + basketList);
-				searchProdto = dao.getSearchResultProds(inputName, productSeq, 1, basketList, sortedOption);// 처음데이터를
+				searchProdto = dao.getSearchResultProds(inputName, productSeq, 1, basketList, sortedOption,sortedCharOption);// 처음데이터를
 																											// 가져오는 것이므로
 																											// 1 을 넣어준다.
 																											// => 6개만
@@ -108,6 +122,9 @@ public class SearchService implements ISearchService {
 																						// 단어
 			}
 
+
+			request.setAttribute("sortedOption", sortedOption);// 상품이 총 몇개있는지 넘겨줄 것이다.
+			request.setAttribute("sortedCharOption", sortedCharOption);// 상품이 총 몇개있는지 넘겨줄 것이다.
 			request.setAttribute("searchProdCount", totalProdCount);// 상품이 총 몇개있는지 넘겨줄 것이다.
 			request.setAttribute("searchProdto", searchProdto);
 			request.setAttribute("pageAjaxCount", pageAjaxCount);// 총몇번의 스크롤페이지 생성이 되는지 체크
@@ -152,14 +169,14 @@ public class SearchService implements ISearchService {
 	// 무한스크롤을 통해 가져올 물품 리스트 -> 로그인 하지 않은 경우
 	@Override
 	public List<SearchProductDTO> getAjaxProdInfo(String inputWord, int paging, HttpServletRequest request,
-			String sortedOption) {
+			String sortedOption,String sortedCharOption) {
 
 		// System.out.println("??? : " + paging);
 		KakaoCookie kc = new KakaoCookie();
 		String basketList = (String) kc.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
 
 		List<SearchProductDTO> searchProdtoAjax = dao.getSearchResultProds(inputWord, null, paging, basketList,
-				sortedOption);// 6n 개를 가져와준다.
+				sortedOption,sortedCharOption);// 6n 개를 가져와준다.
 
 		return searchProdtoAjax;
 	}
