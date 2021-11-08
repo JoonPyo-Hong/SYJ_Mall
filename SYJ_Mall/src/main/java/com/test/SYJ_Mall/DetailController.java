@@ -11,12 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.test.SYJ_Mall.detail.DetailDTO;
+import com.test.SYJ_Mall.detail.DetailService;
+import com.test.SYJ_Mall.detail.IDetailService;
 import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.pay.PayMentService;
 import com.test.SYJ_Mall.pay.ProductDTO;
-import com.test.SYJ_Mall_detail.DetailDTO;
-import com.test.SYJ_Mall_detail.DetailService;
-import com.test.SYJ_Mall_detail.IDetailService;
 
 @Controller
 public class DetailController {

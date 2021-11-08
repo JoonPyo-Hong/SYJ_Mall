@@ -1,4 +1,4 @@
-package com.test.SYJ_Mall_detail;
+package com.test.SYJ_Mall.detail;
 
 public class DetailDTO {
 	private int product_id;
