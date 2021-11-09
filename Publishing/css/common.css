@@ -253,8 +253,14 @@ var {
     height: 275px !important;
   }
 
+  /* 슬라이더 관련  */
   .new-product-new .swiper-slide img {
     max-height: 360px !important;
+  }
+
+  .product-detail-wrap .swiper-slide img {
+    max-height: 640px !important;
+    width: 640px !important;
   }
 
   .product-category-character .category-banner {

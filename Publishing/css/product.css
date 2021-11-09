@@ -2,15 +2,40 @@
   height: 100000px;
 }
 
-/* 대표 이미지 */
-.main-image {
-  width: 100vw;
-  height: 100vw;
-  max-width: 640px;
-  max-height: 640px;
-  background-image: url(./../images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
+/* 대표 이미지 슬라이더 */
+.product-detail-wrap .swiper {
+  min-height: 225px;
+  position: relative;
+  cursor: pointer;
+}
+
+.product-detail-wrap .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.product-detail-wrap .swiper-slide img {
+  max-height: 400px;
+  width: 400px;
+  position: relative;
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+  background: #e0e0e0;
 }
 
 /* 컨텐츠 헤더 */
@@ -567,6 +592,7 @@ hr.division {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .direct-purchase {

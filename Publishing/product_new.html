@@ -1,163 +1,178 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <title>카카오 프렌즈샵</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
+    <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="./css/basket.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./css/seen.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./css/act.css" /> -->
+    <link rel="stylesheet" type="text/css" href="./css/product_new.css" />
+    <link rel="stylesheet" type="text/css" href="./css/login_modal.css" />
+    <!-- 슬라이드 라이브러리 -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <!-- 신규 스와이퍼 라이브러리 신규 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-  <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
-  <meta name="viewport"
-    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-  <title>카카오 프렌즈샵</title>
-  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="./js/main.js"></script>
-  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
-  <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
-  <link rel="stylesheet" type="text/css" href="./css/common.css" />
-  <link rel="stylesheet" type="text/css" href="./css/main.css" />
-  <!-- <link rel="stylesheet" type="text/css" href="./css/basket.css" /> -->
-  <!-- <link rel="stylesheet" type="text/css" href="./css/seen.css" /> -->
-  <!-- <link rel="stylesheet" type="text/css" href="./css/act.css" /> -->
-  <link rel="stylesheet" type="text/css" href="./css/product_new.css" />
-  <link rel="stylesheet" type="text/css" href="./css/login_modal.css" />
-  <!-- 슬라이드 라이브러리 -->
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-  <!-- 신규 스와이퍼 라이브러리 신규 -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-
-  <style>
-    @media screen and (max-width: 640px) {
-      #inner-content {
-        background-repeat: no-repeat;
+    <style>
+      @media screen and (max-width: 640px) {
+        #inner-content {
+          background-repeat: no-repeat;
+        }
       }
-    }
-  </style>
-</head>
+    </style>
+  </head>
 
-<body>
-  <!-- 로그인 모달창 -->
-  <div class="overlay-wrap" id="login-product-modal">
-    <div class="login-modal-wrap">
-      <div class="modal-close">
-        <div class="close-btn"></div>
-      </div>
-      <img class="login-img" src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png" />
-      <div class="login-text">
-        <h3>앗! 로그인</h3>
-        <p>
-          로그인 후 재입고 알림을 신청해주세요<br /> 지금 로그인 화면으로 이동하시겠어요?
-        </p>
-      </div>
-      <div class="login-btn">
-        <button>
-          <span class="login-kakao"></span>
-          <p>로그인하기</p>
-        </button>
+  <body>
+    <!-- 로그인 모달창 -->
+    <div class="overlay-wrap" id="login-product-modal">
+      <div class="login-modal-wrap">
+        <div class="modal-close">
+          <div class="close-btn"></div>
+        </div>
+        <img
+          class="login-img"
+          src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png"
+        />
+        <div class="login-text">
+          <h3>앗! 로그인</h3>
+          <p>
+            로그인 후 재입고 알림을 신청해주세요<br />
+            지금 로그인 화면으로 이동하시겠어요?
+          </p>
+        </div>
+        <div class="login-btn">
+          <button>
+            <span class="login-kakao"></span>
+            <p>로그인하기</p>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="kakao-wrap">
-    <div id="kakao-head">
-      <div id="inner-head">
-        <div class="left-btn">
-          <!-- <button class="hamburger-menu"></button> -->
-          <!-- hamburger-menu -->
-          <input class="burger-check" type="checkbox" id="burger-check" />
-          <label class="burger-icon" for="burger-check">
-            <span class="burger-sticks"></span>
-          </label>
-          <!-- hamburger-menu open -->
-          <div class="navigation">
-            <div class="navigation-inner">
-              <div class="user-info">
-                <u>로그인</u>이 필요해요!
-                <span>비회원 주문조회</span>
+    <div id="kakao-wrap">
+      <div id="kakao-head">
+        <div id="inner-head">
+          <div class="left-btn">
+            <!-- <button class="hamburger-menu"></button> -->
+            <!-- hamburger-menu -->
+            <input class="burger-check" type="checkbox" id="burger-check" />
+            <label class="burger-icon" for="burger-check">
+              <span class="burger-sticks"></span>
+            </label>
+            <!-- hamburger-menu open -->
+            <div class="navigation">
+              <div class="navigation-inner">
+                <div class="user-info">
+                  <u>로그인</u>이 필요해요!
+                  <span>비회원 주문조회</span>
+                </div>
+                <div class="banner"></div>
+                <div class="navigation-menu">
+                  <ul class="navigation-menu-ul">
+                    <li class="navigation-menu-li">장바구니 내역</li>
+                    <li class="navigation-menu-li">주문·배송 내역</li>
+                    <hr />
+                    <li class="navigation-menu-li character-accordion-button">
+                      캐릭터
+                      <div class="drop-down"></div>
+                    </li>
+                    <div class="li-sub-menu character-menu">
+                      <ul class="character-menu-ul">
+                        <li class="character li-Ryan">라이언</li>
+                        <li class="character li-Apeach">어피치</li>
+                        <li class="character li-Muzi">무지</li>
+                        <li class="character li-Frodo">프로도</li>
+                        <li class="character li-Neo">네오</li>
+                        <li class="character li-Tube">튜브</li>
+                        <li class="character li-Jay">제이지</li>
+                        <li class="character li-Con">콘</li>
+                        <li class="character li-Choonsic">춘식</li>
+                        <li class="character li-Jordy">죠르디</li>
+                        <li class="character li-Scappy">스카피</li>
+                        <li class="character li-Angmond">앙몬드</li>
+                        <li class="character li-PendaJr">팬다주니어</li>
+                        <li class="character li-Kereberony">케로&베로니</li>
+                        <li class="character li-Kumdori">꿈돌이</li>
+                      </ul>
+                    </div>
+                    <li class="navigation-menu-li category-accordion-button">
+                      카테고리
+                      <div class="drop-down"></div>
+                    </li>
+                    <div class="li-sub-menu category-menu">
+                      <ul class="category-menu-ul">
+                        <li class="category">전체</li>
+                        <li class="category">테마 기획전</li>
+                        <li class="category">토이</li>
+                        <li class="category">리빙</li>
+                        <li class="category">잡화</li>
+                        <li class="category">문구</li>
+                        <li class="category">의류</li>
+                        <li class="category">파자마</li>
+                        <li class="category">여행/레져</li>
+                        <li class="category">생활테크</li>
+                        <li class="category">폰 액세서리</li>
+                        <li class="category">식품</li>
+                      </ul>
+                    </div>
+                    <hr />
+                    <li class="navigation-menu-li">공지사항</li>
+                    <li class="navigation-menu-li">고객센터</li>
+                    <hr />
+                    <li class="navigation-menu-li">기프트카드 조회·환불</li>
+                    <hr />
+                    <li class="navigation-menu-li">브랜드 스토리</li>
+                    <li class="navigation-menu-li">매장안내</li>
+                    <hr />
+                  </ul>
+                </div>
+                <div class="login-or-out">로그인</div>
               </div>
-              <div class="banner"></div>
-              <div class="navigation-menu">
-                <ul class="navigation-menu-ul">
-                  <li class="navigation-menu-li">장바구니 내역</li>
-                  <li class="navigation-menu-li">주문·배송 내역</li>
-                  <hr />
-                  <li class="navigation-menu-li character-accordion-button">
-                    캐릭터
-                    <div class="drop-down"></div>
-                  </li>
-                  <div class="li-sub-menu character-menu">
-                    <ul class="character-menu-ul">
-                      <li class="character li-Ryan">라이언</li>
-                      <li class="character li-Apeach">어피치</li>
-                      <li class="character li-Muzi">무지</li>
-                      <li class="character li-Frodo">프로도</li>
-                      <li class="character li-Neo">네오</li>
-                      <li class="character li-Tube">튜브</li>
-                      <li class="character li-Jay">제이지</li>
-                      <li class="character li-Con">콘</li>
-                      <li class="character li-Choonsic">춘식</li>
-                      <li class="character li-Jordy">죠르디</li>
-                      <li class="character li-Scappy">스카피</li>
-                      <li class="character li-Angmond">앙몬드</li>
-                      <li class="character li-PendaJr">팬다주니어</li>
-                      <li class="character li-Kereberony">케로&베로니</li>
-                      <li class="character li-Kumdori">꿈돌이</li>
-                    </ul>
-                  </div>
-                  <li class="navigation-menu-li category-accordion-button">
-                    카테고리
-                    <div class="drop-down"></div>
-                  </li>
-                  <div class="li-sub-menu category-menu">
-                    <ul class="category-menu-ul">
-                      <li class="category">전체</li>
-                      <li class="category">테마 기획전</li>
-                      <li class="category">토이</li>
-                      <li class="category">리빙</li>
-                      <li class="category">잡화</li>
-                      <li class="category">문구</li>
-                      <li class="category">의류</li>
-                      <li class="category">파자마</li>
-                      <li class="category">여행/레져</li>
-                      <li class="category">생활테크</li>
-                      <li class="category">폰 액세서리</li>
-                      <li class="category">식품</li>
-                    </ul>
-                  </div>
-                  <hr />
-                  <li class="navigation-menu-li">공지사항</li>
-                  <li class="navigation-menu-li">고객센터</li>
-                  <hr />
-                  <li class="navigation-menu-li">기프트카드 조회·환불</li>
-                  <hr />
-                  <li class="navigation-menu-li">브랜드 스토리</li>
-                  <li class="navigation-menu-li">매장안내</li>
-                  <hr />
-                </ul>
-              </div>
-              <div class="login-or-out">로그인</div>
             </div>
           </div>
+          <div class="title"><button class="title-logo"></button></div>
+          <div class="right-btn">
+            <button class="search"></button>
+            <button class="language"></button>
+          </div>
         </div>
-        <div class="title"><button class="title-logo"></button></div>
-        <div class="right-btn">
-          <button class="search"></button>
-          <button class="language"></button>
-        </div>
-      </div>
-      <div id="inner-tab">
-        <!-- 메인메뉴 tab -->
-        <div class="main-tab">
-          <ul class="main-tab-ul">
-            <li class="main-tab-li">오늘</li>
-            <li class="main-tab-li active">신규</li>
-            <li class="main-tab-li">인기</li>
-            <li class="main-tab-li">마이</li>
-          </ul>
-        </div>
-        <!-- 마이페이지 tab -->
-        <!-- <div class="mypage-tab">
+        <div id="inner-tab">
+          <!-- 메인메뉴 tab -->
+          <div class="main-tab">
+            <ul class="main-tab-ul">
+              <li class="main-tab-li">오늘</li>
+              <li class="main-tab-li active">신규</li>
+              <li class="main-tab-li">인기</li>
+              <li class="main-tab-li">마이</li>
+            </ul>
+          </div>
+          <!-- 마이페이지 tab -->
+          <!-- <div class="mypage-tab">
           <ul class="mypage-tab-ul">
             <li class="mypage-tab-li active">최근 본</li>
             <li class="mypage-tab-li">내 활동</li>
@@ -165,380 +180,394 @@
             <li class="mypage-tab-li ">주문내역</li>
           </ul>
         </div> -->
+        </div>
       </div>
-    </div>
-    <!-- 여기서부터 내용을 넣어줘야한다. -->
-    <div id="kakao-content">
-      <div id="inner-content">
-        <!-- 마이페이지 컨텐츠 -->
-        <div class="container-wrap new-product-new">
-          <!-- 데이터 없을 시 -->
-          <!-- <div class="order-list-nodata">
+      <!-- 여기서부터 내용을 넣어줘야한다. -->
+      <div id="kakao-content">
+        <div id="inner-content">
+          <!-- 마이페이지 컨텐츠 -->
+          <div class="container-wrap new-product-new">
+            <!-- 데이터 없을 시 -->
+            <!-- <div class="order-list-nodata">
               <div class="standing-ryan"></div>
               <div class="empty-message">내역이 없어요</div>
             </div> -->
-          <!-- 데이터 있을 시 -->
-          <!-- 신규 배너 슬라이드 -->
-          <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20210906174400_mobile_kr.jpg" style="width:100%;height:100%;">
-                <div class="banner-text">
-                  <p class="title">양 볼에 고구마 가득</p>
-                  <p class="sub-title">춘식이 폰그립 폰케이스</p>
+            <!-- 데이터 있을 시 -->
+            <!-- 신규 배너 슬라이드 -->
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20210906174400_mobile_kr.jpg"
+                    style="width: 100%; height: 100%"
+                  />
+                  <div class="banner-text">
+                    <p class="title">양 볼에 고구마 가득</p>
+                    <p class="sub-title">춘식이 폰그립 폰케이스</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20210903094056_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">집콕엔 청소도 즐겁게</p>
+                    <p class="sub-title">라이언과 춘식이의 집콕놀이</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20210826174841_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">춘식이에게 새로운 캣타워를</p>
+                    <p class="sub-title">워치 전용 충전 거치대</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20210819103906_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">배출량에 따라 효율적으로</p>
+                    <p class="sub-title">편리한 분리수거함</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20210809090322_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">웰컴 투 춘식이의 방</p>
+                    <p class="sub-title">춘식이의 방 둘러 보기</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20211006142336_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">가을밤을 촉촉하게</p>
+                    <p class="sub-title">무드등 가습기</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20211101185933_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">우리 같이 꿈나라로 떠나요</p>
+                    <p class="sub-title">춘식이 꿈나라 필로우</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20211021175531_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">2022년도 죠르디에게 맡겨죨</p>
+                    <p class="sub-title">죠르디 다이어리</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20211022091420_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">눈이 덮인 겨울 마을</p>
+                    <p class="sub-title">스노우빌리지</p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img
+                    src="./../images/product_new/banner_20210923185011_mobile_kr.jpg"
+                  />
+                  <div class="banner-text">
+                    <p class="title">갓 나온 식빵처럼 따끈따끈한</p>
+                    <p class="sub-title">춘식이 밤식빵 쿠션</p>
+                  </div>
                 </div>
               </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20210903094056_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">집콕엔 청소도 즐겁게</p>
-                  <p class="sub-title">라이언과 춘식이의 집콕놀이 </p>
-                </div>
+              <div class="swiper-button-next">
+                <img src="./../images/product_new/arrow-right.png" />
               </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20210826174841_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">춘식이에게 새로운 캣타워를</p>
-                  <p class="sub-title">워치 전용 충전 거치대</p>
-                </div>
+              <div class="swiper-button-prev">
+                <img src="./../images/product_new/arrow-left.png" />
               </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20210819103906_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">배출량에 따라 효율적으로</p>
-                  <p class="sub-title">편리한 분리수거함</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20210809090322_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">웰컴 투 춘식이의 방</p>
-                  <p class="sub-title">춘식이의 방 둘러 보기</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20211006142336_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">가을밤을 촉촉하게</p>
-                  <p class="sub-title">무드등 가습기</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20211101185933_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">우리 같이 꿈나라로 떠나요</p>
-                  <p class="sub-title">춘식이 꿈나라 필로우</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20211021175531_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">2022년도 죠르디에게 맡겨죨</p>
-                  <p class="sub-title">죠르디 다이어리</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20211022091420_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">눈이 덮인 겨울 마을</p>
-                  <p class="sub-title">스노우빌리지</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="./../images/product_new/banner_20210923185011_mobile_kr.jpg">
-                <div class="banner-text">
-                  <p class="title">갓 나온 식빵처럼 따끈따끈한</p>
-                  <p class="sub-title">춘식이 밤식빵 쿠션</p>
-                </div>
-              </div>
+              <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-button-next">
-              <img src="./../images/product_new/arrow-right.png">
-            </div>
-            <div class="swiper-button-prev">
-              <img src="./../images/product_new/arrow-left.png">
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
 
-          <div class="product-new-section theme-wrap">
-            <!-- 추천 신규 테마 -->
-            <div class="sub-title">추천 신규 테마</div>
-            <div class="title">대형인형</div>
-            <!-- 상품 리스트 공통 UI -->
-            <div class="new-product-item-wrap">
-              <ul>
-                <li class="item-li">
-                  <div class="thumbnail">
-                    <!-- 솔드아웃 라벨 -->
-                    <div class="soldout-label"></div>
-                  </div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-              </ul>
+            <div class="product-new-section theme-wrap">
+              <!-- 추천 신규 테마 -->
+              <div class="sub-title">추천 신규 테마</div>
+              <div class="title">대형인형</div>
+              <!-- 상품 리스트 공통 UI -->
+              <div class="new-product-item-wrap">
+                <ul>
+                  <li class="item-li">
+                    <div class="thumbnail">
+                      <!-- 솔드아웃 라벨 -->
+                      <div class="soldout-label"></div>
+                    </div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                </ul>
+              </div>
+              <a href="#" class="theme-more-view">더 보기</a>
             </div>
-            <a href="#" class="theme-more-view">더 보기</a>
-          </div>
-          <div class="product-new-section new-theme-wrap">
-            <!-- 오늘 업데이트 했어요-->
-            <div class="sub-title">오늘 업데이트 했어요</div>
-            <div class="title">새로나온 친구들</div>
-            <!-- 상품 리스트 공통 UI -->
-            <div class="new-product-item-wrap">
-              <ul>
-                <li class="item-li">
-                  <div class="thumbnail">
-                    <!-- 솔드아웃 라벨 -->
-                    <div class="soldout-label"></div>
-                  </div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-                <li class="item-li">
-                  <div class="thumbnail"></div>
-                  <div class="name">
-                    <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
-                    <span class="cart"></span>
-                  </div>
-                  <div class="price">39,000원</div>
-                </li>
-              </ul>
+            <div class="product-new-section new-theme-wrap">
+              <!-- 오늘 업데이트 했어요-->
+              <div class="sub-title">오늘 업데이트 했어요</div>
+              <div class="title">새로나온 친구들</div>
+              <!-- 상품 리스트 공통 UI -->
+              <div class="new-product-item-wrap">
+                <ul>
+                  <li class="item-li">
+                    <div class="thumbnail">
+                      <!-- 솔드아웃 라벨 -->
+                      <div class="soldout-label"></div>
+                    </div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                  <li class="item-li">
+                    <div class="thumbnail"></div>
+                    <div class="name">
+                      <div class="nametext">콘센트 정리 트레이_라이언&춘식</div>
+                      <span class="cart"></span>
+                    </div>
+                    <div class="price">39,000원</div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
+        </div>
 
+        <!-- -------------------------------------------- -->
+      </div>
+      <div id="kakao-footer">
+        <div id="inner-footer">
+          <div class="info-service">
+            <ul>
+              <li>제휴문의</li>
+              <span class="footer-divider"></span>
+              <li>고객문의</li>
+              <span class="footer-divider"></span>
+              <li>이용약관</li>
+              <span class="footer-divider"></span>
+              <li>개인정보처리방침</li>
+              <span class="footer-divider"></span>
+              <li>지식재산권보호센터</li>
+            </ul>
+          </div>
+          <div class="logo">
+            <div class="toggler">
+              <span class="toggler-logo"></span>
+              <span class="toggler-icon"></span>
+            </div>
+            <div class="best-family"></div>
+          </div>
         </div>
       </div>
-
-
-      <!-- -------------------------------------------- -->
-
     </div>
-    <div id="kakao-footer">
-      <div id="inner-footer">
-        <div class="info-service">
-          <ul>
-            <li>제휴문의</li>
-            <span class="footer-divider"></span>
-            <li>고객문의</li>
-            <span class="footer-divider"></span>
-            <li>이용약관</li>
-            <span class="footer-divider"></span>
-            <li>개인정보처리방침</li>
-            <span class="footer-divider"></span>
-            <li>지식재산권보호센터</li>
-          </ul>
-        </div>
-        <div class="logo">
-          <div class="toggler">
-            <span class="toggler-logo"></span>
-            <span class="toggler-icon"></span>
-          </div>
-          <div class="best-family"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
+    <script>
+      // 신규 슬라이드 관련
+      var swiper = new Swiper(".mySwiper", {
+        allowTouchMove: false,
+        scrollbar: {
+          el: ".swiper-scrollbar",
+          draggable: false,
+        },
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          type: "fraction",
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
 
-    // 신규 슬라이드 관련
-    var swiper = new Swiper(".mySwiper", {
-      allowTouchMove: false,
-      scrollbar: {
-        el: '.swiper-scrollbar',
-        draggable: false,
-      },
-      autoplay: {
-        delay: 3000,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        type: "fraction",
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
+      $(".cart").click(function () {
+        const scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+        $(".overlay-wrap").css("top", scrollLocation + "px");
+        $(document.body).css("overflow", "hidden");
+      });
 
-    $('.cart').click(function () {
-      const scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
-      $('.overlay-wrap').css('top', scrollLocation + 'px');
-      $(document.body).css('overflow', 'hidden');
+      //로그인 모달창 로그인하기
+      $(document).on("click", ".login-btn", function () {
+        //$('#login-product-modal').css('visibility','hidden');
+        //location.href = "/SYJ_Mall/login.action";
+      });
 
-    });
+      //로그인 모달창 돌아가기
+      $(document).on("click", ".close-btn", function () {
+        //$('#login-product-modal').css('visibility','hidden');
+        $(".overlay-wrap").css("top", "-1400px");
+        $(document.body).css("overflow", "scroll");
+      });
 
-    //로그인 모달창 로그인하기
-    $(document).on("click", ".login-btn", function () {
+      window.addEventListener("scroll", () => {
+        let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+        let windowHeight = window.innerHeight; // 스크린 창
+        let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
 
-      //$('#login-product-modal').css('visibility','hidden');
-      //location.href = "/SYJ_Mall/login.action";
-    });
+        console.log("present : " + scrollLocation);
+        console.log("screen : " + windowHeight);
+        console.log("full : " + fullHeight);
 
-    //로그인 모달창 돌아가기
-    $(document).on("click", ".close-btn", function () {
-      //$('#login-product-modal').css('visibility','hidden');
-      $('.overlay-wrap').css('top', '-1400px');
-      $(document.body).css('overflow', 'scroll');
-    });
-
-    window.addEventListener('scroll', () => {
-      let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
-      let windowHeight = window.innerHeight; // 스크린 창
-      let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
-
-      console.log("present : " + scrollLocation);
-      console.log("screen : " + windowHeight);
-      console.log("full : " + fullHeight);
-
-      // if(scrollLocation + windowHeight >= fullHeight){
-      //   console.log('끝')
-      // }
-    });
-
-  </script>
-</body>
-
+        // if(scrollLocation + windowHeight >= fullHeight){
+        //   console.log('끝')
+        // }
+      });
+    </script>
+  </body>
 </html>

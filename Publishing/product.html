@@ -17,6 +17,9 @@
     <link rel="stylesheet" type="text/css" href="./css/main.css">
     <!-- <link rel="stylesheet" type="text/css" href="./css/new.css"> -->
     <link rel="stylesheet" type="text/css" href="./css/product.css">
+    <!-- 신규 스와이퍼 라이브러리 신규 -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 </head>
 
 <body>
@@ -48,7 +51,24 @@
                 </div>
                 <div class="container-wrap product-detail-wrap">
                     <!-- 대표 이미지 -->
-                    <div class="main-image"></div>
+                    <!-- <div class="main-image"></div> -->
+                    <!-- 배너 슬라이드 작업  -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
+                            </div>
+                            <div class="swiper-slide">
+                                <!-- <img src="./../images/product-datail/20210622180643394_8809721509975_AW_01.jpg"> -->
+                                <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
+                            </div>
+                            <div class="swiper-slide">
+                                <!-- <img src="./../images/product-datail/20210622180643429_8809721509975_AW_02.jpg"> -->
+                                <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
                     <!-- 상품 주요 정보 -->
                     <div class="detail-header">
                         <div class="product-title">
@@ -380,6 +400,23 @@
     </div>
     </div>
     <script>
+
+        // 신규 슬라이드 관련
+        var swiper = new Swiper(".mySwiper", {
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: false,
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+        });
+
+
         $(document).ready(function () {
 
             $('.delivery-tab .delivery-tab-btn').click(function () {
