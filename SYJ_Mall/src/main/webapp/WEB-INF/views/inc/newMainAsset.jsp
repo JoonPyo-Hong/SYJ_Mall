@@ -271,7 +271,7 @@ var {
     height: 275px !important;
   }
 
-  .new-product-new .product-new-banner .post-slider .post-wrapper .post img {
+  .new-product-new .swiper-slide img {
     max-height: 360px !important;
   }
 
@@ -313,7 +313,6 @@ var {
   
   
 }
-
 
 
 </style>
