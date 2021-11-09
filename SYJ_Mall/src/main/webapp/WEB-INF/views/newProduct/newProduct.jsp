@@ -9,9 +9,11 @@
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script type="text/javascript"
 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/commonjs/common.js"></script>
 <!-- 신규 스와이퍼 라이브러리 신규 -->
- <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
- <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
 
 <div class="container-wrap new-product-new">
@@ -168,6 +170,7 @@
 
 
 <script>
+	
 	
 	// 신규 슬라이드 관련
 	var swiper = new Swiper(".mySwiper", {
