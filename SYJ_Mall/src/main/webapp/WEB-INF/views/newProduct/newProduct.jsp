@@ -3,20 +3,16 @@
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 
 <link rel="stylesheet"
-	href="resources/css/newProduct/newProductMain11.css">
+	href="resources/css/newProduct/newProductMainFinal.css">
 <!-- 슬라이드 라이브러리 -->
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script type="text/javascript"
 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- 신규 스와이퍼 라이브러리 신규 -->
+ <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+ <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
-<style>
-@media screen and (max-width: 640px) {
-	.new-product-new .product-new-banner {
-		height: 210px;
-	}
-}
-</style>
 
 <div class="container-wrap new-product-new">
 	<!-- 데이터 없을 시 -->
@@ -28,21 +24,27 @@
 
 
 	<!-- 배너 슬라이드 -->
-	<div class="product-new-banner">
-		<div class="post-slider">
-			<div class="post-wrapper">
-				<c:forEach var="rectopdto" items="${recommendThemeTop}">
-					<div class="post" id="${rectopdto.prodId}">
-						<img src="${rectopdto.prodPicUrl}">
-						<div class="banner-text">
-							<p class="title">${rectopdto.prodSubject}</p>
-							<p class="sub-title">${rectopdto.prodDetail}</p>
-						</div>
+	<div class="swiper mySwiper">
+		<div class="swiper-wrapper">
+			<c:forEach var="rectopdto" items="${recommendThemeTop}">
+				<div class="swiper-slide" id="${rectopdto.prodId}">
+					<img src="${rectopdto.prodPicUrl}">
+					<div class="banner-text">
+						<p class="title">${rectopdto.prodSubject}</p>
+						<p class="sub-title">${rectopdto.prodDetail}</p>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
+		<div class="swiper-button-next">
+			<img src="/SYJ_Mall/resources/images/product_new/arrow-right.png">
+		</div>
+		<div class="swiper-button-prev">
+			<img src="/SYJ_Mall/resources/images/product_new/arrow-left.png">
+		</div>
+		<div class="swiper-pagination"></div>
 	</div>
+
 	<div class="product-new-section theme-wrap">
 		<!-- 추천 신규 테마 -->
 		<div class="sub-title">추천 신규 테마</div>
@@ -166,16 +168,30 @@
 
 
 <script>
-	//슬라이드 관련
-	$('.post-wrapper').slick({
-		slidesToShow : 1,
-		slidesToScroll : 1,
-		autoplay : true,
-		autoplaySpeed : 3000,
-		nextArrow : $('.next'),
-		prevArrow : $('.prev'),
+	
+	// 신규 슬라이드 관련
+	var swiper = new Swiper(".mySwiper", {
+		allowTouchMove : true,
+		loop : true,
+		scrollbar : {
+			el : '.swiper-scrollbar',
+			draggable : true,
+		},
+		autoplay : {
+			delay : 3000,
+			disableOnInteraction : false,
+		}, 
+		pagination : {
+			el : ".swiper-pagination",
+			type : "fraction",
+			clickable : true
+		},
+		navigation : {
+			nextEl : ".swiper-button-next",
+			prevEl : ".swiper-button-prev",
+		},
 	});
-
+	
 	/* 상품 클릭할때 생기는 이벤트  -> 상품페이지로 보내줄것이다.*/
 	$(document).on("click", ".item-li", function() {
 		let prodt_id = $(this).attr('id');
@@ -263,90 +279,123 @@
 	let new_friends_total = ${newFriendsCount};//새로운 친구 물품 갯수 -> 전체 페이징
 	let new_friends_count = 2;//페이징변수
 
-	$('#kakao-content').on(
+	$('#kakao-content')
+			.on(
 					'scroll',
 					function() {
 
-						const scrollHeight = document.getElementById('kakao-content').scrollHeight;
-						const scrollTop = document.getElementById('kakao-content').scrollTop;
+						const scrollHeight = document
+								.getElementById('kakao-content').scrollHeight;
+						const scrollTop = document
+								.getElementById('kakao-content').scrollTop;
 						const height = $('#kakao-content').height();
-						
+
 						console.log("scrollHeight : " + scrollHeight);
 						console.log("scrollTop : " + scrollTop);
 						console.log("height : " + height);
-					
-						if ((scrollTop + height >= scrollHeight) && new_friends_count <= new_friends_total) {	
-							$.ajax({
-								type : "GET",
-								url : "/SYJ_Mall/newFriendsProduct.action",
-								data : "newFriendsPaging=" + new_friends_count,
-								async : false,
-								dataType : "json",
-								success : function(result) {
-									let selectCount = result.length;
-									
-									for (let i = 0; i < selectCount; i++) {
-										let url = "'" + result[i].picUrl + "'";
-										
-										//1. 재고 없는 경우
-					            		if (result[i].prodCnt == 0) {
-					            			$('#wrap_ul').append(
-								            		
-							            			'<li class="item-li" id="'+ result[i].prodId + '">'
-													+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
-													+	'<div class="name">'
-													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-													+		'<span class="'+result[i].alarmYn+'"></span>'
-													+	'</div>'
-													+	'<div class="price">' + result[i].prodPrice + '원</div>'
-													+'</li>'
-										            	
-								            	);
-					            		}
-					            		//2. 재고 있는 경우
-					            		else {
-					            			//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
-						            		//1. 할인안되는 품목인 경우
-						            		if(result[i].discRate == 0) {
-						            			$('#wrap_ul').append(
-									            		
-						            					'<li class="item-li" id="'+ result[i].prodId + '">'
-														+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
-														+	'<div class="name">'
-														+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-														+ 		'<span class="' + result[i].cookieBasket + '"></span>'
-														+	'</div>'
-														+	'<div class="price">' + result[i].prodPrice + '원</div>'
-														+'</li>'
-											            	
-									            	);
-						            		} 
-						            		//2. 할인되는 품목인 경우
-						            		else {
-						            			$('#wrap_ul').append(
-									            		
-						            					'<li class="item-li" id="'+ result[i].prodId + '">'
-														+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
-														+	'<div class="name">'
-														+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-														+ 		'<span class="' + result[i].cookieBasket + '"></span>'
-														+	'</div>'
-														+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
-														+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
-														+'</li>'
-											            	
-									            	);
-						            		}
-					            		}//else
-										
-									}//for
-								},
-								error : function(a, b, c) {
-									console.log(a, b, c);
-								}
-							});
+
+						if ((scrollTop + height >= scrollHeight)
+								&& new_friends_count <= new_friends_total) {
+							$
+									.ajax({
+										type : "GET",
+										url : "/SYJ_Mall/newFriendsProduct.action",
+										data : "newFriendsPaging="
+												+ new_friends_count,
+										async : false,
+										dataType : "json",
+										success : function(result) {
+											let selectCount = result.length;
+
+											for (let i = 0; i < selectCount; i++) {
+												let url = "'"
+														+ result[i].picUrl
+														+ "'";
+
+												//1. 재고 없는 경우
+												if (result[i].prodCnt == 0) {
+													$('#wrap_ul')
+															.append(
+
+																	'<li class="item-li" id="'+ result[i].prodId + '">'
+																			+ '<div class="thumbnail" style="background-image : url('
+																			+ url
+																			+ ')"><div class="soldout-label"></div></div>'
+																			+ '<div class="name">'
+																			+ '<div class="nametext">'
+																			+ result[i].prodNm
+																			+ '</div>'
+																			+ '<span class="'+result[i].alarmYn+'"></span>'
+																			+ '</div>'
+																			+ '<div class="price">'
+																			+ result[i].prodPrice
+																			+ '원</div>'
+																			+ '</li>'
+
+															);
+												}
+												//2. 재고 있는 경우
+												else {
+													//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
+													//1. 할인안되는 품목인 경우
+													if (result[i].discRate == 0) {
+														$('#wrap_ul')
+																.append(
+
+																		'<li class="item-li" id="'+ result[i].prodId + '">'
+																				+ '<div class="thumbnail" style="background-image : url('
+																				+ url
+																				+ ')"></div>'
+																				+ '<div class="name">'
+																				+ '<div class="nametext">'
+																				+ result[i].prodNm
+																				+ '</div>'
+																				+ '<span class="' + result[i].cookieBasket + '"></span>'
+																				+ '</div>'
+																				+ '<div class="price">'
+																				+ result[i].prodPrice
+																				+ '원</div>'
+																				+ '</li>'
+
+																);
+													}
+													//2. 할인되는 품목인 경우
+													else {
+														$('#wrap_ul')
+																.append(
+
+																		'<li class="item-li" id="'+ result[i].prodId + '">'
+																				+ '<div class="thumbnail" style="background-image : url('
+																				+ url
+																				+ ')"></div>'
+																				+ '<div class="name">'
+																				+ '<div class="nametext">'
+																				+ result[i].prodNm
+																				+ '</div>'
+																				+ '<span class="' + result[i].cookieBasket + '"></span>'
+																				+ '</div>'
+																				+ '<div class="price" style="color : #FF447F;">'
+																				+ result[i].discRate
+																				+ '% '
+																				+ result[i].dcPrice
+																				+ '원</div>'
+																				+ '<div class="price" style="text-decoration:line-through; color : #9A9A9E;">'
+																				+ result[i].prodPrice
+																				+ '원</div>'
+																				+ '</li>'
+
+																);
+													}
+												}//else
+
+											}//for
+										},
+										error : function(a, b, c) {
+											console.log(a, b, c);
+										}
+									});
 							new_friends_count++;//페이징 카운트 늘리기
-						} 
+						}
 
 					});
 </script>
