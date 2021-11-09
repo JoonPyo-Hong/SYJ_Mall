@@ -31,7 +31,7 @@
 /* .hamburger-menu {
   width: 20px;
   height: 20px;
-  background-image: url(./../images/main/ic_menu.png);
+  background-image: url(/SYJ_Mall/resources/images/main/ic_menu.png);
   background-size: cover;
   margin: 8px 3px 7px 13px;
 } */
@@ -43,14 +43,14 @@
 .title-logo {
   width: 147px;
   height: 24px;
-  background-image: url(./../images/main/new-logo-mo.png);
+  background-image: url(/SYJ_Mall/resources/images/main/new-logo-mo.png);
   background-size: cover;
 }
 
 .search {
   width: 20px;
   height: 20px;
-  background-image: url(./../images/main/ic_search.png);
+  background-image: url(/SYJ_Mall/resources/images/main/ic_search.png);
   background-size: cover;
   margin: 8px 13px 7px 2px;
 }
@@ -58,7 +58,7 @@
 .language {
   width: 20px;
   height: 20px;
-  background-image: url(./../images/main/ic-language-global.png);
+  background-image: url(/SYJ_Mall/resources/images/main/ic-language-global.png);
   background-size: cover;
   margin: 8px 13px 7px 2px;
 }
@@ -68,7 +68,7 @@
 .home-button {
   width: 20px;
   height: 20px;
-  background-image: url(./../images/main/gnb-home-18-black@2x.png);
+  background-image: url(/SYJ_Mall/resources/images/main/gnb-home-18-black@2x.png);
   background-size: cover;
   margin: 8px 13px 7px 2px;
 }
@@ -76,7 +76,7 @@
 .back-button {
   width: 20px;
   height: 20px;
-  background-image: url(./../images/main/ic_back_2x.png);
+  background-image: url(/SYJ_Mall/resources/images/main/ic_back_2x.png);
   background-size: cover;
   margin: 8px 13px 7px 2px;
 }
@@ -142,7 +142,7 @@
   user-select: none;
   width: 20px;
   height: 20px;
-  background-image: url(./../images/main/ic_menu.png);
+  background-image: url(/SYJ_Mall/resources/images/main/ic_menu.png);
   background-size: cover;
   margin: 8px 3px 5px 13px;
 }
@@ -201,7 +201,7 @@
   display: inline-block;
   width: 15px;
   height: 15px;
-  background-image: url(./../images/main/right-arrow.png);
+  background-image: url(/SYJ_Mall/resources/images/main/right-arrow.png);
   background-size: cover;
   vertical-align: middle;
   margin-left: 2px;
@@ -210,7 +210,7 @@
 
 .banner {
   height: 8%;
-  background-image: url(./../images/main/navigation-banner.jpg);
+  background-image: url(/SYJ_Mall/resources/images/main/navigation-banner.jpg);
   background-size: cover;
   margin: 0 10px;
   border-radius: 10px;
@@ -241,7 +241,7 @@
 .navigation-menu-li .drop-down {
   width: 18px;
   height: 18px;
-  background-image: url(./../images/main/down-arrow.png);
+  background-image: url(/SYJ_Mall/resources/images/main/down-arrow.png);
   background-size: cover;
   margin-right: 25px;
 }
@@ -280,65 +280,65 @@
   display: inline-block;
   width: 50px;
   height: 50px;
-  background-image: url(./../images/main/li-Ryan.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Ryan.png);
   background-size: cover;
   margin-bottom: 8px;
 }
 
 .li-Apeach::before {
-  background-image: url(./../images/main/li-Apeach.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Apeach.png);
 }
 
 .li-Muzi::before {
-  background-image: url(./../images/main/li-Muzi.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Muzi.png);
 }
 
 .li-Frodo::before {
-  background-image: url(./../images/main/li-Frodo.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Frodo.png);
 }
 
 .li-Neo::before {
-  background-image: url(./../images/main/li-Neo.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Neo.png);
 }
 
 .li-Tube::before {
-  background-image: url(./../images/main/li-Tube.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Tube.png);
 }
 
 .li-Jay::before {
-  background-image: url(./../images/main/li-Jay.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Jay.png);
 }
 
 .li-Con::before {
-  background-image: url(./../images/main/li-Con.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Con.png);
 }
 
 .li-Choonsic::before {
-  background-image: url(./../images/main/li-Choonsic.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Choonsic.png);
 }
 
 .li-Jordy::before {
-  background-image: url(./../images/main/li-Jordy.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Jordy.png);
 }
 
 .li-Scappy::before {
-  background-image: url(./../images/main/li-Scappy.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Scappy.png);
 }
 
 .li-Angmond::before {
-  background-image: url(./../images/main/li-Angmond.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Angmond.png);
 }
 
 .li-PendaJr::before {
-  background-image: url(./../images/main/li-PendaJr.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-PendaJr.png);
 }
 
 .li-Kereberony::before {
-  background-image: url(./../images/main/li-Kereberony.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Kereberony.png);
 }
 
 .li-Kumdori::before {
-  background-image: url(./../images/main/li-Kumdori.png);
+  background-image: url(/SYJ_Mall/resources/images/main/li-Kumdori.png);
 }
 
 /* li-sub-menu category */
@@ -380,7 +380,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  background-image: url(./../images/main/login.png);
+  background-image: url(/SYJ_Mall/resources/images/main/login.png);
   background-size: cover;
   vertical-align: middle;
   margin-right: 5px;
@@ -488,7 +488,7 @@
   display: block;
   width: 105px;
   height: 12px;
-  background-image: url(./../images/main/logo-footer-commerce.png);
+  background-image: url(/SYJ_Mall/resources/images/main/logo-footer-commerce.png);
   background-size: cover;
   margin-left: 16px;
 }
@@ -497,7 +497,7 @@
   display: block;
   width: 10px;
   height: 12px;
-  background-image: url(./../images/main/down-arrow.png);
+  background-image: url(/SYJ_Mall/resources/images/main/down-arrow.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: 1px;
@@ -507,7 +507,7 @@
 .best-family {
   width: 103px;
   height: 28px;
-  background-image: url(./../images/main/logo-footer-best-family.png);
+  background-image: url(/SYJ_Mall/resources/images/main/logo-footer-best-family.png);
   background-size: cover;
   background-repeat: no-repeat;
   margin-right: 16px;

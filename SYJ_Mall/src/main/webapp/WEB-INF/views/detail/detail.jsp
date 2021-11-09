@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="./js/main.js"></script>
-<link rel="shortcut icon" href="./images/favicon.ico" type='image/x-ico' />
+<script type="text/javascript" src="resources/js/main.js"></script>
+<link rel="shortcut icon" href="resources/images/favicon.ico" type='image/x-ico' />
 <link rel="stylesheet" type="text/css"
 	href="resources/css/pay/fonts.css">
 <link rel="stylesheet" type="text/css"
