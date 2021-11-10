@@ -1,14 +1,18 @@
 .product-detail-wrap {
   height: 100000px;
 }
-
+.swiper-container{
+	width: 640px;
+	height: 640px;
+}
 /* 대표 이미지 */
-.main-image {
-  width: 100vw;
-  height: 100vw;
+.swiper-slide {
+  
   max-width: 640px;
   max-height: 640px;
-  background-image: url(/SYJ_Mall/resources/images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);
+  width:640px;
+  height:640px;
+  
   background-size: contain;
   background-repeat: no-repeat;
 }

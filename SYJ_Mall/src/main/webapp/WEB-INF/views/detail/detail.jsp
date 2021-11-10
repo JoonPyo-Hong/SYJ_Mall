@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="resources/js/main.js"></script>
-<link rel="shortcut icon" href="resources/images/favicon.ico" type='image/x-ico' />
+<link rel="shortcut icon" href="resources/images/favicon.ico"
+	type='image/x-ico' />
 <link rel="stylesheet" type="text/css"
 	href="resources/css/pay/fonts.css">
 <link rel="stylesheet" type="text/css"
@@ -16,6 +17,9 @@
 <!-- <link rel="stylesheet" type="text/css" href="./css/new.css"> -->
 <link rel="stylesheet" type="text/css"
 	href="resources/css/pay/product.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+
 </head>
 <body>
 	<div id="kakao-wrap">
@@ -45,13 +49,25 @@
 				</div>
 				<div class="container-wrap product-detail-wrap">
 					<!-- 대표 이미지 -->
-					<div class="main-image"></div>
+					<!-- <div class="main-image"></div> -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" style="background-image: url(/SYJ_Mall/resources/images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);"></div>
+							<div class="swiper-slide" style="background-image: url(/SYJ_Mall/resources/images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);"></div>
+							<div class="swiper-slide" style="background-image: url(/SYJ_Mall/resources/images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);"></div>
+						</div>
+						<!-- <div class='swiper-button-next'></div>
+						<div class='swiper-button-prev'></div>
+						<div class='swiper-pagination'></div> -->
+					</div>
+
+
 					<!-- 상품 주요 정보 -->
 					<div class="detail-header">
 						<div class="product-title">
 							<div class="product-name">피치파이브 러피치 와퍼피치</div>
-							<button class="share">
-								</span>
+							<button class="share"></button>
+							</span>
 						</div>
 						<div class="product-price">32,000원</div>
 						<div class="product-review">
@@ -124,8 +140,7 @@
 								<li>제조자, 수입품의 경우 수입자를 함께 표기 : ㈜클로스업</li>
 								<li>품질보증 기준 : 본 제품은 공정거래위원회 고시 소비자 분쟁해결기준에 의거 교환 및 보상을 받으실
 									수 있습니다.</li>
-								<li>A/S 책임자와 전화번호 또는 소비자상담 관련 전화번호 : 카카오프렌즈 고객센터 1577-6263
-								</li>
+								<li>A/S 책임자와 전화번호 또는 소비자상담 관련 전화번호 : 카카오프렌즈 고객센터 1577-6263</li>
 							</ul>
 						</div>
 						<button class="delivery-btn">
@@ -360,8 +375,29 @@
 			</div>
 		</div>
 	</div>
-	</div>
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+	<script src="resources/js/main/feed.js"></script>
+
 	<script>
+
+	var mySwiper = new Swiper('.swiper-container', {
+		loop : true,
+		pagination : {
+			el : '.swiper-pagination',
+		},
+		//touchRatio : 0, // 드래그 X
+		autoplay : { // 자동 슬라이드 설정 , 비 활성화 시 false
+			delay : 3000, // 시간 설정
+			disableOnInteraction : false, // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
+		},
+		/* navigation : {
+			nextEl : '.swiper-button-next',
+			prevEl : '.swiper-button-prev',
+		}, */
+
+	});
+
 		$(document).ready(
 				function() {
 
