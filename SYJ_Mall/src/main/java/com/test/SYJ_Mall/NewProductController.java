@@ -52,4 +52,14 @@ public class NewProductController {
 	public List<NewFriendsProdDTO> newFriendsProduct(HttpServletRequest request, HttpServletResponse response) {
 		return service.getNewFriendsProdts(request,response);
 	}
+	
+	//더보기 화면
+	@RequestMapping(value = "/newProductMainAdd.action", method = { RequestMethod.GET, RequestMethod.POST })
+	public String newProductMainAdd(HttpServletRequest request, HttpServletResponse response) {
+
+		
+		return "/semitiles/addProduct.layout";
+	}
+	
+	
 }

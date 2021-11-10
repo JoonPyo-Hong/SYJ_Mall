@@ -95,7 +95,19 @@
 	</definition>
 	
 	
-
-		
+	<!-- 1. 세미타일즈 ver1 -->
+	<!-- "< 홈       타이틀   찾기  국가선택 "-->
+	<!-- 	캐릭터 전체    판매량순-->
+	<definition name="newsemiDefault" template="/WEB-INF/views/Layout/semiLayout.jsp">
+		<put-attribute name="body" value="" />
+	</definition>	
+	
+	<!-- 더 보기 상품 -->
+	<definition name = "/semitiles/addProduct.layout" extends="newsemiDefault">
+		<put-attribute name = "body" value="/WEB-INF/views/newProduct/newProductAdd.jsp"/>	
+	</definition>
+	
+	
+	
 	
 </tiles-definitions>
