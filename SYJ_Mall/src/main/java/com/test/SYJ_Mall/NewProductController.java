@@ -56,7 +56,8 @@ public class NewProductController {
 	//더보기 화면
 	@RequestMapping(value = "/newProductMainAdd.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String newProductMainAdd(HttpServletRequest request, HttpServletResponse response) {
-
+		
+		int result = service.getNewProdcutAddInfo(request,response);
 		
 		return "/semitiles/addProduct.layout";
 	}

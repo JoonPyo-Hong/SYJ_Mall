@@ -46,4 +46,12 @@ public interface INewProductService {
 	 * @return
 	 */
 	List<NewFriendsProdDTO> getNewFriendsProdts(HttpServletRequest request,HttpServletResponse response);
+
+	/**
+	 * 새로나온 친구들 더보기
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int getNewProdcutAddInfo(HttpServletRequest request, HttpServletResponse response);
 }

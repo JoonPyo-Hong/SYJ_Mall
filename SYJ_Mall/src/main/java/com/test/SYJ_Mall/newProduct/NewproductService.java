@@ -261,5 +261,12 @@ public class NewproductService implements INewProductService {
 		
 		
 	}
+	
+	//새로나온 친구들 더보기 옵션
+	@Override
+	public int getNewProdcutAddInfo(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
