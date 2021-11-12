@@ -240,6 +240,8 @@
 	</div>	
 	
 	<script>
+		
+		
 		let filter_option = ${sortedOption};//정렬필터링 옵션
 		let sortedCharOption = ${sortedCharOption};//캐릭터 필터링 옵션
 	
