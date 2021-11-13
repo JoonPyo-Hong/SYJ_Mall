@@ -14,5 +14,10 @@ public class DetailDAO implements IDetailDAO{
 	public List<DetailDTO> lisDetailSelectt() {
 		return session.selectList("detail.list");
 	}
+	@Override
+	public List<String> HeaderSelect(Integer d_seq) {
+		// TODO Auto-generated method stub
+		return session.selectList("detail.header" , d_seq);
+	}
 
 }

@@ -6,4 +6,6 @@ public interface IDetailService {
 
 	List<DetailDTO> DetailSelect();
 
+	List<String> HeaderSelect(Integer d_seq);
+
 }

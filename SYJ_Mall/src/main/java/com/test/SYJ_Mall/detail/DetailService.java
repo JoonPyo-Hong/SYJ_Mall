@@ -14,5 +14,10 @@ public class DetailService implements IDetailService{
 		// TODO Auto-generated method stub
 		return dao.lisDetailSelectt();
 	}
+	@Override
+	public List<String> HeaderSelect(Integer d_seq) {
+		// TODO Auto-generated method stub
+		return dao.HeaderSelect(d_seq);
+	}
 
 }

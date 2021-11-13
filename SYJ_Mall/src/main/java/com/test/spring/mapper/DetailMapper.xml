@@ -10,6 +10,10 @@
 		resultType="com.test.SYJ_Mall.detail.DetailDTO">
 	select top(10) * from dbo.KAKAO_PRODUCT_TABLE with(nolock)
 	</select>
+	<select id="header"
+		resultType="string" parameterType="int">
+	select product_img from dbo.KAKAO_PRODUCT_IMG with(nolock) where product_id = #{d_seq}
+	</select>
 
 
 </mapper>

@@ -6,4 +6,6 @@ public interface IDetailDAO {
 
 	List<DetailDTO> lisDetailSelectt();
 
+	List<String> HeaderSelect(Integer d_seq);
+
 }
