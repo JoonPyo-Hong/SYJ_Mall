@@ -165,9 +165,29 @@
 				<div class="search-header">
 					<div class="sort-wrap">
 						<div class="sort">
-							<span class="sort-title" id="char-sort-name">캐릭터 전체</span> <img
+							
+							<span class="sort-title" id="char-sort-name">
+								<c:if test="${sortedCharOption eq 0}">캐릭터 전체</c:if>
+								<c:if test="${sortedCharOption eq 1}">라이언</c:if>
+								<c:if test="${sortedCharOption eq 2}">어피치</c:if>
+								<c:if test="${sortedCharOption eq 3}">무지</c:if>
+								<c:if test="${sortedCharOption eq 4}">프로도</c:if>
+								<c:if test="${sortedCharOption eq 5}">네오</c:if>
+								<c:if test="${sortedCharOption eq 6}">튜브</c:if>
+								<c:if test="${sortedCharOption eq 7}">제이지</c:if>
+								<c:if test="${sortedCharOption eq 8}">콘</c:if>
+								<c:if test="${sortedCharOption eq 9}">춘식</c:if>
+								<c:if test="${sortedCharOption eq 10}">죠르디</c:if>
+								<c:if test="${sortedCharOption eq 11}">스카피</c:if>
+								<c:if test="${sortedCharOption eq 12}">앙몬드</c:if>
+								<c:if test="${sortedCharOption eq 13}">팬다주니어</c:if>
+								<c:if test="${sortedCharOption eq 14}">캐로&베로니</c:if>
+								<c:if test="${sortedCharOption eq 15}">꿈돌이</c:if>
+								
+							</span> <img
 								class="sort-icon"
 								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							
 						</div>
 						<div class="sort-divider"></div>
 						<div class="sort">
@@ -195,7 +215,7 @@
 					</div>
 					<div class="detail">
 						<div class="all-count">
-							총 <b>${searchProdCount}</b>개
+							총 <b>${prodtCount}</b>개
 						</div>
 						<div class="check-global">
 							<img
@@ -208,7 +228,7 @@
 
 		</div>
 		<div id="kakao-content" style="overflow: scroll;">
-			<div style="height: 230px;"></div>
+			<div style="height: 100px;"></div>
 			<div id="inner-content">
 				<!-- 여기에 타일즈 내용이 들어가야함 -->
 				<tiles:insertAttribute name="body" ignore="false"/>
@@ -242,8 +262,8 @@
 	<script>
 		
 		
-		let filter_option = ${sortedOption};//정렬필터링 옵션
-		let sortedCharOption = ${sortedCharOption};//캐릭터 필터링 옵션
+		//let filter_option = ${sortedOption};//정렬필터링 옵션
+		//let sortedCharOption = ${sortedCharOption};//캐릭터 필터링 옵션
 	
 		/* 검색관련 */	
 		$('.search').click(function() {
@@ -260,7 +280,7 @@
 			location.href = "/SYJ_Mall/searchbackmain.action";	
 		});
 		
-		//로그인 모달창 로그인하기
+		/* 		//로그인 모달창 로그인하기
 		$(document).on("click",".login-btn",function(){
 			$('#login-product-modal').css('visibility','hidden');
 			location.href = "/SYJ_Mall/login.action";
@@ -270,7 +290,10 @@
 		$(document).on("click",".close-btn",function(){
 			$('#login-product-modal').css('visibility','hidden');
 		}); 
-	
+	 	*/
+	 	
+	 	
+	 	
 	</script>
 	
 </body>

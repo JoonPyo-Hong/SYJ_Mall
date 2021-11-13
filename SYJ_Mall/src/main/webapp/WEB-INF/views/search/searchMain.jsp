@@ -170,7 +170,24 @@
 				<div class="search-header">
 					<div class="sort-wrap">
 						<div class="sort">
-							<span class="sort-title" id="char-sort-name">캐릭터 전체</span> <img
+							<span class="sort-title" id="char-sort-name">
+								<c:if test="${sortedCharOption eq 0}">캐릭터 전체</c:if>
+								<c:if test="${sortedCharOption eq 1}">라이언</c:if>
+								<c:if test="${sortedCharOption eq 2}">어피치</c:if>
+								<c:if test="${sortedCharOption eq 3}">무지</c:if>
+								<c:if test="${sortedCharOption eq 4}">프로도</c:if>
+								<c:if test="${sortedCharOption eq 5}">네오</c:if>
+								<c:if test="${sortedCharOption eq 6}">튜브</c:if>
+								<c:if test="${sortedCharOption eq 7}">제이지</c:if>
+								<c:if test="${sortedCharOption eq 8}">콘</c:if>
+								<c:if test="${sortedCharOption eq 9}">춘식</c:if>
+								<c:if test="${sortedCharOption eq 10}">죠르디</c:if>
+								<c:if test="${sortedCharOption eq 11}">스카피</c:if>
+								<c:if test="${sortedCharOption eq 12}">앙몬드</c:if>
+								<c:if test="${sortedCharOption eq 13}">팬다주니어</c:if>
+								<c:if test="${sortedCharOption eq 14}">캐로&베로니</c:if>
+								<c:if test="${sortedCharOption eq 15}">꿈돌이</c:if>
+							</span> <img
 								class="sort-icon"
 								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</div>

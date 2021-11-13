@@ -104,7 +104,7 @@
 				</c:forEach>
 			</ul>
 		</div>
-		<a href="#" class="theme-more-view">더 보기</a>
+		<a href="/SYJ_Mall/newProductMainAdd.action" class="theme-more-view">더 보기</a>
 	</div>
 	<div class="product-new-section new-theme-wrap" id="testest">
 		<!-- 오늘 업데이트 했어요-->

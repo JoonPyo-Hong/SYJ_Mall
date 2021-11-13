@@ -53,13 +53,15 @@ public class NewProductController {
 		return service.getNewFriendsProdts(request,response);
 	}
 	
-	//더보기 화면
+	//추천 신규 테마 - 더보기 화면
 	@RequestMapping(value = "/newProductMainAdd.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String newProductMainAdd(HttpServletRequest request, HttpServletResponse response) {
 		
 		int result = service.getNewProdcutAddInfo(request,response);
 		
-		return "/semitiles/addProduct.layout";
+		if (result == 1) return "/semitiles/addProduct.layout";
+		else return "/testwaiting/kakaoerror";
+		
 	}
 	
 	

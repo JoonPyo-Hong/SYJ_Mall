@@ -30,8 +30,9 @@ public class NewproductService implements INewProductService {
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");// 유저객체
 
-			int themeNum = 2;// 테마 번호--> 지정해주면 바뀐다.
-
+			int themeNum = 2;// 테마 번호--> 지정해주면 바뀐다.(2번을 기본으로 한다.)
+			
+			
 			// 상단에 표시될 페이지
 			request.setAttribute("seleted", "new");// 상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
 			
@@ -49,30 +50,29 @@ public class NewproductService implements INewProductService {
 			
 			int firstPaging = 1;//처음 페이징
 			
+			List<RecommendThemeDTO> rtp;//신규테마물품
+			List<NewFriendsProdDTO> newFdtoList;//새로운 친구들
+			String themeSubject;// 테마 이름
+			
 			if (userInfo == null) {
 				// 로그인 되지 않은 경우
 				String basketList = getCookieBasket(request, response);
-				List<RecommendThemeDTO> rtp = dao.getNewRecommendThemeNoLogin(basketList, themeNum);//신규테마물품
-				List<NewFriendsProdDTO> newFdtoList = dao.getNewFriendDtosNologin(basketList,firstPaging);//새로운 친구들
+				rtp = dao.getNewRecommendThemeNoLogin(basketList, themeNum);//신규테마물품
+				newFdtoList = dao.getNewFriendDtosNologin(basketList,firstPaging);//새로운 친구들
 				
-				String themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
-
-				request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
-				request.setAttribute("themeSubject", themeSubject);// 추천테마 주제
-				request.setAttribute("newFdtoList", newFdtoList);//새로운 친구들 상품 객체
+				themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
 
 			} else {
 				// 로그인이 된 경우
-				List<RecommendThemeDTO> rtp = dao.getNewRecommendTheme(userInfo.getUserSeq(), themeNum);//신규테마물품
-				List<NewFriendsProdDTO> newFdtoList = dao.getNewFriendDtos(userInfo.getUserSeq(),firstPaging);//새로운 친구들
+				rtp = dao.getNewRecommendTheme(userInfo.getUserSeq(), themeNum);//신규테마물품
+				newFdtoList = dao.getNewFriendDtos(userInfo.getUserSeq(),firstPaging);//새로운 친구들
 				
-				String themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
-				
-				request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
-				request.setAttribute("themeSubject", themeSubject);// 추천테마 주제
-				request.setAttribute("newFdtoList", newFdtoList);//새로운 친구들 상품 객체
-
+				themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
 			}
+			
+			request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
+			request.setAttribute("themeSubject", themeSubject);// 추천테마 주제
+			request.setAttribute("newFdtoList", newFdtoList);//새로운 친구들 상품 객체
 
 			return 1;
 		} catch (Exception e) {
@@ -265,8 +265,66 @@ public class NewproductService implements INewProductService {
 	//새로나온 친구들 더보기 옵션
 	@Override
 	public int getNewProdcutAddInfo(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		try {
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");// 유저객체
+			
+			int sortedOption,sortedCharOption,themeNum;//정렬옵션,캐릭터 필터옵션,테마 번호
+			
+			if (request.getParameter("sortedOption") == null) sortedOption = 1;
+			else sortedOption = Integer.parseInt(request.getParameter("sortedOption"));
+			
+			if (request.getParameter("sortedCharOption") == null) sortedCharOption = 0;
+			else sortedCharOption = Integer.parseInt(request.getParameter("sortedCharOption"));
+			
+			if (request.getParameter("themeNum") == null) themeNum = 2;
+			else themeNum = Integer.parseInt(request.getParameter("themeNum"));
+			
+			List<RecommendThemeDTO> rtp;// 추천테마 관련 객체들
+			String themeSubject;// 추천테마 주제
+			int prodtCount = 0;//제품갯수
+			
+			if (userInfo == null) {
+			//로그인 안한 경우
+				String basketList = getCookieBasket(request, response);
+				rtp = dao.getNewRecommendThemeNoLoginAdd(basketList, themeNum, sortedOption, sortedCharOption);//신규테마물품
+				
+				if (rtp == null)themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
+				else {
+					themeSubject = "";
+					prodtCount = rtp.size();
+				}
+				
+				
+			} else {
+			//로그인 한 경우
+				rtp = dao.getNewRecommendThemeAdd(userInfo.getUserSeq(), themeNum, sortedOption, sortedCharOption);//신규테마물품
+
+				if (rtp == null)themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
+				else {
+					themeSubject = "";
+					prodtCount = rtp.size();
+				}
+			}
+			
+			request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
+			request.setAttribute("themeSbject", themeSubject);// 추천테마 주제
+			request.setAttribute("sortedOption", sortedOption);// 정렬옵션
+			request.setAttribute("sortedCharOption", sortedCharOption);// 캐릭터 필터링
+			request.setAttribute("prodtCount", prodtCount);// 상품갯수
+			
+			return 1;
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
+		
+		
 	}
 
 }

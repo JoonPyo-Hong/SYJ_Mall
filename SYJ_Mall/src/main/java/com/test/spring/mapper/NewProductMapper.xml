@@ -7,7 +7,7 @@
 
 <mapper namespace="newProducts">
 
-	<!-- 신규 상단 배너 정보 불러오기 로그인 안된 상태-->
+	<!-- 신규 추천 신규 테마 비로그인 -->
 	<select id="newProductRecommendTheme"
 		parameterType="java.util.HashMap"
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
@@ -18,7 +18,7 @@
 	</select>
 	
 	
-	<!-- 신규 상단 배너 정보 불러오기  로그인 된 상태-->
+	<!-- 신규 추천 신규 테마 로그인 -->
 	<select id="newProductRecommendThemeLogin"
 		parameterType="java.util.HashMap"
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
@@ -61,6 +61,26 @@
 		statementType="CALLABLE">
 		{
 		call dbo.kakao_new_product(#{userSeq},#{paging})
+		}
+	</select>
+	
+	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 안된 상태-->
+	<select id="newProductRecommendThemeAdd"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add(#{basketList},#{themeNum},#{sortedOption},#{sortedCharOption})
+		}
+	</select>
+	
+	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 된 상태-->
+	<select id="newProductRecommendThemeLoginAdd"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login_add(#{userSeq},#{themeNum},#{sortedOption},#{sortedCharOption})
 		}
 	</select>
 
