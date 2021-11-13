@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface INewProductDAO {
 	
 	/**
-	 * 추천신규테마 불러오기
+	 * 추천신규테마 불러오기 - 비로그인 상태
 	 * @param basketList	장바구니 정보
 	 * @param themeNum		테마번호
 	 * @return				물품객체
@@ -50,7 +50,26 @@ public interface INewProductDAO {
 	 */
 	List<NewFriendsProdDTO> getNewFriendDtos(int userSeq, int paging);
 	
+	/**
+	 * 추천신규테마 불러오기 - 비로그인 상태(더보기)
+	 * @param basketList			장바구니 정보
+	 * @param themeNum				테마 번호
+	 * @param sortedOption			정렬옵션
+	 * @param sortedCharOption		캐릭터 필터링 옵션
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdd(String basketList, int themeNum, int sortedOption, int sortedCharOption);
 	
+	/**
+	 * 추천신규테마 불러오기 - 로그인 상태(더보기)
+	 * @param userSeq			회원 고유번호
+	 * @param themeNum			테마 번호
+	 * @param sortedOption		정렬옵션
+	 * @param sortedCharOption	캐릭터 필터링 옵션
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNewRecommendThemeAdd(int userSeq, int themeNum, int sortedOption, int sortedCharOption);
+
 
 	
 

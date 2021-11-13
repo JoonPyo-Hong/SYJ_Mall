@@ -75,6 +75,33 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.newFriendsProduct",map);
 	}
 
+	//추천 신규 테마 더보기 - 로그인 안한 경우
+	@Override
+	public List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdd(String basketList, int themeNum,int sortedOption, int sortedCharOption) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("basketList",basketList);
+		map.put("themeNum",Integer.toString(themeNum));
+		map.put("sortedOption",Integer.toString(sortedOption));
+		map.put("sortedCharOption",Integer.toString(sortedCharOption));
+		
+		
+		return template.selectList("newProducts.newProductRecommendThemeAdd",map);
+	}
+
+	//추천 신규 테마 더보기 - 로그인 한 경우
+	@Override
+	public List<RecommendThemeDTO> getNewRecommendThemeAdd(int userSeq, int themeNum, int sortedOption, int sortedCharOption) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("themeNum",Integer.toString(themeNum));
+		map.put("sortedOption",Integer.toString(sortedOption));
+		map.put("sortedCharOption",Integer.toString(sortedCharOption));
+		
+		return template.selectList("newProducts.newProductRecommendThemeLoginAdd",map);
+	}
+
 
 
 	

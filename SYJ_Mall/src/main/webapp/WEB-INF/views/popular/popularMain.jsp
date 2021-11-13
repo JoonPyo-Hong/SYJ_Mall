@@ -148,8 +148,6 @@
 	 		
 	 		
 	 	} else {//장바구니에 안담긴경우
-	 		//console.log('장바구니에 담김');
-	 	
 	 		
 		 	$.ajax({
 	            	type:"GET",
