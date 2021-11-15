@@ -313,4 +313,11 @@ var {
   .sort-modal-wrap .sort-list {
     max-width: 640px !important;
   }
+
+  /* 오늘 탭 페이지 */
+
+  .body-feed .slide-feed {
+    width: 600px !important;
+    height: 600px !important;
+  }
 }
