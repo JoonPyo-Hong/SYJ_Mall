@@ -45,7 +45,7 @@ public class DetailController {
 				seq = dto.getUserSeq();
 			}
 			
-			List<DetailDTO> list = service.DetailSelect();
+			List<DetailDTO> list = service.DetailSelect(d_seq);
 			List<String> list2 = service.HeaderSelect(d_seq);
 			model.addAttribute("list", list);
 			model.addAttribute("list2", list2);

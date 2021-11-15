@@ -10,9 +10,9 @@ import com.test.SYJ_Mall.main.MainDAO;
 public class DetailService implements IDetailService{
 	@Autowired
 	private IDetailDAO dao;
-	public List<DetailDTO> DetailSelect() {
+	public List<DetailDTO> DetailSelect(Integer d_seq) {
 		// TODO Auto-generated method stub
-		return dao.lisDetailSelectt();
+		return dao.lisDetailSelectt(d_seq);
 	}
 	@Override
 	public List<String> HeaderSelect(Integer d_seq) {

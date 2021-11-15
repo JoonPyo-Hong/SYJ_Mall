@@ -11,8 +11,8 @@ public class DetailDAO implements IDetailDAO{
 	@Autowired
 	private SqlSession session;
 	@Override
-	public List<DetailDTO> lisDetailSelectt() {
-		return session.selectList("detail.list");
+	public List<DetailDTO> lisDetailSelectt(Integer d_seq) {
+		return session.selectList("detail.list",d_seq);
 	}
 	@Override
 	public List<String> HeaderSelect(Integer d_seq) {
