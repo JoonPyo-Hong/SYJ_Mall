@@ -107,6 +107,11 @@
 		<put-attribute name = "body" value="/WEB-INF/views/newProduct/newProductAdd.jsp"/>	
 	</definition>
 	
+	<!-- 검색결과 -->
+	<definition name = "/semitiles/searchResult.layout" extends="newsemiDefault">
+		<put-attribute name = "body" value="/WEB-INF/views/search/searchMain.jsp"/>	
+	</definition>
+	
 	
 	
 	

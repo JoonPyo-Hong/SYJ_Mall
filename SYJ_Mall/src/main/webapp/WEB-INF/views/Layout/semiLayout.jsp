@@ -261,10 +261,7 @@
 	
 	<script>
 		
-		
-		//let filter_option = ${sortedOption};//정렬필터링 옵션
-		//let sortedCharOption = ${sortedCharOption};//캐릭터 필터링 옵션
-	
+
 		/* 검색관련 */	
 		$('.search').click(function() {
 			location.href = "/SYJ_Mall/searchStart.action";
@@ -280,18 +277,6 @@
 			location.href = "/SYJ_Mall/searchbackmain.action";	
 		});
 		
-		/* 		//로그인 모달창 로그인하기
-		$(document).on("click",".login-btn",function(){
-			$('#login-product-modal').css('visibility','hidden');
-			location.href = "/SYJ_Mall/login.action";
-		}); 
-		
-		//로그인 모달창 돌아가기
-		$(document).on("click",".close-btn",function(){
-			$('#login-product-modal').css('visibility','hidden');
-		}); 
-	 	*/
-	 	
 	 	
 	 	
 	</script>

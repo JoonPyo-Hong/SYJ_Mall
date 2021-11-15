@@ -65,7 +65,8 @@ public class SearchController {
 		int result = service.getSearchResultProd(request, response);
 
 		if (result == 1)
-			return "/search/searchMain";
+			//return "/search/searchMain";
+			return "/semitiles/searchResult.layout";
 		else
 			return null;
 

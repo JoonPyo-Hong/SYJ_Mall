@@ -54,24 +54,6 @@ public class SearchService implements ISearchService {
 				sortedCharOption = "0";	
 			}
 			
-//			if (request.getParameter("sortedOption") == null) {
-//				request.setAttribute("sortedOption", "1");
-//				sortedOption = "1";
-//			} else {
-//				sortedOption = request.getParameter("sortedOption");// 정렬옵션
-//				request.setAttribute("sortedOption", sortedOption);
-//			}
-
-			if (productSeq != null) {
-				request.setAttribute("productSeq", productSeq);
-				// request.setAttribute("lastPage", "/SYJ_Mall/" + lastPage + ".action");
-				// searchresult.action?inputName=라이언&productSeq=35
-				// 마지막 페이지 지정
-				request.setAttribute("lastPage","/SYJ_Mall/searchresult.action?inputName=" + inputName + "&productSeq=" + productSeq);
-			} else {
-				// 마지막 페이지 지정
-				request.setAttribute("lastPage", "/SYJ_Mall/searchresult.action?inputName=" + inputName);
-			}
 			
 			HttpSession session = request.getSession();
 			UserDTO userDto = (UserDTO) session.getAttribute("userinfo");// 유저 정보 객체
@@ -303,7 +285,7 @@ public class SearchService implements ISearchService {
 
 	}
 
-	// 마지막 페이지 인덱싱 작업
+	// 마지막 페이지 인덱싱 작업 -> 필요없어보임.
 	@Override
 	public int lastPageIndexing(HttpServletRequest request, HttpServletResponse response) {
 
@@ -334,7 +316,5 @@ public class SearchService implements ISearchService {
 			return -1;
 		}
 	}
-
-	// 마지막 페이지 인덱싱 작업
 
 }
