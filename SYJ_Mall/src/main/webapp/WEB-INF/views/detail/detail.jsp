@@ -56,10 +56,19 @@
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
 								<c:forEach var="d_seq" items="${list2}" varStatus="stat">
-									<div class="swiper-slide" style="background-image: url(/SYJ_Mall/${d_seq});"></div> 
+									<div class="swiper-slide" style="background-image: url(/SYJ_Mall/resources/images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);"></div>
+									<div class="swiper-slide" style="background-image: url(/SYJ_Mall/${d_seq});"></div>
+								
 								</c:forEach>
 						</div>
+						<!-- <div class='swiper-button-next'></div>
+						<div class='swiper-button-prev'></div>
+						<div class='swiper-pagination'></div> -->
 					</div>
+				
+				<c:forEach var="d_seq" items="${list2}" varStatus="stat">
+									${d_seq}</br>
+								</c:forEach>
 					<!-- 상품 주요 정보 -->
 					<div class="detail-header">
 						<div class="product-title">
