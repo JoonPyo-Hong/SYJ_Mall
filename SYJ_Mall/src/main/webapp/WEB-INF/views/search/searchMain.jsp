@@ -15,7 +15,7 @@
 
 	<!-- ##### 마이페이지랑 데이터 없을 때 태그 위치가 다릅니다 ##### -->
 
-	<c:if test="${searchProdCount == 0}">
+	<c:if test="${prodtCount == 0}">
 		<!-- 데이터 없을 시 -->
 		<div class="search-list-nodata">
 			<div class="standing-ryan"></div>
@@ -27,7 +27,7 @@
 
 
 
-	<c:if test="${searchProdCount != 0}">
+	<c:if test="${prodtCount != 0}">
 		<!-- 데이터 있을 시 -->
 
 
@@ -98,8 +98,8 @@
 		let filter_option = ${sortedOption};//정렬필터링 옵션
 		let sortedCharOption = ${sortedCharOption};//캐릭터 필터링 옵션
 
-		
-		let totalProdCounting  = ${searchProdCount};
+		//prodtCount
+		let totalProdCounting  = ${prodtCount};
 		let totalPagingCount = ${pageAjaxCount};
 		let paging = 1;//페이징
 		let height = 0;//높이지정

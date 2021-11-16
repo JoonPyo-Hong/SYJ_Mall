@@ -36,9 +36,12 @@ public class CharProdtService implements ICharProdtService {
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");// 유저객체
 			String charSeq = request.getParameter("charSeq");// 어떤 캐릭터인지 정해준다.
+			String charSeqSlid = (String)request.getAttribute("charSeq");// 왼쪽 슬라이드를 통해 넘어온 경우
 			String sortedOption = request.getParameter("sortedOption");
 			StringFormatClass sfc = new StringFormatClass();
-
+			
+			if (charSeqSlid != null) charSeq = charSeqSlid;
+			
 			// 캐릭터 번호 지정
 			if ((charSeq == null) || (!(sfc.isStringDigit(charSeq) && sfc.stringToDigitTerm(charSeq, 1, 15)))) {
 				charSeq = "1";// 이상한값이 넘어오면 그냥 0으로 초기화해줌
@@ -244,6 +247,50 @@ public class CharProdtService implements ICharProdtService {
 			return -1;
 		}
 
+	}
+	
+	// 캐릭터별 상품 시작. - 왼쪽 슬라이드에서 넘어온 경우
+	@Override
+	public int setCharProdtStartSlide(HttpServletRequest request, HttpServletResponse response) {
+		
+		String charName = request.getParameter("charName");
+		String charSeq;
+		
+		if (charName.equals("character li-Apeach")) {
+			charSeq = "2";
+		} else if (charName.equals("character li-Muzi")) {
+			charSeq = "3";
+		} else if (charName.equals("character li-Frodo")) {
+			charSeq = "4";
+		} else if (charName.equals("character li-Neo")) {
+			charSeq = "5";
+		} else if (charName.equals("character li-Tube")) {
+			charSeq = "6";
+		} else if (charName.equals("character li-Jay")) {
+			charSeq = "7";
+		} else if (charName.equals("character li-Con")) {
+			charSeq = "8";
+		} else if (charName.equals("character li-Choonsic")) {
+			charSeq = "9";
+		} else if (charName.equals("character li-Jordy")) {
+			charSeq = "10";
+		} else if (charName.equals("character li-Scappy")) {
+			charSeq = "11";
+		} else if (charName.equals("character li-Angmond")) {
+			charSeq = "12";
+		} else if (charName.equals("character li-PendaJr")) {
+			charSeq = "13";
+		} else if (charName.equals("character li-Kereberony")) {
+			charSeq = "14";
+		} else if (charName.equals("character li-Kumdori")) {
+			charSeq = "15";
+		} else {
+			charSeq = "1";
+		}
+		
+		request.setAttribute("charSeq", charSeq);
+		
+		return setCharProdtStart(request,response);
 	}
 
 }

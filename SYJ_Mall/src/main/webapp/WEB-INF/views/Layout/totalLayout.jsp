@@ -117,13 +117,13 @@
 										</ul>
 									</div>
 									<hr />
-									<li class="navigation-menu-li">공지사항</li>
+									<li class="navigation-menu-li" id = "notice">공지사항</li>
 									<li class="navigation-menu-li">고객센터</li>
 									<hr />
 									<li class="navigation-menu-li">기프트카드 조회·환불</li>
 									<hr />
 									<li class="navigation-menu-li">브랜드 스토리</li>
-									<li class="navigation-menu-li">매장안내</li>
+									<li class="navigation-menu-li" id = "marketPlace">매장안내</li>
 									<hr />
 								</ul>
 							</div>
@@ -216,12 +216,12 @@
 
 
 	<script>
-
+	
 	let left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	let left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
 
-	$(document).ready(
-			function() {
+/* 	$(document).ready(
+			function() { */
 
 				// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
 				$("li.character-accordion-button").on(
@@ -336,7 +336,7 @@
 					location.href = "/SYJ_Mall/searchStart.action";
 				});
 
-			});
+		/* 	}); */
 			
 			//로그인 모달 열기
 			function login_modal_open() {
@@ -372,7 +372,26 @@
 		  		else location.href = "/SYJ_Mall/main.action";//여기는 추후에 처리해줘야함
 		  		
 		  	});
-	
-</script>
+			
+			/* -----------왼쪽 슬라이드 페이지 관련 -----------*/
+			
+			//캐릭터 눌러줄때 -> 캐릭터 관련 페이지 이동
+			$('.character').click(function(){
+				const charName = $(this).attr('class');
+				location.href = "/SYJ_Mall/charAtProdtStartSlide.action?charName=" + charName;
+				closeNavigation();//왼쪽모달 없애주기	
+			});
+			
+			$('#notice').click(function(){
+				location.href = "/SYJ_Mall/notice_list.action";
+				closeNavigation();//왼쪽모달 없애주기
+			});
+			
+			$('#marketPlace').click(function(){
+				location.href = "/SYJ_Mall/info.action";
+				closeNavigation();//왼쪽모달 없애주기
+			});
+			
+	</script>
 </body>
 </html>

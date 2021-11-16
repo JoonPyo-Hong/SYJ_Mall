@@ -149,9 +149,9 @@
 	
 	//취소버튼
 	$('.search-close').click(function() {
-		location.href = "${lastPage}";
+		window.history.go(-1);
 	});
-
+	
 	//검색결과에 따라 내용 숨길지 정해주는 함수
 	function searchVisible(searchFlag) {
 		if (searchFlag == 0) {

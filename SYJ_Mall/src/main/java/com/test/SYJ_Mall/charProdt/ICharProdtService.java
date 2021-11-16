@@ -41,4 +41,12 @@ public interface ICharProdtService {
 	 */
 	int charProdtAlarmItem(HttpServletRequest request);
 	
+	/**
+	 * 캐릭터별 상품  - 슬라이드에서 눌러서 넘어온 경우
+	 * @param request
+	 * @param response
+	 * @return	1: 성공, -1: 실패
+	 */
+	int setCharProdtStartSlide(HttpServletRequest request, HttpServletResponse response);
+	
 }
