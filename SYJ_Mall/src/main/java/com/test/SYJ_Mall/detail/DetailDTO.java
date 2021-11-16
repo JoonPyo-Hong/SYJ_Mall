@@ -1,5 +1,8 @@
 package com.test.SYJ_Mall.detail;
 
+import lombok.Data;
+
+@Data
 public class DetailDTO {
 	private int product_id;
 	private int category_code;

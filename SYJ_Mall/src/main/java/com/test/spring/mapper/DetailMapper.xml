@@ -8,7 +8,7 @@
 
 	<select id="list"
 		resultType="com.test.SYJ_Mall.detail.DetailDTO" parameterType="int">
-	select top(1) * from dbo.KAKAO_PRODUCT_TABLE with(nolock) where char_seq = #{d_seq}
+	select top(1) * from dbo.KAKAO_PRODUCT_TABLE with(nolock) where product_id = #{d_seq}
 	</select>
 	<select id="header"
 		resultType="string" parameterType="int">

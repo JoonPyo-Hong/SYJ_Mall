@@ -56,21 +56,16 @@
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
 								<c:forEach var="d_seq" items="${list2}" varStatus="stat">
-									<div class="swiper-slide" style="background-image: url(/SYJ_Mall/resources/images/product-detail/20210622174901912_8809721509937_8809721509937_AW_00.jpg);"></div>
-									<div class="swiper-slide" style="background-image: url(/SYJ_Mall/${d_seq});"></div>
-								
+									<div class="swiper-slide" style="background-image: url(/SYJ_Mall/${d_seq});"></div> 
 								</c:forEach>
 						</div>
-						<!-- <div class='swiper-button-next'></div>
-						<div class='swiper-button-prev'></div>
-						<div class='swiper-pagination'></div> -->
 					</div>
-				
-				<c:forEach var="d_seq" items="${list2}" varStatus="stat">
-									${d_seq}</br>
+					
+					<c:forEach var="d_seq" items="${list}" varStatus="stat">
+									${d_seq.product_detail_info} 
 								</c:forEach>
 					<!-- 상품 주요 정보 -->
-					<div class="detail-header">
+<!-- 					<div class="detail-header">
 						<div class="product-title">
 							<div class="product-name">피치파이브 러피치 와퍼피치</div>
 							<button class="share"></button>
@@ -82,7 +77,7 @@
 							<span class="review-star off"></span> <span class="review-count">(1)</span>
 						</div>
 					</div>
-					<!-- 상품 상세 이미지 -->
+					상품 상세 이미지
 					<div class="detail-content">
 						<div class="detaul-content-title">
 							시크릿 포레스트의 사고뭉치<br> 다섯 복숭아, 피치파이브!
@@ -131,7 +126,7 @@
 							class="detaul-content-image"> <img
 							src="resources/images/product-detail/20210802170327762_210719_CP_plush_toy_M.jpg"
 							class="detaul-content-image">
-					</div>
+					</div> -->
 					<!-- 상품 아래 하단 버튼 -->
 					<div class="detail-etc">
 						<button class="detail-btn">
