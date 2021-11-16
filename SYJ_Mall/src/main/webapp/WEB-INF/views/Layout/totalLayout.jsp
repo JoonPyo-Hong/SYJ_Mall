@@ -123,7 +123,7 @@
 									<li class="navigation-menu-li">기프트카드 조회·환불</li>
 									<hr />
 									<li class="navigation-menu-li">브랜드 스토리</li>
-									<li class="navigation-menu-li">매장안내</li>
+									<li class="navigation-menu-li" id = "marketPlace">매장안내</li>
 									<hr />
 								</ul>
 							</div>
@@ -377,20 +377,19 @@
 			
 			//캐릭터 눌러줄때 -> 캐릭터 관련 페이지 이동
 			$('.character').click(function(){
-				
 				const charName = $(this).attr('class');
 				location.href = "/SYJ_Mall/charAtProdtStartSlide.action?charName=" + charName;
-				
-				//왼쪽모달 없애주기
-				closeNavigation();
-				
+				closeNavigation();//왼쪽모달 없애주기	
 			});
 			
 			$('#notice').click(function(){
 				location.href = "/SYJ_Mall/notice_list.action";
-				
-				//왼쪽모달 없애주기
-				closeNavigation();
+				closeNavigation();//왼쪽모달 없애주기
+			});
+			
+			$('#marketPlace').click(function(){
+				location.href = "/SYJ_Mall/info.action";
+				closeNavigation();//왼쪽모달 없애주기
 			});
 			
 	</script>
