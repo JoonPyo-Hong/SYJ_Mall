@@ -68,5 +68,19 @@ public class CharProductController {
 		return service.charProdtAlarmItem(request);
 
 	}
+	
+	//왼쪽 슬라이드로 넘어온 경우
+	@RequestMapping(value = "/charAtProdtStartSlide.action", method = { RequestMethod.GET })
+	public String charAtProdtStartSlide(HttpServletRequest request, HttpServletResponse response) {
+
+		int result = service.setCharProdtStartSlide(request, response);
+
+		if (result == 1) {
+			return "/charProdt/charProdtMain";
+		} else {
+			return "/testwaiting/kakaoerror";
+		}
+
+	}
 
 }

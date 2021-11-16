@@ -88,26 +88,18 @@ public class SearchService implements ISearchService {
 			// 1. 단어로만 넘긴경우
 			if (productSeq == null) {
 
-				// 마지막 방문페이지정보 쿠키에 저장
-				ck.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName);
-				// searchresult.action?inputName=라이언&productSeq=36
-
 				request.setAttribute("userinputName", inputName);
 			} else {
 				// 2. 클릭해서 넘긴 경우
-				// 마지막 방문페이지정보 쿠키에 저장
-				ck.generateCookie(response, "lastPage",
-						"searchresult.action?inputName=" + inputName + "&productSeq=" + productSeq);
 
 				request.setAttribute("userinputName", searchProdto.get(0).getProdNm());// 넘겨준 단어 -> 검색에 적은 단어에 매치되는
-																						// 상품번호(엔터를 안치고 온 경우) 화면에 표시해줄
-																						// 단어
+																						// 상품번호(엔터를 안치고 온 경우) 화면에 표시해줄																			// 단어
 			}
 
 
 			request.setAttribute("sortedOption", sortedOption);// 상품이 총 몇개있는지 넘겨줄 것이다.
 			request.setAttribute("sortedCharOption", sortedCharOption);// 상품이 총 몇개있는지 넘겨줄 것이다.
-			request.setAttribute("searchProdCount", totalProdCount);// 상품이 총 몇개있는지 넘겨줄 것이다.
+			request.setAttribute("prodtCount", totalProdCount);// 상품이 총 몇개있는지 넘겨줄 것이다.
 			request.setAttribute("searchProdto", searchProdto);
 			request.setAttribute("pageAjaxCount", pageAjaxCount);// 총몇번의 스크롤페이지 생성이 되는지 체크
 
