@@ -17,6 +17,36 @@
   margin-left: 20px;
 }
 
+.category-banner .category-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  margin-left: 20px;
+}
+
+.category-banner .select-icon {
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+}
+
+.category-banner select {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  appearance: none;
+  font-size: 0px;
+  min-height: 111px;
+  outline: none;
+}
+
+.category-banner select option {
+  font-size: 14px;
+}
+
 /* 상품 정렬 및 개수 */
 .category-header {
   display: flex;
