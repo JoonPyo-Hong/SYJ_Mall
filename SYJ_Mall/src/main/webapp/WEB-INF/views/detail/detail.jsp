@@ -60,6 +60,9 @@
 								</c:forEach>
 						</div>
 					</div>
+					<input type="hidden" id="m_seq">	
+					<input type="hidden" id="l_seq">
+					<input type="hidden" id="name">
 					
 					<c:forEach var="d_seq" items="${list}" varStatus="stat">
 									${d_seq.product_detail_info} 
