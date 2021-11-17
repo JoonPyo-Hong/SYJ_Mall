@@ -102,16 +102,27 @@
 		<put-attribute name="body" value="" />
 	</definition>	
 	
-	<!-- 더 보기 상품 -->
-	<definition name = "/semitiles/addProduct.layout" extends="newsemiDefault">
-		<put-attribute name = "body" value="/WEB-INF/views/newProduct/newProductAdd.jsp"/>	
-	</definition>
-	
 	<!-- 검색결과 -->
 	<definition name = "/semitiles/searchResult.layout" extends="newsemiDefault">
 		<put-attribute name = "body" value="/WEB-INF/views/search/searchMain.jsp"/>	
 	</definition>
 	
+	
+	
+	<!-- 1. 세미타일즈 ver2 -->
+	<!-- "< 홈       타이틀   찾기  국가선택 "-->
+	<!-- 		사진(테마분류)		 -->
+	<!-- 	 판매량순~~-->
+	<!-- 전체 미니인형 ~~~~  -->
+	<!-- 총 몇개                 글로벌 배송 기능상품 보기 -->
+	<definition name="newsemiDefaultOne" template="/WEB-INF/views/Layout/semiLayoutOne.jsp">
+		<put-attribute name="body" value="" />
+	</definition>	
+		
+	<!-- 더 보기 상품 -->
+	<definition name = "/semitiles/addProduct.layout" extends="newsemiDefaultOne">
+		<put-attribute name = "body" value="/WEB-INF/views/newProduct/newProductAdd.jsp"/>	
+	</definition>
 	
 	
 	

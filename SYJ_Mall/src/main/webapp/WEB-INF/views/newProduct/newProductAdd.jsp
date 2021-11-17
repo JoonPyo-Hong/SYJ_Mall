@@ -14,8 +14,6 @@
 		</c:if>
 		<!-- 데이터 있을 시 -->
 		<c:if test="${not empty recommendTheme}">
-			<!-- 추천 신규 테마 -->
-			<div class="sub-title">추천 신규 테마</div>
 			<div class="title">${themeSubject}</div>
 			<!-- 상품 리스트 공통 UI -->
 			<div class="new-product-item-wrap">
