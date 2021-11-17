@@ -38,20 +38,24 @@ public class DetailController {
 			request.setAttribute("selected", "today");
 
 			int seq = 0;
-
+			String user_name = "";
 			if (dto == null) {
-				seq = 0;
+				seq = 2000018;
+				user_name = "홍준표";
 			} else {
 				seq = dto.getUserSeq();
+				user_name = dto.getUserName();
 			}
 			
 			List<DetailDTO> list = service.DetailSelect(d_seq);
 			List<String> list2 = service.HeaderSelect(d_seq);
 			model.addAttribute("list", list);
 			model.addAttribute("list2", list2);
-			model.addAttribute("seq", seq);
-
+			model.addAttribute("m_seq", seq);
+			model.addAttribute("l_seq", d_seq);
+			model.addAttribute("name", user_name);
 			return "/detail/detail";
 		}
 }
+
 
