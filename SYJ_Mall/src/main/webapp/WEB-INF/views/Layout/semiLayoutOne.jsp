@@ -166,7 +166,7 @@
   }
   
   .category-header .category-tab ul li {
-  	  padding: 0 5px;
+  	  padding: 0 2px;
   }
   
   #vacant_area {
@@ -258,11 +258,12 @@
 				<!-- 상품 정렬 및 개수 -->
 				<div class="product-category" style="margin: 0px auto">
 					<!-- 카테고리 선택 배너 -->
-					<div class="category-banner">
-						<span class="category-title">토이</span> <img class="select-icon"
+					<div class="category-banner" >
+						<span class="category-title" >토이</span> <img class="select-icon"
 							src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png"
 							alt="foldWhite" /> 
-							<select>
+							<select style="height: 100%;">
+							<option>---------------카테고리 선택---------------</option>
 							<option>전체</option>
 							<option>토이</option>
 							<option>리빙</option>
@@ -283,17 +284,19 @@
 						</div>
 						<div class="category-tab">
 							<ul>
-								<li data-tab="tab-1" class="active">전체</li>
-								<li data-tab="tab-2">미니인형</li>
-								<li data-tab="tab-3">중형인형</li>
-								<li data-tab="tab-4">대형인형</li>
-								<li data-tab="tab-5">키체인인형</li>
-								<li data-tab="tab-6">피규어/브릭</li>
+								<c:forEach var="prodtCat" items="${prodtCategory}">
+									<c:if test="${prodtCatgr eq prodtCat.categoryNum}">
+										<li data-tab= ${prodtCat.categoryNum} class="active">${prodtCat.categoryNm}</li>
+									</c:if>
+									<c:if test="${prodtCatgr ne prodtCat.categoryNum}">
+										<li data-tab= ${prodtCat.categoryNum}>${prodtCat.categoryNm}</li>
+									</c:if>
+								</c:forEach>
 							</ul>
 						</div>
 						<div class="detail">
 							<div class="all-count">
-								총 <b>258</b>개
+								총 <b>${prodtCount}</b>개
 							</div>
 							<div class="check-global">
 								<img src="/SYJ_Mall/resources/images/product_category/ico_checked.png" /> <span>글로벌

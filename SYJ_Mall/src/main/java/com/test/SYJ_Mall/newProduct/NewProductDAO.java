@@ -102,6 +102,13 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.newProductRecommendThemeLoginAdd",map);
 	}
 
+	//추천신규테마 - 소분류 목록 가져오기
+	@Override
+	public List<SmallCategoryDTO> getNewRecommendProdtCategory(int themeNum) {
+		
+		return template.selectList("newProducts.newProductRecommendProdtCategory",themeNum);
+	}
+
 
 
 	
