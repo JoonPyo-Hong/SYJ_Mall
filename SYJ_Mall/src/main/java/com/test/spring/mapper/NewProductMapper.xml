@@ -83,6 +83,18 @@
 		call dbo.kakao_recommend_new_theme_login_add(#{userSeq},#{themeNum},#{sortedOption},#{sortedCharOption})
 		}
 	</select>
+	
+	<!-- 추천신규테마 - 소분류 목록 가져오기-->
+	<select id="newProductRecommendProdtCategory"
+		parameterType="Integer"
+		resultType="com.test.SYJ_Mall.newProduct.SmallCategoryDTO"
+		statementType="CALLABLE">
+
+		{
+		call dbo.kakao_recommend_new_small_category (#{themeNum})
+		}
+		
+	</select>
 
 
 </mapper>

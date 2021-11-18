@@ -69,6 +69,13 @@ public interface INewProductDAO {
 	 * @return
 	 */
 	List<RecommendThemeDTO> getNewRecommendThemeAdd(int userSeq, int themeNum, int sortedOption, int sortedCharOption);
+	
+	/**
+	 * 상품 소분류 목록 가져오기
+	 * @param themeNum	대분류 번호
+	 * @return
+	 */
+	List<SmallCategoryDTO> getNewRecommendProdtCategory(int themeNum);
 
 
 	

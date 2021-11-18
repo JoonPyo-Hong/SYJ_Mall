@@ -262,7 +262,7 @@ public class NewproductService implements INewProductService {
 		
 	}
 	
-	//새로나온 친구들 더보기 옵션
+	//새로나온 친구들 더보기 옵션-테마 지정
 	@Override
 	public int getNewProdcutAddInfo(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -270,7 +270,7 @@ public class NewproductService implements INewProductService {
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");// 유저객체
 			
-			int sortedOption,sortedCharOption,themeNum;//정렬옵션,캐릭터 필터옵션,테마 번호
+			int sortedOption,sortedCharOption,themeNum,prodtCatgr;//정렬옵션,캐릭터 필터옵션,테마 번호
 			
 			if (request.getParameter("sortedOption") == null) sortedOption = 1;
 			else sortedOption = Integer.parseInt(request.getParameter("sortedOption"));
@@ -281,7 +281,11 @@ public class NewproductService implements INewProductService {
 			if (request.getParameter("themeNum") == null) themeNum = 2;
 			else themeNum = Integer.parseInt(request.getParameter("themeNum"));
 			
+			if(request.getParameter("prodtCatgr") == null) prodtCatgr = 1;
+			else prodtCatgr = Integer.parseInt(request.getParameter("prodtCatgr"));
+			
 			List<RecommendThemeDTO> rtp;// 추천테마 관련 객체들
+			List<SmallCategoryDTO> prodtCategory = dao.getNewRecommendProdtCategory(themeNum);//오류발생
 			String themeSubject;// 추천테마 주제
 			int prodtCount = 0;//제품갯수
 			
@@ -313,6 +317,9 @@ public class NewproductService implements INewProductService {
 			request.setAttribute("sortedOption", sortedOption);// 정렬옵션
 			request.setAttribute("sortedCharOption", sortedCharOption);// 캐릭터 필터링
 			request.setAttribute("prodtCount", prodtCount);// 상품갯수
+			request.setAttribute("prodtCategory", prodtCategory);// 추천테마 소분류 항목
+			request.setAttribute("prodtCatgr", prodtCatgr);// 추천테마 소분류 번호
+
 			
 			return 1;
 		} catch(Exception e) {
