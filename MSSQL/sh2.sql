@@ -4114,8 +4114,6 @@ end
 
 
 
-select * from dbo.KAKAO_USER_ALRAM_INFO with(nolock)
-
 
 create index IDX__KAKAO_USER_ALRAM_INFO__REG_DT ON dbo.KAKAO_USER_ALRAM_INFO (reg_dt)
 
