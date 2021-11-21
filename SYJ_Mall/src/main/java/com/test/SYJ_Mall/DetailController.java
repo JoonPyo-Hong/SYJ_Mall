@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.SYJ_Mall.detail.DetailDTO;
 import com.test.SYJ_Mall.detail.DetailService;
+import com.test.SYJ_Mall.detail.FeedDTO;
 import com.test.SYJ_Mall.detail.IDetailService;
 import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.pay.PayMentService;
@@ -49,6 +50,7 @@ public class DetailController {
 			
 			List<DetailDTO> list = service.DetailSelect(d_seq);
 			List<String> list2 = service.HeaderSelect(d_seq);
+			List<FeedDTO> list3 = service.FeedSelect(d_seq);
 			model.addAttribute("list", list);
 			model.addAttribute("list2", list2);
 			model.addAttribute("m_seq", seq);

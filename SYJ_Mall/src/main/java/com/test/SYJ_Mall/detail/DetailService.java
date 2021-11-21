@@ -19,5 +19,10 @@ public class DetailService implements IDetailService{
 		// TODO Auto-generated method stub
 		return dao.HeaderSelect(d_seq);
 	}
+	@Override
+	public List<FeedDTO> FeedSelect(Integer d_seq) {
+		// TODO Auto-generated method stub
+		return dao.FeedSelect(d_seq);
+	}
 
 }

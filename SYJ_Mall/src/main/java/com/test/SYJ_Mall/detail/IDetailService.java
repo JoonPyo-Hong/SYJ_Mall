@@ -8,4 +8,6 @@ public interface IDetailService {
 
 	List<String> HeaderSelect(Integer d_seq);
 
+	List<FeedDTO> FeedSelect(Integer d_seq);
+
 }

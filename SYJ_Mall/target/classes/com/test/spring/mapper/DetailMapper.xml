@@ -14,6 +14,10 @@
 		resultType="string" parameterType="int">
 	select product_img from dbo.KAKAO_PRODUCT_IMG with(nolock) where product_id = #{d_seq}
 	</select>
+	<select id="feed"
+		resultType="com.test.SYJ_Mall.detail.FeedDTO" parameterType="int">
+	select * from dbo.detail_feed with(nolock) where product_id = #{d_seq}
+	</select>
 
 
 </mapper>
