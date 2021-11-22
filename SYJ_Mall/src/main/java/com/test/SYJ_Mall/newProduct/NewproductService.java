@@ -262,7 +262,7 @@ public class NewproductService implements INewProductService {
 		
 	}
 	
-	//새로나온 친구들 더보기 옵션-테마 지정
+	//새로나온 친구들 더보기 옵션-테마 지정 => 재설계 필요
 	@Override
 	public int getNewProdcutAddInfo(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -270,52 +270,83 @@ public class NewproductService implements INewProductService {
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");// 유저객체
 			
-			int sortedOption,sortedCharOption,themeNum,prodtCatgr;//정렬옵션,캐릭터 필터옵션,테마 번호
+			//페이지 번호가 필요함
+			int sortedOption,themeNum,prodtCatgr,paging;//정렬옵션,테마 번호,소분류 번호, 페이징 변수
+			//int sortedCharOption = 0;//오류 없애주기 위해서 임시 설정해놓은것 - 지워야함
 			
 			if (request.getParameter("sortedOption") == null) sortedOption = 1;
 			else sortedOption = Integer.parseInt(request.getParameter("sortedOption"));
 			
-			if (request.getParameter("sortedCharOption") == null) sortedCharOption = 0;
-			else sortedCharOption = Integer.parseInt(request.getParameter("sortedCharOption"));
-			
 			if (request.getParameter("themeNum") == null) themeNum = 2;
 			else themeNum = Integer.parseInt(request.getParameter("themeNum"));
 			
-			if(request.getParameter("prodtCatgr") == null) prodtCatgr = 1;
+			if (request.getParameter("prodtCatgr") == null) prodtCatgr = 0;//0으로 하면 전체목록 아닐경우에 소분류 목록 -> 소분류 필터링
 			else prodtCatgr = Integer.parseInt(request.getParameter("prodtCatgr"));
 			
+			if (request.getParameter("paging") == null) paging = 1;
+			else paging = Integer.parseInt(request.getParameter("paging"));
+			
 			List<RecommendThemeDTO> rtp;// 추천테마 관련 객체들
-			List<SmallCategoryDTO> prodtCategory = dao.getNewRecommendProdtCategory(themeNum);//오류발생
+			List<SmallCategoryDTO> prodtCategory = dao.getNewRecommendProdtCategory(themeNum);//소분류 목록 가져오기
 			String themeSubject;// 추천테마 주제
+			
 			int prodtCount = 0;//제품갯수
 			
 			if (userInfo == null) {
 			//로그인 안한 경우
 				String basketList = getCookieBasket(request, response);
-				rtp = dao.getNewRecommendThemeNoLoginAdd(basketList, themeNum, sortedOption, sortedCharOption);//신규테마물품
 				
-				if (rtp == null)themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
-				else {
-					themeSubject = "";
-					prodtCount = rtp.size();
+				//1.상품 대분류 전체인 경우 -> 즉 대분류 필터가 없다는 뜻이다.
+				if (themeNum == 1) {
+					//소분류의 필터유무
+					//1-1 소분류 필터가 없는경우 : 전체
+					if (prodtCatgr == 0) {
+						//상품의 총 갯수.
+					}
+					//1-2 소분류 필터가 있는 경우 : 필터링
+					else {
+						//상품의 총 갯수.
+					}
 				}
+				//2.상품 대분류 전체가 아닌 경우 -> 대분류 필터가 존재
+				else {
+					//소분류의 필터유무
+					//2-1 소분류 필터가 없는경우 : 전체
+					if (prodtCatgr == 0) {
+						//상품의 총 갯수.
+					}
+					//2-2 소분류 필터가 있는 경우 : 필터링
+					else {
+						//상품의 총 갯수.
+					}
+				}
+				
+				
+				//소분류 없는경우 - 해당 테마 전체
+				//if(prodtCatgr == 0) rtp = dao.getNewRecommendThemeNoLoginAdd(basketList, themeNum, sortedOption);//신규테마물품 - 해당 테마 전체
+				//소분류 있는경우 - 해당 테마 특정 소분류 물품
+				//else rtp = dao.getNewRecommendThemeNoLoginAdddetail(basketList, sortedOption ,prodtCatgr);//신규테마물품 - 해당 테마 소분류
+				
+				//if (rtp == null) themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
+				/*
+				 * else { themeSubject = ""; prodtCount = rtp.size(); }
+				 */
 				
 				
 			} else {
 			//로그인 한 경우
-				rtp = dao.getNewRecommendThemeAdd(userInfo.getUserSeq(), themeNum, sortedOption, sortedCharOption);//신규테마물품
-
-				if (rtp == null)themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
-				else {
-					themeSubject = "";
-					prodtCount = rtp.size();
-				}
+				/*
+				 * rtp = dao.getNewRecommendThemeAdd(userInfo.getUserSeq(), themeNum,
+				 * sortedOption, sortedCharOption);//신규테마물품
+				 * 
+				 * if (rtp == null)themeSubject = rtp.get(0).getCategoryNm();// 테마 이름 else {
+				 * themeSubject = ""; prodtCount = rtp.size(); }
+				 */
 			}
 			
-			request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
-			request.setAttribute("themeSbject", themeSubject);// 추천테마 주제
+			//request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
+			//request.setAttribute("themeSbject", themeSubject);// 추천테마 주제
 			request.setAttribute("sortedOption", sortedOption);// 정렬옵션
-			request.setAttribute("sortedCharOption", sortedCharOption);// 캐릭터 필터링
 			request.setAttribute("prodtCount", prodtCount);// 상품갯수
 			request.setAttribute("prodtCategory", prodtCategory);// 추천테마 소분류 항목
 			request.setAttribute("prodtCatgr", prodtCatgr);// 추천테마 소분류 번호

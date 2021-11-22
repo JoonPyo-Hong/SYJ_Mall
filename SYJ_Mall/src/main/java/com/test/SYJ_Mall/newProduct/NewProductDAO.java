@@ -77,17 +77,29 @@ public class NewProductDAO implements INewProductDAO {
 
 	//추천 신규 테마 더보기 - 로그인 안한 경우
 	@Override
-	public List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdd(String basketList, int themeNum,int sortedOption, int sortedCharOption) {
+	public List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdd(String basketList, int themeNum,int sortedOption) {
 		
 		HashMap<String,String> map = new HashMap<String, String>();
 		map.put("basketList",basketList);
 		map.put("themeNum",Integer.toString(themeNum));
 		map.put("sortedOption",Integer.toString(sortedOption));
-		map.put("sortedCharOption",Integer.toString(sortedCharOption));
 		
 		
 		return template.selectList("newProducts.newProductRecommendThemeAdd",map);
 	}
+	
+	//추천 신규 테마 더보기 - 로그인 안한 경우 - 소분류 필터링
+	@Override
+	public List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdddetail(String basketList,int sortedOption, int prodtCatgr) {
+			
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("basketList",basketList);
+		map.put("sortedOption",Integer.toString(sortedOption));
+		map.put("prodtCatgr",Integer.toString(prodtCatgr));
+			
+		return template.selectList("newProducts.newProductRecommendThemeAdd",map);
+	}
+
 
 	//추천 신규 테마 더보기 - 로그인 한 경우
 	@Override
@@ -109,6 +121,7 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.newProductRecommendProdtCategory",themeNum);
 	}
 
+	
 
 
 	
