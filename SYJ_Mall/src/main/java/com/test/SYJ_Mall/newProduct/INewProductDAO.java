@@ -58,7 +58,16 @@ public interface INewProductDAO {
 	 * @param sortedCharOption		캐릭터 필터링 옵션
 	 * @return
 	 */
-	List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdd(String basketList, int themeNum, int sortedOption, int sortedCharOption);
+	List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdd(String basketList, int themeNum, int sortedOption);
+	
+	/**
+	 * 추천신규테마 불러오기 - 비로그인 상태(더보기)/소분류 선택
+	 * @param basketList		장바구니 정보
+	 * @param sortedOption		정렬 옵션
+	 * @param prodtCatgr		소분류 옵션
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNewRecommendThemeNoLoginAdddetail(String basketList, int sortedOption,int prodtCatgr);
 	
 	/**
 	 * 추천신규테마 불러오기 - 로그인 상태(더보기)
@@ -76,6 +85,8 @@ public interface INewProductDAO {
 	 * @return
 	 */
 	List<SmallCategoryDTO> getNewRecommendProdtCategory(int themeNum);
+	
+
 
 
 	

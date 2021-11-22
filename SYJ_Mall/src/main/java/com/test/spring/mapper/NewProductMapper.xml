@@ -70,11 +70,22 @@
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
 		statementType="CALLABLE">
 		{
-		call dbo.kakao_recommend_new_theme_no_login_add(#{basketList},#{themeNum},#{sortedOption},#{sortedCharOption})
+		call dbo.kakao_recommend_new_theme_no_login_add(#{basketList},#{themeNum},#{sortedOption})
 		}
 	</select>
 	
-	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 된 상태-->
+	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 안된 상태 / 소분류 필터링-->
+	<select id="newProductRecommendThemeAddDetail"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_detail(#{basketList},#{sortedOption},#{prodtCatgr})
+		}
+	</select>
+	
+	
+	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 된 상태 -->
 	<select id="newProductRecommendThemeLoginAdd"
 		parameterType="java.util.HashMap"
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
