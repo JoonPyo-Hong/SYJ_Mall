@@ -23,6 +23,26 @@
 </head>
 
 <body>
+    <!-- 구매 옵션 팝업창 -->
+    <div class="overlay-wrap" id="testmodal1" style="visibility: hidden;">
+        <div class="option-modal-wrap">
+            <div class="select-box">
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="price-text">
+                13,000원
+            </div>
+        </div>
+    </div>
+
+
+
     <div id="kakao-wrap">
         <div id="kakao-head">
             <div id="inner-head">
@@ -417,6 +437,7 @@
         });
 
 
+        // 세부 정보 및 배송 관련 탭
         $(document).ready(function () {
 
             $('.delivery-tab .delivery-tab-btn').click(function () {
@@ -451,17 +472,20 @@
                 }
             })
 
+            // 구매하기 클릭 시 팝업창
+            $(".bottom-bar").click(function () {
+                $("#testmodal1").css("visibility", "visible");
+                $(".option-modal-wrap").css("bottom", "80px;");
+                $(document.body).css("overflow", "hidden");
+            });
 
-            // function dp_menu() {
-            //     let click = document.getElementById("drop-content");
-            //     if (click.style.display === "none") {
-            //         click.style.display = "block";
 
-            //     } else {
-            //         click.style.display = "none";
-
-            //     }
-            // }
+            //모달 제거하는 용도
+            $(".overlay-wrap").click(function () {
+                $(".overlay-wrap").css("visibility", "hidden");
+                $(".option-modal-wrap").css("bottom", "80px");
+                $(document.body).css("overflow", "visible");
+            });
 
 
 
