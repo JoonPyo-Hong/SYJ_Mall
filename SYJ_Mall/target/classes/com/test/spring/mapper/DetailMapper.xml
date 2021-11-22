@@ -16,7 +16,7 @@
 	</select>
 	<select id="feed"
 		resultType="com.test.SYJ_Mall.detail.FeedDTO" parameterType="int">
-	select * from dbo.detail_feed with(nolock) where product_id = #{d_seq}
+	select * from dbo.detail_feed with(nolock) where d_seq = #{d_seq}
 	</select>
 
 

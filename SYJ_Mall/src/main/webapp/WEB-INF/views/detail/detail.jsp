@@ -381,7 +381,6 @@
 	</div>
 	<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
-	<script src="resources/js/main/feed.js"></script>
 
 	<script>
 
