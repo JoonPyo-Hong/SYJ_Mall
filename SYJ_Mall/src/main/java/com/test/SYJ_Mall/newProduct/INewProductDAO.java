@@ -86,6 +86,38 @@ public interface INewProductDAO {
 	 */
 	List<SmallCategoryDTO> getNewRecommendProdtCategory(int themeNum);
 	
+	/**
+	 * 대분류가 존재하지 않는 상품의 총 갯수
+	 * @return
+	 */
+	int getNoBigCategoryCount();
+	
+	/**
+	 * 대분류가 존재하지 않고 소분류도 존재하지 않는 상품
+	 * @param basketList		장바구니 목록
+	 * @param sortedOption		정렬옵션
+	 * @param paging			페이징 옵션
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNoBigCategoryNoSmallCategory(String basketList, int sortedOption, int paging);
+	
+	/**
+	 * 대분류가 존재하지 않지만 소분류필터는 존재하는 상품의 총 갯수
+	 * @param prodtCatgr	소분류 필터 번호
+	 * @return
+	 */
+	int getNoBigCategoryCountFilter(int prodtCatgr);
+
+	/**
+	 * 대분류가 존재하지 않지만 소분류는 존재하는 상품
+	 * @param basketList		장바구니 목록
+	 * @param prodtCatgr		소분류 번호
+	 * @param sortedOption		정렬 옵션
+	 * @param paging			페이징 번호
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int prodtCatgr, int sortedOption,int paging);
+	
 
 
 

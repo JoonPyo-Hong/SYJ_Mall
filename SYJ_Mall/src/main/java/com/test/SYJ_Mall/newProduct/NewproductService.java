@@ -288,9 +288,10 @@ public class NewproductService implements INewProductService {
 			
 			List<RecommendThemeDTO> rtp;// 추천테마 관련 객체들
 			List<SmallCategoryDTO> prodtCategory = dao.getNewRecommendProdtCategory(themeNum);//소분류 목록 가져오기
-			String themeSubject;// 추천테마 주제
+			String themeSubject;// 추천테마 주제??
 			
-			int prodtCount = 0;//제품갯수
+			int prodtCount = 0;//제품 총갯수
+			int perProdtCount;//제품 총갯수에서 8을 나눈것 => 총 페이징 변수 지정하기 위함
 			
 			if (userInfo == null) {
 			//로그인 안한 경우
@@ -302,11 +303,21 @@ public class NewproductService implements INewProductService {
 					//1-1 소분류 필터가 없는경우 : 전체
 					if (prodtCatgr == 0) {
 						//상품의 총 갯수.
+						prodtCount = dao.getNoBigCategoryCount();
+						perProdtCount =  (int)Math.ceil(prodtCount/8.0);
+						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
+						rtp = dao.getNoBigCategoryNoSmallCategory(basketList,sortedOption,paging);
 					}
 					//1-2 소분류 필터가 있는 경우 : 필터링
 					else {
-						//상품의 총 갯수.
+						//상품의 총 갯수. 전체중 소분류 필터
+						prodtCount = dao.getNoBigCategoryCountFilter(prodtCatgr);
+						perProdtCount =  (int)Math.ceil(prodtCount/8.0);
+						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
+						rtp = dao.getNoBigCategoryExistSmallCattegory(basketList,prodtCatgr,sortedOption,paging);
 					}
+					
+					request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들 -> 지워줘야함
 				}
 				//2.상품 대분류 전체가 아닌 경우 -> 대분류 필터가 존재
 				else {
@@ -343,6 +354,7 @@ public class NewproductService implements INewProductService {
 				 * themeSubject = ""; prodtCount = rtp.size(); }
 				 */
 			}
+			
 			
 			//request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
 			//request.setAttribute("themeSbject", themeSubject);// 추천테마 주제

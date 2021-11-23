@@ -122,6 +122,47 @@ public class NewProductDAO implements INewProductDAO {
 	}
 
 	
+	//대분류가 존재하지 않는 상품의 갯수  - 총 갯수라고 생각하면 된다.
+	@Override
+	public int getNoBigCategoryCount() {
+		
+		return template.selectOne("newProducts.getNoBigCategoryCount");
+	}
+
+	//대분류가 존재하지 않고 소분류도 존재하지 않는 상품
+	@Override
+	public List<RecommendThemeDTO> getNoBigCategoryNoSmallCategory(String basketList, int sortedOption, int paging) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("basketList",basketList);
+		map.put("sortedOption",Integer.toString(sortedOption));
+		map.put("paging",Integer.toString(paging));
+		
+		return template.selectList("newProducts.getNoBigCategoryNoSmallCategory",map);
+	}
+
+	
+	//대분류가 존재하지 않고 소분류만 존재하는 상품의 갯수
+	@Override
+	public int getNoBigCategoryCountFilter(int prodtCatgr) {
+		
+		return template.selectOne("newProducts.getNoBigCategoryCountFilter",prodtCatgr);
+	}
+
+	//대분류가 존재하지 않고 소분류만 존재하는 상품
+	@Override
+	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int prodtCatgr,int sortedOption, int paging) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("basketList",basketList);
+		map.put("prodtCatgr",Integer.toString(prodtCatgr));
+		map.put("sortedOption",Integer.toString(sortedOption));
+		map.put("paging",Integer.toString(paging));
+		
+		return template.selectList("newProducts.getNoBigCategoryNoSmallCategory",map);
+	}
+
+	
 
 
 	
