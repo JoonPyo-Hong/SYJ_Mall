@@ -53,6 +53,7 @@ public class DetailController {
 			List<FeedDTO> list3 = service.FeedSelect(d_seq);
 			model.addAttribute("list", list);
 			model.addAttribute("list2", list2);
+			model.addAttribute("list3", list3);
 			model.addAttribute("m_seq", seq);
 			model.addAttribute("l_seq", d_seq);
 			model.addAttribute("name", user_name);

@@ -265,21 +265,23 @@
 								<button class="sort-btn recent">최신순</button>
 							</div>
 							<ul>
+								<c:forEach var="d_seq" items="${list3}" varStatus="stat">
+									 
 								<li class="review-item">
-									<div class="name">한*창</div>
+									<div class="name">${d_seq.name}</div>
 									<div class="star">
 										<span class="review-star"></span> <span class="review-star"></span>
 										<span class="review-star"></span> <span class="review-star"></span>
-										<span class="review-star"></span> <span class="date">2021.08.14</span>
+										<span class="review-star"></span> <span class="date">${d_seq.reg_dt}</span>
 									</div>
-									<div class="contents">전 시간낭비에 타고난 재능이 있습니다. 이런 제가 낭비를 하지
-										않았습니다. 긴말하지 않겠습니다.</div>
+									<div class="contents">${d_seq.text}</div>
 									<div class="like">
 										<button>좋아요 1명</button>
 									</div>
 
 								</li>
-								<li class="review-item">
+								</c:forEach>
+<!-- 								<li class="review-item">
 									<div class="name">손*린</div>
 									<div class="star">
 										<span class="review-star"></span> <span class="review-star"></span>
@@ -293,14 +295,13 @@
 									<div class="like">
 										<button>좋아요 4명</button>
 									</div>
-
-								</li>
-							</ul>
-							<div class="pagination">
+								</li>-->							
+								</ul>
+			<!-- 				<div class="pagination">
 								<div class="pagination-left-arrow"></div>
 								<div class="pagination-page">1</div>
 								<div class="pagination-right-arrow"></div>
-							</div>
+							</div> -->
 
 						</div>
 					</div>
