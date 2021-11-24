@@ -270,9 +270,16 @@
 								<li class="review-item">
 									<div class="name">${d_seq.name}</div>
 									<div class="star">
-										<span class="review-star"></span> <span class="review-star"></span>
-										<span class="review-star"></span> <span class="review-star"></span>
-										<span class="review-star"></span> <span class="date">${d_seq.reg_dt}</span>
+										<c:set var="num" value="5"></c:set>
+									<%-- 	${d_seq.star}
+										${num - d_seq.star} --%>
+										<c:forEach var="i" begin="1" end="${d_seq.star}">
+										<span class="review-star"></span>
+										</c:forEach>
+										<c:forEach var="i" begin="1" end="${num - d_seq.star}">
+										<span class="review-star off"></span>
+										</c:forEach>
+										<span class="date">${d_seq.reg_dt}</span>
 									</div>
 									<div class="contents">${d_seq.text}</div>
 									<div class="like">
