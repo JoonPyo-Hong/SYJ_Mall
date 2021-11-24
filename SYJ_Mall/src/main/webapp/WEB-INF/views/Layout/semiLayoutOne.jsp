@@ -25,8 +25,6 @@
   display: flex;
   align-items: center;
   position: relative;
-  background: url(/SYJ_Mall/resources/images/product_category/Category_Ryan_210303.jpg) right 0px /
-    cover no-repeat;
   background-color: #ededed;
   margin-top: -3px;
   min-height: 111px;
@@ -258,23 +256,32 @@
 				<!-- 상품 정렬 및 개수 -->
 				<div class="product-category" style="margin: 0px auto">
 					<!-- 카테고리 선택 배너 -->
-					<div class="category-banner" >
-						<span class="category-title" >토이</span> <img class="select-icon"
-							src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png"
-							alt="foldWhite" /> 
+					<div class="category-banner" style="background: url(/SYJ_Mall/${selectBcDto.catRepImg}) right 0px / cover no-repeat;">
+						
+						<span class="category-title">${selectBcDto.bigCatNm}</span> 
+						<img class="select-icon" src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png" alt="foldWhite" />
+						
 							<select style="height: 100%;">
-							<option>---------------카테고리 선택---------------</option>
-							<option>전체</option>
-							<option>토이</option>
-							<option>리빙</option>
-							<option>잡화</option>
-							<option>문구</option>
-							<option>의류</option>
-							<option>디지털</option>
-							<option>여행/레저</option>
-							<option>식품</option>
-							<option>테마 기획전</option>
-						</select>
+								<option>---------------카테고리 선택---------------</option>
+								<c:forEach var="thsjt" items="${themeSubjectList}"> 
+									<c:if test="${thsjt.selected eq 'Y'}">
+										<option selected>${thsjt.bigCatNm}</option>
+									</c:if>
+									<c:if test="${thsjt.selected eq 'N'}">
+										<option>${thsjt.bigCatNm}</option>
+									</c:if>
+								</c:forEach>
+								<!-- <option>전체</option>
+								<option>토이</option>
+								<option>리빙</option>
+								<option>잡화</option>
+								<option>문구</option>
+								<option selected>의류</option>
+								<option>디지털</option>
+								<option>여행/레저</option>
+								<option>식품</option>
+								<option>테마 기획전</option> -->
+							</select>
 					</div>
 					<!-- 상품 정렬 및 개수 -->
 					<div class="category-header">

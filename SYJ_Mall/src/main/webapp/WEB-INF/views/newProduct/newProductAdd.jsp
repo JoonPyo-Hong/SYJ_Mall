@@ -14,7 +14,7 @@
 		</c:if>
 		<!-- 데이터 있을 시 -->
 		<c:if test="${not empty recommendTheme}">
-			<div class="title">${themeSubject}</div>
+			<%-- <div class="title">${themeSubject}</div> --%>
 			<!-- 상품 리스트 공통 UI -->
 			<div class="new-product-item-wrap">
 				<ul>
@@ -77,7 +77,7 @@
 
 <script>
 	
-	let sortedCharOption = ${sortedCharOption};
+	//let sortedCharOption = ${sortedCharOption};
 	let filter_option = ${sortedOption};
 	
 	//상품 카트에 관련 -> 카트에 넣어주기

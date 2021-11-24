@@ -288,7 +288,15 @@ public class NewproductService implements INewProductService {
 			
 			List<RecommendThemeDTO> rtp;// 추천테마 관련 객체들
 			List<SmallCategoryDTO> prodtCategory = dao.getNewRecommendProdtCategory(themeNum);//소분류 목록 가져오기
-			String themeSubject;// 추천테마 주제??
+			List<BigCategoryInfoDTO> themeSubjectList = dao.getBigCategoryNm(themeNum);// 추천테마 dto -> 전체 토이 등등....
+			
+			BigCategoryInfoDTO selectBcDto = null;//선택된 추천테마 주제와 배경
+			//선택된 추천테마 주제와 배경을 픽하기 위한 로직
+			for (BigCategoryInfoDTO bcidto : themeSubjectList) {
+				if (bcidto.getSelected().equals("Y")) {
+					selectBcDto = bcidto;
+				}
+			}
 			
 			int prodtCount = 0;//제품 총갯수
 			int perProdtCount;//제품 총갯수에서 8을 나눈것 => 총 페이징 변수 지정하기 위함
@@ -358,6 +366,8 @@ public class NewproductService implements INewProductService {
 			
 			//request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들
 			//request.setAttribute("themeSbject", themeSubject);// 추천테마 주제
+			request.setAttribute("selectBcDto", selectBcDto);// 대분류 선택옵션 중 선택된 dto 객체
+			request.setAttribute("themeSubjectList", themeSubjectList);// 대분류 선택옵션들
 			request.setAttribute("sortedOption", sortedOption);// 정렬옵션
 			request.setAttribute("prodtCount", prodtCount);// 상품갯수
 			request.setAttribute("prodtCategory", prodtCategory);// 추천테마 소분류 항목

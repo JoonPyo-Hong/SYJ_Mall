@@ -151,6 +151,18 @@
 	</select>
 	
 	
+	<!-- 추천신규테마 - 대분류 이름 -->
+	<select id="getBigCategoryNm"
+		parameterType="Integer"
+		resultType="com.test.SYJ_Mall.newProduct.BigCategoryInfoDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_big_category_name (#{themeNum})
+		}
+		
+	</select>
+	
+	
 	
 
 </mapper>

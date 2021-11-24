@@ -163,6 +163,13 @@ public class NewProductDAO implements INewProductDAO {
 	}
 
 	
+	// 대분류 이름
+	@Override
+	public List<BigCategoryInfoDTO> getBigCategoryNm(int themeNum) {
+		return template.selectList("newProducts.getBigCategoryNm",themeNum);
+	}
+
+	
 
 
 	

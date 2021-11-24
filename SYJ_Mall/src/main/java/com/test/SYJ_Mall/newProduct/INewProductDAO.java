@@ -118,6 +118,13 @@ public interface INewProductDAO {
 	 */
 	List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int prodtCatgr, int sortedOption,int paging);
 	
+	/**
+	 * 대분류 이름 가져오기
+	 * @param themeNum	대분류 테마 번호
+	 * @return
+	 */
+	List<BigCategoryInfoDTO> getBigCategoryNm(int themeNum);
+	
 
 
 
