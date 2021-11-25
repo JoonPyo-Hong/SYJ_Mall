@@ -54,4 +54,12 @@ public interface INewProductService {
 	 * @return
 	 */
 	int getNewProdcutAddInfo(HttpServletRequest request, HttpServletResponse response);
+
+	/**
+	 * 신규테마 무한스크롤
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	List<RecommendThemeDTO> getnewProductMainAddAjaxInfo(HttpServletRequest request, HttpServletResponse response);
 }

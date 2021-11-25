@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.newProduct.INewProductService;
 import com.test.SYJ_Mall.newProduct.NewFriendsProdDTO;
+import com.test.SYJ_Mall.newProduct.RecommendThemeDTO;
 
 @Controller
 public class NewProductController {
@@ -62,6 +63,16 @@ public class NewProductController {
 		if (result == 1) return "/semitiles/addProduct.layout";
 		else return "/testwaiting/kakaoerror";
 		
+	}
+	
+	//추천 신규 테마 - 더보기 화면 : 무한스크롤
+	@RequestMapping(value = "/newProductMainAddAjax.action", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<RecommendThemeDTO> newProductMainAddAjax(HttpServletRequest request, HttpServletResponse response) {
+		
+		//if (result == 1) return "/semitiles/addProduct.layout";
+		//else return "/testwaiting/kakaoerror";
+		return service.getnewProductMainAddAjaxInfo(request,response);
 	}
 	
 	

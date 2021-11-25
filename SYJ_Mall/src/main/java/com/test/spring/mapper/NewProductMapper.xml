@@ -163,6 +163,28 @@
 	</select>
 	
 	
+	<!-- 추천신규테마 - 더보기 - 대분류 있고 소분류가 없는 물품의 총 갯수 가져오기 -->
+	<select id="getBigCategoryCountFilter"
+		resultType="Integer"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_big_categoty_no_small_category_count (#{themeNum})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 있고 소분류는 없는 물품 -->
+	<select id="getBigCategoryNoSmallCategory"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_no_small_category (#{basketList},#{themeNum},#{sortedOption},#{paging})
+		}
+		
+	</select>
+
+	
 	
 
 </mapper>

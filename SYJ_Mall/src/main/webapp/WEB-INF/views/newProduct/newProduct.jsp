@@ -287,15 +287,13 @@
 					'scroll',
 					function() {
 
-						const scrollHeight = document
-								.getElementById('kakao-content').scrollHeight;
-						const scrollTop = document
-								.getElementById('kakao-content').scrollTop;
+						const scrollHeight = document.getElementById('kakao-content').scrollHeight;
+						const scrollTop = document.getElementById('kakao-content').scrollTop;
 						const height = $('#kakao-content').height();
 
-						console.log("scrollHeight : " + scrollHeight);
-						console.log("scrollTop : " + scrollTop);
-						console.log("height : " + height);
+						//console.log("scrollHeight : " + scrollHeight);
+						//console.log("scrollTop : " + scrollTop);
+						//console.log("height : " + height);
 
 						if ((scrollTop + height >= scrollHeight)
 								&& new_friends_count <= new_friends_total) {
