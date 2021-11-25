@@ -184,75 +184,80 @@
 				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
 
 					paging++;
-					
-					$.ajax({
-			        	type:"POST",
-			            url: "/SYJ_Mall/newProductMainAddAjax.action" ,
-			            async : false,
-			            data : {"paging" : paging, "sortedOption" : filter_option, "themeNum" : themeNum, "prodtCatgr" : prodtCatgr},
-			            dataType : "json",
-			            success : function(result) {
-			                
-			            	let selectCount = result.length;
-			            	
-			            	for (let i = 0; i < selectCount; i++) {
-			            		
-			            		let url = "'" + result[i].picUrl + "'";
-			            		
-			            		//1. 재고 없는 경우
-			            		if(result[i].prodCnt == 0) {
-			            			$('#new-product-item-wrap-inner').append(
-			            					'<li class="item-li" id="' + result[i].prodId +'">'
-											+ '<div class="thumbnail" style="background-image : url(' + url + '); ">'
-											+ '<div class="soldout-label"></div>'
-											+ '</div>'
-											+ '<div class="name">'
-											+ '	<div class="nametext">' + result[i].prodNm + '</div>'
-											+ '	<span class="alarm"></span>'
-											+ '</div>'
-											+ '<div class="price">' + result[i].prodPrice +'원</div>'
-											+ '</li>'
-			            			);
-			            		}
-			            		//2-1. 할인 안되는 품목인 경우
-			            		else if(result[i].discRate == 0){
-			            			
-			            			$('#new-product-item-wrap-inner').append(
-			            					'<li class="item-li" id="' + result[i].prodId +'">'
-											+'<div class="thumbnail" style="background-image : url('+ url +'); "></div>'
-											+'<div class="name">'
-											+'	<div class="nametext">' + result[i].prodNm + '</div>'
-											+'	<span class="' + result[i].cookieBasket + '"></span>'
-											+'</div>'
-											+'<div class="price">' + result[i].prodPrice + '원</div>'
-											+'</li>'
-			            			);
-			            			//2-2. 할인 되는 품목인 경우
-			            		}
-			            		else {
-			            			$('#new-product-item-wrap-inner').append(
-			            					'<li class="item-li" id="' + result[i].prodId +'">'
-											+'<div class="thumbnail" style="background-image : url('+ url +'); "></div>'
-											+'<div class="name">'
-											+'	<div class="nametext">' + result[i].prodNm + '</div>'
-											+'	<span class="' + result[i].cookieBasket + '"></span>'
-											+'</div>'
-											+'<div class="price" style="color: #FF447F;">' + result[i].discRate + '% ' + result[i].dcPrice + '원</div>'
-											+'<div class="price" style="text-decoration: line-through; color: #9A9A9E;">' + result[i].prodPrice + '원</div>'
-											+'</li>'
-			            			);
-			            		}
-			            		
-			            	}
-			            	
-			            },
-			            error: function(a,b,c) {
-								console.log(a,b,c);
-						}
-			        	});	
-					
+					//newProdtAjax(paging,filter_option, themeNum, prodtCatgr);
+					setTimeout(newProdtAjax(paging,filter_option, themeNum, prodtCatgr),1000);
 				}
 	});	
+	
+	
+	function newProdtAjax(paging,filter_option, themeNum, prodtCatgr) {
+		
+		$.ajax({
+        	type:"POST",
+            url: "/SYJ_Mall/newProductMainAddAjax.action" ,
+            async : false,
+            data : {"paging" : paging, "sortedOption" : filter_option, "themeNum" : themeNum, "prodtCatgr" : prodtCatgr},
+            dataType : "json",
+            success : function(result) {
+                
+            	let selectCount = result.length;
+            	
+            	for (let i = 0; i < selectCount; i++) {
+            		
+            		let url = "'" + result[i].picUrl + "'";
+            		
+            		//1. 재고 없는 경우
+            		if(result[i].prodCnt == 0) {
+            			$('#new-product-item-wrap-inner').append(
+            					'<li class="item-li" id="' + result[i].prodId +'">'
+								+ '<div class="thumbnail" style="background-image : url(' + url + '); ">'
+								+ '<div class="soldout-label"></div>'
+								+ '</div>'
+								+ '<div class="name">'
+								+ '	<div class="nametext">' + result[i].prodNm + '</div>'
+								+ '	<span class="alarm"></span>'
+								+ '</div>'
+								+ '<div class="price">' + result[i].prodPrice +'원</div>'
+								+ '</li>'
+            			);
+            		}
+            		//2-1. 할인 안되는 품목인 경우
+            		else if(result[i].discRate == 0){
+            			
+            			$('#new-product-item-wrap-inner').append(
+            					'<li class="item-li" id="' + result[i].prodId +'">'
+								+'<div class="thumbnail" style="background-image : url('+ url +'); "></div>'
+								+'<div class="name">'
+								+'	<div class="nametext">' + result[i].prodNm + '</div>'
+								+'	<span class="' + result[i].cookieBasket + '"></span>'
+								+'</div>'
+								+'<div class="price">' + result[i].prodPrice + '원</div>'
+								+'</li>'
+            			);
+            			//2-2. 할인 되는 품목인 경우
+            		}
+            		else {
+            			$('#new-product-item-wrap-inner').append(
+            					'<li class="item-li" id="' + result[i].prodId +'">'
+								+'<div class="thumbnail" style="background-image : url('+ url +'); "></div>'
+								+'<div class="name">'
+								+'	<div class="nametext">' + result[i].prodNm + '</div>'
+								+'	<span class="' + result[i].cookieBasket + '"></span>'
+								+'</div>'
+								+'<div class="price" style="color: #FF447F;">' + result[i].discRate + '% ' + result[i].dcPrice + '원</div>'
+								+'<div class="price" style="text-decoration: line-through; color: #9A9A9E;">' + result[i].prodPrice + '원</div>'
+								+'</li>'
+            			);
+            		}
+            		
+            	}
+            	
+            },
+            error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+        	});	
+	}
 
 	/*--------------------필터링 조건---------------------------*/
 	//~~ 순 정하는 필터링

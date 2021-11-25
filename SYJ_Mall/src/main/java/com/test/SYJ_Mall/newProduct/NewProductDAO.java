@@ -144,17 +144,22 @@ public class NewProductDAO implements INewProductDAO {
 	
 	//소분류가 존재하는 상품의 갯수
 	@Override
-	public int getSmallCategoryCountFilter(int prodtCatgr) {
+	public int getSmallCategoryCountFilter(int prodtCatgr,int themeNum) {
 		
-		return template.selectOne("newProducts.getNoBigCategoryCountFilter",prodtCatgr);
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("prodtCatgr",prodtCatgr);
+		map.put("themeNum",themeNum);
+		
+		return template.selectOne("newProducts.getNoBigCategoryCountFilter",map);
 	}
 
 	//대분류가 존재하지 않고 소분류만 존재하는 상품
 	@Override
-	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int prodtCatgr,int sortedOption, int paging) {
+	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int themeNum, int prodtCatgr,int sortedOption, int paging) {
 		
 		HashMap<String,String> map = new HashMap<String, String>();
 		map.put("basketList",basketList);
+		map.put("themeNum",Integer.toString(themeNum));
 		map.put("prodtCatgr",Integer.toString(prodtCatgr));
 		map.put("sortedOption",Integer.toString(sortedOption));
 		map.put("paging",Integer.toString(paging));

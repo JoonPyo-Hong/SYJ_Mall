@@ -3,14 +3,16 @@
 	Create date : 2021-11-23   
 	Description : 추천 신규 테마 비로그인 상태(더보기 기능)
 	     
-	History	: 2021-11-23 Seunghwan Shin	#최초 생성
+	History	:	2021-11-23 Seunghwan Shin	#최초 생성
+				2021-11-26 Seunghwan Shin	#@theme_int 조건 추가
 	
-	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_no_big_catoegy '119#118#9', '1', '1', '1'
+	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_no_big_category '119#118#9', '2', '2', '1', '1'
 
 */
-create proc dbo.kakao_recommend_new_theme_no_login_add_no_big_category
+alter proc dbo.kakao_recommend_new_theme_no_login_add_no_big_category
 	@basket_info varchar(3000)		-- 쿠키정보
-,	@category_option varchar(10)	-- 카테고리 옵션
+,	@theme varchar(10)				-- 대분류 옵션
+,	@category_option varchar(10)	-- 소분류 옵션
 ,	@sorted_option varchar(10)		-- 정렬옵션
 ,	@paging varchar(10)				-- 페이징 번호
 as 
@@ -22,6 +24,7 @@ begin
 			,		@paging_int int = convert(int,@paging)
 			,		@category_option_int int = convert(int,@category_option)
 			,		@buy_date_standard datetime = '2020-10-10'--그냥 기준으로 잡아놓은것
+			,		@theme_int int = convert(int,@theme)
 			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
 
 
@@ -65,6 +68,7 @@ begin
 						) sm on sm.product_id = kpt.product_id
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
 						where kpc.category_code = @category_option_int
+						and kpc.main_category_code = @theme_int
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m
@@ -102,6 +106,7 @@ begin
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
 						where kpc.category_code = @category_option_int
+						and kpc.main_category_code = @theme_int
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m
@@ -139,6 +144,7 @@ begin
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
 						where kpc.category_code = @category_option_int
+						and kpc.main_category_code = @theme_int
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m
@@ -176,6 +182,7 @@ begin
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
 						where kpc.category_code = @category_option_int
+						and kpc.main_category_code = @theme_int
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m

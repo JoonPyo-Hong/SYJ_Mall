@@ -130,10 +130,11 @@
 	
 	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류만 존재하는 물품의 총 갯수 가져오기 -->
 	<select id="getNoBigCategoryCountFilter"
+		parameterType="java.util.HashMap"
 		resultType="Integer"
 		statementType="CALLABLE">
 		{
-		call dbo.kakao_recommend_new_theme_no_big_categoty_small_category_count (#{prodtCatgr})
+		call dbo.kakao_recommend_new_theme_no_big_categoty_small_category_count (#{prodtCatgr},#{themeNum})
 		}
 		
 	</select>
@@ -145,7 +146,7 @@
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
 		statementType="CALLABLE">
 		{
-		call dbo.kakao_recommend_new_theme_no_login_add_no_big_category (#{basketList},#{prodtCatgr},#{sortedOption},#{paging})
+		call dbo.kakao_recommend_new_theme_no_login_add_no_big_category (#{basketList},#{themeNum},#{prodtCatgr},#{sortedOption},#{paging})
 		}
 		
 	</select>

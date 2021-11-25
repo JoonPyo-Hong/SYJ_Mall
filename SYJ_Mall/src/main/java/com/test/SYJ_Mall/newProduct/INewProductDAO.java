@@ -104,19 +104,21 @@ public interface INewProductDAO {
 	/**
 	 * 대분류가 존재하지 않지만 소분류필터는 존재하는 상품의 총 갯수
 	 * @param prodtCatgr	소분류 필터 번호
+	 * @param themeNum		대분류 필터번호
 	 * @return
 	 */
-	int getSmallCategoryCountFilter(int prodtCatgr);
+	int getSmallCategoryCountFilter(int prodtCatgr,int themeNum);
 
 	/**
 	 * 대분류가 존재하지 않지만 소분류는 존재하는 상품
 	 * @param basketList		장바구니 목록
+	 * @param themeNum			대분류 번호
 	 * @param prodtCatgr		소분류 번호
 	 * @param sortedOption		정렬 옵션
 	 * @param paging			페이징 번호
 	 * @return
 	 */
-	List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int prodtCatgr, int sortedOption,int paging);
+	List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int themeNum,int prodtCatgr, int sortedOption,int paging);
 	
 	/**
 	 * 대분류 이름 가져오기
