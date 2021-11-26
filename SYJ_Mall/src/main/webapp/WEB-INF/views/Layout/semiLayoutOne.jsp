@@ -271,19 +271,9 @@
 										<option>${thsjt.bigCatNm}</option>
 									</c:if>
 								</c:forEach>
-								<!-- <option>전체</option>
-								<option>토이</option>
-								<option>리빙</option>
-								<option>잡화</option>
-								<option>문구</option>
-								<option selected>의류</option>
-								<option>디지털</option>
-								<option>여행/레저</option>
-								<option>식품</option>
-								<option>테마 기획전</option> -->
 							</select>
 					</div>
-					<!-- 상품 정렬 및 개수 -->
+					<!-- 상품 정렬 및 개수 이쪽도 바꿔줘야한다.-->
 					<div class="category-header">
 						<div class="sort">
 							<span class="sort-title">신상품 순</span> <img class="sort-icon"
@@ -322,6 +312,7 @@
 				<tiles:insertAttribute name="body" ignore="false" />
 			</div>
 		</div>
+		<!-- footer 자체를 불러오는 형식으로 해주면 좋을거 같은데 -->
 		<div id="kakao-footer">
 			<div id="inner-footer">
 				<div class="info-service">

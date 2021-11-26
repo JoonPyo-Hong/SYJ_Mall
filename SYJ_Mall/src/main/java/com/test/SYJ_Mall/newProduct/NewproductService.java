@@ -306,11 +306,11 @@ public class NewproductService implements INewProductService {
 				//1.상품 대분류 전체인 경우 -> 즉 대분류 필터가 없다는 뜻이다.
 				if (themeNum == 1) {
 					//소분류의 필터유무
-					//1-1 소분류 필터가 없는경우 : 전체
+					//1-1 소분류 필터가 없는경우 : 전체 -> 애는 갯수를 좀 다르게 설정할것 pending issue 로 인해서
 					if (prodtCatgr == 0) {
 						//상품의 총 갯수.
 						prodtCount = dao.getNoBigCategoryCount();
-						perProdtCount =  (int)Math.ceil(prodtCount/8.0);
+						perProdtCount =  (int)Math.ceil(prodtCount/16.0);
 						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
 						rtp = dao.getNoBigCategoryNoSmallCategory(basketList,sortedOption,paging);
 					}
@@ -322,10 +322,6 @@ public class NewproductService implements INewProductService {
 						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
 						rtp = dao.getNoBigCategoryExistSmallCattegory(basketList,themeNum,prodtCatgr,sortedOption,paging);
 					}
-					
-					//request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들 -> 지워줘야함
-					//request.setAttribute("perProdtCount", perProdtCount);// 총몇번의 무한스크롤 해야하는지 -> 지워줘야함
-					//request.setAttribute("paging", paging);// 현재 페이지 -> 지워줘야함
 				}
 				//2.상품 대분류 전체가 아닌 경우 -> 대분류 필터가 존재
 				else {
@@ -334,7 +330,7 @@ public class NewproductService implements INewProductService {
 					if (prodtCatgr == 0) {
 						//상품의 총 갯수.
 						prodtCount = dao.getBigCategoryCount(themeNum);
-						perProdtCount =  (int)Math.ceil(prodtCount/8.0);
+						perProdtCount =  (int)Math.ceil(prodtCount/16.0);
 						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
 						rtp = dao.getBigCategoryNoSmallCategory(basketList,themeNum,sortedOption,paging);
 						
@@ -345,14 +341,8 @@ public class NewproductService implements INewProductService {
 						prodtCount = dao.getSmallCategoryCountFilter(prodtCatgr,themeNum);//지워줘야함
 						perProdtCount =  (int)Math.ceil(prodtCount/8.0);//지워줘야함
 						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
-						rtp = dao.getNoBigCategoryExistSmallCattegory(basketList,themeNum,prodtCatgr,sortedOption,paging);//지워줘야함
+						rtp = dao.getNoBigCategoryExistSmallCattegory(basketList,themeNum,prodtCatgr,sortedOption,paging);
 					}
-					
-					
-					//request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들 -> 지워줘야함
-					//request.setAttribute("perProdtCount", perProdtCount);// 총몇번의 무한스크롤 해야하는지 -> 지워줘야함
-					//request.setAttribute("paging", paging);// 현재 페이지 -> 지워줘야함
-					
 				}
 				
 				
@@ -360,26 +350,49 @@ public class NewproductService implements INewProductService {
 				request.setAttribute("perProdtCount", perProdtCount);// 총몇번의 무한스크롤 해야하는지 -> 지워줘야함
 				request.setAttribute("paging", paging);// 현재 페이지 -> 지워줘야함
 				
-				//소분류 없는경우 - 해당 테마 전체
-				//if(prodtCatgr == 0) rtp = dao.getNewRecommendThemeNoLoginAdd(basketList, themeNum, sortedOption);//신규테마물품 - 해당 테마 전체
-				//소분류 있는경우 - 해당 테마 특정 소분류 물품
-				//else rtp = dao.getNewRecommendThemeNoLoginAdddetail(basketList, sortedOption ,prodtCatgr);//신규테마물품 - 해당 테마 소분류
-				
-				//if (rtp == null) themeSubject = rtp.get(0).getCategoryNm();// 테마 이름
-				/*
-				 * else { themeSubject = ""; prodtCount = rtp.size(); }
-				 */
-				
-				
 			} else {
 			//로그인 한 경우
-				/*
-				 * rtp = dao.getNewRecommendThemeAdd(userInfo.getUserSeq(), themeNum,
-				 * sortedOption, sortedCharOption);//신규테마물품
-				 * 
-				 * if (rtp == null)themeSubject = rtp.get(0).getCategoryNm();// 테마 이름 else {
-				 * themeSubject = ""; prodtCount = rtp.size(); }
-				 */
+				//1.상품 대분류 전체인 경우 -> 즉 대분류 필터가 없다는 뜻이다.
+				if (themeNum == 1) {
+					//소분류의 필터유무
+					//1-1 소분류 필터가 없는경우 : 전체 -> 애는 갯수를 좀 다르게 설정할것 pending issue 로 인해서
+					if (prodtCatgr == 0) {
+						//상품의 총 갯수.
+						prodtCount = dao.getNoBigCategoryCount();
+						perProdtCount =  (int)Math.ceil(prodtCount/16.0);
+						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
+						rtp = dao.getNoBigCategoryNoSmallCategory(userInfo.getUserSeq(),sortedOption,paging);
+						
+						request.setAttribute("recommendTheme", rtp);// 추천테마 관련 객체들 -> 지워줘야함
+						request.setAttribute("perProdtCount", perProdtCount);// 총몇번의 무한스크롤 해야하는지 -> 지워줘야함
+						request.setAttribute("paging", paging);// 현재 페이지 -> 지워줘야함
+					}
+					//1-2 소분류 필터가 있는 경우 : 필터링
+					else {
+						//상품의 총 갯수. 전체중 소분류 필터
+						prodtCount = dao.getSmallCategoryCountFilter(prodtCatgr,themeNum);
+						perProdtCount =  (int)Math.ceil(prodtCount/8.0);
+					}
+					
+					
+				}
+				//2.상품 대분류 전체가 아닌 경우 -> 대분류 필터가 존재
+				else {
+					//소분류의 필터유무
+					//2-1 소분류 필터가 없는경우 : 전체
+					if (prodtCatgr == 0) {
+						//상품의 총 갯수.
+						prodtCount = dao.getNoBigCategoryCount();
+						perProdtCount =  (int)Math.ceil(prodtCount/16.0);
+						
+					}
+					//2-2 소분류 필터가 있는 경우 : 필터링
+					else {
+						//상품의 총 갯수.
+						prodtCount = dao.getSmallCategoryCountFilter(prodtCatgr,themeNum);
+						perProdtCount =  (int)Math.ceil(prodtCount/8.0);
+					}
+				}
 			}
 			
 			
@@ -451,7 +464,7 @@ public class NewproductService implements INewProductService {
 					//2-2 소분류 필터가 있는 경우 : 필터링
 					else {
 						//상품의 총 갯수.
-						return null;
+						return dao.getNoBigCategoryExistSmallCattegory(basketList,themeNum,prodtCatgr,sortedOption,paging);
 					}
 				}
 				
@@ -459,7 +472,38 @@ public class NewproductService implements INewProductService {
 			} else {
 			//로그인 한 경우
 				
-				return null;
+				if (themeNum == 1) {
+					//소분류의 필터유무
+					//1-1 소분류 필터가 없는경우 : 전체
+					if (prodtCatgr == 0) {
+						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
+						//return dao.getNoBigCategoryNoSmallCategory(basketList,sortedOption,paging);
+						return dao.getNoBigCategoryNoSmallCategory(userInfo.getUserSeq(),sortedOption,paging);
+					}
+					//1-2 소분류 필터가 있는 경우 : 필터링
+					else {
+						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
+						//return dao.getNoBigCategoryExistSmallCattegory(basketList,themeNum,prodtCatgr,sortedOption,paging);
+						return null;
+					}
+
+				}
+				//2.상품 대분류 전체가 아닌 경우 -> 대분류 필터가 존재
+				else {
+					//소분류의 필터유무
+					//2-1 소분류 필터가 없는경우 : 전체
+					if (prodtCatgr == 0) {
+						//상품의 총 갯수.
+						//return dao.getBigCategoryNoSmallCategory(basketList,themeNum,sortedOption,paging);
+						return null;
+					}
+					//2-2 소분류 필터가 있는 경우 : 필터링
+					else {
+						//상품의 총 갯수.
+						//return dao.getNoBigCategoryExistSmallCattegory(basketList,themeNum,prodtCatgr,sortedOption,paging);
+						return null;
+					}
+				}
 			}
 			
 			

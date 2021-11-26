@@ -128,6 +128,18 @@
 		
 	</select>
 	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류도 없는 물품 (로그인한 상태)-->
+	<select id="getNoBigCategoryNoSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category (#{userSeq},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	
 	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류만 존재하는 물품의 총 갯수 가져오기 -->
 	<select id="getNoBigCategoryCountFilter"
 		parameterType="java.util.HashMap"

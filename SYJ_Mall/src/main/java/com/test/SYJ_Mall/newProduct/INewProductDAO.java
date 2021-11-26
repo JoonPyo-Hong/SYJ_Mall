@@ -102,6 +102,15 @@ public interface INewProductDAO {
 	List<RecommendThemeDTO> getNoBigCategoryNoSmallCategory(String basketList, int sortedOption, int paging);
 	
 	/**
+	 * 대분류가 존재하지 않고 소분류도 존재하지 않는 상품 - 로그인 한 경우
+	 * @param userSeq			회원고유번호
+	 * @param sortedOption		정렬옵션
+	 * @param paging			페이징 옵션
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNoBigCategoryNoSmallCategory(int userSeq, int sortedOption, int paging);
+	
+	/**
 	 * 대분류가 존재하지 않지만 소분류필터는 존재하는 상품의 총 갯수
 	 * @param prodtCatgr	소분류 필터 번호
 	 * @param themeNum		대분류 필터번호
@@ -143,6 +152,8 @@ public interface INewProductDAO {
 	 * @return
 	 */
 	List<RecommendThemeDTO> getBigCategoryNoSmallCategory(String basketList, int themeNum, int sortedOption, int paging);
+	
+	
 	
 	
 

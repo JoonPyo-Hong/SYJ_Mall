@@ -140,6 +140,20 @@ public class NewProductDAO implements INewProductDAO {
 		
 		return template.selectList("newProducts.getNoBigCategoryNoSmallCategory",map);
 	}
+	
+	//대분류가 존재하지 않고 소분류도 존재하지 않는 상품 - 로그인 한 경우
+	@Override
+	public List<RecommendThemeDTO> getNoBigCategoryNoSmallCategory(int userSeq, int sortedOption, int paging) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("sortedOption",sortedOption);
+		map.put("paging",paging);
+		
+		return template.selectList("newProducts.getNoBigCategoryNoSmallCategoryLogin",map);
+	}
+	
+	
 
 	
 	//소분류가 존재하는 상품의 갯수
@@ -194,6 +208,9 @@ public class NewProductDAO implements INewProductDAO {
 		
 		return template.selectList("newProducts.getBigCategoryNoSmallCategory",map);
 	}
+
+
+	
 
 
 	
