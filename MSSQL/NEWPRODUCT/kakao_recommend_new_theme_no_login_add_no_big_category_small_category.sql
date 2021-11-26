@@ -1,20 +1,18 @@
 /* 
 	Author      : Seunghwan Shin 
-	Create date : 2021-11-23   
-	Description : ì¶”ì²œ ì‹ ê·œ í…Œë§ˆ ë¹„ë¡œê·¸ì¸ ìƒíƒœ(ë”ë³´ê¸° ê¸°ëŠ¥)
+	Create date : 2021-11-27
+	Description : ÃßÃµ ½Å±Ô Å×¸¶ ºñ·Î±×ÀÎ »óÅÂ(´õº¸±â ±â´É) - ´ëºĞ·ù ÇÊÅÍ´Â ¾ø´Â »óÅÂ ¼ÒºĞ·ù ÇÊÅÍ´Â ÀÖ´Â »óÅÂ
 	     
-	History	:	2021-11-23 Seunghwan Shin	#ìµœì´ˆ ìƒì„±
-				2021-11-26 Seunghwan Shin	#@theme_int ì¡°ê±´ ì¶”ê°€
+	History	:	2021-11-27 Seunghwan Shin	#ÃÖÃÊ »ı¼º
 	
-	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category '119#118#9', '2', '2', '1', '1'
+	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_no_big_category_small_category '119#118#9', '2', '1', '1'
 
 */
-alter proc dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category
-	@basket_info varchar(3000)		-- ì¿ í‚¤ì •ë³´
-,	@theme varchar(10)				-- ëŒ€ë¶„ë¥˜ ì˜µì…˜
-,	@category_option varchar(10)	-- ì†Œë¶„ë¥˜ ì˜µì…˜
-,	@sorted_option varchar(10)		-- ì •ë ¬ì˜µì…˜
-,	@paging varchar(10)				-- í˜ì´ì§• ë²ˆí˜¸
+alter proc dbo.kakao_recommend_new_theme_no_login_add_no_big_category_small_category
+	@basket_info varchar(3000)	-- ÄíÅ°Á¤º¸
+,	@prod_catgry varchar(10)	-- ¼ÒºĞ·ù¹øÈ£
+,	@sorted_option varchar(10)	-- Á¤·Ä¿É¼Ç
+,	@paging varchar(10)			-- ÆäÀÌÂ¡ ¹øÈ£
 as 
 set nocount on 
 set transaction isolation level read uncommitted 
@@ -22,12 +20,12 @@ begin
 			
 			declare @sorted_option_int int = convert(int,@sorted_option)
 			,		@paging_int int = convert(int,@paging)
-			,		@category_option_int int = convert(int,@category_option)
-			,		@buy_date_standard datetime = '2020-10-10'--ê·¸ëƒ¥ ê¸°ì¤€ìœ¼ë¡œ ì¡ì•„ë†“ì€ê²ƒ
-			,		@theme_int int = convert(int,@theme)
+			,		@prod_catgry_int int = convert(int,@prod_catgry)
+			,		@buy_date_standard datetime = '2020-10-10'--±×³É ±âÁØÀ¸·Î Àâ¾Æ³õÀº°Í
 			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
 
 
+				--ÆÇ¸Å·® ¼ø
 				if(@sorted_option_int = 1)
 				begin
 					select
@@ -67,14 +65,13 @@ begin
 							group by product_id
 						) sm on sm.product_id = kpt.product_id
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-						where kpc.category_code = @category_option_int
-						and kpc.main_category_code = @theme_int
-						and kpi.rep_img_yn = 'Y'
+						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
+						and kpc.category_code = @prod_catgry_int
 					) as m
 					where m.rn between 8*@paging_int-7 and 8*@paging_int
 				end
-				----ìµœì‹ ì œí’ˆ ìˆœ
+				----ÃÖ½ÅÁ¦Ç° ¼ø
 				else if (@sorted_option_int = 2)
 				begin
 					select
@@ -105,14 +102,13 @@ begin
 						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-						where kpc.category_code = @category_option_int
-						and kpc.main_category_code = @theme_int
-						and kpi.rep_img_yn = 'Y'
+						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
+						and kpc.category_code = @prod_catgry_int
 					) as m
 					where m.rn between 8*@paging_int-7 and 8*@paging_int
 				end
-				--ë‚®ì€ ê°€ê²©ìˆœ
+				--³·Àº °¡°İ¼ø
 				else if (@sorted_option_int = 3)
 				begin
 					select
@@ -143,14 +139,13 @@ begin
 						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-						where kpc.category_code = @category_option_int
-						and kpc.main_category_code = @theme_int
-						and kpi.rep_img_yn = 'Y'
+						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
+						and kpc.category_code = @prod_catgry_int
 					) as m
 					where m.rn between 8*@paging_int-7 and 8*@paging_int
 				end
-				--ë†’ì€ ê°€ê²©ìˆœ
+				--³ôÀº °¡°İ¼ø
 				else if (@sorted_option_int = 4)
 				begin
 					select
@@ -181,14 +176,15 @@ begin
 						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-						where kpc.category_code = @category_option_int
-						and kpc.main_category_code = @theme_int
-						and kpi.rep_img_yn = 'Y'
+						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
+						and kpc.category_code = @prod_catgry_int
 					) as m
-					where m.rn between 8*@paging_int-7 and 8*@paging_int				
-				end
-							
+					where m.rn between 8*@paging_int-7 and 8*@paging_int			
+				end										
 end
+
+
+
 
 

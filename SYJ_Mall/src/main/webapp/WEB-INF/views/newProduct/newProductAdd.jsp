@@ -184,8 +184,7 @@
 				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
 
 					paging++;
-					//newProdtAjax(paging,filter_option, themeNum, prodtCatgr);
-					setTimeout(newProdtAjax(paging,filter_option, themeNum, prodtCatgr),1000);
+					newProdtAjax(paging,filter_option, themeNum, prodtCatgr);
 				}
 	});	
 	
@@ -193,7 +192,7 @@
 	function newProdtAjax(paging,filter_option, themeNum, prodtCatgr) {
 		
 		$.ajax({
-        	type:"POST",
+        	type:"GET",
             url: "/SYJ_Mall/newProductMainAddAjax.action" ,
             async : false,
             data : {"paging" : paging, "sortedOption" : filter_option, "themeNum" : themeNum, "prodtCatgr" : prodtCatgr},

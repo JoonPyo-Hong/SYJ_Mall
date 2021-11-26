@@ -66,7 +66,7 @@ public class NewProductController {
 	}
 	
 	//추천 신규 테마 - 더보기 화면 : 무한스크롤
-	@RequestMapping(value = "/newProductMainAddAjax.action", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/newProductMainAddAjax.action", method = { RequestMethod.GET})
 	@ResponseBody
 	public List<RecommendThemeDTO> newProductMainAddAjax(HttpServletRequest request, HttpServletResponse response) {
 		

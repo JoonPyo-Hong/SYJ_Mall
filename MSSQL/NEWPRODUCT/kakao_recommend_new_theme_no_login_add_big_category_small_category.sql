@@ -1,7 +1,7 @@
 /* 
 	Author      : Seunghwan Shin 
 	Create date : 2021-11-23   
-	Description : 추천 신규 테마 비로그인 상태(더보기 기능)
+	Description : 추천 신규 테마 비로그인 상태(더보기 기능) - 대분류 존재 소분류 존재
 	     
 	History	:	2021-11-23 Seunghwan Shin	#최초 생성
 				2021-11-26 Seunghwan Shin	#@theme_int 조건 추가
@@ -9,7 +9,7 @@
 	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category '119#118#9', '2', '2', '1', '1'
 
 */
-alter proc dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category
+CREATE proc dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category
 	@basket_info varchar(3000)		-- 쿠키정보
 ,	@theme varchar(10)				-- 대분류 옵션
 ,	@category_option varchar(10)	-- 소분류 옵션
@@ -192,3 +192,6 @@ begin
 end
 
 
+
+
+완료 시간: 2021-11-27T01:31:22.8282274+09:00

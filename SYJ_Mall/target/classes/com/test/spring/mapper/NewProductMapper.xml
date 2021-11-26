@@ -152,13 +152,35 @@
 	</select>
 	
 	
-	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류는 존재하는 물품 -->
-	<select id="getNoBigCategoryExistSmallCattegory"
+	<!-- 추천신규테마 - 더보기 - 대분류도 있고 소분류도 존재하는 물품 -->
+	<select id="getBigCategoryExistSmallCategory"
 		parameterType="java.util.HashMap"
 		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
 		statementType="CALLABLE">
 		{
-		call dbo.kakao_recommend_new_theme_no_login_add_no_big_category (#{basketList},#{themeNum},#{prodtCatgr},#{sortedOption},#{paging})
+		call dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category (#{basketList},#{themeNum},#{prodtCatgr},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류는 존재하는 물품 -->
+	<select id="getNoBigCategoryExistSmallCategory"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_no_big_category_small_category (#{basketList},#{prodtCatgr},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류는 존재하는 물품 (로그인 한 경우) -->
+	<select id="getNoBigCategoryExistSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_add_no_big_category_small_category_login (#{userSeq},#{prodtCatgr},#{sortedOption},#{paging})
 		}
 		
 	</select>

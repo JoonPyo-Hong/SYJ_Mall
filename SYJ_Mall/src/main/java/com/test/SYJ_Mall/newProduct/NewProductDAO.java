@@ -153,9 +153,7 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.getNoBigCategoryNoSmallCategoryLogin",map);
 	}
 	
-	
 
-	
 	//소분류가 존재하는 상품의 갯수
 	@Override
 	public int getSmallCategoryCountFilter(int prodtCatgr,int themeNum) {
@@ -167,9 +165,9 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectOne("newProducts.getNoBigCategoryCountFilter",map);
 	}
 
-	//대분류가 존재하지 않고 소분류만 존재하는 상품
+	//대분류가 존재하고 소분류도 존재하는 상품
 	@Override
-	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int themeNum, int prodtCatgr,int sortedOption, int paging) {
+	public List<RecommendThemeDTO> getBigCategoryExistSmallCategory(String basketList, int themeNum, int prodtCatgr,int sortedOption, int paging) {
 		
 		HashMap<String,String> map = new HashMap<String, String>();
 		map.put("basketList",basketList);
@@ -178,7 +176,7 @@ public class NewProductDAO implements INewProductDAO {
 		map.put("sortedOption",Integer.toString(sortedOption));
 		map.put("paging",Integer.toString(paging));
 		
-		return template.selectList("newProducts.getNoBigCategoryExistSmallCattegory",map);
+		return template.selectList("newProducts.getBigCategoryExistSmallCategory",map);
 	}
 
 	
@@ -207,6 +205,34 @@ public class NewProductDAO implements INewProductDAO {
 		
 		
 		return template.selectList("newProducts.getBigCategoryNoSmallCategory",map);
+	}
+
+	// 대분류가 존재하지 않고 소분류가 존재하는 상품(로그인한 상태)
+	@Override
+	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCategoryLogin(int userSeq, int prodtCatgr, int sortedOption, int paging) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("prodtCatgr",prodtCatgr);
+		map.put("sortedOption",sortedOption);
+		map.put("paging",paging);
+		
+		
+		return template.selectList("newProducts.getNoBigCategoryExistSmallCategoryLogin",map);
+	}
+
+	
+	//대분류가 존재하지 않고 소분류가 존재하는 상품
+	@Override
+	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCategory(String basketList, int prodtCatgr,int sortedOption, int paging) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("basketList",basketList);
+		map.put("prodtCatgr",Integer.toString(prodtCatgr));
+		map.put("sortedOption",Integer.toString(sortedOption));
+		map.put("paging",Integer.toString(paging));
+		
+		return template.selectList("newProducts.getNoBigCategoryExistSmallCategory",map);
 	}
 
 

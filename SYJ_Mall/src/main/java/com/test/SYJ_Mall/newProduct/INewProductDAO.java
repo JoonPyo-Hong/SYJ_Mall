@@ -119,7 +119,7 @@ public interface INewProductDAO {
 	int getSmallCategoryCountFilter(int prodtCatgr,int themeNum);
 
 	/**
-	 * 대분류가 존재하지 않지만 소분류는 존재하는 상품
+	 * 대분류고 존재하고 소분류도 존재하는 상품
 	 * @param basketList		장바구니 목록
 	 * @param themeNum			대분류 번호
 	 * @param prodtCatgr		소분류 번호
@@ -127,7 +127,7 @@ public interface INewProductDAO {
 	 * @param paging			페이징 번호
 	 * @return
 	 */
-	List<RecommendThemeDTO> getNoBigCategoryExistSmallCattegory(String basketList, int themeNum,int prodtCatgr, int sortedOption,int paging);
+	List<RecommendThemeDTO> getBigCategoryExistSmallCategory(String basketList, int themeNum,int prodtCatgr, int sortedOption,int paging);
 	
 	/**
 	 * 대분류 이름 가져오기
@@ -152,6 +152,26 @@ public interface INewProductDAO {
 	 * @return
 	 */
 	List<RecommendThemeDTO> getBigCategoryNoSmallCategory(String basketList, int themeNum, int sortedOption, int paging);
+	
+	/**
+	 * 대분류가 존재하지 않고 소분류가 존재하는 상품 (로그인 한 경우)
+	 * @param userSeq		회원고유 번호
+	 * @param prodtCatgr	소분류 번호
+	 * @param sortedOption	정렬옵션
+	 * @param paging		페이징 옵션
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNoBigCategoryExistSmallCategoryLogin(int userSeq, int prodtCatgr,int sortedOption, int paging);
+	
+	/**
+	 * 대분류가 존재하지 않고 소분류가 존재하는 상품
+	 * @param basketList	장바구니 목록
+	 * @param prodtCatgr	소분류 번호
+	 * @param sortedOption	정렬옵션
+	 * @param paging		페이징 옵션
+	 * @return
+	 */
+	List<RecommendThemeDTO> getNoBigCategoryExistSmallCategory(String basketList, int prodtCatgr, int sortedOption,int paging);
 	
 	
 	
