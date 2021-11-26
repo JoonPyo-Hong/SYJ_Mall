@@ -1,18 +1,18 @@
 /* 
 	Author      : Seunghwan Shin 
 	Create date : 2021-11-27
-	Description : ÃßÃµ ½Å±Ô Å×¸¶ ºñ·Î±×ÀÎ »óÅÂ(´õº¸±â ±â´É) - ´ëºĞ·ù ÇÊÅÍ´Â ¾ø´Â »óÅÂ ¼ÒºĞ·ù ÇÊÅÍ´Â ÀÖ´Â »óÅÂ
+	Description : ì¶”ì²œ ì‹ ê·œ í…Œë§ˆ ë¹„ë¡œê·¸ì¸ ìƒíƒœ(ë”ë³´ê¸° ê¸°ëŠ¥) - ëŒ€ë¶„ë¥˜ í•„í„°ëŠ” ì—†ëŠ” ìƒíƒœ ì†Œë¶„ë¥˜ í•„í„°ëŠ” ìˆëŠ” ìƒíƒœ
 	     
-	History	:	2021-11-27 Seunghwan Shin	#ÃÖÃÊ »ı¼º
+	History	:	2021-11-27 Seunghwan Shin	#ìµœì´ˆ ìƒì„±
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_no_big_category_small_category '119#118#9', '2', '1', '1'
 
 */
 alter proc dbo.kakao_recommend_new_theme_no_login_add_no_big_category_small_category
-	@basket_info varchar(3000)	-- ÄíÅ°Á¤º¸
-,	@prod_catgry varchar(10)	-- ¼ÒºĞ·ù¹øÈ£
-,	@sorted_option varchar(10)	-- Á¤·Ä¿É¼Ç
-,	@paging varchar(10)			-- ÆäÀÌÂ¡ ¹øÈ£
+	@basket_info varchar(3000)	-- ì¿ í‚¤ì •ë³´
+,	@prod_catgry varchar(10)	-- ì†Œë¶„ë¥˜ë²ˆí˜¸
+,	@sorted_option varchar(10)	-- ì •ë ¬ì˜µì…˜
+,	@paging varchar(10)			-- í˜ì´ì§• ë²ˆí˜¸
 as 
 set nocount on 
 set transaction isolation level read uncommitted 
@@ -21,11 +21,11 @@ begin
 			declare @sorted_option_int int = convert(int,@sorted_option)
 			,		@paging_int int = convert(int,@paging)
 			,		@prod_catgry_int int = convert(int,@prod_catgry)
-			,		@buy_date_standard datetime = '2020-10-10'--±×³É ±âÁØÀ¸·Î Àâ¾Æ³õÀº°Í
+			,		@buy_date_standard datetime = '2020-10-10'--ê·¸ëƒ¥ ê¸°ì¤€ìœ¼ë¡œ ì¡ì•„ë†“ì€ê²ƒ
 			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
 
 
-				--ÆÇ¸Å·® ¼ø
+				--íŒë§¤ëŸ‰ ìˆœ
 				if(@sorted_option_int = 1)
 				begin
 					select
@@ -71,7 +71,7 @@ begin
 					) as m
 					where m.rn between 8*@paging_int-7 and 8*@paging_int
 				end
-				----ÃÖ½ÅÁ¦Ç° ¼ø
+				----ìµœì‹ ì œí’ˆ ìˆœ
 				else if (@sorted_option_int = 2)
 				begin
 					select
@@ -108,7 +108,7 @@ begin
 					) as m
 					where m.rn between 8*@paging_int-7 and 8*@paging_int
 				end
-				--³·Àº °¡°İ¼ø
+				--ë‚®ì€ ê°€ê²©ìˆœ
 				else if (@sorted_option_int = 3)
 				begin
 					select
@@ -145,7 +145,7 @@ begin
 					) as m
 					where m.rn between 8*@paging_int-7 and 8*@paging_int
 				end
-				--³ôÀº °¡°İ¼ø
+				--ë†’ì€ ê°€ê²©ìˆœ
 				else if (@sorted_option_int = 4)
 				begin
 					select
