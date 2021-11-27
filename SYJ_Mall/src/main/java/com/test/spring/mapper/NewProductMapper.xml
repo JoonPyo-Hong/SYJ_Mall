@@ -218,6 +218,28 @@
 		}
 		
 	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 있고 소분류는 없는 물품 (로그인 시)-->
+	<select id="getBigCategoryNoSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login_add_no_small_category (#{userSeq},#{themeNum},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류도 있고 소분류도 존재하는 물품(로그인 시) -->
+	<select id="getBigCategoryExistSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login_add_big_category_small_category (#{userSeq},#{themeNum},#{prodtCatgr},#{sortedOption},#{paging})
+		}
+		
+	</select>
 
 	
 	

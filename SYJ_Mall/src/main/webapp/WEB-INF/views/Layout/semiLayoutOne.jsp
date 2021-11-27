@@ -261,14 +261,14 @@
 						<span class="category-title">${selectBcDto.bigCatNm}</span> 
 						<img class="select-icon" src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png" alt="foldWhite" />
 						
-							<select style="height: 100%;">
+							<select style="height: 100%;" id="big_category_select">
 								<option>---------------카테고리 선택---------------</option>
 								<c:forEach var="thsjt" items="${themeSubjectList}"> 
 									<c:if test="${thsjt.selected eq 'Y'}">
-										<option selected>${thsjt.bigCatNm}</option>
+										<option selected value="${thsjt.categoryCode}">${thsjt.bigCatNm}</option>
 									</c:if>
 									<c:if test="${thsjt.selected eq 'N'}">
-										<option>${thsjt.bigCatNm}</option>
+										<option value="${thsjt.categoryCode}">${thsjt.bigCatNm}</option>
 									</c:if>
 								</c:forEach>
 							</select>
@@ -280,13 +280,13 @@
 								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</div>
 						<div class="category-tab">
-							<ul>
+							<ul id="small_category">
 								<c:forEach var="prodtCat" items="${prodtCategory}">
 									<c:if test="${prodtCatgr eq prodtCat.categoryNum}">
-										<li data-tab= ${prodtCat.categoryNum} class="active">${prodtCat.categoryNm}</li>
+										<li value="${prodtCat.categoryNum}" class="active">${prodtCat.categoryNm}</li>
 									</c:if>
 									<c:if test="${prodtCatgr ne prodtCat.categoryNum}">
-										<li data-tab= ${prodtCat.categoryNum}>${prodtCat.categoryNm}</li>
+										<li value="${prodtCat.categoryNum}">${prodtCat.categoryNm}</li>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -356,15 +356,29 @@
 			location.href = "/SYJ_Mall/searchbackmain.action";	
 		});
 		
-		$(document).ready(function () {
+		$(document).ready(function() {
 	        // 탭 메뉴 이동 시 효과
 	        $("div.category-tab ul li").click(function () {
-	          var tab_id = $(this).attr("data-tab");
+	          const tab_id = $(this).attr("data-tab");
 	          $("div.category-tab ul li").removeClass("active");
 	          $(this).addClass("active");
 	        });
 	      });
+		
+		/* 대분류 변경  */
+		$('#big_category_select').change(function(){
+			const char_seq = $(this).val();//대분류 번호로 적어주는게 좋을듯 한데;
+			location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + char_seq;
+		});
+		
+		/* 소분류 변경 */
+		$('#small_category').children().click(function(){
+			const small_cat_num = $(this).val();
+			location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + themeNum + "&prodtCatgr=" +small_cat_num;
+		});
 	 	
+		
+		/* 정렬순서 */
 	 	
 	</script>
 

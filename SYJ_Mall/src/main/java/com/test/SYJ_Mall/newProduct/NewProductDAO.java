@@ -3,8 +3,6 @@ package com.test.SYJ_Mall.newProduct;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -207,6 +205,20 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.getBigCategoryNoSmallCategory",map);
 	}
 
+	
+	//대분류가 존재하지 않고 소분류가 존재하는 상품
+	@Override
+	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCategory(String basketList, int prodtCatgr,int sortedOption, int paging) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("basketList",basketList);
+		map.put("prodtCatgr",Integer.toString(prodtCatgr));
+		map.put("sortedOption",Integer.toString(sortedOption));
+		map.put("paging",Integer.toString(paging));
+		
+		return template.selectList("newProducts.getNoBigCategoryExistSmallCategory",map);
+	}
+	
 	// 대분류가 존재하지 않고 소분류가 존재하는 상품(로그인한 상태)
 	@Override
 	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCategoryLogin(int userSeq, int prodtCatgr, int sortedOption, int paging) {
@@ -221,18 +233,31 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.getNoBigCategoryExistSmallCategoryLogin",map);
 	}
 
-	
-	//대분류가 존재하지 않고 소분류가 존재하는 상품
+	//대분류가 존재하고 소분류가 존재하지 않는 상품 (로그인한 상태)
 	@Override
-	public List<RecommendThemeDTO> getNoBigCategoryExistSmallCategory(String basketList, int prodtCatgr,int sortedOption, int paging) {
+	public List<RecommendThemeDTO> getBigCategoryNoSmallCategoryLogin(int userSeq, int themeNum, int sortedOption,int paging) {
 		
-		HashMap<String,String> map = new HashMap<String, String>();
-		map.put("basketList",basketList);
-		map.put("prodtCatgr",Integer.toString(prodtCatgr));
-		map.put("sortedOption",Integer.toString(sortedOption));
-		map.put("paging",Integer.toString(paging));
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("themeNum",themeNum);
+		map.put("sortedOption",sortedOption);
+		map.put("paging",paging);
 		
-		return template.selectList("newProducts.getNoBigCategoryExistSmallCategory",map);
+		return template.selectList("newProducts.getBigCategoryNoSmallCategoryLogin",map);
+	}
+
+	//대분류가 존재하고 소분류도 존재하는 상품(로그인한 상태)
+	@Override
+	public List<RecommendThemeDTO> getBigCategoryExistSmallCategoryLogin(int userSeq, int themeNum, int prodtCatgr, int sortedOption, int paging) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("themeNum",themeNum);
+		map.put("prodtCatgr",prodtCatgr);
+		map.put("sortedOption",sortedOption);
+		map.put("paging",paging);
+		
+		return template.selectList("newProducts.getBigCategoryExistSmallCategoryLogin",map);
 	}
 
 

@@ -92,9 +92,7 @@
 			<div id="inner-tab"></div>
 			<div class="container-wrap product-category-character"
 				style="margin: 0px auto;">
-				<div class="category-banner"
-					style=" background: url(/SYJ_Mall/${charHeadPicUrl}) right 0px /
-    cover no-repeat;">
+				<div class="category-banner" style=" background: url(/SYJ_Mall/${charHeadPicUrl}) right 0px /cover no-repeat;">
 					<span class="category-title">${charHeadName}</span> <img
 						class="select-icon"
 						src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png"
