@@ -29,9 +29,6 @@
 
 	<c:if test="${prodtCount != 0}">
 		<!-- 데이터 있을 시 -->
-
-
-
 		<!-- 해당 검색 상품 영역 -->
 		<div class="search-product-wrap">
 			<ul id="search-item-lists">

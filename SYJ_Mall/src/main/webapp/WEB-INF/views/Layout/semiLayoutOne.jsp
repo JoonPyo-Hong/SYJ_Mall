@@ -16,166 +16,14 @@
 <link rel="stylesheet" href="resources/css/semitiles/semiLoginModal.css">
 <link rel="stylesheet" href="resources/css/semitiles/semiSeen.css">
 <link rel="stylesheet" href="resources/css/semitiles/semiTilesResult.css">
+<link rel="stylesheet" href="resources/css/newProduct/product_category.css">
 
-
-<style>
-
-/* 카테고리 선택 배너 */
-.category-banner {
-  display: flex;
-  align-items: center;
-  position: relative;
-  background-color: #ededed;
-  margin-top: -3px;
-  min-height: 111px;
-}
-
-.category-banner .category-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  margin-left: 20px;
-}
-
-.category-banner .category-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  margin-left: 20px;
-}
-
-.category-banner .select-icon {
-  width: 18px;
-  height: 18px;
-  margin-left: 6px;
-}
-
-.category-banner select {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  appearance: none;
-  font-size: 0px;
-  min-height: 111px;
-  outline: none;
-}
-
-.category-banner select option {
-  font-size: 14px;
-}
-
-
-/* 상품 정렬 및 개수 */
-.category-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  /* padding: 0px 20px; */
-  cursor: pointer;
-}
-
-.category-header .sort {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgb(242, 242, 242);
-}
-
-.category-header .sort .sort-title {
-  font-size: 16px;
-  color: rgb(17, 17, 17);
-  margin-right: 2px;
-}
-
-.category-header .sort .sort-icon {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-.category-header .category-tab {
-  width: 100%;
-}
-
-.category-header .category-tab ul {
-  display: flex;
-  align-items: center;
-  justify-content: baseline;
-  height: 50px;
-  border-bottom: 1px solid rgb(242, 242, 242);
-}
-
-.category-header .category-tab ul li {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 15px;
-  height: 50px;
-}
-
-.category-header .category-tab ul li.active {
-  font-weight: bold;
-  border-bottom: 2px solid #1e1e1e;
-}
-
-.category-header .detail {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.category-header .detail .all-count {
-  font-size: 16px;
-}
-
-.category-header .detail .check-global {
-  display: flex;
-  font-size: 16px;
-}
-
-.category-header .detail .check-global img {
-  width: 20px;
-  height: 20px;
-  margin-right: 6px;
-}
-
-
-.category-banner {
-    height: 220px;
- }
- 
- #vacant_area {
- 	height: 400px;
- }
-
-@media (max-width: 640px) {
-  .category-banner {
-    height: 111px;
-  }
-  
-  .category-header .category-tab ul li {
-  	  padding: 0 2px;
-  }
-  
-  #vacant_area {
-  	height: 250px;
-  }
-}
-
-
-</style>
 
 <title>카카오 프렌즈샵</title>
+<!-- 스와이프 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
+
 </head>
 <body>
 
@@ -203,35 +51,30 @@
 		</div>
 	</div>
 	<!-- 정렬 모달창 -->
-	<div class="overlay-wrap" id="sort-modal"
-		style="visibility: hidden; z-index: 20;">
+	<div class="overlay-wrap" id="sort-modal" style="visibility: hidden; z-index: 20;">
 		<div class="sort-modal-wrap">
 			<div class="sort-list" id="buy-sort">
 				<div class="sort-text">판매량순</div>
 				<c:if test="${sortedOption eq 1}">
-					<img
-						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 			<div class="sort-list" id="new-sort">
 				<div class="sort-text">신상품순</div>
 				<c:if test="${sortedOption eq 2}">
-					<img
-						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 			<div class="sort-list" id="low-price-sort">
 				<div class="sort-text">낮은 가격순</div>
 				<c:if test="${sortedOption eq 3}">
-					<img
-						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 			<div class="sort-list" id="high-price-sort">
 				<div class="sort-text">높은가격순</div>
 				<c:if test="${sortedOption eq 4}">
-					<img
-						src="/SYJ_Mall/resources/images/product_search_result/check.png">
+					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
 			</div>
 		</div>
@@ -276,20 +119,37 @@
 					<!-- 상품 정렬 및 개수 이쪽도 바꿔줘야한다.-->
 					<div class="category-header">
 						<div class="sort">
-							<span class="sort-title">신상품 순</span> <img class="sort-icon"
-								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							<span class="sort-title">신상품 순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</div>
 						<div class="category-tab">
-							<ul id="small_category">
-								<c:forEach var="prodtCat" items="${prodtCategory}">
-									<c:if test="${prodtCatgr eq prodtCat.categoryNum}">
-										<li value="${prodtCat.categoryNum}" class="active">${prodtCat.categoryNm}</li>
-									</c:if>
-									<c:if test="${prodtCatgr ne prodtCat.categoryNum}">
-										<li value="${prodtCat.categoryNum}">${prodtCat.categoryNm}</li>
-									</c:if>
-								</c:forEach>
-							</ul>
+							<div class="category-tab-frame">
+								<ul id="small_category" class="slide">
+									<c:forEach var="prodtCat" items="${prodtCategory}">
+										<c:choose>
+											<c:when test="${prodtCat.categoryNmLen <= 4}">
+												<c:choose>
+													<c:when test="${prodtCatgr eq prodtCat.categoryNum}">
+														<li value="${prodtCat.categoryNum}" class="active" style="min-width: 100px;">${prodtCat.categoryNm}</li>
+													</c:when>
+													<c:when test="${prodtCatgr ne prodtCat.categoryNum}">
+														<li value="${prodtCat.categoryNum}" style="min-width: 100px;">${prodtCat.categoryNm}</li>
+													</c:when>
+												</c:choose>
+											</c:when>
+											<c:when test="${prodtCat.categoryNmLen > 4}">
+												<c:choose>
+													<c:when test="${prodtCatgr eq prodtCat.categoryNum}">
+														<li value="${prodtCat.categoryNum}" class="active" style="min-width: 170px;">${prodtCat.categoryNm}</li>
+													</c:when>
+													<c:when test="${prodtCatgr ne prodtCat.categoryNum}">
+														<li value="${prodtCat.categoryNum}" style="min-width: 170px;">${prodtCat.categoryNm}</li>
+													</c:when>
+												</c:choose>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</ul>
+							</div>
 						</div>
 						<div class="detail">
 							<div class="all-count">
@@ -376,10 +236,60 @@
 			const small_cat_num = $(this).val();
 			location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + themeNum + "&prodtCatgr=" +small_cat_num;
 		});
-	 	
 		
-		/* 정렬순서 */
-	 	
+		/*--------------------필터링 조건---------------------------*/
+		$('.sort-title').click(function() {
+			$('#sort-modal').css('visibility', 'visible');
+			$('.sort-modal-wrap').css('bottom', '0');
+			$('#kakao-footer').css('background-color', '#4C4C4C');
+			$(document.body).css('overflow', 'hidden');
+		});
+		
+		$('#buy-sort').click(function () {
+			location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + themeNum + "&prodtCatgr=" + prodtCatgr + "&sortedOption=1";
+		});
+		
+		$('#new-sort').click(function () {		
+			location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + themeNum + "&prodtCatgr=" + prodtCatgr + "&sortedOption=2";
+		});
+
+		$('#low-price-sort').click(function () {
+			location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + themeNum + "&prodtCatgr=" + prodtCatgr + "&sortedOption=3";
+		});
+		    
+		$('#high-price-sort').click(function () {
+			location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + themeNum + "&prodtCatgr=" + prodtCatgr + "&sortedOption=4";
+		});
+		
+		
+		/* 모달제거하는 용도 */
+		$('.overlay-wrap').click(function() {
+			$('.overlay-wrap').css('visibility', 'hidden');
+			$('.sort-modal-wrap').css('bottom', '-180px');
+			$('.character-modal-wrap').css('bottom', '-180px');
+			$('#kakao-footer').css('background-color', '#FFF');
+			$(document.body).css('overflow', 'visible');
+		});
+		
+		
+		/* 소분류 슬라이드  */
+		const on = $('.slide').find('.active').index();
+	    const options = {
+	      horizontal: 1,
+	      itemNav: 'centered', //basic , centered,
+	      speed: 300,
+	      smart: 1,
+	      activateOn: 'click',
+	      mouseDragging: 1,
+	      touchDragging: 1,
+	      activateMiddle: 1,
+	      releaseSwing: 1,
+	      activeClass: 'active',
+	      startAt: on
+	      // itemSelector:1
+	    };
+	    const frame = new Sly('.category-tab-frame', options).init();
+		
 	</script>
 
 </body>

@@ -77,8 +77,7 @@
 
 <script>
 	
-	//let sortedCharOption = ${sortedCharOption};
-	let filter_option = ${sortedOption};
+	let filter_option = ${sortedOption};//필터링 옵션
 	
 	//상품 카트에 관련 -> 카트에 넣어주기
 	$(document).on("click", ".cart", function(e) {
@@ -109,7 +108,6 @@
 			success : function(result) {
 
 				if (result == 1) {
-					//$("#"+prodt_id).attr('class','incart');
 					$(prodt_this).attr('class', 'incart');
 				} else if (result == 2) {
 					$(prodt_this).attr('class', 'cart');
@@ -257,59 +255,5 @@
 			}
         	});	
 	}
-
-	/*--------------------필터링 조건---------------------------*/
-	//~~ 순 정하는 필터링
-	$('#content-sort-name').click(function() {
-		$('#sort-modal').css('visibility', 'visible');
-		$('.sort-modal-wrap').css('bottom', '0');
-		$('#kakao-footer').css('background-color', '#4C4C4C');
-		$(document.body).css('overflow', 'hidden');
-	});
-	
-	$('#buy-sort').click(function () {
-		location.href = "/SYJ_Mall/newProductMainAdd.action?sortedOption=1&sortedCharOption="+ sortedCharOption;	
-	});
-	
-	$('#new-sort').click(function () {		
-		location.href = "/SYJ_Mall/newProductMainAdd.action?sortedOption=2&sortedCharOption="+ sortedCharOption;
-	});
-
-	$('#low-price-sort').click(function () {
-		location.href = "/SYJ_Mall/newProductMainAdd.action?sortedOption=3&sortedCharOption="+ sortedCharOption;
-	});
-	    
-	$('#high-price-sort').click(function () {
-		location.href = "/SYJ_Mall/newProductMainAdd.action?sortedOption=4&sortedCharOption="+ sortedCharOption;
-	});
-	
-	
-	//캐릭터순 필터
-    $('.character-list').click(function(){
-    	
-    	sortedCharOption = $(this).attr('id');
-    	location.href = "/SYJ_Mall/newProductMainAdd.action?sortedOption=" + filter_option + "&sortedCharOption=" + sortedCharOption;
-    	
-    });	
-	
-	
-	//캐릭터별 모달
-    $("#char-sort-name").click(function () {
-      $('#charac-modal').css("visibility", "visible");
-      $('.character-modal-wrap').css('bottom', '0');
-      $('#kakao-footer').css('background-color','#4C4C4C');
-      $(document.body).css('overflow','hidden');
-    });
-	
-    //모달 제거하는 용도
-    $('.overlay-wrap').click(function () {
-    	$('.overlay-wrap').css('visibility', 'hidden');
-      	$('.sort-modal-wrap').css('bottom', '-180px');
-     	$('.character-modal-wrap').css('bottom', '-180px');
-      	$('#kakao-footer').css('background-color','#FFF');
-      	$(document.body).css('overflow','visible');
-    });
-	
-	
 	
 </script>
