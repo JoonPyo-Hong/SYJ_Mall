@@ -119,7 +119,13 @@
 					<!-- 상품 정렬 및 개수 이쪽도 바꿔줘야한다.-->
 					<div class="category-header">
 						<div class="sort">
-							<span class="sort-title">신상품 순</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							<span class="sort-title">
+							<c:forEach var="prodtCat" items="${prodtCategory}">
+								<c:if test="${prodtCatgr eq prodtCat.categoryNum}">
+									${prodtCat.categoryNm}
+								</c:if>
+							</c:forEach>
+							</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</div>
 						<div class="category-tab">
 							<div class="category-tab-frame">
