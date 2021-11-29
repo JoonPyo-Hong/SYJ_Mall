@@ -105,7 +105,7 @@
 						<img class="select-icon" src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png" alt="foldWhite" />
 						
 							<select style="height: 100%;" id="big_category_select">
-								<option>---------------카테고리 선택---------------</option>
+								<!-- <option>---------------카테고리 선택---------------</option> -->
 								<c:forEach var="thsjt" items="${themeSubjectList}"> 
 									<c:if test="${thsjt.selected eq 'Y'}">
 										<option selected value="${thsjt.categoryCode}">${thsjt.bigCatNm}</option>
