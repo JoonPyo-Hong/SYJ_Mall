@@ -175,8 +175,46 @@
 						</c:if>
 					</ul>
 				</div>
-				<!-- 마이페이지 tab -->
-
+				<!-- 마이페이지 tab이 들어가야함 -->
+				<c:if test="${seleted eq 'my'}">
+					<div class="mypage-tab">
+						<ul class="mypage-tab-ul">
+							<c:if test="${myPageNum eq 1}">
+								<li class="mypage-tab-li active">최근 본</li>
+								<li class="mypage-tab-li">내 활동</li>
+								<li class="mypage-tab-li">장바구니 
+								<!-- <span class="basket-count">2</span> -->
+								</li>
+								<li class="mypage-tab-li">주문내역</li>
+							</c:if>
+							<c:if test="${myPageNum eq 2}">
+								<li class="mypage-tab-li">최근 본</li>
+								<li class="mypage-tab-li active">내 활동</li>
+								<li class="mypage-tab-li">장바구니 
+								<!-- <span class="basket-count">2</span> -->
+								</li>
+								<li class="mypage-tab-li">주문내역</li>
+							</c:if>
+							<c:if test="${myPageNum eq 3}">
+								<li class="mypage-tab-li">최근 본</li>
+								<li class="mypage-tab-li">내 활동</li>
+								<li class="mypage-tab-li active">장바구니 
+								<!-- <span class="basket-count">2</span> -->
+								</li>
+								<li class="mypage-tab-li">주문내역</li>
+							</c:if>
+							<c:if test="${myPageNum eq 4}">
+								<li class="mypage-tab-li">최근 본</li>
+								<li class="mypage-tab-li">내 활동</li>
+								<li class="mypage-tab-li">장바구니 
+								<!-- <span class="basket-count">2</span> -->
+								</li>
+								<li class="mypage-tab-li active">주문내역</li>
+							</c:if>
+							
+						</ul>
+					</div>
+				</c:if>
 
 			</div>
 		</div>

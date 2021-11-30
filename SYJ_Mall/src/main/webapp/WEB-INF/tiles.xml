@@ -94,6 +94,26 @@
 		<put-attribute name = "body" value="/WEB-INF/views/info/info.jsp"/>	
 	</definition>
 	
+	<!-- 마이페이지 - 최근본-->
+	<definition name = "/tiles/myPageRecent.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageBasket.jsp"/>	
+	</definition>
+	
+	<!-- 마이페이지 - 내활동-->
+	<definition name = "/tiles/myPageMyTrace.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageBasket.jsp"/>	
+	</definition>
+	
+	<!-- 마이페이지 - 장바구니-->
+	<definition name = "/tiles/myPageMyBasket.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageBasket.jsp"/>	
+	</definition>
+	
+	<!-- 마이페이지 - 주문내역-->
+	<definition name = "/tiles/myPageOrderHistory.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageBasket.jsp"/>	
+	</definition>
+	
 	
 	<!-- 1. 세미타일즈 ver1 -->
 	<!-- "< 홈       타이틀   찾기  국가선택 "-->

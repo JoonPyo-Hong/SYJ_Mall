@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.test.SYJ_Mall.newProduct.INewProductService;
 import com.test.SYJ_Mall.newProduct.NewFriendsProdDTO;
 import com.test.SYJ_Mall.newProduct.RecommendThemeDTO;
-
+/**
+ * 신규상품 컨트롤러
+ * @author shin
+ *
+ */
 @Controller
 public class NewProductController {
 
