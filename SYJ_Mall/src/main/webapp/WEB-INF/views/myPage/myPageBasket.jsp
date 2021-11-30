@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
-<link rel="stylesheet"
-	href="resources/css/myPage/myPageBasket.css">
+<link rel="stylesheet" href="resources/css/myPage/myPageBasket2.css">
 	
  <!-- 마이페이지 컨텐츠 -->
 <div class="container-wrap mypage-basket-wrap">
