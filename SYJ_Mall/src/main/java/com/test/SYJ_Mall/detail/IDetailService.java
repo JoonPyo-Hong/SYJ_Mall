@@ -10,4 +10,6 @@ public interface IDetailService {
 
 	List<FeedDTO> FeedSelect(Integer d_seq);
 
+	List<FeedDTO> FeedSelect2(Integer d_seq);
+
 }

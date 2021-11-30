@@ -18,6 +18,10 @@
 		resultType="com.test.SYJ_Mall.detail.FeedDTO" parameterType="int">
 	select d_seq,f_seq,name,star, CONVERT(CHAR(10), reg_dt, 102) as reg_dt, text from dbo.detail_feed with(nolock) where d_seq = #{d_seq}
 	</select>
+	<select id="feed2"
+		resultType="com.test.SYJ_Mall.detail.FeedDTO" parameterType="int">
+	select d_seq,f_seq,name,star, CONVERT(CHAR(10), reg_dt, 102) as reg_dt, text from dbo.detail_feed with(nolock) where d_seq = #{d_seq}
+	</select>
 
 
 </mapper>

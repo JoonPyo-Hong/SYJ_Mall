@@ -24,5 +24,10 @@ public class DetailDAO implements IDetailDAO{
 		// TODO Auto-generated method stub
 		return session.selectList("detail.feed" , d_seq);
 	}
+	@Override
+	public List<FeedDTO> FeedSelect2(Integer d_seq) {
+		// TODO Auto-generated method stub
+		return session.selectList("detail.feed2" , d_seq);
+	}
 
 }

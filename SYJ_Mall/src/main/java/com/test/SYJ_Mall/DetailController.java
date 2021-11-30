@@ -51,9 +51,11 @@ public class DetailController {
 			List<DetailDTO> list = service.DetailSelect(d_seq);
 			List<String> list2 = service.HeaderSelect(d_seq);
 			List<FeedDTO> list3 = service.FeedSelect(d_seq);
+			List<FeedDTO> list4 = service.FeedSelect2(d_seq);
 			model.addAttribute("list", list);
 			model.addAttribute("list2", list2);
 			model.addAttribute("list3", list3);
+			model.addAttribute("list4", list4);
 			model.addAttribute("m_seq", seq);
 			model.addAttribute("l_seq", d_seq);
 			model.addAttribute("name", user_name);

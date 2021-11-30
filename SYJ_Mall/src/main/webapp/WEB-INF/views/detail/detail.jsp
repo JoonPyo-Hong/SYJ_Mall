@@ -261,8 +261,8 @@
 						</div>
 						<div class="review-list">
 							<div class="review-sort">
-								<button class="sort-btn like">좋아요순</button>
-								<button class="sort-btn recent">최신순</button>
+								<button class="sort-btn like" id='1'>좋아요순</button>
+								<button class="sort-btn recent" id= '2'>최신순</button>
 							</div>
 							<ul>
 								<c:forEach var="d_seq" items="${list3}" varStatus="stat">
@@ -391,7 +391,18 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
 	<script>
-
+	
+	$('.sort-btn').click(
+			function() {
+				if($(this).attr('id') == "1"){
+					$('#2').attr('class','sort-btn like');
+					$('#1').attr('class','sort-btn recent');
+				}else{
+					$('#1').attr('class','sort-btn like');
+					$('#2').attr('class','sort-btn recent');
+				}
+			});
+			
 	var mySwiper = new Swiper('.swiper-container', {
 		loop : true,
 		pagination : {
