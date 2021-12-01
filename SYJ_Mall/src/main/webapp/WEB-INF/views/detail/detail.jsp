@@ -397,7 +397,7 @@
 	var member_seq = 0;
 	function heart_select(a, b) {
 		$.ajax({
-			url : "heart_select.action",
+			url : "detail_heart_select.action",
 			type : 'post',
 			data : {
 				f_seq : feed_seq,

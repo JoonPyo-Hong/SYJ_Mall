@@ -65,7 +65,7 @@ public class DetailController {
 		}
 		
 		// 하트 조회
-		@RequestMapping(value = "/heart_select.action", method = { RequestMethod.POST })
+		@RequestMapping(value = "/detail_heart_select.action", method = { RequestMethod.POST })
 		@ResponseBody
 		public Object heart_select(@RequestParam("list_seq") int f_seq, @RequestParam("session_seq") int m_seq) {
 
