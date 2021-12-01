@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.detail.DetailDTO;
 import com.test.SYJ_Mall.detail.DetailService;
@@ -61,6 +63,20 @@ public class DetailController {
 			model.addAttribute("name", user_name);
 			return "/detail/detail";
 		}
+		
+		// 하트 조회
+		@RequestMapping(value = "/heart_select.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public Object heart_select(@RequestParam("list_seq") int f_seq, @RequestParam("session_seq") int m_seq) {
+
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("list_seq", f_seq);
+			map.put("session_seq", m_seq);
+			Integer count = service.heart_select(map);
+
+			return count;
+		}
+
 }
 
 

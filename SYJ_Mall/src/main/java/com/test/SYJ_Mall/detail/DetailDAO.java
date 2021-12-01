@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.detail;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -28,6 +29,11 @@ public class DetailDAO implements IDetailDAO{
 	public List<FeedDTO> FeedSelect2(Integer d_seq) {
 		// TODO Auto-generated method stub
 		return session.selectList("detail.feed2" , d_seq);
+	}
+	@Override
+	public Integer heart_select(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("detail.heart_select", map);
 	}
 
 }

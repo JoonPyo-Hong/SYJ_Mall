@@ -387,11 +387,35 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="feed_seq" value="${m_seq}">
+	
 	<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
 	<script>
-	
+	var feed_seq = $("#m_seq").val();
+	var member_seq = 0;
+	function heart_select(a, b) {
+		$.ajax({
+			url : "heart_select.action",
+			type : 'post',
+			data : {
+				f_seq : feed_seq,
+				m_seq : member_seq
+			},
+			success : function(data) {
+
+				if (data != 0) {
+					$("#content_" + a + " .etc_1").css(
+							'background-position', '-96px 0');
+				}
+
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
+	}
 	$('.sort-btn').click(
 			function() {
 				if($(this).attr('id') == "1"){

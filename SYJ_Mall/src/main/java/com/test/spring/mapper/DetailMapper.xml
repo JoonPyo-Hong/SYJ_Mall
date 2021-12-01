@@ -22,6 +22,11 @@
 		resultType="com.test.SYJ_Mall.detail.FeedDTO" parameterType="int">
 	select d_seq,f_seq,name,star, CONVERT(CHAR(10), reg_dt, 102) as reg_dt, text from dbo.detail_feed with(nolock) where d_seq = #{d_seq}
 	</select>
-
+	<select id="heart_select" resultType="int"
+		parameterType="java.util.HashMap">
+		select count(*) from dbo.detail_feed_heart with(nolock) where
+		f_seq =
+		#{f_seq} and m_seq= #{m_seq}
+	</select>
 
 </mapper>

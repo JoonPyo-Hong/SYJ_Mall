@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.detail;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class DetailService implements IDetailService{
 	public List<FeedDTO> FeedSelect2(Integer d_seq) {
 		// TODO Auto-generated method stub
 		return dao.FeedSelect2(d_seq);
+	}
+	@Override
+	public Integer heart_select(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return dao.heart_select(map);
 	}
 
 }
