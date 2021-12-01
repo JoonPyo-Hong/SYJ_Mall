@@ -12,5 +12,20 @@ public interface IMyPagesService {
 	 * @return
 	 */
 	int getMyPageSelect(HttpServletRequest request, HttpServletResponse response);
-
+	
+	/**
+	 * 마이페이지 - 최근 본 페이지
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int getMyPageSeen(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 쿠키에 존재하는 나의 상품 클릭내역 가져오기
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	String getCookieSeen(HttpServletRequest request, HttpServletResponse response);
 }

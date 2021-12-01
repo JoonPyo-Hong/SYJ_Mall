@@ -26,9 +26,19 @@ public class MyPagesController {
 
 		int result = service.getMyPageSelect(request,response);
 		
-		if (result == 1) return "/tiles/myPageRecent.layout";
+		//1. 최근 본 내역
+		if (result == 1) {	
+			
+			int seenResult = service.getMyPageSeen(request,response);
+			
+			if (seenResult == 1) return "/tiles/myPageRecent.layout";
+			else return "/testwaiting/kakaoerror";
+		}
+		//2. 내 활동(로그인 필요)
 		else if (result == 2) return "/tiles/myPageMyTrace.layout";
+		//3. 장바구니
 		else if (result == 3) return "/tiles/myPageMyBasket.layout";
+		//4. 주문내역(로그인 필요)
 		else if (result == 4) return "/tiles/myPageOrderHistory.layout";
 		else return "/testwaiting/kakaoerror";
 	}

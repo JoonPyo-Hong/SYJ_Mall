@@ -96,7 +96,7 @@
 	
 	<!-- 마이페이지 - 최근본-->
 	<definition name = "/tiles/myPageRecent.layout" extends="newbdefault">
-		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageBasket.jsp"/>	
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageSeen.jsp"/>	
 	</definition>
 	
 	<!-- 마이페이지 - 내활동-->
