@@ -17,7 +17,7 @@ public class MyPagesDAO implements IMyPagesDAO{
 	@Override
 	public List<MyPageSeenDTO> getMyPageSeenList(String seenList) {
 		
-		return null;
+		return template.selectList("MyPages.myPageSeenDatas",seenList);
 	}
 	
 }

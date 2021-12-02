@@ -89,11 +89,18 @@ public class MyPagesService implements IMyPagesService {
 			
 			String seenList = getCookieSeen(request,response);
 			
+			System.out.println(seenList);
+			
 			//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
 			List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
 			
+			for (MyPageSeenDTO dto : mpsList) {
+				System.out.println(dto.getProdNm());
+			}
 			
-			return 0;
+			request.setAttribute("mpsList", mpsList);
+			
+			return 1;
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
 			String ip = ic.getClientIP(request);
