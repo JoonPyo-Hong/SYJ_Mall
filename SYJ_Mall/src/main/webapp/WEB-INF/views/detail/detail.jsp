@@ -55,20 +55,20 @@
 					<!-- <div class="main-image"></div> -->
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
-								<c:forEach var="d_seq" items="${list2}" varStatus="stat">
-									<div class="swiper-slide" style="background-image: url(/SYJ_Mall/${d_seq});"></div> 
-								</c:forEach>
+							<c:forEach var="d_seq" items="${list2}" varStatus="stat">
+								<div class="swiper-slide"
+									style="background-image: url(/SYJ_Mall/${d_seq});"></div>
+							</c:forEach>
 						</div>
 					</div>
-					<input type="hidden" id="m_seq">	
-					<input type="hidden" id="l_seq">
-					<input type="hidden" id="name">
-					
+					<input type="hidden" id="m_seq"> <input type="hidden"
+						id="l_seq"> <input type="hidden" id="name">
+
 					<c:forEach var="d_seq" items="${list}" varStatus="stat">
 									${d_seq.product_detail_info} 
 								</c:forEach>
 					<!-- 상품 주요 정보 -->
-<!-- 					<div class="detail-header">
+					<!-- 					<div class="detail-header">
 						<div class="product-title">
 							<div class="product-name">피치파이브 러피치 와퍼피치</div>
 							<button class="share"></button>
@@ -262,33 +262,33 @@
 						<div class="review-list">
 							<div class="review-sort">
 								<button class="sort-btn like" id='1'>좋아요순</button>
-								<button class="sort-btn recent" id= '2'>최신순</button>
+								<button class="sort-btn recent" id='2'>최신순</button>
 							</div>
 							<ul>
 								<c:forEach var="d_seq" items="${list3}" varStatus="stat">
-									 
-								<li class="review-item">
-									<div class="name">${d_seq.name}</div>
-									<div class="star">
-										<c:set var="num" value="5"></c:set>
-									<%-- 	${d_seq.star}
-										${num - d_seq.star} --%>
-										<c:forEach var="i" begin="1" end="${d_seq.star}">
-										<span class="review-star"></span>
-										</c:forEach>
-										<c:forEach var="i" begin="1" end="${num - d_seq.star}">
-										<span class="review-star off"></span>
-										</c:forEach>
-										<span class="date">${d_seq.reg_dt}</span>
-									</div>
-									<div class="contents">${d_seq.text}</div>
-									<div class="like">
-										<button>좋아요 1명</button>
-									</div>
 
-								</li>
+									<li class="review-item">
+										<div class="name">${d_seq.name}</div>
+										<div class="star">
+											<c:set var="num" value="5"></c:set>
+											<%-- 	${d_seq.star}
+										${num - d_seq.star} --%>
+											<c:forEach var="i" begin="1" end="${d_seq.star}">
+												<span class="review-star"></span>
+											</c:forEach>
+											<c:forEach var="i" begin="1" end="${num - d_seq.star}">
+												<span class="review-star off"></span>
+											</c:forEach>
+											<span class="date">${d_seq.reg_dt}</span>
+										</div>
+										<div class="contents">${d_seq.text}</div>
+										<div class="like">
+											<button>좋아요 1명</button>
+										</div>
+
+									</li>
 								</c:forEach>
-<!-- 								<li class="review-item">
+								<!-- 								<li class="review-item">
 									<div class="name">손*린</div>
 									<div class="star">
 										<span class="review-star"></span> <span class="review-star"></span>
@@ -302,9 +302,9 @@
 									<div class="like">
 										<button>좋아요 4명</button>
 									</div>
-								</li>-->							
-								</ul>
-			<!-- 				<div class="pagination">
+								</li>-->
+							</ul>
+							<!-- 				<div class="pagination">
 								<div class="pagination-left-arrow"></div>
 								<div class="pagination-page">1</div>
 								<div class="pagination-right-arrow"></div>
@@ -387,62 +387,61 @@
 			</div>
 		</div>
 	</div>
-	<input type="hidden" id="feed_seq" value="${m_seq}">
 	
+
 	<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
 	<script>
-	var feed_seq = $("#m_seq").val();
-	var member_seq = 0;
-	function heart_select(a, b) {
-		$.ajax({
-			url : "detail_heart_select.action",
-			type : 'post',
-			data : {
-				f_seq : feed_seq,
-				m_seq : member_seq
-			},
-			success : function(data) {
+		var member_seq = ${m_seq};
+		alert(member_seq);
+		var feed_seq = 1;
 
-				if (data != 0) {
-					$("#content_" + a + " .etc_1").css(
-							'background-position', '-96px 0');
-				}
+		heart_select(feed_seq, member_seq);
+		function heart_select(a, b) {
+			$.ajax({
+				url : "detail_heart_select.action",
+				type : 'post',
+				data : {
+					f_seq : a,
+					m_seq : b
+				},
+				success : function(data) {
 
-			},
-			error : function() {
-				alert("에러");
-			}
-		});
-	}
-	$('.sort-btn').click(
-			function() {
-				if($(this).attr('id') == "1"){
-					$('#2').attr('class','sort-btn like');
-					$('#1').attr('class','sort-btn recent');
-				}else{
-					$('#1').attr('class','sort-btn like');
-					$('#2').attr('class','sort-btn recent');
+					alert(data)
+
+				},
+				error : function() {
+					alert("에러");
 				}
 			});
-			
-	var mySwiper = new Swiper('.swiper-container', {
-		loop : true,
-		pagination : {
-			el : '.swiper-pagination',
-		},
-		//touchRatio : 0, // 드래그 X
-		autoplay : { // 자동 슬라이드 설정 , 비 활성화 시 false
-			delay : 3000, // 시간 설정
-			disableOnInteraction : false, // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
-		},
+		}
+		$('.sort-btn').click(function() {
+			if ($(this).attr('id') == "1") {
+				$('#2').attr('class', 'sort-btn like');
+				$('#1').attr('class', 'sort-btn recent');
+			} else {
+				$('#1').attr('class', 'sort-btn like');
+				$('#2').attr('class', 'sort-btn recent');
+			}
+		});
+
+		var mySwiper = new Swiper('.swiper-container', {
+			loop : true,
+			pagination : {
+				el : '.swiper-pagination',
+			},
+			//touchRatio : 0, // 드래그 X
+			autoplay : { // 자동 슬라이드 설정 , 비 활성화 시 false
+				delay : 3000, // 시간 설정
+				disableOnInteraction : false, // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
+			},
 		/* navigation : {
 			nextEl : '.swiper-button-next',
 			prevEl : '.swiper-button-prev',
 		}, */
 
-	});
+		});
 
 		$(document).ready(
 				function() {

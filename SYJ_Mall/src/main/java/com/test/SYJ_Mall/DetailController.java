@@ -49,7 +49,7 @@ public class DetailController {
 				seq = dto.getUserSeq();
 				user_name = dto.getUserName();
 			}
-			
+			//System.out.println(seq);
 			List<DetailDTO> list = service.DetailSelect(d_seq);
 			List<String> list2 = service.HeaderSelect(d_seq);
 			List<FeedDTO> list3 = service.FeedSelect(d_seq);
@@ -67,7 +67,7 @@ public class DetailController {
 		// 하트 조회
 		@RequestMapping(value = "/detail_heart_select.action", method = { RequestMethod.POST })
 		@ResponseBody
-		public Object heart_select(@RequestParam("list_seq") int f_seq, @RequestParam("session_seq") int m_seq) {
+		public Object heart_select(@RequestParam("f_seq") int f_seq, @RequestParam("m_seq") int m_seq) {
 
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			map.put("list_seq", f_seq);
