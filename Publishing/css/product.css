@@ -355,6 +355,33 @@ hr.division {
   color: rgb(154, 154, 158);
 }
 
+.review-text {
+  /* border: rgb(154, 154, 158); */
+  margin-top: 10px;
+}
+
+.review-text textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid rgb(233, 233, 233);
+  color: #666;
+  font-size: 13px;
+  font-weight: normal;
+  outline-style: none;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.review-text textarea::placeholder {
+  color: #cacaca;
+}
+
+.review-text textarea:disabled {
+  background-color: #f7f7f7;
+  border: 1px solid rgb(233, 233, 233);
+}
+
 .review-button button {
   display: flex;
   align-items: center;
