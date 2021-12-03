@@ -121,7 +121,8 @@
             <ul class="mypage-tab-ul">
               <li class="mypage-tab-li">최근 본</li>
               <li class="mypage-tab-li">내 활동</li>
-              <li class="mypage-tab-li active">장바구니
+              <li class="mypage-tab-li active">
+                장바구니
                 <span class="basket-count">2</span>
               </li>
               <li class="mypage-tab-li">주문내역</li>
@@ -142,26 +143,36 @@
             <div class="basket-header">
               <div class="basket-count">
                 <label class="product-checkbox-label" for="product-checkbox">
-                  <input id="product-checkbox" type="checkbox" class="product-checkbox-input">
+                  <input
+                    id="product-checkbox"
+                    type="checkbox"
+                    class="product-checkbox-input"
+                  />
                 </label>
                 <div class="basket-count-text">전체 <b>7</b></div>
               </div>
-                <div class="delete-all">
-                  <div class="delete-count">2개 선택</div>
-                  <button class="delete-all-btn"></button>
-                </div>
+              <div class="delete-all">
+                <div class="delete-count">2개 선택</div>
+                <button class="delete-all-btn"></button>
+              </div>
             </div>
-            <hr class="division">
+            <hr class="division" />
 
             <div class="basket-list-wrap">
-
               <!-- 상품 하나 -->
               <div class="basket-list-item">
                 <div class="basket-left">
                   <!-- 상품 체크박스 -->
                   <div class="basket-check">
-                    <label class="product-checkbox-label" for="product-checkbox">
-                      <input id="product-checkbox" type="checkbox" class="product-checkbox-input">
+                    <label
+                      class="product-checkbox-label"
+                      for="product-checkbox"
+                    >
+                      <input
+                        id="product-checkbox"
+                        type="checkbox"
+                        class="product-checkbox-input"
+                      />
                     </label>
                   </div>
                   <!-- 상품 내용 및 수량 -->
@@ -170,7 +181,9 @@
                       <div class="product-img"></div>
                     </a>
                     <div class="basket-text">
-                      <span class="product-name">워치전용 충전 거치대_라이언&춘식이</span>
+                      <span class="product-name"
+                        >워치전용 충전 거치대_라이언&춘식이</span
+                      >
                       <span class="product-price">25,000원</span>
                       <div class="product-count">
                         <label content="4" class="select-box__Label-iihqm7-0">
@@ -191,8 +204,15 @@
                 <div class="basket-left">
                   <!-- 상품 체크박스 -->
                   <div class="basket-check">
-                    <label class="product-checkbox-label" for="product-checkbox">
-                      <input id="product-checkbox" type="checkbox" class="product-checkbox-input">
+                    <label
+                      class="product-checkbox-label"
+                      for="product-checkbox"
+                    >
+                      <input
+                        id="product-checkbox"
+                        type="checkbox"
+                        class="product-checkbox-input"
+                      />
                     </label>
                   </div>
                   <!-- 상품 내용 및 수량 -->
@@ -201,7 +221,9 @@
                       <div class="product-img"></div>
                     </a>
                     <div class="basket-text">
-                      <span class="product-name">워치전용 충전 거치대_라이언&춘식이</span>
+                      <span class="product-name"
+                        >워치전용 충전 거치대_라이언&춘식이</span
+                      >
                       <span class="product-price">25,000원</span>
                       <div class="product-count">
                         <label content="4" class="select-box__Label-iihqm7-0">
@@ -216,12 +238,47 @@
                 <!-- 상품 삭제 -->
                 <div class="basket-list-delete-btn"></div>
               </div>
+            </div>
 
+            <!-- 선택 상품 총 금액 영역-->
+            <div class="total-cost-bar-wrap">
+              <div class="shipping-country row">
+                <div class="title">배송국가</div>
+                <div class="cost">
+                  <label content="한국" height="45" class="select-label">
+                    <select
+                      height="45"
+                      class="select-select"
+                      name="shippingCountry"
+                    >
+                      <option value="KR">한국</option>
+                    </select></label
+                  >
+                </div>
+              </div>
+              <div class="order-cost row">
+                <div class="title">총 주문 금액</div>
+                <div class="cost">94,000원</div>
+              </div>
+              <div class="delivery-cost row">
+                <div class="title">배송비</div>
+                <div class="cost">무료</div>
+              </div>
+              <div class="total-cost row">
+                <div class="title">총 결제금액</div>
+                <div class="cost">94,000원</div>
+              </div>
+            </div>
+
+            <!-- 하단 바로구매 고정 버튼 -->
+            <div class="bottom-bar">
+              <button class="direct-purchase">94,000원 주문 하기</button>
             </div>
           </div>
         </div>
       </div>
-      <div id="kakao-footer">
+      <!-- 마이페이지 장바구니 탭 footer 제거 -->
+      <!-- <div id="kakao-footer">
         <div id="inner-footer">
           <div class="info-service">
             <ul>
@@ -244,8 +301,7 @@
             <div class="best-family"></div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
-  
   </body>
 </html>
