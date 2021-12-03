@@ -43,7 +43,7 @@ public class KakaoCookie {
 	}
 	
 	/**
-	 * 
+	 * 쿠키정보 가져오기
 	 * @param request		쿠키이름에 해당하는 값 가져오기
 	 * @param cookieName	쿠키이름
 	 * @return				쿠키이름에 대응하는 쿠키값
@@ -127,4 +127,12 @@ public class KakaoCookie {
 			}
 		}
 	}
+	
+//	public void modifySettingCookie(HttpServletRequest request,HttpServletResponse response,String cookieName,
+//							  String token,int maxLength, String cookieValue, ) 
+//	{
+//		
+//	}
+//	
+	
 }

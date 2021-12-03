@@ -27,6 +27,10 @@ public class MyPagesController {
 
 		int result = service.getMyPageSelect(request,response);
 		
+		//test data
+		///KakaoCookie kc = new KakaoCookie();
+		//kc.generateCookie(response, "seenList", "13#45#44#12#", 60 * 60 * 24 * 7);
+		
 		//1. 최근 본 내역
 		if (result == 1) {	
 			

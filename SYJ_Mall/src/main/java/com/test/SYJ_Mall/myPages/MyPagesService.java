@@ -69,7 +69,7 @@ public class MyPagesService implements IMyPagesService {
 			return newBasketList;
 
 		} else {
-			// 쿠키내에 장바구니 내가 조회한 상품내역이 있는경우
+			// 쿠키내에  내가 조회한 상품내역이 있는경우
 
 			if (seenList.length() != 0) {
 				seenList = seenList.substring(0, seenList.length() - 1);
@@ -86,17 +86,15 @@ public class MyPagesService implements IMyPagesService {
 	public int getMyPageSeen(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
-			
 			String seenList = getCookieSeen(request,response);
+		
+			//System.out.println(seenList);
 			
-			System.out.println(seenList);
+			
+			
 			
 			//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
 			List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
-			
-			for (MyPageSeenDTO dto : mpsList) {
-				System.out.println(dto.getProdNm());
-			}
 			
 			request.setAttribute("mpsList", mpsList);
 			
