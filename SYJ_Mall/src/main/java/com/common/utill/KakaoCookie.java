@@ -128,11 +128,5 @@ public class KakaoCookie {
 		}
 	}
 	
-//	public void modifySettingCookie(HttpServletRequest request,HttpServletResponse response,String cookieName,
-//							  String token,int maxLength, String cookieValue, ) 
-//	{
-//		
-//	}
-//	
-	
+
 }

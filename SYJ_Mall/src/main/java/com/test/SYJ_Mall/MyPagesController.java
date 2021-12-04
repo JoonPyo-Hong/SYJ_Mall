@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utill.KakaoCookie;
 import com.test.SYJ_Mall.myPages.IMyPagesService;
@@ -23,12 +24,12 @@ public class MyPagesController {
 	
 	// 신규페이지 처음 메인화면
 	@RequestMapping(value = "/myPageMain.action", method = { RequestMethod.GET })
-	public String popularItemMain(HttpServletRequest request, HttpServletResponse response) {
+	public String myPageMain(HttpServletRequest request, HttpServletResponse response) {
 
 		int result = service.getMyPageSelect(request,response);
 		
 		//test data
-		///KakaoCookie kc = new KakaoCookie();
+		//KakaoCookie kc = new KakaoCookie();
 		//kc.generateCookie(response, "seenList", "13#45#44#12#", 60 * 60 * 24 * 7);
 		
 		//1. 최근 본 내역
@@ -47,5 +48,21 @@ public class MyPagesController {
 		else if (result == 4) return "/tiles/myPageOrderHistory.layout";
 		else return "/testwaiting/kakaoerror";
 	}
+	
+	
+	@RequestMapping(value = "/myPageProdSeenDelete.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int myPageProdSeenDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		return service.deleteMyPageProdSeen(request,response);
+	}
+	
+	@RequestMapping(value = "/myPageAllProdSeenDelete.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int myPageAllProdSeenDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		return service.deleteMyPageAllProdSeen(request,response);
+	}
+	
 	
 }

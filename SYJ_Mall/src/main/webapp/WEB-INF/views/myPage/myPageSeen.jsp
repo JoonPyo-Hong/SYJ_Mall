@@ -41,6 +41,10 @@
 	background-size: contain;
 }
 
+.delete-all-icon:hover {
+	cursor: pointer;
+}
+
 .recent-list-wrap {
 	border-top: 1px solid rgb(242, 242, 242);
 	overflow-y: auto;
@@ -113,7 +117,7 @@
 }
 </style>
 
-<div class="container-wrap mypage-seen-wrap">
+<div class="container-wrap mypage-seen-wrap" id="ctwmsw">
 
 	<div class="seen-header">
 		<div class="seen-text">최대 50개까지 저장됩니다.</div>
@@ -135,7 +139,7 @@
 		<div class="recent-list-wrap">
 
 			<c:forEach var="mpsList" items="${mpsList}">
-				<div class="recent-list-item">
+				<div class="recent-list-item" id = "${mpsList.prodId}">
 					<!-- 이미지 및 상품 내용-->
 					<div class="product-content">
 						<a href="#">
@@ -162,9 +166,98 @@
 				</div>
 			</c:forEach>
 		</div>
-
 	</c:if>
-
-
-
 </div>
+
+
+
+<script>
+
+	
+	/* 물품에 대한 삭제 버튼을 눌렀을 경우  -> 페이지에서 없애고 쿠키에서도 제거해준다.*/
+	$(document).on("click",'.recent-list-delete-btn',function(e){
+		myPageProdDelete($(this).parent());
+	});
+	
+	/* 모든 물품에 대한 삭제 버튼을 눌렀을 경우  -> 페이지에서 없애고 쿠키에서도 제거해준다.*/
+	$(document).on("click",'.delete-all-btn',function(e){
+		myPageAllProdDelete();
+	});
+	
+	$(document).on("click",'.delete-all-icon',function(e){
+		myPageAllProdDelete();
+	});
+	
+	
+	function myPageProdDelete(object) {
+		
+		const prod_id = $(object).attr('id');
+		
+		$.ajax({
+			type : "GET",
+			url : "/SYJ_Mall/myPageProdSeenDelete.action",
+			async : false,
+			data : {
+				"prodId" : prod_id
+			},
+			dataType : "json",
+			success : function(result) {
+				
+				console.log(result);
+				
+				//쿠키에서 정상적으로 상품을 제거한 경우 -> 아직 상품이 남아 있는 경우
+				if (result == 1) {
+					$(object).remove();
+				} 
+				//쿠키에서 정상적으로 상품을 제거했고 모든 상품이 제거된 경우
+				else {
+					$('.recent-list-wrap').remove();
+					$('.order-list-nodata').remove();
+					
+					$('#ctwmsw').append(
+							'<div class="order-list-nodata">'
+							+		'<div class="standing-ryan"></div>'
+							+		'<div class="empty-message">내역이 없어요</div>'
+							+	'</div>'
+						)
+				}
+				
+			},
+			error : function(a, b, c) {
+				console.log(a, b, c);
+			}
+		}); 
+	}
+	
+	function myPageAllProdDelete() {
+		
+		$.ajax({
+			type : "GET",
+			url : "/SYJ_Mall/myPageAllProdSeenDelete.action",
+			async : false,
+			dataType : "json",
+			success : function(result) {
+				//쿠키에서 정상적으로 상품을 제거한 경우
+				if (result == 1) {
+					
+					$('.recent-list-wrap').remove();
+					$('.order-list-nodata').remove();
+					
+					$('#ctwmsw').append(
+							'<div class="order-list-nodata">'
+						+		'<div class="standing-ryan"></div>'
+						+		'<div class="empty-message">내역이 없어요</div>'
+						+	'</div>'
+					)
+				} 	
+			},
+			error : function(a, b, c) {
+				console.log(a, b, c);
+			}
+		});
+	}
+	
+	
+	
+	
+</script>

@@ -28,4 +28,20 @@ public interface IMyPagesService {
 	 * @return
 	 */
 	String getCookieSeen(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 최근본 상품 목록에서 해당 상품 지워주기 -> 쿠키에서 제거
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int deleteMyPageProdSeen(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 최근본 상품 목록에서 모든 상품 지워주기 -> 쿠키에서 제거
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int deleteMyPageAllProdSeen(HttpServletRequest request, HttpServletResponse response);
 }
