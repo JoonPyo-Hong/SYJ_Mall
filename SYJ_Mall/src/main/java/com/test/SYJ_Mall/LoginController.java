@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
@@ -496,6 +497,15 @@ public class LoginController {
 
 		// 새로운 Tiles ViewResolver : tiles.xml 에 가서-> <definition> 의 name 을 찾는다.(****)
 		return "/tiles/main.top";
+
+	}
+	
+	/*---------------------------------------------------로그인 상태인지 아닌지 확인해주는 ajax--------------------------------------------------------------------*/
+	@RequestMapping(value = "/loginChecking.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int loginChecking(HttpServletRequest request, HttpServletResponse response) {
+
+		return logService.loginChecking(request,response);
 
 	}
 

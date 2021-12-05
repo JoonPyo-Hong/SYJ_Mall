@@ -726,6 +726,27 @@ public class LoginService implements ILoginService {
 		}
 
 	}
+	
+	//로그인 되어있는지 확인해주는 로직
+	@Override
+	public int loginChecking(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");// 유저객체
+			
+			if (userInfo == null) return -1;
+			else return 1;
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
+	}
 
 	
 

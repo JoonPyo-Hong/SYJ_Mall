@@ -236,6 +236,14 @@ public interface ILoginService {
 	 */
 	String urlEncoder(String lastPage);
 	
+	/**
+	 * 로그인 확인 로직
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int loginChecking(HttpServletRequest request, HttpServletResponse response);
+	
 
 	
 

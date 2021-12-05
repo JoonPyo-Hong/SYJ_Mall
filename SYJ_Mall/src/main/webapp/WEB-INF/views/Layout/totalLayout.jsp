@@ -180,36 +180,36 @@
 					<div class="mypage-tab">
 						<ul class="mypage-tab-ul">
 							<c:if test="${myPageNum eq 1}">
-								<li class="mypage-tab-li active">최근 본</li>
-								<li class="mypage-tab-li">내 활동</li>
-								<li class="mypage-tab-li">장바구니 
+								<li class="mypage-tab-li active" value="1">최근 본</li>
+								<li class="mypage-tab-li" value="2">내 활동</li>
+								<li class="mypage-tab-li" value="3">장바구니 
 								<!-- <span class="basket-count">2</span> -->
 								</li>
-								<li class="mypage-tab-li">주문내역</li>
+								<li class="mypage-tab-li" value="4">주문내역</li>
 							</c:if>
 							<c:if test="${myPageNum eq 2}">
-								<li class="mypage-tab-li">최근 본</li>
-								<li class="mypage-tab-li active">내 활동</li>
-								<li class="mypage-tab-li">장바구니 
+								<li class="mypage-tab-li" value="1">최근 본</li>
+								<li class="mypage-tab-li active" value="2">내 활동</li>
+								<li class="mypage-tab-li" value="3">장바구니 
 								<!-- <span class="basket-count">2</span> -->
 								</li>
-								<li class="mypage-tab-li">주문내역</li>
+								<li class="mypage-tab-li" value="4">주문내역</li>
 							</c:if>
 							<c:if test="${myPageNum eq 3}">
-								<li class="mypage-tab-li">최근 본</li>
-								<li class="mypage-tab-li">내 활동</li>
-								<li class="mypage-tab-li active">장바구니 
+								<li class="mypage-tab-li" value="1">최근 본</li>
+								<li class="mypage-tab-li" value="2">내 활동</li>
+								<li class="mypage-tab-li active" value="3">장바구니 
 								<!-- <span class="basket-count">2</span> -->
 								</li>
-								<li class="mypage-tab-li">주문내역</li>
+								<li class="mypage-tab-li" value="4">주문내역</li>
 							</c:if>
 							<c:if test="${myPageNum eq 4}">
-								<li class="mypage-tab-li">최근 본</li>
-								<li class="mypage-tab-li">내 활동</li>
-								<li class="mypage-tab-li">장바구니 
+								<li class="mypage-tab-li" value="1">최근 본</li>
+								<li class="mypage-tab-li" value="2">내 활동</li>
+								<li class="mypage-tab-li" value="3">장바구니 
 								<!-- <span class="basket-count">2</span> -->
 								</li>
-								<li class="mypage-tab-li active">주문내역</li>
+								<li class="mypage-tab-li active" value="4">주문내역</li>
 							</c:if>
 							
 						</ul>
@@ -257,9 +257,6 @@
 	
 	let left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 	let left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
-
-/* 	$(document).ready(
-			function() { */
 
 				// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
 				$("li.character-accordion-button").on(
@@ -374,7 +371,7 @@
 					location.href = "/SYJ_Mall/searchStart.action";
 				});
 
-		/* 	}); */
+
 			
 			//로그인 모달 열기
 			function login_modal_open() {
@@ -429,6 +426,40 @@
 				location.href = "/SYJ_Mall/info.action";
 				closeNavigation();//왼쪽모달 없애주기
 			});
+			
+			/* -----------마이페이지 탭 관련-----------*/
+			$('.mypage-tab-li').click(function(){
+				
+				const page_value = $(this).val();
+				
+				if (page_value == 1 || page_value == 3) {
+					location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
+				} else {
+					if (login_check() == 1) location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
+					else alert('로그인 요망');
+				}
+			});
+			
+			
+			function login_check() {
+				
+				$.ajax({
+					type : "GET",
+					url : "/SYJ_Mall/loginChecking.action",
+					async : false,
+					dataType : "json",
+					success : function(result) {
+						return result;	
+					},
+					error : function(a, b, c) {
+						console.log(a, b, c);
+						return -1;
+					}
+				});
+				
+			}
+			
+			
 			
 	</script>
 </body>

@@ -41,7 +41,14 @@ public class MyPagesController {
 			else return "/testwaiting/kakaoerror";
 		}
 		//2. 내 활동(로그인 필요)
-		else if (result == 2) return "/tiles/myPageMyTrace.layout";
+		else if (result == 2) {
+			
+			int traceResult = service.getMyPageTrace(request,response);
+			
+			if (traceResult == 1) return "/tiles/myPageMyTrace.layout";
+			else return "/testwaiting/kakaoerror";
+			
+		}
 		//3. 장바구니
 		else if (result == 3) return "/tiles/myPageMyBasket.layout";
 		//4. 주문내역(로그인 필요)
@@ -49,7 +56,7 @@ public class MyPagesController {
 		else return "/testwaiting/kakaoerror";
 	}
 	
-	
+	//최근 본 내역 - 물품 삭제
 	@RequestMapping(value = "/myPageProdSeenDelete.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public int myPageProdSeenDelete(HttpServletRequest request, HttpServletResponse response) {
@@ -57,6 +64,7 @@ public class MyPagesController {
 		return service.deleteMyPageProdSeen(request,response);
 	}
 	
+	//최근 본 내역 - 모든 물품 삭제
 	@RequestMapping(value = "/myPageAllProdSeenDelete.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public int myPageAllProdSeenDelete(HttpServletRequest request, HttpServletResponse response) {

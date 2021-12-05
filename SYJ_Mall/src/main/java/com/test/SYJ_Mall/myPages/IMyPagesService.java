@@ -44,4 +44,12 @@ public interface IMyPagesService {
 	 * @return
 	 */
 	int deleteMyPageAllProdSeen(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 내 활동 페이지
+	 * @param request
+	 * @param response
+	 * @return 
+	 */
+	int getMyPageTrace(HttpServletRequest request, HttpServletResponse response);
 }

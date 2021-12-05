@@ -101,7 +101,7 @@
 	
 	<!-- 마이페이지 - 내활동-->
 	<definition name = "/tiles/myPageMyTrace.layout" extends="newbdefault">
-		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageBasket.jsp"/>	
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageTrace.jsp"/>	
 	</definition>
 	
 	<!-- 마이페이지 - 장바구니-->

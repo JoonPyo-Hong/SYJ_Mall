@@ -202,4 +202,14 @@ public class MyPagesService implements IMyPagesService {
 			return -1;
 		}
 	}
+	
+	//내 활동 
+	@Override
+	public int getMyPageTrace(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		
+		return 0;
+	}
 }
