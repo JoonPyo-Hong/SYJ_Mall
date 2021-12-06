@@ -28,6 +28,8 @@ public class MyPagesService implements IMyPagesService {
 			StringFormatClass sfc = new StringFormatClass();
 			int myPageNum = 1;
 
+			//System.out.println("? : " + request.getParameter("myPageNum"));	
+			
 			if (request.getParameter("myPageNum") != null) {
 				if (sfc.isStringDigit(request.getParameter("myPageNum"))) {
 					int num = Integer.parseInt(request.getParameter("myPageNum"));
@@ -210,6 +212,6 @@ public class MyPagesService implements IMyPagesService {
 		
 		
 		
-		return 0;
+		return 1;
 	}
 }

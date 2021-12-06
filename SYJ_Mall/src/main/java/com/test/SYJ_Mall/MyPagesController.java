@@ -40,7 +40,7 @@ public class MyPagesController {
 			if (seenResult == 1) return "/tiles/myPageRecent.layout";
 			else return "/testwaiting/kakaoerror";
 		}
-		//2. 내 활동(로그인 필요)
+		//2. 내 활동(로그인 필요) -> 로그인 검증 한번 더 해줘야 할듯
 		else if (result == 2) {
 			
 			int traceResult = service.getMyPageTrace(request,response);
@@ -51,7 +51,7 @@ public class MyPagesController {
 		}
 		//3. 장바구니
 		else if (result == 3) return "/tiles/myPageMyBasket.layout";
-		//4. 주문내역(로그인 필요)
+		//4. 주문내역(로그인 필요) -> 로그인 검증 한번 더 해준다.
 		else if (result == 4) return "/tiles/myPageOrderHistory.layout";
 		else return "/testwaiting/kakaoerror";
 	}

@@ -735,6 +735,8 @@ public class LoginService implements ILoginService {
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");// 유저객체
 			
+			//System.out.println(userInfo.getUserSeq());
+			
 			if (userInfo == null) return -1;
 			else return 1;
 			
