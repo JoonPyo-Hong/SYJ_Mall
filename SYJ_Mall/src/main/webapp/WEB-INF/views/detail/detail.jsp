@@ -282,8 +282,8 @@
 											<span class="date">${d_seq.reg_dt}</span>
 										</div>
 										<div class="contents">${d_seq.text}</div>
-										<div class="like">
-											<button>좋아요 1명</button>
+										<div class="like like_btn" id = "btn_${stat.index + 1}">
+											<button>좋아요 <span id='spn_${stat.index + 1}'></span>명</button>
 										</div>
 
 									</li>
@@ -394,10 +394,12 @@
 
 	<script>
 		var member_seq = ${m_seq};
-		alert(member_seq);
+	
 		var feed_seq = 1;
-
-		heart_select(feed_seq, member_seq);
+		<c:forEach var="d_seq" items="${list3}" varStatus="stat">
+			heart_select(${stat.index} + 1, member_seq);
+		</c:forEach>
+		//heart_select(feed_seq, member_seq);
 		function heart_select(a, b) {
 			$.ajax({
 				url : "detail_heart_select.action",
@@ -407,15 +409,16 @@
 					m_seq : b
 				},
 				success : function(data) {
-
-					alert(data)
-
+					$("#spn_" + a).append(data);
 				},
 				error : function() {
 					alert("에러");
 				}
 			});
 		}
+		$('.like_btn').click(function() {
+			alert($(this).attr('id'));
+		});
 		$('.sort-btn').click(function() {
 			if ($(this).attr('id') == "1") {
 				$('#2').attr('class', 'sort-btn like');
