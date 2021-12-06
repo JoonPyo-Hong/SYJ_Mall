@@ -432,10 +432,15 @@
 				
 				const page_value = $(this).val();
 				
+				//console.log(page_value);
+				
 				if (page_value == 1 || page_value == 3) {
 					location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
+					//break;
 				} else {
-					if (login_check() == 1) location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
+					if ( login_check() == 1) {
+						location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
+					}
 					else alert('로그인 요망');
 				}
 			});
@@ -443,20 +448,24 @@
 			
 			function login_check() {
 				
+				let login_value = -1;
+				
 				$.ajax({
 					type : "GET",
 					url : "/SYJ_Mall/loginChecking.action",
 					async : false,
 					dataType : "json",
 					success : function(result) {
-						return result;	
+						
+						login_value = result;
 					},
 					error : function(a, b, c) {
 						console.log(a, b, c);
-						return -1;
+						
 					}
 				});
 				
+				return login_value;
 			}
 			
 			
