@@ -72,7 +72,7 @@
 	</definition>
 	<!-- 오늘페이지 -->
 	<definition name = "/tiles/mainStart.layout" extends="newbdefault">
-		<put-attribute name = "body" value="/WEB-INF/views/main/Main.jsp"/>	
+		<put-attribute name = "body" value="/WEB-INF/views/main/NewMain.jsp"/>	
 	</definition>
 	<!-- 인기페이지 -->
 	<definition name = "/tiles/popularItem.layout" extends="newbdefault">

@@ -44,6 +44,8 @@ begin
 	and kpi.head_img_yn = 'Y'
 	and kusc.cart_del_yn = 'N'
 	
+	union all
+
 	--2. 상품구매목록
 	select
 		2 as uniqueNumber
@@ -59,10 +61,28 @@ begin
 	and kpi.rep_img_yn = 'Y'
 	and kpi.head_img_yn = 'Y'
 	and isnull(kpp.cancel_dt,'N') = 'N'
+
+	union all
+
+	--3. 댓글달기
+	select
+		3 as uniqueNumber
+	,	fd.feed as title
+	,	fd.seq  as titleDetail
+	,	kpi.product_img as imgUrl
+	,	kpp.product_buy_dt
+	from dbo.QOO10_USER_REAL qur with(nolock)
+	inner join dbo.FEED fd with(nolock) on qur.qoouser_seq = fd.seq
+	inner join dbo.MAIN_LIST ml with(nolock) on fd.list_seq = ml.seq
+	inner join dbo.MAIN_IMG mi with(nolock) on mi.list_seq = ml.seq
+	where qur.qoouser_seq = @user_seq
+	and kpi.rep_img_yn = 'Y'
+	and kpi.head_img_yn = 'Y'
+	and isnull(kpp.cancel_dt,'N') = 'N'
 							
 end
 
-
+select * from dbo.MAIN_IMG with(nolock)
 
 	select
 		1 as uniqueNumber
@@ -98,3 +118,8 @@ end
 
 
 select * from dbo.KAKAO_PRODUCT_PAYMENT with(nolock)
+
+select * from dbo.FEED with(nolock)
+
+
+select * from dbo.MAIN_LIST with(nolock)

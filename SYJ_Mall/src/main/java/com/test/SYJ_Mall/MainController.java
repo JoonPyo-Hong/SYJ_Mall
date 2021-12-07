@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class MainController {
 
 	// 메인 화면
 	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
-	public String main(Model model, HttpServletRequest request) {
+	public String main(Model model, HttpServletRequest request,HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
@@ -50,7 +51,9 @@ public class MainController {
 			seq = dto.getUserSeq();
 		}
 		model.addAttribute("seq", seq);
-
+		//model.addAttribute("seq", 200001);
+		model.addAttribute("seleted","today");
+		
 		return "/tiles/mainStart.layout";
 	}
 
