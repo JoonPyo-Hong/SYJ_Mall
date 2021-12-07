@@ -33,6 +33,8 @@ public class DetailDAO implements IDetailDAO{
 	@Override
 	public Integer heart_select(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
+		System.out.println(map.get("m_seq"));
+		System.out.println(map.get("f_seq"));
 		return session.selectOne("detail.heart_select", map);
 	}
 

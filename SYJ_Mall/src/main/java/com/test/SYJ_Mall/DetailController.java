@@ -70,10 +70,12 @@ public class DetailController {
 		public Object heart_select(@RequestParam("f_seq") int f_seq, @RequestParam("m_seq") int m_seq) {
 
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			map.put("list_seq", f_seq);
-			map.put("session_seq", m_seq);
+			//System.out.println(f_seq);
+			//System.out.println(m_seq);
+			map.put("f_seq", f_seq);
+			map.put("m_seq", m_seq);
 			Integer count = service.heart_select(map);
-
+			//System.out.println(count);
 			return count;
 		}
 

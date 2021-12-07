@@ -401,6 +401,8 @@
 		</c:forEach>
 		//heart_select(feed_seq, member_seq);
 		function heart_select(a, b) {
+			//alert(a);
+			//alert(b);
 			$.ajax({
 				url : "detail_heart_select.action",
 				type : 'post',
@@ -417,7 +419,21 @@
 			});
 		}
 		$('.like_btn').click(function() {
-			alert($(this).attr('id'));
+			$.ajax({
+				url : "detail_heart_update.action",
+				type : 'post',
+				data : {
+					f_seq : $(this).attr('id').replace("btn_",""),
+					m_seq : member_seq
+				},
+				success : function() {
+					
+				},
+				error : function() {
+					alert("에러");
+				}
+			});
+			//alert($(this).attr('id').replace("btn_",""));
 		});
 		$('.sort-btn').click(function() {
 			if ($(this).attr('id') == "1") {
