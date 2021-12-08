@@ -45,7 +45,7 @@
 	</form>
 
 
-
+<!--  -->
 	<div id="modal"></div>
 	<div class="modal-con modal1">
 		<div id="modal_content">
@@ -65,6 +65,7 @@
 			</div>
 		</div>
 	</div>
+	<!--  -->
 	<div class="modal-con modal2">
 		<div id="modal_content2">
 			<div id="close">
