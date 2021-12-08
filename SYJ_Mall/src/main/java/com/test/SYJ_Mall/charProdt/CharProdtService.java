@@ -60,10 +60,11 @@ public class CharProdtService implements ICharProdtService {
 			int pageAjaxCount = (int) Math.ceil(charHeadCount / 8.0);// 6개씩 끊어서 출력해주기 -> 페이지가 몇개 나오는지 계산
 			int paging = 1;
 
-			// 마지막 페이지 정보 쿠키에 넘기는 작업
+			// 마지막 페이지 정보 쿠키에 넘기는 작업 
 			KakaoCookie ck = new KakaoCookie();
-			ck.generateCookie(response, "lastPage", "/SYJ_Mall/charAtProdtStart.action?charSeq=" + charSeq);// 마지막페이지
-
+			ck.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+			ck.generateCookie(response, "lastPage", "charAtProdtStart.action?charSeq=" + charSeq);// 마지막페이지
+			
 			List<CharProdtDTO> charProdts;
 
 			if (userInfo == null) {

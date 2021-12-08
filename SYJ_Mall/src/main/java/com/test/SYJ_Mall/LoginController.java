@@ -110,9 +110,11 @@ public class LoginController {
 					else if (lastPage.indexOf("?") != -1) {
 						//인코딩 처리를 잘 해줘야한다.
 						String url = logService.urlEncoder(lastPage);
+						System.out.println(url);
 						return "redirect:/" + url;
 					}
 					else {
+						System.out.println(lastPage);
 						return "forward:/" + lastPage + ".action";
 					}
 				} else {

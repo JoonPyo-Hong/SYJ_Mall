@@ -64,12 +64,11 @@ public class SearchService implements ISearchService {
 			int pageAjaxCount = (int) Math.ceil(totalProdCount / 6.0);// 6개씩 끊어서 출력해주기
 			
 			
-			KakaoCookie ck = new KakaoCookie();
+			KakaoCookie kc = new KakaoCookie();
 
 			if (userDto == null) {
 				// 유저 정보가 없는경우 -> 로그인을 하지 않은 경우
 				// 쿠키객체를 가져와서 장바구니에 담은 정보를 가져와준다.
-				KakaoCookie kc = new KakaoCookie();
 				String basketList = (String) kc.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
 
 				// System.out.println("basketList : " + basketList);
@@ -80,8 +79,7 @@ public class SearchService implements ISearchService {
 																											// 가져와준다.
 			} else {
 				// 유저 정보가 있는 경우 -> 로그인을 한 경우
-				searchProdto = dao.getSearchResultProdsLogon(userDto.getUserSeq(), inputName, productSeq, 1,
-						sortedOption);
+				searchProdto = dao.getSearchResultProdsLogon(userDto.getUserSeq(), inputName, productSeq, 1, sortedOption);
 			}
 
 			// 검색어로 넘긴 단어 -> 상단에 어떤단어로 검색했는지 보여주기 위함.
@@ -89,11 +87,17 @@ public class SearchService implements ISearchService {
 			if (productSeq == null) {
 
 				request.setAttribute("userinputName", inputName);
+				
+				
+				kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+				kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName + "&sortedOption=" + sortedOption + "&sortedCharOption=" + sortedCharOption);// 마지막페이지
+				
 			} else {
 				// 2. 클릭해서 넘긴 경우
 
-				request.setAttribute("userinputName", searchProdto.get(0).getProdNm());// 넘겨준 단어 -> 검색에 적은 단어에 매치되는
-																						// 상품번호(엔터를 안치고 온 경우) 화면에 표시해줄																			// 단어
+				request.setAttribute("userinputName", searchProdto.get(0).getProdNm());// 넘겨준 단어 -> 검색에 적은 단어에 매치되는 상품번호(엔터를 안치고 온 경우) 화면에 표시해줄 단어
+				kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+				kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName);// 마지막페이지
 			}
 
 

@@ -46,6 +46,7 @@ public class MyPagesController {
 			int traceResult = service.getMyPageTrace(request,response);
 			
 			if (traceResult == 1) return "/tiles/myPageMyTrace.layout";
+			else if (traceResult == -2) return "/login/LoginGuide";
 			else return "/testwaiting/kakaoerror";
 			
 		}

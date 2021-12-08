@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
+import com.test.SYJ_Mall.login.UserDTO;
 
 @Service
 public class MyPagesService implements IMyPagesService {
@@ -209,9 +211,24 @@ public class MyPagesService implements IMyPagesService {
 	@Override
 	public int getMyPageTrace(HttpServletRequest request, HttpServletResponse response) {
 		
-		
-		
-		
-		return 1;
+		try {
+			//여기서 로그인을 했는지 한번 더 체크해준다.
+			HttpSession session = request.getSession();
+			UserDTO udto = (UserDTO)session.getAttribute("userinfo");
+			
+			
+			if (udto == null) return -2;
+			
+			return 1;
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
+
 	}
 }
