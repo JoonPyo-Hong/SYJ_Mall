@@ -66,7 +66,7 @@
 				</c:if>
 			</div>
 			<div class="sort-list" id="low-price-sort">
-				<div class="sort-text">낮은 가격순</div>
+				<div class="sort-text">낮은가격순</div>
 				<c:if test="${sortedOption eq 3}">
 					<img src="/SYJ_Mall/resources/images/product_search_result/check.png">
 				</c:if>
@@ -120,11 +120,18 @@
 					<div class="category-header">
 						<div class="sort">
 							<span class="sort-title">
-							<c:forEach var="prodtCat" items="${prodtCategory}">
-								<c:if test="${prodtCatgr eq prodtCat.categoryNum}">
-									${prodtCat.categoryNm}
+								<c:if test="${sortedOption eq 1}">
+									판매량순
 								</c:if>
-							</c:forEach>
+								<c:if test="${sortedOption eq 2}">
+									신상품순
+								</c:if>
+								<c:if test="${sortedOption eq 3}">
+									낮은가격순
+								</c:if>
+								<c:if test="${sortedOption eq 4}">
+									높은가격순
+								</c:if>
 							</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</div>
 						<div class="category-tab">
@@ -169,7 +176,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<div id="kakao-content" style="overflow: scroll;">
 			<div id = "vacant_area" ></div>
@@ -245,6 +251,13 @@
 		
 		/*--------------------필터링 조건---------------------------*/
 		$('.sort-title').click(function() {
+			$('#sort-modal').css('visibility', 'visible');
+			$('.sort-modal-wrap').css('bottom', '0');
+			$('#kakao-footer').css('background-color', '#4C4C4C');
+			$(document.body).css('overflow', 'hidden');
+		});
+		
+		$('.sort-icon').click(function() {
 			$('#sort-modal').css('visibility', 'visible');
 			$('.sort-modal-wrap').css('bottom', '0');
 			$('#kakao-footer').css('background-color', '#4C4C4C');
