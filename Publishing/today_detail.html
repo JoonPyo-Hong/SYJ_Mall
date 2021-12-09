@@ -17,7 +17,7 @@
   <link rel="stylesheet" type="text/css" href="./css/main.css" />
   <link rel="stylesheet" type="text/css" href="./css/new.css" />
   <!-- today css -->
-  <link rel="stylesheet" type="text/css" href="./css/today.css" />
+  <link rel="stylesheet" type="text/css" href="./css/today_detail.css" />
 </head>
 
 <body style="height: 2000px">
@@ -200,20 +200,51 @@
                     </div>
                   </li>
                 </ul>
-                <!-- 댓글 영역 -->
-                <div class="link-comments">
-                  <span class="txt-count">댓글 13개</span>
-                  <span class="info-comments">
-                    <span class="name">최**</span>
-                    <span class="comments">라이언 귀여웡~~!</span>
-                  </span>
-                  <div class="comments-input">
-                    댓글을 남겨주세요
-                  </div>
-                </div>
               </div>
             </div>
 
+            <!-- box-feed 분리 -->
+            <!-- 댓글 영역 -->
+            <div class="link-comments">
+              <!-- 댓글 작성 영역 -->
+              <div class="input-box">
+                <textarea class="comments-input" placeholder="로그인 후 이용해주세요." readonly></textarea>
+                <button class="btn-upload">
+                  <span class="icon-upload"></span>
+                </button>
+              </div>
+              <!-- 댓글 View -->
+              <div class="wrap-comments">
+                <!-- 정렬 -->
+                <div class="sorting-filter">
+                  최신순
+                  <span class="ico-sorting"></span>
+                </div>
+                <!-- 댓글 리스트 -->
+                <ul class="list-comments">
+                  <li class="item-comments">
+
+                    <div class="comments-head">최*림</div>
+                    <div class="comments-inp">
+                      마자요 넘넘 감사합니다!!
+                      🍑,😺,🦁,🐱,🐶,🦆,🐰❤️❤️🌲</div>
+                    <div class="comments-info">
+                      <span class="txt-date">33분 전</span>
+                      <button class="txt-like">
+                        <span class="ico-like on"></span>
+                        <!-- 기본 타입 -->
+                        <!-- <span>좋아요</span> -->
+                        <!-- 좋아요 수 표기 타입 -->
+                        <!-- <span>좋아요 1명</span> -->
+                        <span class="on">좋아요 2명</span>
+                      </button>
+                      <button class="txt-reply">답글달기</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!-- 댓글 리스트 끝-->
+            </div>
 
 
           </div>
