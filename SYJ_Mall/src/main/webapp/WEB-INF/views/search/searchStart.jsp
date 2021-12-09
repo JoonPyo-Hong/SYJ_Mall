@@ -118,7 +118,7 @@
 						for (let i = 0; i < prodLen; i++) {
 							//키워드가 들어가는 품목 보여주기
 							$('#search-content-prod').append(
-									'<li class="search-content-context"><a href="/SYJ_Mall/searchresult.action?inputName=' + result[i].inputName+'&productSeq='+result[i].productSeq +'">'
+									'<li class="search-content-context"><a href="/SYJ_Mall/searchresult.action?productSeq='+result[i].productSeq +'">'
 									+ result[i].searchName + '</a></li>'
 							)
 						}

@@ -63,9 +63,8 @@ public class SearchController {
 
 		// 결과 -> jsp 로 옮길지 말지 정해준다.
 		int result = service.getSearchResultProd(request, response);
-
+		
 		if (result == 1)
-			//return "/search/searchMain";
 			return "/semitiles/searchResult.layout";
 		else
 			return null;
@@ -73,7 +72,7 @@ public class SearchController {
 	}
 
 	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기 -> 무한스크롤 즉 두번째 이상부터 가져오는 경우
-	@RequestMapping(value = "/searchresultscroll.action", method = { RequestMethod.POST })
+	@RequestMapping(value = "/searchresultscroll.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public List<SearchProductDTO> searchresultscroll(HttpServletRequest request, HttpServletResponse response) {
 

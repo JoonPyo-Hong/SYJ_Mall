@@ -121,7 +121,7 @@
 						paging++;
 						
 						$.ajax({
-				        	type:"POST",
+				        	type:"GET",
 				            url: "/SYJ_Mall/searchresultscroll.action" ,
 				            async : false,
 				            data : {"paging" : paging, "inputWord" : userinputName,"sortedOption" : filter_option, "sortedCharOption" : sortedCharOption},
@@ -360,11 +360,17 @@
 	    	
 	    	sortedCharOption = $(this).attr('id');
 	    	
-	    	if (userinputName == null) {
+	    	if(productSeq == null || productSeq == "") {
+	    		location.href = "/SYJ_Mall/searchresult.action?inputName=" + userinputName + "&sortedOption=" + filter_option + "&sortedCharOption=" + sortedCharOption;
+	    	} else {
+	    		location.href = "/SYJ_Mall/searchresult.action?productSeq=" + productSeq + "&sortedOption=" + filter_option + "&sortedCharOption=" + sortedCharOption;
+	    	}
+	    	
+	    	/* if (productSeq != null) {
 	    		location.href = "/SYJ_Mall/searchresult.action?productSeq=" + productSeq + "&sortedOption=" + filter_option + "&sortedCharOption=" + sortedCharOption;
 	    	} else {
 		    	location.href = "/SYJ_Mall/searchresult.action?inputName=" + userinputName + "&sortedOption=" + filter_option + "&sortedCharOption=" + sortedCharOption;
-	    	}
+	    	} */
 	    	
 	    });
 		

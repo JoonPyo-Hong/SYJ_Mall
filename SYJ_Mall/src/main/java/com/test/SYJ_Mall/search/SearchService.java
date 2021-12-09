@@ -72,11 +72,8 @@ public class SearchService implements ISearchService {
 				String basketList = (String) kc.getCookieInfo(request, "basketList");// 12#45# 이와 같은형식의 상품번호정보가 존재함
 
 				// System.out.println("basketList : " + basketList);
-				searchProdto = dao.getSearchResultProds(inputName, productSeq, 1, basketList, sortedOption,sortedCharOption);// 처음데이터를
-																											// 가져오는 것이므로
-																											// 1 을 넣어준다.
-																											// => 6개만
-																											// 가져와준다.
+				searchProdto = dao.getSearchResultProds(inputName, productSeq, 1, basketList, sortedOption,sortedCharOption);// 처음데이터를 가져오는 것이므로 1 을 넣어준다. => 6개만 가져와준다.
+
 			} else {
 				// 유저 정보가 있는 경우 -> 로그인을 한 경우
 				searchProdto = dao.getSearchResultProdsLogon(userDto.getUserSeq(), inputName, productSeq, 1, sortedOption);
@@ -88,14 +85,17 @@ public class SearchService implements ISearchService {
 
 				request.setAttribute("userinputName", inputName);
 				
-				
 				kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 				kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName + "&sortedOption=" + sortedOption + "&sortedCharOption=" + sortedCharOption);// 마지막페이지
 				
 			} else {
 				// 2. 클릭해서 넘긴 경우
-
-				request.setAttribute("userinputName", searchProdto.get(0).getProdNm());// 넘겨준 단어 -> 검색에 적은 단어에 매치되는 상품번호(엔터를 안치고 온 경우) 화면에 표시해줄 단어
+				//String clickInputName = "";
+				//clickInputName = searchProdto.get(0).getProdNm();
+				//System.out.println("searchProdto : " + searchProdto.size());
+				
+				if (searchProdto.size() != 0) request.setAttribute("userinputName", searchProdto.get(0).getProdNm());// 넘겨준 단어 -> 검색에 적은 단어에 매치되는 상품번호(엔터를 안치고 온 경우) 화면에 표시해줄 단어
+								
 				kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 				kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName);// 마지막페이지
 			}
@@ -105,6 +105,7 @@ public class SearchService implements ISearchService {
 			request.setAttribute("sortedCharOption", sortedCharOption);// 상품이 총 몇개있는지 넘겨줄 것이다.
 			request.setAttribute("prodtCount", totalProdCount);// 상품이 총 몇개있는지 넘겨줄 것이다.
 			request.setAttribute("searchProdto", searchProdto);
+			request.setAttribute("productSeq", productSeq);
 			request.setAttribute("pageAjaxCount", pageAjaxCount);// 총몇번의 스크롤페이지 생성이 되는지 체크
 
 			return 1;
