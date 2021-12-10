@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
-<!-- <link rel="stylesheet" href="resources/css/myPage/myPageSeen2.css"> -->
 
 <style>
 .act-list-wrap {

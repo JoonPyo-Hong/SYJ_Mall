@@ -404,7 +404,7 @@
 		  		if (main_val == 'main_today') location.href = "/SYJ_Mall/main.action";
 		  		else if (main_val == 'main_new') location.href = "/SYJ_Mall/newProductMain.action";
 		  		else if (main_val == 'main_popular') location.href = "/SYJ_Mall/popularMain.action";
-		  		else location.href = "/SYJ_Mall/main.action";//여기는 추후에 처리해줘야함
+		  		else location.href = "/SYJ_Mall/myPageMain.action";
 		  		
 		  	});
 			
