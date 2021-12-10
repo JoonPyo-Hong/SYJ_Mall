@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.Performance;
 import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.search.ISearchService;
 import com.test.SYJ_Mall.search.SearchNameDTO;
@@ -47,8 +48,7 @@ public class SearchController {
 		
 		// 넘겨줄 단어를 가지고 해당단어를 포함하는 품목을 가져온다.
 		try {
-			
-			List<SearchNameDTO> searchProdList = service.getProdLittelInfo(inputWord);
+			List<SearchNameDTO> searchProdList = service.getProdLittelInfo(inputWord);	
 			
 			return searchProdList;
 		} catch (Exception e) {
@@ -60,10 +60,10 @@ public class SearchController {
 	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기 -> 첫번째로 가져온 경우
 	@RequestMapping(value = "/searchresult.action", method = { RequestMethod.GET })
 	public String searchresult(HttpServletRequest request, HttpServletResponse response) {
-
+		//Performance pf = new Performance();
 		// 결과 -> jsp 로 옮길지 말지 정해준다.
 		int result = service.getSearchResultProd(request, response);
-		
+		//pf.getElapseTimeMs();
 		if (result == 1)
 			return "/semitiles/searchResult.layout";
 		else
@@ -99,6 +99,7 @@ public class SearchController {
 				// 로그인 한 경우
 				prodto = service.getAjaxProdInfoLogOn(uDto.getUserSeq(), inputWord, paging, sortedOption);
 			}
+
 
 			// System.out.println("inputWord : " + inputWord);
 			// System.out.println("paging : " + paging);

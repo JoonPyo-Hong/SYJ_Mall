@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.Performance;
 import com.test.SYJ_Mall.newProduct.INewProductService;
 import com.test.SYJ_Mall.newProduct.NewFriendsProdDTO;
 import com.test.SYJ_Mall.newProduct.RecommendThemeDTO;
@@ -61,7 +62,6 @@ public class NewProductController {
 	//추천 신규 테마 - 더보기 화면
 	@RequestMapping(value = "/newProductMainAdd.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String newProductMainAdd(HttpServletRequest request, HttpServletResponse response) {
-		
 		int result = service.getNewProdcutAddInfo(request,response);
 		
 		if (result == 1) return "/semitiles/addProduct.layout";
