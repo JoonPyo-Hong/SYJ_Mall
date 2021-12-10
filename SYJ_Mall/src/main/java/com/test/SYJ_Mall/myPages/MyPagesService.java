@@ -95,9 +95,12 @@ public class MyPagesService implements IMyPagesService {
 		
 			//System.out.println(seenList);
 			
-			
 			//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
 			List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
+			KakaoCookie kc = new KakaoCookie();
+
+			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=1");// 마지막페이지
 			
 			request.setAttribute("mpsList", mpsList);
 			
@@ -212,13 +215,18 @@ public class MyPagesService implements IMyPagesService {
 	public int getMyPageTrace(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
+			KakaoCookie kc = new KakaoCookie();
+
+			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=2");// 마지막페이지
+			
 			//여기서 로그인을 했는지 한번 더 체크해준다.
 			HttpSession session = request.getSession();
 			UserDTO udto = (UserDTO)session.getAttribute("userinfo");
 			
 			
 			if (udto == null) return -2;
-			
+
 			return 1;
 			
 		} catch(Exception e) {

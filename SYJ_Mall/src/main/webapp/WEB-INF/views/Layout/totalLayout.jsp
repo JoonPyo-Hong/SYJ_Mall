@@ -21,7 +21,7 @@
 	<!-- 모달 -->
 	<div id="mask"></div>
 
-	<!-- 로그인 모달 -->
+	<!-- 로그인 모달1 -->
 	<div class="overlay-wrapper" id="login-product-modal" style="z-index:20;">
 		<div class="login-modal-wrap">
 			<div class="modal-close">
@@ -32,7 +32,31 @@
 			<div class="login-text">
 				<h3>앗! 로그인</h3>
 				<p>
-					로그인 후 재입고 알림을 신청해주세요<br /> 지금 로그인 화면으로 이동하시겠어요?
+					로그인 후 재입고 알림을 신청해주세요<br/> 지금 로그인 화면으로 이동하시겠어요?
+				</p>
+			</div>
+			<div class="login-btn">
+				<button>
+					<span class="login-kakao"></span>
+					<p>로그인하기</p>
+				</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 로그인 모달 2-->
+	<div class="overlay-wrapper" id="login-product-modal_2" style="z-index:20;">
+		<div class="login-modal-wrap">
+			<div class="modal-close">
+				<div class="close-btn"></div>
+			</div>
+			<img class="login-img"
+				src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png" />
+			<div class="login-text">
+				<h3>앗! 로그인</h3>
+				<p>
+					앗 깜빡! 로그인하고 이용하기❤️
 				</p>
 			</div>
 			<div class="login-btn">
@@ -310,6 +334,7 @@
 					$(this).hide();
 					$('.window').hide();
 					closeNavigation();
+					
 				});
 
 				/* -----------로그인 관련------------ */
@@ -376,13 +401,13 @@
 			//로그인 모달 열기
 			function login_modal_open() {
 			    const scrollLocation = window.scrollY;
-				$('.overlay-wrapper').css('top',scrollLocation + 'px');
+				$('#login-product-modal').css('top',scrollLocation + 'px');
 			    $(document.body).css('overflow', 'hidden');
 			}
 			
 			//로그인 모달 닫기
 			function login_modal_close() {
-				$('.overlay-wrapper').css('top','-1400px');
+				$('#login-product-modal').css('top','-1400px');
 			    $(document.body).css('overflow', 'scroll');
 			}
 			
@@ -394,6 +419,7 @@
 		  	//로그인 모달창 돌아가기
 			$(document).on("click",".close-btn",function(){
 				login_modal_close();
+				my_login_modal_close();
 			});
 			
 			/* -----------오늘/신규/인기/마이 탭 이동하기------------ */
@@ -441,11 +467,28 @@
 					if ( login_check() == 1) {
 						location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
 					}
-					else alert('로그인 요망');
+					else {
+						//alert('로그인 요망');
+						my_login_modal_open();
+					}
 				}
 			});
 			
+			//로그인 모달 열기
+			function my_login_modal_open() {
+			    const scrollLocation = window.scrollY;
+				$('#login-product-modal_2').css('top',scrollLocation + 'px');
+			    $(document.body).css('overflow', 'hidden');
+			}
 			
+			//로그인 모달 닫기
+			function my_login_modal_close() {
+				$('#login-product-modal_2').css('top','-1400px');
+			    $(document.body).css('overflow', 'scroll');
+			}
+			
+			
+			//로그인 되어있는지 체크해주는 함수
 			function login_check() {
 				
 				let login_value = -1;
