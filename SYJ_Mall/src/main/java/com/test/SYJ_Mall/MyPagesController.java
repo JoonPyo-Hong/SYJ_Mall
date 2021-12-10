@@ -28,7 +28,7 @@ public class MyPagesController {
 
 		int result = service.getMyPageSelect(request,response);
 		
-		//test data
+		//test data -> cookie 데이터 넣어주기
 		//KakaoCookie kc = new KakaoCookie();
 		//kc.generateCookie(response, "seenList", "13#45#44#12#", 60 * 60 * 24 * 7);
 		
@@ -46,7 +46,7 @@ public class MyPagesController {
 			int traceResult = service.getMyPageTrace(request,response);
 			
 			if (traceResult == 1) return "/tiles/myPageMyTrace.layout";
-			else if (traceResult == -2) return "/login/LoginGuide";
+			else if (traceResult == -2) return "/semitiles/loginDirect.layout";
 			else return "/testwaiting/kakaoerror";
 			
 		}

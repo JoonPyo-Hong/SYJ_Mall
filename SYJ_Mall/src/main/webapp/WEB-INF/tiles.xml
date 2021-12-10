@@ -129,7 +129,7 @@
 	
 	
 	
-	<!-- 1. 세미타일즈 ver2 -->
+	<!-- 2. 세미타일즈 ver2 -->
 	<!-- "< 홈       타이틀   찾기  국가선택 "-->
 	<!-- 		사진(테마분류)		 -->
 	<!-- 	 판매량순~~-->
@@ -142,6 +142,17 @@
 	<!-- 더 보기 상품 -->
 	<definition name = "/semitiles/addProduct.layout" extends="newsemiDefaultOne">
 		<put-attribute name = "body" value="/WEB-INF/views/newProduct/newProductAdd.jsp"/>	
+	</definition>
+	
+	
+	<!-- 3. 세미타일즈 ver3 -->
+	<definition name="newsemiDefaultTwo" template="/WEB-INF/views/Layout/semiLayoutTwo.jsp">
+		<put-attribute name="body" value="" />
+	</definition>	
+	
+	<!-- 로그인 유도 -->
+	<definition name = "/semitiles/loginDirect.layout" extends="newsemiDefaultTwo">
+		<put-attribute name = "body" value="/WEB-INF/views/login/LoginGuide.jsp"/>	
 	</definition>
 	
 	

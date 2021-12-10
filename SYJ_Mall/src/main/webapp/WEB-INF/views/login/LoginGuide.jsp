@@ -8,8 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>카카오 프렌즈샵</title>
-<!-- <link rel="stylesheet" type="text/css" href="resources/css/userlogin/loginGuide.css"> -->
-<link rel = "stylesheet" href = "resources/css/mainLayout/mainTilesLayout2.css">
+
 
 <style>
 @charset "UTF-8";
@@ -91,23 +90,6 @@
 </head>
 <body>
 
-    <div id="kakao-wrap" >
-        <div id="kakao-head">
-            <div id="inner-head">
-                <div class="left-btn">
-                    <!-- <button class="back-button"></button> -->
-                    <button class="home-button"></button>
-                </div>
-                <div class="title">로그인</div>
-                <div class="right-btn">
-                    <button class="search"></button>
-                    <button class="language"></button>
-                </div>
-            </div>
-            <div id="inner-tab">
-            </div>
-        </div>
-        <div id="kakao-content">
             <div id="inner-content">
                 <div class="container-wrap login-wrap">
                     <img class="background-img" src="/SYJ_Mall/resources/images/login/bg_login.png" />
@@ -123,8 +105,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
     <script>
     </script>
