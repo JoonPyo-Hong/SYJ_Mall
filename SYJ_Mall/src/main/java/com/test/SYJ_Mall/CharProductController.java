@@ -37,7 +37,6 @@ public class CharProductController {
 		} else {
 			return "/testwaiting/kakaoerror";
 		}
-
 	}
 
 	// 캐릭터 상품 무한스크롤

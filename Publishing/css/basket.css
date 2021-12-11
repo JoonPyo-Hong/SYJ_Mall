@@ -128,6 +128,13 @@ input[id="product-checkbox"]:checked {
   font-size: 16px;
   color: rgb(0, 0, 0);
 }
+
+.basket-text .product-price-dc {
+  font-size: 16px;
+  color: #9A9A9E;
+  text-decoration: line-through;
+}
+
 .basket-text .product-count {
   width: 191px;
   height: 35px;
@@ -158,7 +165,7 @@ input[id="product-checkbox"]:checked {
   padding: 40px 20px 123px;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid rgb(227, 229, 232);
+  /* border-top: 1px solid rgb(227, 229, 232); */
 }
 
 .total-cost-bar-wrap .row {
@@ -166,14 +173,17 @@ input[id="product-checkbox"]:checked {
   align-items: center;
   justify-content: space-between;
   font-size: 16px;
+  
 }
 
 .total-cost-bar-wrap .row .title {
   font-weight: normal;
+  
 }
 
 .total-cost-bar-wrap .shipping-country {
   padding-bottom: 23px;
+  
 }
 
 .total-cost-bar-wrap .shipping-country select {
@@ -182,6 +192,7 @@ input[id="product-checkbox"]:checked {
   text-indent: 10px;
   border: 1px solid rgb(227, 229, 232);
   font-size: 16px;
+  
 }
 
 .total-cost-bar-wrap .total-cost {

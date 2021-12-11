@@ -239,4 +239,54 @@ public class MyPagesService implements IMyPagesService {
 		}
 
 	}
+
+	//장바구니
+	@Override
+	public int getMyPageBasket(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			
+			request.setAttribute("myBassketSignal", "x533");//장바구니임을 확인하려는 로직 -> 푸터가 안뜨게 하기 위함
+			
+			//KakaoCookie kc = new KakaoCookie();
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			List<MyPageBasketDTO> mbdtoList;
+			//1. 로그인을 안한 경우
+			if (userInfo == null) {
+				KakaoCookie kc = new KakaoCookie();
+				String basketList = (String) kc.getCookieInfo(request, "basketList");
+				
+				System.out.println(basketList);
+				
+				mbdtoList = dao.getMyPageBasketNoLogin(basketList);
+				
+			}
+			//2. 로그인 한 경우
+			else {
+				//아래는 로직 바꿔야한다.
+				KakaoCookie kc = new KakaoCookie();
+				String basketList = (String) kc.getCookieInfo(request, "basketList");
+				
+				mbdtoList = dao.getMyPageBasketNoLogin(basketList);
+			}
+			
+			
+			request.setAttribute("mbdtoList", mbdtoList);
+			request.setAttribute("mbdtoListSize", mbdtoList.size());
+			
+			return 1;
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
+		
+		
+	}
 }

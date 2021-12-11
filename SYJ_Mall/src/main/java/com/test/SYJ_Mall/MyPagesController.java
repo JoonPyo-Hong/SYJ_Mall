@@ -51,7 +51,14 @@ public class MyPagesController {
 			
 		}
 		//3. 장바구니
-		else if (result == 3) return "/tiles/myPageMyBasket.layout";
+		else if (result == 3) {
+			
+			int myBasketResult = service.getMyPageBasket(request,response);
+			
+			if (myBasketResult == 1) return "/tiles/myPageMyBasket.layout";
+			else return "/testwaiting/kakaoerror";
+			
+		}
 		//4. 주문내역(로그인 필요) -> 로그인 검증 한번 더 해준다.
 		else if (result == 4) return "/tiles/myPageOrderHistory.layout";
 		else return "/testwaiting/kakaoerror";
