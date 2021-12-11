@@ -16,5 +16,17 @@
 		call dbo.kakao_mypages_seen_data(#{seenList})
 		}
 	</select>
+	
+	<!-- 장바구니 목록 - 비로그인 -->
+	<select id="myPageBasketDatas"
+		parameterType="String"
+		resultType="com.test.SYJ_Mall.myPages.MyPageBasketDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_basket_no_login(#{basketList})
+		}
+	</select>
+	
+	
 
 </mapper>

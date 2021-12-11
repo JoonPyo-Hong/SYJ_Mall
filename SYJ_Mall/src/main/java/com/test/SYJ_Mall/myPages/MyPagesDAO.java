@@ -19,5 +19,12 @@ public class MyPagesDAO implements IMyPagesDAO{
 		
 		return template.selectList("MyPages.myPageSeenDatas",seenList);
 	}
+
+	//장바구니 리스트 가져오기
+	@Override
+	public List<MyPageBasketDTO> getMyPageBasketNoLogin(String basketList) {
+		
+		return template.selectList("MyPages.myPageBasketDatas",basketList);
+	}
 	
 }

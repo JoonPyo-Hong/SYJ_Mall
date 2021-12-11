@@ -52,4 +52,12 @@ public interface IMyPagesService {
 	 * @return 
 	 */
 	int getMyPageTrace(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 내 장바구니 페이지
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int getMyPageBasket(HttpServletRequest request, HttpServletResponse response);
 }
