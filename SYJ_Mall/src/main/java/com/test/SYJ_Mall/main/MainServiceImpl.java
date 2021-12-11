@@ -126,4 +126,10 @@ public class MainServiceImpl implements MainService {
 		
 	}
 
+	@Override
+	public List<NewMainDTO> new_list(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return dao.new_list(map);
+	}
+
 }

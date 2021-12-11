@@ -280,6 +280,7 @@
 
 
 <script type="text/javascript">
+var count = 0;
 $(".container-wrap").append("<div class='box-feed'>"
 		+"<div class='head-feed'>"
 			+"<div class='profile'></div>"

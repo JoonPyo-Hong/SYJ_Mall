@@ -145,4 +145,9 @@ public class MainDAOImpl implements MainDAO {
 		session.update("main.re_feed_update", map);
 		
 	}
+
+	@Override
+	public List<NewMainDTO> new_list(HashMap<String, Integer> map) {
+		return session.selectList("main.new_list", map);
+	}
 }

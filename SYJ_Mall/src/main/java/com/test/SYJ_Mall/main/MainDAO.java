@@ -44,6 +44,8 @@ public interface MainDAO {
 
 	void re_feed_update(Map<String, Object> map);
 
+	List<NewMainDTO> new_list(HashMap<String, Integer> map);
+
 
 
 }

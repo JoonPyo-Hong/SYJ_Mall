@@ -22,6 +22,7 @@ import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.main.FeedDTO;
 import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.main.MainService;
+import com.test.SYJ_Mall.main.NewMainDTO;
 
 /**
  * 메인 페이지 컨트롤러 역할
@@ -56,6 +57,20 @@ public class MainController {
 		
 		return "/tiles/mainStart.layout";
 	}
+	// 무한 스크롤2
+		@RequestMapping(value = "/new_list.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public Object new_list(@RequestParam("count") int count) {
+
+			Integer num1 = count - 1;
+			Integer num2 = count;
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("num1", num1);
+			map.put("num2", num2);
+			List<NewMainDTO> list = service.new_list(map);
+
+			return list;
+		}
 
 	// 무한 스크롤
 	@RequestMapping(value = "/list.action", method = { RequestMethod.POST })
