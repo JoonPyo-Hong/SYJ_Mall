@@ -27,6 +27,16 @@
 		}
 	</select>
 	
+	<!-- 장바구니 목록 - 로그인 -->
+	<select id="myPageBasketDatasLogin"
+		parameterType="Integer"
+		resultType="com.test.SYJ_Mall.myPages.MyPageBasketDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_basket_login(#{userSeq})
+		}
+	</select>
+	
 	
 
 </mapper>

@@ -233,6 +233,7 @@ input[id="product-checkbox"]:checked {
 .direct-purchase {
   color: #fff;
   font-size: 18px;
+  font-weight : bold;
 }
 
 .clearfix:before, .clearfix:after, .dl-horizontal dd:before, .dl-horizontal dd:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after, .form-horizontal .form-group:before, .form-horizontal .form-group:after, .btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical > .btn-group:before, .btn-group-vertical > .btn-group:after, .nav:before, .nav:after, .navbar:before, .navbar:after, .navbar-header:before, .navbar-header:after, .navbar-collapse:before, .navbar-collapse:after, .pager:before, .pager:after, .panel-body:before, .panel-body:after, .modal-footer:before, .modal-footer:after {
@@ -261,7 +262,7 @@ input[id="product-checkbox"]:checked {
 	<!-- 데이터 있을 시 -->
 	<div class="basket-header">
 		<div class="basket-count">
-			<label class="product-checkbox-label" for="product-checkbox">
+			<label class="product-checkbox-label" id = "total_click" for="product-checkbox">
 				<input id="product-checkbox" type="checkbox"
 				class="product-checkbox-input" />
 			</label>
@@ -309,8 +310,7 @@ input[id="product-checkbox"]:checked {
 											<c:forEach var="num" begin="2" end="20">
 												<option value="${num}">${num}</option>
 											</c:forEach>
-
-									</select>
+										</select>
 									</label>
 								</div>
 							</div>
@@ -353,3 +353,27 @@ input[id="product-checkbox"]:checked {
 	</div>
 	</c:if>
 </div>
+
+<script>
+	
+	
+	let total_seleted = -1;//전체 선택 표시
+	
+	
+	$(document).on("click","#total_click",function(e) {
+		total_seleted *= -1;
+		
+		if (total_seleted == 1) {
+			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 			
+		} else {
+			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"}); 
+		} 
+		e.preventDefault()
+	});
+	
+
+	
+
+</script>
+
+

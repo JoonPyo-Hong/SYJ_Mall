@@ -12,10 +12,17 @@ public interface IMyPagesDAO {
 	List<MyPageSeenDTO> getMyPageSeenList(String seenList);
 	
 	/**
-	 * 마이페이지 - 장바구니 리스트
+	 * 마이페이지 - 장바구니 리스트(로그인 안된경우)
 	 * @param basketList
 	 * @return
 	 */
 	List<MyPageBasketDTO> getMyPageBasketNoLogin(String basketList);
+	
+	/**
+	 * 마이페이지 - 장바구니 리스트(로그인 된 경우)
+	 * @param userSeq
+	 * @return
+	 */
+	List<MyPageBasketDTO> getMyPageBasketLogin(int userSeq);
 
 }
