@@ -362,21 +362,31 @@ input[id="product-checkbox"]:checked {
 	let prodct_id_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);
 	let id_index = 0;
 	
+	/* prodct_id_arr 리스트에 상품 아이디를 넣어준다. */
 	<c:forEach var="mbdto" items="${mbdtoList}">
 		prodct_id_arr[id_index] = ${mbdto.prodId};
 		id_index++;
 	</c:forEach>
 	
-	
-	//console.log(prodct_id_arr[1]);
-	
+	//전제 선택 or 전체 선택 헤제
 	$(document).on("click","#total_click",function(e) {
 		total_seleted *= -1;
 		
+		//1. 전체 선택이 안되어 있는 경우
 		if (total_seleted == 1) {
-			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 			
-		} else {
-			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"}); 
+			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 
+			
+			for (let i = 0; i < prodct_check_arr.length; i++) {
+				prodct_check_arr[i] = 1;
+			}
+		} 
+		//2. 전체선택이 되어 있는 경우
+		else {
+			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"});
+			
+			for (let i = 0; i < prodct_check_arr.length; i++) {
+				prodct_check_arr[i] = -1;
+			}
 		} 
 		e.preventDefault()
 	});
@@ -384,18 +394,18 @@ input[id="product-checkbox"]:checked {
 	
 	//선택한 물품을 체크해주거나 안해주거나 해주는 용도
 	$(document).on("click",".product-checkbox-label",function(e) {
-		//let object = $(this);
 		let prodt_id = $(this).parent().parent().parent().attr("id");
 		let object = $(this);
-		//let object = $(this).parent().parent().children(".basket-content").children().children().attr("id");
-		
-		console.log(object);
-		
+
 		const result = prodt_seleted_yn(prodt_id,prodct_check_arr,prodct_id_arr);
 		//1. 체크 되어 있는 경우
 		if (result == 1) $(object).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"}); 	
 		//2. 체크 되어 있지 않은 경우
 		else if (result == -1) $(object).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 	
+		
+		for (let i = 0; i < prodct_check_arr.length; i++) {
+			console.log(i + " : " +prodct_check_arr[i] + "\n");
+		}
 		
 		e.preventDefault();
 	});
