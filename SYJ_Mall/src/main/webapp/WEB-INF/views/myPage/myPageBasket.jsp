@@ -285,7 +285,7 @@ input[id="product-checkbox"]:checked {
 					<div class="basket-left">
 						<!-- 상품 체크박스 -->
 						<div class="basket-check">
-							<label class="product-checkbox-label" for="product-checkbox">
+							<label class="product-checkbox-label" id="pic${mbdto.prodId}"for="product-checkbox">
 								<input id="product-checkbox" type="checkbox" class="product-checkbox-input" />
 							</label>
 						</div>
@@ -358,7 +358,17 @@ input[id="product-checkbox"]:checked {
 	
 	
 	let total_seleted = -1;//전체 선택 표시
+	let prodct_check_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);//장바구니에 존재하는 상품들 체크표시 위한 배열
+	let prodct_id_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);
+	let id_index = 0;
 	
+	<c:forEach var="mbdto" items="${mbdtoList}">
+		prodct_id_arr[id_index] = ${mbdto.prodId};
+		id_index++;
+	</c:forEach>
+	
+	
+	//console.log(prodct_id_arr[1]);
 	
 	$(document).on("click","#total_click",function(e) {
 		total_seleted *= -1;
@@ -370,6 +380,76 @@ input[id="product-checkbox"]:checked {
 		} 
 		e.preventDefault()
 	});
+	
+	
+	//선택한 물품을 체크해주거나 안해주거나 해주는 용도
+	$(document).on("click",".product-checkbox-label",function(e) {
+		//let object = $(this);
+		let prodt_id = $(this).parent().parent().parent().attr("id");
+		let object = $(this);
+		//let object = $(this).parent().parent().children(".basket-content").children().children().attr("id");
+		
+		console.log(object);
+		
+		const result = prodt_seleted_yn(prodt_id,prodct_check_arr,prodct_id_arr);
+		//1. 체크 되어 있는 경우
+		if (result == 1) $(object).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"}); 	
+		//2. 체크 되어 있지 않은 경우
+		else if (result == -1) $(object).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 	
+		
+		e.preventDefault();
+	});
+	
+	
+	
+	function prodt_seleted_yn(id,check_arr,arr) {
+		let prodt_id_index = arr.findIndex(data => data==id);
+		
+		if (check_arr[prodt_id_index] == -1) {
+			check_arr[prodt_id_index] = 1;
+			
+			return -1;
+		}
+		else if (check_arr[prodt_id_index] == 1) {
+			check_arr[prodt_id_index] = -1;
+			
+			return 1;
+		}
+		else return -2;
+	}
+	
+	// 선택물품 장바구니 db 또는 쿠키에서 제거해주는 작업
+	function prodt_delete(id,arr) {
+		const find_index = prodt_id_list.findIndex(data => data==id);
+		//arr[find_index] = -999;
+		const new_arr_length = arr.length - 1;
+		let new_arr = Array.from({length:new_arr_length}, ()=>-1);
+		
+		let new_index = 0;
+		let old_index = 0;
+		
+		while(old_index != arr.length-1) {
+			if (index != find_index) {
+				new_arr[new_index] = arr[old_index];
+				new_index++;
+				old_index++;
+			} else {
+				old_index++;
+			}		
+		}
+		
+		return new_arr_length;
+	}
+	
+	
+	/* $(document).on("click",'.product-checkbox-label'.function(e){
+		
+		let object = $(this);
+		//.parent();
+		
+		console.log(object);
+	}); */
+	
 	
 
 	

@@ -271,8 +271,7 @@ public class MyPagesService implements IMyPagesService {
 				
 				mbdtoList = dao.getMyPageBasketLogin(userSeq);
 			}
-			
-			
+	
 			request.setAttribute("mbdtoList", mbdtoList);
 			request.setAttribute("mbdtoListSize", mbdtoList.size());
 			

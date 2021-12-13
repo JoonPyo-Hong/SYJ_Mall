@@ -48,25 +48,22 @@
 
 
   <script>
-    $('#btn').click(function(){
-      const legth = document.documentElement.scrollTop;
-      $('.overlay-wrap').css('top',legth + 'px');
-    });
+    
+    let prodct_arr = Array.from({length:4}, ()=>-1);
+    let prodt_id_list = [12,43,22,1];
 
-    $('#btn2').click(function(){
-      const legth = document.documentElement.scrollTop;
-      $('.overlay-wrap').css('top',legth + 'px');
-    });
+    for (let i = 0; i < prodct_arr.length; i++) {
+      console.log(i + " " + prodct_arr[i] + "\n");
+    }
 
-  
-    window.addEventListener('scroll', () => {
-	    let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
-	    let windowHeight = window.innerHeight; // 스크린 창
-	    let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
+    const findValue = prodt_id_list.findIndex(data => data==43);
+    console.log(findValue)
 
-	    
+    
+    function new_function(id,arr_name) {
+      
+    }
 
-    });
 
   </script>
 
