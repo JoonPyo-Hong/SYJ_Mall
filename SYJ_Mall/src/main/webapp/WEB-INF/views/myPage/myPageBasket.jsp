@@ -271,7 +271,7 @@ input[id="product-checkbox"]:checked {
 			</div>
 		</div>
 		<div class="delete-all">
-			<div class="delete-count">2개 선택</div>
+			<div class="delete-count">0개 선택</div>
 			<button class="delete-all-btn"></button>
 		</div>
 	</div>
@@ -335,7 +335,7 @@ input[id="product-checkbox"]:checked {
 		</div>
 		<div class="order-cost row">
 			<div class="title">총 주문 금액</div>
-			<div class="cost">94,000원</div>
+			<div class="cost">0원</div>
 		</div>
 		<div class="delivery-cost row">
 			<div class="title">배송비</div>
@@ -343,13 +343,16 @@ input[id="product-checkbox"]:checked {
 		</div>
 		<div class="total-cost row">
 			<div class="title">총 결제금액</div>
-			<div class="cost">94,000원</div>
+			<div class="cost">0원</div>
 		</div>
 	</div>
-
+	
+	
+	<button id="testest">클릭</button>
+	
 	<!-- 하단 바로구매 고정 버튼 -->
 	<div class="bottom-bar">
-		<button class="direct-purchase">94,000원 주문 하기</button>
+		<button class="direct-purchase">0원 주문 하기</button>
 	</div>
 	</c:if>
 </div>
@@ -359,14 +362,34 @@ input[id="product-checkbox"]:checked {
 	
 	let total_seleted = -1;//전체 선택 표시
 	let prodct_check_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);//장바구니에 존재하는 상품들 체크표시 위한 배열
-	let prodct_id_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);
-	let id_index = 0;
+	let prodct_id_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);//제품 아이디 배열
+	let id_index = 0;//제품 아이디 배열의 인덱스
 	
-	/* prodct_id_arr 리스트에 상품 아이디를 넣어준다. */
-	<c:forEach var="mbdto" items="${mbdtoList}">
-		prodct_id_arr[id_index] = ${mbdto.prodId};
-		id_index++;
-	</c:forEach>
+	//제품 객체 리스트
+	//let basket_prodt_list = Array.from({length:${mbdtoListSize}});
+	
+	
+	let basket_prodt_list = $('.basket-list-item');
+	
+	/* for (let i = 0; i < basket_prodt_list.length; i++) {
+		
+		let prodt_object = new Object();
+		prodt_object.prod_id = i;
+		prodt_object.prod_price = i;
+		prodt_object.dc_price = i;
+		
+		basket_prodt_list[i] = prodt_object;
+	} */
+	
+	
+	$(document).on("click","#testest",function(e) {
+
+		for (let i = 0; i < basket_prodt_list.length; i++) {
+			//console.log($("#"+basket_prodt_list[i]));
+			
+		}
+		
+	}); 
 	
 	//전제 선택 or 전체 선택 헤제
 	$(document).on("click","#total_click",function(e) {
@@ -379,6 +402,7 @@ input[id="product-checkbox"]:checked {
 			for (let i = 0; i < prodct_check_arr.length; i++) {
 				prodct_check_arr[i] = 1;
 			}
+			
 		} 
 		//2. 전체선택이 되어 있는 경우
 		else {
@@ -388,7 +412,7 @@ input[id="product-checkbox"]:checked {
 				prodct_check_arr[i] = -1;
 			}
 		} 
-		e.preventDefault()
+		e.preventDefault();
 	});
 	
 	
@@ -403,9 +427,9 @@ input[id="product-checkbox"]:checked {
 		//2. 체크 되어 있지 않은 경우
 		else if (result == -1) $(object).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 	
 		
-		for (let i = 0; i < prodct_check_arr.length; i++) {
+		/* for (let i = 0; i < prodct_check_arr.length; i++) {
 			console.log(i + " : " +prodct_check_arr[i] + "\n");
-		}
+		} */
 		
 		e.preventDefault();
 	});
