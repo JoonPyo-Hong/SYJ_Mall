@@ -60,10 +60,10 @@ public class MainController {
 	// 무한 스크롤2
 		@RequestMapping(value = "/new_list.action", method = { RequestMethod.POST })
 		@ResponseBody
-		public Object new_list(@RequestParam("count") int count) {
+		public Object new_list(@RequestParam("num") int num) {
 
-			Integer num1 = count - 1;
-			Integer num2 = count;
+			Integer num1 = num - 1;
+			Integer num2 = num;
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			map.put("num1", num1);
 			map.put("num2", num2);

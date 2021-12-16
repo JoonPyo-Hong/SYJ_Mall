@@ -280,86 +280,105 @@
 
 
 <script type="text/javascript">
-var count = 0;
-$(".container-wrap").append("<div class='box-feed'>"
-		+"<div class='head-feed'>"
-			+"<div class='profile'></div>"
-			+"<div class='info-head'>"
-				+"<span class='txt-profile'>라이언</span> <span class='txt-time'>3시간"
-					+"전</span>"
-			+"</div>"
-		+"</div>"
-		+"게시글 내용"
-		+"<div class='body-feed'>"
-			+"이미지 사진"
-			+"<div class='slide-feed'></div>"
-			+"[+] 관련 상품 보러가기 텍스트 형식"
-			+"<div class='option-link-view'>"
-				+"풀꽃 주차번호판 방향제 세트 보러 가기 <span class='icon-arrow'></span>"
-			+"</div>"
-			+"정보 영역"
-			+"<div class='info-feed'>"
-				+"<div class='like-count'>좋아요 2,092명</div>"
-				+"<div class='title'>"
-					+"콜록콜록😵‍💫<br>쌀쌀해진 이 맘 때 필요한 건 뭐?"
-				+"</div>"
-				+"<div class='desc'>"
-					+"<p>"
-						+"갑자기 추워진 날씨<br> 담요와 머그로 따뜻하게 겨울 맞이하기!🙌🏻"
-					+"</p>"
-				+"</div>"
-				+"<div class='util-left'>"
-					+"<div class='like-btn'></div>"
-					+"<div class='reply-btn'></div>"
-				+"</div>"
-				+"<div class='util-right'>"
-					+"<div class='share-btn'></div>"
-				+"</div>"
-			+"</div>"
-			+"[+] 해당 게시글 태그"
-			+"<ul class='option-list-tag'>"
-				+"<li class='list-tag-txt'>#프렌즈도감</li>"
-				+"<li class='list-tag-txt'>#라이언</li>"
-			+"</ul>"
-			+"[+] 관련 상품 보러가기 이미지 형식" 
-			+"<ul class='option-list-product'>"
-				+"<li>"
-					+"<div class='list-product-contents'>"
-						+"<img class='img-product' src='images/today/product-list.jfif'>"
-						+"<div class='info-product'>"
-							+"<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
+	var count = 0;
+	new_main();
+	function new_main() {
+
+		count = count + 2;
+		$.ajax({
+			url : "new_list.action",
+			type : 'post',
+			data : {
+				num : count,
+			},
+			success : function(data) {
+				$(data).each(function() {
+				alert(this.seq);
+				}
+
+				);
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
+
+		$(".container-wrap")
+				.append(
+						"<div class='box-feed'>"
+								+ "<div class='head-feed'>"
+								+ "<div class='profile'></div>"
+								+ "<div class='info-head'>"
+								+ "<span class='txt-profile'>라이언</span> <span class='txt-time'>3시간"
+								+ "전</span>"
+								+ "</div>"
+								+ "</div>"
+								+ "게시글 내용"
+								+ "<div class='body-feed'>"
+								+ "이미지 사진"
+								+ "<div class='slide-feed'></div>"
+								+ "[+] 관련 상품 보러가기 텍스트 형식"
+								+ "<div class='option-link-view'>"
+								+ "풀꽃 주차번호판 방향제 세트 보러 가기 <span class='icon-arrow'></span>"
+								+ "</div>"
+								+ "정보 영역"
+								+ "<div class='info-feed'>"
+								+ "<div class='like-count'>좋아요 2,092명</div>"
+								+ "<div class='title'>"
+								+ "콜록콜록😵‍💫<br>쌀쌀해진 이 맘 때 필요한 건 뭐?"
+								+ "</div>"
+								+ "<div class='desc'>"
+								+ "<p>"
+								+ "갑자기 추워진 날씨<br> 담요와 머그로 따뜻하게 겨울 맞이하기!🙌🏻"
+								+ "</p>"
+								+ "</div>"
+								+ "<div class='util-left'>"
+								+ "<div class='like-btn'></div>"
+								+ "<div class='reply-btn'></div>"
+								+ "</div>"
+								+ "<div class='util-right'>"
+								+ "<div class='share-btn'></div>"
+								+ "</div>"
+								+ "</div>"
+								+ "[+] 해당 게시글 태그"
+								+ "<ul class='option-list-tag'>"
+								+ "<li class='list-tag-txt'>#프렌즈도감</li>"
+								+ "<li class='list-tag-txt'>#라이언</li>"
+								+ "</ul>"
+								+ "[+] 관련 상품 보러가기 이미지 형식"
+								+ "<ul class='option-list-product'>"
+								+ "<li>"
+								+ "<div class='list-product-contents'>"
+								+ "<img class='img-product' src='images/today/product-list.jfif'>"
+								+ "<div class='info-product'>"
+								+ "<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
 								+"class='price-product'>39,000</span>"
-						+"</div>"
-					+"</div>"
-					+"<div class='list-product-cart'>"
-						+"<div class='cart-btn'></div>"
-					+"</div>"
-				+"</li>"
-				+"<li>"
-					+"<div class='list-product-contents'>"
-						+"<img class='img-product' src='images/today/product-list.jfif'>"
-						+"<div class='info-product'>"
-							+"<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
+								+ "</div>"
+								+ "</div>"
+								+ "<div class='list-product-cart'>"
+								+ "<div class='cart-btn'></div>"
+								+ "</div>"
+								+ "</li>"
+								+ "<li>"
+								+ "<div class='list-product-contents'>"
+								+ "<img class='img-product' src='images/today/product-list.jfif'>"
+								+ "<div class='info-product'>"
+								+ "<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
 								+"class='price-product'>39,000</span>"
-						+"</div>"
-					+"</div>"
-					+"<div class='list-product-cart'>"
-						+"<div class='cart-btn'></div>"
-					+"</div>"
-				+"</li>"
-			+"</ul>"
-			+"댓글 영역"
-			+"<div class='link-comments'>"
-				+"<span class='txt-count'>댓글 13개</span> <span class='info-comments'>"
-					+"<span class='name'>최**</span> <span class='comments'>라이언"
-						+"귀여웡~~!</span>"
-				+"</span>"
-				+"<div class='comments-input'>댓글을 남겨주세요</div>"
-			+"</div>"
-		+"</div>"
-		+"</div>");
+								+ "</div>"
+								+ "</div>"
+								+ "<div class='list-product-cart'>"
+								+ "<div class='cart-btn'></div>"
+								+ "</div>"
+								+ "</li>"
+								+ "</ul>"
+								+ "댓글 영역"
+								+ "<div class='link-comments'>"
+								+ "<span class='txt-count'>댓글 13개</span> <span class='info-comments'>"
+								+ "<span class='name'>최**</span> <span class='comments'>라이언"
+								+ "귀여웡~~!</span>" + "</span>"
+								+ "<div class='comments-input'>댓글을 남겨주세요</div>"
+								+ "</div>" + "</div>" + "</div>");
 
-
-
-
+	}
 </script>

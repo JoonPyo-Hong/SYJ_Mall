@@ -17,14 +17,14 @@
 		order by seq
 		desc
 	</select>
-	<select id="new_list" resultType="com.test.SYJ_Mall.main.MainDTO"
+	<select id="new_list" resultType="com.test.SYJ_Mall.main.NewMainDTO"
 		parameterType="java.util.HashMap">
 		SELECT
-		seq, reg_id,
-		reg_dt, gubn,
-		title, contents
+		seq, character_name,
+		reg_dt
+		title, content , tag
 		FROM
-		dbo.main_list with(nolock) where (seq BETWEEN #{num1} AND #{num2})
+		dbo.kakao_new_main with(nolock) where (seq BETWEEN #{num1} AND #{num2})
 		order by seq
 		desc
 	</select>
