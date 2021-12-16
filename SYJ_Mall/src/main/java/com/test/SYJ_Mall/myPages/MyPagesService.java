@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -271,7 +273,26 @@ public class MyPagesService implements IMyPagesService {
 				
 				mbdtoList = dao.getMyPageBasketLogin(userSeq);
 			}
-	
+			
+			JSONArray mbdtoJsonArr = new JSONArray();
+			
+			for (int i = 0; i < mbdtoList.size(); i++) {
+				JSONObject obj = new JSONObject();
+				obj.put("prodId", mbdtoList.get(i).getProdId());
+				
+				if (mbdtoList.get(i).getDcYn().equals("Y")) {
+					obj.put("prodPrice",Integer.parseInt(mbdtoList.get(i).getDcPrice().replace(",","")));
+				} else {
+					obj.put("prodPrice",Integer.parseInt(mbdtoList.get(i).getProdPrice().replace(",","")));
+				}
+				
+				obj.put("buyCount", mbdtoList.get(i).getBuyCount());
+				obj.put("checkYn", "N");
+				
+				mbdtoJsonArr.add(obj);
+			}
+
+			request.setAttribute("mbdtoJsonArr",mbdtoJsonArr);
 			request.setAttribute("mbdtoList", mbdtoList);
 			request.setAttribute("mbdtoListSize", mbdtoList.size());
 			

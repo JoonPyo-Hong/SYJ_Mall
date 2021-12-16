@@ -361,133 +361,92 @@ input[id="product-checkbox"]:checked {
 	
 	
 	let total_seleted = -1;//전체 선택 표시
-	let prodct_check_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);//장바구니에 존재하는 상품들 체크표시 위한 배열
-	let prodct_id_arr = Array.from({length:${mbdtoListSize}}, ()=>-1);//제품 아이디 배열
-	let id_index = 0;//제품 아이디 배열의 인덱스
-	
-	//제품 객체 리스트
-	//let basket_prodt_list = Array.from({length:${mbdtoListSize}});
-	
-	
-	let basket_prodt_list = $('.basket-list-item');
-	
-	/* for (let i = 0; i < basket_prodt_list.length; i++) {
-		
-		let prodt_object = new Object();
-		prodt_object.prod_id = i;
-		prodt_object.prod_price = i;
-		prodt_object.dc_price = i;
-		
-		basket_prodt_list[i] = prodt_object;
-	} */
+	let mbdto_json_arr = ${mbdtoJsonArr};//장바구니 내의 제품 json array
 	
 	
 	$(document).on("click","#testest",function(e) {
-
-		for (let i = 0; i < basket_prodt_list.length; i++) {
-			//console.log($("#"+basket_prodt_list[i]));
-			
+		
+		//mbdto_json_arr.splice(0,1);
+		
+		for (let i = 0; i < mbdto_json_arr.length; i++) {
+			console.log(mbdto_json_arr[i].prodId + "\n");
+			console.log(mbdto_json_arr[i].prodPrice + "\n");
+			console.log(mbdto_json_arr[i].buyCount + "\n");
+			console.log(mbdto_json_arr[i].checkYn + "\n");
 		}
 		
 	}); 
+	
+	
+	
+	
+	//선택한 물품을 체크해주거나 안해주거나 해주는 용도
+	$(document).on("click",".product-checkbox-label",function(e) {
+		
+		if ($(this).attr("id") == "total_click") return 0;
+		
+		let prodt_id = $(this).parent().parent().parent().attr("id");
+		
+		console.log(prodt_id);
+		const result = prodt_seleted_yn(prodt_id);
+		
+		
+		//1. 체크 되어 있는 경우 -> 체크를 풀어준다.
+		if (result == 1) $("#pic"+prodt_id).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"}); 	
+		//2. 체크 되어 있지 않은 경우 -> 체크를 넣어준다.
+		else if (result == -1) $("#pic"+prodt_id).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 	
+		
+		e.preventDefault();
+	});
+	
+	
+
+	function prodt_seleted_yn(prodt_id) {
+
+		let prodt_id_index = -1;
+
+		for (let i = 0; i < mbdto_json_arr.length; i++) {
+			if (mbdto_json_arr[i].prodId == parseInt(prodt_id))
+				prodt_id_index = i;
+		}
+
+		//console.log("asd : " + prodt_id_index);
+
+		if (mbdto_json_arr[prodt_id_index].checkYn == "Y") {
+			mbdto_json_arr[prodt_id_index].checkYn = "N";
+			return 1;
+		} else if (mbdto_json_arr[prodt_id_index].checkYn == "N") {
+			mbdto_json_arr[prodt_id_index].checkYn = "Y";
+			return -1;
+		} else
+			return -2;
+	}
+	
 	
 	//전제 선택 or 전체 선택 헤제
 	$(document).on("click","#total_click",function(e) {
 		total_seleted *= -1;
 		
-		//1. 전체 선택이 안되어 있는 경우
+		//1. 전체 선택이 안되어 있는 경우 -> 전체 선택 눌러줌
 		if (total_seleted == 1) {
 			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 
 			
-			for (let i = 0; i < prodct_check_arr.length; i++) {
-				prodct_check_arr[i] = 1;
-			}
-			
+			for (let i = 0; i < mbdto_json_arr.length; i++) {
+				mbdto_json_arr[i].checkYn = "Y";
+			} 
 		} 
-		//2. 전체선택이 되어 있는 경우
+		//2. 전체선택이 되어 있는 경우 -> 전체 선택 풀어줌
 		else {
 			$('.product-checkbox-label').css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"});
 			
-			for (let i = 0; i < prodct_check_arr.length; i++) {
-				prodct_check_arr[i] = -1;
+			for (let i = 0; i < mbdto_json_arr.length; i++) {
+				mbdto_json_arr[i].checkYn = "N";
 			}
 		} 
 		e.preventDefault();
 	});
 	
 	
-	//선택한 물품을 체크해주거나 안해주거나 해주는 용도
-	$(document).on("click",".product-checkbox-label",function(e) {
-		let prodt_id = $(this).parent().parent().parent().attr("id");
-		let object = $(this);
-
-		const result = prodt_seleted_yn(prodt_id,prodct_check_arr,prodct_id_arr);
-		//1. 체크 되어 있는 경우
-		if (result == 1) $(object).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked.png)"}); 	
-		//2. 체크 되어 있지 않은 경우
-		else if (result == -1) $(object).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 	
-		
-		/* for (let i = 0; i < prodct_check_arr.length; i++) {
-			console.log(i + " : " +prodct_check_arr[i] + "\n");
-		} */
-		
-		e.preventDefault();
-	});
-	
-	
-	
-	function prodt_seleted_yn(id,check_arr,arr) {
-		let prodt_id_index = arr.findIndex(data => data==id);
-		
-		if (check_arr[prodt_id_index] == -1) {
-			check_arr[prodt_id_index] = 1;
-			
-			return -1;
-		}
-		else if (check_arr[prodt_id_index] == 1) {
-			check_arr[prodt_id_index] = -1;
-			
-			return 1;
-		}
-		else return -2;
-	}
-	
-	// 선택물품 장바구니 db 또는 쿠키에서 제거해주는 작업
-	function prodt_delete(id,arr) {
-		const find_index = prodt_id_list.findIndex(data => data==id);
-		//arr[find_index] = -999;
-		const new_arr_length = arr.length - 1;
-		let new_arr = Array.from({length:new_arr_length}, ()=>-1);
-		
-		let new_index = 0;
-		let old_index = 0;
-		
-		while(old_index != arr.length-1) {
-			if (index != find_index) {
-				new_arr[new_index] = arr[old_index];
-				new_index++;
-				old_index++;
-			} else {
-				old_index++;
-			}		
-		}
-		
-		return new_arr_length;
-	}
-	
-	
-	/* $(document).on("click",'.product-checkbox-label'.function(e){
-		
-		let object = $(this);
-		//.parent();
-		
-		console.log(object);
-	}); */
-	
-	
-
-	
-
 </script>
 
 
