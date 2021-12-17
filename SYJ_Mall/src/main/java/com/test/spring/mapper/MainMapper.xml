@@ -17,7 +17,7 @@
 		order by seq
 		desc
 	</select>
-	<select id="new_list" resultType="com.test.SYJ_Mall.main.NewMainDTO"
+	<!-- <select id="new_list" resultType="com.test.SYJ_Mall.main.NewMainDTO"
 		parameterType="java.util.HashMap">
 		SELECT
 		seq, character_name,
@@ -27,7 +27,7 @@
 		dbo.kakao_new_main with(nolock) where (seq BETWEEN #{num1} AND #{num2})
 		order by seq
 		desc
-	</select>
+	</select> -->
 	<select id="img" resultType="string" parameterType="int">
 		select img_nm
 		from main_img with(nolock) where list_seq = #{seq}

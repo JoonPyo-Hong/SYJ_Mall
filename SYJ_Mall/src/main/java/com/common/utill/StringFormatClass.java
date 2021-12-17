@@ -132,17 +132,5 @@ public class StringFormatClass {
 		else return false;
 		
 	}
-	
-	/**
-	 * 컴마표시된 돈 정수형으로 변환
-	 * @param money	컴마표시된 화폐
-	 * @return
-	 */
-	public int moneyToInt(String money) {
-		
-		return Integer.parseInt(money.replace(",",""));
-		
-	}
-	
 
 }

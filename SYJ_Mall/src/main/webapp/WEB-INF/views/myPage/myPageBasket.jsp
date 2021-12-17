@@ -305,7 +305,7 @@ input[id="product-checkbox"]:checked {
 								</c:choose>
 								<div class="product-count">
 									<label content="4" class="select-box__Label-iihqm7-0">
-										<select class="select-box__Select-iihqm7-2">
+										<select class="select-box__Select-iihqm7-2" onchange="buy_count_selected()">
 											<option value="1" selected>${mbdto.buyCount}</option>
 											<c:forEach var="num" begin="2" end="20">
 												<option value="${num}">${num}</option>
@@ -335,7 +335,7 @@ input[id="product-checkbox"]:checked {
 		</div>
 		<div class="order-cost row">
 			<div class="title">총 주문 금액</div>
-			<div class="cost">0원</div>
+			<div class="cost" id="total_order_money">0원</div>
 		</div>
 		<div class="delivery-cost row">
 			<div class="title">배송비</div>
@@ -343,7 +343,7 @@ input[id="product-checkbox"]:checked {
 		</div>
 		<div class="total-cost row">
 			<div class="title">총 결제금액</div>
-			<div class="cost">0원</div>
+			<div class="cost" id="total_pay_money">0원</div>
 		</div>
 	</div>
 	
@@ -396,6 +396,10 @@ input[id="product-checkbox"]:checked {
 		//2. 체크 되어 있지 않은 경우 -> 체크를 넣어준다.
 		else if (result == -1) $("#pic"+prodt_id).css({"background-image":"url(/SYJ_Mall/resources/images/mypage_basket/ico_checked_ok.png)"}); 	
 		
+		const select_count = total_select_count() + "개 선택";
+		
+		$('.delete-count').text(select_count);
+		
 		e.preventDefault();
 	});
 	
@@ -443,8 +447,64 @@ input[id="product-checkbox"]:checked {
 				mbdto_json_arr[i].checkYn = "N";
 			}
 		} 
+		
+		const select_count = total_select_count() + "개 선택";
+		$('.delete-count').text(select_count);
+		
 		e.preventDefault();
 	});
+	
+	
+	//선택된 제품이 몇개인지 카운트 해주는 함수
+	function total_select_count() {
+		
+		try {
+			let count = 0;
+			
+			for (let i = 0; i < mbdto_json_arr.length; i++) {
+				if (mbdto_json_arr[i].checkYn == 'Y') count++;
+			} 
+			
+			return count;
+		} catch(error) {
+			return 0;
+		}
+	}
+	
+	//구매갯수 바뀔때마다 동작하는 함수
+	function buy_count_selected() {
+		let total_money = 0;
+		
+		for (let i = 0; i < mbdto_json_arr.length; i++) {
+			if (mbdto_json_arr[i].checkYn == 'Y'){
+				const prodt_id = mbdto_json_arr[i].prodId;	
+				const prodt_cost = mbdto_json_arr[i].prodPrice;
+				const buy_count = $('#'+ prodt_id +' .select-box__Select-iihqm7-2 option:selected').val();
+				
+				total_money += (parseInt(prodt_cost) * parseInt(buy_count));
+				//console.log(parseInt(prodt_cost));
+				//console.log(parseInt(buy_count));
+				
+			}
+		}
+		
+		console.log(total_money);
+		
+		//console.log($('.order-cost row').children('.cost'));
+		
+		$('#total_order_money').text(total_money+'원');
+		$('#total_pay_money').text(total_money+'원');
+		//$('.total-cost row').children('.cost').text(total_money+'원');
+		
+		
+		//console.log($('.basket-list-item'));
+		//console.log($('#51').children('.select-box__Select-iihqm7-2 option:selected').val());
+		//$("#셀렉트박스ID option:selected").val();
+
+		//console.log($('#51 .select-box__Select-iihqm7-2 option:selected').val())
+		
+	}
+	
 	
 	
 </script>
