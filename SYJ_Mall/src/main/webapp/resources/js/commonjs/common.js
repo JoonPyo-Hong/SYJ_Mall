@@ -20,3 +20,11 @@ function device_check() {
 		}
 	}
 }
+
+
+
+// 화폐 점 찍어주기
+function money_dot(money) {
+	
+	return money.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}

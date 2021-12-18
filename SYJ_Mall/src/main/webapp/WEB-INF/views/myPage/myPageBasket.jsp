@@ -399,6 +399,7 @@ input[id="product-checkbox"]:checked {
 		const select_count = total_select_count() + "개 선택";
 		
 		$('.delete-count').text(select_count);
+		buy_count_selected();
 		
 		e.preventDefault();
 	});
@@ -450,6 +451,7 @@ input[id="product-checkbox"]:checked {
 		
 		const select_count = total_select_count() + "개 선택";
 		$('.delete-count').text(select_count);
+		buy_count_selected();
 		
 		e.preventDefault();
 	});
@@ -482,29 +484,53 @@ input[id="product-checkbox"]:checked {
 				const buy_count = $('#'+ prodt_id +' .select-box__Select-iihqm7-2 option:selected').val();
 				
 				total_money += (parseInt(prodt_cost) * parseInt(buy_count));
-				//console.log(parseInt(prodt_cost));
-				//console.log(parseInt(buy_count));
 				
 			}
 		}
 		
-		console.log(total_money);
+		//console.log(total_money);
 		
 		//console.log($('.order-cost row').children('.cost'));
 		
-		$('#total_order_money').text(total_money+'원');
-		$('#total_pay_money').text(total_money+'원');
-		//$('.total-cost row').children('.cost').text(total_money+'원');
+		const result_money = money_dot(total_money)
 		
-		
-		//console.log($('.basket-list-item'));
-		//console.log($('#51').children('.select-box__Select-iihqm7-2 option:selected').val());
-		//$("#셀렉트박스ID option:selected").val();
+		$('#total_order_money').text(result_money+'원');
+		$('#total_pay_money').text(result_money+'원');
+		$('.direct-purchase').text(result_money+'원 주문 하기');
 
-		//console.log($('#51 .select-box__Select-iihqm7-2 option:selected').val())
-		
 	}
 	
+	
+	//장바구니에서 제거해줄 기능
+	$('.basket-list-delete-btn').click(function(){
+		
+		const prodt_id = $(this).parent().attr("id")
+		
+		$.ajax({
+        	type:"GET",
+            url: "/SYJ_Mall/myPageBasketDelete.action" ,
+            async : false,
+            data : {"prodtId" : prodt_id },
+            dataType : "json",
+            success : function(result) {
+                
+            	if (result == 1) {
+            		for (let i = 0; i < mbdto_json_arr.length; i++) {
+            			if (mbdto_json_arr[i].prodId == prodt_id) {
+            				mbdto_json_arr.splice(i,1);
+            				$("#"+prodt_id).remove();
+            			}
+            		}
+            	}
+            	
+            },
+            error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+        	});	
+		
+		
+	});
 	
 	
 </script>

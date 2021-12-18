@@ -80,5 +80,13 @@ public class MyPagesController {
 		return service.deleteMyPageAllProdSeen(request,response);
 	}
 	
+	//장바구니 - 특정 물품 내역 삭제
+	@RequestMapping(value = "/myPageBasketDelete.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int myPageBasketDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		return service.deleteMyPageBasket(request,response);
+	}
+	
 	
 }

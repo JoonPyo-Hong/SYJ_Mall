@@ -309,4 +309,40 @@ public class MyPagesService implements IMyPagesService {
 		
 		
 	}
+	
+	//장바구니 특정 물품 삭제하기
+	@Override
+	public int deleteMyPageBasket(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			KakaoCookie kc = new KakaoCookie();
+			
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			int productId = Integer.parseInt(request.getParameter("prodtId"));//진짜 번호를 넣어줘야한다.
+			
+			//1. 로그인이 안되어 있는 경우
+			if (userInfo == null) {
+				kc.modifyBasketCookie(request, response, productId);
+				
+				return 1;
+			}
+			//2. 로그인이 되어 있는 경우
+			else {
+				
+				return -2;
+			}
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
+		
+		
+	}
 }

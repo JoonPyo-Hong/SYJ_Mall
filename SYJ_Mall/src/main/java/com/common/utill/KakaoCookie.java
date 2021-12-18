@@ -1,5 +1,7 @@
 package com.common.utill;
 
+import java.util.Arrays;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -126,6 +128,50 @@ public class KakaoCookie {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * 장바구니에 담긴 쿠키객체 수정 관리
+	 * @param request
+	 * @param response
+	 * @param productId	물품 번호
+	 * @return
+	 */
+	public int modifyBasketCookie(HttpServletRequest request, HttpServletResponse response, int productId) {
+
+		KakaoCookie kc = new KakaoCookie();
+		String basketList = (String) kc.getCookieInfo(request, "basketList");
+
+		// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
+		String[] basketLists;
+
+		if (basketList == null)
+			basketLists = new String[0];
+		else
+			basketLists = basketList.split("#");
+
+		// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
+		int index = Arrays.asList(basketLists).indexOf(Integer.toString(productId));
+
+		if (index == -1) {
+			// 해당물품이 장바구니에 들어있는 표시가 되어있어서 클릭한건데 없다는건 -> 클라이언트측에서 공격시도로 볼 수 있음 -> 방어를 위해
+			// return -1 을 반환
+			return -1;
+		} else {
+			StringBuffer sb = new StringBuffer();
+
+			for (int i = 0; i < basketLists.length; i++) {
+				// 빼려고하는 상품 번호는 그냥 안넣으면 된다.
+				if (!basketLists[i].equals(Integer.toString(productId))) {
+					sb.append(basketLists[i]);
+					sb.append("#");
+				}
+			}
+
+			kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
+			return 1;
+		}
+
 	}
 	
 

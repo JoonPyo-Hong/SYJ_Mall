@@ -82,7 +82,7 @@ public class Encryption {
 			
 			for (int j = 0; j < decKeySplitArrOrigin.length; j++) {//원조의 단어 split 한것과 비교를 해준다.
 				
-				if (selectVoca.equals(decKeySplitArrOrigin[j])) { // c e r s u -> s e c u r
+				if (selectVoca.equals(decKeySplitArrOrigin[j])) {
 					
 					for (int k = 0; k < stepOneRow; k++) {
 						
@@ -179,7 +179,7 @@ public class Encryption {
 			
 			for (int j = 0; j < decKeySplitArrOrigin.length; j++) {//원조의 단어 split 한것과 비교를 해준다.
 				
-				if (selectVoca.equals(decKeySplitArrOrigin[j])) { // c e r s u -> s e c u r
+				if (selectVoca.equals(decKeySplitArrOrigin[j])) {
 					
 					for (int k = 0; k < stepOneRow; k++) {
 						
