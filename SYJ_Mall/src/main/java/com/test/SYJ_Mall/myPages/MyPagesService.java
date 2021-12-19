@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.myPages;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -7,11 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.CommonDAO;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
@@ -324,14 +326,20 @@ public class MyPagesService implements IMyPagesService {
 			
 			//1. 로그인이 안되어 있는 경우
 			if (userInfo == null) {
-				kc.modifyBasketCookie(request, response, productId);
+				kc.modifyBasketCookie(request, response, productId);//장바구니 상품 제거 기능
 				
 				return 1;
 			}
 			//2. 로그인이 되어 있는 경우
 			else {
+				int userSeq = userInfo.getUserSeq();
+				CommonDAO cdao = new CommonDAO();
 				
-				return -2;
+				int result = cdao.setBasketProdt(userSeq,productId);
+				
+				if (result == 2) return 1;
+				else return -1;
+				
 			}
 			
 		} catch(Exception e) {
@@ -344,5 +352,55 @@ public class MyPagesService implements IMyPagesService {
 		}
 		
 		
+	}
+	
+	//장바구니 특정 물품 여러개 삭제하기
+	@Override
+	public List<Integer> deleteMyPageBaskets(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			
+			KakaoCookie kc = new KakaoCookie();
+			
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			String productIds = request.getParameter("prodtIds");
+			
+			//1. 로그인이 안되어 있는 경우
+			if (userInfo == null) {
+				
+				return kc.modifyBasketCookies(request, response, productIds);				
+			}
+			//2. 로그인이 되어 있는 경우
+			else {
+				int userSeq = userInfo.getUserSeq();
+				int deleteResult = dao.modifyBasketCookiesLogin(userSeq, productIds);
+				
+				if (deleteResult == 1) {
+					StringTokenizer stk = new StringTokenizer(productIds,"#");
+					List<Integer> resultList = new ArrayList<Integer>();
+					
+					while(stk.hasMoreTokens()) {
+						resultList.add(Integer.parseInt(stk.nextToken()));
+					}
+					
+					return resultList;
+					
+				} else {
+					return null;
+				}
+					
+			}
+			
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return null;
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.myPages;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -68,4 +70,13 @@ public interface IMyPagesService {
 	 * @return
 	 */
 	int deleteMyPageBasket(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 장바구니 페이지 특정물품 삭제하기 - 여러개
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	List<Integer> deleteMyPageBaskets(HttpServletRequest request, HttpServletResponse response);
+	
 }

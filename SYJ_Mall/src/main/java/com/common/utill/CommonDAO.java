@@ -113,7 +113,7 @@ public class CommonDAO {
 	
 	/**
 	 * 관리자들 이메일 정보 일괄로 가져오기
-	 * @return 관리자들 이메일
+	 * @return 관리자들 이메일 주소
 	 */
 	public List<String> getAdminEmailAddress() {
 

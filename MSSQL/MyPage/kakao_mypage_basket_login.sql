@@ -4,6 +4,7 @@
 	Description : 마이페이지 -> 장바구니 목록.(로그인 한 경우) 
 	    
 	History	: 2021-12-12 Seunghwan Shin	#최초 생성
+			  2021-12-18 Seunghwan Shin #장바구니 목록 제거된 목록 제외시켜주기	
 			  
 	
 	Real DB :	exec dbo.kakao_mypage_basket_login 2000001
@@ -33,9 +34,12 @@ begin
 	and kpi.rep_img_yn = 'Y'
 	and kpi.head_img_yn = 'Y'
 	and kpt.product_count > 0
+	and kusc.cart_del_yn = 'N'
 	order by kusc.cart_reg_dt desc
 	
 	
 end
+
+
 
 

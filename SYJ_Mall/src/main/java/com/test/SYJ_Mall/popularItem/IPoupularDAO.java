@@ -14,38 +14,10 @@ public interface IPoupularDAO {
 	 */
 	List<PopularItemDTO> getPopularItem(int paging, int userSeq, String basketList);
 	
-	
-	
-	/**
-	 * 회원이 선택한 상품 장바구니에 넣어주기
-	 * @param userSeq		상품번호
-	 * @param productId		상품고유번호
-	 * @return				1 : 성공, -1 : 실패 , -2 : 에러발생 
-	 */
-	int inputItemBasket(int userSeq, int productId);
-
-
-	/**
-	 * 회원이 선택한 상품 장바구니에서 빼주기
-	 * @param userSeq		상품번호
-	 * @param productId		상품고유번호
-	 * @return				1 : 성공, -1 : 실패 , -2 : 에러발생 
-	 */
-	int outputItemBasket(int userSeq, int productId);
-
-
 	/**
 	 * 인기상품 갯수
 	 * @return 인기상품 갯수
 	 */
 	int getPopularItemCount();
-
-
-
-
-	
-
-	
-
 
 }

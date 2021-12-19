@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.CommonDAO;
+import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 
 @Service
@@ -54,15 +56,35 @@ public class PopularService implements IPopularService{
 	//회원이 선택한 상품 장바구니에 넣어주기
 	@Override
 	public int inputItemBasket(int userSeq, int productId) {
-	
-		return dao.inputItemBasket(userSeq,productId);
+		
+		try {
+			CommonDAO cdao = new CommonDAO();
+			return cdao.setBasketProdt(userSeq,productId);
+			
+		} catch(Exception e) {
+			
+			ErrorAlarm ea = new ErrorAlarm(e);
+			ea.errorDbAndMail();
+			return -1;
+		}
+		
 	}
 	
 	//회원이 선택한 상품 장바구니에서 빼주기
 	@Override
 	public int outputItemBasket(int userSeq, int productId) {
 		
-		return dao.outputItemBasket(userSeq,productId);
+		try {
+			
+			CommonDAO cdao = new CommonDAO();
+			return cdao.setBasketProdt(userSeq,productId);
+			
+		} catch(Exception e) {
+			
+			ErrorAlarm ea = new ErrorAlarm(e);
+			ea.errorDbAndMail();
+			return -1;
+		}
 	}
 
 	//쿠키에 존재하는 장바구니 내역 가져오기

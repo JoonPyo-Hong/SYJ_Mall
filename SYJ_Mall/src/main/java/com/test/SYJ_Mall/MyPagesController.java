@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -87,6 +89,15 @@ public class MyPagesController {
 		
 		return service.deleteMyPageBasket(request,response);
 	}
+	
+	//장바구니 - 특정 물품 내역 여러개 삭제
+	@RequestMapping(value = "/myPageBasketSeletedDelete.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public List<Integer> myPageBasketSeletedDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		return service.deleteMyPageBaskets(request,response);
+	}
+	
 	
 	
 }

@@ -110,7 +110,7 @@ public class PopularItemController {
 				int userSeq = userInfo.getUserSeq();//유저 고유번호
 				int result = service.inputItemBasket(userSeq,productId);
 				
-				if (result == -2) {
+				if (result == -1) {
 					throw new Exception();
 				}
 				
@@ -147,7 +147,7 @@ public class PopularItemController {
 				int userSeq = userInfo.getUserSeq();//유저 고유번호
 				int result = service.outputItemBasket(userSeq,productId);
 				
-				if (result == -2) {
+				if (result == -1) {
 					return -2;
 				}
 				

@@ -364,7 +364,7 @@ input[id="product-checkbox"]:checked {
 	let mbdto_json_arr = ${mbdtoJsonArr};//장바구니 내의 제품 json array
 	
 	
-	$(document).on("click","#testest",function(e) {
+/* 	$(document).on("click","#testest",function(e) {
 		
 		//mbdto_json_arr.splice(0,1);
 		
@@ -375,10 +375,7 @@ input[id="product-checkbox"]:checked {
 			console.log(mbdto_json_arr[i].checkYn + "\n");
 		}
 		
-	}); 
-	
-	
-	
+	});  */
 	
 	//선택한 물품을 체크해주거나 안해주거나 해주는 용도
 	$(document).on("click",".product-checkbox-label",function(e) {
@@ -415,7 +412,6 @@ input[id="product-checkbox"]:checked {
 				prodt_id_index = i;
 		}
 
-		//console.log("asd : " + prodt_id_index);
 
 		if (mbdto_json_arr[prodt_id_index].checkYn == "Y") {
 			mbdto_json_arr[prodt_id_index].checkYn = "N";
@@ -488,10 +484,6 @@ input[id="product-checkbox"]:checked {
 			}
 		}
 		
-		//console.log(total_money);
-		
-		//console.log($('.order-cost row').children('.cost'));
-		
 		const result_money = money_dot(total_money)
 		
 		$('#total_order_money').text(result_money+'원');
@@ -501,7 +493,7 @@ input[id="product-checkbox"]:checked {
 	}
 	
 	
-	//장바구니에서 제거해줄 기능
+	//장바구니에서 상품 제거해주는 기능
 	$('.basket-list-delete-btn').click(function(){
 		
 		const prodt_id = $(this).parent().attr("id")
@@ -527,9 +519,60 @@ input[id="product-checkbox"]:checked {
             error: function(a,b,c) {
 					console.log(a,b,c);
 			}
-        	});	
+        });
 		
 		
+	});
+	
+	//장바구니 전체 제거해주는 기능
+	$('.delete-all-btn').click(function(){
+		
+		let delete_prodt_string = '';
+		
+		for (let i = 0; i < mbdto_json_arr.length; i++) {
+			if (mbdto_json_arr[i].checkYn == 'Y') delete_prodt_string += (mbdto_json_arr[i].prodId + '#');
+		}
+		
+		if (delete_prodt_string != '') {
+			
+			$.ajax({
+	        	type:"GET",
+	            url: "/SYJ_Mall/myPageBasketSeletedDelete.action" ,
+	            async : false,
+	            data : {"prodtIds" : delete_prodt_string },
+	            dataType : "json",
+	            success : function(result) {
+	                
+	            	//console.log(result);
+	            	
+	            	for (let i = 0; i < result.length; i++) {
+	            		const prodt_id = result[i];
+	            		
+	            		let prodt_index = 0;
+	            		const prodt_list_size = mbdto_json_arr.length;
+	            		let flag = true;
+	            		
+	            		while(flag) {
+	            			if (mbdto_json_arr[prodt_index].prodId == prodt_id) {
+	            				
+	            				mbdto_json_arr.splice(prodt_index,1);
+	            				$("#"+prodt_id).remove();
+	            				flag = false;
+	            			}
+	            			
+	            			prodt_index++;
+	            			if (prodt_index == prodt_list_size) flag = false;
+	            		}
+	            	}
+	            	
+	            	
+	            },
+	            error: function(a,b,c) {
+						console.log(a,b,c);
+				}
+	        });
+		}
+
 	});
 	
 	

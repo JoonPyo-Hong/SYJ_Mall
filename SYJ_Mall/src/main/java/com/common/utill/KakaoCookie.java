@@ -1,6 +1,8 @@
 package com.common.utill;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -173,6 +175,34 @@ public class KakaoCookie {
 		}
 
 	}
+	
+	/**
+	 * 장바구니에 담긴 쿠키객체들 수정 관리
+	 * @param request
+	 * @param response
+	 * @param productIds 물품 번호 여러개
+	 * @return
+	 */
+	public List<Integer> modifyBasketCookies(HttpServletRequest request, HttpServletResponse response, String productIds) {
+
+		KakaoCookie kc = new KakaoCookie();
+		String[] prodtList = productIds.split("#");
+		List<Integer> resultProdtList = new ArrayList<Integer>();
+		
+		for (int i = 0; i < prodtList.length; i++) {
+			int prodtId = Integer.parseInt(prodtList[i]);
+			
+			int result = kc.modifyBasketCookie(request, response, prodtId);
+			
+			if (result == 1) {
+				resultProdtList.add(prodtId);
+			}
+		}
+		
+		return resultProdtList;
+	}
+	
+	
 	
 
 }

@@ -38,5 +38,17 @@
 	</select>
 	
 	
+	<!-- 장바구니 목록 제거 - 로그인 -->
+	<select id="modifyBasketCookiesLogin"
+		parameterType="java.util.HashMap"
+		resultType="Integer"
+		statementType="CALLABLE">
+	
+		   declare @result int 
+		   exec @result = dbo.kakao_mypage_basket_delete #{userSeq},#{productIds}
+		   select @result
+	
+	</select>
+	
 
 </mapper>

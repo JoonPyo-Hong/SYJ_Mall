@@ -24,5 +24,13 @@ public interface IMyPagesDAO {
 	 * @return
 	 */
 	List<MyPageBasketDTO> getMyPageBasketLogin(int userSeq);
+	
+	/**
+	 * 마이페이지 - 장바구니 리스트 물품 제거(로그인이 된 경우)
+	 * @param userSeq
+	 * @param productIds
+	 * @return
+	 */
+	int modifyBasketCookiesLogin(int userSeq, String productIds);
 
 }

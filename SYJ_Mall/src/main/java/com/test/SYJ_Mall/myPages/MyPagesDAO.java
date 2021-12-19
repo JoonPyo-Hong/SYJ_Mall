@@ -1,8 +1,7 @@
 package com.test.SYJ_Mall.myPages;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,17 @@ public class MyPagesDAO implements IMyPagesDAO{
 	public List<MyPageBasketDTO> getMyPageBasketLogin(int userSeq) {
 		
 		return template.selectList("MyPages.myPageBasketDatasLogin",userSeq);
+	}
+	
+	//장바구니 물품 제거해주기 - 로그인이 된 상태
+	@Override
+	public int modifyBasketCookiesLogin(int userSeq, String productIds) {
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("productIds",productIds);
+		
+		return template.selectOne("MyPages.modifyBasketCookiesLogin",map);
 	}
 	
 }

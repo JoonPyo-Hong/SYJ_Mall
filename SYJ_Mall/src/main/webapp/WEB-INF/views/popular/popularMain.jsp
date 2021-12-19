@@ -121,13 +121,12 @@
 	 	const cart_yn  = $(this).css('background-image');
 	 	const product_id = $(this).parent().attr('id');//상품번호
 	
-	 	console.log(cart_yn);
-	 	console.log(product_id);
+	 	//console.log(cart_yn);
+	 	//console.log(product_id);
 	 	
 	 	//이미 장바구니에 담겼을 경우
 	    if (cart_yn.includes('cart_on')) {
 	 		//console.log('장바구니에서 나옴');
-	 		
 	 		
 		 	$.ajax({
 	            	type:"GET",
@@ -136,7 +135,7 @@
 	            	dataType : "json",
 	            	success : function(result) {
 	            	
-	            		if (result == 1) {
+	            		if (result == 2) {
 	            			$('#' + product_id).children('.basket').css('background-image','url(resources/images/hot/cart.png)');
 	            		}
 	            	
