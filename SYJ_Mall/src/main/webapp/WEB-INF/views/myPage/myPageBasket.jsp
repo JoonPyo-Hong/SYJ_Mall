@@ -346,9 +346,7 @@ input[id="product-checkbox"]:checked {
 			<div class="cost" id="total_pay_money">0원</div>
 		</div>
 	</div>
-	
-	
-	<button id="testest">클릭</button>
+
 	
 	<!-- 하단 바로구매 고정 버튼 -->
 	<div class="bottom-bar">
@@ -362,20 +360,7 @@ input[id="product-checkbox"]:checked {
 	
 	let total_seleted = -1;//전체 선택 표시
 	let mbdto_json_arr = ${mbdtoJsonArr};//장바구니 내의 제품 json array
-	
-	
-/* 	$(document).on("click","#testest",function(e) {
-		
-		//mbdto_json_arr.splice(0,1);
-		
-		for (let i = 0; i < mbdto_json_arr.length; i++) {
-			console.log(mbdto_json_arr[i].prodId + "\n");
-			console.log(mbdto_json_arr[i].prodPrice + "\n");
-			console.log(mbdto_json_arr[i].buyCount + "\n");
-			console.log(mbdto_json_arr[i].checkYn + "\n");
-		}
-		
-	});  */
+
 	
 	//선택한 물품을 체크해주거나 안해주거나 해주는 용도
 	$(document).on("click",".product-checkbox-label",function(e) {
@@ -521,7 +506,8 @@ input[id="product-checkbox"]:checked {
 			}
         });
 		
-		
+		//아무것도 없는 경우에 아무것도 없다는 페이지를 보내줘야한다.
+		if (mbdto_json_arr.length == 0) basket_f5();
 	});
 	
 	//장바구니 전체 제거해주는 기능
@@ -572,8 +558,16 @@ input[id="product-checkbox"]:checked {
 				}
 	        });
 		}
-
+		
+		//아무것도 없는 경우에 아무것도 없다는 페이지를 보내줘야한다.
+		if (mbdto_json_arr.length == 0) basket_f5();
 	});
+	
+	
+	//장바구니에서 물품을 모두 지워서 상품이 하나도 없는경우 장바구니가 비어있다는 표시를 해줘야한다.
+	function basket_f5() {
+		location.href = "/SYJ_Mall/myPageMain.action?myPageNum=3";
+	}
 	
 	
 </script>
