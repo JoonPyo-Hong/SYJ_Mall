@@ -255,14 +255,11 @@
 }
 
 .wrap-comments .sorting-filter {
-  padding: 4px 0;
-  display: inline-block;
-  position: relative;
+  display: block;
   font-size: 13px;
   line-height: 20px;
   color: #747475;
   letter-spacing: -0.02em;
-  vertical-align: top;
   cursor: pointer;
 }
 
@@ -276,6 +273,22 @@
   background-size: 699px 451px;
   background-position: -400px 0;
   color: transparent;
+}
+
+.wrap-comments .list-comments {
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+
+/* 답글 */
+/* .wrap-comments .list-comments2 {
+  float: left;
+} */
+
+.wrap-comments .list-comments2 li {
+  padding-top: 20px;
+  padding-left: 32px;
 }
 
 .wrap-comments .list-comments li {
