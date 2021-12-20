@@ -293,24 +293,15 @@
 			},
 			success : function(data) {
 				$(data).each(function() {
-				alert(this.seq);
-				}
-
-				);
-			},
-			error : function() {
-				alert("에러");
-			}
-		});
-
-		$(".container-wrap")
-				.append(
-						"<div class='box-feed'>"
+					//alert(this.seq);
+					$(".container-wrap")
+					.append(
+							"<div class='box-feed'>"
 								+ "<div class='head-feed'>"
 								+ "<div class='profile'></div>"
 								+ "<div class='info-head'>"
-								+ "<span class='txt-profile'>라이언</span> <span class='txt-time'>3시간"
-								+ "전</span>"
+								+ "<span class='txt-profile'>"+this.character_name+"</span> <span class='txt-time'>"
+								+ this.reg_dt +"</span>"
 								+ "</div>"
 								+ "</div>"
 								+ "게시글 내용"
@@ -379,6 +370,16 @@
 								+ "귀여웡~~!</span>" + "</span>"
 								+ "<div class='comments-input'>댓글을 남겨주세요</div>"
 								+ "</div>" + "</div>" + "</div>");
+
+					}
+		
+
+			);
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
 
 	}
 </script>

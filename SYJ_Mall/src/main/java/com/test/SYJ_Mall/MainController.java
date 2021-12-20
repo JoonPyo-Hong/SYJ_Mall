@@ -68,7 +68,7 @@ public class MainController {
 			map.put("num1", num1);
 			map.put("num2", num2);
 			List<NewMainDTO> list = service.new_list(map);
-
+			//System.out.println(list.get(0).toString());
 			return list;
 		}
 
