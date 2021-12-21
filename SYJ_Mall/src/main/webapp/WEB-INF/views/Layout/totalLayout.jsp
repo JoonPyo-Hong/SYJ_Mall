@@ -288,8 +288,8 @@
 
 	<script>
 	
-	let left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
-	let left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
+				let left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
+				let left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
 
 				// 왼쪽 사이드바 캐릭터 메뉴 -> 캐릭터탭 & 카테고리탭 누를때 처리1
 				$("li.character-accordion-button").on(
@@ -364,10 +364,17 @@
 						goLogOut();
 					}
 				});
-
+				
+				let login_etc_info_checking = 1;
+				let login_etc_info = "";
+				
 				//로그인 처리
 				function goLoginPage() {
-					location.href = "/SYJ_Mall/login.action";
+					if (login_etc_info_checking == 1) location.href = "/SYJ_Mall/login.action";
+					else {
+						//console.log(login_etc_info);
+						location.href = "/SYJ_Mall/login.action?addUrl=" +login_etc_info;
+					}
 				}
 				//로그아웃 처리
 				function goLogOut() {
@@ -422,7 +429,7 @@
 			
 			//로그인 모달창 로그인하기
 		  	$(document).on("click",".login-btn",function(){
-				location.href = "/SYJ_Mall/login.action";
+		  		goLoginPage();
 			});
 			
 		  	//로그인 모달창 돌아가기
@@ -467,8 +474,6 @@
 				
 				const page_value = $(this).val();
 				
-				//console.log(page_value);
-				
 				if (page_value == 1 || page_value == 3) {
 					location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
 					//break;
@@ -478,6 +483,8 @@
 					}
 					else {
 						//alert('로그인 요망');
+						login_etc_info_checking = 2;
+						login_etc_info = "myPageMain.action?myPageNum="+page_value;
 						my_login_modal_open();
 					}
 				}

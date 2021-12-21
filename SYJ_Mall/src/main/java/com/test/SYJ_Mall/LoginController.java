@@ -47,9 +47,21 @@ public class LoginController {
 
 		// 혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임 -> 모달창으로 바꿔주는게 좋으려나;
 		int result = -1;
-
+		
 		HttpSession session = request.getSession();
-
+		
+		//로그인시 쿠키에 지정해줘야할 정보 
+		String addUrl = request.getParameter("addUrl");
+		
+		
+		if (addUrl != null) {
+			
+			
+			int addUrlResult = logService.modifyCookie(request,response,addUrl);
+			
+			if (addUrlResult == -1) return "/testwaiting/kakaoerror";
+		}
+		
 		if (session.getAttribute("userinfo") == null) {
 			result = logService.firstLoginStep(request, 0, 0);// result : 0 -> 에러없음
 		} else {
@@ -110,11 +122,11 @@ public class LoginController {
 					else if (lastPage.indexOf("?") != -1) {
 						//인코딩 처리를 잘 해줘야한다.
 						String url = logService.urlEncoder(lastPage);
-						//System.out.println(url);
+						System.out.println("??? : " + url);
 						return "redirect:/" + url;
 					}
 					else {
-						System.out.println(lastPage);
+						System.out.println("tq "+ lastPage);
 						return "forward:/" + lastPage + ".action";
 					}
 				} else {

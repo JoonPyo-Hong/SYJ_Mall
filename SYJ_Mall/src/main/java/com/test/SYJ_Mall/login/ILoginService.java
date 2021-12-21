@@ -244,6 +244,15 @@ public interface ILoginService {
 	 */
 	int loginChecking(HttpServletRequest request, HttpServletResponse response);
 	
+	/**
+	 * 로그인 시 필요한 정보 쿠키에 저장해줄 매서드
+	 * @param request
+	 * @param response
+	 * @param addUrl
+	 * @return
+	 */
+	int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl);
+	
 
 	
 

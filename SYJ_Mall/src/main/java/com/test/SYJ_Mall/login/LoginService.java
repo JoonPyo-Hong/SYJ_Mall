@@ -120,7 +120,7 @@ public class LoginService implements ILoginService {
 		adverMap.put("url", url);
 
 		request.setAttribute("adverMap", adverMap);
-
+		
 		// ----광고관련----
 		if (comeCount == 0) {
 			request.setAttribute("comeCount", "SYJ_Mall");
@@ -748,6 +748,26 @@ public class LoginService implements ILoginService {
 			ea.errorDbAndMail();
 			return -1;
 		}
+	}
+	
+	//로그인 시 필요한 정보 쿠키에 저장해줄 매서드
+	@Override
+	public int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl) {
+		try {
+			KakaoCookie kc = new KakaoCookie();
+			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+			kc.generateCookie(response, "lastPage", addUrl);// 마지막페이지
+			
+			return 1;
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
+		
 	}
 
 	
