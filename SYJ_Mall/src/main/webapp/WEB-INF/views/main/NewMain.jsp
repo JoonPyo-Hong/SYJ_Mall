@@ -294,6 +294,10 @@
 			success : function(data) {
 				$(data).each(function() {
 					//alert(this.seq);
+					var tag = "";
+					if(this.tag != null){
+					tag = "<li class='list-tag-txt'>"+this.tag+"</li>"
+					}
 					$(".container-wrap")
 					.append(
 							"<div class='box-feed'>"
@@ -304,9 +308,7 @@
 								+ this.reg_dt +"</span>"
 								+ "</div>"
 								+ "</div>"
-								+ "게시글 내용"
 								+ "<div class='body-feed'>"
-								+ "이미지 사진"
 								+ "<div class='slide-feed'></div>"
 								+ "[+] 관련 상품 보러가기 텍스트 형식"
 								+ "<div class='option-link-view'>"
@@ -316,11 +318,11 @@
 								+ "<div class='info-feed'>"
 								+ "<div class='like-count'>좋아요 2,092명</div>"
 								+ "<div class='title'>"
-								+ "콜록콜록😵‍💫<br>쌀쌀해진 이 맘 때 필요한 건 뭐?"
+								+ this.title
 								+ "</div>"
 								+ "<div class='desc'>"
 								+ "<p>"
-								+ "갑자기 추워진 날씨<br> 담요와 머그로 따뜻하게 겨울 맞이하기!🙌🏻"
+								+ this.content
 								+ "</p>"
 								+ "</div>"
 								+ "<div class='util-left'>"
@@ -330,13 +332,10 @@
 								+ "<div class='util-right'>"
 								+ "<div class='share-btn'></div>"
 								+ "</div>"
-								+ "</div>"
-								+ "[+] 해당 게시글 태그"
+								+ "</div>"								
 								+ "<ul class='option-list-tag'>"
-								+ "<li class='list-tag-txt'>#프렌즈도감</li>"
-								+ "<li class='list-tag-txt'>#라이언</li>"
+								+ tag
 								+ "</ul>"
-								+ "[+] 관련 상품 보러가기 이미지 형식"
 								+ "<ul class='option-list-product'>"
 								+ "<li>"
 								+ "<div class='list-product-contents'>"
