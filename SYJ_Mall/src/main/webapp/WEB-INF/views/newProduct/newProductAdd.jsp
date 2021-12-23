@@ -179,10 +179,14 @@
 				const height = $('#kakao-content').height();
 				
 				
-				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
-
-					paging++;
-					newProdtAjax(paging,filter_option, themeNum, prodtCatgr);
+				if ((scrollTop + height >= scrollHeight)) {	
+					if (paging <= totalPagingCount && paging >= 0) {
+						newProdtAjax(paging,filter_option, themeNum, prodtCatgr);
+						paging++;
+					} else if (paging == totalPagingCount+1) {
+						call_footer();
+						paging = -1;
+					}
 				}
 	});	
 	

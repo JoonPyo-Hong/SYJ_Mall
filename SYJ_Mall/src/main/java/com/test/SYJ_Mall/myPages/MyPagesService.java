@@ -255,7 +255,7 @@ public class MyPagesService implements IMyPagesService {
 			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=3");// 마지막페이지
 			
 			
-			request.setAttribute("myBassketSignal", "x533");//장바구니임을 확인하려는 로직 -> 푸터가 안뜨게 하기 위함
+			//request.setAttribute("myBassketSignal", "x533");//장바구니임을 확인하려는 로직 -> 푸터가 안뜨게 하기 위함
 			
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");

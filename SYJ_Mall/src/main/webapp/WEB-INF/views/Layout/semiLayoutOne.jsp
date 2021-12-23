@@ -184,30 +184,6 @@
 				<tiles:insertAttribute name="body" ignore="false" />
 			</div>
 		</div>
-		<!-- footer 자체를 불러오는 형식으로 해주면 좋을거 같은데 -->
-		<div id="kakao-footer">
-			<div id="inner-footer">
-				<div class="info-service">
-					<ul>
-						<li>제휴문의</li>
-						<span class="footer-divider"></span>
-						<li>고객문의</li>
-						<span class="footer-divider"></span>
-						<li>이용약관</li>
-						<span class="footer-divider"></span>
-						<li>개인정보처리방침</li>
-						<span class="footer-divider"></span>
-						<li>지식재산권보호센터</li>
-					</ul>
-				</div>
-				<div class="logo">
-					<div class="toggler">
-						<span class="toggler-logo"></span> <span class="toggler-icon"></span>
-					</div>
-					<div class="best-family"></div>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<script>
