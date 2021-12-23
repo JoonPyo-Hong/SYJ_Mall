@@ -267,9 +267,16 @@
 	cursor: pointer;
 }
 </style>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 
-
-
+<div class="swiper-container slide">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">test</div>
+		<div class="swiper-slide">test</div>
+	</div>
+	<div class="swiper-pagination"></div>
+</div>
 <form class="form-login" action="/SYJ_Mall/payment.action" method="post">
 	<input type="hidden" class="input" name="p_seq" value='1,2,3'>
 	<input type="hidden" class="input" name="sum" value='10,20,30'>
@@ -280,105 +287,140 @@
 
 
 <script type="text/javascript">
+	var mySwiper = new Swiper('.swiper-container', {
+		loop : true,
+		pagination : {
+			el : '.swiper-pagination',
+		},
+		touchRatio : 0, // 드래그 X
+		autoplay : { // 자동 슬라이드 설정 , 비 활성화 시 false
+			delay : 3000, // 시간 설정
+			disableOnInteraction : false, // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
+		},
+		navigation : {
+			nextEl : '.swiper-button-next',
+			prevEl : '.swiper-button-prev',
+		},
+
+	});
+
 	var count = 0;
+	window.addEventListener("scroll", function() {
+		const SCROLLED_HEIGHT = window.scrollY;
+		const WINDOW_HEIGHT = window.innerHeight;
+		const DOC_TOTAL_HEIGHT = document.body.offsetHeight;
+
+		const IS_BOTTOM = WINDOW_HEIGHT + SCROLLED_HEIGHT === DOC_TOTAL_HEIGHT;
+
+		if (IS_BOTTOM) {
+			console.log("스크롤바 이벤트");
+			new_main();
+		}
+	});
 	new_main();
 	function new_main() {
 
 		count = count + 2;
-		$.ajax({
-			url : "new_list.action",
-			type : 'post',
-			data : {
-				num : count,
-			},
-			success : function(data) {
-				$(data).each(function() {
-					//alert(this.seq);
-					var tag = "";
-					if(this.tag != null){
-					tag = "<li class='list-tag-txt'>"+this.tag+"</li>"
-					}
-					$(".container-wrap")
-					.append(
-							"<div class='box-feed'>"
-								+ "<div class='head-feed'>"
-								+ "<div class='profile'></div>"
-								+ "<div class='info-head'>"
-								+ "<span class='txt-profile'>"+this.character_name+"</span> <span class='txt-time'>"
-								+ this.reg_dt +"</span>"
-								+ "</div>"
-								+ "</div>"
-								+ "<div class='body-feed'>"
-								+ "<div class='slide-feed'></div>"
-								+ "[+] 관련 상품 보러가기 텍스트 형식"
-								+ "<div class='option-link-view'>"
-								+ "풀꽃 주차번호판 방향제 세트 보러 가기 <span class='icon-arrow'></span>"
-								+ "</div>"
-								+ "정보 영역"
-								+ "<div class='info-feed'>"
-								+ "<div class='like-count'>좋아요 2,092명</div>"
-								+ "<div class='title'>"
-								+ this.title
-								+ "</div>"
-								+ "<div class='desc'>"
-								+ "<p>"
-								+ this.content
-								+ "</p>"
-								+ "</div>"
-								+ "<div class='util-left'>"
-								+ "<div class='like-btn'></div>"
-								+ "<div class='reply-btn'></div>"
-								+ "</div>"
-								+ "<div class='util-right'>"
-								+ "<div class='share-btn'></div>"
-								+ "</div>"
-								+ "</div>"								
-								+ "<ul class='option-list-tag'>"
-								+ tag
-								+ "</ul>"
-								+ "<ul class='option-list-product'>"
-								+ "<li>"
-								+ "<div class='list-product-contents'>"
-								+ "<img class='img-product' src='images/today/product-list.jfif'>"
-								+ "<div class='info-product'>"
-								+ "<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
+		$
+				.ajax({
+					url : "new_list.action",
+					type : 'post',
+					data : {
+						num : count,
+					},
+					success : function(data) {
+						$(data)
+								.each(
+										function() {
+											//alert(this.seq);
+											var tag = "";
+											if (this.tag != null) {
+												tag = "<li class='list-tag-txt'>"
+														+ this.tag + "</li>"
+											}
+											$(".container-wrap")
+													.append(
+															"<div class='box-feed'>"
+																	+ "<div class='head-feed'>"
+																	+ "<div class='profile'></div>"
+																	+ "<div class='info-head'>"
+																	+ "<span class='txt-profile'>"
+																	+ this.character_name
+																	+ "</span> <span class='txt-time'>"
+																	+ this.reg_dt
+																	+ "</span>"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "<div class='body-feed'>"
+																	+ "<div class='slide-feed'></div>"
+																	+ "<div class='option-link-view'>"
+																	+ "풀꽃 주차번호판 방향제 세트 보러 가기 <span class='icon-arrow'></span>"
+																	+ "</div>"
+																	+ "<div class='info-feed'>"
+																	+ "<div class='like-count'>좋아요 2,092명</div>"
+																	+ "<div class='title'>"
+																	+ this.title
+																	+ "</div>"
+																	+ "<div class='desc'>"
+																	+ "<p>"
+																	+ this.content
+																	+ "</p>"
+																	+ "</div>"
+																	+ "<div class='util-left'>"
+																	+ "<div class='like-btn'></div>"
+																	+ "<div class='reply-btn'></div>"
+																	+ "</div>"
+																	+ "<div class='util-right'>"
+																	+ "<div class='share-btn'></div>"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "<ul class='option-list-tag'>"
+																	+ tag
+																	+ "</ul>"
+																	+ "<ul class='option-list-product'>"
+																	+ "<li>"
+																	+ "<div class='list-product-contents'>"
+																	+ "<img class='img-product' src='images/today/product-list.jfif'>"
+																	+ "<div class='info-product'>"
+																	+ "<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
 								+"class='price-product'>39,000</span>"
-								+ "</div>"
-								+ "</div>"
-								+ "<div class='list-product-cart'>"
-								+ "<div class='cart-btn'></div>"
-								+ "</div>"
-								+ "</li>"
-								+ "<li>"
-								+ "<div class='list-product-contents'>"
-								+ "<img class='img-product' src='images/today/product-list.jfif'>"
-								+ "<div class='info-product'>"
-								+ "<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "<div class='list-product-cart'>"
+																	+ "<div class='cart-btn'></div>"
+																	+ "</div>"
+																	+ "</li>"
+																	+ "<li>"
+																	+ "<div class='list-product-contents'>"
+																	+ "<img class='img-product' src='images/today/product-list.jfif'>"
+																	+ "<div class='info-product'>"
+																	+ "<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
 								+"class='price-product'>39,000</span>"
-								+ "</div>"
-								+ "</div>"
-								+ "<div class='list-product-cart'>"
-								+ "<div class='cart-btn'></div>"
-								+ "</div>"
-								+ "</li>"
-								+ "</ul>"
-								+ "댓글 영역"
-								+ "<div class='link-comments'>"
-								+ "<span class='txt-count'>댓글 13개</span> <span class='info-comments'>"
-								+ "<span class='name'>최**</span> <span class='comments'>라이언"
-								+ "귀여웡~~!</span>" + "</span>"
-								+ "<div class='comments-input'>댓글을 남겨주세요</div>"
-								+ "</div>" + "</div>" + "</div>");
+																	+ "</div>"
+																	+ "</div>"
+																	+ "<div class='list-product-cart'>"
+																	+ "<div class='cart-btn'></div>"
+																	+ "</div>"
+																	+ "</li>"
+																	+ "</ul>"
+																	+ "<div class='link-comments'>"
+																	+ "<span class='txt-count'>댓글 13개</span> <span class='info-comments'>"
+																	+ "<span class='name'>최**</span> <span class='comments'>라이언"
+																	+ "귀여웡~~!</span>"
+																	+ "</span>"
+																	+ "<div class='comments-input'>댓글을 남겨주세요</div>"
+																	+ "</div>"
+																	+ "</div>"
+																	+ "</div>");
 
+										}
+
+								);
+					},
+					error : function() {
+						alert("에러");
 					}
-		
-
-			);
-			},
-			error : function() {
-				alert("에러");
-			}
-		});
+				});
 
 	}
 </script>
