@@ -28,3 +28,32 @@ function money_dot(money) {
 	
 	return money.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
+
+
+function call_footer() {
+	$('#inner-content').append(
+			'<div id="kakao-footer">'
+			+'<div id="inner-footer">'
+			+'<div class="info-service">'
+			+'		<ul>'
+			+'			<li>제휴문의</li>'
+			+'			<span class="footer-divider"></span>'
+			+'			<li>고객문의</li>'
+			+'			<span class="footer-divider"></span>'
+			+'			<li>이용약관</li>'
+			+'			<span class="footer-divider"></span>'
+			+'			<li>개인정보처리방침</li>'
+			+'			<span class="footer-divider"></span>'
+			+'			<li>지식재산권보호센터</li>'
+			+'		</ul>'
+			+'	</div>'
+			+'	<div class="logo">'
+			+'		<div class="toggler">'
+			+'			<span class="toggler-logo"></span> <span class="toggler-icon"></span>'
+			+'		</div>'
+			+'		<div class="best-family"></div>'
+			+'	</div>'
+			+'</div>'
+			+'</div>'
+	);	
+}

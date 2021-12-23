@@ -98,7 +98,7 @@
 		//prodtCount
 		let totalProdCounting  = ${prodtCount};
 		let totalPagingCount = ${pageAjaxCount};
-		let paging = 1;//페이징
+		let paging = 2;//페이징
 		let height = 0;//높이지정
 		const userinputName = "${userinputName}";//유저가 넘긴 검색단어정보
 		const productSeq = "${productSeq}";
@@ -107,7 +107,7 @@
 		$('#kakao-content').on(
 				"scroll",
 				function(){
-
+					
 					const scrollHeight = document.getElementById('kakao-content').scrollHeight;
 					const scrollTop = document.getElementById('kakao-content').scrollTop;
 					const height = $('#kakao-content').height();
@@ -116,85 +116,91 @@
 					//console.log("scrollTop : " + scrollTop);
 					//console.log("height : " + height);
 					
-					if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
-
-						paging++;
-						
-						$.ajax({
-				        	type:"GET",
-				            url: "/SYJ_Mall/searchresultscroll.action" ,
-				            async : false,
-				            data : {"paging" : paging, "inputWord" : userinputName,"sortedOption" : filter_option, "sortedCharOption" : sortedCharOption},
-				            dataType : "json",
-				            success : function(result) {
-				                
-				            	let selectCount = result.length;
-				            	
-				            	for (let i = 0; i < selectCount; i++) {
-				            		
-				            		let url = "'" + result[i].picUrl + "'";
-				            		
-				            		//재고가 있는경우와 없는경우로 나눠준다.
-				            		//1. 재고 없는 경우
-				            		if (result[i].prodCnt == 0) {
-				            			$('#search-item-lists').append(
-							            		
-						            			'<li class="item-li" id="'+ result[i].prodId + '">'
-												+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
-												+	'<div class="name">'
-												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-												+		'<span class="' + result[i].alarmYn + '"></span>'
-												+	'</div>'
-												+	'<div class="price">' + result[i].prodPrice + '원</div>'
-												+'</li>'
-									            	
-							            	);
-				            		}
-				            		//2. 재고 있는 경우
-				            		else {
-				            			//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
-					            		//1. 할인안되는 품목인 경우
-					            		if(result[i].discRate == 0) {
-					            			$('#search-item-lists').append(
-								            		
-					            					'<li class="item-li" id="'+ result[i].prodId + '">'
-													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
-													+	'<div class="name">'
-													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-													+ 		'<span class="' + result[i].cookieBasket + '"></span>'
-													+	'</div>'
-													+	'<div class="price">' + result[i].prodPrice + '원</div>'
-													+'</li>'
-										            	
-								            	);
-					            		} 
-					            		//2. 할인되는 품목인 경우
-					            		else {
-					            			$('#search-item-lists').append(
-								            		
-					            					'<li class="item-li" id="'+ result[i].prodId + '">'
-													+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
-													+	'<div class="name">'
-													+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-													+ 		'<span class="' + result[i].cookieBasket + '"></span>'
-													+	'</div>'
-													+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
-													+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
-													+'</li>'
-										            	
-								            	);
-					            		}
-				            		}//else
-				            	}//for	
-				            },
-				            error: function(a,b,c) {
-									console.log(a,b,c);
-							}
-				        	});	
-						
+					if ((scrollTop + height >= scrollHeight)) {	
+						if (paging <= totalPagingCount && paging >= 0) {
+							search_ajax_prodt();
+							paging++;
+						} else if (paging == totalPagingCount + 1) {
+							paging = -1;
+							call_footer();
+						}
 					}
 		});		
 		
+		
+		function search_ajax_prodt() {
+			$.ajax({
+	        	type:"GET",
+	            url: "/SYJ_Mall/searchresultscroll.action" ,
+	            async : false,
+	            data : {"paging" : paging, "inputWord" : userinputName,"sortedOption" : filter_option, "sortedCharOption" : sortedCharOption},
+	            dataType : "json",
+	            success : function(result) {
+	                
+	            	let selectCount = result.length;
+	            	
+	            	for (let i = 0; i < selectCount; i++) {
+	            		
+	            		let url = "'" + result[i].picUrl + "'";
+	            		
+	            		//재고가 있는경우와 없는경우로 나눠준다.
+	            		//1. 재고 없는 경우
+	            		if (result[i].prodCnt == 0) {
+	            			$('#search-item-lists').append(
+				            		
+			            			'<li class="item-li" id="'+ result[i].prodId + '">'
+									+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
+									+	'<div class="name">'
+									+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+									+		'<span class="' + result[i].alarmYn + '"></span>'
+									+	'</div>'
+									+	'<div class="price">' + result[i].prodPrice + '원</div>'
+									+'</li>'
+						            	
+				            	);
+	            		}
+	            		//2. 재고 있는 경우
+	            		else {
+	            			//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
+		            		//1. 할인안되는 품목인 경우
+		            		if(result[i].discRate == 0) {
+		            			$('#search-item-lists').append(
+					            		
+		            					'<li class="item-li" id="'+ result[i].prodId + '">'
+										+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+										+	'<div class="name">'
+										+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+										+ 		'<span class="' + result[i].cookieBasket + '"></span>'
+										+	'</div>'
+										+	'<div class="price">' + result[i].prodPrice + '원</div>'
+										+'</li>'
+							            	
+					            	);
+		            		} 
+		            		//2. 할인되는 품목인 경우
+		            		else {
+		            			$('#search-item-lists').append(
+					            		
+		            					'<li class="item-li" id="'+ result[i].prodId + '">'
+										+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+										+	'<div class="name">'
+										+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+										+ 		'<span class="' + result[i].cookieBasket + '"></span>'
+										+	'</div>'
+										+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
+										+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
+										+'</li>'
+							            	
+					            	);
+		            		}
+	            		}//else
+	            	}//for	
+	            },
+	            error: function(a,b,c) {
+						console.log(a,b,c);
+				}
+	        	});	
+		}
 		
 		
 		/* sold out 처리도 해줘야할것이다. */
