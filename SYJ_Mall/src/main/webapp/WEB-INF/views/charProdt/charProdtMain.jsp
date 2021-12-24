@@ -212,29 +212,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="kakao-footer">
-			<div id="inner-footer">
-				<div class="info-service">
-					<ul>
-						<li>제휴문의</li>
-						<span class="footer-divider"></span>
-						<li>고객문의</li>
-						<span class="footer-divider"></span>
-						<li>이용약관</li>
-						<span class="footer-divider"></span>
-						<li>개인정보처리방침</li>
-						<span class="footer-divider"></span>
-						<li>지식재산권보호센터</li>
-					</ul>
-				</div>
-				<div class="logo">
-					<div class="toggler">
-						<span class="toggler-logo"></span> <span class="toggler-icon"></span>
-					</div>
-					<div class="best-family"></div>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<script>
@@ -301,85 +278,92 @@
 				const height = $('#kakao-content').height();
 				
 				
-				if ((scrollTop + height >= scrollHeight) && paging <= totalPagingCount) {	
-
-					paging++;
+				if ((scrollTop + height >= scrollHeight)) {	
 					
-					$.ajax({
-			        	type:"POST",
-			            url: "/SYJ_Mall/charAtProdtStart.action" ,
-			            async : false,
-			            data : {"paging" : paging, "charSeq" : charSeq,"sortedOption" : sortedOption},
-			            dataType : "json",
-			            success : function(result) {
-			                
-			            	let selectCount = result.length;
-			            
-			            	
-			            	for (let i = 0; i < selectCount; i++) {
-			            		
-			            		let url = "'" + result[i].picUrl + "'";
-			            		
-			            		//재고가 있는경우와 없는경우로 나눠준다.
-			            		//1. 재고 없는 경우
-			            		if (result[i].prodCnt == 0) {
-			            			$('#char-item-lists').append(
-						            		
-					            			'<li class="item-li" id="'+ result[i].prodId + '">'
-											+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
-											+	'<div class="name">'
-											+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-											+		'<span class="' + result[i].alarmYn + '"></span>'
-											+	'</div>'
-											+	'<div class="price">' + result[i].prodPrice + '원</div>'
-											+'</li>'
-								            	
-						            	);
-			            		}
-			            		//2. 재고 있는 경우
-			            		else {
-			            			//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
-				            		//1. 할인안되는 품목인 경우
-				            		if(result[i].discRate == 0) {
-				            			$('#char-item-lists').append(
-							            		
-				            					'<li class="item-li" id="'+ result[i].prodId + '">'
-												+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
-												+	'<div class="name">'
-												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-												+ 		'<span class="' + result[i].cookieBasket + '"></span>'
-												+	'</div>'
-												+	'<div class="price">' + result[i].prodPrice + '원</div>'
-												+'</li>'
-									            	
-							            	);
-				            		} 
-				            		//2. 할인되는 품목인 경우
-				            		else {
-				            			$('#char-item-lists').append(
-							            		
-				            					'<li class="item-li" id="'+ result[i].prodId + '">'
-												+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
-												+	'<div class="name">'
-												+		'<div class="nametext">' + result[i].prodNm + '</div>'  
-												+ 		'<span class="' + result[i].cookieBasket + '"></span>'
-												+	'</div>'
-												+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
-												+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
-												+'</li>'
-									            	
-							            	);
-				            		}
-			            		}//else
-			            	}//for	
-			            },
-			            error: function(a,b,c) {
-								console.log(a,b,c);
-						}
-			        	});	
-					
+					if (paging < totalPagingCount && paging >= 0) {
+						paging++;
+						char_prodt_ajax();
+					} else if (paging == totalPagingCount) {
+						paging = -1;
+						call_footer();
+					}
 				}
-	});	
+	});
+	
+	function char_prodt_ajax() {
+		$.ajax({
+        	type:"POST",
+            url: "/SYJ_Mall/charAtProdtStart.action" ,
+            async : false,
+            data : {"paging" : paging, "charSeq" : charSeq,"sortedOption" : sortedOption},
+            dataType : "json",
+            success : function(result) {
+                
+            	let selectCount = result.length;
+            
+            	
+            	for (let i = 0; i < selectCount; i++) {
+            		
+            		let url = "'" + result[i].picUrl + "'";
+            		
+            		//재고가 있는경우와 없는경우로 나눠준다.
+            		//1. 재고 없는 경우
+            		if (result[i].prodCnt == 0) {
+            			$('#char-item-lists').append(
+			            		
+		            			'<li class="item-li" id="'+ result[i].prodId + '">'
+								+	'<div class="thumbnail" style="background-image : url('+url+')"><div class="soldout-label"></div></div>'
+								+	'<div class="name">'
+								+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+								+		'<span class="' + result[i].alarmYn + '"></span>'
+								+	'</div>'
+								+	'<div class="price">' + result[i].prodPrice + '원</div>'
+								+'</li>'
+					            	
+			            	);
+            		}
+            		//2. 재고 있는 경우
+            		else {
+            			//재고 있는 경우 : 할인되는 품목과 안되는 품목을 나눠서 추가하도록 하자.
+	            		//1. 할인안되는 품목인 경우
+	            		if(result[i].discRate == 0) {
+	            			$('#char-item-lists').append(
+				            		
+	            					'<li class="item-li" id="'+ result[i].prodId + '">'
+									+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+									+	'<div class="name">'
+									+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+									+ 		'<span class="' + result[i].cookieBasket + '"></span>'
+									+	'</div>'
+									+	'<div class="price">' + result[i].prodPrice + '원</div>'
+									+'</li>'
+						            	
+				            	);
+	            		} 
+	            		//2. 할인되는 품목인 경우
+	            		else {
+	            			$('#char-item-lists').append(
+				            		
+	            					'<li class="item-li" id="'+ result[i].prodId + '">'
+									+	'<div class="thumbnail" style="background-image : url('+url+')"></div>'
+									+	'<div class="name">'
+									+		'<div class="nametext">' + result[i].prodNm + '</div>'  
+									+ 		'<span class="' + result[i].cookieBasket + '"></span>'
+									+	'</div>'
+									+	'<div class="price" style="color : #FF447F;">' + result[i].discRate + '% '+ result[i].dcPrice + '원</div>'
+									+	'<div class="price" style="text-decoration:line-through; color : #9A9A9E;">' + result[i].prodPrice + '원</div>'
+									+'</li>'
+						            	
+				            	);
+	            		}
+            		}//else
+            	}//for	
+            },
+            error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+        	});
+	}
 	
 	
 	/*--------------------장바구니/알람 조건---------------------------*/

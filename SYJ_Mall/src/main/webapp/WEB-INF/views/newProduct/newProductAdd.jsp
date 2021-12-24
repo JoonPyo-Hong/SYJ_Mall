@@ -180,10 +180,11 @@
 				
 				
 				if ((scrollTop + height >= scrollHeight)) {	
-					if (paging <= totalPagingCount && paging >= 0) {
-						newProdtAjax(paging,filter_option, themeNum, prodtCatgr);
+					if (paging < totalPagingCount && paging >= 0) {
 						paging++;
-					} else if (paging == totalPagingCount+1) {
+						newProdtAjax(paging,filter_option, themeNum, prodtCatgr);
+						
+					} else if (paging == totalPagingCount) {
 						call_footer();
 						paging = -1;
 					}

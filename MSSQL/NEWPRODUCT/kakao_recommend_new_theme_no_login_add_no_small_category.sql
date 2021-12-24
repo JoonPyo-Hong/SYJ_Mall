@@ -4,11 +4,12 @@
 	Description : 추천 신규 테마 비로그인 상태(더보기 기능) - 대분류는 있고 소분류는 없는 상태
 	     
 	History	: 2021-11-23 Seunghwan Shin	#최초 생성
+			  2021-12-24 Seunghwan Shin	#페이징 변수 수정
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_no_small_category '119#118#9', '2', '1', '1'
 
 */
-create proc dbo.kakao_recommend_new_theme_no_login_add_no_small_category
+CREATE proc dbo.kakao_recommend_new_theme_no_login_add_no_small_category
 	@basket_info varchar(3000)		-- 쿠키정보
 ,	@theme_num varchar(10)			-- 대분류 카테고리 옵션
 ,	@sorted_option varchar(10)		-- 정렬옵션
@@ -68,7 +69,7 @@ begin
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m
-					where m.rn between 8*@paging_int-7 and 8*@paging_int
+					where m.rn between 16*@paging_int-15 and 16*@paging_int
 				end
 				----최신제품 순
 				else if (@sorted_option_int = 2)
@@ -105,7 +106,7 @@ begin
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m
-					where m.rn between 8*@paging_int-7 and 8*@paging_int
+					where m.rn between 16*@paging_int-15 and 16*@paging_int
 				end
 				--낮은 가격순
 				else if (@sorted_option_int = 3)
@@ -142,7 +143,7 @@ begin
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m
-					where m.rn between 8*@paging_int-7 and 8*@paging_int
+					where m.rn between 16*@paging_int-15 and 16*@paging_int
 				end
 				--높은 가격순
 				else if (@sorted_option_int = 4)
@@ -179,9 +180,8 @@ begin
 						and kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 					) as m
-					where m.rn between 8*@paging_int-7 and 8*@paging_int				
+					where m.rn between 16*@paging_int-15 and 16*@paging_int				
 				end
 							
 end
-
 

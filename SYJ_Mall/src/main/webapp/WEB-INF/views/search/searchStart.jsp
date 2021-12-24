@@ -70,16 +70,16 @@
 				<div class="category-wrap">
 					<div class="title">카테고리</div>
 					<ul>
-						<li class="category-li"><a href="#">전체</a></li>
-						<li class="category-li"><a href="#">토이</a></li>
-						<li class="category-li"><a href="#">리빙</a></li>
-						<li class="category-li"><a href="#">잡화</a></li>
-						<li class="category-li"><a href="#">문구</a></li>
-						<li class="category-li"><a href="#">의류</a></li>
-						<li class="category-li"><a href="#">디지털</a></li>
-						<li class="category-li"><a href="#">여행/레져</a></li>
-						<li class="category-li"><a href="#">식품</a></li>
-						<li class="category-li"><a href="#">테마 기획전</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=1">전체</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=2">토이</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=3">리빙</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=4">잡화</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=5">문구</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=6">의류</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=7">디지털</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=8">여행/레져</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=9">식품</a></li>
+						<li class="category-li"><a href="/SYJ_Mall/newProductMainAdd.action?themeNum=10">테마 기획전</a></li>
 					</ul>
 				</div>
 			</div>
