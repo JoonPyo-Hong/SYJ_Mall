@@ -13,7 +13,15 @@
 		call dbo.kakao_search_product(#{inputWord})
 		}
 	</select>
-
+	
+	<!-- 해당 검색조건으로 필터링 된 상품이 총 몇개인지 -->
+	<select id="searchProdCount" resultType="Integer"
+		parameterType="java.util.HashMap" statementType="CALLABLE">
+		{
+		call dbo.kakao_search_product_result_count(#{inputName},#{productSeq},#{sortedCharOption})
+		}
+	</select>
+	
 	<!-- 해당 검색을 통해서 가져온 상품의 정보들 로그인이 안된 경우 -->
 	<select id="searchProdDetil"
 		resultType="com.test.SYJ_Mall.search.SearchProductDTO"
@@ -21,14 +29,6 @@
 		{
 		call
 		dbo.kakao_search_product_result_not_login(#{inputName},#{productSeq},#{pagingCount},#{basketList},#{sortedOption},#{sortedCharOption})
-		}
-	</select>
-
-	<!-- 해당 검색조건으로 필터링 된 상품이 총 몇개인지 -->
-	<select id="searchProdCount" resultType="Integer"
-		parameterType="java.util.HashMap" statementType="CALLABLE">
-		{
-		call dbo.kakao_search_product_result_count(#{inputName},#{productSeq},#{sortedCharOption})
 		}
 	</select>
 
