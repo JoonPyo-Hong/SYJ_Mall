@@ -7,8 +7,6 @@
 
 <mapper namespace="popuarItem">
 
-
-
 	<!-- 인기상품 진열 sp -->
 	<select id="popularProductList"
 		resultType="com.test.SYJ_Mall.popularItem.PopularItemDTO"
@@ -29,35 +27,6 @@
 		}
 	</select>
 	
-	
-
-	<!-- 회원이 선택한 아이템 장바구니에 넣어주기 -->
-	<select id="itemInputBasket" resultType="Integer"
-		parameterType="java.util.HashMap" statementType="CALLABLE">
-
-		declare @result int
-		exec dbo.kakao_popular_product_input_basket
-		#{userSeq},#{productId},@result output
-		select @result
-
-	</select>
-
-	<!-- 회원이 선택한 아이템 장바구니에서 빼주기 -->
-	<select id="itemOutputBasket" resultType="Integer"
-		parameterType="java.util.HashMap" statementType="CALLABLE">
-
-		declare @result int
-		exec dbo.kakao_popular_product_output_basket
-		#{userSeq},#{productId},@result output
-		select @result
-
-	</select>
-
-
-
-
-
-
 
 
 </mapper>
