@@ -150,4 +150,10 @@ public class MainDAOImpl implements MainDAO {
 	public List<NewMainDTO> new_list(HashMap<String, Integer> map) {
 		return session.selectList("main.new_list", map);
 	}
+
+	@Override
+	public List<String> new_main_img(int seq) {
+		// TODO Auto-generated method stub
+		return session.selectList("main.new_main_img", seq);
+	}
 }

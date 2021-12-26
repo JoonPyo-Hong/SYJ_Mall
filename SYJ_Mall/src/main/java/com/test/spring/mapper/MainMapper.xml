@@ -32,6 +32,10 @@
 		select img_nm
 		from main_img with(nolock) where list_seq = #{seq}
 	</select>
+	<select id="new_main_img" resultType="string" parameterType="int">
+		select img_nm
+		from kaka_new_main_image with(nolock) where seq = #{seq}
+	</select>
 	<select id="heart" resultType="int" parameterType="int">
 		select
 		count(*) from main_heart with (nolock) where list_seq = #{num}

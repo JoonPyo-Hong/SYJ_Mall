@@ -46,4 +46,6 @@ public interface MainService {
 
 	List<NewMainDTO> new_list(HashMap<String, Integer> map);
 
+	List<String> new_main_img(int seq);
+
 }

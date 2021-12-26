@@ -292,7 +292,7 @@
 		pagination : {
 			el : '.swiper-pagination',
 		},
-		touchRatio : 0, // 드래그 X
+		
 		autoplay : { // 자동 슬라이드 설정 , 비 활성화 시 false
 			delay : 3000, // 시간 설정
 			disableOnInteraction : false, // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
@@ -305,6 +305,31 @@
 	});
 
 	var count = 0;
+	
+	function main_img(list_seq) {
+		var result = new Array();
+		$.ajax({
+			url : "new_main_img.action",
+			type : 'post',
+			async : false,
+			data : {
+				seq : list_seq,
+			},
+			success : function(data) {
+
+				result.push(data.reg_id);
+				result.push(data.feed);
+
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
+
+		return result;
+
+	}
+	
 	window.addEventListener("scroll", function() {
 		const SCROLLED_HEIGHT = window.scrollY;
 		const WINDOW_HEIGHT = window.innerHeight;

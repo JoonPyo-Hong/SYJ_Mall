@@ -86,6 +86,15 @@ public class MainController {
 
 		return list;
 	}
+	// new 메인 이미지
+	@RequestMapping(value = "/new_main_img.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object new_main_img(@RequestParam("seq") int seq) {
+
+		List<String> list = service.new_main_img(seq);
+
+		return list;
+	}
 
 	// 메인 이미지
 	@RequestMapping(value = "/img.action", method = { RequestMethod.POST })

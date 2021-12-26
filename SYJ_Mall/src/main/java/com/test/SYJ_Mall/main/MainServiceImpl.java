@@ -132,4 +132,10 @@ public class MainServiceImpl implements MainService {
 		return dao.new_list(map);
 	}
 
+	@Override
+	public List<String> new_main_img(int seq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
