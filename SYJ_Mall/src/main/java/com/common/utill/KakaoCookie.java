@@ -203,6 +203,63 @@ public class KakaoCookie {
 	}
 	
 	
+	/**
+	 * 장바구니에 담긴 최근 본 객체 관리
+	 * @param request
+	 * @param response
+	 * @param productId	물품 번호
+	 * @return
+	 */
+	public int modifySeenCookie(HttpServletRequest request, HttpServletResponse response, int productId) {
+
+		KakaoCookie kc = new KakaoCookie();
+		String seenList = (String) kc.getCookieInfo(request, "seenList");
+		
+		// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
+		String[] seenLists;
+
+		if (seenList == null) {
+			seenLists = new String[0];
+		} 
+		else {
+			seenLists = seenList.split("#");
+		}
+		
+		
+		// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
+		int index = Arrays.asList(seenLists).indexOf(Integer.toString(productId));
+		
+		//처음으로 seenList 객체를 만들어 주는 경우
+		if (index == -1 && seenList == null) {
+			StringBuffer sb = new StringBuffer();
+			sb.append(productId);
+			sb.append("#");
+			
+			kc.modifyCookie(request, response, "seenList", sb.toString(), 60 * 60 * 24 * 7);
+			return 1;
+		}
+		else if (index == -1) {
+			// 해당물품을 이미 봤다는건 또 리스트에 넣어줄 필요가 없다는 뜻이 된다.
+			return -1;
+		} else {
+			// 해당물품이 리스트에 없다는건 해당물품을 새로 넣어줘야 한다는 의미가 된다.
+			StringBuffer sb = new StringBuffer();
+
+			for (int i = 0; i < seenLists.length; i++) {
+				// 빼려고하는 상품 번호는 그냥 안넣으면 된다.
+				if (!seenLists[i].equals(Integer.toString(productId))) {
+					sb.append(seenLists[i]);
+					sb.append("#");
+				}
+			}//for
+			
+			kc.modifyCookie(request, response, "seenList", sb.toString(), 60 * 60 * 24 * 7);
+			return 1;
+		}
+
+	}
+	
+	
 	
 
 }
