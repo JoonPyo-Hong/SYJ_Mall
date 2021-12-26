@@ -5,6 +5,7 @@
 	     
 	History	:	2021-11-23 Seunghwan Shin	#최초 생성
 				2021-11-26 Seunghwan Shin	#@theme_int 조건 추가
+				2021-12-26 Seunghwan Shin	#인덱싱 테이블 수정
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category '119#118#9', '2', '2', '1', '1'
 
@@ -23,9 +24,7 @@ begin
 			declare @sorted_option_int int = convert(int,@sorted_option)
 			,		@paging_int int = convert(int,@paging)
 			,		@category_option_int int = convert(int,@category_option)
-			,		@buy_date_standard datetime = '2020-10-10'--그냥 기준으로 잡아놓은것
 			,		@theme_int int = convert(int,@theme)
-			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
 
 
 				if(@sorted_option_int = 1)
@@ -44,7 +43,7 @@ begin
 					from
 					(
 						select
-							row_number() over (order by sm.cnt desc) as rn
+							row_number() over (order by kjr.buy_cnt desc) as rn
 						,	kpt.product_id 
 						,	kpt.product_nm 
 						,	kpt.product_count 
@@ -57,15 +56,7 @@ begin
 						from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-						left merge join 
-						(
-							select 
-								product_id
-							,	count(*) as cnt
-							from dbo.KAKAO_PRODUCT_PAYMENT with(nolock,index="IDX__KAKAO_PRODUCT_PAYMENT__PRODUCT_BUY_DT")
-							where product_buy_dt between @buy_date_past and @buy_date_standard 
-							group by product_id
-						) sm on sm.product_id = kpt.product_id
+						left join dbo.KAKAO_JOB_RANK kjr with(nolock) on kjr.product_id = kpt.product_id
 						left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
 						where kpc.category_code = @category_option_int
 						and kpc.main_category_code = @theme_int

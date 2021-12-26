@@ -4,12 +4,12 @@
 	Description : 추천 신규 테마 로그인 상태(더보기 기능) - 대분류 필터는 없는 상태 또한 소분류 필터도 없는 상태
 	     
 	History	:	2021-11-26 Seunghwan Shin	#최초 생성
-				
+				2021-12-26 Seunghwan Shin	#인덱싱 테이블 수정
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category '119#118#9', '1', '0',
 
 */
-CREATE proc dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category
+alter proc dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category
 	@qoouser_seq_no bigint			-- 유저 고유번호
 ,	@sorted_option varchar(10)	-- 정렬옵션
 ,	@paging varchar(10)			-- 페이징 번호
@@ -39,7 +39,7 @@ begin
 					from
 					(
 						select
-							row_number() over (order by sm.cnt desc) as rn
+							row_number() over (order by kjr.buy_cnt desc) as rn
 						,	kpt.product_id 
 						,	kpt.product_nm 
 						,	kpt.product_count 
@@ -56,15 +56,7 @@ begin
 						from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-						left merge join 
-						(
-							select 
-								product_id
-							,	count(*) as cnt
-							from dbo.KAKAO_PRODUCT_PAYMENT with(nolock,index="IDX__KAKAO_PRODUCT_PAYMENT__PRODUCT_BUY_DT")
-							where product_buy_dt between @buy_date_past and @buy_date_standard 
-							group by product_id
-						) sm on sm.product_id = kpt.product_id
+						left join dbo.KAKAO_JOB_RANK kjr with(nolock) on kjr.product_id = kpt.product_id
 						left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
 						left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
 						where kpi.rep_img_yn = 'Y'

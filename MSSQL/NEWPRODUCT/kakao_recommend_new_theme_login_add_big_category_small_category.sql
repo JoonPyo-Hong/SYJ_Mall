@@ -4,6 +4,7 @@
 	Description : 추천 신규 테마 로그인 상태(더보기 기능) - 대분류도 있고 소분류도 있는 상태
 	     
 	History	: 2021-11-27 Seunghwan Shin	#최초 생성
+			  2021-12-26 Seunghwan Shin	#인덱싱 테이블 수정
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_login_add_big_category_small_category 2000001, 2, 3, 1, 1
 
@@ -18,10 +19,6 @@ as
 set nocount on 
 set transaction isolation level read uncommitted 
 begin
-			
-			declare @buy_date_standard datetime = '2020-10-10'--그냥 기준으로 잡아놓은것
-			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
-
 
 				if(@sorted_option = 1)
 				begin
@@ -39,7 +36,7 @@ begin
 					from
 					(
 						select
-							row_number() over (order by sm.cnt desc) as rn
+							row_number() over (order by kjr.buy_cnt desc) as rn
 						,	kpt.product_id 
 						,	kpt.product_nm 
 						,	kpt.product_count 
@@ -56,15 +53,7 @@ begin
 						from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-						left merge join 
-						(
-							select 
-								product_id
-							,	count(*) as cnt
-							from dbo.KAKAO_PRODUCT_PAYMENT with(nolock,index="IDX__KAKAO_PRODUCT_PAYMENT__PRODUCT_BUY_DT")
-							where product_buy_dt between @buy_date_past and @buy_date_standard 
-							group by product_id
-						) sm on sm.product_id = kpt.product_id
+						left join dbo.KAKAO_JOB_RANK kjr with(nolock) on kjr.product_id = kpt.product_id
 						left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
 						left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
 						where kpc.main_category_code = @theme_num

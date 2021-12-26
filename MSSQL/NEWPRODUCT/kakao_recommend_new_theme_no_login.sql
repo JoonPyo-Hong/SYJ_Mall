@@ -7,11 +7,12 @@
 			  2021-10-07 Seunghwan Shin	#조인순서 변경
 			  2021-10-15 Seunghwan Shin	#alarmYn 컬럼 변경
 			  2021-11-15 Seunghwan Shin	#많이 팔린 순으로 상품 정렬
+			  2021-12-26 Seunghwan Shin	#인덱싱 테이블 수정
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_no_login '119#118#9', 2
 
 */
-CREATE proc dbo.kakao_recommend_new_theme_no_login
+alter proc dbo.kakao_recommend_new_theme_no_login
 	@basket_info varchar(3000)	-- 쿠키정보
 ,	@theme_num varchar(25)
 as 
@@ -19,8 +20,6 @@ set nocount on
 set transaction isolation level read uncommitted 
 begin
 			
-			declare	@buy_date_standard datetime = '2020-10-10'--그냥 기준으로 잡아놓은것
-			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
 
 
 			select
@@ -37,7 +36,7 @@ begin
 			from
 			(
 				select
-					row_number() over (order by sm.cnt desc) as rn
+					row_number() over (order by kjr.buy_cnt desc) as rn
 				,	kpt.product_id 
 				,	kpt.product_nm 
 				,	kpt.product_count 
@@ -50,15 +49,7 @@ begin
 				from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 				inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 				inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-				left merge join 
-						(
-							select 
-								product_id
-							,	count(*) as cnt
-							from dbo.KAKAO_PRODUCT_PAYMENT with(nolock,index="IDX__KAKAO_PRODUCT_PAYMENT__PRODUCT_BUY_DT")
-							where product_buy_dt between @buy_date_past and @buy_date_standard 
-							group by product_id
-						) sm on sm.product_id = kpt.product_id
+				left join dbo.KAKAO_JOB_RANK kjr with(nolock) on kjr.product_id = kpt.product_id
 				left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
 				where kpc.category_code = convert(int,@theme_num)
 				and kpi.rep_img_yn = 'Y'
