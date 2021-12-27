@@ -76,7 +76,7 @@ public class MessageSender {
 			
 			for (int i = 0; i < toAddr.length; i++) {
 				toAddr[i] = new InternetAddress(addressee.get(i));
-				System.out.println(addressee.get(i));
+				//System.out.println(addressee.get(i));
 			}
 
 			message.setRecipients(Message.RecipientType.TO, toAddr); // 수신자 셋팅

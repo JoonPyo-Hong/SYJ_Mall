@@ -204,58 +204,65 @@ public class KakaoCookie {
 	
 	
 	/**
-	 * 장바구니에 담긴 최근 본 객체 관리
+	 * 장바구니에 담긴 최근 본 객체 관리 (개수가 50개가 넘어가면 앞에 있는 숫자부터 지워줘야한다.)
 	 * @param request
 	 * @param response
 	 * @param productId	물품 번호
 	 * @return
 	 */
 	public int modifySeenCookie(HttpServletRequest request, HttpServletResponse response, int productId) {
-
+		
 		KakaoCookie kc = new KakaoCookie();
 		String seenList = (String) kc.getCookieInfo(request, "seenList");
 		
-		// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
-		String[] seenLists;
-
-		if (seenList == null) {
-			seenLists = new String[0];
-		} 
-		else {
+		//이미 내가 본 최근 상품인지 확인해준다.
+		String[] seenLists;//최근본 상품 객체 존재
+		
+		// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 해당 객체 정보가 없으면 -1을 리턴할것
+		int index = -2;
+		
+		//seenList 쿠키 객체가 존재하는 경우 -> 값도 들어있는 경우
+		if (seenList != null && seenList.length() != 0) {
 			seenLists = seenList.split("#");
+			index = Arrays.asList(seenLists).indexOf(Integer.toString(productId));
+		} else {
+			seenLists = null;
 		}
 		
-		
-		// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
-		int index = Arrays.asList(seenLists).indexOf(Integer.toString(productId));
-		
-		//처음으로 seenList 객체를 만들어 주는 경우
-		if (index == -1 && seenList == null) {
+		//1. seenList 객체가 존재하지 않거나 불분명한 경우
+		if (index == -2) {
+			deleteCookie(request, response, "seenList");
+			
 			StringBuffer sb = new StringBuffer();
 			sb.append(productId);
 			sb.append("#");
 			
 			kc.modifyCookie(request, response, "seenList", sb.toString(), 60 * 60 * 24 * 7);
 			return 1;
-		}
+		} 
+		//2. seenList 객체가 존재하고 해당 객체를 봐준적이 없는 경우
 		else if (index == -1) {
-			// 해당물품을 이미 봤다는건 또 리스트에 넣어줄 필요가 없다는 뜻이 된다.
-			return -1;
-		} else {
-			// 해당물품이 리스트에 없다는건 해당물품을 새로 넣어줘야 한다는 의미가 된다.
-			StringBuffer sb = new StringBuffer();
-
-			for (int i = 0; i < seenLists.length; i++) {
-				// 빼려고하는 상품 번호는 그냥 안넣으면 된다.
-				if (!seenLists[i].equals(Integer.toString(productId))) {
-					sb.append(seenLists[i]);
-					sb.append("#");
-				}
-			}//for
 			
+			//여기서 객체의 개수가 50개가 넘는지 확인해준다. => 테스트는 5개
+			if (seenLists.length >= 5) {
+				int firstIndex = seenList.indexOf("#");
+				seenList = seenList.substring(firstIndex + 1);
+			} 
+			
+			StringBuffer sb = new StringBuffer();
+			sb.append(seenList);
+			sb.append(productId);
+			sb.append("#");
 			kc.modifyCookie(request, response, "seenList", sb.toString(), 60 * 60 * 24 * 7);
+			
 			return 1;
+		} 
+		//3. seenList 객체가 존재하지만 이미 해당 객체를 봐준 경우 
+		else {
+			return -1;
 		}
+		
+		
 
 	}
 	

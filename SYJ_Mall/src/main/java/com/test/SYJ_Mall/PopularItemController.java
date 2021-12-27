@@ -75,7 +75,7 @@ public class PopularItemController {
 			//2. 로그인 되어있지 않은 경우
 			else {
 				String basketList = service.getCookieBasket(request,response);//쿠키리스트
-				System.out.println(basketList);
+				//System.out.println(basketList);
 				return service.getPopularProductAjax(paging,basketList);
 			}
 			

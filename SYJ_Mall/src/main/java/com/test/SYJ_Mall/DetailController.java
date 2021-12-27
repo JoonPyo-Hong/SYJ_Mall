@@ -26,10 +26,12 @@ public class DetailController {
 		@RequestMapping(value = "/detail.action", method = { RequestMethod.GET })
 		public String detail(Model model, HttpServletRequest request, HttpServletResponse response) {
 			//,@RequestParam Integer d_seq
+			
 			KakaoCookie kc = new KakaoCookie();
 			//넘어온 상품 번호
 			int prodtSeq = Integer.parseInt(request.getParameter("prodtSeq"));//제품번호
-			System.out.println(kc.modifySeenCookie(request, response, prodtSeq));
+			int result = kc.modifySeenCookie(request, response, prodtSeq);
+			
 			
 //			if(d_seq == null && d_seq ==0) {
 //				d_seq = 1;

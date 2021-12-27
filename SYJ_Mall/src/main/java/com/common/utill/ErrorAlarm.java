@@ -47,7 +47,7 @@ public class ErrorAlarm {
 
 		int result = ms.sendDefaultMassages();
 		
-		System.out.println("result : " + result);
+		//System.out.println("result : " + result);
 	}
 	
 	/**

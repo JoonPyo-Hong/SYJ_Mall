@@ -175,7 +175,7 @@ public class NewproductService implements INewProductService {
 				int result = cdao.setBasketProdt(userSeq, prodtId);
 				cdao.close();
 
-				System.out.println(result);
+				//System.out.println(result);
 				return result;
 
 			}
