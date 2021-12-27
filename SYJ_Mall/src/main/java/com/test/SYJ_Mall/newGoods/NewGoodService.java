@@ -42,7 +42,7 @@ public class NewGoodService implements INewGoodService{
 			String charName = dao.bringCharName(charNum);
 			request.setAttribute("charName",charName);
 			
-			System.out.println(charName);
+			//System.out.println(charName);
 			
 			//신규-추천 신규 테마
 			List<PdtRecommedDTO> pdtrdtoList = new ArrayList<PdtRecommedDTO>();
