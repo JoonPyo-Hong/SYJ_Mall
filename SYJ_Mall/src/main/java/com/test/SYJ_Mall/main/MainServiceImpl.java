@@ -135,7 +135,7 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<String> new_main_img(int seq) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.new_main_img(seq);
 	}
 
 }

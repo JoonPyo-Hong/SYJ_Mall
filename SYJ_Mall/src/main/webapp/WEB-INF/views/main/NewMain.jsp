@@ -270,13 +270,15 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 
-<div class="swiper-container slide">
-	<div class="swiper-wrapper">
-		<div class="swiper-slide">test</div>
-		<div class="swiper-slide">test</div>
+<!-- <div class="swiper-container slide">
+	<div class="swiper-wrapper ">
+		<div class="swiper-slide">
+		<img alt="" src='resources/images/today/story/bool_mung/media_0_20211214171149.jpg'>
+	</div>
+	<div class="swiper-slide">test</div>
 	</div>
 	<div class="swiper-pagination"></div>
-</div>
+</div> -->
 <form class="form-login" action="/SYJ_Mall/payment.action" method="post">
 	<input type="hidden" class="input" name="p_seq" value='1,2,3'>
 	<input type="hidden" class="input" name="sum" value='10,20,30'>
@@ -287,25 +289,21 @@
 
 
 <script type="text/javascript">
-	var mySwiper = new Swiper('.swiper-container', {
+	/* var mySwiper = new Swiper('.swiper-container', {
 		loop : true,
 		pagination : {
 			el : '.swiper-pagination',
 		},
 		
-		autoplay : { // 자동 슬라이드 설정 , 비 활성화 시 false
-			delay : 3000, // 시간 설정
-			disableOnInteraction : false, // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
-		},
 		navigation : {
 			nextEl : '.swiper-button-next',
 			prevEl : '.swiper-button-prev',
 		},
 
-	});
+	}); */
 
 	var count = 0;
-	
+/* 	main_img(2);
 	function main_img(list_seq) {
 		var result = new Array();
 		$.ajax({
@@ -317,8 +315,8 @@
 			},
 			success : function(data) {
 
-				result.push(data.reg_id);
-				result.push(data.feed);
+				alert(data)
+				
 
 			},
 			error : function() {
@@ -328,7 +326,7 @@
 
 		return result;
 
-	}
+	} */
 	
 	window.addEventListener("scroll", function() {
 		const SCROLLED_HEIGHT = window.scrollY;
@@ -343,6 +341,41 @@
 		}
 	});
 	new_main();
+	function img(list_seq) {
+
+		$
+				.ajax({
+					url : "new_main_img.action",
+					type : 'post',
+					data : {
+						seq : list_seq,
+					},
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+							$("#swiper" + list_seq + " .swiper-wrapper")
+									.append(
+											"<div class='swiper-slide'><img src='resources/images/main/" + data[i] + "'></img></div>");
+
+						}
+						new Swiper('#swiper' + list_seq, {
+							allowTouchMove : false,
+							watchOverflow : true,
+							pagination : { // 페이징 설정
+								el : '.swiper-pagination',
+								clickable : false, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+							},
+							navigation : { // 네비게이션 설정
+								nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+								prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+							},
+						});
+
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+	}
 	function new_main() {
 
 		count = count + 2;
@@ -377,7 +410,16 @@
 																	+ "</div>"
 																	+ "</div>"
 																	+ "<div class='body-feed'>"
-																	+ "<div class='slide-feed'></div>"
+																	
+																	
+																	+ "<div class='swiper-container slide-feed' id='swiper"+ this.seq +"'>"
+																	+ "<div class='swiper-wrapper'>"
+																	+ "</div>"
+																	+ "<div class='swiper-button-next'></div>"
+																	+ "<div class='swiper-button-prev'></div>"
+																	+ "<div class='swiper-pagination'></div>"
+																	+ "</div>"
+																	
 																	+ "<div class='option-link-view'>"
 																	+ "풀꽃 주차번호판 방향제 세트 보러 가기 <span class='icon-arrow'></span>"
 																	+ "</div>"
@@ -437,8 +479,9 @@
 																	+ "</div>"
 																	+ "</div>"
 																	+ "</div>");
+											img(this.seq);
 
-										}
+										}// foreach 끝
 
 								);
 					},
