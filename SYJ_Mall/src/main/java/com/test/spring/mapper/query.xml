@@ -84,7 +84,7 @@
 		
 	</select>
 	
-	<!-- 여기까지 복사완료 -->
+	
 	
 	<!--에러요인 집어넣어주기  -->
 	<insert id="errorMsgInput" parameterType="java.util.HashMap" statementType="CALLABLE">

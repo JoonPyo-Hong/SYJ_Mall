@@ -2,13 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 
-<link rel="stylesheet"
-	href="resources/css/newProduct/newProductMainFinal.css">
+<link rel="stylesheet" href="resources/css/newProduct/newProductMainFinal.css">
 <!-- 슬라이드 라이브러리 -->
-<link rel="stylesheet" type="text/css"
-	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-<script type="text/javascript"
-	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript" src="resources/js/commonjs/common.js"></script>
 <!-- 신규 스와이퍼 라이브러리 신규 -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
@@ -16,14 +13,6 @@
 
 
 <div class="container-wrap new-product-new">
-	<!-- 데이터 없을 시 -->
-	<!-- <div class="order-list-nodata">
-              <div class="standing-ryan"></div>
-              <div class="empty-message">내역이 없어요</div>
-            </div> -->
-	<!-- 데이터 있을 시 -->
-
-
 	<!-- 배너 슬라이드 -->
 	<div class="swiper mySwiper">
 		<div class="swiper-wrapper">
@@ -193,10 +182,18 @@
 		},
 	});
 	
+	//신규 슬라이드 클릭한 경우
+	$(".swiper-slide").click(function(){
+		let prodt_id = $(this).attr('id');
+		location.href = "/SYJ_Mall/detail.action?prodtSeq=" + prodt_id;
+	});
+	
+	
 	/* 상품 클릭할때 생기는 이벤트  -> 상품페이지로 보내줄것이다.*/
 	$(document).on("click", ".item-li", function() {
 		let prodt_id = $(this).attr('id');
-		alert(prodt_id);
+		location.href = "/SYJ_Mall/detail.action?prodtSeq=" + prodt_id;
+		//alert(prodt_id);
 	});
 
 	//장바구니에 상품을 넣는 경우

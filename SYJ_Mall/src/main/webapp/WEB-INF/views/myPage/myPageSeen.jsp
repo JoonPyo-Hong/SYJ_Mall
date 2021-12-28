@@ -203,7 +203,7 @@
 			dataType : "json",
 			success : function(result) {
 				
-				console.log(result);
+				//console.log(result);
 				
 				//쿠키에서 정상적으로 상품을 제거한 경우 -> 아직 상품이 남아 있는 경우
 				if (result == 1) {

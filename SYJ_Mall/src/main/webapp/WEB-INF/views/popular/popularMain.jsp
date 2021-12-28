@@ -116,7 +116,7 @@
 	 	//alert($(this).attr('id'));
 	 	const prod_id = $(this).attr('id');
 	 	location.href = "/SYJ_Mall/detail.action?prodtSeq=" + prod_id;
-	 	//상품제공 페이지로 넘어가기
+		
   	});
 	
 	//장바구니 클릭해줬을때 처리해줄것. -> 쿠키에 넘길것!(비로그인시) or db에 넘길것(로그인 한 경우)	

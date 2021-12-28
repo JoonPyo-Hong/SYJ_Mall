@@ -244,7 +244,7 @@ public class KakaoCookie {
 		else if (index == -1) {
 			
 			//여기서 객체의 개수가 50개가 넘는지 확인해준다. => 테스트는 5개
-			if (seenLists.length >= 5) {
+			if (seenLists.length >= 50) {
 				int firstIndex = seenList.indexOf("#");
 				seenList = seenList.substring(firstIndex + 1);
 			} 
