@@ -46,9 +46,19 @@
 
 /* 게시글 내용 */
 /* 이미지 사진 */
-.body-feed .slide-feed {
+.body-feed .slide-feed{
 	min-height: 400px;
 	background-color: #ededed;
+	width: 600px;
+	height: 600px;
+}
+.swiper-slide .swiper-slide-active .swiper-wrapper .swiper-container{
+	width: 600px;
+	height: 600px;
+}
+.swiper-slide img{
+	width: 600px;
+	height: 600px;
 }
 
 /* [+] 관련 상품 보러가기 텍스트 형식 */
@@ -354,7 +364,7 @@
 						for (var i = 0; i < data.length; i++) {
 							$("#swiper" + list_seq + " .swiper-wrapper")
 									.append(
-											"<div class='swiper-slide'><img src='resources/images/main/" + data[i] + "'></img></div>");
+											"<div class='swiper-slide'><img src='resources/images/today/story/" + data[i] + "'></img></div>");
 
 						}
 						new Swiper('#swiper' + list_seq, {
