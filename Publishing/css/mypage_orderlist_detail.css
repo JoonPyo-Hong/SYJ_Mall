@@ -1,0 +1,151 @@
+/* 주문번호 */
+.order-number-box-wrap {
+  text-align: center;
+  padding: 50px 0px;
+  border-bottom: 1px solid rgb(227, 229, 232);
+}
+
+.order-number-box-wrap .order-number {
+  margin: 10px 0px 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.order-number-box-wrap ul {
+  font-size: 13px;
+  color: rgb(157, 157, 161);
+}
+
+.order-number-box-wrap ul li {
+  display: inline-block;
+}
+
+.order-number-box-wrap ul li.active {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+
+.order-number-box-wrap ul li:not(:last-child)::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 14px;
+  height: 17px;
+  margin: 0px 7px;
+  background: url(../images/mypage_orderlist_detail/ico_step.png) 0% 0% / 14px
+    no-repeat;
+}
+
+.order-number-box-wrap button.cancel {
+  padding: 7px 0px;
+  margin-top: 18px;
+  border-radius: 4px;
+  font-size: 13px;
+  width: 112px;
+  height: 35px;
+  border: 1px solid rgb(240, 242, 245);
+  color: rgb(102, 102, 102);
+}
+
+/* 주문제품 */
+.order-item-box-wrap {
+  padding: 0px 20px 25px;
+  border-bottom: 1px solid rgb(227, 229, 232);
+}
+
+.order-item-box-wrap .title {
+  font-size: 22px;
+  letter-spacing: -0.2px;
+  color: rgb(0, 0, 0);
+  padding-top: 26px;
+  padding-bottom: 11px;
+}
+
+.order-item-box-wrap ul li {
+  /* width: 600px; */
+  /* height: 105px; */
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+}
+
+.order-item-box-wrap ul li button.service {
+  height: 35px;
+  line-height: 34px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: normal;
+  color: rgb(102, 102, 102);
+  border: 1px solid rgb(227, 229, 232);
+  text-align: center;
+}
+
+.order-item-box-wrap ul li .order-info {
+  display: flex;
+}
+
+/* 결제정보 */
+.purchase-box-wrap {
+  padding: 0px 20px 25px;
+  border-bottom: 1px solid rgb(227, 229, 232);
+}
+
+.purchase-box-wrap .title {
+  font-size: 22px;
+  letter-spacing: -0.2px;
+  color: rgb(0, 0, 0);
+  padding-top: 26px;
+  padding-bottom: 11px;
+}
+
+/* 배송지 정보 */
+.address-box-wrap {
+  padding: 0px 20px 25px;
+}
+
+.address-box-wrap .title {
+  font-size: 22px;
+  letter-spacing: -0.2px;
+  color: rgb(0, 0, 0);
+  padding-top: 26px;
+  padding-bottom: 11px;
+}
+
+/* 포인트 및 쿠폰 관련 유의사항 */
+.notice-box-wrap {
+  padding: 0px 20px 25px;
+}
+
+.notice-box {
+  padding: 20px;
+  margin-bottom: 30px;
+  background: rgb(247, 247, 247);
+}
+
+.notice-box .title {
+  font-size: 16px;
+  padding-bottom: 5px;
+}
+
+.notice-box ul li {
+  position: relative;
+  color: rgb(154, 154, 158);
+  font-size: 14px;
+  line-height: 1.43;
+  padding-left: 7px;
+  margin-top: 6px;
+  margin-bottom: 11px;
+}
+
+.notice-box ul li::before {
+  display: inline-block;
+  content: "";
+  width: 3px;
+  height: 3px;
+  position: absolute;
+  top: 8px;
+  left: 0px;
+  background-color: rgb(154, 154, 158);
+  border-radius: 50%;
+}
