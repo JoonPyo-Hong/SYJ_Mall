@@ -112,8 +112,6 @@
   overflow: hidden;
   padding: 6px 0 6px 16px;
   box-sizing: border-box;
-  /* display: flex; */
-  /* flex-direction: column; */
   height: 100%;
 }
 

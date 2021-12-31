@@ -63,8 +63,6 @@
 }
 
 .order-item-box-wrap ul li {
-  /* width: 600px; */
-  /* height: 105px; */
   display: flex;
   flex-direction: column;
   padding: 15px 0px;
@@ -79,10 +77,63 @@
   color: rgb(102, 102, 102);
   border: 1px solid rgb(227, 229, 232);
   text-align: center;
+  margin-top: 15px;
 }
 
 .order-item-box-wrap ul li .order-info {
   display: flex;
+}
+
+.order-item-box-wrap ul li .wrap-thumb {
+  overflow: hidden;
+  float: left;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+}
+
+.order-item-box-wrap ul li .wrap-thumb::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.02);
+  content: "";
+}
+
+.order-item-box-wrap ul li .wrap-thumb img {
+  width: 100%;
+  height: 100%;
+}
+
+.order-item-box-wrap ul li .info-orderlist {
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 6px 0 6px 16px;
+  box-sizing: border-box;
+  height: 100%;
+  height: 100px;
+}
+
+.order-item-box-wrap ul li .info-orderlist .info-title {
+  font-size: 16px;
+  padding-bottom: 5px;
+}
+
+.order-item-box-wrap ul li .info-orderlist .unit-price {
+  font-size: 16px;
+}
+
+.order-item-box-wrap ul li .info-orderlist .state {
+  font-size: 14px;
+  color: rgb(0, 135, 255);
 }
 
 /* 결제정보 */
@@ -110,6 +161,21 @@
   color: rgb(0, 0, 0);
   padding-top: 26px;
   padding-bottom: 11px;
+}
+
+.address-box-wrap .order-customer {
+  border-bottom: 1px solid rgb(227, 229, 232);
+}
+
+.address-box-wrap .info-box .customer {
+  padding-top: 15px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.address-box-wrap .info-box .customer-info {
+  margin-bottom: 25px;
+  font-size: 16px;
 }
 
 /* 포인트 및 쿠폰 관련 유의사항 */
