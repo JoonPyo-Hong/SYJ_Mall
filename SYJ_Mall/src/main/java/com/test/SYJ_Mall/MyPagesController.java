@@ -62,7 +62,12 @@ public class MyPagesController {
 			
 		}
 		//4. 주문내역(로그인 필요) -> 로그인 검증 한번 더 해준다.
-		else if (result == 4) return "/tiles/myPageOrderHistory.layout";
+		else if (result == 4) {
+			
+			int orderResult = service.getMyPageOrderList(request,response);
+			
+			return "/tiles/myPageOrderHistory.layout";
+		}
 		else return "/testwaiting/kakaoerror";
 	}
 	

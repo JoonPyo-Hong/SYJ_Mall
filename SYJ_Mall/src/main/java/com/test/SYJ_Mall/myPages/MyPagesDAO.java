@@ -44,4 +44,19 @@ public class MyPagesDAO implements IMyPagesDAO{
 		return template.selectOne("MyPages.modifyBasketCookiesLogin",map);
 	}
 	
+
+	//주문내역 - 회원이 주문한 제품 객체
+	@Override
+	public List<MyPageOrderDTO> getMyPageDtoList(int userSeq) {
+		
+		return template.selectList("MyPages.myPageOrderList",userSeq);
+	}
+	
+	//주문내역 - 회원이 주문한 제품 객체 날짜에 관한 객체만 가져올것
+	@Override
+	public List<String> getMyPageDtoDateList(int userSeq) {
+		
+		return template.selectList("MyPages.myPageOrderDateList",userSeq);
+	}
+	
 }

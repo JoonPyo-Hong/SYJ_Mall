@@ -32,5 +32,20 @@ public interface IMyPagesDAO {
 	 * @return
 	 */
 	int modifyBasketCookiesLogin(int userSeq, String productIds);
+	
+	
+	/**
+	 * 회원이 주문한 물품 객체들 가져오기
+	 * @param userSeq
+	 * @return
+	 */
+	List<MyPageOrderDTO> getMyPageDtoList(int userSeq);
+	
+	/**
+	 * 회원이 주문한 물품 날짜객체만 가져오기
+	 * @param userSeq
+	 * @return
+	 */
+	List<String> getMyPageDtoDateList(int userSeq);
 
 }

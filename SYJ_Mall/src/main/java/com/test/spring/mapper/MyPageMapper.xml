@@ -50,5 +50,27 @@
 	
 	</select>
 	
+	<!-- 주문내역 물품 객체 -->
+	<select id="myPageOrderList"
+		parameterType="Integer"
+		resultType="com.test.SYJ_Mall.myPages.MyPageOrderDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_order_list(#{userSeq})
+		}
+	</select>
+	
+	<!-- 주문내역 물품 날짜 객체 -->
+	<select id="myPageOrderDateList"
+		parameterType="Integer"
+		resultType="String"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_order_list_date(#{userSeq})
+		}
+	</select>
+	
+	
+	
 
 </mapper>

@@ -1,7 +1,9 @@
 package com.test.SYJ_Mall.myPages;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -401,4 +403,69 @@ public class MyPagesService implements IMyPagesService {
 			return null;
 		}
 	}
+	
+	
+	//마이페이지 주문내역
+	@Override
+	public int getMyPageOrderList(HttpServletRequest request,HttpServletResponse response) {
+		
+		try {
+			KakaoCookie kc = new KakaoCookie();
+
+			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=4");// 마지막페이지
+			
+			//여기서 로그인을 했는지 한번 더 체크해준다.
+			HttpSession session = request.getSession();
+			UserDTO udto = (UserDTO)session.getAttribute("userinfo");
+			
+			
+			if (udto == null) return -2;
+			else {
+				
+				List<String> mpListDate = dao.getMyPageDtoDateList(udto.getUserSeq());//주문 물품 객체
+				List<MyPageOrderDTO> mpList = dao.getMyPageDtoList(udto.getUserSeq());//주문 물품 객체
+				
+				
+//				for (MyPageOrderDTO dto : mpList) {
+//					System.out.println("============================");
+//					System.out.println(dto.getProdtName());
+//					System.out.println(dto.getOrderDatetime());
+//				}
+				
+				
+				//Map<String,MyPageOrderDTO> map = new HashMap<String, MyPageOrderDTO>();
+				
+				//map.put("2021.12.23",mpList.get(0));
+				//map.put("2021.12.24",mpList.get(2));
+				//map.put("2021.12.25",mpList.get(1));
+				
+				
+				
+				//request.setAttribute("map", map);
+				request.setAttribute("mpListDate",mpListDate);
+				request.setAttribute("mpList",mpList);
+				//request.setAttribute("mpListDateCount",mpListDate.size());
+				
+				
+				
+				return 1;
+			}
+
+			
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
+		}
+
+	}
+	
+	
+	
+	
 }

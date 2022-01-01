@@ -79,4 +79,12 @@ public interface IMyPagesService {
 	 */
 	List<Integer> deleteMyPageBaskets(HttpServletRequest request, HttpServletResponse response);
 	
+	/**
+	 * 마이페이지 주문내역
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int getMyPageOrderList(HttpServletRequest request,HttpServletResponse response);
+	
 }

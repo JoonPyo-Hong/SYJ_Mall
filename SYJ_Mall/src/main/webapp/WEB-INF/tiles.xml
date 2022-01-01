@@ -111,7 +111,7 @@
 	
 	<!-- 마이페이지 - 주문내역-->
 	<definition name = "/tiles/myPageOrderHistory.layout" extends="newbdefault">
-		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageBasket.jsp"/>	
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageOrderHistory.jsp"/>	
 	</definition>
 	
 	
