@@ -769,6 +769,44 @@ public class LoginService implements ILoginService {
 		}
 		
 	}
+	
+	//로그아웃 처리 수행
+	@Override
+	public String goLogOut(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			
+			HttpSession session = request.getSession();
+			session.removeAttribute("userinfo");// 로그인세션 지워주기
+			
+			KakaoCookie kc = new KakaoCookie();
+			
+			String lastPage = (String)instanceCookie(request, response, "lastPage");
+			
+			if (lastPage == null) {
+				goMain(request);
+				return "/tiles/mainStart.topping";// 메인페이지로 이동
+			} 
+			else if (lastPage.indexOf("?") != -1) {
+				//인코딩 처리를 잘 해줘야한다.
+				String url = urlEncoder(lastPage);
+				return "redirect:/" + url;
+			}
+			else {
+				return "forward:/" + lastPage + ".action";
+			}
+			
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return "none";
+		}
+		
+	}
 
 	
 

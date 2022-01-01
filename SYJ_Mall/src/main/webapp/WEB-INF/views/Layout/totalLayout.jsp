@@ -312,15 +312,42 @@
 				});
 
 				/* -----------로그인 관련------------ */
+				//로그인 되어있는지 체크해주는 함수
+				function login_check() {
+					
+					let login_value = -1;
+					
+					$.ajax({
+						type : "GET",
+						url : "/SYJ_Mall/loginChecking.action",
+						async : false,
+						dataType : "json",
+						success : function(result) {
+							
+							login_value = result;
+						},
+						error : function(a, b, c) {
+							console.log(a, b, c);
+							
+						}
+					});
+					
+					return login_value;
+				}
+			
+
 				//로그인 클릭 -> 네비게이션 상단
 				$('#login-need').click(function() {
 					closeNavigation();
 					goLoginPage();
 				});
 
-				//로그인 클릭 -> 네비게이션 하단
+				//로그인 또는 로그아웃 클릭 -> 네비게이션 하단
 				$('.login-or-out').click(function() {
-					if ($(this).attr('id') == null) {
+
+					let login_checked = login_check();
+					
+					if (login_checked == -1) {
 						closeNavigation();
 						goLoginPage();
 					} else {
@@ -469,28 +496,6 @@
 			}
 			
 			
-			//로그인 되어있는지 체크해주는 함수
-			function login_check() {
-				
-				let login_value = -1;
-				
-				$.ajax({
-					type : "GET",
-					url : "/SYJ_Mall/loginChecking.action",
-					async : false,
-					dataType : "json",
-					success : function(result) {
-						
-						login_value = result;
-					},
-					error : function(a, b, c) {
-						console.log(a, b, c);
-						
-					}
-				});
-				
-				return login_value;
-			}
 			
 			
 			

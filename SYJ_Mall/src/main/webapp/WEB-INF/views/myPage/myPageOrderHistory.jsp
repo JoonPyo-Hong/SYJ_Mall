@@ -201,6 +201,9 @@
 			<div class="standing-ryan"></div>
 			<div class="empty-message">내역이 없어요</div>
 		</div>
+		
+		<div style="height:140px;"></div>
+		
 	</c:if>
 	<c:if test="${not empty mpList}">
 		<!-- 데이터 있을 시 -->
@@ -232,14 +235,16 @@
 					</ul>
 				</div>
 			</c:forEach>
-
-
-
+			
 			<!-- 주문내역 관련 가이드  -->
 			<ul class="list-guide-orderlist">
 				<li>최근 2년 내역만 확인 가능합니다.</li>
 				<li>취소/교환/반품신청은 상세 주문내역에서 가능합니다.</li>
 			</ul>
+			
+			<div style="height:140px;"></div>
+
+			
 
 		</div>
 	</c:if>
