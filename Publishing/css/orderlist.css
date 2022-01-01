@@ -143,7 +143,16 @@
   vertical-align: top;
   background: url(../images/mypage_orderlist/ico_friends.png) 0 0 no-repeat;
   background-size: 700px 600px;
+  /* 주문접수 */
   background-position: -620px 0;
+  /* 배송준비 */
+  /* background-position: -620px -20px; */
+  /* 배송중 */
+  /* background-position: -620px -40px; */
+  /* 배송완료 */
+  /* background-position: -620px -60px; */
+  /* 구매확정 */
+  /* background-position: -620px -80px; */
 }
 
 .orderlist-history .box-history ul li .info-orderlist .state .text {
