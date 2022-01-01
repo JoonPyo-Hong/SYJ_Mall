@@ -76,6 +76,7 @@
               <li>배송중</li>
               <li>배송 완료</li>
             </ul>
+            <!-- 전체 취소는 주문 접수 일 때 만 화면에 표기 -->
             <button class="cancel">전체 취소</button>
           </div>
 
@@ -105,8 +106,37 @@
           <!-- 결제정보 -->
           <div class="purchase-box-wrap">
             <div class="title">결제정보</div>
-            <ul>
-              <li></li>
+            <ul class="list-type payment-info">
+              <li>
+                <div class="list-title">결제수단</div>
+                <div class="list-contents"><b>신용카드</b></div>
+              </li>
+              <li>
+                <div class="list-title">결제일시</div>
+                <div class="list-contents">2022-01-01 15:25:13</div>
+              </li>
+            </ul>
+            <ul class="list-type product-info">
+              <li>
+                <div class="list-title">상품가</div>
+                <div class="list-contents"><b>8,000원</b></div>
+              </li>
+              <li>
+                <div class="list-title">배송비</div>
+                <div class="list-contents">3,000원</div>
+              </li>
+              <li>
+                <div class="list-title">포인트</div>
+                <div class="list-contents">0원</div>
+              </li>
+              <li>
+                <div class="list-title">기프트카드</div>
+                <div class="list-contents">0원</div>
+              </li>
+              <li class="final-cost">
+                <div class="list-title">최종 결제금액</div>
+                <div class="list-contents">11,000원</div>
+              </li>
             </ul>
           </div>
           <!-- 배송지 정보 -->
@@ -115,14 +145,14 @@
             <div class="order-customer info-box">
               <div class="customer">주문고객</div>
               <div class="customer-info">
-                <div><b>예림</b> 01012345678</div>
+                <div><b class="name">예림</b> 01012345678</div>
                 <div>kakao@naver.com</div>
               </div>
             </div>
             <div class="receive-customer info-box">
               <div class="customer">받는 분</div>
               <div class="customer-info">
-                <div><b>예림</b> 01012345678</div>
+                <div><b class="name">예림</b> 01012345678</div>
                 <div>[63309] 제주특별자치도 제주시 첨단로 242</div>
               </div>
             </div>

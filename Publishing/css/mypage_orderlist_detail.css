@@ -150,6 +150,41 @@
   padding-bottom: 11px;
 }
 
+.purchase-box-wrap ul.list-type {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  padding-top: 15px;
+}
+
+.purchase-box-wrap ul.payment-info {
+  border-bottom: 1px solid rgb(242, 242, 242);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.purchase-box-wrap ul.list-type li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.purchase-box-wrap ul.list-type li .list-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.purchase-box-wrap ul.list-type li.final-cost {
+  margin: 30px 0 7px;
+  font-weight: bold;
+}
+
+.purchase-box-wrap ul.list-type li.final-cost .list-contents {
+  font-size: 24px;
+}
+
 /* 배송지 정보 */
 .address-box-wrap {
   padding: 0px 20px 25px;
@@ -176,6 +211,11 @@
 .address-box-wrap .info-box .customer-info {
   margin-bottom: 25px;
   font-size: 16px;
+  line-height: 170%;
+}
+
+.address-box-wrap .info-box .customer-info .name {
+  margin-right: 5px;
 }
 
 /* 포인트 및 쿠폰 관련 유의사항 */
