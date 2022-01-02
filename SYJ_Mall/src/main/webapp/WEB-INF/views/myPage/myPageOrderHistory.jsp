@@ -207,7 +207,7 @@
 	</c:if>
 	<c:if test="${not empty mpList}">
 		<!-- 데이터 있을 시 -->
-		<div class="orderlist-history">
+		<div class="orderlist-history" style="height : 1400px;">
 
 			<c:forEach var="md" items="${mpListDate}">
 				<div class="box-history">
@@ -242,35 +242,41 @@
 				<li>취소/교환/반품신청은 상세 주문내역에서 가능합니다.</li>
 			</ul>
 			
-			<div style="height:140px;"></div>
-
-			
-
 		</div>
 	</c:if>
 
 </div>
 
-<div id="kakao-footer">
-	<div id="inner-footer">
-		<div class="info-service">
-			<ul>
-				<li>제휴문의</li>
-				<span class="footer-divider"></span>
-				<li>고객문의</li>
-				<span class="footer-divider"></span>
-				<li>이용약관</li>
-				<span class="footer-divider"></span>
-				<li>개인정보처리방침</li>
-				<span class="footer-divider"></span>
-				<li>지식재산권보호센터</li>
-			</ul>
-		</div>
-		<div class="logo">
-			<div class="toggler">
-				<span class="toggler-logo"></span> <span class="toggler-icon"></span>
-			</div>
-			<div class="best-family"></div>
-		</div>
-	</div>
-</div>
+
+
+
+<script>
+
+	let page_end = 0;//푸터 자연스럽게 보여주기 위함
+	
+	$('#kakao-content').on(
+		"scroll",
+		function(){
+			
+			const scrollHeight = document.getElementById('kakao-content').scrollHeight;
+			const scrollTop = document.getElementById('kakao-content').scrollTop;
+			const height = $('#kakao-content').height();
+			
+			console.log("scrollHeight : " + scrollHeight);
+			console.log("scrollTop : " + scrollTop);
+			console.log("height : " + height);
+			
+			if ((scrollTop + height >= scrollHeight) && page_end == 0) {	
+				call_footer();
+				
+				page_end = -1;
+			}
+	});	
+	
+	
+	$('.order-info').click(function(){
+		alert("!!");
+	});
+	
+
+</script>

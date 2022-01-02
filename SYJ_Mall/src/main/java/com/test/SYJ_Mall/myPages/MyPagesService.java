@@ -426,28 +426,8 @@ public class MyPagesService implements IMyPagesService {
 				List<String> mpListDate = dao.getMyPageDtoDateList(udto.getUserSeq());//주문 물품 객체
 				List<MyPageOrderDTO> mpList = dao.getMyPageDtoList(udto.getUserSeq());//주문 물품 객체
 				
-				
-//				for (MyPageOrderDTO dto : mpList) {
-//					System.out.println("============================");
-//					System.out.println(dto.getProdtName());
-//					System.out.println(dto.getOrderDatetime());
-//				}
-				
-				
-				//Map<String,MyPageOrderDTO> map = new HashMap<String, MyPageOrderDTO>();
-				
-				//map.put("2021.12.23",mpList.get(0));
-				//map.put("2021.12.24",mpList.get(2));
-				//map.put("2021.12.25",mpList.get(1));
-				
-				
-				
-				//request.setAttribute("map", map);
 				request.setAttribute("mpListDate",mpListDate);
 				request.setAttribute("mpList",mpList);
-				//request.setAttribute("mpListDateCount",mpListDate.size());
-				
-				
 				
 				return 1;
 			}

@@ -105,9 +105,12 @@ public class MessageSender {
 		try {
 
 			Encryption enc = new Encryption();
-
-			final String USER = "ssh9308@gmail.com"; // gmail 계정
-			final String PASSWORD = enc.returnDcyVoca("*x&+$@*P!+#*x&&P?+&P!**P");// gmail 패스워드
+			
+			CommonDAO dao = new CommonDAO();
+			MasterDTO dto = dao.getMasterData();
+			
+			final String USER = dto.getMasterEmail(); // gmail 계정
+			final String PASSWORD = enc.returnDcyVoca(dto.getMasterPw(),dto.getMasterKey());
 
 			// SMTP 서버 정보를 설정한다.
 			Properties prop = new Properties();

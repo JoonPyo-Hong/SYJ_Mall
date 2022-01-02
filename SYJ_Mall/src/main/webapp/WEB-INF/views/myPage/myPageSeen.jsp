@@ -258,6 +258,27 @@
 	}
 	
 	
+	let page_end = 0;//푸터 자연스럽게 보여주기 위함
+	
+	$('#kakao-content').on(
+		"scroll",
+		function(){
+			
+			const scrollHeight = document.getElementById('kakao-content').scrollHeight;
+			const scrollTop = document.getElementById('kakao-content').scrollTop;
+			const height = $('#kakao-content').height();
+			
+			console.log("scrollHeight : " + scrollHeight);
+			console.log("scrollTop : " + scrollTop);
+			console.log("height : " + height);
+			
+			if ((scrollTop + height >= scrollHeight) && page_end == 0) {	
+				call_footer();
+				
+				page_end = -1;
+			}
+	});	
+	
 	
 	
 </script>
