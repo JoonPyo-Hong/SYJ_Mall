@@ -11,10 +11,11 @@
 			  2021-08-24 Seunghwan Shin	#회원장바구니 목록 불러오기 로직오류 수정
 			  2021-08-26 Seunghwan Shin	#장바구니 쿠키정보 구분자 '#'으로 변경
 			  2021-09-19 Seunghwan Shin	#product_count > 0 인 상품들만 보여주기
+			  2022-01-02 Seunghwan Shin	#성능을 위해 인기 판매량 테이블을 직접 만들어 조인(KAKAO_JOB_RANK_POPULAR)
 			   
 	
 	Real DB :	exec dbo.kakao_popular_product_list 1,2000001,''
-				exec dbo.kakao_popular_product_list 1,2000001,'13,21,11,3'
+				exec dbo.kakao_popular_product_list 1,0,'13#21#11#3#'
 */
 CREATE proc dbo.kakao_popular_product_list
 	@paging			int				-- 페이지 넘버
@@ -25,12 +26,6 @@ set nocount on
 set transaction isolation level read uncommitted 
 begin
 	
-	declare @start_dt	datetime 			
-	,		@end_dt		datetime = getdate()
-
-	set @start_dt = dateadd(yy,-1,@end_dt)
-
-
 	--로그인이 안되어 있는경우 : 쿠키 사용
 	if (@qoouser_seq = 0)
 	begin
@@ -43,28 +38,17 @@ begin
 		from
 		(
 			select
-				row_number() over (order by pd.cnt desc) as rn
-			,	pd.productId as productId
+				row_number() over (order by kjrp.buy_cnt desc) as rn
+			,	kjrp.product_id as productId
 			,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as productImg
-			,	pd.cnt
+			,	kjrp.buy_cnt
 			,	case 
 					when ss.value is null then 'cart.png'
 				else 'cart_on.png'
 				end as basket
-			from 
-			(	select
-					kpt.product_id as productId
-				,	count(*) as cnt
-				from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
-				inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
-				where kpp.product_buy_dt between @start_dt and @end_dt
-				and kpp.star_score = 5
-				and kpt.del_yn = 'N'
-				and kpt.product_count > 0
-				group by kpt.product_id
-			) as pd
-			inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock,forceseek) on kpi.product_id = pd.productId
-			left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = pd.productId
+			from dbo.KAKAO_JOB_RANK_POPULAR kjrp with(nolock) 
+			inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock,forceseek) on kpi.product_id = kjrp.product_id
+			left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kjrp.product_id
 			where kpi.rep_img_yn = 'Y' and kpi.head_img_yn = 'Y'
 		) as pdc
 		where rn between (@paging * 18) - 17 and (@paging * 18)
@@ -81,27 +65,16 @@ begin
 		from
 		(
 			select
-				row_number() over (order by pd.cnt desc) as rn
-			,	pd.productId as productId
+				row_number() over (order by kjrp.buy_cnt desc) as rn
+			,	kjrp.product_id as productId
 			,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as productImg
-			,	pd.cnt
+			,	kjrp.buy_cnt
 			,	case 
 					when kusc.product_id is null then 'cart.png'
 				else 'cart_on.png'
 				end as basket
-			from 
-			(	select
-					kpt.product_id as productId
-				,	count(*) as cnt
-				from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
-				inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
-				where kpp.product_buy_dt between @start_dt and @end_dt
-				and kpp.star_score = 5
-				and kpt.del_yn = 'N'
-				and kpt.product_count > 0
-				group by kpt.product_id
-			) as pd
-			inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock,forceseek) on kpi.product_id = pd.productId
+			from dbo.KAKAO_JOB_RANK_POPULAR kjrp with(nolock) 
+			inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock,forceseek) on kpi.product_id = kjrp.product_id
 			left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq and kusc.product_id = kpi.product_id and kusc.cart_del_yn = 'N'
 			where kpi.rep_img_yn = 'Y' and kpi.head_img_yn = 'Y'
 		) as pdc

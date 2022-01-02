@@ -46,11 +46,6 @@ end
 
 
 
---truncate table dbo.KAKAO_JOB_RANK
-
-
---select * from dbo.KAKAO_JOB_RANK with(nolock)
-
 
 
 

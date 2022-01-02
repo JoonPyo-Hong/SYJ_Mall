@@ -156,10 +156,7 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public HttpServletRequest AutoLoginBanned(HttpServletRequest request, int userSeq, String ip) {// 과거로그인 기록을 조회하여 마지막
-																									// 로그인기록 아이피와 다른경우
-																									// 자동로그인 방지 페이지로
-																									// 이동한다.
+	public HttpServletRequest AutoLoginBanned(HttpServletRequest request, int userSeq, String ip) {// 과거로그인 기록을 조회하여 마지막 로그인기록 아이피와 다른경우 자동로그인 방지 페이지로 이동한다.
 
 		HttpSession userSession = request.getSession();// 유저의 세션객체를 만들어준다.
 		userSession.setAttribute("userSeq", userSeq);
