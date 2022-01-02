@@ -253,6 +253,14 @@ public interface ILoginService {
 	 */
 	int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl);
 	
+	/**
+	 * 로그아웃 처리 수행
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	String goLogOut(HttpServletRequest request, HttpServletResponse response);
+	
 
 	
 

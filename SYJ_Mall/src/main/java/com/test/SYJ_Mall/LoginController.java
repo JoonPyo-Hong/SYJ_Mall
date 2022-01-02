@@ -132,8 +132,6 @@ public class LoginController {
 				}
 
 			} else if (loginCode == 1) {// 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
-				// System.out.println("비밀번호 변경 요망");
-
 				// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
 				int result = logService.userRedefinedPw(request, userSeq, ip);
 
@@ -474,12 +472,19 @@ public class LoginController {
 	// 로그아웃
 	@RequestMapping(value = "/userLogout.action", method = { RequestMethod.GET })
 	public String userLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		//HttpSession session = request.getSession();
+		//session.removeAttribute("userinfo");// 로그인세션 지워주기
+		
+		String result = logService.goLogOut(request,response);
+		
+		if (result.equals("none")) {
+			return "/testwaiting/kakaoerror";
+		} else {
+			return result;
+		}
 
-		HttpSession session = request.getSession();
-		// System.out.println(session.getAttribute("userinfo"));
-		session.removeAttribute("userinfo");// 로그인세션 지워주기
-
-		return "forward:/main.action";
 
 	}
 

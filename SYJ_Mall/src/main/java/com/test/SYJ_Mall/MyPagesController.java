@@ -66,7 +66,8 @@ public class MyPagesController {
 			
 			int orderResult = service.getMyPageOrderList(request,response);
 			
-			return "/tiles/myPageOrderHistory.layout";
+			if (orderResult == 1) return "/tiles/myPageOrderHistory.layout";
+			else return "/semitiles/loginDirect.layout";
 		}
 		else return "/testwaiting/kakaoerror";
 	}

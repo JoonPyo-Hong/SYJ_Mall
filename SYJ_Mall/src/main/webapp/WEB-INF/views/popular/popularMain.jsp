@@ -40,7 +40,7 @@
 
 <script>
 	
-	let total_count = ${popularDtoListCount};
+	let total_count = ${popularDtoListCount};//전체 페이징 갯수
 	let paging = 1;//페이지 넘버
 	let searchYn = -1;//검색창을 켰는지 안켰는지 구분해주는 숫자  -1 이 안켜짐 1이 켜짐
 	
@@ -53,7 +53,7 @@
 				const height = $('#kakao-content').height();
 				
 				
-				if ((scrollTop + height >= scrollHeight) && paging < total_count-1 && searchYn == -1) {
+				if ((scrollTop + height >= scrollHeight) && paging <= total_count && searchYn == -1) {
 					paging++;
 					
 					$.ajax({

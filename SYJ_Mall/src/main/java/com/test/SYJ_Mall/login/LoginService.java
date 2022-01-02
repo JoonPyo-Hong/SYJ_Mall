@@ -156,10 +156,7 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public HttpServletRequest AutoLoginBanned(HttpServletRequest request, int userSeq, String ip) {// 과거로그인 기록을 조회하여 마지막
-																									// 로그인기록 아이피와 다른경우
-																									// 자동로그인 방지 페이지로
-																									// 이동한다.
+	public HttpServletRequest AutoLoginBanned(HttpServletRequest request, int userSeq, String ip) {// 과거로그인 기록을 조회하여 마지막 로그인기록 아이피와 다른경우 자동로그인 방지 페이지로 이동한다.
 
 		HttpSession userSession = request.getSession();// 유저의 세션객체를 만들어준다.
 		userSession.setAttribute("userSeq", userSeq);
@@ -766,6 +763,44 @@ public class LoginService implements ILoginService {
 			ErrorAlarm ea = new ErrorAlarm(e, ip);
 			ea.errorDbAndMail();
 			return -1;
+		}
+		
+	}
+	
+	//로그아웃 처리 수행
+	@Override
+	public String goLogOut(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			
+			HttpSession session = request.getSession();
+			session.removeAttribute("userinfo");// 로그인세션 지워주기
+			
+			KakaoCookie kc = new KakaoCookie();
+			
+			String lastPage = (String)instanceCookie(request, response, "lastPage");
+			
+			if (lastPage == null) {
+				goMain(request);
+				return "/tiles/mainStart.topping";// 메인페이지로 이동
+			} 
+			else if (lastPage.indexOf("?") != -1) {
+				//인코딩 처리를 잘 해줘야한다.
+				String url = urlEncoder(lastPage);
+				return "redirect:/" + url;
+			}
+			else {
+				return "forward:/" + lastPage + ".action";
+			}
+			
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return "none";
 		}
 		
 	}

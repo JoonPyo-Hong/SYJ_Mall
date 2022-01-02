@@ -26,7 +26,10 @@ public class PopularService implements IPopularService{
 	public int getPopularProductList(HttpServletRequest request, int paging, int userSeq, String basketList) {
 		try {
 			
-			int popularDtoListCount = (int)Math.ceil(dao.getPopularItemCount() / 18.0);
+			int popularDtoListCount = (int)Math.ceil(dao.getPopularItemCount() / 18.0);//전체 페이징 갯수
+			
+			if (popularDtoListCount > 0) popularDtoListCount = popularDtoListCount-1;
+			
 			List<PopularItemDTO> popularDtoList = dao.getPopularItem(paging,userSeq,basketList);
 			request.setAttribute("popularDtoList", popularDtoList);
 			request.setAttribute("seleted", "popular");//상단-> 오늘/신규/인기/마이 중에서 인기를 선택해주는 로직
