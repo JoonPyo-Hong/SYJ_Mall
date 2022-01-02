@@ -1,11 +1,20 @@
 package com.test.SYJ_Mall.newGoods;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,8 +73,18 @@ public class NewGoodService implements INewGoodService{
 		
 	}
 	
+	//캅챠 테스트
+	@Override
+	public int capcharTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		return 0;
+		
+
+	}
 	
 	
+
+
 	
 	
 }

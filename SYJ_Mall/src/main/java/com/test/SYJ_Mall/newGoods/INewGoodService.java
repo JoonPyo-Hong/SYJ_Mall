@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall.newGoods;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * NewGoodService 인터페이스
@@ -15,5 +16,13 @@ public interface INewGoodService {
 	 * @return	1 : 성공, -1: 오류
 	 */
 	int setTopProductSetting(HttpServletRequest request);
+	
+	/**
+	 * 캅차 테스트
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int capcharTest(HttpServletRequest request, HttpServletResponse response);
 
 }
