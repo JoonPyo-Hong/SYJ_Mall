@@ -27,7 +27,6 @@
         	<version>1.9.13</version>
 		</dependency>
 		
-		
 		 <!-- 구글 리캡챠 -->
         <dependency>
             <groupId>net.tanesha.recaptcha4j</groupId>
