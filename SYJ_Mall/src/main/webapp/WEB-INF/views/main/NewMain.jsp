@@ -351,6 +351,26 @@
 		}
 	});
 	new_main();
+	function sub(list_seq) {
+
+		$
+				.ajax({
+					url : "new_main_sub.action",
+					type : 'post',
+					data : {
+						seq : list_seq,
+					},
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+						
+						
+						}
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+	}
 	function img(list_seq) {
 
 		$
@@ -490,6 +510,7 @@
 																	+ "</div>"
 																	+ "</div>");
 											img(this.seq);
+											//sub(this.seq);
 
 										}// foreach 끝
 
