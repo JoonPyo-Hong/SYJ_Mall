@@ -261,6 +261,13 @@ public interface ILoginService {
 	 */
 	String goLogOut(HttpServletRequest request, HttpServletResponse response);
 	
+	/**
+	 * 로그인 관련 캅차
+	 * @param request
+	 * @return
+	 */
+	int getCapcharData(HttpServletRequest request);
+	
 
 	
 

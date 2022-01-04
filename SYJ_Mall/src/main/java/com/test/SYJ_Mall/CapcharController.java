@@ -41,7 +41,7 @@ public class CapcharController {
 		
 		final String url = "https://www.google.com/recaptcha/api/siteverify";
 	    final  String USER_AGENT = "Mozilla/5.0";
-	    final String secret = "6Lcw6-UdAAAAALpyLzhRIdj2NxGs1hKaKMac-678"; //local
+	    final String secret = "asdasd"; //local
 
 	    try {
 	    	
@@ -90,12 +90,16 @@ public class CapcharController {
 	         
 	         JSONObject jsonObj = (JSONObject) parser.parse(result);
 
-	         System.out.println(jsonObj.get("success"));
+	         System.out.println((Boolean)jsonObj.get("success"));
 	         
 	         //parse JSON response and return 'success' value
 	         //JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
 	         //JsonObject jsonObject = jsonReader.readObject();
 	         //jsonReader.close();
+	         
+	         
+	         System.out.println(gRecaptchaResponse);
+	         System.out.println(secret);
 	         
 	         
 	         //System.out.println(jsonObject);

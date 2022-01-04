@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import com.common.utill.AdverDTO;
 import com.common.utill.AutoLoginPic;
+import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
@@ -28,6 +29,7 @@ import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
+import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
@@ -801,6 +803,39 @@ public class LoginService implements ILoginService {
 			ErrorAlarm ea = new ErrorAlarm(e, ip);
 			ea.errorDbAndMail();
 			return "none";
+		}
+		
+	}
+	
+	//로그인 관련 캅차
+	@Override
+	public int getCapcharData(HttpServletRequest request) {
+		
+		try {
+			
+			String siteKey = request.getParameter("recaptcha");
+			int adminSeq = 1;
+			
+			CommonDAO cdao = new CommonDAO();
+			String secureKey =  cdao.getCaptchaPrivateKey(adminSeq);
+			
+			ReCaptchar rc = new ReCaptchar(siteKey,secureKey);
+			
+			if (rc.verifyCaprcha(request)) {
+				System.out.println("success");
+			} else {
+				System.out.println("fail");
+			}
+			
+			return 1;
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;
 		}
 		
 	}

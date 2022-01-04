@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 공통 DB 담당 클래스
@@ -171,6 +172,36 @@ public class CommonDAO {
 			return null;
 		}
 		
+	}
+	
+	/**
+	 * 캅차 비밀키 모두 가져와주는 로직
+	 * @param siteKey	사이트 키
+	 * @return
+	 */
+	public String getCaptchaPrivateKey(int adminSeq) {
+		
+		try {
+			
+			
+			String secureKey = "";
+			
+			String sql = "{call kakao_admin_captchar(?)}";
+			
+			stat = conn.prepareCall(sql);
+			stat.setInt("admin_seq", adminSeq);
+			stat.execute();
+			rs = stat.getResultSet();
+			
+			if (rs.next()) {
+				secureKey = rs.getString("secureKey");
+			}
+			
+			return secureKey;
+			
+		} catch(Exception e) {
+			return null;
+		}
 	}
 	
 	
