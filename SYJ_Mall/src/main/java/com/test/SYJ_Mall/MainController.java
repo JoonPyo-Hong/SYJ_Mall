@@ -95,6 +95,15 @@ public class MainController {
 
 		return list;
 	}
+	// new_main_sub
+	@RequestMapping(value = "/new_main_sub.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object new_main_sub(@RequestParam("seq") int seq) {
+
+		List<Integer> list = service.new_main_sub(seq);
+
+		return list;
+	}
 
 	// 메인 이미지
 	@RequestMapping(value = "/img.action", method = { RequestMethod.POST })

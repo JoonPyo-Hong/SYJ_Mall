@@ -48,6 +48,8 @@ public interface MainDAO {
 
 	List<String> new_main_img(int seq);
 
+	List<Integer> new_main_sub(int seq);
+
 
 
 }
