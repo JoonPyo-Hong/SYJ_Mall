@@ -243,7 +243,18 @@ public class LoginController {
 		}
 
 	}
+	
+	// 로그인 캅차 기능
+	@RequestMapping(value = "/loginCaptcha.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public int loginCaptcha(HttpServletRequest request, HttpServletResponse response) {
 
+		int result = logService.getCapcharData(request);
+		
+		return 1;
+	}
+	
+	
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/

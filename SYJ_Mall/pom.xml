@@ -191,12 +191,6 @@
 		</dependency>
 
 
-		<!-- log4j 기능 사용 : 데이터 베이스 작업과 관련된 로그를 기록/관리 하는 기능 -->
-		<dependency>
-			<groupId>org.lazyluke</groupId>
-			<artifactId>log4jdbc-remix</artifactId>
-			<version>0.2.7</version>
-		</dependency>
 
 		<!-- jsonobject -->
 		<dependency>
