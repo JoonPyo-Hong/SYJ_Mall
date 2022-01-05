@@ -49,16 +49,16 @@ public class ReCaptchar {
 	 * @param request
 	 * @return
 	 */
-	public boolean verifyCaprcha(HttpServletRequest request) {
+	public int verifyCaprcha(HttpServletRequest request) {
 
 		try {
 			
 			if (publicKey == null || "".equals(publicKey)) {
-	            return false;
+	            return -1;
 	        }
 			
-			System.out.println(publicKey);
-			System.out.println(secretKey);
+			//System.out.println(publicKey);
+			//System.out.println(secretKey);
 			
 			
 			URL obj = new URL(url);
@@ -98,9 +98,12 @@ public class ReCaptchar {
 	        JSONParser parser = new JSONParser();
 	        JSONObject jsonObj = (JSONObject) parser.parse(result);
 	        
-	        System.out.println((Boolean) jsonObj.get("success"));
-	        
-	        return (Boolean) jsonObj.get("success");
+	        if ((Boolean)jsonObj.get("success")) {
+	        	return 1;
+	        } else {
+	        	return -2;
+	        }
+
 
 	        
 		} catch(Exception e) {
@@ -111,7 +114,7 @@ public class ReCaptchar {
 			ErrorAlarm ea = new ErrorAlarm(e, ip);
 			ea.errorDbAndMail();
 			
-			return false;
+			return -3;
 		}
 		
 	}

@@ -7,7 +7,7 @@
 <script type="text/javascript" src="<c:url value="resources/js/rsa.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/prng4.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src='https://www.google.com/recaptcha/api.js'></script>	
 <head>
 <meta charset="UTF-8">
@@ -61,8 +61,8 @@
 		display: flex;
 	  	justify-content: center;
 	}
-
-
+	
+	
 </style>
 
 
@@ -160,44 +160,45 @@
         });
         
       	//1. 버튼을 직접 누른 경우
-        /* $("#go").click(function(){
-        	packetLogin();
-      	});  */
+        $("#go").click(function(){
+        	capcharStart();
+        	//packetLogin();
+      	});  
         
         //2. 엔터키를 통해서 로그인 시도한 경우
         $("#inputpw").keyup(function(e){
-        	if(e.keyCode == 13) packetLogin();
+        	if(e.keyCode == 13) capcharStart();
+        });
+        
+        $('#mfooter_check').click(function(){
+        	location.reload();
         })
         
-        
-        // 캅차인증 -> 로그인 버튼 눌러준 경우
-        $(document).ready(function() {
-            $("#go").click(function() {
-                $.ajax({
-                    url: '/SYJ_Mall/loginCaptcha.action',
-                    type: 'post',
-                    data: {
-                        recaptcha: $("#g-recaptcha-response").val()
-                    },
-                    success: function(data) {
-                        switch (data) {
-                            case 0:
-                                alert("자동 가입 방지 봇 통과");
-                                break;
- 
-                            case 1:
-                                alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
-                                break;
- 
-                            default:
-                                alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
-                                break;
-                        }
+       	//리캅챠 인증 함수 
+       	function capcharStart() {
+        	$.ajax({
+                url: '/SYJ_Mall/loginCaptcha.action',
+                type: 'post',
+                data: {
+                    recaptcha: $("#g-recaptcha-response").val()
+                },
+                success: function(data) {
+                    switch (data) {
+                        case 1:
+                            packetLogin();
+                            break;
+
+                        case -1:
+                            alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
+                            break;
+
+                        default:
+                            alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+                            break;
                     }
-                });
+                }
             });
-        });
- 
+        } 
         
         
         
