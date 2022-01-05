@@ -249,9 +249,8 @@ public class LoginController {
 	@ResponseBody
 	public int loginCaptcha(HttpServletRequest request, HttpServletResponse response) {
 
-		int result = logService.getCapcharData(request);
+		return logService.getCapcharData(request);
 		
-		return 1;
 	}
 	
 	

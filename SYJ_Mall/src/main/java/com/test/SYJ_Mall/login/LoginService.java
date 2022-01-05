@@ -821,13 +821,7 @@ public class LoginService implements ILoginService {
 			
 			ReCaptchar rc = new ReCaptchar(siteKey,secureKey);
 			
-			if (rc.verifyCaprcha(request)) {
-				System.out.println("success");
-			} else {
-				System.out.println("fail");
-			}
-			
-			return 1;
+			return rc.verifyCaprcha(request);
 			
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
