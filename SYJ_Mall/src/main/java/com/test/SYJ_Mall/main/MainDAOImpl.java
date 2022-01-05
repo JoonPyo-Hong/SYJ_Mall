@@ -162,4 +162,10 @@ public class MainDAOImpl implements MainDAO {
 		// TODO Auto-generated method stub
 		return session.selectList("main.new_main_sub", seq);
 	}
+
+	@Override
+	public List<SubDTO> new_main_sub_img(int seq) {
+		// TODO Auto-generated method stub
+		return session.selectList("main.new_main_sub_img", seq);
+	}
 }

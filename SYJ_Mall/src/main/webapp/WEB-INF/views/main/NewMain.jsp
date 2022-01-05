@@ -362,8 +362,30 @@
 					},
 					success : function(data) {
 						for (var i = 0; i < data.length; i++) {
+							alert(data[i]);
 						
+							
+						}
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+	}
+	function sub_img(list_seq) {
+
+		$
+				.ajax({
+					url : "new_main_sub_img.action",
+					type : 'post',
+					data : {
+						seq : list_seq,
+					},
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+							alert(data[i]);
 						
+							
 						}
 					},
 					error : function() {
@@ -510,7 +532,7 @@
 																	+ "</div>"
 																	+ "</div>");
 											img(this.seq);
-											//sub(this.seq);
+											sub(this.seq);
 
 										}// foreach 끝
 

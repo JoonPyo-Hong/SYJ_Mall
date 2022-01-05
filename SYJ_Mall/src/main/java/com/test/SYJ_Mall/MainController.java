@@ -23,6 +23,7 @@ import com.test.SYJ_Mall.main.FeedDTO;
 import com.test.SYJ_Mall.main.MainDTO;
 import com.test.SYJ_Mall.main.MainService;
 import com.test.SYJ_Mall.main.NewMainDTO;
+import com.test.SYJ_Mall.main.SubDTO;
 
 /**
  * 메인 페이지 컨트롤러 역할
@@ -101,6 +102,15 @@ public class MainController {
 	public Object new_main_sub(@RequestParam("seq") int seq) {
 
 		List<Integer> list = service.new_main_sub(seq);
+
+		return list;
+	}
+	// new_main_sub_img
+	@RequestMapping(value = "/new_main_sub_img.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object new_main_sub_img(@RequestParam("seq") int seq) {
+
+		List<SubDTO> list = service.new_main_sub_img(seq);
 
 		return list;
 	}
