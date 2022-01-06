@@ -77,13 +77,16 @@
   background: url(../images/main_login/ico_account-e8750da61bf611ac86a0dd8350c4fd35e3e71cca4885218a9052a286df0222f8.png);
 }
 
+.wrap-form .login-input-box input::placeholder {
+  color: #8e8e8e;
+}
+
 /* 로그인 입력 부분 */
 
 .wrap-form .login-input-box .email {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  color: #8e8e8e;
   font-size: 15px;
   cursor: pointer;
   border: none;
@@ -94,7 +97,6 @@
   width: 100%;
   height: 40px;
   line-height: 40px;
-  color: #8e8e8e;
   font-size: 15px;
   cursor: pointer;
   border: none;
@@ -198,25 +200,25 @@
 }
 
 .wrap-form .login-btn-box .line span::before {
+  content: "";
   display: inline-block;
   width: calc(50% - 20px);
   height: 1px;
   margin: 8px 0;
   margin-right: 8px;
-  color: #ebebeb;
+  background-color: #ebebeb;
   vertical-align: middle;
-  content: "";
 }
 
 .wrap-form .login-btn-box .line span::after {
+  content: "";
   display: inline-block;
   width: calc(50% - 20px);
   height: 1px;
   margin: 8px 0;
   margin-left: 8px;
-  color: #ebebeb;
+  background-color: #ebebeb;
   vertical-align: middle;
-  content: "";
 }
 
 /* 하단 회원 가입 및 계정 찾기 */
@@ -232,11 +234,19 @@
   float: left;
 }
 
-.info-user ul li:not(first-child)::before {
+.info-user ul li:last-child:before {
   content: "";
   float: left;
   width: 1px;
   height: 10px;
   margin: 4px 10px;
   background-color: #e5e5e5;
+}
+
+@media (min-width: 640px) {
+  /* PC */
+  .wrap-banner {
+    border: 1px solid red;
+    display: none;
+  }
 }
