@@ -7,7 +7,6 @@
 <script type="text/javascript" src="<c:url value="resources/js/rsa.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/prng4.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src='https://www.google.com/recaptcha/api.js'></script>	
 <head>
 <meta charset="UTF-8">
@@ -102,6 +101,7 @@
     
     <div id = "recaptcha">
 		<div class="g-recaptcha" data-sitekey="6Lcw6-UdAAAAAJLINDkliT-Ops9xfnkysSKtYlcF"></div>
+		<!-- <div class="g-recaptcha" data-sitekey="6Leih_QdAAAAAEsEYSC4OU-4pgnLiXPe4j4pfp7T"></div> -->
 	</div>
     
     <div id = "etcinfo">
@@ -117,13 +117,13 @@
 	<div id = "advertise" class = "inputform" style = "background: url('resources/images/adver/<c:out value="${adverMap['picName']}"/>'); background-size: cover;"></div>
 	
 	
-	  <!-- Modal -->
+	  <!--Login Modal -->
 	  <div class="modal fade" id="myModal" role="dialog">
 	    <div class="modal-dialog">
 	      <!-- Modal content-->
 	      <div class="modal-content">
 	        <div class="modal-body" id = "modalcontent">
-	          <p>가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.</p>
+	          <p id="modal_context"></p>
 	        </div>
 	        <div class="modal-footer" id = "mfooter">
 	          <button type="button" id = "mfooter_check" class="btn btn-default" data-dismiss="modal">확인</button>
@@ -131,6 +131,8 @@
 	      </div> 
 	    </div>
 	  </div>
+	  
+	  
 	
 
     <script>
@@ -189,7 +191,7 @@
                             break;
 
                         case -1:
-                            alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
+                        	modal_situation('자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.');
                             break;
 
                         default:
@@ -253,7 +255,8 @@
            			if (result == 1){
            				$("#input_form").submit();
            			} else {
-           				$("#myModal").modal();
+           				//$("#myModal").modal();
+           				modal_situation('가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.');
            			}
            			
                 },
@@ -263,6 +266,18 @@
             });
       		
         }
+        
+        //상황에 따라 맞는 모달 넣어주기
+        function modal_situation(inner_text) {
+        	//가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.
+        	//$('#modal_context').text('가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.');
+        	
+        	$('#modal_context').text(inner_text)
+        	
+        	$("#myModal").modal();
+        	
+        }
+        
 
 
     </script>
