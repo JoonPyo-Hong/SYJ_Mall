@@ -101,7 +101,6 @@
     
     <div id = "recaptcha">
 		<div class="g-recaptcha" data-sitekey="6Lcw6-UdAAAAAJLINDkliT-Ops9xfnkysSKtYlcF"></div>
-		<!-- <div class="g-recaptcha" data-sitekey="6Leih_QdAAAAAEsEYSC4OU-4pgnLiXPe4j4pfp7T"></div> -->
 	</div>
     
     <div id = "etcinfo">
@@ -238,7 +237,6 @@
       	    
       	   securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
       	   securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
-      	   //securedForm.submit();//제출
       	   ajaxCheck(securedUsername,securedPassword);//ajax 호출
       	}
         
@@ -255,7 +253,6 @@
            			if (result == 1){
            				$("#input_form").submit();
            			} else {
-           				//$("#myModal").modal();
            				modal_situation('가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.');
            			}
            			
@@ -269,8 +266,6 @@
         
         //상황에 따라 맞는 모달 넣어주기
         function modal_situation(inner_text) {
-        	//가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.
-        	//$('#modal_context').text('가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.');
         	
         	$('#modal_context').text(inner_text)
         	
