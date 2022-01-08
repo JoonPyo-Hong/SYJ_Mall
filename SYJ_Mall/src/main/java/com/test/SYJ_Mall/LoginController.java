@@ -99,14 +99,13 @@ public class LoginController {
 			String pw = map.get("pw");// 비밀번호
 			
 			String encPw = logService.pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
-
+			
 			List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
 			int userSeq = loginResult.get(0).getUserSeq();// 유저 고유 코드
 			int loginCode = loginResult.get(0).getLoginCode();// 로그인 결과
 			
 			
 			if (loginCode == 0) {// 로그인 성공
-				// System.out.println("로그인 성공");
 
 				int logResult = logService.loginSuccess(request, userSeq);// 로그인 인증티켓 발급
 
@@ -120,11 +119,9 @@ public class LoginController {
 					else if (lastPage.indexOf("?") != -1) {
 						//인코딩 처리를 잘 해줘야한다.
 						String url = logService.urlEncoder(lastPage);
-						//System.out.println("??? : " + url);
 						return "redirect:/" + url;
 					}
 					else {
-						//System.out.println("tq "+ lastPage);
 						return "forward:/" + lastPage + ".action";
 					}
 				} else {
@@ -455,7 +452,6 @@ public class LoginController {
 			
 			if (result == 1) {
 				return "/login/UserRedefinedPwSuccess";
-				// return "redirect:/login.action";//메인페이지로 보내준다.
 			} else {
 				throw new Exception("admin throw Exception");
 			}
@@ -483,9 +479,6 @@ public class LoginController {
 	@RequestMapping(value = "/userLogout.action", method = { RequestMethod.GET })
 	public String userLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
-		//HttpSession session = request.getSession();
-		//session.removeAttribute("userinfo");// 로그인세션 지워주기
 		
 		String result = logService.goLogOut(request,response);
 		

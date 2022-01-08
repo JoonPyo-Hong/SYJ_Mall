@@ -427,7 +427,8 @@
             <form action="/SYJ_Mall/loginVerification.action" method = "POST" id = "input_form">
             	
             	<input type="hidden" name="securedUsername" id="securedUsername" value="" />
-				<input type="hidden" name="securedPassword" id="securedPassword" value="" /> 
+				<input type="hidden" name="securedPassword" id="securedPassword" value="" />
+				<input type="hidden" name="loginStay" id="loginStay" value="-1" /> 
            
             </form>
             <button class="login-btn">로그인</button>
@@ -475,7 +476,6 @@
 	//1. 버튼을 직접 누른 경우
 	$(".login-btn").click(function() {
 		capcharStart();
-		//packetLogin();
 	});
 
 	//2. 엔터키를 통해서 로그인 시도한 경우
@@ -493,7 +493,6 @@
 
 		let username = document.getElementById("inputid").value;//유저가 작성한 아이디
 		let password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
-		
 		
 		try {
 			let rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
@@ -537,7 +536,6 @@
 				if (result == 1) {
 					$("#input_form").submit();
 				} else {
-					//console.log("가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.");
 					modal_situation("가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.")
 				}
 
@@ -582,6 +580,12 @@
 		$("#myModal").modal();
 
 	}
+	
+	//로그인 상태 유지
+	$('.ico-check').click(function(){
+		const login_stay_val = $('#loginStay').val();
+		$('#loginStay').val(login_stay_val * -1);
+	});
 	
 	
 </script>
