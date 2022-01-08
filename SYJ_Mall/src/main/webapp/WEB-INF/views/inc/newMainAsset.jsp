@@ -315,5 +315,34 @@ var {
   
 }
 
+/* font 영역 */
+
+/* AppleSDGothicNeo */
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  font-weight: 300;
+  src: url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoL.woff) format("woff"),
+    url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoL.woff2) format("woff2"),
+    url(/SYJ_Mall/resources/src/fonts/AppleSDGothicNeoL.otf) format("otf");
+}
+
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  font-weight: 400;
+  src: url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoM.woff) format("woff"),
+    url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoM.woff2) format("woff2"),
+    url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoM.otf) format("otf");
+}
+
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  font-weight: 700;
+  src: url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoB.woff) format("woff"),
+    url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoB.woff2) format("woff2"),
+    url(/SYJ_Mall/resources/fonts/AppleSDGothicNeoB.otf) format("otf");
+}
+
+
+
 
 </style>

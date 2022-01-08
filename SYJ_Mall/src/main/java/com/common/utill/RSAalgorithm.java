@@ -105,6 +105,7 @@ public class RSAalgorithm {
 		String securedUsername = request.getParameter("securedUsername");//암호화된 아이디
         String securedPassword = request.getParameter("securedPassword");//암호화된 비밀번호
 		
+        
         HttpSession session = request.getSession();
         PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
         

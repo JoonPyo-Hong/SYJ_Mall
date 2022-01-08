@@ -657,7 +657,7 @@ public class LoginService implements ILoginService {
 
 			// 여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
 			int result = dao.firstLoginCheck(ip, id, encPw);
-
+			
 			return result;
 
 		} catch (Exception e) {
