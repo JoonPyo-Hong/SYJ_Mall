@@ -45,7 +45,7 @@ public class LoginController {
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(HttpServletRequest request, HttpServletResponse response, String site) {
 
-		// 혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임 -> 모달창으로 바꿔주는게 좋으려나;
+		// 혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임 
 		int result = -1;
 		
 		HttpSession session = request.getSession();
@@ -108,10 +108,12 @@ public class LoginController {
 			if (loginCode == 0) {// 로그인 성공
 
 				int logResult = logService.loginSuccess(request, userSeq);// 로그인 인증티켓 발급
-
+				
 				String lastPage = (String) logService.instanceCookie(request, response, "lastPage");
 				
-				if (logResult == 1) {
+				int loginSave = logService.loginSaveYn(request,response,userSeq);//로그인 유지 관련 함수
+				
+				if (logResult == 1 && loginSave != -1) {
 					if (lastPage == null) {
 						logService.goMain(request);
 						return "/tiles/mainStart.topping";// 메인페이지로 이동

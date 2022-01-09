@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.login;
 
+import java.security.PrivateKey;
 import java.util.List;
 
 import com.common.utill.AdverDTO;
@@ -158,6 +159,15 @@ public interface ILoginDAO {
 	 * @return					1: 성공, -1 : 실패
 	 */
 	int setCookieToDbBasketListDeleted(int userSeq, String newBasketList);
+
+	
+	/**
+	 * 로그인 유지를 위해 DB에 secureKey 를 저장함.
+	 * @param userSeq
+	 * @param privateKey
+	 * @return
+	 */
+	int saveRsaPrivateKey(int userSeq, PrivateKey privateKey);
 
 
 

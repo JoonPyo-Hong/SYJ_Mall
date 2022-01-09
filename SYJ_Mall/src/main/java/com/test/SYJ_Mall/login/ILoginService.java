@@ -268,6 +268,16 @@ public interface ILoginService {
 	 */
 	int getCapcharData(HttpServletRequest request);
 	
+	
+	/**
+	 * 그인 유지해줄지 말지 결정해주는 함수
+	 * @param request
+	 * @param response
+	 * @param userSeq
+	 * @return
+	 */
+	int loginSaveYn(HttpServletRequest request, HttpServletResponse response,int userSeq);
+	
 
 	
 

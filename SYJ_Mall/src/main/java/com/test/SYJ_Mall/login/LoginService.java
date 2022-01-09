@@ -2,6 +2,7 @@ package com.test.SYJ_Mall.login;
 
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -312,7 +313,8 @@ public class LoginService implements ILoginService {
 				String newBasketList = productCookieList(delAddProduct);
 				return dao.setCookieToDbBasketListDeleted(userSeq, newBasketList);
 			}
-		} // if
+		}//if
+		
 		// 쿠키객체안에 상품리스트가 없는경우
 		else {
 			return 1;
@@ -833,6 +835,46 @@ public class LoginService implements ILoginService {
 			return -1;
 		}
 		
+	}
+	
+	//로그인 유지 관련 메서드
+	@Override
+	public int loginSaveYn(HttpServletRequest request, HttpServletResponse response, int userSeq) {
+		try {
+			
+			int loginSave = Integer.parseInt(request.getParameter("loginSave"));
+			
+			if (loginSave == -1) return -2;//로그인 유지 안함
+			else {
+				//로그인 유지 해줄것임.
+				String securedUsername = request.getParameter("securedUsername");
+				String securedPassword = request.getParameter("securedPassword");
+				
+				KakaoCookie kc = new KakaoCookie();
+				
+				kc.generateCookie(response, "loginSaveUserId", securedUsername);
+				kc.generateCookie(response, "loginSaveUserPw", securedPassword);
+				kc.generateCookie(response, "loginSaveUserSeq", Integer.toString(userSeq));
+				
+				//DB 에 securedKey 를 저장해야함
+				HttpSession session = request.getSession();
+				PrivateKey privateKey = (PrivateKey)session.getAttribute("__rsaPrivateKey__");
+				
+				int result = dao.saveRsaPrivateKey(userSeq,privateKey);
+				
+				if (result == 1) return 1;
+				else return -1;
+				
+			}
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
 	}
 
 	

@@ -74,6 +74,7 @@ public class RSAalgorithm {
         PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
         session.removeAttribute("__rsaPrivateKey__"); // 키의 재사용을 막는다. 항상 새로운 키를 받도록 강제. and 메모리누수 방지
         
+       
         if (privateKey == null) {
             throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다.");
         }
@@ -137,7 +138,7 @@ public class RSAalgorithm {
 		
         HttpSession session = request.getSession();
         PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
-        session.removeAttribute("__rsaPrivateKey__"); // 키의 재사용을 막는다. 항상 새로운 키를 받도록 강제. and 메모리누수 방지
+        session.removeAttribute("__rsaPrivateKey__"); //키의 재사용을 막는다. 항상 새로운 키를 받도록 강제. and 메모리누수 방지
         
         if (privateKey == null) {
             throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다.");

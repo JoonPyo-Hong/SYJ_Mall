@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.login;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -222,6 +223,15 @@ public class LoginDAO implements ILoginDAO {
 		map.put("productId",newBasketList);
 		
 		return template.selectOne("SYJDB.setCookieToDbBasketListDeleted", map);
+	}
+
+	
+	@Override
+	public int saveRsaPrivateKey(int userSeq, PrivateKey privateKey) {
+		
+		
+		
+		return 0;
 	}
 }
 
