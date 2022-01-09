@@ -47,8 +47,6 @@ public class RSAalgorithm {
 		// 공개키를 문자열로 변환하여 JavaScript RSA 라이브러리 넘겨준다.
 		RSAPublicKeySpec publicSpec = keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
 
-
-
 		String publicKeyModulus = publicSpec.getModulus().toString(16);
 
 		String publicKeyExponent = publicSpec.getPublicExponent().toString(16);

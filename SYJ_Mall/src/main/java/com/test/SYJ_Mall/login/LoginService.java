@@ -654,8 +654,7 @@ public class LoginService implements ILoginService {
 			String pw = map.get("pw");// 비밀번호
 
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
-			
-			//System.out.println("encPw : " + encPw);
+		
 			
 			// 여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
 			int result = dao.firstLoginCheck(ip, id, encPw);

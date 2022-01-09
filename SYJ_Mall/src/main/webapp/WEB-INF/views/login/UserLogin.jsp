@@ -419,7 +419,7 @@
                 <input type="checkbox" id="stay-login" class="set-check">
                 <label class="set-text" for="stay-login">
                   <span class="ico-check"></span>
-                  <span class="ico-text">로그인 상태 유지</span></label>
+                  <span class="ico-text">아이디 비밀번호 기억</span></label>
               </div>
             </div>
           </div>
@@ -428,7 +428,7 @@
             	
             	<input type="hidden" name="securedUsername" id="securedUsername" value="" />
 				<input type="hidden" name="securedPassword" id="securedPassword" value="" />
-				<input type="hidden" name="loginStay" id="loginStay" value="-1" /> 
+				<input type="hidden" name="loginSave" id="loginSave" value="-1" /> 
            
             </form>
             <button class="login-btn">로그인</button>
@@ -536,7 +536,7 @@
 				if (result == 1) {
 					$("#input_form").submit();
 				} else {
-					modal_situation("가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.")
+					modal_situation("가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.");
 				}
 
 			},
@@ -583,8 +583,8 @@
 	
 	//로그인 상태 유지
 	$('.ico-check').click(function(){
-		const login_stay_val = $('#loginStay').val();
-		$('#loginStay').val(login_stay_val * -1);
+		const login_stay_val = $('#loginSave').val();
+		$('#loginSave').val(login_stay_val * -1);
 	});
 	
 	
