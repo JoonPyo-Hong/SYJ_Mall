@@ -159,5 +159,15 @@
 				
 	</select>
 	
+	
+	<!-- 로그인 유지를 위해 DB에 고객 RSA 정보를 update 해준다.-->
+	<select id="intoDBUserRsa" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_user_login_stay_insert #{userSeq},#{saveRsaPrivateKey}
+		select @result
+				
+	</select>
+	
 
 </mapper>

@@ -270,13 +270,20 @@ public interface ILoginService {
 	
 	
 	/**
-	 * 그인 유지해줄지 말지 결정해주는 함수
+	 * 로그인 유지해줄지 말지 결정해주는 함수
 	 * @param request
 	 * @param response
 	 * @param userSeq
 	 * @return
 	 */
 	int loginSaveYn(HttpServletRequest request, HttpServletResponse response,int userSeq);
+	
+	/**
+	 * 로그인 유지 판단
+	 * @param request
+	 * @return
+	 */
+	int getLoginStayYn(HttpServletRequest request);
 	
 
 	

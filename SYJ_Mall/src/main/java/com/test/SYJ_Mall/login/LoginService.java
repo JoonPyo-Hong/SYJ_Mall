@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,22 +113,6 @@ public class LoginService implements ILoginService {
 		List<AdverDTO> dtoList = dao.getAdvertiseInfo();// 광고관련
 		IpCheck ic = new IpCheck();
 
-		// 금액에 맞춰서 내보내야 하지만 -> 이건 후에 적용하고 지금은 "랜덤"으로 처리해준다.
-		// ----광고관련----
-		AdverDTO dto = dtoList.get(rnd.nextInt(dtoList.size()));
-		String picName = dto.getAdpPcUrl();
-		String url = dto.getAdUrl();
-
-		HashMap<String, String> adverMap = new HashMap<String, String>();
-		adverMap.put("picName", picName);
-		adverMap.put("url", url);
-
-		request.setAttribute("adverMap", adverMap);
-		
-		// ----광고관련----
-		if (comeCount == 0) {
-			request.setAttribute("comeCount", "SYJ_Mall");
-		}
 
 		// 로그인 에러 관련 : 벤당한 아이피로 로그인 시도를 한다거나 로그인 아이디/비밀번호가 틀렸을 경우
 		if (errorCode == -1) {
@@ -758,7 +743,7 @@ public class LoginService implements ILoginService {
 		try {
 			KakaoCookie kc = new KakaoCookie();
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-			kc.generateCookie(response, "lastPage", addUrl);// 마지막페이지
+			kc.generateCookie(response, "lastPage", addUrl);//마지막페이지
 			
 			return 1;
 		} catch(Exception e) {
@@ -842,10 +827,12 @@ public class LoginService implements ILoginService {
 	public int loginSaveYn(HttpServletRequest request, HttpServletResponse response, int userSeq) {
 		try {
 			
-			int loginSave = Integer.parseInt(request.getParameter("loginSave"));
+			int loginSave = -1; 
+			loginSave = Integer.parseInt(request.getParameter("loginSave"));
 			
 			if (loginSave == -1) return -2;//로그인 유지 안함
 			else {
+				
 				//로그인 유지 해줄것임.
 				String securedUsername = request.getParameter("securedUsername");
 				String securedPassword = request.getParameter("securedPassword");
@@ -859,13 +846,47 @@ public class LoginService implements ILoginService {
 				//DB 에 securedKey 를 저장해야함
 				HttpSession session = request.getSession();
 				PrivateKey privateKey = (PrivateKey)session.getAttribute("__rsaPrivateKey__");
+				String privateKeyEnc = Base64.getEncoder().encodeToString(privateKey.getEncoded());
 				
-				int result = dao.saveRsaPrivateKey(userSeq,privateKey);
 				
-				if (result == 1) return 1;
-				else return -1;
+				int result = dao.saveRsaPrivateKey(userSeq,privateKeyEnc);
+				
+				return result;
 				
 			}
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//로그인 유지 판단
+	@Override
+	public int getLoginStayYn(HttpServletRequest request) {
+		
+		try {
+			
+			KakaoCookie kc = new KakaoCookie();
+			
+			String loginSaveUserId = (String)kc.getCookieInfo(request, "loginSaveUserId");
+			String loginSaveUserPw = (String)kc.getCookieInfo(request, "loginSaveUserPw");
+			String loginSaveUserSeq = (String)kc.getCookieInfo(request, "loginSaveUserSeq");
+			
+			//로그인 유지하는 정보가 있는 경우
+			if (loginSaveUserId != null && loginSaveUserPw != null && loginSaveUserSeq != null) {
+				
+				//여기에서 이제 로그인 유지 정보를 가져와주는 역할을 수행해야한다.
+				
+				
+				
+				return 1;
+			}
+			else return -2;
 			
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();

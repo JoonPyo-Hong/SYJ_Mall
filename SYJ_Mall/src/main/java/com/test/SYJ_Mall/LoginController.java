@@ -44,7 +44,20 @@ public class LoginController {
 	// 처음에 로그인 페이지로 보내주는 곳
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(HttpServletRequest request, HttpServletResponse response, String site) {
+		
+		//KakaoCookie kc = new KakaoCookie();
+		
+		//kc.deleteCookie(request, response, "loginSaveUserId");
+		//kc.deleteCookie(request, response, "loginSaveUserPw");
+		//kc.deleteCookie(request, response, "loginSaveUserSeq");
 
+		// 로그인 유지를 눌렀는지 안눌렀는지에 따라 로직이 달라진다.
+		int loginStayYn = logService.getLoginStayYn(request);
+		
+		if (loginStayYn == -1) {
+			return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
+		}
+		
 		// 혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임 
 		int result = -1;
 		
@@ -98,22 +111,24 @@ public class LoginController {
 			String id = map.get("id");// 아이디
 			String pw = map.get("pw");// 비밀번호
 			
+			
 			String encPw = logService.pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 			
 			List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
 			int userSeq = loginResult.get(0).getUserSeq();// 유저 고유 코드
 			int loginCode = loginResult.get(0).getLoginCode();// 로그인 결과
-			
-			
-			if (loginCode == 0) {// 로그인 성공
+	
+			//System.out.println(loginCode);
+			int loginSave = logService.loginSaveYn(request,response,userSeq);//로그인 유지 관련 함수
+	
+			if (loginCode == 0 && loginSave != -1) {// 로그인 성공
 
 				int logResult = logService.loginSuccess(request, userSeq);// 로그인 인증티켓 발급
 				
 				String lastPage = (String) logService.instanceCookie(request, response, "lastPage");
 				
-				int loginSave = logService.loginSaveYn(request,response,userSeq);//로그인 유지 관련 함수
 				
-				if (logResult == 1 && loginSave != -1) {
+				if (logResult == 1) {
 					if (lastPage == null) {
 						logService.goMain(request);
 						return "/tiles/mainStart.topping";// 메인페이지로 이동
@@ -130,17 +145,18 @@ public class LoginController {
 					throw new Exception();
 				}
 
-			} else if (loginCode == 1) {// 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
+			} else if (loginCode == 1 && loginSave != -1) {// 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
 				// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
 				int result = logService.userRedefinedPw(request, userSeq, ip);
-
+				
+				
 				if (result == 1) {
 					return "/login/UserLoginPwRedefine";
 				} else
 					return "/testwaiting/kakaoerror";// 문제생겼을시에 에러페이지로 이동
 
-			} else if (loginCode == 2) {// 보안정책을 따라야하는 경우 --> 사진을 골라야한다.
-
+			} else if (loginCode == 2 && loginSave != -1) {// 보안정책을 따라야하는 경우 --> 사진을 골라야한다.
+				
 				// 자동로그인 방지 알고리즘
 				request = logService.AutoLoginBanned(request, userSeq, ip);
 

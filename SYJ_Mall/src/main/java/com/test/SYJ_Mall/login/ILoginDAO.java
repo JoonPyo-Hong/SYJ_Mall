@@ -167,7 +167,7 @@ public interface ILoginDAO {
 	 * @param privateKey
 	 * @return
 	 */
-	int saveRsaPrivateKey(int userSeq, PrivateKey privateKey);
+	int saveRsaPrivateKey(int userSeq, String privateKeyEnc);
 
 
 

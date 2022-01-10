@@ -227,11 +227,13 @@ public class LoginDAO implements ILoginDAO {
 
 	
 	@Override
-	public int saveRsaPrivateKey(int userSeq, PrivateKey privateKey) {
+	public int saveRsaPrivateKey(int userSeq, String saveRsaPrivateKey) {
 		
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("saveRsaPrivateKey",saveRsaPrivateKey);
 		
-		
-		return 0;
+		return template.selectOne("SYJDB.intoDBUserRsa", map);
 	}
 }
 
