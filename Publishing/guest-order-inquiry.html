@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>카카오 프렌즈샵</title>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
+  <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
+  <link rel="stylesheet" type="text/css" href="./css/common.css" />
+  <link rel="stylesheet" type="text/css" href="./css/main.css" />
+  <link rel="stylesheet" type="text/css" href="./css/guest-order-inquiry.css" />
+</head>
+
+<body>
+  <div id="kakao-wrap">
+    <div id="kakao-head">
+      <div id="inner-head">
+        <div class="left-btn">
+          <!-- <button class="hamburger-menu"></button> -->
+          <button class="back-button"></button>
+          <!-- ic_back_2x.png -->
+          <!-- gnb-home-18-black@2x.png -->
+          <button class="home-button"></button>
+        </div>
+        <!-- <div class="title"><button class="title-logo"></button></div> -->
+        <div class="title">비회원 주문조회</div>
+        <div class="right-btn">
+          <button class="search"></button>
+          <button class="language"></button>
+        </div>
+      </div>
+    </div>
+    <div id="kakao-content">
+      <div id="inner-content">
+        <div class="container-wrap guest-order-inquiry-wrap">
+          <!-- 로그인 입력 영역 -->
+          <form class="guest-login">
+            <div class="item-form">
+              <label for="order-number">주문번호</label>
+              <input id="order-number" placeholder="주문번호를 입력해주세요." onkeyup="check()">
+            </div>
+            <div class="item-form">
+              <label for="order-name">이름</label>
+              <input id="order-name" placeholder="한글 또는 영어로 입력해주세요." onkeyup="check()">
+            </div>
+            <button class="login-btn" id="login-btn" disabled>확인</button>
+
+          </form>
+          <!-- 하단 안내 사항 영역-->
+          <ul class="list-notice">
+            <li> 주문 조회를 위해 이름, 주문번호를 수집 및 이용하며, <b>목적
+                달성시 지체없이 파기합니다.</b></li>
+            <li>'확인'을 진행하시면 동의한 것으로 간주됩니다.</li>
+            <li>비회원 주문 조회는 배송완료일로부터 3개월까지 가능합니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="kakao-footer">
+      <div id="inner-footer">
+        <div class="info-service">
+          <ul>
+            <li>제휴문의</li>
+            <span class="footer-divider"></span>
+            <li>고객문의</li>
+            <span class="footer-divider"></span>
+            <li>이용약관</li>
+            <span class="footer-divider"></span>
+            <li>개인정보처리방침</li>
+            <span class="footer-divider"></span>
+            <li>지식재산권보호센터</li>
+          </ul>
+        </div>
+        <div class="logo">
+          <div class="toggler">
+            <span class="toggler-logo"></span>
+            <span class="toggler-icon"></span>
+          </div>
+          <div class="best-family"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    // input 데이터 없을 시 확인 버튼 비활성화
+    const check = () => {
+
+      const orderNumber = document.getElementById("order-number").value;
+      const orderName = document.getElementById("order-name").value;
+
+      if (orderNumber && orderName) {
+        document.getElementById("login-btn").disabled = false;
+      } else {
+        document.getElementById("login-btn").disabled = true;
+      }
+    }
+
+  </script>
+</body>
+
+</html>

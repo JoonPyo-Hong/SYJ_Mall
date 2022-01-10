@@ -1,0 +1,73 @@
+.guest-order-inquiry-wrap {
+  padding: 30px 20px 100px;
+}
+
+.guest-login .item-form {
+  padding-bottom: 20px;
+}
+
+.guest-login .item-form label {
+  display: block;
+  padding-bottom: 8px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.guest-login .item-form input {
+  height: 48px;
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 16px;
+  border: 1px solid #dedfe0;
+  border-radius: 8px;
+  line-height: 20px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* 로그인 입력 영역 */
+.guest-login .login-btn {
+  margin-top: 20px;
+  height: 60px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 60px;
+  border-radius: 8px;
+  border-color: #3c404b;
+  background-color: #3c404b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.guest-login .login-btn:disabled {
+  border-color: #d4d7e1;
+  background-color: #d4d7e1;
+  cursor: default;
+}
+
+/* 하단 안내 사항 */
+.list-notice {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid #eff0f2;
+}
+
+.list-notice li {
+  position: relative;
+  padding-left: 8px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #747475;
+}
+
+.list-notice li::before {
+  position: absolute;
+  top: 8px;
+  left: 1px;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background-color: #909092;
+  content: "";
+}
