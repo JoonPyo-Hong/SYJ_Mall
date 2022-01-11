@@ -235,5 +235,12 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.intoDBUserRsa", map);
 	}
+
+
+	@Override
+	public String getUserSecureKey(int loginSaveUserSeq) {
+		
+		return template.selectOne("SYJDB.intoDBUserRsa", loginSaveUserSeq);
+	}
 }
 

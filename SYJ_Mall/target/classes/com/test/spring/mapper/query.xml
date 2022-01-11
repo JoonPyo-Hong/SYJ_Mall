@@ -169,5 +169,15 @@
 				
 	</select>
 	
+	
+	<!-- 로그인 유지를 위해 DB에서 고객 RSA 정보를 가져와 준다.-->
+	<select id="intoDBUserRsa" resultType="String"  parameterType="Integer" statementType="CALLABLE" >
+		
+		{
+			call dbo.kakao_get_user_login_stay(#{loginSaveUserSeq})
+		}
+				
+	</select>
+	
 
 </mapper>

@@ -125,6 +125,9 @@ public class RSAalgorithm {
         return map;
 	}
 	
+	//public 
+	
+	
 	
 	/**
 	 * 암호화된 문자열을 복호화한다. - 오직 비밀번호만

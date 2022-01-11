@@ -169,6 +169,13 @@ public interface ILoginDAO {
 	 */
 	int saveRsaPrivateKey(int userSeq, String privateKeyEnc);
 
+	/**
+	 * 
+	 * @param loginSaveUserSeq	고객번호
+	 * @return
+	 */
+	String getUserSecureKey(int loginSaveUserSeq);
+
 
 
 

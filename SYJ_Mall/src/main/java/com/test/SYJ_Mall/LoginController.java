@@ -95,86 +95,16 @@ public class LoginController {
 		out.print(result);
 	}
 
-	// 로그인페이지에서 정보를 넘겨주는곳
+	// 로그인페이지에서 정보를 넘겨주는곳 => 로그인 검증
 	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST})
 	public String loginVerification(HttpServletRequest request, HttpServletResponse response) {
 
-		String ip = "";// 아이피 주소
-
-		try {
-			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
-
-			ip = logService.ipCheck(request);
-
-			Map<String, String> map = logService.getRSAkeySessionStay(request);
-
-			String id = map.get("id");// 아이디
-			String pw = map.get("pw");// 비밀번호
-			
-			
-			String encPw = logService.pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
-			
-			List<LoginDTO> loginResult = logService.loginResult(ip, id, encPw);
-			int userSeq = loginResult.get(0).getUserSeq();// 유저 고유 코드
-			int loginCode = loginResult.get(0).getLoginCode();// 로그인 결과
-	
-			//System.out.println(loginCode);
-			int loginSave = logService.loginSaveYn(request,response,userSeq);//로그인 유지 관련 함수
-	
-			if (loginCode == 0 && loginSave != -1) {// 로그인 성공
-
-				int logResult = logService.loginSuccess(request, userSeq);// 로그인 인증티켓 발급
-				
-				String lastPage = (String) logService.instanceCookie(request, response, "lastPage");
-				
-				
-				if (logResult == 1) {
-					if (lastPage == null) {
-						logService.goMain(request);
-						return "/tiles/mainStart.topping";// 메인페이지로 이동
-					} 
-					else if (lastPage.indexOf("?") != -1) {
-						//인코딩 처리를 잘 해줘야한다.
-						String url = logService.urlEncoder(lastPage);
-						return "redirect:/" + url;
-					}
-					else {
-						return "forward:/" + lastPage + ".action";
-					}
-				} else {
-					throw new Exception();
-				}
-
-			} else if (loginCode == 1 && loginSave != -1) {// 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
-				// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
-				int result = logService.userRedefinedPw(request, userSeq, ip);
-				
-				
-				if (result == 1) {
-					return "/login/UserLoginPwRedefine";
-				} else
-					return "/testwaiting/kakaoerror";// 문제생겼을시에 에러페이지로 이동
-
-			} else if (loginCode == 2 && loginSave != -1) {// 보안정책을 따라야하는 경우 --> 사진을 골라야한다.
-				
-				// 자동로그인 방지 알고리즘
-				request = logService.AutoLoginBanned(request, userSeq, ip);
-
-				return "/login/UserAutoLoginCheck";
-
-			} else {
-				throw new Exception();
-			}
-
-		} catch (Exception e) {
-
-			// 위의 에러를 디비에 넣어줘야 한다.
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
-			
-			return "/testwaiting/kakaoerror";
-		}
+		
+		String userLoginResult = logService.loginVerifyLogic(request,response);
+		
+		if (userLoginResult.equals("error")) return "/testwaiting/kakaoerror";
+		else return userLoginResult;
+		
 
 	}
 

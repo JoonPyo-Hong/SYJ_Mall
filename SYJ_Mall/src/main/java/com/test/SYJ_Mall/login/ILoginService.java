@@ -285,6 +285,15 @@ public interface ILoginService {
 	 */
 	int getLoginStayYn(HttpServletRequest request);
 	
+	
+	/**
+	 * 로그인 관련 서비스 메서드
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response);
+	
 
 	
 

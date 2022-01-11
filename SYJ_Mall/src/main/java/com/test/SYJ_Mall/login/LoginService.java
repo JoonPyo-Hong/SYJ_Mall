@@ -1,9 +1,11 @@
 package com.test.SYJ_Mall.login;
 
 import java.net.URLEncoder;
+import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -839,9 +841,9 @@ public class LoginService implements ILoginService {
 				
 				KakaoCookie kc = new KakaoCookie();
 				
-				kc.generateCookie(response, "loginSaveUserId", securedUsername);
-				kc.generateCookie(response, "loginSaveUserPw", securedPassword);
-				kc.generateCookie(response, "loginSaveUserSeq", Integer.toString(userSeq));
+				kc.generateCookie(response, "loginSaveUserId", securedUsername, 60 * 60 * 24 * 3);
+				kc.generateCookie(response, "loginSaveUserPw", securedPassword, 60 * 60 * 24 * 3);
+				kc.generateCookie(response, "loginSaveUserSeq", Integer.toString(userSeq), 60 * 60 * 24 * 3);
 				
 				//DB 에 securedKey 를 저장해야함
 				HttpSession session = request.getSession();
@@ -881,9 +883,15 @@ public class LoginService implements ILoginService {
 			if (loginSaveUserId != null && loginSaveUserPw != null && loginSaveUserSeq != null) {
 				
 				//여기에서 이제 로그인 유지 정보를 가져와주는 역할을 수행해야한다.
+				String secureKeyEnc = dao.getUserSecureKey(Integer.parseInt(loginSaveUserSeq));
+				
+				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+				byte[] bytePrivateKey = Base64.getDecoder().decode(secureKeyEnc.getBytes());
+	            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(bytePrivateKey);
+	            PrivateKey secureKey = keyFactory.generatePrivate(privateKeySpec);//암호화 키
 				
 				
-				
+	            
 				return 1;
 			}
 			else return -2;
@@ -896,6 +904,86 @@ public class LoginService implements ILoginService {
 			ea.errorDbAndMail();
 			return -1;//오류 발생
 		}
+	}
+	
+	//로그인 관련 서비스 메서드
+	@Override
+	public String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
+
+			String ip = ipCheck(request);
+			Map<String, String> map = getRSAkeySessionStay(request);
+			
+			String id = map.get("id");// 아이디
+			String pw = map.get("pw");// 비밀번호
+			
+			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
+			
+			List<LoginDTO> loginResult = loginResult(ip, id, encPw);
+			int userSeq = loginResult.get(0).getUserSeq();// 유저 고유 코드
+			int loginCode = loginResult.get(0).getLoginCode();// 로그인 결과
+	
+			//System.out.println(loginCode);
+			int loginSave = loginSaveYn(request,response,userSeq);//로그인 유지 관련 함수
+			
+			if (loginCode == 0 && loginSave != -1) {// 로그인 성공
+
+				int logResult = loginSuccess(request, userSeq);// 로그인 인증티켓 발급
+				
+				String lastPage = (String)instanceCookie(request, response, "lastPage");
+				
+				if (logResult == 1) {
+					if (lastPage == null) {
+						goMain(request);
+						return "/tiles/mainStart.topping";// 메인페이지로 이동
+					} 
+					else if (lastPage.indexOf("?") != -1) {
+						//인코딩 처리를 잘 해줘야한다.
+						String url = urlEncoder(lastPage);
+						return "redirect:/" + url;
+					}
+					else {
+						return "forward:/" + lastPage + ".action";
+					}
+				} else {
+					throw new Exception();
+				}
+
+			} else if (loginCode == 1 && loginSave != -1) {// 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
+				// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
+				int result = userRedefinedPw(request, userSeq, ip);
+				
+				
+				if (result == 1) {
+					return "/login/UserLoginPwRedefine";
+				} else
+					return "/testwaiting/kakaoerror";// 문제생겼을시에 에러페이지로 이동
+
+			} else if (loginCode == 2 && loginSave != -1) {// 보안정책을 따라야하는 경우 --> 사진을 골라야한다.
+				
+				// 자동로그인 방지 알고리즘
+				request = AutoLoginBanned(request, userSeq, ip);
+
+				return "/login/UserAutoLoginCheck";
+
+			} else {
+				return "error";
+			}
+			
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return "error";//오류 발생
+		}
+		
+		
 	}
 
 	
