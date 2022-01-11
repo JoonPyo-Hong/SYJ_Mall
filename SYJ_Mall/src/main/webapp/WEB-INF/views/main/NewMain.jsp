@@ -362,7 +362,7 @@
 					},
 					success : function(data) {
 						for (var i = 0; i < data.length; i++) {
-							alert(data[i]);
+							sub_img(data[i]);
 						
 							
 						}
@@ -383,7 +383,10 @@
 					},
 					success : function(data) {
 						for (var i = 0; i < data.length; i++) {
-							alert(data[i]);
+							alert(data[i].product_id);
+							//alert(data[i].product_nm);
+							//alert(data[i].product_price);
+							alert(data[i].product_img);
 						
 							
 						}
@@ -493,16 +496,13 @@
 																	+ "<div class='share-btn'></div>"
 																	+ "</div>"
 																	+ "</div>"
-																	+ "<ul class='option-list-tag'>"
-																	+ tag
-																	+ "</ul>"
-																	+ "<ul class='option-list-product'>"
+																	+ "<ul class='option-list-tag' id ='"+this.seq +"'>"
 																	+ "<li>"
 																	+ "<div class='list-product-contents'>"
 																	+ "<img class='img-product' src='images/today/product-list.jfif'>"
 																	+ "<div class='info-product'>"
 																	+ "<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
-								+"class='price-product'>39,000</span>"
+																	+"class='price-product'>39,000</span>"
 																	+ "</div>"
 																	+ "</div>"
 																	+ "<div class='list-product-cart'>"
@@ -514,7 +514,7 @@
 																	+ "<img class='img-product' src='images/today/product-list.jfif'>"
 																	+ "<div class='info-product'>"
 																	+ "<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
-								+"class='price-product'>39,000</span>"
+																	+"class='price-product'>39,000</span>"
 																	+ "</div>"
 																	+ "</div>"
 																	+ "<div class='list-product-cart'>"
@@ -522,6 +522,9 @@
 																	+ "</div>"
 																	+ "</li>"
 																	+ "</ul>"
+																	+ tag
+																	+ "</ul>"
+																	+ "<ul class='option-list-product'>"
 																	+ "<div class='link-comments'>"
 																	+ "<span class='txt-count'>댓글 13개</span> <span class='info-comments'>"
 																	+ "<span class='name'>최**</span> <span class='comments'>라이언"
@@ -533,7 +536,32 @@
 																	+ "</div>");
 											img(this.seq);
 											sub(this.seq);
-
+											/* + "<ul class='option-list-product'>"
+											+ "<li>"
+											+ "<div class='list-product-contents'>"
+											+ "<img class='img-product' src='images/today/product-list.jfif'>"
+											+ "<div class='info-product'>"
+											+ "<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
+											+"class='price-product'>39,000</span>"
+											+ "</div>"
+											+ "</div>"
+											+ "<div class='list-product-cart'>"
+											+ "<div class='cart-btn'></div>"
+											+ "</div>"
+											+ "</li>"
+											+ "<li>"
+											+ "<div class='list-product-contents'>"
+											+ "<img class='img-product' src='images/today/product-list.jfif'>"
+											+ "<div class='info-product'>"
+											+ "<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
+											+"class='price-product'>39,000</span>"
+											+ "</div>"
+											+ "</div>"
+											+ "<div class='list-product-cart'>"
+											+ "<div class='cart-btn'></div>"
+											+ "</div>"
+											+ "</li>"
+											+ "</ul>" */
 										}// foreach 끝
 
 								);
