@@ -93,8 +93,8 @@
 							<div class="banner"></div>
 							<div class="navigation-menu">
 								<ul class="navigation-menu-ul">
-									<li class="navigation-menu-li">장바구니 내역</li>
-									<li class="navigation-menu-li">주문·배송 내역</li>
+									<li class="navigation-menu-li" onclick="location.href = '/SYJ_Mall/myPageMain.action?myPageNum=3'">장바구니 내역</li>
+									<li class="navigation-menu-li" onclick="location.href = '/SYJ_Mall/myPageMain.action?myPageNum=4'">주문·배송 내역</li>
 									<hr />
 									<li class="navigation-menu-li character-accordion-button">
 										캐릭터
@@ -125,18 +125,16 @@
 									</li>
 									<div class="li-sub-menu category-menu">
 										<ul class="category-menu-ul">
-											<li class="category">전체</li>
-											<li class="category">테마 기획전</li>
-											<li class="category">토이</li>
-											<li class="category">리빙</li>
-											<li class="category">잡화</li>
-											<li class="category">문구</li>
-											<li class="category">의류</li>
-											<li class="category">파자마</li>
-											<li class="category">여행/레져</li>
-											<li class="category">생활테크</li>
-											<li class="category">폰 액세서리</li>
-											<li class="category">식품</li>
+											<li class="category" value = "1">전체</li>
+											<li class="category" value = "2">토이</li>
+											<li class="category" value = "3">리빙</li>
+											<li class="category" value = "4">잡화</li>
+											<li class="category" value = "5">문구</li>
+											<li class="category" value = "6">의류</li>
+											<li class="category" value = "7">디지털</li>
+											<li class="category" value = "8">여행/레져</li>
+											<li class="category" value = "9">식품</li>
+											<li class="category" value = "10">테마 기획전</li>
 										</ul>
 									</div>
 									<hr />
@@ -305,11 +303,18 @@
 				//모달제거 -> 바디를 아무데나 눌러서 사이드바 안보이게
 				$('#mask').click(function() {
 
-					$(this).hide();
+					//$(this).hide();
+					//$('.window').hide();
+					//closeNavigation();
+					black_out_end();
+				});
+				
+				//모달제거 -> 검은색 배경화면 없애는 것.
+				function black_out_end() {
+					$('#mask').hide();
 					$('.window').hide();
 					closeNavigation();
-					
-				});
+				}
 
 				/* -----------로그인 관련------------ */
 				//로그인 되어있는지 체크해주는 함수
@@ -377,6 +382,7 @@
 				//네비게이션 바 숨김처리
 				function closeNavigation() {
 					$("#burger-check").prop("checked", false);
+					//$('#mask').fadeTo("slow", 0);
 					$(document.body).css('overflow', 'visible');
 				}
 
@@ -447,8 +453,16 @@
 			//캐릭터 눌러줄때 -> 캐릭터 관련 페이지 이동
 			$('.character').click(function(){
 				const charName = $(this).attr('class');
+				black_out_end();
 				location.href = "/SYJ_Mall/charAtProdtStartSlide.action?charName=" + charName;
-				closeNavigation();//왼쪽모달 없애주기	
+				//closeNavigation();//왼쪽모달 없애주기	
+			});
+			
+			//카테고리 눌러 줄 때
+			$('.category').click(function(){
+				const cateName = $(this).val();
+				black_out_end();
+				location.href = "/SYJ_Mall/newProductMainAdd.action?themeNum=" + cateName;
 			});
 			
 			$('#notice').click(function(){
@@ -474,7 +488,6 @@
 						location.href = "/SYJ_Mall/myPageMain.action?myPageNum="+page_value;
 					}
 					else {
-						//alert('로그인 요망');
 						login_etc_info_checking = 2;
 						login_etc_info = "myPageMain.action?myPageNum="+page_value;
 						my_login_modal_open();
