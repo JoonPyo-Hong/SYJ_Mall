@@ -40,7 +40,7 @@
 		select product_id from dbo.kakao_new_main_sub where list_seq = #{seq}
 	</select>
 	<select id="new_main_sub_img" resultType="com.test.SYJ_Mall.main.SubDTO" parameterType="int">
-		select a.product_id,product_nm,product_price,product_img from dbo.PRODUCTTABLE a inner join dbo.KAKAO_PRODUCT_IMG b on a.product_id = b.img_seq where a.product_id = #{seq}
+		select a.product_id,product_nm,product_price,product_img from dbo.PRODUCT_TABLE a inner join dbo.KAKAO_PRODUCT_IMG b on a.product_id = b.img_seq where a.product_id = #{seq}
 	</select>
 	<select id="heart" resultType="int" parameterType="int">
 		select
