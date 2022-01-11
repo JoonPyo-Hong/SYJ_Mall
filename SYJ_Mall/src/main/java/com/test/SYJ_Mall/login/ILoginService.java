@@ -278,12 +278,14 @@ public interface ILoginService {
 	 */
 	int loginSaveYn(HttpServletRequest request, HttpServletResponse response,int userSeq);
 	
+
 	/**
 	 * 로그인 유지 판단
 	 * @param request
+	 * @param response
 	 * @return
 	 */
-	int getLoginStayYn(HttpServletRequest request);
+	String getLoginStayYn(HttpServletRequest request,HttpServletResponse response);
 	
 	
 	/**

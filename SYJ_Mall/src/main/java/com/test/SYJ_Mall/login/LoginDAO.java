@@ -240,7 +240,7 @@ public class LoginDAO implements ILoginDAO {
 	@Override
 	public String getUserSecureKey(int loginSaveUserSeq) {
 		
-		return template.selectOne("SYJDB.intoDBUserRsa", loginSaveUserSeq);
+		return template.selectOne("SYJDB.getDBUserRsa", loginSaveUserSeq);
 	}
 }
 

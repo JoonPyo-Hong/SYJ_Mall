@@ -51,12 +51,14 @@ public class LoginController {
 		//kc.deleteCookie(request, response, "loginSaveUserPw");
 		//kc.deleteCookie(request, response, "loginSaveUserSeq");
 
-		// 로그인 유지를 눌렀는지 안눌렀는지에 따라 로직이 달라진다.
-		int loginStayYn = logService.getLoginStayYn(request);
+		// ===================로그인 유지 관련 로직===================
+		String loginStayYn = logService.getLoginStayYn(request,response);
 		
-		if (loginStayYn == -1) {
-			return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
-		}
+		if (loginStayYn.equals("error")) return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
+		else if (!loginStayYn.equals("pass")) return loginStayYn;   
+		
+		// =====================================================
+		
 		
 		// 혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임 
 		int result = -1;

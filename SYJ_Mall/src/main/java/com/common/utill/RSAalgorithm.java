@@ -125,8 +125,32 @@ public class RSAalgorithm {
         return map;
 	}
 	
-	//public 
-	
+	/**
+	 * 암호화된 문자열을 복호화한다. --> 세션을 없애지 않는다. 특정 RSA 비밀키를 넘겨준다.
+	 * @param secureKey			특정 RSA 비밀키
+	 * @param loginSaveUserId	유저 아이디(암호화)
+	 * @param loginSaveUserPw	유저 비밀번호(암호화)
+	 * @return
+	 */
+	public HashMap<String,String> getRSASessionMaintainChoice(PrivateKey secureKey,String loginSaveUserId, String loginSaveUserPw) {
+		
+		try {
+			
+			HashMap<String,String> map = new HashMap<String, String>();
+			
+			String username = decryptRsa(secureKey, loginSaveUserId);
+            String password = decryptRsa(secureKey, loginSaveUserPw);
+            
+            map.put("id", username);
+            map.put("pw", password);
+			
+            return map;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 	
 	
 	/**
