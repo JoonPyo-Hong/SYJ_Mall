@@ -6,7 +6,7 @@
 	History	: 2022-01-02 Seunghwan Shin	#최초 생성
 			  
 		
-	Real DB : 실행금지
+	Real DB : 
 */
 CREATE proc dbo.kakao_job_buy_rank_popular
 as
