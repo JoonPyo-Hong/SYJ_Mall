@@ -134,12 +134,12 @@ public class SearchController {
 	@RequestMapping(value = "/searchbackmain.action", method = { RequestMethod.GET })
 	public String searchbackmain(HttpServletRequest request, HttpServletResponse response) {
 
-		// 어떤페이지를 마지막으로 방문했는지 쿠키정보를 조회해 봐야한다.
+		// 어떤페이지를 마지막으로 방문했는지 쿠키정보를 조회해 봐야한다. --> 애를 왜 넣어주는거지?
 		Object lastPage = service.instanceCookie(request, response, "lastPage");
 
 		service.goMain(request);
 
-		return "/tiles/mainStart.topping";// 메인페이지로 이동
+		return "/tiles/mainStart.layout";// 메인페이지로 이동
 
 	}
 
@@ -149,7 +149,7 @@ public class SearchController {
 	public int searchItemBasketInput(HttpServletRequest request, HttpServletResponse response) {
 
 		return service.searchBasketItem(request, response);
-
+		
 	}
 
 	// ajax 처리 -> 상품 알람 관련
