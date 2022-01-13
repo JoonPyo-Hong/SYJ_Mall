@@ -46,17 +46,19 @@
 
 /* 게시글 내용 */
 /* 이미지 사진 */
-.body-feed .slide-feed{
+.body-feed .slide-feed {
 	min-height: 400px;
 	background-color: #ededed;
 	width: 600px;
 	height: 600px;
 }
-.swiper-slide .swiper-slide-active .swiper-wrapper .swiper-container{
+
+.swiper-slide .swiper-slide-active .swiper-wrapper .swiper-container {
 	width: 600px;
 	height: 600px;
 }
-.swiper-slide img{
+
+.swiper-slide img {
 	width: 600px;
 	height: 600px;
 }
@@ -383,11 +385,26 @@
 					},
 					success : function(data) {
 						for (var i = 0; i < data.length; i++) {
-							alert(data[i].product_id);
+							//alert(data[i].product_id);
 							//alert(data[i].product_nm);
 							//alert(data[i].product_price);
-							alert(data[i].product_img);
-						
+							//alert(data[i].product_img);
+							$("#option-list-tag_" + list_seq)
+							.append(
+									"<ul class='option-list-product'>"
+									+ "<li>"
+									+ "<div class='list-product-contents'>"
+									+ "<img class='img-product' src='"+data[i].product_img+"'>"
+									+ "<div class='info-product'>"
+									+ "<span class='title-product'>"+data[i].product_nm+"</span> <span"
+									+"class='price-product'>"+data[i].product_price.replace(".0000","").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원</span>"
+									+ "</div>"
+									+ "</div>"
+									+ "<div class='list-product-cart'>"
+									+ "<div class='cart-btn'></div>"
+									+ "</div>"
+									+ "</li>"
+									+ "</ul>");
 							
 						}
 					},
@@ -496,31 +513,8 @@
 																	+ "<div class='share-btn'></div>"
 																	+ "</div>"
 																	+ "</div>"
-																	+ "<ul class='option-list-tag' id ='"+this.seq +"'>"
-																	+ "<li>"
-																	+ "<div class='list-product-contents'>"
-																	+ "<img class='img-product' src='images/today/product-list.jfif'>"
-																	+ "<div class='info-product'>"
-																	+ "<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
-																	+"class='price-product'>39,000</span>"
-																	+ "</div>"
-																	+ "</div>"
-																	+ "<div class='list-product-cart'>"
-																	+ "<div class='cart-btn'></div>"
-																	+ "</div>"
-																	+ "</li>"
-																	+ "<li>"
-																	+ "<div class='list-product-contents'>"
-																	+ "<img class='img-product' src='images/today/product-list.jfif'>"
-																	+ "<div class='info-product'>"
-																	+ "<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
-																	+"class='price-product'>39,000</span>"
-																	+ "</div>"
-																	+ "</div>"
-																	+ "<div class='list-product-cart'>"
-																	+ "<div class='cart-btn'></div>"
-																	+ "</div>"
-																	+ "</li>"
+																	+ "<ul class='option-list-tag' id ='option-list-tag_"+this.seq +"'>"
+																
 																	+ "</ul>"
 																	+ tag
 																	+ "</ul>"
