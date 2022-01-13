@@ -132,15 +132,14 @@ public class SearchService implements ISearchService {
 
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
-		request.setAttribute("selected", "today");
+		request.setAttribute("seleted","today");
 
 		int seq = 0;
-
-		if (dto == null) {
-			seq = 0;
-		} else {
+		
+		if (dto != null) {
 			seq = dto.getUserSeq();
 		}
+		
 		request.setAttribute("seq", seq);
 
 	}

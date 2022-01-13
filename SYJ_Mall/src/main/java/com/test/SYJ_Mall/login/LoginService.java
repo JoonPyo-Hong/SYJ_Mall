@@ -111,8 +111,8 @@ public class LoginService implements ILoginService {
 	public int firstLoginStep(HttpServletRequest request, int errorCode, int comeCount) {
 
 		int error = 0;// 에러처리
-		Random rnd = new Random();
-		List<AdverDTO> dtoList = dao.getAdvertiseInfo();// 광고관련
+		//Random rnd = new Random();
+		//List<AdverDTO> dtoList = dao.getAdvertiseInfo();// 광고관련
 		IpCheck ic = new IpCheck();
 
 
