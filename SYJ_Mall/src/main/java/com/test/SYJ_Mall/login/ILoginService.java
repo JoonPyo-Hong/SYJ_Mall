@@ -296,6 +296,14 @@ public interface ILoginService {
 	 */
 	String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response);
 	
+	/**
+	 * QR 관련 로직
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int loginGetQr(HttpServletRequest request, HttpServletResponse response);
+	
 
 	
 

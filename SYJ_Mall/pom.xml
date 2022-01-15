@@ -19,7 +19,13 @@
 	
 	</properties>
 	<dependencies>
-	
+
+		<!-- QR CODE -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 	
 		<dependency>
         	<groupId>org.codehaus.jackson</groupId>
@@ -258,21 +264,19 @@
 		
 		<!-- java mail : 이메일 보내주는 서비스 -->
 		<!-- java mail 전송 API -->
-<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
-<dependency>
-    <groupId>com.sun.mail</groupId>
-    <artifactId>javax.mail</artifactId>
-    <version>1.6.2</version>
-</dependency>
-
-<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context-support</artifactId>
-    <version>5.2.3.RELEASE</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
 		
-	
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.2.3.RELEASE</version>
+		</dependency>
 		
 	</dependencies>
 	<build>

@@ -27,7 +27,6 @@
 
 #modalcontent {
     margin-top: 40px;
-    font-family: 'NEXON Lv1 Gothic OTF';
     color : #7C7C7C;
     text-align: center;
 }
@@ -586,6 +585,26 @@
 		const login_stay_val = $('#loginSave').val();
 		$('#loginSave').val(login_stay_val * -1);
 	});
+	
+	//QR 코드 로그인을 누른 경우
+	$('.qr-login-btn').click(function(){
+		qr_ajax_function();
+		$("#myModal").modal();
+	});
+	
+	
+	function qr_ajax_function() {
+		$.ajax({
+			url : '/SYJ_Mall/loginQr.action',
+			type : 'POST',
+			data : {
+				
+			},
+			success : function(data) {
+				
+			}
+		});
+	}
 	
 	
 </script>
