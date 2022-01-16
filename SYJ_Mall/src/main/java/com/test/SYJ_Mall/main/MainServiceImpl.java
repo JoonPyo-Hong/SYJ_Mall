@@ -150,4 +150,10 @@ public class MainServiceImpl implements MainService {
 		return dao.new_main_sub_img(seq);
 	}
 
+	@Override
+	public List<Integer> new_main_list(int seq) {
+		// TODO Auto-generated method stub
+		return dao.new_main_list(seq);
+	}
+
 }

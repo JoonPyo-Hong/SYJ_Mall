@@ -168,4 +168,10 @@ public class MainDAOImpl implements MainDAO {
 		// TODO Auto-generated method stub
 		return session.selectList("main.new_main_sub_img", seq);
 	}
+
+	@Override
+	public List<Integer> new_main_list(int seq) {
+		// TODO Auto-generated method stub
+		return session.selectList("main.new_main_sub_img", seq);
+	}
 }

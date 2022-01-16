@@ -52,6 +52,8 @@ public interface MainDAO {
 
 	List<SubDTO> new_main_sub_img(int seq);
 
+	List<Integer> new_main_list(int seq);
+
 
 
 }
