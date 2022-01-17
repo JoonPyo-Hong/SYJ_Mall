@@ -96,6 +96,15 @@ public class MainController {
 
 		return list;
 	}
+	// char_img
+	@RequestMapping(value = "/char_img.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object char_img(@RequestParam("name") String name) {
+
+		List<String> list = service.char_img(name);
+
+		return list;
+	}
 	// new_main_sub
 	@RequestMapping(value = "/new_main_sub.action", method = { RequestMethod.POST })
 	@ResponseBody

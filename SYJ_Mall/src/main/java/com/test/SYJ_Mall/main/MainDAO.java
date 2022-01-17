@@ -54,6 +54,8 @@ public interface MainDAO {
 
 	List<Integer> new_main_list(int seq);
 
+	List<String> char_img(String name);
+
 
 
 }

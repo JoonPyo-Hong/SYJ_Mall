@@ -36,6 +36,9 @@
 		select img_nm
 		from kaka_new_main_image with(nolock) where seq = #{seq}
 	</select>
+	<select id="char_img" resultType="string" parameterType="string">
+		select char_name from dbo.KAKAO_CHARACTER where char_name = #{name}
+	</select>
 	<select id="new_main_sub" resultType="int" parameterType="int">
 		select product_id from dbo.kakao_new_main_sub where list_seq = #{seq}
 	</select>

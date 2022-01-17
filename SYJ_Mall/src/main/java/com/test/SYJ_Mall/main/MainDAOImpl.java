@@ -81,13 +81,13 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public void re_feed_insert(Map<String, Object> map) {
 		session.insert("main.re_feed_insert", map);
-		
+
 	}
 
 	@Override
 	public Object re_feed_select(String feed_seq) {
 		return session.selectList("main.re_feed_select", feed_seq);
-		
+
 	}
 
 	@Override
@@ -112,38 +112,38 @@ public class MainDAOImpl implements MainDAO {
 		// TODO Auto-generated method stub
 
 		return session.selectOne("main.main_feed", seq);
-	
+
 	}
 
 	@Override
 	public Object main_feed_count(Integer seq) {
-		
+
 		return session.selectOne("main.main_feed_count", seq);
 	}
 
 	@Override
 	public void feed_edit(Map<String, Object> map) {
-		
+
 		session.update("main.feed_edit", map);
 	}
 
 	@Override
 	public void feed_delete(Integer feed_seq) {
-	
+
 		session.delete("main.feed_delete", feed_seq);
-		
+
 	}
 
 	@Override
 	public void re_feed_delete(Integer seq) {
 		session.delete("main.re_feed_delete", seq);
-		
+
 	}
 
 	@Override
 	public void re_feed_update(Map<String, Object> map) {
 		session.update("main.re_feed_update", map);
-		
+
 	}
 
 	@Override
@@ -172,6 +172,12 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public List<Integer> new_main_list(int seq) {
 		// TODO Auto-generated method stub
-		return session.selectList("main.new_main_sub_img", seq);
+		return null; 
+	}
+
+	@Override
+	public List<String> char_img(String name) {
+		// TODO Auto-generated method stub
+		return session.selectList("main.char_img", name);
 	}
 }

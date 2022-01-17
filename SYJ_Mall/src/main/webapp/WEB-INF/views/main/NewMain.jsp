@@ -448,6 +448,27 @@
 					}
 				});
 	}
+	function char_img(char_seq) {
+
+		$
+				.ajax({
+					url : "char_img.action",
+					type : 'post',
+					data : {
+						name : char_seq,
+					},
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+							
+						}
+					
+
+					},
+					error : function() {
+						alert("에러");
+					}
+				});
+	}
 	function new_main() {
 
 		count = count + 2;
@@ -530,6 +551,7 @@
 																	+ "</div>");
 											img(this.seq);
 											sub(this.seq);
+											char_img(this.character_name);
 											/* + "<ul class='option-list-product'>"
 											+ "<li>"
 											+ "<div class='list-product-contents'>"

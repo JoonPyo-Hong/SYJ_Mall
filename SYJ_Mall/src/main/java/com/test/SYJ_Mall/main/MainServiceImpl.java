@@ -156,4 +156,10 @@ public class MainServiceImpl implements MainService {
 		return dao.new_main_list(seq);
 	}
 
+	@Override
+	public List<String> char_img(String name) {
+		// TODO Auto-generated method stub
+		return dao.char_img(name);
+	}
+
 }
