@@ -155,6 +155,12 @@
 		<put-attribute name = "body" value="/WEB-INF/views/login/LoginGuide.jsp"/>	
 	</definition>
 	
+	<!-- 비회원 주문 조회 -->
+	<definition name = "/semitiles/geustOrderInquiry.layout" extends="newsemiDefaultTwo">
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/geustOrderInquiry.jsp"/>	
+	</definition>
+	
+	
 	
 	
 </tiles-definitions>

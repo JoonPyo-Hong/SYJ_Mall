@@ -15,7 +15,22 @@
 <link rel="stylesheet" href="resources/css/mainLayout/searchLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/orderlist.css">
 <link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
+
+<style>
+.user-info_login span {
+    display:inline-block;
+    width: 24px;
+    height: 24px;
+ 	background: url(/SYJ_Mall/resources/images/login/ico_friends.png) 0 0  no-repeat;
+  	background-size: 700px;
+    background-position: -280px -60px;
+
+}
+
+</style>
+
 </head>
+
 <body style="overflow-y: scroll;">
 	<!-- 모달 -->
 	<div id="mask"></div>
@@ -82,12 +97,12 @@
 						<div class="navigation-inner">
 							<c:if test="${empty userinfo}">
 								<div class="user-info">
-									<u id=login-need>로그인</u>이 필요해요! <span>비회원 주문조회</span>
+									<u id=login-need>로그인</u>이 필요해요! <span id="not_user_buy_history">비회원 주문조회</span>
 								</div>
 							</c:if>
 							<c:if test="${not empty userinfo}">
-								<div class="user-info">
-									<u>${userinfo.userName}</u>님 반가워요! <span>여기 바꿔야함</span>
+								<div class="user-info_login">
+									<u>${userinfo.userName}</u>님 반가워요! <span></span>
 								</div>
 							</c:if>
 							<div class="banner"></div>
