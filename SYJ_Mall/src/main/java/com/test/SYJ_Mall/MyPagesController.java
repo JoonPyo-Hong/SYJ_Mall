@@ -104,6 +104,13 @@ public class MyPagesController {
 		return service.deleteMyPageBaskets(request,response);
 	}
 	
+	@RequestMapping(value = "/geustOrderInquiry.action", method = { RequestMethod.GET })
+	public String geustOrderInquiry(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "/semitiles/geustOrderInquiry.layout";
+		
+	}
+	
 	
 	
 }
