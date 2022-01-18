@@ -82,9 +82,9 @@
 
 
 
-<div class="container-wrap guest-order-inquiry-wrap">
+<div class="container-wrap guest-order-inquiry-wrap" >
 	<!-- 로그인 입력 영역 -->
-	<form class="guest-login">
+	<form class="guest-login" style="margin-top : 40px;">
 		<div class="item-form">
 			<label for="order-number">주문번호</label> <input id="order-number"
 				placeholder="주문번호를 입력해주세요." onkeyup="check()">
@@ -103,3 +103,10 @@
 		<li>비회원 주문 조회는 배송완료일로부터 3개월까지 가능합니다.</li>
 	</ul>
 </div>
+
+
+
+
+
+
+

@@ -107,6 +107,8 @@ public class MyPagesController {
 	@RequestMapping(value = "/geustOrderInquiry.action", method = { RequestMethod.GET })
 	public String geustOrderInquiry(HttpServletRequest request, HttpServletResponse response) {
 		
+		request.setAttribute("geustOrderInquiry", "true");
+		
 		return "/semitiles/geustOrderInquiry.layout";
 		
 	}
