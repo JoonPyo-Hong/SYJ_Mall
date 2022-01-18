@@ -220,6 +220,22 @@
   margin-top: -2px;
 }
 
+
+.user-info_login {
+  padding: 32px 0px 18px 0px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 25px;
+}
+
+.user-info_login span {
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 15px;
+}
+
+
+
 .banner {
   height: 8%;
   background-image: url(/SYJ_Mall/resources/images/main/navigation-banner.jpg);
