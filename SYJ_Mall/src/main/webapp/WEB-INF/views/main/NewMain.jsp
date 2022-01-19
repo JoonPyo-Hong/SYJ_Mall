@@ -315,31 +315,31 @@
 	}); */
 
 	var count = 0;
-/* 	main_img(2);
-	function main_img(list_seq) {
-		var result = new Array();
-		$.ajax({
-			url : "new_main_img.action",
-			type : 'post',
-			async : false,
-			data : {
-				seq : list_seq,
-			},
-			success : function(data) {
+	/* 	main_img(2);
+	 function main_img(list_seq) {
+	 var result = new Array();
+	 $.ajax({
+	 url : "new_main_img.action",
+	 type : 'post',
+	 async : false,
+	 data : {
+	 seq : list_seq,
+	 },
+	 success : function(data) {
 
-				alert(data)
-				
-
-			},
-			error : function() {
-				alert("에러");
-			}
-		});
-
-		return result;
-
-	} */
+	 alert(data)
 	
+
+	 },
+	 error : function() {
+	 alert("에러");
+	 }
+	 });
+
+	 return result;
+
+	 } */
+
 	window.addEventListener("scroll", function() {
 		const SCROLLED_HEIGHT = window.scrollY;
 		const WINDOW_HEIGHT = window.innerHeight;
@@ -355,24 +355,22 @@
 	new_main();
 	function sub(list_seq) {
 
-		$
-				.ajax({
-					url : "new_main_sub.action",
-					type : 'post',
-					data : {
-						seq : list_seq,
-					},
-					success : function(data) {
-						for (var i = 0; i < data.length; i++) {
-							sub_img(data[i]);
-						
-							
-						}
-					},
-					error : function() {
-						alert("에러");
-					}
-				});
+		$.ajax({
+			url : "new_main_sub.action",
+			type : 'post',
+			data : {
+				seq : list_seq,
+			},
+			success : function(data) {
+				for (var i = 0; i < data.length; i++) {
+					sub_img(data[i]);
+
+				}
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
 	}
 	function sub_img(list_seq) {
 
@@ -390,22 +388,31 @@
 							//alert(data[i].product_price);
 							//alert(data[i].product_img);
 							$("#option-list-tag_" + list_seq)
-							.append(
-									"<ul class='option-list-product'>"
-									+ "<li>"
-									+ "<div class='list-product-contents'>"
-									+ "<img class='img-product' src='"+data[i].product_img+"'>"
-									+ "<div class='info-product'>"
-									+ "<span class='title-product'>"+data[i].product_nm+"</span> <span"
-									+"class='price-product'>"+data[i].product_price.replace(".0000","").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원</span>"
-									+ "</div>"
-									+ "</div>"
-									+ "<div class='list-product-cart'>"
-									+ "<div class='cart-btn'></div>"
-									+ "</div>"
-									+ "</li>"
-									+ "</ul>");
-							
+									.append(
+											"<ul class='option-list-product'>"
+													+ "<li>"
+													+ "<div class='list-product-contents'>"
+													+ "<img class='img-product' src='"+data[i].product_img+"'>"
+													+ "<div class='info-product'>"
+													+ "<span class='title-product'>"
+													+ data[i].product_nm
+													+ "</span> <span"
+									+"class='price-product'>"
+													+ data[i].product_price
+															.replace(".0000",
+																	"")
+															.toString()
+															.replace(
+																	/\B(?=(\d{3})+(?!\d))/g,
+																	',')
+													+ "원</span>"
+													+ "</div>"
+													+ "</div>"
+													+ "<div class='list-product-cart'>"
+													+ "<div class='cart-btn'></div>"
+													+ "</div>" + "</li>"
+													+ "</ul>");
+
 						}
 					},
 					error : function() {
@@ -448,26 +455,27 @@
 					}
 				});
 	}
-	function char_img(char_seq) {
-
-		$
-				.ajax({
-					url : "char_img.action",
-					type : 'post',
-					data : {
-						name : char_seq,
-					},
-					success : function(data) {
-						for (var i = 0; i < data.length; i++) {
-							
-						}
+	function char_img(char_seq,seq) {
+		//alert(char_seq);
+		$.ajax({
+			url : "char_img.action",
+			type : 'post',
+			data : {
+				name : char_seq,
+			},
+			success : function(data) {
+				for (var i = 0; i < data.length; i++) {
+					$("#profile_" +seq).attr("src",""+ data[i]+"");
+					/* alert(seq);
+					alert(data[i]); */
 					
+				}
 
-					},
-					error : function() {
-						alert("에러");
-					}
-				});
+			},
+			error : function() {
+				alert("에러");
+			}
+		});
 	}
 	function new_main() {
 
@@ -493,7 +501,7 @@
 													.append(
 															"<div class='box-feed'>"
 																	+ "<div class='head-feed'>"
-																	+ "<div class='profile'></div>"
+																	+ "<div class='profile'><img id = 'profile_"+ this.seq+ "' ></img></div>"
 																	+ "<div class='info-head'>"
 																	+ "<span class='txt-profile'>"
 																	+ this.character_name
@@ -503,8 +511,7 @@
 																	+ "</div>"
 																	+ "</div>"
 																	+ "<div class='body-feed'>"
-																	
-																	
+
 																	+ "<div class='swiper-container slide-feed' id='swiper"+ this.seq +"'>"
 																	+ "<div class='swiper-wrapper'>"
 																	+ "</div>"
@@ -512,7 +519,7 @@
 																	+ "<div class='swiper-button-prev'></div>"
 																	+ "<div class='swiper-pagination'></div>"
 																	+ "</div>"
-																	
+
 																	+ "<div class='option-link-view'>"
 																	+ "풀꽃 주차번호판 방향제 세트 보러 가기 <span class='icon-arrow'></span>"
 																	+ "</div>"
@@ -535,7 +542,7 @@
 																	+ "</div>"
 																	+ "</div>"
 																	+ "<ul class='option-list-tag' id ='option-list-tag_"+this.seq +"'>"
-																
+
 																	+ "</ul>"
 																	+ tag
 																	+ "</ul>"
@@ -551,7 +558,7 @@
 																	+ "</div>");
 											img(this.seq);
 											sub(this.seq);
-											char_img(this.character_name);
+											char_img(this.character_name,this.seq);
 											/* + "<ul class='option-list-product'>"
 											+ "<li>"
 											+ "<div class='list-product-contents'>"
