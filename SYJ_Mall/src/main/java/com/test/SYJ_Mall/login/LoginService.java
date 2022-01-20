@@ -71,7 +71,6 @@ public class LoginService implements ILoginService {
 			// 디비에 접근해서 고객의 비밀번호 변경 -> 임시비밀번호로 변경한다.
 			int modifyResult = dao.modifyUserPw(userId, userEmail, userPhone, encInstPw);			
 			
-			
 			if (modifyResult == 1) {
 				
 				StringBuffer sb = new StringBuffer();
@@ -1080,14 +1079,14 @@ public class LoginService implements ILoginService {
 			
 		    //QRCode 생성
 		    QRCodeWriter qrCodeWriter = new QRCodeWriter();  
-		    BitMatrix bitMatrix = qrCodeWriter.encode(codeurl, BarcodeFormat.QR_CODE,200, 200);    // 200,200은 width, height
+		    BitMatrix bitMatrix = qrCodeWriter.encode(codeurl, BarcodeFormat.QR_CODE,200, 200); //200,200은 width, height
 		  
 		    MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig(qrcodeColor,backgroundColor); 
 		    BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix,matrixToImageConfig); 
 		    
 		    //파일 이름에 저장한 날짜를 포함해주기 위해 date생성
 		    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-		    String fileName=sdf.format(new Date()) +"test"; 
+		    String fileName = sdf.format(new Date()) +"test"; 
 		    
 		    //파일 경로, 파일 이름 , 파일 확장자에 맡는 파일 생성
 		    File temp =  new File(savePath+fileName+".png");  

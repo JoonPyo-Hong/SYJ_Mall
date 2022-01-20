@@ -52,7 +52,7 @@ public class LoginController {
 		//kc.deleteCookie(request, response, "loginSaveUserId");
 		//kc.deleteCookie(request, response, "loginSaveUserPw");
 		//kc.deleteCookie(request, response, "loginSaveUserSeq");
-
+		
 		// ===================로그인 유지 관련 로직===================
 		String loginStayYn = logService.getLoginStayYn(request,response);
 		
