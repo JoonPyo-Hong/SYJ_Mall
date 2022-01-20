@@ -38,6 +38,14 @@
         	</beans:list>
     	</beans:property>
 	</beans:bean>
-
+	
+	
+	<!-- socket 설정 -->
+	<!-- <websocket:handlers>
+		<websocket:mapping handler="chattingHandler" path="/chatting"/>
+		<websocket:sockjs></websocket:sockjs>
+	</websocket:handlers> -->
+	
+	<!-- <beans:bean id="chattingHandler" class="org.practice.handler.ChattingHandler"/> -->
 	
 </beans:beans>
