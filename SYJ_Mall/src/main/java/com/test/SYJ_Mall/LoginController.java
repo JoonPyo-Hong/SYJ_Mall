@@ -206,7 +206,8 @@ public class LoginController {
 	@RequestMapping(value = "/loginQr.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public int loginQr(HttpServletRequest request, HttpServletResponse response) {
-
+		
+		
 		return logService.loginGetQr(request,response);
 		
 	}

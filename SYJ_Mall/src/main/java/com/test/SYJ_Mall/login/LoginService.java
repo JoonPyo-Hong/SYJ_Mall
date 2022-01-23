@@ -1,24 +1,19 @@
 package com.test.SYJ_Mall.login;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.net.URLEncoder;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,14 +30,10 @@ import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
+import com.common.utill.QRCodeGenerate;
 import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.client.j2se.MatrixToImageConfig;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
 /**
@@ -1053,47 +1044,51 @@ public class LoginService implements ILoginService {
 		
 	}
 	
+	
 	//QR 관련 로직
 	@Override
 	public int loginGetQr(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			
-			//String root = request.getSession().getServletContext().getRealPath("resources");
 			
-			String root = "C:\\Users\\신승환\\Desktop\\java\\SYJ_Mall\\SYJ_Mall\\src\\main\\webapp\\resources";
+
+//			  String root = request.getSession().getServletContext().getRealPath("resources"); String
+//			  savePath = root + "\\images\\QrImage\\";
+//			  
+//			  // 링크로 할 URL주소 
+//			  String url ="http://byeanma.kro.kr:9089/SYJ_Mall/login.action";
+//			  
+//			  // 링크 생성값 
+//			  String codeurl = new String(url.getBytes("UTF-8"), "ISO-8859-1");
+//			  
+//			  // QRCode 색상값 
+//			  int qrcodeColor = 0xFF2e4e96; // QRCode 배경색상값 
+//			  int backgroundColor = 0xFFFFFFFF;
+//			  
+//			  //QRCode 생성
+//			  QRCodeWriter qrCodeWriter = new QRCodeWriter();
+//			  BitMatrix bitMatrix = qrCodeWriter.encode(codeurl, BarcodeFormat.QR_CODE,200, 200);
+//			  //200,200은 width, height
+//			  
+//			  MatrixToImageConfig matrixToImageConfig = new
+//			  MatrixToImageConfig(qrcodeColor,backgroundColor); 
+//			  BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix,matrixToImageConfig);
+//			  
+//			  //파일 이름에 저장한 날짜를 포함해주기 위해 date생성 
+//			  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
+//			  String fileName = sdf.format(new Date()) +"test11";
+//			  
+//			  //파일 경로, 파일 이름 , 파일 확장자에 맡는 파일 생성
+//			  File temp = new File(savePath+fileName+".png");
+//			  
+//			  System.out.println(temp);
+//			  
+//			  // ImageIO를 사용하여 파일쓰기
+//			  ImageIO.write(bufferedImage, "png",temp);
+//			 
+			QRCodeGenerate qr = new QRCodeGenerate("http://byeanma.kro.kr:9089/SYJ_Mall/login.action","dontgo");
+			qr.writeQrCode(request);
 			
-			//C:\Users\신승환\Desktop\java\SYJ_Mall\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SYJ_Mall\resources
-			
-			String savePath  = root + "\\images\\QrImage\\"; 
-			
-			// 링크로 할 URL주소 
-			String url = "http://byeanma.kro.kr:9089/SYJ_Mall/login.action";
-			
-			// 링크 생성값
-		    String codeurl = new String(url.getBytes("UTF-8"), "ISO-8859-1"); 
-			
-		    // QRCode 색상값
-		    int qrcodeColor =   0xFF2e4e96; 
-		    // QRCode 배경색상값  
-		    int backgroundColor = 0xFFFFFFFF; 
-			
-		    //QRCode 생성
-		    QRCodeWriter qrCodeWriter = new QRCodeWriter();  
-		    BitMatrix bitMatrix = qrCodeWriter.encode(codeurl, BarcodeFormat.QR_CODE,200, 200); //200,200은 width, height
-		  
-		    MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig(qrcodeColor,backgroundColor); 
-		    BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix,matrixToImageConfig); 
-		    
-		    //파일 이름에 저장한 날짜를 포함해주기 위해 date생성
-		    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-		    String fileName = sdf.format(new Date()) +"test"; 
-		    
-		    //파일 경로, 파일 이름 , 파일 확장자에 맡는 파일 생성
-		    File temp =  new File(savePath+fileName+".png");  
-		    
-		    // ImageIO를 사용하여 파일쓰기 
-		    ImageIO.write(bufferedImage, "png",temp); 
-		    
 		    return 1;
 		    
 		} catch(Exception e) {
@@ -1105,7 +1100,6 @@ public class LoginService implements ILoginService {
 			return -1;//오류 발생
 		}
 	}
-
 	
 
 }

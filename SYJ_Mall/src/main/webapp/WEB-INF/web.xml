@@ -23,6 +23,7 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
 		
 	<servlet-mapping>
@@ -31,18 +32,7 @@
 	</servlet-mapping>
 	
 	
-	<!--웹소켓 -->
-	<!-- <servlet>
-	    <servlet-name>appServlet</servlet-name>
-	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-	    <init-param>
-	    <param-name>contextConfigLocation</param-name>
-	    <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
-    	</init-param>
-    	<load-on-startup>1</load-on-startup>
-    	<async-supported>true</async-supported>
-	</servlet> -->
-
+	<!-- 소켓관련 -->
 
 	<!-- 인코딩 필터 -->
 	<filter>

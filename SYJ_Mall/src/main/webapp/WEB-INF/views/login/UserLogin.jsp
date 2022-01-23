@@ -8,7 +8,6 @@
 <script type="text/javascript" src="<c:url value="resources/js/prng4.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>	
-<script type="text/javascript" charset="utf-8" src="cordova-1.5.0.js"></script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
@@ -605,7 +604,7 @@
 				
 			},
 			success : function(data) {
-				
+				console.log(data);
 			}
 		});
 	}

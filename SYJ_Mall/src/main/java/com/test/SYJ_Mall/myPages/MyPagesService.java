@@ -26,7 +26,7 @@ import com.test.SYJ_Mall.login.UserDTO;
 public class MyPagesService implements IMyPagesService {
 	@Autowired
 	private IMyPagesDAO dao;
-
+	
 	// 마이페이지 진입 페이지
 	@Override
 	public int getMyPageSelect(HttpServletRequest request, HttpServletResponse response) {

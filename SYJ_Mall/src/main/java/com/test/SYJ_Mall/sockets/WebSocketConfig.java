@@ -15,12 +15,20 @@ public class WebSocketConfig implements WebSocketConfigurer{
  
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(echoHandler, "/echo.do").setAllowedOrigins("*")
-        .withSockJS()
+        registry.addHandler(echoHandler, "/sockets/echos").setAllowedOrigins("*")
+    	.withSockJS()
         .setClientLibraryUrl(
           "https://cdn.jsdelivr.net/sockjs/latest/sockjs.min.js")
         .setInterceptors(new HttpSessionHandshakeInterceptor());
+    	
+    	
+    	//registry.addHandler(echoHandler, "/sockets/echos").setAllowedOrigins("*").withSockJS();
+      //registry.addHandler(echoHandler,"/echos")
+    	//.setAllowedOrigins("http://byeanma.kro.kr:9089")
+    	
     }
+    
+    
     
     
 }

@@ -1,18 +1,20 @@
 package com.test.SYJ_Mall.sockets;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
- 
- 
-import org.springframework.web.socket.*;
+
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
  
  
  
- 
-public class EchoHandler extends TextWebSocketHandler {
+@Controller 
+public class EchoHandler extends TextWebSocketHandler implements InitializingBean {
     
     
     private static List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
@@ -23,7 +25,10 @@ public class EchoHandler extends TextWebSocketHandler {
     
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        String user_name = searchUserName(session);
+        
+    	System.out.println("연결완료");
+    	
+    	//String user_name = searchUserName(session);
 //        for(WebSocketSession sess : sessionList) {
 //            sess.sendMessage(new TextMessage(user_name+"님이 접속했습니다."));
 //        }
@@ -48,11 +53,11 @@ public class EchoHandler extends TextWebSocketHandler {
     
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        String user_name = searchUserName(session);
+        //String user_name = searchUserName(session);
         System.out.println("연결 끊어짐");
-        for(WebSocketSession sess : sessionList) {
-            sess.sendMessage(new TextMessage(user_name+"님의 연결이 끊어졌습니다."));
-        }
+//        for(WebSocketSession sess : sessionList) {
+//            sess.sendMessage(new TextMessage(user_name+"님의 연결이 끊어졌습니다."));
+//        }
         sessionList.remove(session);
     }
     
@@ -63,4 +68,10 @@ public class EchoHandler extends TextWebSocketHandler {
         user_name = (String) map.get("user_name");
         return user_name;
     }
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }

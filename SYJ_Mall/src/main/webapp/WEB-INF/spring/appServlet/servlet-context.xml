@@ -49,16 +49,22 @@
 	</websocket:handlers> -->
 	
 	<!-- <beans:bean id="chattingHandler" class="org.practice.handler.ChattingHandler"/> -->
+
 	
-	<websocket:handlers allowed-origins="http://218.48.201.158:9089,http://localhost:9089">
-		<websocket:mapping handler="echoHandler" path="/echo.do"/>
-		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
-		<websocket:sockjs/>
-	</websocket:handlers>
+	<!-- allowed-origins="http://218.48.201.158:9089,http://localhost:9089"-->
+	<!-- <websocket:handlers allowed-origins="http://218.48.201.158:9089,http://localhost:9089"> -->
 	
 	<beans:bean id="echoHandler" class="com.test.SYJ_Mall.sockets.EchoHandler"/>
+	
+	<websocket:handlers allowed-origins="*">
+		<websocket:mapping handler="echoHandler" path="/sockets/echos"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		<websocket:sockjs websocket-enabled="true"/>
+	</websocket:handlers>
+	
+	
 	
 	 <!-- <websocket:handlers>
         <websocket:mapping handler="echoHandler" path="/echo.do" />

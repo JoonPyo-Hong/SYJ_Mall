@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SocketsController {
 	
-	@RequestMapping(value = "/sstest.action", method = { RequestMethod.GET })
+	@RequestMapping(value = "/echo.action", method = { RequestMethod.GET })
 	public String sstest(HttpServletRequest request, HttpServletResponse response) {
 		return "/test/sockettest";
 	}

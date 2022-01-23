@@ -4,12 +4,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+
+import com.common.utill.QRCodeGenerate;
 
 /**
  * 로그인 서비스 인터페이스
@@ -303,10 +304,6 @@ public interface ILoginService {
 	 * @return
 	 */
 	int loginGetQr(HttpServletRequest request, HttpServletResponse response);
-	
-
-	
-
 	
 
 	
