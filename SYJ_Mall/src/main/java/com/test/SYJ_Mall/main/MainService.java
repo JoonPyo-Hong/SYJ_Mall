@@ -56,4 +56,6 @@ public interface MainService {
 
 	List<String> char_img(String name);
 
+	Integer new_heart_select(HashMap<String, Integer> map);
+
 }

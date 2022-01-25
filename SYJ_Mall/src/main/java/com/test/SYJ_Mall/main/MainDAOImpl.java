@@ -180,4 +180,10 @@ public class MainDAOImpl implements MainDAO {
 		// TODO Auto-generated method stub
 		return session.selectList("main.char_img", name);
 	}
+
+	@Override
+	public Integer new_heart_select(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("main.new_heart_select", map);
+	}
 }

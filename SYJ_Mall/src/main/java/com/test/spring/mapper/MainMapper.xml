@@ -55,6 +55,12 @@
 		list_seq =
 		#{list_seq} and member_seq= #{session_seq}
 	</select>
+	<select id="new_heart_select" resultType="int"
+		parameterType="java.util.HashMap">
+		select count(*) from dbo.new_main_seq with(nolock) where
+		list_seq =
+		#{list_seq} and member_seq= #{session_seq}
+	</select>
 	<insert id="heart_insert" parameterType="java.util.HashMap">
 		insert into
 		dbo.main_heart values(#{list_seq},#{member_seq})

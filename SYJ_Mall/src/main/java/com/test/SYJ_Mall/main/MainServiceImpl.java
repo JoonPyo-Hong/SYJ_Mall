@@ -162,4 +162,10 @@ public class MainServiceImpl implements MainService {
 		return dao.char_img(name);
 	}
 
+	@Override
+	public Integer new_heart_select(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return dao.new_heart_select(map);
+	}
+
 }

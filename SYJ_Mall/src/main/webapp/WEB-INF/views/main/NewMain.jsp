@@ -278,6 +278,9 @@
 	line-height: 20px;
 	cursor: pointer;
 }
+.profile img{
+	width: 43px;
+}
 </style>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
@@ -301,45 +304,30 @@
 
 
 <script type="text/javascript">
-	/* var mySwiper = new Swiper('.swiper-container', {
-		loop : true,
-		pagination : {
-			el : '.swiper-pagination',
-		},
-		
-		navigation : {
-			nextEl : '.swiper-button-next',
-			prevEl : '.swiper-button-prev',
-		},
-
-	}); */
 
 	var count = 0;
-	/* 	main_img(2);
-	 function main_img(list_seq) {
-	 var result = new Array();
-	 $.ajax({
-	 url : "new_main_img.action",
-	 type : 'post',
-	 async : false,
-	 data : {
-	 seq : list_seq,
-	 },
-	 success : function(data) {
 
-	 alert(data)
+	$(document).on("click",".like-btn", function(){
+
+		/* $.ajax({
+			url: "feed_edit.action",
+			type: 'post',
+			data: {
+				seq: num,
+				feed: txt
+			},
+			success: function(data) {
+			scroll = $(document).scrollTop();
+			feed_select();
+			},
+			error: function() {
+				alert("에러");
+			}
+		}); */
+		alert();
+		
+	});
 	
-
-	 },
-	 error : function() {
-	 alert("에러");
-	 }
-	 });
-
-	 return result;
-
-	 } */
-
 	window.addEventListener("scroll", function() {
 		const SCROLLED_HEIGHT = window.scrollY;
 		const WINDOW_HEIGHT = window.innerHeight;
@@ -534,7 +522,7 @@
 																	+ "</p>"
 																	+ "</div>"
 																	+ "<div class='util-left'>"
-																	+ "<div class='like-btn'></div>"
+																	+ "<div class='like-btn' id = 'like-btn_'"+this.seq +"></div>"
 																	+ "<div class='reply-btn'></div>"
 																	+ "</div>"
 																	+ "<div class='util-right'>"
