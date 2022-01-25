@@ -406,7 +406,7 @@ public class LoginController {
 		}
 	}
 
-	// 비밀번호 찾기 : 임시비번 -> 비밀번호 변경
+	// 비밀번호 찾기 : 임시비번 -> 비밀번호 변경 -> 다시 로그인 해주는 로직
 	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
 	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) throws Exception {
 

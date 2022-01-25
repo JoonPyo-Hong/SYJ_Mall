@@ -250,7 +250,23 @@ public class LoginService implements ILoginService {
 
 		List<UserDTO> dto = dao.userInfo(userSeq);
 		userSession.setAttribute("userinfo", dto.get(0));// 유저 dto 객체를 session에 주입
+		
+		/* ================ master 모바일 기기 등록/확인 - db 연동작업 ================ */
+		IpCheck ic = new IpCheck();
+		//int deviceCode = -1;
+		
+		//if (!request.getParameter("deviceCode").equals(null)) deviceCode = Integer.parseInt(request.getParameter("deviceCode"));
+		int deviceCode = request.getParameter("deviceCode") == null ? -1 : Integer.parseInt(request.getParameter("deviceCode"));
 
+		String ipAddress = ic.getClientIP(request);
+		
+		
+		if (deviceCode == 1) {
+			int deviceResult = dao.masterMobileDevice(userSeq,ipAddress);
+			
+			if (deviceResult == -1) return -1;
+		}
+		
 		/* ================ 쿠키 - db 연동작업(장바구니 정보) ================ */
 		// 여기서 기존의 회원의 상품쿠키정보를 db로 연동시켜주는 작업이 필요함. -> 로그인이 성공한 경우 이므로
 		KakaoCookie kc = new KakaoCookie();
@@ -604,10 +620,10 @@ public class LoginService implements ILoginService {
 	public int autoLoginPassLogOn(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
-
+		
 		int userSeq = (Integer) session.getAttribute("userSeq");
 		String userIp = (String) session.getAttribute("userIp");
-
+		
 		int result = loginSuccess(request, userSeq);// 로그인 인증티켓 발급
 		
 		if (result == 1) {
@@ -970,6 +986,7 @@ public class LoginService implements ILoginService {
 		
 		try {
 			
+			
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 
 			String ip = ipCheck(request);
@@ -1014,7 +1031,6 @@ public class LoginService implements ILoginService {
 				// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
 				int result = userRedefinedPw(request, userSeq, ip);
 				
-				
 				if (result == 1) {
 					return "/login/UserLoginPwRedefine";
 				} else
@@ -1048,44 +1064,10 @@ public class LoginService implements ILoginService {
 	//QR 관련 로직
 	@Override
 	public int loginGetQr(HttpServletRequest request, HttpServletResponse response) {
+		
+		
 		try {
-			
-			
-
-//			  String root = request.getSession().getServletContext().getRealPath("resources"); String
-//			  savePath = root + "\\images\\QrImage\\";
-//			  
-//			  // 링크로 할 URL주소 
-//			  String url ="http://byeanma.kro.kr:9089/SYJ_Mall/login.action";
-//			  
-//			  // 링크 생성값 
-//			  String codeurl = new String(url.getBytes("UTF-8"), "ISO-8859-1");
-//			  
-//			  // QRCode 색상값 
-//			  int qrcodeColor = 0xFF2e4e96; // QRCode 배경색상값 
-//			  int backgroundColor = 0xFFFFFFFF;
-//			  
-//			  //QRCode 생성
-//			  QRCodeWriter qrCodeWriter = new QRCodeWriter();
-//			  BitMatrix bitMatrix = qrCodeWriter.encode(codeurl, BarcodeFormat.QR_CODE,200, 200);
-//			  //200,200은 width, height
-//			  
-//			  MatrixToImageConfig matrixToImageConfig = new
-//			  MatrixToImageConfig(qrcodeColor,backgroundColor); 
-//			  BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix,matrixToImageConfig);
-//			  
-//			  //파일 이름에 저장한 날짜를 포함해주기 위해 date생성 
-//			  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-//			  String fileName = sdf.format(new Date()) +"test11";
-//			  
-//			  //파일 경로, 파일 이름 , 파일 확장자에 맡는 파일 생성
-//			  File temp = new File(savePath+fileName+".png");
-//			  
-//			  System.out.println(temp);
-//			  
-//			  // ImageIO를 사용하여 파일쓰기
-//			  ImageIO.write(bufferedImage, "png",temp);
-//			 
+			 
 			QRCodeGenerate qr = new QRCodeGenerate("http://byeanma.kro.kr:9089/SYJ_Mall/login.action","dontgo");
 			qr.writeQrCode(request);
 			

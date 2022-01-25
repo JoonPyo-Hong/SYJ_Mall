@@ -179,5 +179,17 @@
 				
 	</select>
 	
+	<!-- QR 관련 모바일 마스터 아이피 지정-->
+	<select id="setMobilDeviceIp" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		<!-- {
+			call dbo.kakao_set_mobile_master_generate(#{userSeq},#{ipAddress})
+		} -->
+		declare @result int
+		exec @result = dbo.kakao_set_mobile_master_generate #{userSeq},#{ipAddress}
+		select @result
+				
+	</select>
+	
 
 </mapper>

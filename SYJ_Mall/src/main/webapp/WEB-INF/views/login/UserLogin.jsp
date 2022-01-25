@@ -428,6 +428,7 @@
             	<input type="hidden" name="securedUsername" id="securedUsername" value="" />
 				<input type="hidden" name="securedPassword" id="securedPassword" value="" />
 				<input type="hidden" name="loginSave" id="loginSave" value="-1" /> 
+				<input type="hidden" name="deviceCode" id="deviceCode" value="-1" />
            
             </form>
             <button class="login-btn">로그인</button>
@@ -473,7 +474,24 @@
 
 <script>
 
+	function device_check() {
+		// 디바이스 종류 설정
+		let pc_device = "win16|win32|win64|mac|macintel";
 	
+		// 접속한 디바이스 환경
+		let this_device = navigator.platform;
+	
+		if (this_device) {
+	
+			if (pc_device.indexOf(navigator.platform.toLowerCase()) < 0) {
+				//console.log('MOBILE');
+				return 1;
+			} else {
+				//console.log('PC');
+				return -1;
+			}
+		}
+	}
 
 	//1. 버튼을 직접 누른 경우
 	$(".login-btn").click(function() {
@@ -518,7 +536,10 @@
 		let securedPassword = rsa.encrypt(password);
 
 		let securedForm = document.getElementById("input_form");//form 데이터
-
+		
+		let device_code = device_check();//pc 인지 모바일인지 구분
+		$('#deviceCode').val(device_code);
+		
 		securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
 		securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
 		ajaxCheck(securedUsername, securedPassword);//ajax 호출
@@ -577,7 +598,7 @@
 	//상황에 따라 맞는 모달 넣어주기
 	function modal_situation(inner_text) {
 
-		$('#modal_context').text(inner_text)
+		$('#modal_context').text(inner_text);
 
 		$("#myModal").modal();
 
@@ -596,6 +617,7 @@
 	});
 	
 	
+	//QR 관련
 	function qr_ajax_function() {
 		$.ajax({
 			url : '/SYJ_Mall/loginQr.action',
