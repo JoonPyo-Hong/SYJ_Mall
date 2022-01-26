@@ -45,11 +45,31 @@
 	
     <script>
         
-    
+    	/* 접속된 디바이스 확인 */	
+    	function device_check() {
+			// 디바이스 종류 설정
+			let pc_device = "win16|win32|win64|mac|macintel";
+	
+			// 접속한 디바이스 환경
+			let this_device = navigator.platform;
+	
+			if (this_device) {
+		
+				if (pc_device.indexOf(navigator.platform.toLowerCase()) < 0) {
+					//console.log('MOBILE');
+					return 1;
+				} else {
+					//console.log('PC');
+					return -1;
+				}
+			}
+		}
+    	
+    	
         $(".images").click(function(){
             
-            var clickNum = event.srcElement.id;
-            var picName = event.srcElement.style.background;
+            let clickNum = event.srcElement.id;
+            let picName = event.srcElement.style.background;
 			//console.log(picName)
             
 			$.ajax({
@@ -82,8 +102,8 @@
 					
 					
 					
-					var sucessCount = result.sucessCount;
-					var failCount = result.failCount;
+					let sucessCount = result.sucessCount;
+					let failCount = result.failCount;
 					
 					//실패횟수를 초과한 경우
 					if(failCount == 3) {
@@ -92,7 +112,8 @@
 					
 					//성공횟수를 충족한 경우
 					if (sucessCount == 3) {
-						location.href = "/SYJ_Mall/userautologinPass.action";
+						const deviceCode = device_check();
+						location.href = "/SYJ_Mall/userautologinPass.action?deviceCode=" + deviceCode;
 					}
 				},
 				
