@@ -253,11 +253,7 @@ public class LoginService implements ILoginService {
 		
 		/* ================ master 모바일 기기 등록/확인 - db 연동작업 ================ */
 		IpCheck ic = new IpCheck();
-		//int deviceCode = -1;
-		
-		//if (!request.getParameter("deviceCode").equals(null)) deviceCode = Integer.parseInt(request.getParameter("deviceCode"));
 		int deviceCode = request.getParameter("deviceCode") == null ? -1 : Integer.parseInt(request.getParameter("deviceCode"));
-
 		String ipAddress = ic.getClientIP(request);
 		
 		
