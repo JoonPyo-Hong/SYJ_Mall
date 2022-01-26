@@ -612,13 +612,14 @@
 	
 	//QR 코드 로그인을 누른 경우
 	$('.qr-login-btn').click(function(){
-		qr_ajax_function();
-		$("#myModal").modal();
+		//qr_ajax_function();
+		//$("#myModal").modal();
+		location.href = "/SYJ_Mall/loginQr.action";
 	});
 	
 	
 	//QR 관련
-	function qr_ajax_function() {
+	/* function qr_ajax_function() {
 		$.ajax({
 			url : '/SYJ_Mall/loginQr.action',
 			type : 'POST',
@@ -629,7 +630,7 @@
 				console.log(data);
 			}
 		});
-	}
+	} */
 	
 	
 	

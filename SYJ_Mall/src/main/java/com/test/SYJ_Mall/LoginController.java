@@ -203,12 +203,13 @@ public class LoginController {
 	}
 	
 	//QR code 기능
-	@RequestMapping(value = "/loginQr.action", method = { RequestMethod.POST })
-	@ResponseBody
-	public int loginQr(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/loginQr.action", method = { RequestMethod.GET })
+	public String loginQr(HttpServletRequest request, HttpServletResponse response) {
 		
 		
-		return logService.loginGetQr(request,response);
+		//int result = logService.loginGetQr(request,response);
+				
+		return "/login/MainQrLogin";
 		
 	}
 	
