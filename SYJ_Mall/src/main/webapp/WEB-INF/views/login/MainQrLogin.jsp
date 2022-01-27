@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
 <title>카카오 프렌즈샵</title>
+<script type="text/javascript" src="resources/js/qrcodejs-master/qrcode.js"></script>
+
 <style>
 .login-wrap {
   margin: 0 auto;
@@ -83,7 +85,6 @@
   width: 150px;
   height: 150px;
   background-color: #e5e5e5;
-  background-image: url(/SYJ_Mall/resources/images/main_qr_login/0cfab2fd922e17120b3c2e24b1e81e148c66f5d28a9823ba68e834aecff79731b404e28255427bb4a0f14a92fdcba1892fda6c7a9c80d5e5a1c1c57d4c471d37ed5e9eb18610f07521ba04c25065c19b41f09efab14c8e38c2d84fda0c.png);
   background-size: contain;
 }
 
@@ -277,7 +278,7 @@
           </div>
           <!-- QR 박스 -->
           <div class="qr-box">
-            <div class="qr-code"></div>
+            <div class="qr-code" id="qrcode"></div>
             <div class="desc">
               <div class="title">남는 시간:
                 <span id="timeCheck" class="time"></span>
@@ -318,8 +319,17 @@
     </div>
   </div>
   <script>
-  
-	let time = 300;
+    
+  	
+  	let qrcode = new QRCode(document.getElementById("qrcode"), { 
+  					//가로, 세로 높이 조절 
+  							width : 150, height : 150 
+  							});
+  	qrcode.makeCode('https://www.naver.com/');
+
+	 
+  	
+  	let time = 300;
 	let min = "";
 	let sec = "";
 	const reset = document.getElementById('resetBtn');
@@ -348,7 +358,7 @@
 		}
 	
 	}, 1000);
-   
+   	
 	$('.info-another').click(function(){
 	location.href = "/SYJ_Mall/login.action"; 
 	});

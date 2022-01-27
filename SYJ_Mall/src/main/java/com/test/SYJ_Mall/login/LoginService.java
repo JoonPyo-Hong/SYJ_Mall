@@ -22,6 +22,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.AES256Util;
 import com.common.utill.AutoLoginPic;
 import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
@@ -30,7 +31,6 @@ import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
-import com.common.utill.QRCodeGenerate;
 import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
@@ -1061,11 +1061,20 @@ public class LoginService implements ILoginService {
 	@Override
 	public int loginGetQr(HttpServletRequest request, HttpServletResponse response) {
 		
-		
 		try {
 			 
-			QRCodeGenerate qr = new QRCodeGenerate("http://byeanma.kro.kr:9089/SYJ_Mall/login.action","dontgo");
-			qr.writeQrCode(request);
+			System.out.println(request.getParameter("test"));
+			
+			//QRCodeGenerate qr = new QRCodeGenerate();
+			
+			//String qrName = qr.generateQrCode("");
+			
+			AES256Util aes = new AES256Util();
+			String enc = aes.encrypt("1akm,sna;2lkj안여니");
+			System.out.println(enc);
+			String dcy = aes.decrypt(enc);
+			System.out.println(dcy);
+			
 			
 		    return 1;
 		    

@@ -207,7 +207,8 @@ public class LoginController {
 	public String loginQr(HttpServletRequest request, HttpServletResponse response) {
 		
 		
-		//int result = logService.loginGetQr(request,response);
+		int qrResult = logService.loginGetQr(request,response);
+		//request.setAttribute("qrName", qrName);
 				
 		return "/login/MainQrLogin";
 		
@@ -378,7 +379,7 @@ public class LoginController {
 		String userId = request.getParameter("userId");
 		String userEmail = request.getParameter("userEmail");
 		String userPhone = request.getParameter("userPhone");
-
+		
 		PrintWriter out = response.getWriter();
 		int result = logService.findUserPw(userId, userEmail, userPhone);
 
@@ -446,7 +447,6 @@ public class LoginController {
 	@RequestMapping(value = "/userLogout.action", method = { RequestMethod.GET })
 	public String userLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
 		String result = logService.goLogOut(request,response);
 		
 		if (result.equals("none")) {
@@ -496,7 +496,6 @@ public class LoginController {
 	public int loginChecking(HttpServletRequest request, HttpServletResponse response) {
 
 		return logService.loginChecking(request,response);
-
 	}
 
 }
