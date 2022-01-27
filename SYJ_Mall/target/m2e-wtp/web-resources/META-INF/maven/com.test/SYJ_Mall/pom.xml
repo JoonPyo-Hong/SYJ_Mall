@@ -20,7 +20,13 @@
 	</properties>
 	<dependencies>
 		
-		
+		<!-- 양방향 암호화 AES256 -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+
 		<!-- Web socket -->
 		<dependency>
             <groupId>org.springframework</groupId>
