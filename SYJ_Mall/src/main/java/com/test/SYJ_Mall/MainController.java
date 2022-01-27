@@ -45,10 +45,10 @@ public class MainController {
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");
 
-		int seq = 0;
+		int seq = 1;
 
 		if (dto == null) {
-			seq = 0;
+			seq = 1;
 		} else {
 			seq = dto.getUserSeq();
 		}
@@ -153,6 +153,19 @@ public class MainController {
 		map.put("list_seq", list_seq);
 		map.put("session_seq", session_seq);
 		Integer count = service.heart_select(map);
+
+		return count;
+	}
+	
+	//new 하트 조회
+	@RequestMapping(value = "/new_heart_select.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object new_heart_select(@RequestParam("list_seq") int list_seq, @RequestParam("session_seq") int session_seq) {
+
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("list_seq", list_seq);
+		map.put("session_seq", session_seq);
+		Integer count = service.new_heart_select(map);
 
 		return count;
 	}

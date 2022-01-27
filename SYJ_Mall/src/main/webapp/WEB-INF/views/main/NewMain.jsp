@@ -278,7 +278,8 @@
 	line-height: 20px;
 	cursor: pointer;
 }
-.profile img{
+
+.profile img {
 	width: 43px;
 }
 </style>
@@ -302,28 +303,38 @@
 
 <div class="container-wrap today-wrap"></div>
 
-
+<input type="hidden" id="hid_seq" value="${seq}">
 <script type="text/javascript">
-
+	var hid_seq =  $('#hid_seq').val();
+	//alert(hid_seq);
 	var count = 0;
 
-	$(document).on("click",".like-btn", function(){
-
-		/* $.ajax({
-			url: "feed_edit.action",
-			type: 'post',
-			data: {
-				seq: num,
-				feed: txt
+	function heart_select(a, b) {
+		$.ajax({
+			url : "new_heart_select.action",
+			type : 'post',
+			data : {
+				list_seq : a,
+				session_seq : b
 			},
-			success: function(data) {
-			scroll = $(document).scrollTop();
-			feed_select();
+			success : function(data) {
+				//alert(data);
+				 if (data != 0) {
+					$("#like-btn_" + a).css(
+							'background-position', '-200px -100');
+				}
+ 
 			},
-			error: function() {
+			error : function() {
 				alert("에러");
 			}
-		}); */
+		});
+	}
+		
+	$(document).on("click",".like-btn", function(){
+
+	
+	
 		alert();
 		
 	});
@@ -522,7 +533,7 @@
 																	+ "</p>"
 																	+ "</div>"
 																	+ "<div class='util-left'>"
-																	+ "<div class='like-btn' id = 'like-btn_'"+this.seq +"></div>"
+																	+ "<div class='like-btn' id = 'like-btn_"+this.seq +"'></div>"
 																	+ "<div class='reply-btn'></div>"
 																	+ "</div>"
 																	+ "<div class='util-right'>"
@@ -547,32 +558,7 @@
 											img(this.seq);
 											sub(this.seq);
 											char_img(this.character_name,this.seq);
-											/* + "<ul class='option-list-product'>"
-											+ "<li>"
-											+ "<div class='list-product-contents'>"
-											+ "<img class='img-product' src='images/today/product-list.jfif'>"
-											+ "<div class='info-product'>"
-											+ "<span class='title-product'>집콕 입는 담요_라이언&춘식이</span> <span"
-											+"class='price-product'>39,000</span>"
-											+ "</div>"
-											+ "</div>"
-											+ "<div class='list-product-cart'>"
-											+ "<div class='cart-btn'></div>"
-											+ "</div>"
-											+ "</li>"
-											+ "<li>"
-											+ "<div class='list-product-contents'>"
-											+ "<img class='img-product' src='images/today/product-list.jfif'>"
-											+ "<div class='info-product'>"
-											+ "<span class='title-product'>따뜻한극세사이불담요_라이언</span> <span"
-											+"class='price-product'>39,000</span>"
-											+ "</div>"
-											+ "</div>"
-											+ "<div class='list-product-cart'>"
-											+ "<div class='cart-btn'></div>"
-											+ "</div>"
-											+ "</li>"
-											+ "</ul>" */
+											heart_select(this.seq,parseInt($('#hid_seq').val()));
 										}// foreach 끝
 
 								);
