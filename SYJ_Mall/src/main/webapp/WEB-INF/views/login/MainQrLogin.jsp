@@ -320,14 +320,15 @@
   </div>
   <script>
     
+  
+ 	let qrhttps = '${qrhttps}';
   	
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
   					//가로, 세로 높이 조절 
   							width : 150, height : 150 
   							});
-  	qrcode.makeCode('https://www.naver.com/');
-
-	 
+  	qrcode.makeCode(qrhttps);
+  	
   	
   	let time = 300;
 	let min = "";
@@ -360,7 +361,7 @@
 	}, 1000);
    	
 	$('.info-another').click(function(){
-	location.href = "/SYJ_Mall/login.action"; 
+		location.href = "/SYJ_Mall/login.action"; 
 	});
 	  
 

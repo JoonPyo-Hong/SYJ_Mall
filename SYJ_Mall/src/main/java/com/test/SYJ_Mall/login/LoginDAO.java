@@ -1,6 +1,5 @@
 package com.test.SYJ_Mall.login;
 
-import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -242,5 +241,26 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.getDBUserRsa", loginSaveUserSeq);
 	}
+
+	
+	//qr 관련 정보 테이블에 넣어주기
+	@Override
+	public int insertQrCheck(String uuid) {
+		
+		return  template.selectOne("SYJDB.setQrUrl", uuid);
+	}
+
+	//QR 관련 로직 - 모바일 기기에서 아이디 체킹
+	@Override
+	public int checkingQrUserInfo(String qruuid, String decodeQrSeqCode) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("qruuid",qruuid);
+		map.put("decodeQrSeqCode",decodeQrSeqCode);
+		
+		return template.selectOne("SYJDB.qrMobileIngoChecking", map);
+	}
+	
+	
 }
 

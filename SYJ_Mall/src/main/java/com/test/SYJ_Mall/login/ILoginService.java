@@ -307,6 +307,14 @@ public interface ILoginService {
 	 */
 	int loginGetQr(HttpServletRequest request, HttpServletResponse response);
 	
+	/**
+	 * QR 관련 로직 - 모바일 기기에서 아이디 체킹
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int loginQrChecking(HttpServletRequest request, HttpServletResponse response);
+	
 
 	
 

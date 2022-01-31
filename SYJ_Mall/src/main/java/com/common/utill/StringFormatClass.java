@@ -116,6 +116,26 @@ public class StringFormatClass {
 	}
 	
 	/**
+	 * 해당문자에서 숫자만 뽑아오는 메서드
+	 * @param string	문자열
+	 * @return			
+	 */
+	public String findDigitString(String string) {
+		
+		StringBuffer sb = new StringBuffer();
+		
+		for (int i = 0; i < string.length(); i++) {
+			if (Character.isDigit(string.charAt(i))) {
+				sb.append(string.charAt(i));
+			}
+		}
+		
+		return sb.toString();
+
+	}
+	
+	
+	/**
 	 * 스트링이 숫자형인 경우 해당 숫자가 특정숫자범위 내에 있는지 판단해주는 메서드
 	 * @param string	숫자스트링
 	 * @param val1		첫번째 숫자

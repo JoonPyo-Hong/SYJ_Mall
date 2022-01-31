@@ -175,6 +175,23 @@ public interface ILoginDAO {
 	 * @return
 	 */
 	String getUserSecureKey(int loginSaveUserSeq);
+
+	
+	/**
+	 * QR 코드 인증 정보 만들어서 테이블에 넣기
+	 * @param uuid	고유값
+	 * @return		1: 성공, -1: 실패
+	 */
+	int insertQrCheck(String uuid);
+
+	
+	/**
+	 * QR 코드 인증 - 모바일 기기 체크
+	 * @param qruuid
+	 * @param decodeQrSeqCode
+	 * @return
+	 */
+	int checkingQrUserInfo(String qruuid, String decodeQrSeqCode);
 	
 
 

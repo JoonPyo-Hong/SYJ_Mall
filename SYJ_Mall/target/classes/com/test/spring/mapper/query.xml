@@ -179,14 +179,24 @@
 				
 	</select>
 	
-	<!-- QR 관련 모바일 마스터 아이피 지정-->
-	<select id="setMobilDeviceIp" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+	<!-- QR 관련 url 정보 저장-->
+	<select id="setQrUrl" resultType="Integer"  parameterType="String" statementType="CALLABLE" >
 		
 		declare @result int
-		exec @result = dbo.kakao_set_mobile_master_generate #{userSeq},#{ipAddress}
+		exec @result = dbo.kakao_set_qr_uuid #{uuid}
 		select @result
 				
 	</select>
+	
+	<!-- QR 관련 모바일 기기 체킹-->
+	<select id="qrMobileIngoChecking" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_set_qr_uuid_checkint #{qruuid},#{decodeQrSeqCode}
+		select @result
+				
+	</select>
+	
 	
 
 </mapper>

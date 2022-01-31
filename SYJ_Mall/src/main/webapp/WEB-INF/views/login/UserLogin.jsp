@@ -619,21 +619,6 @@
 	});
 	
 	
-	//QR 관련
-	/* function qr_ajax_function() {
-		$.ajax({
-			url : '/SYJ_Mall/loginQr.action',
-			type : 'POST',
-			data : {
-				
-			},
-			success : function(data) {
-				console.log(data);
-			}
-		});
-	} */
-	
-	
 	
 </script>
 

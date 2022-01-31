@@ -3,7 +3,6 @@ package com.test.SYJ_Mall;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.AES256Util;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
@@ -200,15 +200,33 @@ public class LoginController {
 		
 	}
 	
-	//QR code 기능
+	//QR code 로그인 관련
 	@RequestMapping(value = "/loginQr.action", method = { RequestMethod.GET })
 	public String loginQr(HttpServletRequest request, HttpServletResponse response) {
 		
-		
 		int qrResult = logService.loginGetQr(request,response);
-		//request.setAttribute("qrName", qrName);
-				
-		return "/login/MainQrLogin";
+		
+		if (qrResult == 1) return "/login/MainQrLogin";
+		else return "/testwaiting/kakaoerror";
+		
+	}
+	
+	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우
+	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.GET })
+	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response) {
+		
+		//System.out.println("??");
+		//?qrhttps=9e1693b6-fdb5-4b9c-abd9-afb41ee9cf54
+		//String result = request.getParameter("qrhttps");
+		//System.out.println(result);
+		int qrCheckRestul = logService.loginQrChecking(request,response);
+		
+		if (qrCheckRestul != -1) {
+			//여기서 이제 권한을 주고 메인페이지로 넘어가야함.
+			
+			return null;//로그인 성공 표시
+		}
+		else return "/testwaiting/kakaoerror";
 		
 	}
 	

@@ -11,6 +11,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1074,27 +1075,51 @@ public class LoginService implements ILoginService {
 	}
 	
 	
-	//QR 관련 로직
+	//QR 관련 로직 -> QR관련 url을 생성해준다. && 테이블에 데이터를 넣어준다.
 	@Override
 	public int loginGetQr(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
-			 
-			//System.out.println(request.getParameter("test"));
 			
-			//QRCodeGenerate qr = new QRCodeGenerate();
+			String uuid = UUID.randomUUID().toString();//uuid 생성
 			
-			//String qrName = qr.generateQrCode("");
+			int daoResult = dao.insertQrCheck(uuid);
+			//http://byeanma.kro.kr:9089/SYJ_Mall/loginQr.action -> url + uuid 번호 생성
+			request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
 			
-			//AES256Util aes = new AES256Util();
-			//String enc = aes.encrypt("1akm,sna;2lkj안여니");
-			//System.out.println(enc);
-			//String dcy = aes.decrypt(enc);
-			//System.out.println(dcy);
-			
-			
-		    return 1;
+			if (daoResult == 1) return 1;
+			else return -1;
 		    
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//모바일기기에서 아이디 체킹하는 작업
+	@Override
+	public int loginQrChecking(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			
+			String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
+			
+			KakaoCookie kc = new KakaoCookie();
+			AES256Util au = new AES256Util();
+			StringFormatClass sf = new StringFormatClass();
+			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
+			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+			
+			//System.out.println(decodeQrSeqCode);
+			//System.out.println(qruuid);
+			
+			int userSeq = dao.checkingQrUserInfo(qruuid,decodeQrSeqCode);
+			
+			return userSeq;
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
 			String ip = ic.getClientIP(request);
