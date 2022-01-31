@@ -69,6 +69,14 @@
 		delete dbo.main_heart
 		where list_seq = #{list_seq} and member_seq = #{member_seq}
 	</delete>
+	<insert id="new_heart_insert" parameterType="java.util.HashMap">
+		insert into
+		dbo.kaka_new_main_heart values(#{list_seq},#{member_seq})
+	</insert>
+	<delete id="new_heart_delete" parameterType="java.util.HashMap">
+		delete dbo.kaka_new_main_heart
+		where main_seq = #{list_seq} and member_seq = #{member_seq}
+	</delete>
 	<insert id="feed_insert" parameterType="java.util.HashMap">
 		insert into
 		dbo.feed(member_seq,list_seq,feed,reg_id)values(#{member_seq},#{list_seq},#{feed},#{name})

@@ -186,4 +186,16 @@ public class MainDAOImpl implements MainDAO {
 		// TODO Auto-generated method stub
 		return session.selectOne("main.new_heart_select", map);
 	}
+
+	@Override
+	public void new_heart_update(HashMap<String, String> map) {
+		if (map.get("gubn").equals("I")) {
+
+			session.insert("main.new_heart_insert", map);
+		} else if (map.get("gubn").equals("D")) {
+			session.delete("main.new_heart_delete", map);
+
+		}
+
+	}
 }

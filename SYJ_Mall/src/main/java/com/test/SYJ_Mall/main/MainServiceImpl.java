@@ -165,7 +165,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public Integer new_heart_select(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
-		return dao.new_heart_select(map);
+		return null;
 	}
+
+	@Override
+	public void new_heart_update(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }

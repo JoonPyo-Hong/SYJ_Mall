@@ -58,6 +58,8 @@ public interface MainDAO {
 
 	Integer new_heart_select(HashMap<String, Integer> map);
 
+	void new_heart_update(HashMap<String, String> map);
+
 
 
 }

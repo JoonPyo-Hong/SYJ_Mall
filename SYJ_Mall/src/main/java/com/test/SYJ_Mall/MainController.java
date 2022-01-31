@@ -184,6 +184,20 @@ public class MainController {
 		service.heart_update(map);
 
 	}
+	// new 좋아요 처리 (Insert, Delete로 처리)
+		@RequestMapping(value = "/new_heart_update.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public void new_heart_update(@RequestParam("list_seq") String list_seq, @RequestParam("member_seq") String member_seq,
+				@RequestParam("gubn") String gubn) {
+
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("list_seq", list_seq);
+			map.put("member_seq", member_seq);
+			map.put("gubn", gubn);
+
+			service.new_heart_update(map);
+
+		}
 
 	// 댓글 화면
 	@RequestMapping(value = "/feed.action", method = { RequestMethod.GET })
