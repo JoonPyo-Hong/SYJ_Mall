@@ -320,8 +320,8 @@
   </div>
   <script>
     
-  
- 	let qrhttps = '${qrhttps}';
+  	let qruuid = '${qrhttps}';
+ 	let qrhttps = 'http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=${qrhttps}';
   	
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
   					//가로, 세로 높이 조절 
@@ -340,6 +340,8 @@
 	  	sec = time % 60;
 	 	
 	  	//여기서 계속 ajax를 통해서 불러와줘야한다. -> qr코드로 로그인을 할지 말지 정할것이다.
+	  	qr_checking_user_pass(qrhttps);
+	  	
 	  	
 		const zeroMin = String(min).padStart(2,'0');
 		const zerosec = String(sec).padStart(2,'0');
@@ -363,7 +365,33 @@
 	$('.info-another').click(function(){
 		location.href = "/SYJ_Mall/login.action"; 
 	});
-	  
+	
+	
+	function qr_checking_user_pass(qrhttps) {
+		
+		$.ajax({
+			type : "POST",
+			url : "/SYJ_Mall/loginQrCheck.action",
+			data : {
+				"qruuid" : qruuid
+			},
+			dataType : "json",
+			success : function(result) {
+				
+				console.log(result);
+				
+				if (result == 1) {
+					//로그인 해주기
+					location.href = "/SYJ_Mall/main.action";
+				}
+
+			},
+			error : function(a, b, c) {
+				alert('error');
+			}
+		});
+	} 
+	
 
   </script>
 </body>

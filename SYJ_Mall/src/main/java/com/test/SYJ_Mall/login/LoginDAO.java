@@ -260,6 +260,13 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.qrMobileIngoChecking", map);
 	}
+
+	//유저정보 가져오기
+	@Override
+	public int checkingQrUserGrant(String uuid) {
+		
+		return template.selectOne("SYJDB.qrMobileUserSeq", uuid);
+	}
 	
 	
 }

@@ -1085,7 +1085,8 @@ public class LoginService implements ILoginService {
 			
 			int daoResult = dao.insertQrCheck(uuid);
 			//http://byeanma.kro.kr:9089/SYJ_Mall/loginQr.action -> url + uuid 번호 생성
-			request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
+			//request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
+			request.setAttribute("qrhttps", uuid);
 			
 			if (daoResult == 1) return 1;
 			else return -1;
@@ -1120,6 +1121,42 @@ public class LoginService implements ILoginService {
 			int userSeq = dao.checkingQrUserInfo(qruuid,decodeQrSeqCode);
 			
 			return userSeq;
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//QR 코드로 로그인 하는 경우 로그인 성공 경우에 유저 객체 정보 반환
+	@Override
+	public int grantResult(HttpServletRequest request, HttpServletResponse response, int qrCheckUserId) {
+		
+		try {
+			
+			return loginSuccess(request, response, qrCheckUserId);
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//QR 코드 uid 대한 로그인정보 획득한 경우 유저 정보 부여
+	@Override
+	public int qrCheckingUser(HttpServletRequest request,String uuid) {
+		
+		try {
+			
+			return dao.checkingQrUserGrant(uuid);
+			
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
 			String ip = ic.getClientIP(request);

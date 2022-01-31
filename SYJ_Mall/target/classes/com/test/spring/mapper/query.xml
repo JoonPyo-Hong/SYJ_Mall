@@ -197,6 +197,15 @@
 				
 	</select>
 	
+	<!-- QR 관련 유저 번호 가져오기-->
+	<select id="qrMobileUserSeq" resultType="Integer"  parameterType="String" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_qr_grant_user_seq #{uuid}
+		select @result
+				
+	</select>
+	
 	
 
 </mapper>
