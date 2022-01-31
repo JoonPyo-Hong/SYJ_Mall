@@ -244,79 +244,96 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public int loginSuccess(HttpServletRequest request, int userSeq) {// 로그인 성공한 경우 - 인증티켓 발급
+	public int loginSuccess(HttpServletRequest request,HttpServletResponse response, int userSeq) {// 로그인 성공한 경우 - 인증티켓 발급
+		
+		try {
+			HttpSession userSession = request.getSession();
 
-		HttpSession userSession = request.getSession();
-
-		List<UserDTO> dto = dao.userInfo(userSeq);
-		userSession.setAttribute("userinfo", dto.get(0));// 유저 dto 객체를 session에 주입
-		
-		/* ================ master 모바일 기기 등록/확인 - db 연동작업 ================ */
-		IpCheck ic = new IpCheck();
-		int deviceCode = request.getParameter("deviceCode") == null ? -1 : Integer.parseInt(request.getParameter("deviceCode"));
-		String ipAddress = ic.getClientIP(request);
-		
-		
-		if (deviceCode == 1) {
-			int deviceResult = dao.masterMobileDevice(userSeq,ipAddress);
+			List<UserDTO> dto = dao.userInfo(userSeq);
+			userSession.setAttribute("userinfo", dto.get(0));// 유저 dto 객체를 session에 주입
 			
-			if (deviceResult == -1) return -1;
-		}
-		
-		/* ================ 쿠키 - db 연동작업(장바구니 정보) ================ */
-		// 여기서 기존의 회원의 상품쿠키정보를 db로 연동시켜주는 작업이 필요함. -> 로그인이 성공한 경우 이므로
-		KakaoCookie kc = new KakaoCookie();
-		String basketList = (String) kc.getCookieInfo(request, "basketList");
-
-		// 쿠키객체안에 상품리스트가 있는경우에만 연동시켜줄것임
-		if (basketList != null) {
-			List<UserProductDTO> userList = dao.getCookieProductId(userSeq);// 회원이 장바구니로 보내준 물품
-			List<Integer> userProdList = new ArrayList<Integer>();
-
-			for (int i = 0; i < userList.size(); i++) {
-				userProdList.add(userList.get(i).getProductId());
+			KakaoCookie kc = new KakaoCookie();
+			
+			/* ================ master 모바일 기기 등록/확인 - 모바일 기기로 로그인한 경우 해당 모바일 기기에 정보남겨둔다. ================ */
+			IpCheck ic = new IpCheck();
+			int deviceCode = request.getParameter("deviceCode") == null ? -1 : Integer.parseInt(request.getParameter("deviceCode"));
+			
+			//모바일 기기인 경우
+			if (deviceCode == 1) {
+				AES256Util au = new AES256Util();
+				StringBuffer sb = new StringBuffer();
+				sb.append("userQrSeq");
+				sb.append(userSeq);
+				sb.append(";");
+				String saveCookie = au.encrypt(sb.toString());//로그인한 회원정보 저장.
+				
+				kc.modifyCookie(request,response,"QrSeqCode",saveCookie,60 * 60 * 24 * 15);
 			}
 			
-			String[] cookieProductArr = basketList.split("#");// 쿠키에 남아있는 장바구니 물품목록
-			List<Integer> newAddProduct = new ArrayList<Integer>();// 새롭게 회원 장바구니 db에 넣어줄 품목
-			List<Integer> delAddProduct = new ArrayList<Integer>();// 새롭게 넣어줄 품목이긴 한데 기존에 회원이 삭제를 했던 상품인경우 -> 삭제값을 N으로 돌려줄것이다.
+			/* ================ 쿠키 - db 연동작업(장바구니 정보) ================ */
+			// 여기서 기존의 회원의 상품쿠키정보를 db로 연동시켜주는 작업이 필요함. -> 로그인이 성공한 경우 이므로
+			String basketList = (String) kc.getCookieInfo(request, "basketList");
+
+			// 쿠키객체안에 상품리스트가 있는경우에만 연동시켜줄것임
+			if (basketList != null) {
+				List<UserProductDTO> userList = dao.getCookieProductId(userSeq);// 회원이 장바구니로 보내준 물품
+				List<Integer> userProdList = new ArrayList<Integer>();
+
+				for (int i = 0; i < userList.size(); i++) {
+					userProdList.add(userList.get(i).getProductId());
+				}
+				
+				String[] cookieProductArr = basketList.split("#");// 쿠키에 남아있는 장바구니 물품목록
+				List<Integer> newAddProduct = new ArrayList<Integer>();// 새롭게 회원 장바구니 db에 넣어줄 품목
+				List<Integer> delAddProduct = new ArrayList<Integer>();// 새롭게 넣어줄 품목이긴 한데 기존에 회원이 삭제를 했던 상품인경우 -> 삭제값을 N으로 돌려줄것이다.
 
 
-			for (int i = 0; i < cookieProductArr.length; i++) {
-				if (!cookieProductArr[i].equals("")) {
-					int cookieProductNum = Integer.parseInt(cookieProductArr[i]);
+				for (int i = 0; i < cookieProductArr.length; i++) {
+					if (!cookieProductArr[i].equals("")) {
+						int cookieProductNum = Integer.parseInt(cookieProductArr[i]);
 
-					int index = userProdList.indexOf(cookieProductNum);
+						int index = userProdList.indexOf(cookieProductNum);
 
-					if (index == -1) {
-						newAddProduct.add(cookieProductNum);
-					} else if (userList.get(index).getDelYn().equals("Y")) {
-						delAddProduct.add(cookieProductNum);
+						if (index == -1) {
+							newAddProduct.add(cookieProductNum);
+						} else if (userList.get(index).getDelYn().equals("Y")) {
+							delAddProduct.add(cookieProductNum);
+						}
 					}
 				}
-			}
+				
+				// 새로 넣어줄 물품이 존재하지 않는 경우
+				if (newAddProduct.size() == 0 && delAddProduct.size() == 0) {
+					return 1;
+				}
+				// 새로운 품목 넣어줘야 할 경우 -> 회원의 진짜 처음목록 (지웠던 적이 없는 목록)
+				if (newAddProduct.size() != 0) {
+					String newBasketList = productCookieList(newAddProduct);
+					return dao.setCookieToDbBasketListNondeleted(userSeq, newBasketList);
+				}
+				// 새로운 품목 넣어줘야 할 경우 -> 지웠던 적이 있는 목록
+				if (delAddProduct.size() != 0) {
+					String newBasketList = productCookieList(delAddProduct);
+					return dao.setCookieToDbBasketListDeleted(userSeq, newBasketList);
+				}
+			}//if
 			
-			// 새로 넣어줄 물품이 존재하지 않는 경우
-			if (newAddProduct.size() == 0 && delAddProduct.size() == 0) {
+			// 쿠키객체안에 상품리스트가 없는경우
+			else {
 				return 1;
 			}
-			// 새로운 품목 넣어줘야 할 경우 -> 회원의 진짜 처음목록 (지웠던 적이 없는 목록)
-			if (newAddProduct.size() != 0) {
-				String newBasketList = productCookieList(newAddProduct);
-				return dao.setCookieToDbBasketListNondeleted(userSeq, newBasketList);
-			}
-			// 새로운 품목 넣어줘야 할 경우 -> 지웠던 적이 있는 목록
-			if (delAddProduct.size() != 0) {
-				String newBasketList = productCookieList(delAddProduct);
-				return dao.setCookieToDbBasketListDeleted(userSeq, newBasketList);
-			}
-		}//if
-		
-		// 쿠키객체안에 상품리스트가 없는경우
-		else {
-			return 1;
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
 		}
+		
 		return -1;
+
 	}
 
 	// 상품정보 리스트 #붙여서 반환
@@ -613,14 +630,14 @@ public class LoginService implements ILoginService {
 
 	// 자동로그인 방지 통과 후 로그인 처리
 	@Override
-	public int autoLoginPassLogOn(HttpServletRequest request) {
+	public int autoLoginPassLogOn(HttpServletRequest request,HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
 		
 		int userSeq = (Integer) session.getAttribute("userSeq");
 		String userIp = (String) session.getAttribute("userIp");
 		
-		int result = loginSuccess(request, userSeq);// 로그인 인증티켓 발급
+		int result = loginSuccess(request, response ,userSeq);// 로그인 인증티켓 발급
 		
 		if (result == 1) {
 			logUserTrace(userSeq, userIp);// 로그인 기록 남겨주기
@@ -921,7 +938,7 @@ public class LoginService implements ILoginService {
 				
 				if (loginCode == 0 ) {// 로그인 성공
 
-					int logResult = loginSuccess(request, userSeq);// 로그인 인증티켓 발급
+					int logResult = loginSuccess(request, response, userSeq);// 로그인 인증티켓 발급
 					
 					String lastPage = (String)instanceCookie(request, response, "lastPage");
 					
@@ -1002,7 +1019,7 @@ public class LoginService implements ILoginService {
 			
 			if (loginCode == 0 && loginSave != -1) {// 로그인 성공
 
-				int logResult = loginSuccess(request, userSeq);// 로그인 인증티켓 발급
+				int logResult = loginSuccess(request, response, userSeq);// 로그인 인증티켓 발급
 				
 				String lastPage = (String)instanceCookie(request, response, "lastPage");
 				
@@ -1063,17 +1080,17 @@ public class LoginService implements ILoginService {
 		
 		try {
 			 
-			System.out.println(request.getParameter("test"));
+			//System.out.println(request.getParameter("test"));
 			
 			//QRCodeGenerate qr = new QRCodeGenerate();
 			
 			//String qrName = qr.generateQrCode("");
 			
-			AES256Util aes = new AES256Util();
-			String enc = aes.encrypt("1akm,sna;2lkj안여니");
-			System.out.println(enc);
-			String dcy = aes.decrypt(enc);
-			System.out.println(dcy);
+			//AES256Util aes = new AES256Util();
+			//String enc = aes.encrypt("1akm,sna;2lkj안여니");
+			//System.out.println(enc);
+			//String dcy = aes.decrypt(enc);
+			//System.out.println(dcy);
 			
 			
 		    return 1;

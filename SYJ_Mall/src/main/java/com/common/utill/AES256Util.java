@@ -17,9 +17,9 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class AES256Util {
 	
-	private String iv = "00000000000000001";
+	private String iv = "10010000001000001";
 	private Key keySpec;
-
+	
 	/**
 	 * 16자리의 키값을 입력하여 객체를 생성한다.
 	 * 

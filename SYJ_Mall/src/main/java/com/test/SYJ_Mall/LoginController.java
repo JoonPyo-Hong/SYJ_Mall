@@ -3,8 +3,7 @@ package com.test.SYJ_Mall;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.Map;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,6 @@ import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
-import com.test.SYJ_Mall.login.LoginDTO;
 import com.test.SYJ_Mall.login.SignUpDTO;
 
 /**
@@ -136,7 +134,7 @@ public class LoginController {
 				return "/testwaiting/kakaoerror";
 				// 자동로그인 방지를 직접 통과하고 들어온 경우
 			} else {
-				int result = logService.autoLoginPassLogOn(request);
+				int result = logService.autoLoginPassLogOn(request,response);
 
 				if (result == 1) {
 
@@ -213,6 +211,8 @@ public class LoginController {
 		return "/login/MainQrLogin";
 		
 	}
+	
+	
 	
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/

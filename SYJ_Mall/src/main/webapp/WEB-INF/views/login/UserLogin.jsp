@@ -473,7 +473,8 @@
   
 
 <script>
-
+	
+	//디바이스 체크 -> 현재 모바일 플랫폼인지 pc플랫폼인지 구분해준다.
 	function device_check() {
 		// 디바이스 종류 설정
 		let pc_device = "win16|win32|win64|mac|macintel";
@@ -518,7 +519,7 @@
 			let rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
 			let rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
 			submitEncryptedForm(username, password, rsaPublicKeyModulus,rsaPublicKeyExponent);
-
+			
 		} catch (err) {
 
 			alert(err);

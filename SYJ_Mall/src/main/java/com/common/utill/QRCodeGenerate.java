@@ -18,14 +18,14 @@ public class QRCodeGenerate {
 	 */
 	public String generateQrCode(String basicUrl) {
 		
-		BasicCalendar bc = new BasicCalendar();
-		String present = bc.getPresentTime();
-		
-		
-		
-		StringBuffer sb = new StringBuffer();
-		sb.append(basicUrl);
-		//sb.append
+//		BasicCalendar bc = new BasicCalendar();
+//		String present = bc.getPresentTime();
+//		
+//		
+//		
+//		StringBuffer sb = new StringBuffer();
+//		sb.append(basicUrl);
+//		//sb.append
 		
 		
 		return null;

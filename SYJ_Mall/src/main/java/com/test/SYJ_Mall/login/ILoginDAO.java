@@ -176,15 +176,6 @@ public interface ILoginDAO {
 	 */
 	String getUserSecureKey(int loginSaveUserSeq);
 	
-	/**
-	 * 모바일 QR 관련 마스터 디바이스 등록
-	 * @param userSeq	고객번호
-	 * @param ipAddress	아이피 주소
-	 */
-	int masterMobileDevice(int userSeq, String ipAddress);
-
-
-
 
 
 

@@ -242,17 +242,5 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.getDBUserRsa", loginSaveUserSeq);
 	}
-
-	//QR 관련 마스터 모바일 기기 
-	@Override
-	public int masterMobileDevice(int userSeq, String ipAddress) {
-		
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("userSeq",Integer.toString(userSeq));
-		map.put("ipAddress",ipAddress);
-		
-		return template.selectOne("SYJDB.setMobilDeviceIp", map);
-		
-	}
 }
 

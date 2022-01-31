@@ -50,7 +50,7 @@ public interface ILoginService {
 	 * @param request	request 객체
 	 * @param userSeq	유저 고유번호
 	 */
-	int loginSuccess(HttpServletRequest request, int userSeq) throws Exception;
+	int loginSuccess(HttpServletRequest request,HttpServletResponse response, int userSeq) throws Exception;
 	
 	/**
 	 * 자동로그인 방지
@@ -185,12 +185,14 @@ public interface ILoginService {
 	 */
 	void sessionDelete(HttpServletRequest request);
 	
+
 	/**
 	 * 자동로그인 방지를 통과 한 후 로그인 처리단계
-	 * @param request	request 객체
-	 * @return			1 : 성공, -1 : 실패
+	 * @param request
+	 * @param response
+	 * @return 			1 : 성공, -1 : 실패
 	 */
-	int autoLoginPassLogOn(HttpServletRequest request);
+	int autoLoginPassLogOn(HttpServletRequest request, HttpServletResponse response);
     
 	
 	/**
