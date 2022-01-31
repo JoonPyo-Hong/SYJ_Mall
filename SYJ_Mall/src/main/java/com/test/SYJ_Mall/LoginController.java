@@ -219,14 +219,39 @@ public class LoginController {
 		//?qrhttps=9e1693b6-fdb5-4b9c-abd9-afb41ee9cf54
 		//String result = request.getParameter("qrhttps");
 		//System.out.println(result);
-		int qrCheckRestul = logService.loginQrChecking(request,response);
+		int qrCheckUserId = logService.loginQrChecking(request,response);
 		
-		if (qrCheckRestul != -1) {
+		if (qrCheckUserId != -1) {
 			//여기서 이제 권한을 주고 메인페이지로 넘어가야함.
+			//int grantResult = logService.grantResult(request,response,qrCheckUserId);
 			
 			return null;//로그인 성공 표시
 		}
 		else return "/testwaiting/kakaoerror";
+	}
+	
+	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인
+	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public int loginQrCheckajax(HttpServletRequest request, HttpServletResponse response) {
+		
+		String uuid = request.getParameter("qruuid");
+		
+		//System.out.println("uuid : " + uuid);
+		
+		int passCheckUserSeq = logService.qrCheckingUser(request,uuid);
+		
+		//System.out.println("passCheckUserSeq : " + passCheckUserSeq);
+		
+		if (passCheckUserSeq != -1) {
+			
+			int grantResult = logService.grantResult(request,response,passCheckUserSeq);
+			
+			if (grantResult == 1) return 1;
+			else return -2;
+		}
+		
+		return passCheckUserSeq;
 		
 	}
 	

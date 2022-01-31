@@ -315,6 +315,24 @@ public interface ILoginService {
 	 */
 	int loginQrChecking(HttpServletRequest request, HttpServletResponse response);
 	
+	/**
+	 * QR 코드 통과한 후 로그인 권한 부여
+	 * @param request
+	 * @param response
+	 * @param qrCheckUserId	회원의 아이디
+	 * @return
+	 */
+	int grantResult(HttpServletRequest request, HttpServletResponse response, int qrCheckUserId);
+	
+
+	/**
+	 * QR 코드 uid 대한 로그인정보 획득한 경우 유저 정보 부여
+	 * @param request
+	 * @param uuid
+	 * @return
+	 */
+	int qrCheckingUser(HttpServletRequest request,String uuid);
+	
 
 	
 
