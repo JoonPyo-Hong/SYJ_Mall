@@ -60,4 +60,6 @@ public interface MainService {
 
 	void new_heart_update(HashMap<String, String> map);
 
+	Integer new_heart(int num);
+
 }

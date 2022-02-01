@@ -331,11 +331,19 @@
 		});
 	}
 		
-	$(document).on("click",".like-btn", function(){
-
-	
-	
-		alert();
+	$(document).on("click",".like-btn", function(e){
+		var id = $(this).attr("id");
+		/* $("#like-btn_" + a).css(
+				'background-position', '-200px -100');
+		$("#like-btn_" + a).css(
+				'background-position', '-190px -100'); */
+		/* if(id.css(
+'background-position', '-200px -100') == '') */
+		if(id.css('left') == '468px'){
+			alert();
+		}else{
+			alert('2')
+		}
 		
 	});
 	
