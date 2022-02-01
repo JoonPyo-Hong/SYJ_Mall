@@ -8,8 +8,9 @@
 	Real DB : exec dbo.kakao_set_qr_uuid 2000001, '122.131.554.66'
 			  
 */ 
-CREATE proc dbo.kakao_set_qr_uuid
-	@uuid UNIQUEIDENTIFIER
+alter proc dbo.kakao_set_qr_uuid
+	@uuid		UNIQUEIDENTIFIER
+,	@ip_address	varchar(200)
 as
 set nocount on 
 set transaction isolation level read uncommitted 
@@ -25,6 +26,7 @@ begin
 			,	request_dt
 			,	pass_yn
 			,	pass_user_seq
+			,	request_ip_address
 			)
 			values
 			(
@@ -32,6 +34,7 @@ begin
 			,	getdate()
 			,	'N'
 			,	null
+			,	@ip_address
 			)
 
 		commit tran

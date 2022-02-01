@@ -245,12 +245,16 @@ public class LoginDAO implements ILoginDAO {
 	
 	//qr 관련 정보 테이블에 넣어주기
 	@Override
-	public int insertQrCheck(String uuid) {
+	public int insertQrCheck(String uuid,String requestIpAddress) {
 		
-		return  template.selectOne("SYJDB.setQrUrl", uuid);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("uuid",uuid);
+		map.put("requestIpAddress",requestIpAddress);
+		
+		return  template.selectOne("SYJDB.setQrUrl", map);
 	}
 
-	//QR 관련 로직 - 모바일 기기에서 아이디 체킹
+	//QR 관련 로직 - 접속허용관련 메서드
 	@Override
 	public int checkingQrUserInfo(String qruuid, String decodeQrSeqCode) {
 		
@@ -266,6 +270,36 @@ public class LoginDAO implements ILoginDAO {
 	public int checkingQrUserGrant(String uuid) {
 		
 		return template.selectOne("SYJDB.qrMobileUserSeq", uuid);
+	}
+	
+	
+	//QR 코드 인증 - QR 코드 사용을 위해 QR url 생성후 테이블 정보에 QR 요청 정보가 있는지 확인해주기
+	@Override
+	public int checkPrevQrExists(String qruuid, String decodeQrSeqCode) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("qruuid",qruuid);
+		map.put("decodeQrSeqCode",decodeQrSeqCode);
+		
+		return template.selectOne("SYJDB.qrMobilePrevChecking", map);
+	}
+
+	//QR 코드 인증 - uuid 정보와 유저 고유번호 정보가 제대로 존재하는 경우 유저아이디와 요청아이피를 받아와준다.
+	@Override
+	public List<LoginQrIdIpDTO> getUserQrIdIp(String qruuid, String decodeQrSeqCode) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("qruuid",qruuid);
+		map.put("decodeQrSeqCode",decodeQrSeqCode);
+		
+		return template.selectList("SYJDB.qrMobileUserInfo", map);
+	}
+
+	
+	//타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
+	@Override
+	public int deleteQrUuid(String uuid) {
+
+		return template.selectOne("SYJDB.qrUuidDelete", uuid);
 	}
 	
 	

@@ -328,10 +328,24 @@ public interface ILoginService {
 	/**
 	 * QR 코드 uid 대한 로그인정보 획득한 경우 유저 정보 부여
 	 * @param request
-	 * @param uuid
 	 * @return
 	 */
-	int qrCheckingUser(HttpServletRequest request,String uuid);
+	int qrCheckingUser(HttpServletRequest request);
+	
+	/**
+	 * QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
+	 * @param request
+	 * @param response
+	 * @return	1: 정상, -1: 실패(오류), -2: 아이디 존재하지 않음(회원의 고유번호 존재하지 않음), -3: uuid 자체가 존재하지 않음
+	 */
+	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
+	 * @param request
+	 * @return
+	 */
+	int loginQrDelete(HttpServletRequest request);
 	
 
 	
