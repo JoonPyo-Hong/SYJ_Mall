@@ -1084,6 +1084,7 @@ public class LoginService implements ILoginService {
 			String uuid = UUID.randomUUID().toString();//uuid 생성
 			
 			int daoResult = dao.insertQrCheck(uuid);
+			
 			//http://byeanma.kro.kr:9089/SYJ_Mall/loginQr.action -> url + uuid 번호 생성
 			//request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
 			request.setAttribute("qrhttps", uuid);
@@ -1119,6 +1120,8 @@ public class LoginService implements ILoginService {
 			//System.out.println(qruuid);
 			
 			int userSeq = dao.checkingQrUserInfo(qruuid,decodeQrSeqCode);
+			
+			//여기서 마지막 확인을 위해 qruuid,QrSeqCode 코드를 한번 더 넘겨줘야한다.
 			
 			return userSeq;
 		} catch(Exception e) {
@@ -1157,6 +1160,34 @@ public class LoginService implements ILoginService {
 			
 			return dao.checkingQrUserGrant(uuid);
 			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
+	@Override
+	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			
+			String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
+			
+			KakaoCookie kc = new KakaoCookie();
+			AES256Util au = new AES256Util();
+			StringFormatClass sf = new StringFormatClass();
+			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
+			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+			
+			//확인창 화면에서 정보를 넘길 수 있도록 request 객체에 넘겨준다.
+			request.setAttribute("QrSeqCode",QrSeqCode);
+			request.setAttribute("qruuid",qruuid);
+			
+			return dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
 			String ip = ic.getClientIP(request);

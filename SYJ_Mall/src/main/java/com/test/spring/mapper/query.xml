@@ -188,7 +188,17 @@
 				
 	</select>
 	
-	<!-- QR 관련 모바일 기기 체킹-->
+	<!-- QR 관련 모바일 기기 접속 허용하기전 체킹-->
+	<select id="qrMobilePrevChecking" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_set_qr_uuid_prev_checking #{qruuid},#{decodeQrSeqCode}
+		select @result
+				
+	</select>
+	
+	
+	<!-- QR 관련 모바일 기기 접속 허용-->
 	<select id="qrMobileIngoChecking" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int

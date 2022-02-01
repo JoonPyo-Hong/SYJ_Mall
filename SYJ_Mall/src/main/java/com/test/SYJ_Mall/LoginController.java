@@ -167,7 +167,7 @@ public class LoginController {
 	public String autologinFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		IpCheck ic = new IpCheck();
-		// 못들어오게 해야하는데...
+		
 		try {
 			HttpSession session = request.getSession();
 			int failCount = (Integer) session.getAttribute("failCount");
@@ -211,23 +211,24 @@ public class LoginController {
 		
 	}
 	
-	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우
+	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 여기서 로그인 허용할것인지 허용하지 않을것인지 확인해준다.
 	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.GET })
 	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response) {
 		
-		//System.out.println("??");
-		//?qrhttps=9e1693b6-fdb5-4b9c-abd9-afb41ee9cf54
-		//String result = request.getParameter("qrhttps");
-		//System.out.println(result);
-		int qrCheckUserId = logService.loginQrChecking(request,response);
+		//String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
+		//request.setAttribute("qruuid", qruuid);
+		//int qrCheckUserId = logService.loginQrChecking(request,response);
+		int qrPrevCheck = logService.loginQrPrevCheck(request,response);
 		
-		if (qrCheckUserId != -1) {
-			//여기서 이제 권한을 주고 메인페이지로 넘어가야함.
-			//int grantResult = logService.grantResult(request,response,qrCheckUserId);
+		//if (qrPrevCheck == 1) return "/login/UserQrChecking";
+		
+		return null;
+		//if (qrCheckUserId != -1) {
 			
-			return null;//로그인 성공 표시
-		}
-		else return "/testwaiting/kakaoerror";
+			//return null;//로그인 성공 표시
+		//}
+		//else return "/testwaiting/kakaoerror";
+		//return "/login/UserQrChecking";
 	}
 	
 	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인
@@ -527,7 +528,6 @@ public class LoginController {
 
 		// 새로운 Tiles ViewResolver : tiles.xml 에 가서-> <definition> 의 name 을 찾는다.(****)
 		return "/tiles/main.top";
-
 	}
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/

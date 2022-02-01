@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="./css/fonts.css" />
+<link rel="stylesheet" type="text/css" href="./css/common.css" />
+<link rel="stylesheet" type="text/css" href="./css/main.css" />
+<style>
+        /* 모달창 */
+        #myModal > .modal-dialog {
+            width: 350px;
+            height : 200px;
+            margin-top: 300px;
+        }
+        #myModal > .modal-dialog > .modal-content {
+            height : 200px;
+        }
+        #modalcontent {
+            margin-top: 40px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color : #7C7C7C;
+            text-align: center;
+        }
+        #mfooter {
+            border: 0px; 
+            padding: 0px;
+            text-align:center
+        }
+        #mfooter_check {
+            border:0px;
+            width: 320px;
+            height: 45px;
+            background-color: #FEE500;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            color: black;
+            border-radius: 5px;
+            outline: none;
+        }
+        #mfooter_check:hover{
+            background-color: #F0D700;
+        }
+
+        /* 스타일 지정 */
+
+        /* 전체적인 바디 */
+        body {
+            /* border : 1px solid red; */
+            border : 1px solid #F6F6F6;
+            height : 873px;
+            margin: 0px auto;
+            width: 370px;
+            background-color : #FFFFFF;
+        }
+
+        /* 카카오프렌즈 이미지 */
+        #kakaopic {
+            /* border : 1px solid red; */
+            margin: 0px auto;
+            margin-top: 80px;
+            height: 50px;
+            width: 100px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        #kakaopic:hover {
+       		cursor:pointer; 	
+        }
+
+        /* 메인프레임 */
+        .mainframe {
+            /* border : 1px solid red; */
+            width: 350px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            margin: 0px auto;
+        }
+
+        /* 타이틀 */
+        #findtitle {
+            height : 100px;
+            padding-top: 30px;
+            font-size : 1.6em;
+            font-weight: bold;
+        }
+
+        /* 세부항목  설명*/
+        #detailtitle {
+            /* border : 1px solid red; */
+            color : #7C7C7C;
+            height : 110px;
+            padding-top: 10px;
+            font-size : 1.1em;
+        }
+
+        /* 회원가입 버튼 */
+        #submit_button {
+            height: 45px;
+            margin-top:50px; 
+        }
+
+        #submit_info {
+            border: 0px;
+            height: 45px;
+            background-color: #FEE500;
+            color: black;
+            border-radius: 5px;
+        }
+
+        #submit_info:focus {
+            outline: none;
+        }
+
+        /* 바닥라인 */
+        #bottomline {
+            border : 1.2px solid #F6F6F6;
+            margin-top: 80px;
+        }
+
+        /* 저작권 */
+        #copyright {
+            /* border : 1px solid blue; */
+            width : 310px;
+            margin: 20px auto;
+            font-size: 0.9em;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        /*기입할 내용 제목*/
+        .inputtitles {
+            /* border : 1px solid red; */
+            width:350px;
+            margin: 4px auto;
+            margin-top:10px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size : 0.9em;
+            font-weight: bold;
+        }
+
+        /* 정보 입력하는 곳 */
+        .inputbox {
+            /* border : 1px solid red; */
+            border-bottom: 1.5px solid #7C7C7C;
+            width:350px;
+            height: 34px; 
+            margin: 12px auto;
+            margin-bottom: 5px;
+        }
+        .inputboxcontent {
+            border: 0px;
+            width:350px;
+            height: 30px;
+            background-color : #FFFFFF;
+            font-size : 1.1em;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            outline: none;
+        } 
+        
+        /* 에러메시지 */
+        .errmsgs {
+            /* border : 1px solid red; */
+            color: red;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            width:350px;
+            height: 20px;
+            margin: 0px auto; 
+            font-size: 0.9em;
+        }
+        /* 핸드폰 기입하는곳 */
+        #kakaoPhone {
+            /* border:1px solid red; */
+            width: 290px;
+            float: left;
+        }
+        /* 자동으로  글자수 늘려주는 폼*/
+        #phoneLen {
+            /* border: 1px solid blue; */
+            width: 60px;
+            float: left;
+            height: 30px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            text-align: center;
+            padding-top: 5px;
+        }
+</style>
+</head>
+<body>
+    
+    
+    <div id = kakaopic style = "background-image: url('resources/images/kakao.svg');"></div>
+
+    <div id = "findtitle" class= "mainframe">
+        카카오계정의
+        <br>
+        비밀번호를 재설정합니다.
+    </div>
+
+    <div id = "detailtitle" class= "mainframe">
+        비밀번호를 재설정할 카카오계정의 아이디와
+        <br>
+        회원가입시 등록한 이메일을 입력해주세요.
+        <br>
+        이메일 주소로 임시 비밀번호를 지급해드립니다.
+    </div>
+    
+    <form action="/SYJ_Mall/userFindpwSend.action" method = "POST" id = "input_form">
+       <!-- 카카오 계정 아이디 -->
+        <div class = "inputtitles">
+            카카오 계정 아이디
+        </div>
+        <div class = "inputbox" id = "kakaoIdBox">
+            <input type="text" class = "inputboxcontent" id = "kakaoId" name = "kakaoId" placeholder="카카오 계정 아이디" autocomplete="off">
+        </div>
+
+        <div class = "errmsgs" id = "kakaoIderr"></div>
+
+        <!-- 회원가입시 등록한 이메일 -->
+        <div class = "inputtitles">
+            회원가입시 등록한 이메일
+        </div>
+
+        <div class = "inputbox" id = "kakaoMailBox">
+            <input type="text" class = "inputboxcontent" id = "kakaoMail" name = "kakaoMail" placeholder="등록한 이메일을 입력해주세요." autocomplete="off">
+        </div>
+
+        <div class = "errmsgs" id = "kakaoMailerr"></div>
+
+        <!-- 회원가입시 등록한 전화번호 -->
+        <div class = "inputtitles">
+            전화번호
+        </div>
+
+        <div class = "inputbox" id = "kakaoPhoneBox">
+            <input type="text" class = "inputboxcontent" id = "kakaoPhone" name = "kakaoPhone" placeholder="등록한 전화번호를 입력해주세요." maxlength = 11 autocomplete="off">
+            <div id = "phoneLen"> 0 / 11</div>
+        </div>
+
+        <div class = "errmsgs" id = "kakaoPhoneerr"></div>
+
+        <div id = "submit_button" class = "mainframe">
+            <input id = "submit_info" type="button" value="다음" class = "mainframe">
+        </div>
+    </form>
+
+    <hr id = "bottomline">
+
+    <div id = "copyright">
+        Copyright &copy; <span style="font-weight: bold;">Kakao Corp.</span> All rights reserved.
+    </div>
+
+	  
+	  
+    <script>
+        
+	   
+        
+        
+
+    </script>
+</body>
+</html>

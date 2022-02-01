@@ -269,5 +269,17 @@ public class LoginDAO implements ILoginDAO {
 	}
 	
 	
+	//QR 코드 인증 - QR 코드 사용을 위해 QR url 생성후 테이블 정보에 QR 요청 정보가 있는지 확인해주기
+	@Override
+	public int checkPrevQrExists(String qruuid, String decodeQrSeqCode) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("qruuid",qruuid);
+		map.put("decodeQrSeqCode",decodeQrSeqCode);
+		
+		return template.selectOne("SYJDB.qrMobilePrevChecking", map);
+	}
+	
+	
 }
 

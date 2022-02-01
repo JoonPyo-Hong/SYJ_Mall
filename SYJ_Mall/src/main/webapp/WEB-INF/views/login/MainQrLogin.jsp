@@ -351,13 +351,15 @@
 		
 		// 리셋 버튼 클릭 시 타이머 리셋
 		resetBtn.addEventListener('click', () => {
-		  time = 300;
+			location.href = "/SYJ_Mall/loginQr.action"  
+		//time = 300;
 		});
 			
 		// 5분 지날 시 자동 리셋
 		// QR 코드 이미지 변경 로직 추가 예정
 		if (time < 1) {
-		  time = 300;
+			location.href = "/SYJ_Mall/loginQr.action"  
+		  //time = 300;
 		}
 	
 	}, 1000);
@@ -367,6 +369,7 @@
 	});
 	
 	
+	//qr 관련
 	function qr_checking_user_pass(qrhttps) {
 		
 		$.ajax({

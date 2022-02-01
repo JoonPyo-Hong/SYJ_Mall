@@ -333,6 +333,14 @@ public interface ILoginService {
 	 */
 	int qrCheckingUser(HttpServletRequest request,String uuid);
 	
+	/**
+	 * QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
+	 * @param request
+	 * @param response
+	 * @return	1: 정상, -1: 실패(오류), -2: 아이디 존재하지 않음(회원의 고유번호 존재하지 않음), -3: uuid 자체가 존재하지 않음
+	 */
+	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response);
+	
 
 	
 

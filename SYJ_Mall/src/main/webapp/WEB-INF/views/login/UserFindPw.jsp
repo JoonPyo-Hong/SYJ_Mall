@@ -300,9 +300,6 @@
                 data : {"userId" : $("#kakaoId").val(),"userEmail" : $("#kakaoMail").val(),"userPhone" : $("#kakaoPhone").val()},
                 dataType : "json",
                 success : function(result) {
-                	
-           			//console.log(result);
-
                 	if (result == -1) {
                 		$("#myModal").modal();
                 	} else {
