@@ -200,7 +200,7 @@ public class LoginController {
 		
 	}
 	
-	//QR code 로그인 관련
+	//QR code 로그인 관련 -> 첫번째로 qr 로그인을 하려는 피씨가 자신의 피씨정보를 db단으로 넘겨준다.
 	@RequestMapping(value = "/loginQr.action", method = { RequestMethod.GET })
 	public String loginQr(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -211,39 +211,25 @@ public class LoginController {
 		
 	}
 	
-	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 여기서 로그인 허용할것인지 허용하지 않을것인지 확인해준다.
-	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.GET })
+	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우
+	@RequestMapping(value = "/loginQrPrevCheck.action", method = { RequestMethod.GET })
 	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response) {
 		
-		//String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
-		//request.setAttribute("qruuid", qruuid);
-		//int qrCheckUserId = logService.loginQrChecking(request,response);
 		int qrPrevCheck = logService.loginQrPrevCheck(request,response);
 		
-		//if (qrPrevCheck == 1) return "/login/UserQrChecking";
+		if (qrPrevCheck == 1) return "/login/UserQrChecking";
+		else return "/testwaiting/kakaoerror";
 		
-		return null;
-		//if (qrCheckUserId != -1) {
-			
-			//return null;//로그인 성공 표시
-		//}
-		//else return "/testwaiting/kakaoerror";
-		//return "/login/UserQrChecking";
 	}
 	
-	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인
+	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인 (1초마다 확인해줌)
 	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public int loginQrCheckajax(HttpServletRequest request, HttpServletResponse response) {
 		
-		String uuid = request.getParameter("qruuid");
+		int passCheckUserSeq = logService.qrCheckingUser(request);//QR 로고인이 허용된 유저의 고유번호
 		
-		//System.out.println("uuid : " + uuid);
-		
-		int passCheckUserSeq = logService.qrCheckingUser(request,uuid);
-		
-		//System.out.println("passCheckUserSeq : " + passCheckUserSeq);
-		
+		//허용된 경우면 -1이 아닌 값을 내보내줄것이다.
 		if (passCheckUserSeq != -1) {
 			
 			int grantResult = logService.grantResult(request,response,passCheckUserSeq);
@@ -256,7 +242,33 @@ public class LoginController {
 		
 	}
 	
+	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 여기서 로그인 허용할것인지 허용하지 않을것인지 확인해준다.
+	@RequestMapping(value = "/loginQrLastCheck.action", method = { RequestMethod.POST })
+	public String loginQrLastCheck(HttpServletRequest request, HttpServletResponse response) {
+		
+		int qrLastCheck = logService.loginQrChecking(request, response);
+		
+		System.out.println("qrLastCheck : " + qrLastCheck);
+		//int qrPrevCheck = logService.loginQrPrevCheck(request,response);
+		
+		if (qrLastCheck == 1) return "/login/UserQrChecking";//새로운 로그인 성공 디자인 생성해야한다.
+		//else return "/testwaiting/kakaoerror";
+		
+		return null;
+		
+	}
 	
+	//QR 검증 -> 타임아웃이나 새로고침을 한경우 기존 uuid 를 제거해준다.
+	@RequestMapping(value = "/loginQrRemove.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public int loginQrRemove(HttpServletRequest request, HttpServletResponse response) {
+		
+		int result = logService.loginQrDelete(request);
+		
+		//System.out.println("result : "+result);
+		
+		return result;
+	}
 	
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/

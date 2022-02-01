@@ -1074,16 +1074,17 @@ public class LoginService implements ILoginService {
 		
 	}
 	
-	
-	//QR 관련 로직 -> QR관련 url을 생성해준다. && 테이블에 데이터를 넣어준다.
+	//QR 관련 로직 -> QR관련 url을 생성해준다. && 테이블에 데이터를 넣어준다. (QR 첫단계)
 	@Override
 	public int loginGetQr(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
 			
+			IpCheck ic = new IpCheck();
 			String uuid = UUID.randomUUID().toString();//uuid 생성
+			String requestIpAddress = ic.getClientIP(request);//qr 로그인 시도하는 컴퓨터측 ip 정보
 			
-			int daoResult = dao.insertQrCheck(uuid);
+			int daoResult = dao.insertQrCheck(uuid,requestIpAddress);
 			
 			//http://byeanma.kro.kr:9089/SYJ_Mall/loginQr.action -> url + uuid 번호 생성
 			//request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
@@ -1092,74 +1093,6 @@ public class LoginService implements ILoginService {
 			if (daoResult == 1) return 1;
 			else return -1;
 		    
-		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
-			return -1;//오류 발생
-		}
-	}
-	
-	//모바일기기에서 아이디 체킹하는 작업
-	@Override
-	public int loginQrChecking(HttpServletRequest request, HttpServletResponse response) {
-		
-		try {
-			
-			String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
-			
-			KakaoCookie kc = new KakaoCookie();
-			AES256Util au = new AES256Util();
-			StringFormatClass sf = new StringFormatClass();
-			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
-			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
-			
-			//System.out.println(decodeQrSeqCode);
-			//System.out.println(qruuid);
-			
-			int userSeq = dao.checkingQrUserInfo(qruuid,decodeQrSeqCode);
-			
-			//여기서 마지막 확인을 위해 qruuid,QrSeqCode 코드를 한번 더 넘겨줘야한다.
-			
-			return userSeq;
-		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
-			return -1;//오류 발생
-		}
-	}
-	
-	//QR 코드로 로그인 하는 경우 로그인 성공 경우에 유저 객체 정보 반환
-	@Override
-	public int grantResult(HttpServletRequest request, HttpServletResponse response, int qrCheckUserId) {
-		
-		try {
-			
-			return loginSuccess(request, response, qrCheckUserId);
-			
-		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
-			return -1;//오류 발생
-		}
-	}
-	
-	//QR 코드 uid 대한 로그인정보 획득한 경우 유저 정보 부여
-	@Override
-	public int qrCheckingUser(HttpServletRequest request,String uuid) {
-		
-		try {
-			
-			return dao.checkingQrUserGrant(uuid);
-			
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
 			String ip = ic.getClientIP(request);
@@ -1183,11 +1116,28 @@ public class LoginService implements ILoginService {
 			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
 			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
 			
-			//확인창 화면에서 정보를 넘길 수 있도록 request 객체에 넘겨준다.
+			//확인창 화면에서 정보를 볼수 있도록 request 객체에 넘겨준다.
 			request.setAttribute("QrSeqCode",QrSeqCode);
 			request.setAttribute("qruuid",qruuid);
 			
-			return dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
+			int result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
+			
+			//uuid 에 대한 정보가 존재하고 회원에 대한 정보도 존재하는 경우 -> 해당 아이피,회원 아이디를 마스킹하여 가져와준다.
+			if (result == 1) {
+				List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
+				if (qrIdIpdtoList.size() == 1) {
+					LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);//******여기오류******
+					String qrUserId = sf.maskigId(qrIdIpdto.getUserId());
+					String qrUserIp = qrIdIpdto.getUserIp();
+					
+					request.setAttribute("qrUserId",qrUserId);
+					request.setAttribute("qrUserIp",qrUserIp);
+				}
+				else result = -1;
+			} 
+			
+			return result;
+			
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
 			String ip = ic.getClientIP(request);
@@ -1197,6 +1147,93 @@ public class LoginService implements ILoginService {
 			return -1;//오류 발생
 		}
 	}
+	
+
+	//모바일기기에서 아이디 체킹하는 작업
+	@Override
+	public int loginQrChecking(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			
+			String qruuid = request.getParameter("qruuid");//넘어온 uuid 정보
+			String QrSeqCode = request.getParameter("QrSeqCode");//유저 고유번호
+			
+			KakaoCookie kc = new KakaoCookie();
+			AES256Util au = new AES256Util();
+			StringFormatClass sf = new StringFormatClass();
+			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+			
+			return dao.checkingQrUserInfo(qruuid,decodeQrSeqCode);
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//QR 코드로 로그인 하는 경우 로그인 성공 경우에 유저 객체 정보 반환
+	@Override
+	public int grantResult(HttpServletRequest request, HttpServletResponse response, int qrCheckUserId) {
+		
+		try {
+			
+			return loginSuccess(request, response, qrCheckUserId);//로그인 성공처리 해준다.
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//QR 코드 uid 대한 로그인정보 획득한 경우 유저 정보 부여
+	@Override
+	public int qrCheckingUser(HttpServletRequest request) {
+		
+		try {
+			
+			String uuid = request.getParameter("qruuid");
+			
+			return dao.checkingQrUserGrant(uuid);
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
+	@Override
+	public int loginQrDelete(HttpServletRequest request) {
+		
+		try {
+			
+			String uuid = request.getParameter("qruuid");
+			
+			return dao.deleteQrUuid(uuid);
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+
 	
 
 }

@@ -180,10 +180,10 @@
 	</select>
 	
 	<!-- QR 관련 url 정보 저장-->
-	<select id="setQrUrl" resultType="Integer"  parameterType="String" statementType="CALLABLE" >
+	<select id="setQrUrl" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int
-		exec @result = dbo.kakao_set_qr_uuid #{uuid}
+		exec @result = dbo.kakao_set_qr_uuid #{uuid}, #{requestIpAddress}
 		select @result
 				
 	</select>
@@ -197,8 +197,17 @@
 				
 	</select>
 	
+	<!-- QR 관련 모바일 기기 유저가 넘긴 정보가 문제 없을 경우 유저객체 넘겨준다.-->
+	<select id="qrMobileUserInfo" resultType="com.test.SYJ_Mall.login.LoginQrIdIpDTO"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		{
+			call dbo.kakao_get_qr_user_info (#{qruuid},#{decodeQrSeqCode})
+		}
+				
+	</select>
 	
-	<!-- QR 관련 모바일 기기 접속 허용-->
+	
+	<!-- QR 관련 모바일 기기 접속 허용해주는 sp-->
 	<select id="qrMobileIngoChecking" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int
@@ -212,6 +221,15 @@
 		
 		declare @result int
 		exec @result = dbo.kakao_qr_grant_user_seq #{uuid}
+		select @result
+				
+	</select>
+	
+	<!-- 타임아웃되거나 리프레시당한 uuid 지워주기-->
+	<select id="qrUuidDelete" resultType="Integer"  parameterType="String" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_remove_qr_info #{uuid}
 		select @result
 				
 	</select>

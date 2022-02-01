@@ -20,9 +20,11 @@ begin
 	--uuid 에 대한 qr 요청 정보가 존재하는 경우
 	if exists (select * from dbo.KAKAO_QR_QUEUE with(nolock) where kakao_qr_guid = @uuid)
 	begin
+		--유저 고유번호에 대한 정보가 존재하는 경우
 		if exists (select * from dbo.QOO10_USER_REAL with(nolock) where qoouser_seq = @user_seq) return 1
 		else return -2
 	end
+	--uuid 에 대한 qr 요청 정보가 존재하지 않는 경우
 	else
 	begin
 		return -3

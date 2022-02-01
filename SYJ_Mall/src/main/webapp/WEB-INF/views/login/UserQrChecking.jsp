@@ -34,7 +34,7 @@
         접속하실 카카오 계정 아이디
     </div>
     <div class = "inputbox" id = "kakaoIdBox">
-        admin
+        ${qrUserId}
     </div>
 
     <div class = "between"></div>
@@ -45,7 +45,7 @@
     </div>
 
     <div class = "inputbox" id = "kakaoIpBox" style="color : red;">
-    192.88.153.11
+    ${qrUserIp}
     </div>
 
     <div class = "between"></div>
@@ -62,19 +62,17 @@
         Copyright &copy; <span style="font-weight: bold;">Kakao Corp.</span> All rights reserved.
     </div>
     
-    <form action="/SYJ_Mall/loginVerification.action" method = "POST" id = "input_form">
-            	
-        <!-- <input type="hidden" name="securedUsername" id="securedUsername" value="" /> -->
-        <div name="qruuid" id="qruuid">${qruuid}</div>
-           
+    <form action="/SYJ_Mall/loginQrLastCheck.action" method = "POST" id = "qr_form">
+        <input type="hidden" name="qruuid" id="qruuid" value="${qruuid}" />
+		<input type="hidden" name="QrSeqCode" id="QrSeqCode" value="${QrSeqCode}" />   
    </form>
 
 	  
-    <script>
+   <script>
     	
     	//1. 로그인 허용을 누른경우
     	$('#login_pass').click(function(){
-    		
+    		$('#qr_form').submit();
     	});
     	
     	//2. 로그인 비허용을 누른경우
@@ -83,7 +81,7 @@
     	});
     	
    
-    </script>
+   </script>
     
     
 </body>

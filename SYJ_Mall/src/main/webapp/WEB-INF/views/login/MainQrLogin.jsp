@@ -321,7 +321,8 @@
   <script>
     
   	let qruuid = '${qrhttps}';
- 	let qrhttps = 'http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=${qrhttps}';
+ 	let qrhttps = 'http://byeanma.kro.kr:9089/SYJ_Mall/loginQrPrevCheck.action?qrhttps=${qrhttps}';
+ 	//let qr_result = -1;
   	
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
   					//가로, 세로 높이 조절 
@@ -333,14 +334,14 @@
   	let time = 300;
 	let min = "";
 	let sec = "";
-	const reset = document.getElementById('resetBtn');
+	//const reset = document.getElementById('resetBtn');
 	
 	const x = setInterval(function () {
 		min = parseInt(time / 60);
 	  	sec = time % 60;
 	 	
 	  	//여기서 계속 ajax를 통해서 불러와줘야한다. -> qr코드로 로그인을 할지 말지 정할것이다.
-	  	qr_checking_user_pass(qrhttps);
+	  	qr_checking_user_pass(qruuid);
 	  	
 	  	
 		const zeroMin = String(min).padStart(2,'0');
@@ -349,28 +350,32 @@
 		$("#timeCheck").html(zeroMin + " : " + zerosec);
 		time--;
 		
-		// 리셋 버튼 클릭 시 타이머 리셋
-		resetBtn.addEventListener('click', () => {
-			location.href = "/SYJ_Mall/loginQr.action"  
-		//time = 300;
-		});
-			
 		// 5분 지날 시 자동 리셋
 		// QR 코드 이미지 변경 로직 추가 예정
 		if (time < 1) {
-			location.href = "/SYJ_Mall/loginQr.action"  
-		  //time = 300;
+			//time = 300;
+			const delete_result = timeout_qr_session(qruuid);
+			if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
+				  
 		}
 	
 	}, 1000);
    	
+	// 리셋 버튼 클릭 시 타이머 리셋
+	$('#resetBtn').click(function(){
+		const delete_result = timeout_qr_session(qruuid);
+		console.log(delete_result);
+		if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
+	});
+		
+	//일반로그인 창으로 넘어가기
 	$('.info-another').click(function(){
 		location.href = "/SYJ_Mall/login.action"; 
 	});
 	
 	
-	//qr 관련
-	function qr_checking_user_pass(qrhttps) {
+	//qr 로그인 검증 socket 과 비슷한 처리
+	function qr_checking_user_pass(qruuid) {
 		
 		$.ajax({
 			type : "POST",
@@ -381,8 +386,9 @@
 			dataType : "json",
 			success : function(result) {
 				
-				console.log(result);
+				//console.log(result);
 				
+				//로그인 성공
 				if (result == 1) {
 					//로그인 해주기
 					location.href = "/SYJ_Mall/main.action";
@@ -393,7 +399,35 @@
 				alert('error');
 			}
 		});
-	} 
+	}
+	
+	//timeout 되거나 새로고침을 한 경우 -> 기존의 uuid 를 db에서 지워준다.
+	function timeout_qr_session(qruuid) {
+		
+		let qr_result = -1;
+		
+		//여기서도 ajax 를 통해 해당 uuid 를 지워줘야한다.
+		$.ajax({
+			type : "POST",
+			url : "/SYJ_Mall/loginQrRemove.action",
+			async:false,//전역변수 사용해주면 비동기를 false로 둬야한다.
+			data : {
+				"qruuid" : qruuid
+			},
+			dataType : "json",
+			success : function(result) {
+				
+				qr_result = result;
+
+			},
+			error : function(a, b, c) {
+				alert('error');
+			}
+		});
+		
+		return qr_result;
+		
+	}
 	
 
   </script>

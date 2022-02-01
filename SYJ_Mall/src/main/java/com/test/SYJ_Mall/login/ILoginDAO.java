@@ -179,10 +179,11 @@ public interface ILoginDAO {
 	
 	/**
 	 * QR 코드 인증 정보 만들어서 테이블에 넣기
-	 * @param uuid	고유값
-	 * @return		1: 성공, -1: 실패
+	 * @param uuid				고유번호
+	 * @param requestIpAddress	qr 요청한 ip 주소
+	 * @return					1: 성공, -1: 실패
 	 */
-	int insertQrCheck(String uuid);
+	int insertQrCheck(String uuid,String requestIpAddress);
 
 	
 	/**
@@ -207,6 +208,22 @@ public interface ILoginDAO {
 	 * @return
 	 */
 	int checkPrevQrExists(String qruuid, String decodeQrSeqCode);
+
+	/**
+	 * QR 코드 인증 - uuid 정보와 유저 고유번호 정보가 제대로 존재하는 경우 유저아이디와 요청아이피를 받아와준다.
+	 * @param qruuid
+	 * @param decodeQrSeqCode
+	 * @return
+	 */
+	List<LoginQrIdIpDTO> getUserQrIdIp(String qruuid, String decodeQrSeqCode);
+
+	
+	/**
+	 * 타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
+	 * @param uuid
+	 * @return
+	 */
+	int deleteQrUuid(String uuid);
 	
 
 
