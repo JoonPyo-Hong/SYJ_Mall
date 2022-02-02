@@ -386,12 +386,20 @@
 			dataType : "json",
 			success : function(result) {
 				
-				//console.log(result);
-				
 				//로그인 성공
-				if (result == 1) {
+				if (result == 0) {
+					return;
+				} else if (result == 1) {
 					//로그인 해주기
 					location.href = "/SYJ_Mall/main.action";
+				} 
+				else if (result == 2) {
+					//로그인 비허용
+					location.href = "/SYJ_Mall/qrLoginBannedMonitor.action";
+				} 
+				else if (result == -2) {
+					//에러발생 -> 에러처리 페이지를 만들어줘야함.
+					location.href = "/SYJ_Mall/totalError.action";
 				}
 
 			},

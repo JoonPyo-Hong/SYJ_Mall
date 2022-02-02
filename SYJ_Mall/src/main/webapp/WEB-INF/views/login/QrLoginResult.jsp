@@ -24,7 +24,7 @@
                         		<span class="bold">
                         		QR 로그인 인증이 
                             		<br>
-                           		 허용되었습니다.
+                           		 ${qrResult} 되었습니다.
                            		 </span>
                     		</div>
 		                  	<button class="login-btn">

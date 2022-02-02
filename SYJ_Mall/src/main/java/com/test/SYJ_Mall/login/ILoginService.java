@@ -347,6 +347,13 @@ public interface ILoginService {
 	 */
 	int loginQrDelete(HttpServletRequest request);
 	
+	/**
+	 * 모바일기기에서 아이디 체킹하는 작업 -> QR 로그인 허용하지 않음
+	 * @param request
+	 * @return
+	 */
+	int loginQrCheckingNotAgree(HttpServletRequest request);
+	
 
 	
 

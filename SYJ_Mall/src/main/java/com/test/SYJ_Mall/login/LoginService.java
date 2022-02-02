@@ -251,7 +251,7 @@ public class LoginService implements ILoginService {
 			HttpSession userSession = request.getSession();
 
 			List<UserDTO> dto = dao.userInfo(userSeq);
-			userSession.setAttribute("userinfo", dto.get(0));// 유저 dto 객체를 session에 주입
+			userSession.setAttribute("userinfo", dto.get(0));// 유저 dto 객체를 session에 주입-??애가 왜 문제?
 			
 			KakaoCookie kc = new KakaoCookie();
 			
@@ -1126,7 +1126,7 @@ public class LoginService implements ILoginService {
 			if (result == 1) {
 				List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
 				if (qrIdIpdtoList.size() == 1) {
-					LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);//******여기오류******
+					LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);
 					String qrUserId = sf.maskigId(qrIdIpdto.getUserId());
 					String qrUserIp = qrIdIpdto.getUserIp();
 					
@@ -1149,7 +1149,7 @@ public class LoginService implements ILoginService {
 	}
 	
 
-	//모바일기기에서 아이디 체킹하는 작업
+	//모바일기기에서 아이디 체킹하는 작업 -> QR 로그인 허용
 	@Override
 	public int loginQrChecking(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -1163,7 +1163,30 @@ public class LoginService implements ILoginService {
 			StringFormatClass sf = new StringFormatClass();
 			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
 			
+			request.setAttribute("qrResult", "허용");
+			
 			return dao.checkingQrUserInfo(qruuid,decodeQrSeqCode);
+			
+		} catch(Exception e) {
+			IpCheck ic = new IpCheck();
+			String ip = ic.getClientIP(request);
+				
+			ErrorAlarm ea = new ErrorAlarm(e, ip);
+			ea.errorDbAndMail();
+			return -1;//오류 발생
+		}
+	}
+	
+	//모바일기기에서 아이디 체킹하는 작업 -> QR 로그인 허용하지 않음
+	@Override
+	public int loginQrCheckingNotAgree(HttpServletRequest request) {
+		try {
+			
+			String qruuid = request.getParameter("qr_uuid");//넘어온 uuid 정보
+			
+			request.setAttribute("qrResult", "비허용");
+			
+			return dao.deleteQrUuid(qruuid);
 			
 		} catch(Exception e) {
 			IpCheck ic = new IpCheck();
@@ -1232,6 +1255,8 @@ public class LoginService implements ILoginService {
 			return -1;//오류 발생
 		}
 	}
+	
+	
 	
 
 	

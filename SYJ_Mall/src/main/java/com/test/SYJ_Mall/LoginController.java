@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.common.utill.AES256Util;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
@@ -229,16 +228,18 @@ public class LoginController {
 		
 		int passCheckUserSeq = logService.qrCheckingUser(request);//QR 로고인이 허용된 유저의 고유번호
 		
-		//허용된 경우면 -1이 아닌 값을 내보내줄것이다.
-		if (passCheckUserSeq != -1) {
-			
+		//System.out.println("passCheckUserSeq : "  + passCheckUserSeq);
+		
+		if (passCheckUserSeq == -2) {
+			return 2;
+		} else if (passCheckUserSeq != -1) {
 			int grantResult = logService.grantResult(request,response,passCheckUserSeq);
 			
 			if (grantResult == 1) return 1;
 			else return -2;
+		} else {
+			return 0;
 		}
-		
-		return passCheckUserSeq;
 		
 	}
 	
@@ -248,22 +249,24 @@ public class LoginController {
 	
 		int qrLastCheck = logService.loginQrChecking(request, response);
 				
-		if (qrLastCheck == 1) return "/login/QrLoginPass";//새로운 로그인 성공 디자인 생성해야한다.
+		if (qrLastCheck == 1) return "/login/QrLoginResult";
 		else return "/testwaiting/kakaoerror";
 	
 		
 	}
 	
-	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 로그인 허용
-	@RequestMapping(value = "/loginQrLastCheckNotAgree.action", method = { RequestMethod.GET })
+	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 로그인 허용하지 않음
+	@RequestMapping(value = "/loginQrLastCheckNotAgree.action", method = { RequestMethod.POST })
 	public String loginQrLastCheckNotAgree(HttpServletRequest request, HttpServletResponse response) {
-	
-		//int qrLastCheck = logService.loginQrChecking(request, response);
-				
-		//if (qrLastCheck == 1) return "/login/QrLoginPass";//새로운 로그인 성공 디자인 생성해야한다.
-		//else return "/testwaiting/kakaoerror";
 		
-		return null;
+		//System.out.println("여기오는게 맞나?");
+		
+		int qrLastCheck = logService.loginQrCheckingNotAgree(request);
+		
+		//System.out.println("qrLastCheck : " + qrLastCheck);
+		
+		if (qrLastCheck == 1) return "/login/QrLoginResult";
+		else return "/testwaiting/kakaoerror";
 		
 	}
 	
@@ -278,6 +281,14 @@ public class LoginController {
 		//System.out.println("result : "+result);
 		
 		return result;
+	}
+	
+	//QR 로그인 점근 비허용 컨트롤러
+	@RequestMapping(value = "/qrLoginBannedMonitor.action", method = { RequestMethod.GET })
+	public String qrLoginBannedMonitor(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "/login/UserQrLginBanned";
+	
 	}
 	
 	
@@ -552,15 +563,53 @@ public class LoginController {
 		return "/tiles/main.top";
 	}
 	
-	/*------------------------------------------------------------------------------------------------------------------------------*/
-	/*------------------------------------------------------------------------------------------------------------------------------*/
-	/*------------------------------------------------------------------------------------------------------------------------------*/
+	
+	
+	
+	
 	/*---------------------------------------------------로그인 상태인지 아닌지 확인해주는 ajax-----------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "/loginChecking.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public int loginChecking(HttpServletRequest request, HttpServletResponse response) {
 
 		return logService.loginChecking(request,response);
 	}
+	
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------로그인 상태인지 아닌지 확인해주는 ajax-----------------------------------------------*/
+	
+	
+	
+	
+	
+	
+	
+	/*---------------------------------------------------에러처리 관련 컨트롤러------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	
+	//에러 컨트롤러
+	@RequestMapping(value = "/totalError.action", method = { RequestMethod.GET })
+	public String totalError(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "/testwaiting/kakaoerror";
+
+	}
+	
+	
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------에러처리 관련 컨트롤러------------------------------------------------------------*/
+	
+	
+	
+	
 
 }

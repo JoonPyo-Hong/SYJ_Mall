@@ -66,6 +66,10 @@
         <input type="hidden" name="qruuid" id="qruuid" value="${qruuid}" />
 		<input type="hidden" name="QrSeqCode" id="QrSeqCode" value="${QrSeqCode}" />   
    </form>
+   
+   <form action="/SYJ_Mall/loginQrLastCheckNotAgree.action" method = "POST" id = "qr_form_not_agree">
+        <input type="hidden" name="qr_uuid" id="qr_uuid" value="${qruuid}" /> 
+   </form>
 
 	  
    <script>
@@ -77,7 +81,7 @@
     	
     	//2. 로그인 비허용을 누른경우
     	$('#login_not_pass').click(function(){
-    		
+    		$('#qr_form_not_agree').submit();
     	});
     	
    
