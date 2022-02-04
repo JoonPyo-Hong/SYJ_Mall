@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="newProducts">
+
+	<!-- 신규 추천 신규 테마 비로그인 -->
+	<select id="newProductRecommendTheme"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login(#{basketList},#{themeNum})
+		}
+	</select>
+	
+	
+	<!-- 신규 추천 신규 테마 로그인 -->
+	<select id="newProductRecommendThemeLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login(#{userSeq},#{themeNum})
+		}
+	</select>
+	
+	
+	<!-- 신규 최상단 배너 물품정보 불러오기-->
+	<select id="newProductRecommendTop"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendTopProdDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_top_banner_list
+		}
+	</select>
+	
+	
+	<!-- 새로나온 친구들 물품 갯수-->
+	<select id="newFriendsProductCount"
+		resultType="Integer">
+		select count(*) from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+	</select>
+	
+	
+	<!-- 새로나온 친구들 물품 불러오기 로그인 안한 경우-->
+	<select id="newFriendsProductNotLogin"
+		resultType="com.test.SYJ_Mall.newProduct.NewFriendsProdDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_new_product_not_login(#{basketList},#{paging})
+		}
+	</select>
+	
+	<!-- 새로나온 친구들 물품 불러오기 로그인 한 경우-->
+	<select id="newFriendsProduct"
+		resultType="com.test.SYJ_Mall.newProduct.NewFriendsProdDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_new_product(#{userSeq},#{paging})
+		}
+	</select>
+	
+	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 안된 상태-->
+	<select id="newProductRecommendThemeAdd"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add(#{basketList},#{themeNum},#{sortedOption})
+		}
+	</select>
+	
+	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 안된 상태 / 소분류 필터링-->
+	<select id="newProductRecommendThemeAddDetail"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_detail(#{basketList},#{sortedOption},#{prodtCatgr})
+		}
+	</select>
+	
+	
+	<!-- 신규 상단 배너 정보 불러오기(더보기) 로그인 된 상태 -->
+	<select id="newProductRecommendThemeLoginAdd"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login_add(#{userSeq},#{themeNum},#{sortedOption},#{sortedCharOption})
+		}
+	</select>
+	
+	<!-- 추천신규테마 - 소분류 목록 가져오기-->
+	<select id="newProductRecommendProdtCategory"
+		parameterType="Integer"
+		resultType="com.test.SYJ_Mall.newProduct.SmallCategoryDTO"
+		statementType="CALLABLE">
+
+		{
+		call dbo.kakao_recommend_new_small_category (#{themeNum})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류도 없는 물품의 총 갯수 가져오기 -->
+	<select id="getNoBigCategoryCount"
+		resultType="Integer"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_big_categoty_count
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류도 없는 물품 -->
+	<select id="getNoBigCategoryNoSmallCategory"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_no_big_category_no_small_category (#{basketList},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류도 없는 물품 (로그인한 상태)-->
+	<select id="getNoBigCategoryNoSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category (#{userSeq},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류만 존재하는 물품의 총 갯수 가져오기 -->
+	<select id="getNoBigCategoryCountFilter"
+		parameterType="java.util.HashMap"
+		resultType="Integer"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_big_categoty_small_category_count (#{prodtCatgr},#{themeNum})
+		}
+		
+	</select>
+	
+	
+	<!-- 추천신규테마 - 더보기 - 대분류도 있고 소분류도 존재하는 물품 -->
+	<select id="getBigCategoryExistSmallCategory"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_big_category_small_category (#{basketList},#{themeNum},#{prodtCatgr},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류는 존재하는 물품 -->
+	<select id="getNoBigCategoryExistSmallCategory"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_no_big_category_small_category (#{basketList},#{prodtCatgr},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 없고 소분류는 존재하는 물품 (로그인 한 경우) -->
+	<select id="getNoBigCategoryExistSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_add_no_big_category_small_category_login (#{userSeq},#{prodtCatgr},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	
+	<!-- 추천신규테마 - 대분류 이름 -->
+	<select id="getBigCategoryNm"
+		parameterType="Integer"
+		resultType="com.test.SYJ_Mall.newProduct.BigCategoryInfoDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_big_category_name (#{themeNum})
+		}
+		
+	</select>
+	
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 있고 소분류가 없는 물품의 총 갯수 가져오기 -->
+	<select id="getBigCategoryCountFilter"
+		resultType="Integer"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_big_categoty_no_small_category_count (#{themeNum})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 있고 소분류는 없는 물품 -->
+	<select id="getBigCategoryNoSmallCategory"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_no_login_add_no_small_category (#{basketList},#{themeNum},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류 있고 소분류는 없는 물품 (로그인 시)-->
+	<select id="getBigCategoryNoSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login_add_no_small_category (#{userSeq},#{themeNum},#{sortedOption},#{paging})
+		}
+		
+	</select>
+	
+	<!-- 추천신규테마 - 더보기 - 대분류도 있고 소분류도 존재하는 물품(로그인 시) -->
+	<select id="getBigCategoryExistSmallCategoryLogin"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.newProduct.RecommendThemeDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_login_add_big_category_small_category (#{userSeq},#{themeNum},#{prodtCatgr},#{sortedOption},#{paging})
+		}
+		
+	</select>
+
+	
+	
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="detail">
+
+	<select id="list"
+		resultType="com.test.SYJ_Mall.detail.DetailDTO" parameterType="int">
+	select top(1) * from dbo.KAKAO_PRODUCT_TABLE with(nolock) where product_id = #{d_seq}
+	</select>
+	<select id="header"
+		resultType="string" parameterType="int">
+	select product_img from dbo.KAKAO_PRODUCT_IMG with(nolock) where product_id = #{d_seq}
+	</select>
+	<select id="feed"
+		resultType="com.test.SYJ_Mall.detail.FeedDTO" parameterType="int">
+	select d_seq,f_seq,name,star, CONVERT(CHAR(10), reg_dt, 102) as reg_dt, text from dbo.detail_feed with(nolock) where d_seq = #{d_seq}
+	</select>
+	<select id="feed2"
+		resultType="com.test.SYJ_Mall.detail.FeedDTO" parameterType="int">
+	select d_seq,f_seq,name,star, CONVERT(CHAR(10), reg_dt, 102) as reg_dt, text from dbo.detail_feed with(nolock) where d_seq = #{d_seq}
+	</select>
+	<select id="heart_select" resultType="int"
+		parameterType="java.util.HashMap">
+		select count(*) from dbo.detail_feed_heart with(nolock) where
+		f_seq =
+		#{f_seq} and m_seq= #{m_seq}
+	</select>
+
+</mapper>

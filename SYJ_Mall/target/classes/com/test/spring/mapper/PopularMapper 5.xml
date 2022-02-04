@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="popuarItem">
+
+	<!-- 인기상품 진열 sp -->
+	<select id="popularProductList"
+		resultType="com.test.SYJ_Mall.popularItem.PopularItemDTO"
+		parameterType="com.test.SYJ_Mall.popularItem.PopularPagingDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_popular_product_list
+		(#{paging},#{userSeq},#{basketList})
+		}
+	</select>
+	
+	<!-- 인기상품 총갯수 -->
+	<select id="popularProductListCount"
+		resultType="Integer"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_popular_product_count
+		}
+	</select>
+	
+
+
+</mapper>
