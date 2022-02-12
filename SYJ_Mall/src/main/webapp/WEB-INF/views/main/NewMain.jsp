@@ -61,8 +61,19 @@
 .swiper-slide img {
 	width: 600px;
 	height: 600px;
+	
 }
-
+@media (max-width: 600px) {
+	.body-feed .slide-feed {
+	background-color: #ededed;
+	width: 380px;
+	height: 100px;
+}
+.swiper-slide img {
+    width: 380px;
+    height: 450px;
+}
+}
 /* [+] 관련 상품 보러가기 텍스트 형식 */
 .option-link-view {
 	cursor: pointer;
@@ -305,7 +316,7 @@
 
 <input type="hidden" id="hid_seq" value="${seq}">
 <script type="text/javascript">
-	var hid_seq =  $('#hid_seq').val();
+	var hid_seq = $('#hid_seq').val();
 	//alert(hid_seq);
 	var count = 0;
 
@@ -319,34 +330,34 @@
 			},
 			success : function(data) {
 				//alert(data);
-				 if (data != 0) {
-					$("#like-btn_" + a).css(
-							'background-position', '-200px -100');
+				if (data != 0) {
+					$("#like-btn_" + a).css('background-position',
+							'-200px -100');
 				}
- 
+
 			},
 			error : function() {
 				alert("에러");
 			}
 		});
 	}
-		
-	$(document).on("click",".like-btn", function(e){
+
+	$(document).on("click", ".like-btn", function(e) {
 		var id = $(this).attr("id");
 		/* $("#like-btn_" + a).css(
 				'background-position', '-200px -100');
 		$("#like-btn_" + a).css(
 				'background-position', '-190px -100'); */
 		/* if(id.css(
-'background-position', '-200px -100') == '') */
-		if(id.css('left') == '468px'){
+		'background-position', '-200px -100') == '') */
+		if (id.css('left') == '468px') {
 			alert();
-		}else{
+		} else {
 			alert('2')
 		}
-		
+
 	});
-	
+
 	window.addEventListener("scroll", function() {
 		const SCROLLED_HEIGHT = window.scrollY;
 		const WINDOW_HEIGHT = window.innerHeight;
@@ -462,7 +473,7 @@
 					}
 				});
 	}
-	function char_img(char_seq,seq) {
+	function char_img(char_seq, seq) {
 		//alert(char_seq);
 		$.ajax({
 			url : "char_img.action",
@@ -472,10 +483,10 @@
 			},
 			success : function(data) {
 				for (var i = 0; i < data.length; i++) {
-					$("#profile_" +seq).attr("src",""+ data[i]+"");
+					$("#profile_" + seq).attr("src", "" + data[i] + "");
 					/* alert(seq);
 					alert(data[i]); */
-					
+
 				}
 
 			},
@@ -565,8 +576,10 @@
 																	+ "</div>");
 											img(this.seq);
 											sub(this.seq);
-											char_img(this.character_name,this.seq);
-											heart_select(this.seq,parseInt($('#hid_seq').val()));
+											char_img(this.character_name,
+													this.seq);
+											heart_select(this.seq, parseInt($(
+													'#hid_seq').val()));
 										}// foreach 끝
 
 								);
