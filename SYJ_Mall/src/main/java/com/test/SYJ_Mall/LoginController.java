@@ -86,7 +86,8 @@ public class LoginController {
 			return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
 
 	}
-
+	
+	//유저 로그인 관련 검증
 	@RequestMapping(value = "/userLoginVerificationCheck.action", method = { RequestMethod.POST })
 	public void loginVerificationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 

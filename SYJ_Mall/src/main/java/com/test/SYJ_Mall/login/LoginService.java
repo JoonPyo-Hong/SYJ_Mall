@@ -705,7 +705,7 @@ public class LoginService implements ILoginService {
 
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
-		request.setAttribute("selected", "today");
+		request.setAttribute("seleted", "today");
 
 		int seq = 0;
 
@@ -994,7 +994,7 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//로그인 관련 서비스 메서드
+	//로그인 관련 서비스 메서드 => 로그인 검증
 	@Override
 	public String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -1027,7 +1027,7 @@ public class LoginService implements ILoginService {
 				if (logResult == 1) {
 					if (lastPage == null) {
 						goMain(request);
-						return "/tiles/mainStart.topping";// 메인페이지로 이동
+						return "/tiles/mainStart.layout";// 메인페이지로 이동
 					} 
 					else if (lastPage.indexOf("?") != -1) {
 						//인코딩 처리를 잘 해줘야한다.
