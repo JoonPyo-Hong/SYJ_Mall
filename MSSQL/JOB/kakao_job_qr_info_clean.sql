@@ -1,4 +1,4 @@
-﻿﻿/* 
+﻿/* 
 	Author      : Seunghwan Shin 
 	Create date : 2022-02-05  
 	Description : QR 테이블 관련 필요없는 uuid 관련 청소하는 프로시저
@@ -22,4 +22,12 @@ begin
 end
 
 
-commit 92f4dbd4510b24805979dd23d971bc2b4dba0c2e
+
+
+
+
+
+
+
+
+

@@ -343,19 +343,41 @@
 	}
 
 	$(document).on("click", ".like-btn", function(e) {
-		var id = $(this).attr("id");
+		var id = $(this).attr("id").replace('like-btn_','');
+		//alert(id);
 		/* $("#like-btn_" + a).css(
 				'background-position', '-200px -100');
 		$("#like-btn_" + a).css(
 				'background-position', '-190px -100'); */
 		/* if(id.css(
 		'background-position', '-200px -100') == '') */
-		if (id.css('left') == '468px') {
-			alert();
-		} else {
-			alert('2')
+		//alert($(".like-btn").css('background-size'));
+		//alert($(this).css('background-size'));
+		//alert($(this).css('background-position'));
+		if ($(this).css('background-position') == '-200px -100px') {
+			//alert();
+			$(this).css(
+					'background-position', '-160px -100px');
+		} else if($(this).css('background-position') == '-160px -100px'){
+			$(this).css(
+					'background-position', '-200px -100px');
 		}
 
+		/* $.ajax({
+			url: "heart_update.action",
+			type: 'post',
+			data: {
+				list_seq: l_seq,
+				member_seq: m_seq,
+				gubn: type
+			},
+			success: function(data) {
+				heart(l_seq);
+			},
+			error: function() {
+				alert("에러");
+			}
+		}); */
 	});
 
 	window.addEventListener("scroll", function() {

@@ -89,12 +89,7 @@
 					<button class="language"></button>
 				</div>
 			</div>
-		</div>
-		<!-- kakao head -->
-		
-		<div style="height:50px;"></div>
-		
-		<div id="kakao-content" style="overflow: scroll;">
+			<div id="inner-tab"></div>
 			<div class="container-wrap product-category-character"
 				style="margin: 0px auto;">
 				<div class="category-banner" style=" background: url(/SYJ_Mall/${charHeadPicUrl}) right 0px /cover no-repeat;">
@@ -156,7 +151,9 @@
 					</div>
 				</div>
 			</div>
-			
+		</div>
+		<div id="kakao-content" style="overflow: scroll;">
+			<div id="media-vacant"></div>
 			<div id="inner-content">
 				<!-- 상품 -->
 				<!-- 카테고리 선택 배너 -->

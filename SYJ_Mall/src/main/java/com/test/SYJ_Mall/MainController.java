@@ -37,10 +37,11 @@ public class MainController {
 	@Autowired
 	private MainService service;
 
+
 	// 메인 화면
 	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
 	public String main(Model model, HttpServletRequest request,HttpServletResponse response) {
-
+		
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");

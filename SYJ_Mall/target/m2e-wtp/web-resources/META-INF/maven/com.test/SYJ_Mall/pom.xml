@@ -218,7 +218,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.12</version>
+			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -308,10 +308,6 @@
 	<build>
 		<plugins>
 			<plugin>
-          		<artifactId>maven-war-plugin</artifactId>
-          		<version>3.2.2</version>
-        	</plugin>
-			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
 				<configuration>
@@ -345,6 +341,10 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
+			 <plugin>
+          		<artifactId>maven-war-plugin</artifactId>
+          		<version>3.2.2</version>
+        	</plugin>
 		</plugins>
 	</build>
 </project>

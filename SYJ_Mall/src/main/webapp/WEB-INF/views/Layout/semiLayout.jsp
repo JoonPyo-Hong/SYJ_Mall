@@ -184,7 +184,9 @@
 								<c:if test="${sortedCharOption eq 14}">캐로&베로니</c:if>
 								<c:if test="${sortedCharOption eq 15}">꿈돌이</c:if>
 								
-							</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							</span> <img
+								class="sort-icon"
+								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 							
 						</div>
 						<div class="sort-divider"></div>
