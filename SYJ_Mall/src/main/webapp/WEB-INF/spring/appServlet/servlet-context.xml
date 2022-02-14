@@ -42,11 +42,6 @@
 	</beans:bean>
 	
 	
-
-	<!-- <websocket:handlers>
-		<websocket:mapping handler="chattingHandler" path="/chatting"/>
-		<websocket:sockjs></websocket:sockjs>
-	</websocket:handlers> -->
 	
 	<!-- <beans:bean id="chattingHandler" class="org.practice.handler.ChattingHandler"/> -->
 
