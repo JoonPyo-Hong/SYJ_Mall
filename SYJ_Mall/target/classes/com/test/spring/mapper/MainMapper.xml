@@ -49,6 +49,10 @@
 		select
 		count(*) from main_heart with (nolock) where list_seq = #{num}
 	</select>
+	<select id="new_heart" resultType="int" parameterType="int">
+		select
+		count(*) from kaka_new_main_heart with (nolock) where main_seq = #{num}
+	</select>
 	<select id="heart_select" resultType="int"
 		parameterType="java.util.HashMap">
 		select count(*) from dbo.main_heart with(nolock) where
