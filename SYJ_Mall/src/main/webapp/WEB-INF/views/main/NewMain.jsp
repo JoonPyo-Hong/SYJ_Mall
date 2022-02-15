@@ -341,7 +341,24 @@
 			}
 		});
 	}
-
+	function heart_count(seq) {
+		$.ajax({
+			url: "heart_count.action",
+			type: 'post',
+			data: {
+				num: seq,
+			},
+			success: function(data) {
+/* 
+				$("#content_" + seq + " .txt_1 span")
+					.text(" " + data + "개");
+ */
+			},
+			error: function() {
+				alert("에러");
+			}
+		});
+	}
 	$(document).on("click", ".like-btn", function(e) {
 		var id = $(this).attr("id").replace('like-btn_','');
 		//alert(id);
@@ -354,30 +371,34 @@
 		//alert($(".like-btn").css('background-size'));
 		//alert($(this).css('background-size'));
 		//alert($(this).css('background-position'));
+		var type = "";
 		if ($(this).css('background-position') == '-200px -100px') {
 			//alert();
 			$(this).css(
 					'background-position', '-160px -100px');
+			type = "D";
 		} else if($(this).css('background-position') == '-160px -100px'){
 			$(this).css(
 					'background-position', '-200px -100px');
+			type = "I";
 		}
-
-		/* $.ajax({
-			url: "heart_update.action",
-			type: 'post',
-			data: {
-				list_seq: l_seq,
-				member_seq: m_seq,
-				gubn: type
-			},
-			success: function(data) {
-				heart(l_seq);
-			},
-			error: function() {
-				alert("에러");
-			}
-		}); */
+		if(type!=""){
+			$.ajax({
+				url: "new_heart_update.action",
+				type: 'post',
+				data: {
+					list_seq: id,
+					member_seq: hid_seq,
+					gubn: type
+				},
+				success: function(data) {
+					heart(id);
+				},
+				error: function() {
+					alert("에러");
+				}
+			});
+		}
 	});
 
 	window.addEventListener("scroll", function() {

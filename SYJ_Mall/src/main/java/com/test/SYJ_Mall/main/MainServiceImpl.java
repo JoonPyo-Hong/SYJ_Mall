@@ -179,6 +179,12 @@ public class MainServiceImpl implements MainService {
 		dao.new_heart_update(map);
 	}
 
+	@Override
+	public Integer heart_count(int num) {
+		// TODO Auto-generated method stub
+		return dao.heart_count(num);
+	}
+
 
 
 

@@ -60,6 +60,8 @@ public interface MainDAO {
 
 	void new_heart_update(HashMap<String, String> map);
 
+	Integer heart_count(int num);
+
 
 
 }

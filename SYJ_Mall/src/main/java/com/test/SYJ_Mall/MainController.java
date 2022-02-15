@@ -144,17 +144,16 @@ public class MainController {
 
 		return count;
 	}
-	/*
-	 * // new 좋아요 갯수
-	 * 
-	 * @RequestMapping(value = "/new_heart.action", method = { RequestMethod.POST })
-	 * 
-	 * @ResponseBody public Object new_heart(@RequestParam("num") int num) {
-	 * 
-	 * Integer count = service.new_heart(num);
-	 * 
-	 * return count; }
-	 */
+	//new 좋아요 갯수
+		@RequestMapping(value = "/heart_count.action", method = { RequestMethod.POST })
+		@ResponseBody
+		public Object heart_count(@RequestParam("num") int num) {
+
+			Integer count = service.heart_count(num);
+
+			return count;
+		}
+	
 
 
 	// 하트 조회

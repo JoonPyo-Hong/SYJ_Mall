@@ -62,4 +62,6 @@ public interface MainService {
 
 	Integer new_heart(int num);
 
+	Integer heart_count(int num);
+
 }

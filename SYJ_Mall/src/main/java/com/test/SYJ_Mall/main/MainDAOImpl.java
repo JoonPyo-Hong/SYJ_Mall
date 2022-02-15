@@ -198,4 +198,10 @@ public class MainDAOImpl implements MainDAO {
 		}
 
 	}
+
+	@Override
+	public Integer heart_count(int num) {
+		// TODO Auto-generated method stub
+		return session.selectOne("main.heart_count", num);
+	}
 }
