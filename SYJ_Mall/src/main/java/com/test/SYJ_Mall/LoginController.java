@@ -218,6 +218,7 @@ public class LoginController {
 		int qrPrevCheck = logService.loginQrPrevCheck(request,response);
 		
 		if (qrPrevCheck == 1) return "/login/UserQrChecking";
+		else if (qrPrevCheck == 2) return "/semitiles/QrLoginNotUserSeq.layout";
 		else return "/testwaiting/kakaoerror";
 		
 	}

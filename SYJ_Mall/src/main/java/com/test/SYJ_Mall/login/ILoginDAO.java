@@ -224,7 +224,7 @@ public interface ILoginDAO {
 	 * @return
 	 */
 	int deleteQrUuid(String uuid);
-	
+
 
 
 

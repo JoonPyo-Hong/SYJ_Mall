@@ -10,8 +10,6 @@
 	Real DB :	declare @result int
 				exec dbo.kakao_qr_grant_user_seq ''
 				select @result
-	
-	
 */
 alter proc dbo.kakao_qr_grant_user_seq
 	@uuid UNIQUEIDENTIFIER
@@ -48,3 +46,8 @@ begin
 
 	return @user_seq
 end
+
+
+
+
+select * from dbo.KAKAO_QR_QUEUE with(nolock)

@@ -1027,7 +1027,7 @@ public class LoginService implements ILoginService {
 				if (logResult == 1) {
 					if (lastPage == null) {
 						goMain(request);
-						return "/tiles/mainStart.topping";// 메인페이지로 이동
+						return "/tiles/mainStart.layout";// 메인페이지로 이동
 					} 
 					else if (lastPage.indexOf("?") != -1) {
 						//인코딩 처리를 잘 해줘야한다.
@@ -1114,7 +1114,19 @@ public class LoginService implements ILoginService {
 			AES256Util au = new AES256Util();
 			StringFormatClass sf = new StringFormatClass();
 			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
-			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+			String decodeQrSeqCode;
+			
+			//QrSeqCode 이 존재하지 않는 경우
+			if (QrSeqCode == null) {
+				int qrResult = dao.deleteQrUuid(qruuid);
+				
+				if (qrResult == 1) return 2;
+				return -1;
+			} 
+			//QrSeqCode 이 존재하는 경우
+			else {
+				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+			}
 			
 			//확인창 화면에서 정보를 볼수 있도록 request 객체에 넘겨준다.
 			request.setAttribute("QrSeqCode",QrSeqCode);

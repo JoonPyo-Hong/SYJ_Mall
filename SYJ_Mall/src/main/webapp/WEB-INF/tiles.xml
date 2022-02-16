@@ -32,36 +32,7 @@
 		** tiles 실행 -> 원래 jsp 매핑시켜주던 뷰리졸브 실행
 		즉 아래의 몸통을 여러개가 될수 있다는 것이된다.
 	 -->
-	<definition name = "/tiles/*.top" extends="default">
-		<put-attribute name = "body" value="/WEB-INF/views/mainTiles/mainTest.jsp"/>	
-	</definition>
-	
-	<!-- 오늘페이지 -->
-	<definition name = "/tiles/mainStart.topping" extends="default">
-		<put-attribute name = "body" value="/WEB-INF/views/main/Main.jsp"/>	
-	</definition>
-	<!-- 신규페이지 -->
-	<definition name = "/tiles/newGoodsStart.topping" extends="default">
-		<put-attribute name = "body" value="/WEB-INF/views/newGoods/newGoodsMain.jsp"/>	
-	</definition>
-	
-	<!-- 인기페이지 -->
-	<definition name = "/tiles/popularStart.topping" extends="default">
-		<put-attribute name = "body" value="/WEB-INF/views/popular/popularMain.jsp"/>	
-	</definition>
-	
-	<!-- 마이페이지 -->
-	<definition name = "/tiles/myStart.topping" extends="default">
-		<put-attribute name = "body" value="/WEB-INF/views/my/myMain.jsp"/>	
-	</definition>
-	
-	<!-- 결제페이지 -->
-	<definition name = "/tiles/paymentStart.topping" extends="default">
-		<put-attribute name = "body" value="/WEB-INF/views/pay/payment.jsp"/>	
-	</definition>
-	
-	
-	
+
 	
 	<!-- 구분 위에꺼는 안쓸거임 : 아래 타일즈를 쓸 예정 --> 	
 	
@@ -153,6 +124,11 @@
 	<!-- 로그인 유도 -->
 	<definition name = "/semitiles/loginDirect.layout" extends="newsemiDefaultTwo">
 		<put-attribute name = "body" value="/WEB-INF/views/login/LoginGuide.jsp"/>	
+	</definition>
+	
+	<!-- QR 로그인 불가 -->
+	<definition name = "/semitiles/QrLoginNotUserSeq.layout" extends="newsemiDefaultTwo">
+		<put-attribute name = "body" value="/WEB-INF/views/login/UserQrLoginBannedDesktop.jsp"/>	
 	</definition>
 	
 	<!-- 비회원 주문 조회 -->
