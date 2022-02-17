@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.AES256Util;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
@@ -213,9 +214,12 @@ public class LoginController {
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우
 	@RequestMapping(value = "/loginQrPrevCheck.action", method = { RequestMethod.GET })
-	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response) {
+	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf) {
 		
-		int qrPrevCheck = logService.loginQrPrevCheck(request,response);
+		//AES256Util au = new AES256Util();
+		//StringFormatClass sf = new StringFormatClass();
+		
+		int qrPrevCheck = logService.loginQrPrevCheck(request,response,kc,au,sf);
 		
 		if (qrPrevCheck == 1) return "/login/UserQrChecking";
 		else if (qrPrevCheck == 2) return "/semitiles/QrLoginNotUserSeq.layout";

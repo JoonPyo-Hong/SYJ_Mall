@@ -321,7 +321,7 @@
   <script>
     
   	let qruuid = '${qrhttps}';
- 	let qrhttps = 'http://byeanma.kro.kr:9089/SYJ_Mall/loginQrPrevCheck.action?qrhttps=${qrhttps}';
+ 	let qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps=${qrhttps}';
  	//let qr_result = -1;
   	
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
@@ -353,9 +353,9 @@
 		// 5분 지날 시 자동 리셋
 		// QR 코드 이미지 변경 로직 추가 예정
 		if (time < 1) {
-			//time = 300;
 			const delete_result = timeout_qr_session(qruuid);
 			if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
+			else location.href = "/SYJ_Mall/totalError.action";
 				  
 		}
 	
@@ -364,13 +364,15 @@
 	// 리셋 버튼 클릭 시 타이머 리셋
 	$('#resetBtn').click(function(){
 		const delete_result = timeout_qr_session(qruuid);
-		console.log(delete_result);
 		if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
+		else location.href = "/SYJ_Mall/totalError.action";
 	});
 		
 	//일반로그인 창으로 넘어가기
 	$('.info-another').click(function(){
-		location.href = "/SYJ_Mall/login.action"; 
+		const delete_result = timeout_qr_session(qruuid);
+		if (delete_result == 1) location.href = "/SYJ_Mall/login.action"; 
+		else location.href = "/SYJ_Mall/totalError.action";
 	});
 	
 	

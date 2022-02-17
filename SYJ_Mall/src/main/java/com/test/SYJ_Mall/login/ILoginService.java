@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import com.common.utill.AES256Util;
+import com.common.utill.KakaoCookie;
 import com.common.utill.QRCodeGenerate;
+import com.common.utill.StringFormatClass;
 
 /**
  * 로그인 서비스 인터페이스
@@ -20,6 +23,13 @@ import com.common.utill.QRCodeGenerate;
 public interface ILoginService {
 	
 	
+	/**
+	 * 이메일 확인
+	 * @param userId
+	 * @param userEmail
+	 * @param userPhone
+	 * @return
+	 */
 	int emailCertify(String userId,String userEmail,String userPhone);
 	
 	/**
@@ -336,9 +346,12 @@ public interface ILoginService {
 	 * QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
 	 * @param request
 	 * @param response
+	 * @param kc
+	 * @param au
+	 * @param sf
 	 * @return	1: 정상, -1: 실패(오류), -2: 아이디 존재하지 않음(회원의 고유번호 존재하지 않음), -3: uuid 자체가 존재하지 않음
 	 */
-	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response);
+	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse respons,KakaoCookie kc,AES256Util au,StringFormatClass sf);
 	
 	/**
 	 * 타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.

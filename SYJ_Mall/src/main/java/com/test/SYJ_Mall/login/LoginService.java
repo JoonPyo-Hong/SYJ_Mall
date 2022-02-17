@@ -37,6 +37,8 @@ import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * 로그인 서비스 객체
  * 
@@ -267,6 +269,8 @@ public class LoginService implements ILoginService {
 				sb.append(userSeq);
 				sb.append(";");
 				String saveCookie = au.encrypt(sb.toString());//로그인한 회원정보 저장.
+				
+				//System.out.println("여기 ");
 				
 				kc.modifyCookie(request,response,"QrSeqCode",saveCookie,60 * 60 * 24 * 15);
 			}
@@ -807,7 +811,7 @@ public class LoginService implements ILoginService {
 			
 			if (lastPage == null) {
 				goMain(request);
-				return "/tiles/mainStart.topping";// 메인페이지로 이동
+				return "/tiles/mainStart.layout";// 메인페이지로 이동
 			} 
 			else if (lastPage.indexOf("?") != -1) {
 				//인코딩 처리를 잘 해줘야한다.
@@ -1088,7 +1092,10 @@ public class LoginService implements ILoginService {
 			
 			//http://byeanma.kro.kr:9089/SYJ_Mall/loginQr.action -> url + uuid 번호 생성
 			//request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
+			int serverPort = request.getServerPort();
+			request.setAttribute("serverPort", serverPort);
 			request.setAttribute("qrhttps", uuid);
+			
 			
 			if (daoResult == 1) return 1;
 			else return -1;
@@ -1105,48 +1112,43 @@ public class LoginService implements ILoginService {
 	
 	//QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
 	@Override
-	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response) {
+	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf) {
 		try {
 			
 			String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
-			
-			KakaoCookie kc = new KakaoCookie();
-			AES256Util au = new AES256Util();
-			StringFormatClass sf = new StringFormatClass();
 			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
 			String decodeQrSeqCode;
-			
-			//QrSeqCode 이 존재하지 않는 경우
+			int result = -1;
+
 			if (QrSeqCode == null) {
-				int qrResult = dao.deleteQrUuid(qruuid);
 				
-				if (qrResult == 1) return 2;
-				return -1;
-			} 
-			//QrSeqCode 이 존재하는 경우
-			else {
+				int qrResult = dao.deleteQrUuid(qruuid);
+				if (qrResult == 1) result = 2;
+				
+			} else {
 				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+				
+				//확인창 화면에서 정보를 볼수 있도록 request 객체에 넘겨준다.
+				request.setAttribute("QrSeqCode",QrSeqCode);
+				request.setAttribute("qruuid",qruuid);
+				
+				result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
+				
+				//uuid 에 대한 정보가 존재하고 회원에 대한 정보도 존재하는 경우 -> 해당 아이피,회원 아이디를 마스킹하여 가져와준다.
+				if (result == 1) {
+					List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
+					if (qrIdIpdtoList.size() == 1) {
+						LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);
+						String qrUserId = sf.maskigId(qrIdIpdto.getUserId());
+						String qrUserIp = qrIdIpdto.getUserIp();
+						
+						request.setAttribute("qrUserId",qrUserId);
+						request.setAttribute("qrUserIp",qrUserIp);
+					}
+					else result = -1;
+				} 
+				
 			}
-			
-			//확인창 화면에서 정보를 볼수 있도록 request 객체에 넘겨준다.
-			request.setAttribute("QrSeqCode",QrSeqCode);
-			request.setAttribute("qruuid",qruuid);
-			
-			int result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
-			
-			//uuid 에 대한 정보가 존재하고 회원에 대한 정보도 존재하는 경우 -> 해당 아이피,회원 아이디를 마스킹하여 가져와준다.
-			if (result == 1) {
-				List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
-				if (qrIdIpdtoList.size() == 1) {
-					LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);
-					String qrUserId = sf.maskigId(qrIdIpdto.getUserId());
-					String qrUserIp = qrIdIpdto.getUserIp();
-					
-					request.setAttribute("qrUserId",qrUserId);
-					request.setAttribute("qrUserIp",qrUserIp);
-				}
-				else result = -1;
-			} 
 			
 			return result;
 			
