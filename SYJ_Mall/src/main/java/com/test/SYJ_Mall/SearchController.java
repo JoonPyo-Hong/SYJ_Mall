@@ -122,7 +122,7 @@ public class SearchController {
 
 			service.goMain(request);
 
-			return "/tiles/mainStart.topping";// 메인페이지로 이동
+			return "/tiles/mainStart.layout";// 메인페이지로 이동
 
 		} else {
 			// 마지막 페이지로 이동

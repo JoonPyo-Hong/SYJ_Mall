@@ -19,6 +19,7 @@ import com.common.utill.AES256Util;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
+import com.common.utill.RSAalgorithm;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.SignUpDTO;
@@ -41,19 +42,15 @@ public class LoginController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 처음에 로그인 페이지로 보내주는 곳
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET, RequestMethod.POST })
-	public String login(HttpServletRequest request, HttpServletResponse response, String site) {
+	public String login(HttpServletRequest request, HttpServletResponse response, String site, KakaoCookie kc, RSAalgorithm rsa) {
 		
-		
-		
-		//TEST 용
-		//KakaoCookie kc = new KakaoCookie();
-		
+		//TEST 용	
 		//kc.deleteCookie(request, response, "loginSaveUserId");
 		//kc.deleteCookie(request, response, "loginSaveUserPw");
 		//kc.deleteCookie(request, response, "loginSaveUserSeq");
 		
 		// ===================로그인 유지 관련 로직===================
-		String loginStayYn = logService.getLoginStayYn(request,response);
+		String loginStayYn = logService.getLoginStayYn(request,response,kc,rsa);
 		
 		if (loginStayYn.equals("error")) return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
 		else if (!loginStayYn.equals("pass")) return loginStayYn;   
@@ -71,7 +68,7 @@ public class LoginController {
 		
 		if (addUrl != null) {
 			
-			int addUrlResult = logService.modifyCookie(request,response,addUrl);
+			int addUrlResult = logService.modifyCookie(request,response,addUrl,kc);
 			
 			if (addUrlResult == -1) return "/testwaiting/kakaoerror";
 		}

@@ -773,9 +773,8 @@ public class LoginService implements ILoginService {
 	
 	//로그인 시 필요한 정보 쿠키에 저장해줄 매서드
 	@Override
-	public int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl) {
+	public int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl,KakaoCookie kc) {
 		try {
-			KakaoCookie kc = new KakaoCookie();
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 			kc.generateCookie(response, "lastPage", addUrl);//마지막페이지
 			
@@ -905,13 +904,11 @@ public class LoginService implements ILoginService {
 	
 	//로그인 유지 판단 -> 유지 체크 이후 로그인 검증 작업 진행.
 	@Override
-	public String getLoginStayYn(HttpServletRequest request,HttpServletResponse response) {
+	public String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa) {
 		
 		try {
 			
 			String ip = ipCheck(request);
-			
-			KakaoCookie kc = new KakaoCookie();
 			
 			String loginSaveUserId = (String)kc.getCookieInfo(request, "loginSaveUserId");
 			String loginSaveUserPw = (String)kc.getCookieInfo(request, "loginSaveUserPw");
@@ -928,7 +925,6 @@ public class LoginService implements ILoginService {
 	            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(bytePrivateKey);
 	            PrivateKey secureKey = keyFactory.generatePrivate(privateKeySpec);//암호화 키
 				
-	            RSAalgorithm rsa = new RSAalgorithm();
 	            HashMap<String, String> map = rsa.getRSASessionMaintainChoice(secureKey,loginSaveUserId,loginSaveUserPw);
 	            
 	            String id = map.get("id");// 아이디
@@ -950,7 +946,7 @@ public class LoginService implements ILoginService {
 					if (logResult == 1) {
 						if (lastPage == null) {
 							goMain(request);
-							return "/tiles/mainStart.topping";// 메인페이지로 이동
+							return "/tiles/mainStart.layout";// 메인페이지로 이동
 						} 
 						else if (lastPage.indexOf("?") != -1) {
 							//인코딩 처리를 잘 해줘야한다.

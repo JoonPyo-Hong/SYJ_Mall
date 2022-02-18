@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import com.common.utill.AES256Util;
 import com.common.utill.KakaoCookie;
 import com.common.utill.QRCodeGenerate;
+import com.common.utill.RSAalgorithm;
 import com.common.utill.StringFormatClass;
 
 /**
@@ -262,9 +263,10 @@ public interface ILoginService {
 	 * @param request
 	 * @param response
 	 * @param addUrl
+	 * @param kc
 	 * @return
 	 */
-	int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl);
+	int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl, KakaoCookie kc);
 	
 	/**
 	 * 로그아웃 처리 수행
@@ -291,14 +293,15 @@ public interface ILoginService {
 	 */
 	int loginSaveYn(HttpServletRequest request, HttpServletResponse response,int userSeq);
 	
-
 	/**
 	 * 로그인 유지 판단
 	 * @param request
 	 * @param response
+	 * @param kc
+	 * @param rsa
 	 * @return
 	 */
-	String getLoginStayYn(HttpServletRequest request,HttpServletResponse response);
+	String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa);
 	
 	
 	/**
