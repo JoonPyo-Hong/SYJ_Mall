@@ -5,6 +5,10 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+//ErrorAlarm ea
+
 /**
  * 에러알람
  * 
@@ -15,7 +19,12 @@ public class ErrorAlarm {
 	
 	private Exception e;
 	private String ip;
-
+	
+	
+	public ErrorAlarm() {
+		
+	}
+	
 	public ErrorAlarm(Exception e, String ip) {
 		this.e = e;
 		this.ip = ip;
@@ -74,6 +83,24 @@ public class ErrorAlarm {
 	public void errorDbAndMail() {
 		sendErrorMassegeAdmin();
 		inputErrorToDb();
+	}
+	
+	/**
+	 * 에러요인 조합 기본 셋팅 1
+	 * @param request
+	 * @param e
+	 * @return
+	 */
+	public int basicErrorException(HttpServletRequest request,Exception e) {
+		
+		IpCheck ic = new IpCheck();
+		String ip = ic.getClientIP(request);
+		
+		this.e = e;
+		this.ip = ip;
+		errorDbAndMail();
+		
+		return -1;
 	}
 
 }

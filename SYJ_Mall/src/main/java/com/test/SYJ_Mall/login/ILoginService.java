@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.common.utill.AES256Util;
+import com.common.utill.ErrorAlarm;
+import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.QRCodeGenerate;
 import com.common.utill.RSAalgorithm;
@@ -131,13 +133,20 @@ public interface ILoginService {
 	
 	
 	/**
+	 * 
+
+	 */
+	
+	/**
 	 * 첫번째 로그인 과정 - 광고넘겨주고 rsa키값 넘겨준다
 	 * @param request		request 객체
 	 * @param errorCode		오류코드 - 로그인오류 : -1, 정상 : 0
-	 * @param comeCount		첫번째 들어올때만 애니메이션 효과 넣어줄것. -> 로그인 오류가 발생하면 애니메이션 작동 안하게 처리
+	 * @param comeCount		첫번째 들어올때만 애니메이션 효과 넣어줄것. -> 로그인 오류가 발생하면 애니메이션 작동 안하게 처리		
+	 * @param ea			오류관련 클래스
+	 * @param rsa			RSA 암호 관련 알고리즘
 	 * @return				정상 : 0 , 비정상 : -1
 	 */
-	int firstLoginStep(HttpServletRequest request,int errorCode,int comeCount);
+	int firstLoginStep(HttpServletRequest request,int errorCode,int comeCount, ErrorAlarm ea, RSAalgorithm rsa);
 	
 	/**
 	 * 유저회원가입 - 이메일 아이디 중복 체크
@@ -209,9 +218,10 @@ public interface ILoginService {
 	/**
 	 * 로그인 버튼 누른후 -> 존재하는 아이디가 맞는지 체크 (모달창)
 	 * @param request	request 객체
+	 * @param ea		에러처리 관련 객체
 	 * @return			1 : 존재함, -1 : 존재하지 않음 / 벤당한 아이피로 접속
 	 */
-	int userIdPwCheck(HttpServletRequest request);
+	int userIdPwCheck(HttpServletRequest request,ErrorAlarm ea);
 	
 	/**
 	 * RSA 대칭키 복호화
@@ -264,9 +274,10 @@ public interface ILoginService {
 	 * @param response
 	 * @param addUrl
 	 * @param kc
+	 * @param ea
 	 * @return
 	 */
-	int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl, KakaoCookie kc);
+	int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl, KakaoCookie kc,ErrorAlarm ea);
 	
 	/**
 	 * 로그아웃 처리 수행
@@ -299,18 +310,21 @@ public interface ILoginService {
 	 * @param response
 	 * @param kc
 	 * @param rsa
+	 * @param ea
 	 * @return
 	 */
-	String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa);
+	String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa, ErrorAlarm ea);
 	
 	
 	/**
 	 * 로그인 관련 서비스 메서드
 	 * @param request
 	 * @param response
+	 * @param ic
+	 * @param ea
 	 * @return
 	 */
-	String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response);
+	String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea);
 	
 	/**
 	 * QR 관련 로직

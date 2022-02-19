@@ -25,7 +25,7 @@ import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.SignUpDTO;
 
 /**
- * 메인 컨트롤러 역할
+ * 로그인 관련 컨트롤러 역할
  * 
  * @author shin
  *
@@ -42,7 +42,7 @@ public class LoginController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 처음에 로그인 페이지로 보내주는 곳
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET, RequestMethod.POST })
-	public String login(HttpServletRequest request, HttpServletResponse response, String site, KakaoCookie kc, RSAalgorithm rsa) {
+	public String login(HttpServletRequest request, HttpServletResponse response, String site, KakaoCookie kc, RSAalgorithm rsa, ErrorAlarm ea) {
 		
 		//TEST 용	
 		//kc.deleteCookie(request, response, "loginSaveUserId");
@@ -50,7 +50,7 @@ public class LoginController {
 		//kc.deleteCookie(request, response, "loginSaveUserSeq");
 		
 		// ===================로그인 유지 관련 로직===================
-		String loginStayYn = logService.getLoginStayYn(request,response,kc,rsa);
+		String loginStayYn = logService.getLoginStayYn(request,response,kc,rsa,ea);
 		
 		if (loginStayYn.equals("error")) return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
 		else if (!loginStayYn.equals("pass")) return loginStayYn;   
@@ -68,13 +68,13 @@ public class LoginController {
 		
 		if (addUrl != null) {
 			
-			int addUrlResult = logService.modifyCookie(request,response,addUrl,kc);
+			int addUrlResult = logService.modifyCookie(request,response,addUrl,kc,ea);
 			
 			if (addUrlResult == -1) return "/testwaiting/kakaoerror";
 		}
 		
 		if (session.getAttribute("userinfo") == null) {
-			result = logService.firstLoginStep(request, 0, 0);// result : 0 -> 에러없음
+			result = logService.firstLoginStep(request, 0, 0, ea, rsa);// result : 0 -> 에러없음
 		} else {
 			return "redirect:/main.action";
 		}
@@ -85,28 +85,30 @@ public class LoginController {
 			return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
 
 	}
-
+	
+	//로그인 입력 정보에 따른 처리
 	@RequestMapping(value = "/userLoginVerificationCheck.action", method = { RequestMethod.POST })
-	public void loginVerificationCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@ResponseBody
+	public int loginVerificationCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 
-		PrintWriter out = response.getWriter();
-		int result = logService.userIdPwCheck(request);
+		return logService.userIdPwCheck(request,ea);
 
-		out.print(result);
 	}
 
 	// 로그인페이지에서 정보를 넘겨주는곳 => 로그인 검증
 	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST})
-	public String loginVerification(HttpServletRequest request, HttpServletResponse response) {
+	public String loginVerification(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea) {
 
 		
-		String userLoginResult = logService.loginVerifyLogic(request,response);
+		String userLoginResult = logService.loginVerifyLogic(request,response,ic,ea);
 		
 		if (userLoginResult.equals("error")) return "/testwaiting/kakaoerror";
 		else return userLoginResult;
 		
 
 	}
+	
+	// ----- 위 까지는 정리 완료
 
 	// 자동로그인 방지
 	@RequestMapping(value = "/userautologinCheck.action", method = { RequestMethod.POST })

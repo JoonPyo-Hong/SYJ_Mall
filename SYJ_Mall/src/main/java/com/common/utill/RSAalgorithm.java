@@ -14,6 +14,8 @@ import javax.crypto.Cipher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+//RSAalgorithm rsa
+
 /**
  * RSA 대칭키 알고리즘
  * @author shin	

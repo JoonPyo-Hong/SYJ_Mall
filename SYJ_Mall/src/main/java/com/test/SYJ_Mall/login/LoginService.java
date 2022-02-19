@@ -37,8 +37,6 @@ import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
-import lombok.RequiredArgsConstructor;
-
 /**
  * 로그인 서비스 객체
  * 
@@ -91,6 +89,7 @@ public class LoginService implements ILoginService {
 
 	}
 	
+	//이것도 안쓰면 뺄
 	@Override
 	public String ipCheck(HttpServletRequest request) {// 접속자의 아이피를 체크함
 
@@ -107,16 +106,10 @@ public class LoginService implements ILoginService {
 		return enc.returnEncVoca(password);
 	}
 
-	// 맨처음 로그인할때 광고,rsa키 지정해주는곳
+	// 맨처음 로그인할때 rsa키 지정해주는곳
 	@Override
-	public int firstLoginStep(HttpServletRequest request, int errorCode, int comeCount) {
-
-		int error = 0;// 에러처리
-		//Random rnd = new Random();
-		//List<AdverDTO> dtoList = dao.getAdvertiseInfo();// 광고관련
-		IpCheck ic = new IpCheck();
-
-
+	public int firstLoginStep(HttpServletRequest request, int errorCode, int comeCount, ErrorAlarm ea, RSAalgorithm rsa) {
+		
 		// 로그인 에러 관련 : 벤당한 아이피로 로그인 시도를 한다거나 로그인 아이디/비밀번호가 틀렸을 경우
 		if (errorCode == -1) {
 			request.setAttribute("loginError", -1);
@@ -126,17 +119,13 @@ public class LoginService implements ILoginService {
 
 		try {
 			
-			int result = setRSAkey(request);
+			rsa.setRSA(request);
 			
 		} catch (Exception e) {
-			error = -1;
-			
-			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
+			return ea.basicErrorException(request,e);
 		}
 
-		return error;
+		return 0;
 
 	}
 
@@ -503,10 +492,10 @@ public class LoginService implements ILoginService {
 
 	}
 
-	// RSA 대칭키 생성
+	// RSA 대칭키 생성 -> 굳이 매소드로 만들어줘야 하나? 일단 검토
 	@Override
 	public int setRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
-
+		
 		RSAalgorithm rsa = new RSAalgorithm();
 
 		rsa.setRSA(request);
@@ -661,7 +650,7 @@ public class LoginService implements ILoginService {
 
 	// 존재하는 아이디인지 체크 - 모달창 띄워줄것
 	@Override
-	public int userIdPwCheck(HttpServletRequest request) {
+	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea) {
 
 		String ip = "";
 
@@ -676,19 +665,13 @@ public class LoginService implements ILoginService {
 
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 		
-			
 			// 여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
-			int result = dao.firstLoginCheck(ip, id, encPw);
+			// 0 : 계정 일시 벤 상태, 1: 로그인 허용 상태, -1 : 로그인 입력정보 오류, -100 : 에러발생
+			return dao.firstLoginCheck(ip, id, encPw);
 			
-			return result;
 
 		} catch (Exception e) {
-			
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
-			
-			return 505;
+			return ea.basicErrorException(request, e);
 		}
 	}
 
@@ -773,19 +756,14 @@ public class LoginService implements ILoginService {
 	
 	//로그인 시 필요한 정보 쿠키에 저장해줄 매서드
 	@Override
-	public int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl,KakaoCookie kc) {
+	public int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl,KakaoCookie kc, ErrorAlarm ea) {
 		try {
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 			kc.generateCookie(response, "lastPage", addUrl);//마지막페이지
 			
 			return 1;
 		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
-			return -1;
+			return ea.basicErrorException(request,e);
 		}
 		
 	}
@@ -904,7 +882,7 @@ public class LoginService implements ILoginService {
 	
 	//로그인 유지 판단 -> 유지 체크 이후 로그인 검증 작업 진행.
 	@Override
-	public String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa) {
+	public String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa, ErrorAlarm ea) {
 		
 		try {
 			
@@ -985,25 +963,20 @@ public class LoginService implements ILoginService {
 			else return "pass";//그냥 기존대로 로직 진행
 			
 		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
+			ea.basicErrorException(request, e);
 			return "error";//오류 발생
 		}
 	}
 	
 	//로그인 관련 서비스 메서드
 	@Override
-	public String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response) {
+	public String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea) {
 		
 		try {
 			
-			
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 
-			String ip = ipCheck(request);
+			String ip = ic.getClientIP(request);
 			Map<String, String> map = getRSAkeySessionStay(request);
 			
 			String id = map.get("id");// 아이디
@@ -1063,11 +1036,7 @@ public class LoginService implements ILoginService {
 			
 			
 		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
+			ea.basicErrorException(request, e);
 			return "error";//오류 발생
 		}
 		

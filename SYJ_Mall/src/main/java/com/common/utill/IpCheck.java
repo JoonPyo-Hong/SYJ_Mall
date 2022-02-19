@@ -1,6 +1,8 @@
 package com.common.utill;
 
 import javax.servlet.http.HttpServletRequest;
+
+//IpCheck ic
 /**
  * 아이피를 체크해주는 클래스
  * @author shin
