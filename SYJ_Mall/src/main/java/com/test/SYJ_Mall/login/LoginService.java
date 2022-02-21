@@ -160,79 +160,87 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public JSONObject picCheck(HttpServletRequest request) {// 그림을 체크해주는것
+	public JSONObject picCheck(HttpServletRequest request,ErrorAlarm ea) {// 그림을 체크해주는것
+		
+		
+		try {
+			
+			HttpSession userSession = request.getSession();
+			int sucessCount = (Integer) userSession.getAttribute("sucessCount");// 성공횟수
+			int failCount = (Integer) userSession.getAttribute("failCount");// 실패횟수
 
-		HttpSession userSession = request.getSession();
-		int sucessCount = (Integer) userSession.getAttribute("sucessCount");// 성공횟수
-		int failCount = (Integer) userSession.getAttribute("failCount");// 실패횟수
+			String selectPicName = (String) userSession.getAttribute("selectPicName");// 정답 그림이름 -> 영어이름
+			String throwPicName = request.getParameter("picName");// ajax 를 통해서 넘어온 그림의 이름
+			String clickNum = request.getParameter("clickNum");// ajax 를 통해서 넘어온 태그 id명
 
-		String selectPicName = (String) userSession.getAttribute("selectPicName");// 정답 그림이름 -> 영어이름
-		String throwPicName = request.getParameter("picName");// ajax 를 통해서 넘어온 그림의 이름
-		String clickNum = request.getParameter("clickNum");// ajax 를 통해서 넘어온 태그 id명
+			if (selectPicName.equals("airplane")) {
+				if (throwPicName.contains("airplane"))
+					sucessCount++;
+				else
+					failCount++;
+			} else if (selectPicName.equals("apartment")) {
+				if (throwPicName.contains("apartment"))
+					sucessCount++;
+				else
+					failCount++;
+			} else if (selectPicName.equals("car")) {
+				if (throwPicName.contains("car"))
+					sucessCount++;
+				else
+					failCount++;
+			} else if (selectPicName.equals("cat")) {
+				if (throwPicName.contains("cat"))
+					sucessCount++;
+				else
+					failCount++;
+			} else if (selectPicName.equals("dog")) {
+				if (throwPicName.contains("dog"))
+					sucessCount++;
+				else
+					failCount++;
+			} else if (selectPicName.equals("laptop")) {
+				if (throwPicName.contains("laptop"))
+					sucessCount++;
+				else
+					failCount++;
+			} else if (selectPicName.equals("phone")) {
+				if (throwPicName.contains("phone"))
+					sucessCount++;
+				else
+					failCount++;
+			} else if (selectPicName.equals("sea")) {
+				if (throwPicName.contains("sea"))
+					sucessCount++;
+				else
+					failCount++;
+			}
 
-		if (selectPicName.equals("airplane")) {
-			if (throwPicName.contains("airplane"))
-				sucessCount++;
-			else
-				failCount++;
-		} else if (selectPicName.equals("apartment")) {
-			if (throwPicName.contains("apartment"))
-				sucessCount++;
-			else
-				failCount++;
-		} else if (selectPicName.equals("car")) {
-			if (throwPicName.contains("car"))
-				sucessCount++;
-			else
-				failCount++;
-		} else if (selectPicName.equals("cat")) {
-			if (throwPicName.contains("cat"))
-				sucessCount++;
-			else
-				failCount++;
-		} else if (selectPicName.equals("dog")) {
-			if (throwPicName.contains("dog"))
-				sucessCount++;
-			else
-				failCount++;
-		} else if (selectPicName.equals("laptop")) {
-			if (throwPicName.contains("laptop"))
-				sucessCount++;
-			else
-				failCount++;
-		} else if (selectPicName.equals("phone")) {
-			if (throwPicName.contains("phone"))
-				sucessCount++;
-			else
-				failCount++;
-		} else if (selectPicName.equals("sea")) {
-			if (throwPicName.contains("sea"))
-				sucessCount++;
-			else
-				failCount++;
+			userSession.setAttribute("sucessCount", sucessCount);// 성공횟수를 세션에 다시 넣어주기
+			userSession.setAttribute("failCount", failCount);// 카운트를 넣어주기
+
+			JSONObject obj = new JSONObject();
+			AutoLoginPic al = new AutoLoginPic();
+			String selectPic = al.imgMakers();// 두번째로 불러올 이미지
+
+			Map<Integer, String[]> map = al.picAnother(clickNum, selectPicName);
+			obj.put("ansImg_1", map.get(0)[0]);
+			obj.put("ansImg_1_value", map.get(0)[1]);
+			obj.put("ansImg_2", map.get(1)[0]);
+			obj.put("ansImg_2_value", map.get(1)[1]);
+			obj.put("ansImg_3", map.get(2)[0]);
+			obj.put("ansImg_3_value", map.get(2)[1]);
+
+			obj.put("clickNum", clickNum);// 클릭한 태그명
+			obj.put("selectPic", selectPic);// 클릭한 태그명에 새로운 사진 업데이트
+			obj.put("sucessCount", sucessCount);// javascript 에 넘겨주기 위함 -> 성공횟수
+			obj.put("failCount", failCount);// javascript 에 넘겨주기 위함 -> 실패횟수
+			
+			return obj;
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return null;
 		}
-
-		userSession.setAttribute("sucessCount", sucessCount);// 성공횟수를 세션에 다시 넣어주기
-		userSession.setAttribute("failCount", failCount);// 카운트를 넣어주기
-
-		JSONObject obj = new JSONObject();
-		AutoLoginPic al = new AutoLoginPic();
-		String selectPic = al.imgMakers();// 두번째로 불러올 이미지
-
-		Map<Integer, String[]> map = al.picAnother(clickNum, selectPicName);
-		obj.put("ansImg_1", map.get(0)[0]);
-		obj.put("ansImg_1_value", map.get(0)[1]);
-		obj.put("ansImg_2", map.get(1)[0]);
-		obj.put("ansImg_2_value", map.get(1)[1]);
-		obj.put("ansImg_3", map.get(2)[0]);
-		obj.put("ansImg_3_value", map.get(2)[1]);
-
-		obj.put("clickNum", clickNum);// 클릭한 태그명
-		obj.put("selectPic", selectPic);// 클릭한 태그명에 새로운 사진 업데이트
-		obj.put("sucessCount", sucessCount);// javascript 에 넘겨주기 위함 -> 성공횟수
-		obj.put("failCount", failCount);// javascript 에 넘겨주기 위함 -> 실패횟수
-
-		return obj;
+		
 	}
 
 	@Override

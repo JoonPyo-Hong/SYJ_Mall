@@ -77,9 +77,10 @@ public interface ILoginService {
 	/**
 	 * 자동로그인 방지 - 사진불러오기
 	 * @param request	request 객체
+	 * @param ea
 	 * @return			json 객체 - 사진정보
 	 */
-	JSONObject picCheck(HttpServletRequest request);
+	JSONObject picCheck(HttpServletRequest request, ErrorAlarm ea);
 	
 
 	/**

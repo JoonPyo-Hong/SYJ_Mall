@@ -242,7 +242,17 @@ input[id="product-checkbox"]:checked {
     !important;
 }
 
+#my_page_contents {
+	height:1200px;
+}
 
+
+@media(max-width: 640px){
+	#my_page_contents {
+		height:1000px;
+	}
+	
+}
 
 
 </style>
@@ -250,7 +260,7 @@ input[id="product-checkbox"]:checked {
 
 
 <!-- 마이페이지 컨텐츠 -->
-<div class="container-wrap mypage-basket-wrap">
+<div class="container-wrap mypage-basket-wrap" id="my_page_contents">
 	<!-- 데이터 없을 시 -->
 	<c:if test="${empty mbdtoList}">
 		<div class="order-list-nodata">
@@ -278,7 +288,6 @@ input[id="product-checkbox"]:checked {
 	<hr class="division" />
 
 	<div class="basket-list-wrap">
-		
 		<c:forEach var="mbdto" items="${mbdtoList}">
 				
 				<div class="basket-list-item" id="${mbdto.prodId}">
@@ -321,16 +330,17 @@ input[id="product-checkbox"]:checked {
 				</div>
 		</c:forEach>
 	</div>
-
+	
 	<!-- 선택 상품 총 금액 영역-->
 	<div class="total-cost-bar-wrap">
 		<div class="shipping-country row">
 			<div class="title">배송국가</div>
 			<div class="cost">
-				<label content="한국" height="45" class="select-label"> <select
-					height="45" class="select-select" name="shippingCountry">
+				<label content="한국" height="45" class="select-label"> 
+					<select height="45" class="select-select" name="shippingCountry">
 						<option value="KR">한국</option>
-				</select></label>
+					</select>
+				</label>
 			</div>
 		</div>
 		<div class="order-cost row">
@@ -387,7 +397,7 @@ input[id="product-checkbox"]:checked {
 	});
 	
 	
-
+	
 	function prodt_seleted_yn(prodt_id) {
 
 		let prodt_id_index = -1;

@@ -85,36 +85,37 @@
 				
 				//수신 데이터
 				success: function(result) {
+					
+					if (result == null) location.href = "/SYJ_Mall/totalError.action";
+					else {
+						$("#" + result.clickNum).css({"background":"url(resources/images/securefile/" + result.selectPic +")"}).css({"background-size":"cover"});
+
+						//정답이 포함된 그림 꼭 하나는 들어갈것
+						$("#" + result.ansImg_1).css({"background":"url(resources/images/securefile/" + result.ansImg_1_value +")"}).css({"background-size":"cover"});
+
+						//나머지는 아무그림이나 들어갈것
+						$("#" + result.ansImg_2).css({"background":"url(resources/images/securefile/" + result.ansImg_2_value +")"}).css({"background-size":"cover"});
+
+						$("#" + result.ansImg_3).css({"background":"url(resources/images/securefile/" + result.ansImg_3_value +")"})
+							.css({"background-size":"cover"});
 						
-					$("#" + result.clickNum).css({"background":"url(resources/images/securefile/" + result.selectPic +")"})
-							  				.css({"background-size":"cover"});
+						
+						
+						let sucessCount = result.sucessCount;
+						let failCount = result.failCount;
+						
+						//실패횟수를 초과한 경우
+						if(failCount == 3) {
+							location.href = "/SYJ_Mall/userautologinFail.action";
+						}
+						
+						//성공횟수를 충족한 경우
+						if (sucessCount == 3) {
+							const deviceCode = device_check();
+							location.href = "/SYJ_Mall/userautologinPass.action?deviceCode=" + deviceCode;
+						}
+											}
 					
-					//정답이 포함된 그림 꼭 하나는 들어갈것
-					$("#" + result.ansImg_1).css({"background":"url(resources/images/securefile/" + result.ansImg_1_value +")"})
-	  				.css({"background-size":"cover"});
-					
-					//나머지는 아무그림이나 들어갈것
-					$("#" + result.ansImg_2).css({"background":"url(resources/images/securefile/" + result.ansImg_2_value +")"})
-	  				.css({"background-size":"cover"});
-					
-					$("#" + result.ansImg_3).css({"background":"url(resources/images/securefile/" + result.ansImg_3_value +")"})
-	  				.css({"background-size":"cover"});
-					
-					
-					
-					let sucessCount = result.sucessCount;
-					let failCount = result.failCount;
-					
-					//실패횟수를 초과한 경우
-					if(failCount == 3) {
-						location.href = "/SYJ_Mall/userautologinFail.action";
-					}
-					
-					//성공횟수를 충족한 경우
-					if (sucessCount == 3) {
-						const deviceCode = device_check();
-						location.href = "/SYJ_Mall/userautologinPass.action?deviceCode=" + deviceCode;
-					}
 				},
 				
 				//예외 처리

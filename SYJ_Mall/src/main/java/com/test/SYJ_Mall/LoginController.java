@@ -108,16 +108,16 @@ public class LoginController {
 
 	}
 	
-	// ----- 위 까지는 정리 완료
 
 	// 자동로그인 방지
 	@RequestMapping(value = "/userautologinCheck.action", method = { RequestMethod.POST })
-	public void autologinCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@ResponseBody
+	public JSONObject autologinCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 
-		PrintWriter out = response.getWriter();
-		JSONObject obj = logService.picCheck(request);
+		JSONObject obj = logService.picCheck(request,ea);
+		
+		return obj;
 
-		out.print(obj);
 	}
 
 	// 자동로그인 방지 -> 통과한경우

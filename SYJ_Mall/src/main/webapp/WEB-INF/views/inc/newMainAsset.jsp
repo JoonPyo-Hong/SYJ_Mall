@@ -313,6 +313,11 @@ var {
   }
   
   
+ /*  #my_page_contents {
+  	height:1200px;
+  } */
+  
+  
 }
 
 /* font 영역 */
