@@ -1,0 +1,52 @@
+.error-wrap {
+  /* min-height: 750px; */
+  border-top: 1px solid #e3e5e8;
+}
+
+/* 주문 내역 데이터 없을 시  */
+.error-nodata {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30% 0;
+  background-color: #fff;
+}
+
+.error-ryan {
+  width: 184px;
+  height: 184px;
+  background-image: url(../images/error/error_ryan.png);
+  background-size: contain;
+}
+
+.error-message {
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 0px;
+  color: rgb(154, 154, 158);
+}
+
+.button-wrap {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0 16px;
+  border-radius: 8px;
+  height: 36px;
+  line-height: 35px;
+  min-width: auto;
+  font-size: 14px;
+  border: 1px solid #3c404b;
+  background-color: #3c404b;
+  color: #fff;
+}
+
+.border-type {
+  background-color: #fff;
+  color: #3c404b;
+  border: 1px solid #3c404b;
+}
