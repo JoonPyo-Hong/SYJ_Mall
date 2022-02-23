@@ -700,7 +700,7 @@ public class LoginService implements ILoginService {
 
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
-		request.setAttribute("selected", "today");
+		request.setAttribute("seleted", "today");
 
 		int seq = 0;
 
@@ -1006,6 +1006,7 @@ public class LoginService implements ILoginService {
 				String lastPage = (String)instanceCookie(request, response, "lastPage");
 				
 				if (logResult == 1) {
+					
 					if (lastPage == null) {
 						goMain(request);
 						return "/tiles/mainStart.layout";// 메인페이지로 이동
@@ -1047,8 +1048,6 @@ public class LoginService implements ILoginService {
 			ea.basicErrorException(request, e);
 			return "error";//오류 발생
 		}
-		
-		
 	}
 	
 	//QR 관련 로직 -> QR관련 url을 생성해준다. && 테이블에 데이터를 넣어준다. (QR 첫단계)

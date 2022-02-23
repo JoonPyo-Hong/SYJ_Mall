@@ -1,6 +1,5 @@
 package com.test.SYJ_Mall;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.KakaoCookie;
 import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.main.FeedDTO;
 import com.test.SYJ_Mall.main.MainDTO;
@@ -39,13 +38,16 @@ public class MainController {
 
 
 	// 메인 화면
-	@RequestMapping(value = "/main.action", method = { RequestMethod.GET })
-	public String main(Model model, HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value = "/main.action", method = { RequestMethod.GET ,RequestMethod.POST})
+	public String main(Model model, HttpServletRequest request,HttpServletResponse response,KakaoCookie kc) {
 		
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");
-
+		
+		kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
+		//kc.generateCookie(response, "lastPage", "main");//마지막페이지
+		
 		int seq = 1;
 
 		if (dto == null) {
@@ -54,7 +56,6 @@ public class MainController {
 			seq = dto.getUserSeq();
 		}
 		model.addAttribute("seq", seq);
-		//model.addAttribute("seq", 200001);
 		model.addAttribute("seleted","today");
 		
 		return "/tiles/mainStart.layout";

@@ -208,6 +208,12 @@
 							<li class="main-tab-li" id="main_popular">인기</li>
 							<li class="main-tab-li active" id="main_my">마이</li>
 						</c:if>
+						<c:if test="${empty seleted}">
+							<li class="main-tab-li active" id="main_today">오늘</li>
+							<li class="main-tab-li" id="main_new">신규</li>
+							<li class="main-tab-li" id="main_popular">인기</li>
+							<li class="main-tab-li" id="main_my">마이</li>
+						</c:if>
 					</ul>
 				</div>
 				<!-- 마이페이지 tab이 들어가야함 -->
@@ -264,6 +270,7 @@
 
 
 	<script>
+			
 	
 				let left_side_var_chr = false;// 왼쪽 사이드바 캐릭터 메뉴 구분
 				let left_side_var_category = false;// 왼쪽 사이드바 카테고리 메뉴 구분
