@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.common.utill.AES256Util;
+import com.common.utill.CommonDAO;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
-import com.common.utill.QRCodeGenerate;
 import com.common.utill.RSAalgorithm;
+import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
 
 /**
@@ -211,9 +212,10 @@ public interface ILoginService {
 	 * 자동로그인 방지를 통과 한 후 로그인 처리단계
 	 * @param request
 	 * @param response
-	 * @return 			1 : 성공, -1 : 실패
+	 * @param ea
+	 * @return	1 : 성공, -1 : 실패
 	 */
-	int autoLoginPassLogOn(HttpServletRequest request, HttpServletResponse response);
+	int autoLoginPassLogOn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
     
 	
 	/**
@@ -287,13 +289,16 @@ public interface ILoginService {
 	 * @return
 	 */
 	String goLogOut(HttpServletRequest request, HttpServletResponse response);
-	
+
 	/**
 	 * 로그인 관련 캅차
 	 * @param request
+	 * @param cdao
+	 * @param rc
+	 * @param ea
 	 * @return
 	 */
-	int getCapcharData(HttpServletRequest request);
+	int getCapcharData(HttpServletRequest request, CommonDAO cdao, ReCaptchar rc, ErrorAlarm ea);
 	
 	
 	/**
@@ -331,9 +336,11 @@ public interface ILoginService {
 	 * QR 관련 로직
 	 * @param request
 	 * @param response
+	 * @param ic
+	 * @param ea
 	 * @return
 	 */
-	int loginGetQr(HttpServletRequest request, HttpServletResponse response);
+	int loginGetQr(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea);
 	
 	/**
 	 * QR 관련 로직 - 모바일 기기에서 아이디 체킹
@@ -367,9 +374,10 @@ public interface ILoginService {
 	 * @param kc
 	 * @param au
 	 * @param sf
+	 * @param ea
 	 * @return	1: 정상, -1: 실패(오류), -2: 아이디 존재하지 않음(회원의 고유번호 존재하지 않음), -3: uuid 자체가 존재하지 않음
 	 */
-	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse respons,KakaoCookie kc,AES256Util au,StringFormatClass sf);
+	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse respons,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea);
 	
 	/**
 	 * 타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
@@ -384,6 +392,14 @@ public interface ILoginService {
 	 * @return
 	 */
 	int loginQrCheckingNotAgree(HttpServletRequest request);
+	
+	/**
+	 * 자동로그인 방지 실패한 경우의 로직
+	 * @param request
+	 * @param ea
+	 * @return
+	 */
+	int autoLoginBanned(HttpServletRequest request, ErrorAlarm ea);
 	
 
 	

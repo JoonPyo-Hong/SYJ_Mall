@@ -39,6 +39,10 @@ public class ReCaptchar {
 		this.secretKey = secretKey;
 	}
 	
+	public ReCaptchar() {
+		
+	}
+	
 	public ReCaptchar(String publicKey, String secretKey) {
 		this.publicKey = publicKey;
 		this.secretKey = secretKey;

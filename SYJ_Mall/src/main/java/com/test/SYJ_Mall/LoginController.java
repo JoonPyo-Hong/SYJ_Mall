@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utill.AES256Util;
+import com.common.utill.CommonDAO;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.RSAalgorithm;
+import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
 import com.test.SYJ_Mall.login.SignUpDTO;
@@ -122,109 +124,84 @@ public class LoginController {
 
 	// 자동로그인 방지 -> 통과한경우
 	@RequestMapping(value = "/userautologinPass.action", method = { RequestMethod.GET })
-	public String autologinPass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String autologinPass(HttpServletRequest request, HttpServletResponse response, IpCheck ic, KakaoCookie kc, ErrorAlarm ea) {
 
-		IpCheck ic = new IpCheck();
+		
+		HttpSession session = request.getSession();
+		int sucessCount = (Integer) session.getAttribute("sucessCount");
 
-		try {
-			HttpSession session = request.getSession();
-			int sucessCount = (Integer) session.getAttribute("sucessCount");
-
-			if (sucessCount != 3) {
-				return "/testwaiting/kakaoerror";
-				// 자동로그인 방지를 직접 통과하고 들어온 경우
-			} else {
-				int result = logService.autoLoginPassLogOn(request,response);
-
-				if (result == 1) {
-
-					KakaoCookie kc = new KakaoCookie();
-					String lastPage = (String) kc.getCookieInfo(request, "lastPage");
-					kc.deleteCookie(request, response, "lastPage");
-
-					if (lastPage == null) {
-						return "redirect:/main.action";// 메인페이지로 이동
-					} else {
-						return "redirect:/" + lastPage + ".action";
-					}
-
-				} else
-					return "/testwaiting/kakaoerror";// 오류페이지로 이동
-			}
-
-		} catch (Exception e) {
-			
-			// 허용없이 들어올때 벤을 시켜줘야 한다.
-			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
+		if (sucessCount != 3) {
 			return "/testwaiting/kakaoerror";
+		} 
+		// 자동로그인 방지를 직접 통과하고 들어온 경우
+		else {
+			int result = logService.autoLoginPassLogOn(request, response, ea);
+
+			if (result == 1) {
+
+				String lastPage = (String) kc.getCookieInfo(request, "lastPage");
+				kc.deleteCookie(request, response, "lastPage");
+
+				if (lastPage == null) {
+					return "redirect:/main.action";// 메인페이지로 이동
+				} else {
+					return "redirect:/" + lastPage + ".action";
+				}
+
+			} else
+				return "/testwaiting/kakaoerror";// 오류페이지로 이동
 		}
+		
 	}
 
 	// 자동로그인 방지 -> 실패한 경우
 	@RequestMapping(value = "/userautologinFail.action", method = { RequestMethod.GET })
-	public String autologinFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		IpCheck ic = new IpCheck();
+	public String autologinFail(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+			
+		int result = logService.autoLoginBanned(request,ea);
 		
-		try {
-			HttpSession session = request.getSession();
-			int failCount = (Integer) session.getAttribute("failCount");
-
-			// 세션을 아예 삭제시켜주는 서비스를 구현
-			logService.sessionDelete(request);
-
-			if (failCount != 3) {
-				throw new Exception();
-			}
-
-			return "/login/UserAutoLoginFail";
-		} catch (Exception e) {
-			
-			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
-			
-			return "/testwaiting/kakaoerror";
-		}
+		if (result == 1) return "/login/UserAutoLoginFail";
+		else return "/testwaiting/kakaoerror";
+		
 
 	}
 	
 	// 로그인 캅차 기능
 	@RequestMapping(value = "/loginCaptcha.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public int loginCaptcha(HttpServletRequest request, HttpServletResponse response) {
+	public int loginCaptcha(HttpServletRequest request, CommonDAO cdao, ReCaptchar rc, ErrorAlarm ea) {
 
-		return logService.getCapcharData(request);
+		return logService.getCapcharData(request,cdao,rc,ea);
 		
 	}
 	
+	
 	//QR code 로그인 관련 -> 첫번째로 qr 로그인을 하려는 피씨가 자신의 피씨정보를 db단으로 넘겨준다.
 	@RequestMapping(value = "/loginQr.action", method = { RequestMethod.GET })
-	public String loginQr(HttpServletRequest request, HttpServletResponse response) {
+	public String loginQr(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea) {
 		
-		int qrResult = logService.loginGetQr(request,response);
+		int qrResult = logService.loginGetQr(request,response,ic,ea);
 		
 		if (qrResult == 1) return "/login/MainQrLogin";
 		else return "/testwaiting/kakaoerror";
 		
 	}
 	
+	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우
 	@RequestMapping(value = "/loginQrPrevCheck.action", method = { RequestMethod.GET })
-	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf) {
+	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea) {
 		
-		//AES256Util au = new AES256Util();
-		//StringFormatClass sf = new StringFormatClass();
 		
-		int qrPrevCheck = logService.loginQrPrevCheck(request,response,kc,au,sf);
+		int qrPrevCheck = logService.loginQrPrevCheck(request,response,kc,au,sf,ea);
 		
 		if (qrPrevCheck == 1) return "/login/UserQrChecking";
 		else if (qrPrevCheck == 2) return "/semitiles/QrLoginNotUserSeq.layout";
 		else return "/testwaiting/kakaoerror";
 		
 	}
+	
+	//여기까지 일단 정리함
 	
 	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인 (1초마다 확인해줌)
 	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.POST })

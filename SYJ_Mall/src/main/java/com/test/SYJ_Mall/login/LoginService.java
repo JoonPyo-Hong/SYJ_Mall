@@ -621,7 +621,7 @@ public class LoginService implements ILoginService {
 		return result;
 	}
 
-	// 세션객체를 소멸시켜주는 메서드
+	// 세션객체를 소멸시켜주는 메서드 -> 이게 쓰일지는 잘 모르겠네
 	@Override
 	public void sessionDelete(HttpServletRequest request) {
 
@@ -632,28 +632,35 @@ public class LoginService implements ILoginService {
 
 	// 자동로그인 방지 통과 후 로그인 처리
 	@Override
-	public int autoLoginPassLogOn(HttpServletRequest request,HttpServletResponse response) {
-
-		HttpSession session = request.getSession();
+	public int autoLoginPassLogOn(HttpServletRequest request,HttpServletResponse response, ErrorAlarm ea) {
 		
-		int userSeq = (Integer) session.getAttribute("userSeq");
-		String userIp = (String) session.getAttribute("userIp");
-		
-		int result = loginSuccess(request, response ,userSeq);// 로그인 인증티켓 발급
-		
-		if (result == 1) {
-			logUserTrace(userSeq, userIp);// 로그인 기록 남겨주기
-			session.removeAttribute("userSeq");
-			session.removeAttribute("userIp");
-			session.removeAttribute("picName");
-			session.removeAttribute("clickNum");
-			session.removeAttribute("sucessCount");
-			session.removeAttribute("failCount");
+		try {
 			
-			return 1;
-		} else {
+			HttpSession session = request.getSession();
+			
+			int userSeq = (Integer) session.getAttribute("userSeq");
+			String userIp = (String) session.getAttribute("userIp");
+			
+			int result = loginSuccess(request, response ,userSeq);// 로그인 인증티켓 발급
+			
+			if (result == 1) {
+				logUserTrace(userSeq, userIp);// 로그인 기록 남겨주기
+				session.removeAttribute("userSeq");
+				session.removeAttribute("userIp");
+				session.removeAttribute("picName");
+				session.removeAttribute("clickNum");
+				session.removeAttribute("sucessCount");
+				session.removeAttribute("failCount");
+				
+				return 1;
+			} else {
+				return -1;
+			}
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
 			return -1;
 		}
+		
 	}
 
 	// 존재하는 아이디인지 체크 - 모달창 띄워줄것
@@ -820,26 +827,22 @@ public class LoginService implements ILoginService {
 	
 	//로그인 관련 캅차
 	@Override
-	public int getCapcharData(HttpServletRequest request) {
+	public int getCapcharData(HttpServletRequest request,CommonDAO cdao, ReCaptchar rc, ErrorAlarm ea) {
 		
 		try {
 			
 			String siteKey = request.getParameter("recaptcha");
 			int adminSeq = 1;
 			
-			CommonDAO cdao = new CommonDAO();
 			String secureKey =  cdao.getCaptchaPrivateKey(adminSeq);
 			
-			ReCaptchar rc = new ReCaptchar(siteKey,secureKey);
+			rc.setPublicKey(siteKey); 
+			rc.setSecretKey(secureKey);
 			
 			return rc.verifyCaprcha(request);
 			
 		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
+			ea.basicErrorException(request, e);
 			return -1;
 		}
 		
@@ -1052,11 +1055,10 @@ public class LoginService implements ILoginService {
 	
 	//QR 관련 로직 -> QR관련 url을 생성해준다. && 테이블에 데이터를 넣어준다. (QR 첫단계)
 	@Override
-	public int loginGetQr(HttpServletRequest request, HttpServletResponse response) {
+	public int loginGetQr(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea) {
 		
 		try {
 			
-			IpCheck ic = new IpCheck();
 			String uuid = UUID.randomUUID().toString();//uuid 생성
 			String requestIpAddress = ic.getClientIP(request);//qr 로그인 시도하는 컴퓨터측 ip 정보
 			
@@ -1073,18 +1075,14 @@ public class LoginService implements ILoginService {
 			else return -1;
 		    
 		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
+			ea.basicErrorException(request, e);
 			return -1;//오류 발생
 		}
 	}
 	
 	//QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
 	@Override
-	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf) {
+	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea) {
 		try {
 			
 			String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
@@ -1125,11 +1123,7 @@ public class LoginService implements ILoginService {
 			return result;
 			
 		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.errorDbAndMail();
+			ea.basicErrorException(request, e);
 			return -1;//오류 발생
 		}
 	}
@@ -1239,6 +1233,26 @@ public class LoginService implements ILoginService {
 			ErrorAlarm ea = new ErrorAlarm(e, ip);
 			ea.errorDbAndMail();
 			return -1;//오류 발생
+		}
+	}
+	
+	//자동 로그인 방지통과하지 못한 경우의 처리
+	@Override
+	public int autoLoginBanned(HttpServletRequest request, ErrorAlarm ea) {
+		
+		try {
+			HttpSession session = request.getSession();
+			int failCount = (Integer) session.getAttribute("failCount");
+			
+			session.invalidate();// 세션 완전히 삭제
+			
+			if (failCount != 3) return -1;
+			
+			return 1;
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
 		}
 	}
 	
