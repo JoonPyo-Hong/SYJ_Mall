@@ -341,31 +341,38 @@ public interface ILoginService {
 	 * @return
 	 */
 	int loginGetQr(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea);
+
 	
 	/**
 	 * QR 관련 로직 - 모바일 기기에서 아이디 체킹
 	 * @param request
 	 * @param response
+	 * @param ea
+	 * @param kc
+	 * @param au
+	 * @param sf
 	 * @return
 	 */
-	int loginQrChecking(HttpServletRequest request, HttpServletResponse response);
+	int loginQrChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf);
 	
 	/**
 	 * QR 코드 통과한 후 로그인 권한 부여
 	 * @param request
 	 * @param response
 	 * @param qrCheckUserId	회원의 아이디
+	 * @param ea 에러처리 클래스
 	 * @return
 	 */
-	int grantResult(HttpServletRequest request, HttpServletResponse response, int qrCheckUserId);
+	int grantResult(HttpServletRequest request, HttpServletResponse response, int qrCheckUserId, ErrorAlarm ea);
 	
 
 	/**
 	 * QR 코드 uid 대한 로그인정보 획득한 경우 유저 정보 부여
 	 * @param request
+	 * @param ea
 	 * @return
 	 */
-	int qrCheckingUser(HttpServletRequest request);
+	int qrCheckingUser(HttpServletRequest request,ErrorAlarm ea);
 	
 	/**
 	 * QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
@@ -382,16 +389,18 @@ public interface ILoginService {
 	/**
 	 * 타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
 	 * @param request
+	 * @param ea
 	 * @return
 	 */
-	int loginQrDelete(HttpServletRequest request);
+	int loginQrDelete(HttpServletRequest request, ErrorAlarm ea);
 	
 	/**
 	 * 모바일기기에서 아이디 체킹하는 작업 -> QR 로그인 허용하지 않음
 	 * @param request
+	 * @param ea
 	 * @return
 	 */
-	int loginQrCheckingNotAgree(HttpServletRequest request);
+	int loginQrCheckingNotAgree(HttpServletRequest request,ErrorAlarm ea);
 	
 	/**
 	 * 자동로그인 방지 실패한 경우의 로직

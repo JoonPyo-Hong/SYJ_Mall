@@ -201,21 +201,17 @@ public class LoginController {
 		
 	}
 	
-	//여기까지 일단 정리함
-	
 	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인 (1초마다 확인해줌)
 	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public int loginQrCheckajax(HttpServletRequest request, HttpServletResponse response) {
+	public int loginQrCheckajax(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
 		
-		int passCheckUserSeq = logService.qrCheckingUser(request);//QR 로고인이 허용된 유저의 고유번호
-		
-		//System.out.println("passCheckUserSeq : "  + passCheckUserSeq);
+		int passCheckUserSeq = logService.qrCheckingUser(request,ea);//QR 로그인이 허용된 유저의 고유번호
 		
 		if (passCheckUserSeq == -2) {
 			return 2;
 		} else if (passCheckUserSeq != -1) {
-			int grantResult = logService.grantResult(request,response,passCheckUserSeq);
+			int grantResult = logService.grantResult(request,response,passCheckUserSeq,ea);
 			
 			if (grantResult == 1) return 1;
 			else return -2;
@@ -227,9 +223,9 @@ public class LoginController {
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 로그인 허용
 	@RequestMapping(value = "/loginQrLastCheck.action", method = { RequestMethod.POST })
-	public String loginQrLastCheck(HttpServletRequest request, HttpServletResponse response) {
+	public String loginQrLastCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf) {
 	
-		int qrLastCheck = logService.loginQrChecking(request, response);
+		int qrLastCheck = logService.loginQrChecking(request, response,ea,kc,au,sf);
 				
 		if (qrLastCheck == 1) return "/login/QrLoginResult";
 		else return "/testwaiting/kakaoerror";
@@ -239,13 +235,9 @@ public class LoginController {
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 로그인 허용하지 않음
 	@RequestMapping(value = "/loginQrLastCheckNotAgree.action", method = { RequestMethod.POST })
-	public String loginQrLastCheckNotAgree(HttpServletRequest request, HttpServletResponse response) {
+	public String loginQrLastCheckNotAgree(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
-		//System.out.println("여기오는게 맞나?");
-		
-		int qrLastCheck = logService.loginQrCheckingNotAgree(request);
-		
-		//System.out.println("qrLastCheck : " + qrLastCheck);
+		int qrLastCheck = logService.loginQrCheckingNotAgree(request,ea);
 		
 		if (qrLastCheck == 1) return "/login/QrLoginResult";
 		else return "/testwaiting/kakaoerror";
@@ -256,13 +248,9 @@ public class LoginController {
 	//QR 검증 -> 타임아웃이나 새로고침을 한경우 기존 uuid 를 제거해준다.
 	@RequestMapping(value = "/loginQrRemove.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public int loginQrRemove(HttpServletRequest request, HttpServletResponse response) {
+	public int loginQrRemove(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
-		int result = logService.loginQrDelete(request);
-		
-		//System.out.println("result : "+result);
-		
-		return result;
+		return logService.loginQrDelete(request, ea);
 	}
 	
 	//QR 로그인 점근 비허용 컨트롤러
@@ -273,7 +261,7 @@ public class LoginController {
 	
 	}
 	
-	
+	//여기까지 일단 정리함
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
