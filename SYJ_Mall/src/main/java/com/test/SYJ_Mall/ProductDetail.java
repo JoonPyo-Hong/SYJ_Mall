@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.SYJ_Mall.productDetail.IProductDetailService;
 
+/**
+ * 
+ * @author shin
+ *
+ */
 @Controller
 public class ProductDetail {
 	
@@ -23,7 +28,7 @@ public class ProductDetail {
 		//String prodtSeq = request.getParameter("prodtSeq");//제품번호
 		
 		
-		return null;
+		return "/semitiles/productDetail.layout";
 	}
 
 }

@@ -253,7 +253,7 @@ public class LoginController {
 		return logService.loginQrDelete(request, ea);
 	}
 	
-	//QR 로그인 점근 비허용 컨트롤러
+	//QR 로그인 접근 비허용 컨트롤러
 	@RequestMapping(value = "/qrLoginBannedMonitor.action", method = { RequestMethod.GET })
 	public String qrLoginBannedMonitor(HttpServletRequest request, HttpServletResponse response) {
 		

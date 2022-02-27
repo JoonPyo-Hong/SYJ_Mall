@@ -137,6 +137,19 @@
 	</definition>
 	
 	
+	<!-- 4. 세미타일즈 ver4 -->
+	<definition name="newsemiDefaultThree" template="/WEB-INF/views/Layout/semiLayoutThree.jsp">
+		<put-attribute name="body" value="" />
+	</definition>	
+	
+	<!-- 상품상세 -->
+	<definition name = "/semitiles/productDetail.layout" extends="newsemiDefaultThree">
+		<put-attribute name = "body" value="/WEB-INF/views/productInfo/productDetail.jsp"/>	
+	</definition>
+	
+
+	
+	
 	
 	
 </tiles-definitions>
