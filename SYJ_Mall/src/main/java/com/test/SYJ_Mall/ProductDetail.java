@@ -25,7 +25,8 @@ public class ProductDetail {
 	@RequestMapping(value = "/productDetailMain.action", method = { RequestMethod.GET})
 	public String productDetailMain(HttpServletRequest request, HttpServletResponse response) {
 		
-		//String prodtSeq = request.getParameter("prodtSeq");//제품번호
+		String prodtSeq = request.getParameter("prodtSeq");//제품번호
+		
 		
 		
 		return "/semitiles/productDetail.layout";
