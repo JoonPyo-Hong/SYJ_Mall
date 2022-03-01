@@ -710,11 +710,9 @@ hr.division {
                                 <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
                             </div>
                             <div class="swiper-slide">
-                                <!-- <img src="./../images/product-datail/20210622180643394_8809721509975_AW_01.jpg"> -->
                                 <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
                             </div>
                             <div class="swiper-slide">
-                                <!-- <img src="./../images/product-datail/20210622180643429_8809721509975_AW_02.jpg"> -->
                                 <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
                             </div>
                         </div>

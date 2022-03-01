@@ -152,5 +152,24 @@ public class StringFormatClass {
 		else return false;
 		
 	}
+		
+	/**
+	 * 전체 문자열에서 특정 문자가 들어갔는지 확인해주는 메소드
+	 * @param totalString
+	 * @param seperator
+	 * @param search
+	 * @return
+	 */
+	public boolean findObjectInString(String totalString, String seperator, String search) {
+		
+		StringTokenizer stk = new StringTokenizer(totalString,seperator);
+		
+		while(stk.hasMoreTokens()) {
+    		if (stk.nextToken().equals(search)) return true;
+    	}
+		
+		return false;
+	}
+	
 
 }
