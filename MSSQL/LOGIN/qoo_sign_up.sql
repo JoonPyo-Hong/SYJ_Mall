@@ -4,8 +4,9 @@
 	Description : 회원가입
 	     
 	History	: 2021-05-22 Seunghwan Shin	#최초 생성  
+			  2022-03-02 Seunghwan Shin	#트랜잭션 처리 변경  
 */
-CREATE proc dbo.qoo_sign_up
+alter proc dbo.qoo_sign_up
 	@qoouser_id varchar(100) -- 아이디
 ,	@qoouser_pw varchar(800) -- 비밀번호
 ,	@qoouser_birthday datetime -- 생년월일
@@ -22,10 +23,8 @@ as
 set nocount on 
 set transaction isolation level read uncommitted 
 begin 
-  
-begin try
-	
-		begin tran
+
+
 			insert into dbo.QOO10_USER_REAL 
 			(
 				qoouser_id
@@ -66,14 +65,15 @@ begin try
 			,	@qoouser_ipaddress
 			,	@qoouser_name
 			)
-		commit tran
-		set @check = 1
-
-	end try
-	begin catch
-		set @check = -1
-		rollback tran
-	end catch
+		
+			if @@ERROR <> 0
+			begin
+				set @check = -1
+			end
+			else
+			begin
+				set @check = 1
+			end
 
 end
 
