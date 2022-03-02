@@ -361,48 +361,52 @@ public class LoginService implements ILoginService {
 		dao.autoLoginPassTrace(userSeq, ipaddress);
 
 	}
-
+	
+	// 회원가입 로직
 	@Override
-	public int userSignUp(HttpServletRequest request, SignUpDTO dto)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {// 회원가입 로직
+	public int userSignUp(HttpServletRequest request, SignUpDTO dto, CommonDate comDate, StringBuffer sb, ErrorAlarm ea) {
+		
+		try {
+			Map<String, String> map = getRSAkey(request);
 
-		Map<String, String> map = getRSAkey(request);
+			String qoouser_id = map.get("id");// 회원가입 아이디
+			String qoouser_pw = pwEnc(map.get("pw"));// 암호화 해줘야한다. -> 회원가입 비밀번호
+			String qoouser_name = request.getParameter("name_input");// 회원가입 이름
+			String qoouser_gender = request.getParameter("sex_input");// 회원가입 성별
+			String qoouser_nation = request.getParameter("nation_input");// 회원가입 국가
+			
+			sb = new StringBuffer();
+			sb.append(request.getParameter("yy_input"));
+			sb.append("-");
+			sb.append(request.getParameter("mm_input"));
+			sb.append("-");
+			sb.append(comDate.dateTypeConvert(request.getParameter("dd_input")));
 
-		CommonDate comDate = new CommonDate();
+			String qoouser_birthday = sb.toString();// 회원가입 생년월일
+			String qoouser_phone_num = request.getParameter("phone_input");// 회원가입 전화번호
 
-		String qoouser_id = map.get("id");// 회원가입 아이디
-		String qoouser_pw = pwEnc(map.get("pw"));// 암호화 해줘야한다. -> 회원가입 비밀번호
-		String qoouser_name = request.getParameter("name_input");// 회원가입 이름
-		String qoouser_gender = request.getParameter("sex_input");// 회원가입 성별
-		String qoouser_nation = request.getParameter("nation_input");// 회원가입 국가
+			sb.setLength(0);// StringBuffer 객체 초기화
+			sb.append(request.getParameter("email_input_address"));
+			sb.append("@");
+			sb.append(request.getParameter("email_input_site"));
 
-		StringBuffer sb = new StringBuffer();
-		sb.append(request.getParameter("yy_input"));
-		sb.append("-");
-		sb.append(request.getParameter("mm_input"));
-		sb.append("-");
-		sb.append(comDate.dateTypeConvert(request.getParameter("dd_input")));
+			String qoouser_email = sb.toString();// 회원가입 이메일주소
+			String qoouser_receive_email = request.getParameter("email_agree_input");
+			String qoouser_receive_sms = request.getParameter("sms_agree_input");
 
-		String qoouser_birthday = sb.toString();// 회원가입 생년월일
-		String qoouser_phone_num = request.getParameter("phone_input");// 회원가입 전화번호
+			String qoouser_ipaddress = ipCheck(request);
 
-		sb.setLength(0);// StringBuffer 객체 초기화
-		sb.append(request.getParameter("email_input_address"));
-		sb.append("@");
-		sb.append(request.getParameter("email_input_site"));
+			dto = new SignUpDTO(qoouser_id, qoouser_pw, qoouser_name, qoouser_gender, qoouser_nation, qoouser_birthday,
+					qoouser_phone_num, qoouser_email, qoouser_receive_email, qoouser_receive_sms, qoouser_ipaddress);
 
-		String qoouser_email = sb.toString();// 회원가입 이메일주소
-		String qoouser_receive_email = request.getParameter("email_agree_input");
-		String qoouser_receive_sms = request.getParameter("sms_agree_input");
+			return dao.signUp(dto);
+		} catch(Exception e) {
+			ea.basicErrorException(request,e);
+			return -1;
+		}
+		
+		
 
-		String qoouser_ipaddress = ipCheck(request);
-
-		dto = new SignUpDTO(qoouser_id, qoouser_pw, qoouser_name, qoouser_gender, qoouser_nation, qoouser_birthday,
-				qoouser_phone_num, qoouser_email, qoouser_receive_email, qoouser_receive_sms, qoouser_ipaddress);
-
-		int result = dao.signUp(dto);
-
-		return result;
 	}
 
 	// 유저 아이디 확인
@@ -502,13 +506,18 @@ public class LoginService implements ILoginService {
 
 	// RSA 대칭키 생성 -> 굳이 매소드로 만들어줘야 하나? 일단 검토
 	@Override
-	public int setRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public int setRSAkey(HttpServletRequest request, ErrorAlarm ea) {
 		
-		RSAalgorithm rsa = new RSAalgorithm();
+		try {
+			RSAalgorithm rsa = new RSAalgorithm();
+			rsa.setRSA(request);
 
-		rsa.setRSA(request);
-
-		return 0;
+			return 1;
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+		
 	}
 
 	// RSA 대칭키 - 복호화
@@ -576,20 +585,13 @@ public class LoginService implements ILoginService {
 
 	// 로그인 - 유저가 임시비밀번호 발급받아서 새 비밀번호 지정이 필요함
 	@Override
-	public int userRedefinedPw(HttpServletRequest request, int userSeq, String ip) {
+	public int userRedefinedPw(HttpServletRequest request, int userSeq, String ip, ErrorAlarm ea) {
 
 		HttpSession userSession = request.getSession();
 		userSession.setAttribute("userSeq", userSeq);// 유저 고유번호를 세션에 넘겨준다.
 
-		try {
-			int val = setRSAkey(request);
-			return 1;
-		} catch (Exception e) {
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
-			return -1;
-		}
+		return setRSAkey(request,ea);
+			
 	}
 
 	// 회원가입 - 고객이 입력한 전화번호가 중복이 되는지 체크
@@ -951,7 +953,7 @@ public class LoginService implements ILoginService {
 
 				} else if (loginCode == 1) {// 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
 					// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
-					int result = userRedefinedPw(request, userSeq, ip);
+					int result = userRedefinedPw(request, userSeq, ip,ea);
 					
 					
 					if (result == 1) {
@@ -1028,7 +1030,7 @@ public class LoginService implements ILoginService {
 
 			} else if (loginCode == 1 && loginSave != -1) {// 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
 				// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
-				int result = userRedefinedPw(request, userSeq, ip);
+				int result = userRedefinedPw(request, userSeq, ip, ea);
 				
 				if (result == 1) {
 					return "/login/UserLoginPwRedefine";

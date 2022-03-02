@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utill.AES256Util;
 import com.common.utill.CommonDAO;
+import com.common.utill.CommonDate;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
@@ -261,7 +262,7 @@ public class LoginController {
 	
 	}
 	
-	//여기까지 일단 정리함
+	
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
@@ -277,43 +278,28 @@ public class LoginController {
 
 	// 회원가입 페이지로 보내주는 곳
 	@RequestMapping(value = "/userSignUp.action", method = { RequestMethod.GET })
-	public String signUp(HttpServletRequest request, HttpServletResponse response) {
-		IpCheck ic = new IpCheck();
+	public String signUp(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		int result = logService.setRSAkey(request,ea);// rsa대칭키 생성
+		
+		if (result == 1) return "/login/usersignup";
+		else return "/testwaiting/kakaoerror";
 
-		// 비밀번호를 암호하하기 위해서 RSA 대칭키를 써줄것이다.
-		try {
-			int result = logService.setRSAkey(request);// rsa대칭키 생성
-		} catch (Exception e) {
-			
-			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
-			
-			return "/testwaiting/kakaoerror";
-		}
-
-		return "/login/usersignup";
+		
 	}
-
+	//여기까지 일단 정리함
+	
 	// 회원가입 페이지 - main
 	@RequestMapping(value = "/userSignUpGo.action", method = { RequestMethod.POST })
-	public String signUpGo(HttpServletRequest request, HttpServletResponse response, SignUpDTO dto)
-			throws UnsupportedEncodingException {
-		IpCheck ic = new IpCheck();
-		request.setCharacterEncoding("UTF-8");
+	public String signUpGo(HttpServletRequest request, HttpServletResponse response, SignUpDTO dto, ErrorAlarm ea, CommonDate comDate, StringBuffer sb) {
+		
+		
+		int result = logService.userSignUp(request, dto, comDate, sb, ea);
 
-		try {
-			int result = logService.userSignUp(request, dto);
-		} catch (Exception e) {
-			
-			ErrorAlarm ea = new ErrorAlarm(e, ic.getClientIP(request));
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
-			
-			return "/testwaiting/kakaoerror";
-		}
+		
+		if (result == 1) return "/login/UserLoginSuccess";
+		else return "/testwaiting/kakaoerror";
 
-		return "/login/UserLoginSuccess";
 	}
 
 	// 회원가입 페이지 - 아이디 검증(ajax)
@@ -457,7 +443,7 @@ public class LoginController {
 
 	// 비밀번호 찾기 : 임시비번 -> 비밀번호 변경 -> 다시 로그인 해주는 로직
 	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
-	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) {
 
 
 		try {

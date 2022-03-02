@@ -75,9 +75,8 @@ public class LoginDAO implements ILoginDAO {
 	@Override
 	public int signUp(SignUpDTO dto) {
 		
-		template.selectOne("SYJDB.qooSignUpsp", dto);
+		return template.selectOne("SYJDB.qooSignUpsp", dto);		
 		
-		return 0;
 	}
 
 	

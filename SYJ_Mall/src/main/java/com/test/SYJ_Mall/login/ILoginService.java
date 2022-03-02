@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 
 import com.common.utill.AES256Util;
 import com.common.utill.CommonDAO;
+import com.common.utill.CommonDate;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
@@ -93,14 +94,15 @@ public interface ILoginService {
 
 	
 	/**
-	 * 회원가입
+	 * 회원가입 로직
 	 * @param request
 	 * @param dto
-	 * @return	회원가입 결과 -> 1 : 성공, -1 : 실패
-	 * @throws NoSuchAlgorithmException
-	 * @throws InvalidKeySpecException
+	 * @param comDate
+	 * @param sb
+	 * @param ea
+	 * @return 회원가입 결과 -> 1 : 성공, -1 : 실패
 	 */
-	int userSignUp(HttpServletRequest request,SignUpDTO dto) throws NoSuchAlgorithmException, InvalidKeySpecException;//회원가입 해주는 로직
+	int userSignUp(HttpServletRequest request,SignUpDTO dto, CommonDate comDate, StringBuffer sb, ErrorAlarm ea);
 	
 	/**
 	 * 유저회원가입 - 아이디 검증
@@ -119,10 +121,11 @@ public interface ILoginService {
 	
 	/**
 	 * RSA 대칭키 암호화
-	 * @param request	request 객체
-	 * @return			-1 : 오류 , 1 : 성공
-	 */	
-	int setRSAkey(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException;
+	 * @param request
+	 * @param ea
+	 * @return	-1 : 오류 , 1 : 성공
+	 */
+	int setRSAkey(HttpServletRequest request, ErrorAlarm ea);
 	
 	/**
 	 * RSA 대칭키 복호화
@@ -133,11 +136,6 @@ public interface ILoginService {
 	 */
 	HashMap<String,String> getRSAkey(HttpServletRequest request);
 	
-	
-	/**
-	 * 
-
-	 */
 	
 	/**
 	 * 첫번째 로그인 과정 - 광고넘겨주고 rsa키값 넘겨준다
@@ -183,14 +181,16 @@ public interface ILoginService {
 	 */
 	int userPhoneNumVerify(HttpServletRequest request);
 	
+	
 	/**
 	 * 로그인 - 유저가 임시비밀번호 발급받아서 비밀번호 변경해야함
 	 * @param request	request 객체
 	 * @param userSeq	유저 고유번호
 	 * @param ip		유저 아이피 주소
-	 * @return			1: 성공, -1: 실패
+	 * @param ea		1: 성공, -1: 실패
+	 * @return
 	 */
-	int userRedefinedPw(HttpServletRequest request, int userSeq, String ip);
+	int userRedefinedPw(HttpServletRequest request, int userSeq, String ip, ErrorAlarm ea);
 	
 	
 	
