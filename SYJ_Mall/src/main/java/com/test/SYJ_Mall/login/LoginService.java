@@ -411,96 +411,107 @@ public class LoginService implements ILoginService {
 
 	// 유저 아이디 확인
 	@Override
-	public int userSignUpIdVerify(HttpServletRequest request) {
-
-		String inputId = request.getParameter("checkid");
-
-		int result = dao.signUpIdVerifyCheck(inputId);
-
-		return result;
+	public int userSignUpIdVerify(HttpServletRequest request, ErrorAlarm ea) {
+		
+		try {
+			String inputId = request.getParameter("checkid");
+			
+			return dao.signUpIdVerifyCheck(inputId);
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
 	}
 
 	// 유저 비밀번호 확인
 	@Override
-	public int userSignUpPwVerify(HttpServletRequest request) {
+	public int userSignUpPwVerify(HttpServletRequest request, ErrorAlarm ea) {
+		
+		
+		try {
+			String inputPw = request.getParameter("checkpw");
 
-		String inputPw = request.getParameter("checkpw");
+			// 1: pass , else : fail
 
-		// 1: pass , else : fail
+			// 최소 8자, 최대 16자 상수 선언
+			final int MIN = 8;
+			final int MAX = 16;
 
-		// 최소 8자, 최대 16자 상수 선언
-		final int MIN = 8;
-		final int MAX = 16;
+			// 영어, 숫자, 특수문자 포함한 MIN to MAX 글자 정규식
+			final String REGEX = "^((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\\W]).{" + MIN + "," + MAX + "})$";
 
-		// 영어, 숫자, 특수문자 포함한 MIN to MAX 글자 정규식
-		final String REGEX = "^((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\\W]).{" + MIN + "," + MAX + "})$";
+			// 3자리 연속 문자 정규식
+			final String SAMEPT = "(\\w)\\1\\1";
+			// 공백 문자 정규식
+			final String BLANKPT = "(\\s)";
 
-		// 3자리 연속 문자 정규식
-		final String SAMEPT = "(\\w)\\1\\1";
-		// 공백 문자 정규식
-		final String BLANKPT = "(\\s)";
+			// 정규식 검사객체
+			Matcher matcher;
 
-		// 정규식 검사객체
-		Matcher matcher;
+			// 공백 체크
+			if (inputPw == null || "".equals(inputPw)) {
+				return -1;// -1 : 공백문제
+			}
 
-		// 공백 체크
-		if (inputPw == null || "".equals(inputPw)) {
-			return -1;// -1 : 공백문제
-		}
+			// ASCII 문자 비교를 위한 UpperCase
+			String tmpPw = inputPw.toUpperCase();
+			// 문자열 길이
+			int strLen = tmpPw.length();
 
-		// ASCII 문자 비교를 위한 UpperCase
-		String tmpPw = inputPw.toUpperCase();
-		// 문자열 길이
-		int strLen = tmpPw.length();
+			// 글자 길이 체크
+			if (strLen > 16 || strLen < 8) {
+				return -2;// -2 : 글자 길이 문제
+			}
 
-		// 글자 길이 체크
-		if (strLen > 16 || strLen < 8) {
-			return -2;// -2 : 글자 길이 문제
-		}
+			// 공백 체크
+			matcher = Pattern.compile(BLANKPT).matcher(tmpPw);
+			if (matcher.find()) {
+				return -1; // -1 : 공백문제
+			}
 
-		// 공백 체크
-		matcher = Pattern.compile(BLANKPT).matcher(tmpPw);
-		if (matcher.find()) {
-			return -1; // -1 : 공백문제
-		}
+			// 비밀번호 정규식 체크
+			matcher = Pattern.compile(REGEX).matcher(inputPw);
+			if (!matcher.find()) {
+				return -3; // 정규식 문제 -> 대,소문자 특수기호
+			}
 
-		// 비밀번호 정규식 체크
-		matcher = Pattern.compile(REGEX).matcher(inputPw);
-		if (!matcher.find()) {
-			return -3; // 정규식 문제 -> 대,소문자 특수기호
-		}
+			// 동일한 문자 3개 이상 체크
+			matcher = Pattern.compile(SAMEPT).matcher(tmpPw);
+			if (matcher.find()) {
+				return -4;// 동일한문제 3개 이상 쓰기 금지
+			}
 
-		// 동일한 문자 3개 이상 체크
-		matcher = Pattern.compile(SAMEPT).matcher(tmpPw);
-		if (matcher.find()) {
-			return -4;// 동일한문제 3개 이상 쓰기 금지
-		}
+			// ASCII Char를 담을 배열 선언
+			int[] tmpArray = new int[strLen];
 
-		// ASCII Char를 담을 배열 선언
-		int[] tmpArray = new int[strLen];
+			// Make Array
+			for (int i = 0; i < strLen; i++) {
+				tmpArray[i] = tmpPw.charAt(i);
+			}
 
-		// Make Array
-		for (int i = 0; i < strLen; i++) {
-			tmpArray[i] = tmpPw.charAt(i);
-		}
-
-		// Validation Array
-		for (int i = 0; i < strLen - 2; i++) {
-			// 첫 글자 A-Z / 0-9
-			if ((tmpArray[i] > 47 && tmpArray[i + 2] < 58) || (tmpArray[i] > 64 && tmpArray[i + 2] < 91)) {
-				// 배열의 연속된 수 검사
-				// 3번째 글자 - 2번째 글자 = 1, 3번째 글자 - 1번째 글자 = 2
-				if (Math.abs(tmpArray[i + 2] - tmpArray[i + 1]) == 1 && Math.abs(tmpArray[i + 2] - tmpArray[i]) == 2) {
-					char c1 = (char) tmpArray[i];
-					char c2 = (char) tmpArray[i + 1];
-					char c3 = (char) tmpArray[i + 2];
-					return -5;// 연속된수 금지
+			// Validation Array
+			for (int i = 0; i < strLen - 2; i++) {
+				// 첫 글자 A-Z / 0-9
+				if ((tmpArray[i] > 47 && tmpArray[i + 2] < 58) || (tmpArray[i] > 64 && tmpArray[i + 2] < 91)) {
+					// 배열의 연속된 수 검사
+					// 3번째 글자 - 2번째 글자 = 1, 3번째 글자 - 1번째 글자 = 2
+					if (Math.abs(tmpArray[i + 2] - tmpArray[i + 1]) == 1 && Math.abs(tmpArray[i + 2] - tmpArray[i]) == 2) {
+						char c1 = (char) tmpArray[i];
+						char c2 = (char) tmpArray[i + 1];
+						char c3 = (char) tmpArray[i + 2];
+						return -5;// 연속된수 금지
+					}
 				}
 			}
-		}
 
-		// 아무것도 걸리지 않으면 정상적으로 0을 반환시켜준다.
-		return 0;
+			// 아무것도 걸리지 않으면 정상적으로 0을 반환시켜준다.
+			return 0;
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+		
 
 	}
 
@@ -546,13 +557,18 @@ public class LoginService implements ILoginService {
 
 	// 회원가입 - 유저 이메일 중복 확인
 	@Override
-	public int userEmailVerify(HttpServletRequest request) {
-
-		String fullEmail = request.getParameter("fullEmail");
-
-		int result = dao.emailVerifyCheck(fullEmail);
-
-		return result;
+	public int userEmailVerify(HttpServletRequest request,ErrorAlarm ea) {
+		
+		try {
+			
+			String fullEmail = request.getParameter("fullEmail");
+			return dao.emailVerifyCheck(fullEmail);
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+			
+		}
 	}
 
 	// 유저의 아이디를 찾아줌

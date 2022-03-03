@@ -287,7 +287,6 @@ public class LoginController {
 
 		
 	}
-	//여기까지 일단 정리함
 	
 	// 회원가입 페이지 - main
 	@RequestMapping(value = "/userSignUpGo.action", method = { RequestMethod.POST })
@@ -301,36 +300,41 @@ public class LoginController {
 		else return "/testwaiting/kakaoerror";
 
 	}
+	
 
 	// 회원가입 페이지 - 아이디 검증(ajax)
 	@RequestMapping(value = "/userSignUpIdCheck.action", method = { RequestMethod.GET })
-	public void idVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		PrintWriter out = response.getWriter();
-		int result = logService.userSignUpIdVerify(request);// -1 을 가져오거나 1을 가져오는데 뭐지?
-
-		out.print(result);
+	@ResponseBody
+	public int idVerify(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return logService.userSignUpIdVerify(request,ea);
+		
 	}
-
+	
+	
+	
 	// 회원가입 페이지 - 비밀번호 검증(ajax)
 	@RequestMapping(value = "/userSignUpPwCheck.action", method = { RequestMethod.POST })
-	public void pwVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		PrintWriter out = response.getWriter();
-		int result = logService.userSignUpPwVerify(request);
-
-		out.print(result);
+	@ResponseBody
+	public int pwVerify(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return logService.userSignUpPwVerify(request,ea);
+		
 	}
+	
+	
 
 	// 회원가입 페이지 - 사용자 이메일 아이디 검증(ajax)
 	@RequestMapping(value = "/userEmailVerifyCheck.action", method = { RequestMethod.GET })
-	public void emailVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		PrintWriter out = response.getWriter();
-		int result = logService.userEmailVerify(request);
-
-		out.print(result);
+	@ResponseBody
+	public int emailVerify(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea)  {
+		
+		return logService.userEmailVerify(request,ea);
+		
+	
 	}
+	
+	//여기까지 일단 정리함
 
 	// 회원가입 페이지 - 사용자 전화번호 검증(ajax)
 	@RequestMapping(value = "/userPhoneVerifyCheck.action", method = { RequestMethod.GET })

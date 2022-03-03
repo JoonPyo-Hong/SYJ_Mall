@@ -104,19 +104,28 @@ public interface ILoginService {
 	 */
 	int userSignUp(HttpServletRequest request,SignUpDTO dto, CommonDate comDate, StringBuffer sb, ErrorAlarm ea);
 	
+
 	/**
 	 * 유저회원가입 - 아이디 검증
-	 * @param request	request 객체
-	 * @return			-1 : 사용불가, 1 : 사용가능
+	 * @param request
+	 * @param ea
+	 * @return	-1 : 사용불가, 1 : 사용가능
 	 */
-	int userSignUpIdVerify(HttpServletRequest request);
+	int userSignUpIdVerify(HttpServletRequest request,ErrorAlarm ea);
+	
+	/**
+	 * 
+	 * @param request	request 객체
+	 * @return			
+	 */
 	
 	/**
 	 * 유저회원가입 - 비밀번호 검증
-	 * @param request	request 객체
-	 * @return			-1 : 비밀번호가 안전하지 않음, 1 : 비밀번호가 안전해서 사용가능
+	 * @param request
+	 * @param ea
+	 * @return	-1 : 비밀번호가 안전하지 않음, 1 : 비밀번호가 안전해서 사용가능
 	 */
-	int userSignUpPwVerify(HttpServletRequest request);
+	int userSignUpPwVerify(HttpServletRequest request,ErrorAlarm ea);
 	
 	
 	/**
@@ -151,9 +160,10 @@ public interface ILoginService {
 	/**
 	 * 유저회원가입 - 이메일 아이디 중복 체크
 	 * @param request	request 객체
+	 * @param ea
 	 * @return			1 : 성공, -1 : 실패
 	 */
-	int userEmailVerify(HttpServletRequest request);
+	int userEmailVerify(HttpServletRequest request, ErrorAlarm ea);
 	
 
 	
