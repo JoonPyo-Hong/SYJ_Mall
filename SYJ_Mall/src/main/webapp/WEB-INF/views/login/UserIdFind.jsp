@@ -178,8 +178,7 @@
 		
       	//일치하는 정보가 있는지 없는지 ajax를 통해 체크후 보내준는 작업
       	function goCheck() {
-      		
-      	
+    
       		$.ajax({
                 type:"POST",
                 url: "/SYJ_Mall/userFindIdCheck.action" ,
@@ -187,8 +186,8 @@
                 dataType : "json",
                 success : function(result) {
                 	
-                	var userId = result.userId;
-                	var phone = result.phone
+                	const userId = result.userId;
+                	const phone = result.phone
 
                 	if (userId == null) {
                 		$("#myModal").modal();

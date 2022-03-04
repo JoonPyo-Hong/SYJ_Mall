@@ -573,23 +573,31 @@ public class LoginService implements ILoginService {
 
 	// 유저의 아이디를 찾아줌
 	@Override
-	public JSONObject findUserId(String email, String phone) {
+	public LoginFindIdDTO findUserId(HttpServletRequest request,ErrorAlarm ea, StringFormatClass sfc , LoginFindIdDTO dto) {
 
-		StringFormatClass sfc = new StringFormatClass();
-		String userId = dao.findUserId(email, phone);
+		try {
+			String email = request.getParameter("inputmail");
+			String phone = request.getParameter("inputphone");
+			
+			String userId = dao.findUserId(email, phone);
 
-		if (userId != null) {
-			userId = sfc.maskigId(userId);
+			if (userId != null) {
+				userId = sfc.maskigId(userId);
+			}
+			
+			phone = sfc.getPhoneNumHypoon(phone);
+			
+			dto = new LoginFindIdDTO(userId,phone);
+			
+			return dto;
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return null;
 		}
+		
 
-		phone = sfc.getPhoneNumHypoon(phone);
-
-		JSONObject obj = new JSONObject();
-
-		obj.put("userId", userId);
-		obj.put("phone", phone);
-
-		return obj;
+		
 	}
 
 	// 유저의 비밀번호를 찾기전에 아이디가 존재하는지 검증하는 작업
@@ -612,11 +620,18 @@ public class LoginService implements ILoginService {
 
 	// 회원가입 - 고객이 입력한 전화번호가 중복이 되는지 체크
 	@Override
-	public int userPhoneNumVerify(HttpServletRequest request) {
+	public int userPhoneNumVerify(HttpServletRequest request,ErrorAlarm ea) {
+		
+		try {
+			
+			String userPhoneNum = request.getParameter("phoneNum");
 
-		String userPhoneNum = request.getParameter("phoneNum");
-
-		return dao.phoneVerifyCheck(userPhoneNum);
+			return dao.phoneVerifyCheck(userPhoneNum);
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+		
 	}
 
 	// 고객이 직접 새로운 비밀번호 넘겨준곳

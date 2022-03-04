@@ -165,15 +165,15 @@ public interface ILoginService {
 	 */
 	int userEmailVerify(HttpServletRequest request, ErrorAlarm ea);
 	
-
-	
 	/**
 	 * 유저 아이디 찾아주기
-	 * @param email	유저 이메일
-	 * @param phone	유저 휴대폰 번호
-	 * @return		유저관련 json 객체
+	 * @param request
+	 * @param ea
+	 * @param sfc
+	 * @param dto
+	 * @return
 	 */
-	JSONObject findUserId(String email, String phone);
+	LoginFindIdDTO findUserId(HttpServletRequest request, ErrorAlarm ea, StringFormatClass sfc, LoginFindIdDTO dto);
 	
 	/**
 	 * 유저 비밀번호 찾기전 해당 아이디가 존재하는지 확인하는 작업
@@ -187,9 +187,10 @@ public interface ILoginService {
 	/**
 	 * 회원가입 - 고객이 입력한 전화번호가 중복되지 않는지 체크
 	 * @param request	request 객체	
+	 * @param ea		ErrorAlarm 객체
 	 * @return			1 : 중복안됨, -1 : 중복됨
 	 */
-	int userPhoneNumVerify(HttpServletRequest request);
+	int userPhoneNumVerify(HttpServletRequest request, ErrorAlarm ea);
 	
 	
 	/**

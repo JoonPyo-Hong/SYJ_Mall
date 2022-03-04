@@ -25,6 +25,7 @@ import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
+import com.test.SYJ_Mall.login.LoginFindIdDTO;
 import com.test.SYJ_Mall.login.SignUpDTO;
 
 /**
@@ -334,16 +335,15 @@ public class LoginController {
 	
 	}
 	
-	//여기까지 일단 정리함
+	
 
 	// 회원가입 페이지 - 사용자 전화번호 검증(ajax)
 	@RequestMapping(value = "/userPhoneVerifyCheck.action", method = { RequestMethod.GET })
-	public void phoneNumVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		PrintWriter out = response.getWriter();
-		int result = logService.userPhoneNumVerify(request);
-
-		out.print(result);
+	@ResponseBody
+	public int phoneNumVerify(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return logService.userPhoneNumVerify(request,ea);
+		
 	}
 
 	/*------------------------------------------------------------------------------------------------------------------------------*/
@@ -363,20 +363,17 @@ public class LoginController {
 
 		return "/login/UserIdFind";
 	}
-
+	
 	// 아이디 찾기 확인로직
 	@RequestMapping(value = "/userFindIdCheck.action", method = { RequestMethod.POST })
-	public void findIdCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		String email = request.getParameter("inputmail");
-		String phone = request.getParameter("inputphone");
-
-		PrintWriter out = response.getWriter();
-		JSONObject obj = logService.findUserId(email, phone);
-
-		out.print(obj);
-
+	@ResponseBody
+	public LoginFindIdDTO findIdCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sfc, LoginFindIdDTO dto) {
+		
+		return logService.findUserId(request, ea, sfc ,dto);
+		
 	}
+	
+	//여기까지 일단 정리함
 
 	// 아이디 찾기 확인로직
 	@RequestMapping(value = "/userFindIdCheckFinal.action", method = { RequestMethod.POST })
