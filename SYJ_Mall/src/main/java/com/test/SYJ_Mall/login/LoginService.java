@@ -52,19 +52,22 @@ public class LoginService implements ILoginService {
 	
 	@Override
 	//임시비밀번호 생성후 -> 메일로 보내주기
-	public int emailCertify(String userId,String userEmail,String userPhone) {
+	public int emailCertify(HttpServletRequest request, StringFormatClass sfc, Encryption enc, MessageSender ms, ErrorAlarm ea) {
 		
 		try {
+			
+			String userId = request.getParameter("kakaoId");
+			String userEmail = request.getParameter("kakaoMail");
+			String userPhone = request.getParameter("kakaoPhone");
+			
 			// 임시비밀번호 생성
-			Encryption enc = new Encryption();
 			String instPw = enc.randomPw();// 임시비밀번호
-			String encInstPw = enc.returnEncVoca(instPw);// 암호화된 임시비밀번호			
+			String encInstPw = enc.returnEncVoca(instPw);// 암호화된 임시비밀번호		
 			
 			// 디비에 접근해서 고객의 비밀번호 변경 -> 임시비밀번호로 변경한다.
-			int modifyResult = dao.modifyUserPw(userId, userEmail, userPhone, encInstPw);			
+			int modifyResult = dao.modifyUserPw(userId, userEmail, userPhone, encInstPw);	
 			
-			if (modifyResult == 1) {
-				
+			if (modifyResult == 1) { 
 				StringBuffer sb = new StringBuffer();
 				sb.append("안녕하세요\n");
 				sb.append("고객님의 임시비밀번호는 : ");
@@ -72,20 +75,21 @@ public class LoginService implements ILoginService {
 				sb.append(" 입니다.\n");
 				sb.append("감사합니다.");
 				
-				MessageSender ms = new MessageSender("카카오 임시비밀번호 보내드립니다.", sb.toString(), userEmail);
+				ms = new MessageSender("카카오 임시비밀번호 보내드립니다.", sb.toString(), userEmail);
 				
 				ms.sendDefaultMassage();
-	            
-	            return 1;
-			} else {
-				return -1;
+				
+				String sendEmail = sfc.maskingMail(userEmail);
+				request.setAttribute("sendEmail", sendEmail);
+				
 			}
 			
+			return modifyResult;
+			
 		} catch(Exception e) {
-			e.printStackTrace();
+			ea.basicErrorException(request, e);
 			return -1;
 		}
-
 
 	}
 	
@@ -594,18 +598,50 @@ public class LoginService implements ILoginService {
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return null;
-		}
-		
-
-		
+		}	
 	}
+	
+	//유저의 아이디 찾기 - 정보 제공
+	@Override
+	public int findUserIdCheck(HttpServletRequest request, ErrorAlarm ea) {
+		
+		try {
+			
+			String userId = request.getParameter("throwUserId");
+			String phone = request.getParameter("throwUserPhone");
+			
+			if (userId == null || phone == null) return -1;
+			
+			request.setAttribute("userId", userId);
+			request.setAttribute("phone", phone);
+			
+			return 1;
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+	}
+	
 
 	// 유저의 비밀번호를 찾기전에 아이디가 존재하는지 검증하는 작업
 	@Override
-	public int findUserPw(String userId, String userEmail, String userPhone) {
-
-		return dao.findUserPwExist(userId, userEmail, userPhone);
+	public int findUserPw(HttpServletRequest request, ErrorAlarm ea) {
+		
+		try {
+			
+			String userId = request.getParameter("userId");
+			String userEmail = request.getParameter("userEmail");
+			String userPhone = request.getParameter("userPhone");
+			
+			return dao.findUserPwExist(userId, userEmail, userPhone);
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
 	}
+	
 
 	// 로그인 - 유저가 임시비밀번호 발급받아서 새 비밀번호 지정이 필요함
 	@Override
@@ -636,22 +672,24 @@ public class LoginService implements ILoginService {
 
 	// 고객이 직접 새로운 비밀번호 넘겨준곳
 	@Override
-	public int remodiftUserPw(HttpServletRequest request) {
-
-		RSAalgorithm rsa = new RSAalgorithm();
-		Encryption enc = new Encryption();
-		String userPw = rsa.getRSAonlyPw(request);// 유저가 설정해준 비밀번호에 대한 복호화 작업 수행
-		userPw = enc.returnEncVoca(userPw);// 유저가 설정한 암호를 암호화 해준다.
-
-		HttpSession userSession = request.getSession();
-		int userSeq = (Integer) userSession.getAttribute("userSeq");
-
-		userSession.invalidate();// 세션값 자체를 제거
-
-		// 이제 여기서 유저의 임시비밀번호 기록을 지워야함. 그리고 비밀번호도 바꿔줘야함
-		int result = dao.modifyUserPwRealNew(userSeq, userPw);
-
-		return result;
+	public int remodiftUserPw(HttpServletRequest request, RSAalgorithm rsa, Encryption enc, ErrorAlarm ea) {
+		
+		try {
+			
+			String userPw = rsa.getRSAonlyPw(request);// 유저가 설정해준 비밀번호에 대한 복호화 작업 수행
+			userPw = enc.returnEncVoca(userPw);// 유저가 설정한 암호를 암호화 해준다.
+			
+			HttpSession userSession = request.getSession();
+			int userSeq = (Integer) userSession.getAttribute("userSeq");
+			
+			userSession.invalidate();// 세션값 자체를 제거
+			
+			return dao.modifyUserPwRealNew(userSeq, userPw);
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
 	}
 
 	// 세션객체를 소멸시켜주는 메서드 -> 이게 쓰일지는 잘 모르겠네
@@ -1264,6 +1302,8 @@ public class LoginService implements ILoginService {
 			return -1;
 		}
 	}
+
+
 	
 	
 	

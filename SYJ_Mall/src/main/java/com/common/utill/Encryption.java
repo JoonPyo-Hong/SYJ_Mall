@@ -363,11 +363,11 @@ public class Encryption {
 		
 		Random rnd = new Random();
 		
-		int pwLen = rnd.nextInt(5) + 7;//임시비밀번호의 길이
+		int pwLen = rnd.nextInt(5) + 12;//임시비밀번호의 길이
 		StringBuffer sb = new StringBuffer();
-		
+
 		for (int i = 0; i < pwLen; i++) {
-			char ch = (char)(rnd.nextInt(94) + 33);
+			String ch = innerContents[rnd.nextInt(innerContents.length)];
 			sb.append(ch);
  		}
  		

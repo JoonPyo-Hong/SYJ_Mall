@@ -13,9 +13,11 @@ import org.json.simple.JSONObject;
 import com.common.utill.AES256Util;
 import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
+import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
+import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
@@ -30,12 +32,14 @@ public interface ILoginService {
 	
 	/**
 	 * 이메일 확인
-	 * @param userId
-	 * @param userEmail
-	 * @param userPhone
+	 * @param request
+	 * @param sfc
+	 * @param enc
+	 * @param ms
+	 * @param ea
 	 * @return
 	 */
-	int emailCertify(String userId,String userEmail,String userPhone);
+	int emailCertify(HttpServletRequest request, StringFormatClass sfc, Encryption enc, MessageSender ms, ErrorAlarm ea);
 	
 	/**
 	 * 접속자의 ip를 체크함
@@ -176,13 +180,20 @@ public interface ILoginService {
 	LoginFindIdDTO findUserId(HttpServletRequest request, ErrorAlarm ea, StringFormatClass sfc, LoginFindIdDTO dto);
 	
 	/**
-	 * 유저 비밀번호 찾기전 해당 아이디가 존재하는지 확인하는 작업
-	 * @param userId	유저의 아이디
-	 * @param userEmail	유저의 이메일
-	 * @param userPhone	유저의 전화번호
-	 * @return			1 : 존재, -1 : 존재하지 않음
+	 * 아이디 찾기 확인 과정
+	 * @param request
+	 * @param ea
+	 * @return
 	 */
-	int findUserPw(String userId, String userEmail, String userPhone);
+	int findUserIdCheck(HttpServletRequest request, ErrorAlarm ea);
+	
+	/**
+	 * 유저 비밀번호 찾기전 해당 아이디가 존재하는지 확인하는 작업
+	 * @param request
+	 * @param ea
+	 * @return		1 : 존재, -1 : 존재하지 않음
+	 */
+	int findUserPw(HttpServletRequest request, ErrorAlarm ea);
 	
 	/**
 	 * 회원가입 - 고객이 입력한 전화번호가 중복되지 않는지 체크
@@ -204,13 +215,15 @@ public interface ILoginService {
 	int userRedefinedPw(HttpServletRequest request, int userSeq, String ip, ErrorAlarm ea);
 	
 	
-	
 	/**
 	 * 고객의 임시비밀번호를 다시 바꾸어주는 작업 => 고객이 직접 변경해서 넘어온 값 
-	 * @param request	request 객체
-	 * @return			1 : 성공, -1 : 실패
+	 * @param request
+	 * @param rsa
+	 * @param enc
+	 * @param ea
+	 * @return		1 : 성공, -1 : 실패
 	 */
-	int remodiftUserPw(HttpServletRequest request);
+	int remodiftUserPw(HttpServletRequest request, RSAalgorithm rsa, Encryption enc, ErrorAlarm ea);
 	
 	/**
 	 * 세션객체를 소멸시키는 메서드
@@ -420,6 +433,8 @@ public interface ILoginService {
 	 * @return
 	 */
 	int autoLoginBanned(HttpServletRequest request, ErrorAlarm ea);
+	
+
 	
 
 	

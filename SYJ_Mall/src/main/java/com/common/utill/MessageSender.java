@@ -23,7 +23,10 @@ public class MessageSender {
 	//private String[] addressee;// 수신인들
 	private List<String> addressee;// 수신인들
 	private String addresse;// 수신인
-
+	
+	
+	public MessageSender() {}
+	
 	public MessageSender(String inputSubject, String inputContents, List<String> addressee) {
 
 		this.inputSubject = inputSubject;

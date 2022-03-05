@@ -1,9 +1,5 @@
 package com.test.SYJ_Mall;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.utill.AES256Util;
 import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
+import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
+import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
@@ -373,22 +371,18 @@ public class LoginController {
 		
 	}
 	
-	//여기까지 일단 정리함
 
-	// 아이디 찾기 확인로직
+	// 아이디 찾기 확인로직 -> 해당 정보 일치하는 아이디 정보 제공
 	@RequestMapping(value = "/userFindIdCheckFinal.action", method = { RequestMethod.POST })
-	public String findIdCheckFinal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		String userId = request.getParameter("throwUserId");
-		String phone = request.getParameter("throwUserPhone");
-
-		request.setAttribute("userId", userId);
-		request.setAttribute("phone", phone);
-
-		return "/login/UserIdFindCheck";
+	public String findIdCheckFinal(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		int result = logService.findUserIdCheck(request, ea);
+		
+		if (result == 1) return "/login/UserIdFindCheck";
+		else return "/testwaiting/kakaoerror";
 
 	}
-
+	
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
@@ -400,72 +394,45 @@ public class LoginController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 비밀번호 찾기 로직
 	@RequestMapping(value = "/userFindpw.action", method = { RequestMethod.GET })
-	public String findUserPw(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String findUserPw(HttpServletRequest request, HttpServletResponse response) {
 
 		return "/login/UserFindPw";
 	}
-
+	
+	
+	
 	// 비밀번호 찾기전 해당 정보가 유효한지 체크해준다.
 	@RequestMapping(value = "/userFindpwCheck.action", method = { RequestMethod.POST })
-	public void findUserPwCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		// 여기서 ajax로 넘어온 데이터를 체크하여 존재하는 아이디가 맞고 비밀번호를 바꿀 준비가 되었는지 확인작업을 진행해준다.
-		String userId = request.getParameter("userId");
-		String userEmail = request.getParameter("userEmail");
-		String userPhone = request.getParameter("userPhone");
+	@ResponseBody
+	public int findUserPwCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
-		PrintWriter out = response.getWriter();
-		int result = logService.findUserPw(userId, userEmail, userPhone);
-
-		out.print(result);
+		return logService.findUserPw(request,ea);
+		
 	}
+	
+	//여기까지 일단 정리함
 
 	// 비밀번호 찾기 -> 비밀번호를 변경해주고 회원 이메일로 변경된 임시비밀번호를 발급해준다.
 	@RequestMapping(value = "/userFindpwSend.action", method = { RequestMethod.POST })
-	public String findUserPwSend(HttpServletRequest request, HttpServletResponse response, StringFormatClass sfc)
-			throws IOException {
+	public String findUserPwSend(HttpServletRequest request, HttpServletResponse response, StringFormatClass sfc, Encryption enc, MessageSender ms, ErrorAlarm ea) {
 
-		// 여기서 ajax로 넘어온 데이터를 체크하여 존재하는 아이디가 맞고 비밀번호를 바꿀 준비가 되었는지 확인작업을 진행해준다.
-		String userId = request.getParameter("kakaoId");
-		String userEmail = request.getParameter("kakaoMail");
-		String userPhone = request.getParameter("kakaoPhone");
-
-		// 임시비밀번호 생성
-		int result = logService.emailCertify(userId, userEmail, userPhone);
-
-		if (result == 1) {
-			String sendEmail = sfc.maskingMail(userEmail);
-			request.setAttribute("sendEmail", sendEmail);
-			return "/login/UserFindPwSendEmail";
-		} else {// 에러가 발생한경우
-			return "/testwaiting/kakaoerror";
-		}
+		// 여기서 넘어온 데이터를 체크하여 존재하는 아이디가 맞고 비밀번호를 바꿀 준비가 되었는지 확인작업을 진행해준다.
+		int result = logService.emailCertify(request,sfc,enc,ms,ea);
+		
+		if (result == 1) return "/login/UserFindPwSendEmail";
+		else return "/testwaiting/kakaoerror";
 	}
-
+	
+	
 	// 비밀번호 찾기 : 임시비번 -> 비밀번호 변경 -> 다시 로그인 해주는 로직
 	@RequestMapping(value = "/userRedefinedPw.action", method = { RequestMethod.POST })
-	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response) {
+	public String userPwRedefined(HttpServletRequest request, HttpServletResponse response, RSAalgorithm rsa, Encryption enc, ErrorAlarm ea) {
+		
+		int result = logService.remodiftUserPw(request,rsa,enc,ea);
+		
+		if (result == 1) return "/login/UserRedefinedPwSuccess";
+		else return "/testwaiting/kakaoerror";
 
-
-		try {
-			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
-			
-			int result = logService.remodiftUserPw(request);
-			
-			if (result == 1) {
-				return "/login/UserRedefinedPwSuccess";
-			} else {
-				throw new Exception("admin throw Exception");
-			}
-			
-		} catch(Exception e) {
-			
-			ErrorAlarm ea = new ErrorAlarm(e);
-			ea.sendErrorMassegeAdmin();
-			ea.inputErrorToDb();
-			
-			return "/testwaiting/kakaoerror";
-		}
 	}
 
 	/*------------------------------------------------------------------------------------------------------------------------------*/
