@@ -697,6 +697,7 @@ hr.division {
 	}
 }
 
+
 </style>
 
 
@@ -704,17 +705,11 @@ hr.division {
                     <!-- 대표 이미지 -->
                     <!-- <div class="main-image"></div> -->
                     <!-- 배너 슬라이드 작업  -->
-                    <div class="swiper mySwiper" id="product_top_image">
+                    <div class="swiper mySwiper" id="product_top_image" style="margin-top:50px;">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg">
-                            </div>
+                            <c:forEach var="headImgUrls" items="${headImgUrls}">
+                            	<div class="swiper-slide" style="background-image : url(${headImgUrls}); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+                            </c:forEach>    
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>

@@ -194,6 +194,7 @@ public interface INewProductDAO {
 	 */
 	List<RecommendThemeDTO> getBigCategoryExistSmallCategoryLogin(int userSeq, int themeNum, int prodtCatgr,int sortedOption, int paging);
 	
+
 	
 	
 	

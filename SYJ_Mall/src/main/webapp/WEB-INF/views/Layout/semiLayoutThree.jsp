@@ -48,7 +48,7 @@
 					<button class="back-button"></button>
 					<button class="home-button"></button>
 				</div>
-				<div class="title">제품상세?</div>
+				<div class="title">제품상세</div>
 				<div class="right-btn">
 					<button class="search"></button>
 					<button class="language"></button>

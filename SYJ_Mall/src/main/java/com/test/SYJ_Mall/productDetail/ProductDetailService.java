@@ -13,7 +13,6 @@ import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.UserDTO;
-import com.test.SYJ_Mall.newProduct.INewProductDAO;
 
 /**
  * 
@@ -23,7 +22,7 @@ import com.test.SYJ_Mall.newProduct.INewProductDAO;
 @Service
 public class ProductDetailService implements IProductDetailService{
 	
-	@Autowired INewProductDAO dao;
+	@Autowired IProductDetailDAO dao;
 	
 	/*
 	 
@@ -62,10 +61,17 @@ public class ProductDetailService implements IProductDetailService{
 	public int getProductDetilMain(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf) {
 		
 		try {
+			
 			String prodtSeq = request.getParameter("prodtSeq");//제품번호
 			HttpSession session = request.getSession();
 			UserDTO dto = (UserDTO) session.getAttribute("userinfo");//로그인 정보
 			
+			
+			//공동
+			//1. 상품에 대한 정보
+			//1-1. 해당 물품의 헤드 사진
+			List<String> headImgUrls = dao.getProductHeadImages(Integer.parseInt(prodtSeq));
+			List<ProductDetailDTO> prodtInfo;
 			
 			//로그인이 안된 경우
 			if (dto == null) {
@@ -73,11 +79,18 @@ public class ProductDetailService implements IProductDetailService{
 				String basketInfo = getCookieBasket(request, response, kc);//장바구니 담은 정보
 				
 				//1. 상품에 대한 정보
+				//1-2. 해당 물품의 상세정보
+				prodtInfo = dao.getProductDetailInfo(Integer.parseInt(prodtSeq));
 				
-				//1-1. 해당 물품이 쿠키정보에 있었는지 확인
+				
+				//1-2. 해당 물품이 쿠키정보에 있었는지 확인
 				boolean cookieFlag = sf.findObjectInString(basketInfo,"#",prodtSeq);
+				if (cookieFlag) prodtInfo.get(0).setCookieBasket("Y");
 				
-				//List<ProductDetailDTO> prodtInfo = dao.getProductDetailInfo(prodtSeq);
+				for (ProductDetailDTO dtos : prodtInfo) {
+					System.out.println(dtos.getProdNm());
+				}
+				
 				
 				//2. 리뷰 관련
 				
@@ -102,10 +115,11 @@ public class ProductDetailService implements IProductDetailService{
 			}
 			
 
+			request.setAttribute("headImgUrls", headImgUrls);//해당 물품의 헤드 사진
+			//request.setAttribute("prodtInfo", prodtInfo);//해당 물품의 상세정보
 			
 			
-			
-			return 0;
+			return 1;
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;

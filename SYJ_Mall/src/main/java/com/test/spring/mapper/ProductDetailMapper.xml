@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybatis를 통해 db연동 -->
+<mapper namespace="ProductDetails">
+	
+	
+	<!-- 해당상품 헤드 이미지 불러오기 -->
+	<select id="productHeadImages" resultType="String" parameterType="Integer" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_head_images(#{prodtSeq})
+		}
+	</select>
+
+	
+	<!-- 해당상품 상세내역 불러오기(비로그인 상태) -->
+	<select id="productDetailsInfo" resultType="com.test.SYJ_Mall.productDetail.ProductDetailDTO" parameterType="Integer" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_infos_not_login(#{prodtSeq})
+		}
+	</select>
+	
+</mapper>

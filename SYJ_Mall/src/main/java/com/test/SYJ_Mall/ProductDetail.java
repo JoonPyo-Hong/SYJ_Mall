@@ -14,7 +14,7 @@ import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.productDetail.IProductDetailService;
 
 /**
- * 
+ * 제품상세
  * @author shin
  *
  */

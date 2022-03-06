@@ -260,7 +260,6 @@ public class NewProductDAO implements INewProductDAO {
 		return template.selectList("newProducts.getBigCategoryExistSmallCategoryLogin",map);
 	}
 
-
 	
 
 
