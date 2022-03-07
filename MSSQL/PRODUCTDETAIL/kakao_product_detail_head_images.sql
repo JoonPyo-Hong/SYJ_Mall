@@ -4,6 +4,7 @@
 	Description : 물품 상세 페이지 - 헤드 이미지 불러오기
 	     
 	History	: 2022-03-06 Seunghwan Shin	#최초 생성
+			  2022-03-07 Seunghwan Shin	#출력 이미지 경로 변경
 			  
 			   
 	
@@ -18,7 +19,7 @@ set transaction isolation level read uncommitted
 begin
 	
 	select 
-		product_img
+		replace(replace(replace(product_img,N' ',N'%20'),N'(',N'%20'),N')',N'')
 	from dbo.KAKAO_PRODUCT_IMG with(nolock) 
 	where product_id = @product_id
 	and head_img_yn = 'Y'

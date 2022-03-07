@@ -15,6 +15,7 @@ public class ProductDetailDTO {
 	private int prodCnt;
 	private String prodPrice;
 	private int prodStars;
+	private int prodStarsRemain;
 	private int prodBuyCnt;
 	private int discRate;
 	private String prodtDetailInfo;

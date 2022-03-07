@@ -63,7 +63,7 @@
 .share {
   width: 40px;
   height: 40px;
-  background-image: url(./../images/product-detail/btn_share.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/btn_share.png);
   background-size: cover;
 }
 
@@ -81,13 +81,13 @@
   display: inline-block;
   width: 14px;
   height: 14px;
-  background-image: url(./../images/product-detail/star_on.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/star_on.png);
   background-size: cover;
   margin-right: 3px;
 }
 
 .review-star.off {
-  background-image: url(./../images/product-detail/star_off.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/star_off.png);
 }
 
 .review-count {
@@ -145,7 +145,7 @@
 .detail-etc button .drop-down-icon {
   width: 18px;
   height: 18px;
-  background-image: url(./../images/main/down-arrow.png);
+  background-image: url(/SYJ_Mall/resources/images/main/down-arrow.png);
   background-size: cover;
 }
 
@@ -165,7 +165,7 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  background-image: url(./../images/product-detail/ico-talk-gry.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico-talk-gry.png);
   background-size: cover;
 }
 
@@ -358,7 +358,7 @@ hr.division {
   height: 20px;
   margin-right: 7px;
   vertical-align: middle;
-  background-image: url(./../images/product-detail/review_pen.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/review_pen.png);
   background-size: cover;
 }
 
@@ -439,7 +439,7 @@ hr.division {
   text-align: left;
   margin-top: 15px;
   padding-left: 30px;
-  background-image: url(./../images/product-detail/ryan_gray.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ryan_gray.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 0px center;
@@ -484,7 +484,7 @@ hr.division {
   position: relative;
   width: 160px;
   height: 160px;
-  background-image: url(./../images/product-detail/20210622180643348_8809721509975_AW_00.jpg);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/20210622180643348_8809721509975_AW_00.jpg);
   background-size: contain;
 }
 
@@ -521,7 +521,7 @@ hr.division {
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-image: url(./../images/product-detail/Small_30_off.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/Small_30_off.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -561,7 +561,7 @@ hr.division {
   position: relative;
   width: 160px;
   height: 160px;
-  background-image: url(./../images/product-detail/20210622180615640_8809814920519_8809814920519_AW_00.jpg);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/20210622180615640_8809814920519_8809814920519_AW_00.jpg);
   background-size: contain;
 }
 
@@ -598,7 +598,7 @@ hr.division {
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-image: url(./../images/product-detail/Small_30_off.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/Small_30_off.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -635,7 +635,7 @@ hr.division {
   right: 0;
   width: 80px;
   height: 80px;
-  background-image: url(./../images/product-detail/ico_cart_off.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_cart_off.png);
   background-size: 30%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -698,6 +698,24 @@ hr.division {
 }
 
 
+.product-price {
+	font-size: 16px;
+	font-weight: bold;
+}
+.product-price-discount {
+	text-decoration: line-through;
+	color: #9A9A9E;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.product-price-postdiscount {
+	color: #FF447F;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+
 </style>
 
 
@@ -716,21 +734,34 @@ hr.division {
                     <!-- 상품 주요 정보 -->
                     <div class="detail-header">
                         <div class="product-title">
-                            <div class="product-name">
-                                피치파이브 러피치 와퍼피치
+							<div class="product-name">
+                            	${prodtInfo.prodNm}
                             </div>
                             <button class="share"></span>
                         </div>
-                        <div class="product-price">
-                            32,000원
-                        </div>
+                        <c:if test="${prodtInfo.discRate eq 0}">
+                        	<div class="product-price">
+                            	${prodtInfo.prodPrice}원
+                        	</div>
+                        </c:if>
+                        <c:if test="${prodtInfo.discRate ne 0}">
+                        	<div class="product-price-postdiscount">
+                            	${prodtInfo.discRate}% ${prodtInfo.dcPrice}원
+                        	</div>
+                        	<div class="product-price-discount">
+                            	${prodtInfo.prodPrice}원
+                        	</div>
+                        </c:if>
                         <div class="product-review">
-                            <span class="review-star"></span>
-                            <span class="review-star"></span>
-                            <span class="review-star"></span>
-                            <span class="review-star"></span>
-                            <span class="review-star off"></span>
-                            <span class="review-count">(1)</span>
+                       		<c:forEach var="i" begin="1" end="${prodtInfo.prodStars}">
+                       			<span class="review-star"></span>
+                       		</c:forEach>
+                            <c:forEach var="i" begin="1" end="${prodtInfo.prodStarsRemain}">
+                       			<span class="review-star off"></span>
+                       		</c:forEach>
+                            
+                       
+                            <span class="review-count">(${prodtInfo.prodBuyCnt})</span>
                         </div>
                     </div>
                     <!-- 상품 상세 이미지 -->

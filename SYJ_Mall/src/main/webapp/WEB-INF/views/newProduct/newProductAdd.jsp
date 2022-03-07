@@ -79,6 +79,14 @@
 	
 	let filter_option = ${sortedOption};//필터링 옵션
 	
+	/* 상품 클릭할때 생기는 이벤트  -> 상품페이지로 보내줄것이다.*/
+	$(document).on("click", ".item-li", function() {
+		let prodt_id = $(this).attr('id');
+		location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodt_id;
+		//alert(prodt_id);
+	});
+	
+	
 	//상품 카트에 관련 -> 카트에 넣어주기
 	$(document).on("click", ".cart", function(e) {
 

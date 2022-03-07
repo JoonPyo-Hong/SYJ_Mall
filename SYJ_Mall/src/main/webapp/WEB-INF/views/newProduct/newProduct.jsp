@@ -185,14 +185,14 @@
 	//신규 슬라이드 클릭한 경우
 	$(".swiper-slide").click(function(){
 		let prodt_id = $(this).attr('id');
-		location.href = "/SYJ_Mall/detail.action?prodtSeq=" + prodt_id;
+		location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodt_id;
 	});
 	
 	
 	/* 상품 클릭할때 생기는 이벤트  -> 상품페이지로 보내줄것이다.*/
 	$(document).on("click", ".item-li", function() {
 		let prodt_id = $(this).attr('id');
-		location.href = "/SYJ_Mall/detail.action?prodtSeq=" + prodt_id;
+		location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodt_id;
 		//alert(prodt_id);
 	});
 

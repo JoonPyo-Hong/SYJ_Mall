@@ -4,6 +4,7 @@
 	Description : 물품 상세 페이지 - 상품세부사항 가져오기
 	     
 	History	: 2022-03-06 Seunghwan Shin	#최초 생성
+			  2022-03-07 Seunghwan Shin	#prodPrice 출력 타입 변경, prodStarsRemain 컬럼 추가
 			  
 			   
 	Real DB :	exec dbo.kakao_product_detail_infos_not_login 10
@@ -31,8 +32,9 @@ begin
 		kpt.product_id as prodtId
 	,	kpt.product_nm as prodNm
 	,	kpt.product_count as prodCnt
-	,	kpt.product_price as prodPrice
+	,	format(kpt.product_price,'#,#') as prodPrice
 	,	@prod_stars as prodStars
+	,	5 - @prod_stars as prodStarsRemain
 	,	@prod_buy_cnt as prodBuyCnt
 	,	kpt.discount_rate as discRate
 	,	kpt.product_detail_info as prodtDetailInfo
@@ -44,5 +46,4 @@ begin
 
 
 end
-
 

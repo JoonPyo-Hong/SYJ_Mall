@@ -392,7 +392,8 @@
 		/* 상품 클릭할때 생기는 이벤트 */
 		$(document).on("click",".item-li",function(){
 			let prodt_id = $(this).attr('id');
-			alert(prodt_id);
+			location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodt_id;
+			//alert(prodt_id);
 		});
 		
 		//상품 카트에 관련 -> 카트에 넣어주기

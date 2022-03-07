@@ -115,7 +115,7 @@
 	$(document).on("click",".grid-img",function(){
 	 	//alert($(this).attr('id'));
 	 	const prod_id = $(this).attr('id');
-	 	location.href = "/SYJ_Mall/detail.action?prodtSeq=" + prod_id;
+		location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prod_id;
 		
   	});
 	

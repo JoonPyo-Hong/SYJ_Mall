@@ -82,14 +82,11 @@ public class ProductDetailService implements IProductDetailService{
 				//1-2. 해당 물품의 상세정보
 				prodtInfo = dao.getProductDetailInfo(Integer.parseInt(prodtSeq));
 				
+				if (prodtInfo.size() == 0) return -1;
 				
 				//1-2. 해당 물품이 쿠키정보에 있었는지 확인
 				boolean cookieFlag = sf.findObjectInString(basketInfo,"#",prodtSeq);
 				if (cookieFlag) prodtInfo.get(0).setCookieBasket("Y");
-				
-				for (ProductDetailDTO dtos : prodtInfo) {
-					System.out.println(dtos.getProdNm());
-				}
 				
 				
 				//2. 리뷰 관련
@@ -104,7 +101,9 @@ public class ProductDetailService implements IProductDetailService{
 			else {
 				//1. 상품에 대한 정보
 				//List<ProductDetailDTO> prodtInfo = dao.getProductDetailInfo(prodtSeq);
+				prodtInfo = dao.getProductDetailInfo(Integer.parseInt(prodtSeq));//임시로 넣어둠
 				
+				if (prodtInfo.size() == 0) return -1;
 				//2. 리뷰 관련
 				
 				
@@ -114,9 +113,10 @@ public class ProductDetailService implements IProductDetailService{
 				//4. 최근 본 상품
 			}
 			
-
+			
+			
 			request.setAttribute("headImgUrls", headImgUrls);//해당 물품의 헤드 사진
-			//request.setAttribute("prodtInfo", prodtInfo);//해당 물품의 상세정보
+			request.setAttribute("prodtInfo", prodtInfo.get(0));//해당 물품의 상세정보
 			
 			
 			return 1;
