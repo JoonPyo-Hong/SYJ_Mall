@@ -349,28 +349,23 @@
 				num: seq,
 			},
 			success: function(data) {
-/* 
-				$("#content_" + seq + " .txt_1 span")
-					.text(" " + data + "개");
- */
+				//alert(data);
+
+				$("#like-count_" + seq ).text("좋아요 " + data + "명");
 			},
 			error: function() {
 				alert("에러");
 			}
 		});
 	}
+	
+	$(document).on("click", ".share-btn", function(e) {
+		// 모달 구현할것...
+		alert();
+	});
 	$(document).on("click", ".like-btn", function(e) {
 		var id = $(this).attr("id").replace('like-btn_','');
-		//alert(id);
-		/* $("#like-btn_" + a).css(
-				'background-position', '-200px -100');
-		$("#like-btn_" + a).css(
-				'background-position', '-190px -100'); */
-		/* if(id.css(
-		'background-position', '-200px -100') == '') */
-		//alert($(".like-btn").css('background-size'));
-		//alert($(this).css('background-size'));
-		//alert($(this).css('background-position'));
+	
 		var type = "";
 		if ($(this).css('background-position') == '-200px -100px') {
 			//alert();
@@ -585,7 +580,7 @@
 																	+ "풀꽃 주차번호판 방향제 세트 보러 가기 <span class='icon-arrow'></span>"
 																	+ "</div>"
 																	+ "<div class='info-feed'>"
-																	+ "<div class='like-count'>좋아요 2,092명</div>"
+																	+ "<div class='like-count' id ='like-count_"+ this.seq + "'></div>"
 																	+ "<div class='title'>"
 																	+ this.title
 																	+ "</div>"
@@ -623,6 +618,7 @@
 													this.seq);
 											heart_select(this.seq, parseInt($(
 													'#hid_seq').val()));
+											heart_count(this.seq);
 										}// foreach 끝
 
 								);

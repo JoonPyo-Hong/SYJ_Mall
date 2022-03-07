@@ -65,6 +65,12 @@
 		main_seq =
 		#{list_seq} and member_seq= #{session_seq}
 	</select>
+	<select id="heart_count" resultType="int"
+		parameterType="int">
+		select count(*) from dbo.kaka_new_main_heart with(nolock) where
+		main_seq =
+		#{num}
+	</select>
 	<insert id="heart_insert" parameterType="java.util.HashMap">
 		insert into
 		dbo.main_heart values(#{list_seq},#{member_seq})
