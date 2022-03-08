@@ -610,6 +610,7 @@ hr.division {
 
 /* 하단 버튼 */
 .bottom-bar {
+  cursor : pointer;
   position: fixed;
   bottom: 0;
   background-color: rgba(251, 46, 69, 0.95);
@@ -1074,8 +1075,8 @@ hr.division {
                     
                     <!-- 하단 바로구매 고정 버튼 -->
                     <div class="bottom-bar">
-                        <button class="direct-purchase">바로구매</button>
-                        <button class="add-to-cart"></button>
+                        <button class="direct-purchase">구매하기</button>
+                        <!-- <button class="add-to-cart"></button> -->
                     </div>
                 </div>
                 
@@ -1158,23 +1159,38 @@ hr.division {
                     $('.detail-etc  .delivery-detail-wrap').css('display', 'block');
                 }
             })
-
+			
+            let buy_btn_tn = -1;
+            
             // 구매하기 클릭 시 팝업창
-            $(".bottom-bar").click(function () {
-                $("#testmodal1").css("visibility", "visible");
+            $(".bottom-bar").click(function () { 
+            	$(".bottom-bar").css("z-index",11);
+            	$(".direct-purchase").text("즉시 구매하기");
+				$("#testmodal1").css("visibility", "visible");
                 $(".option-modal-wrap").css("bottom", "80px;");
                 $(document.body).css("overflow", "hidden");
             });
 
 
             //모달 제거하는 용도
-            $(".overlay-wrap").click(function () {
-                $(".overlay-wrap").css("visibility", "hidden");
+            $(".overlay-wrap-up").click(function () {
+                $(".overlay-wrap-up").css("visibility", "hidden");
                 $(".option-modal-wrap").css("bottom", "80px");
                 $(document.body).css("overflow", "visible");
+                $(".direct-purchase").text("구매하기");
             });
-
-
+            
+            //개수 선택할 경우
+            $(".option-modal-wrap").click(function(){
+            	
+            	return false;
+            });
+			
+            //select 의 값이 변하는 경우
+			$("#product_buy_cnt").on("change",function(){
+				console.log(this.value);	
+			});
+            
 
         })
     </script>
