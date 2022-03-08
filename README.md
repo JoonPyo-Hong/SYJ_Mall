@@ -108,7 +108,7 @@
 			<th>진행중</th>
 		</tr>
         	<tr>
-			<th rowspan="5">로그인</th>
+			<th rowspan="7">로그인</th>
 			<th>퍼블리싱</th>
 			<th>최예림</th>
 			<th>완료</th>
