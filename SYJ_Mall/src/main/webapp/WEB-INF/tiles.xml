@@ -45,6 +45,10 @@
 	<definition name = "/tiles/mainStart.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/main/NewMain.jsp"/>	
 	</definition>
+	<!-- 댓글페이지 -->
+	<definition name = "/tiles/feedStart.layout" extends="newbdefault">
+		<put-attribute name = "body" value="/WEB-INF/views/main/Newfeed.jsp"/>	
+	</definition>
 	<!-- 인기페이지 -->
 	<definition name = "/tiles/popularItem.layout" extends="newbdefault">
 		<put-attribute name = "body" value="/WEB-INF/views/popular/popularMain.jsp"/>	

@@ -63,6 +63,25 @@
 	height: 600px;
 	
 }
+.swiper-button-prev {
+	display: inline-block;
+	background-image:
+		url(/SYJ_Mall/resources/images/main/arrow-medium-circle-right-white.png);
+	background-size: 27px 27px;
+	background-position: center;
+	background-repeat: no-repeat;
+	transform: rotate(180deg);
+}
+
+.swiper-button-next {
+	display: inline-block;
+	background-image:
+		url(/SYJ_Mall/resources/images/main/arrow-medium-circle-right-white.png);
+	background-size: 27px 27px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 @media (max-width: 600px) {
 	.body-feed .slide-feed {
 	background-color: #ededed;
@@ -320,6 +339,41 @@
 	//alert(hid_seq);
 	var count = 0;
 
+	//로그인 모달창 로그인하기
+	$(document).on("click",".login-btn",function(){
+		$('#login-product-modal').css('visibility','hidden');
+		location.href = "/SYJ_Mall/login.action";
+	}); 
+	
+	//로그인 모달창 돌아가기
+	$(document).on("click",".close-btn",function(){
+		$('#login-product-modal').css('visibility','hidden');
+	});
+
+	/* 
+	function search_prod_alarm(prodt_id,prodt_this) {
+		$.ajax({
+        	type:"GET",
+        	url: "/SYJ_Mall/charItemAlarmSet.action",
+        	data : "productId=" + prodt_id,
+        	dataType : "json",
+        	success : function(result) {
+        		console.log(result);
+        		if (result == 1) {
+        			$(prodt_this).attr('class','inalarm');
+        		} else if (result == 2) {
+        			$(prodt_this).attr('class','alarm');
+        		} else {
+        			//로그인해야 알람을 넣어줄 수 있는 경우
+        			$('#login-product-modal').css('visibility','visible');
+        			$(document.body).css('overflow','hidden');
+        		}
+        	},
+        	error: function(a,b,c) {
+				console.log(a,b,c);
+		}
+       });
+	} */
 	function heart_select(a, b) {
 		$.ajax({
 			url : "new_heart_select.action",
@@ -358,11 +412,29 @@
 			}
 		});
 	}
-	
+	//공유하기
 	$(document).on("click", ".share-btn", function(e) {
-		// 모달 구현할것...
+		
 		alert();
 	});
+	$(document).on("click", ".comments-input", function(e) {
+		
+		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+	});
+	$(document).on("click", ".share-btn", function(e) {
+		
+		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+	});
+	$(document).on("click", ".txt-count", function(e) {
+		
+		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+	});
+	$(document).on("click", ".reply-btn", function(e) {
+		
+		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+	});
+
+	
 	$(document).on("click", ".like-btn", function(e) {
 		var id = $(this).attr("id").replace('like-btn_','');
 	
@@ -619,6 +691,7 @@
 											heart_select(this.seq, parseInt($(
 													'#hid_seq').val()));
 											heart_count(this.seq);
+											
 										}// foreach 끝
 
 								);
