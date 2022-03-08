@@ -120,6 +120,18 @@
 			<th>완료</th>
 			<th>완료</th>
 		</tr>
+		<tr>
+			<th>기본 로그인 기능</th>
+			<th>신승환</th>
+			<th>완료</th>
+			<th>완료</th>
+		</tr>
+		<tr>
+			<th>QR 로그인 기능</th>
+			<th>신승환</th>
+			<th>완료</th>
+			<th>완료</th>
+		</tr>
         	<tr>
 			<th>회원가입</th>
 			<th>신승환</th>
