@@ -526,6 +526,10 @@ hr.division {
   background-repeat: no-repeat;
 }
 
+#prodt_cart_on {
+	display : none;
+}
+
 .detail-recommended .item-li .price {
   font-size: 16px;
   font-weight: bold;
@@ -637,6 +641,19 @@ hr.division {
   width: 80px;
   height: 80px;
   background-image: url(/SYJ_Mall/resources/images/product-detail/ico_cart_off.png);
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.remove-to-cart {
+  color: #fff;
+  font-size: 18px;
+  position: absolute;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_cart_on.png);
   background-size: 30%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -1076,10 +1093,11 @@ hr.division {
                     <!-- 하단 바로구매 고정 버튼 -->
                     <div class="bottom-bar">
                         <button class="direct-purchase">구매하기</button>
-                        <!-- <button class="add-to-cart"></button> -->
+                       <!--  <button class="add-to-cart" id="prodt_cart_on"></button> -->
+                        <button class="remove-to-cart" id="prodt_cart_on"></button>
                     </div>
                 </div>
-                
+               
 				<div id="kakao-footer" style="height: 230px;">
 					<div id="inner-footer">
 						<div class="info-service">

@@ -352,7 +352,8 @@
 	$(document).on("click",".close-btn",function(){
 		$('#login-product-modal').css('visibility','hidden');
 	});
-
+	
+	
 	/* 
 	function search_prod_alarm(prodt_id,prodt_this) {
 		$.ajax({
@@ -441,11 +442,16 @@
 	});
 
 	
-	$(document).on("click", ".like-btn", function(e) {
-		var id = $(this).attr("id").replace('like-btn_','');
 	
+	//좋아요 눌러줄때 -> 로그인 안되있는 경우에는 로그인 유도해줘야함.
+	$(document).on("click", ".like-btn", function(e) {
+		const id = $(this).attr("id").replace('like-btn_','');
+		
+		//로그인 모달!!
+		my_login_modal_open();
+		
 		var type = "";
-		if ($(this).css('background-position') == '-200px -100px') {
+		/* if ($(this).css('background-position') == '-200px -100px') {
 			//alert();
 			$(this).css(
 					'background-position', '-160px -100px');
@@ -454,7 +460,7 @@
 			$(this).css(
 					'background-position', '-200px -100px');
 			type = "I";
-		}
+		}  */
 		if(type!=""){
 			$.ajax({
 				url: "new_heart_update.action",
