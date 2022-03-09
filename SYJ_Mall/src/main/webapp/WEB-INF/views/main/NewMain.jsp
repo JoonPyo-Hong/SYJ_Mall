@@ -3,7 +3,8 @@
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <style>
 /* 게시글 전체 */
 .box-feed {
@@ -62,6 +63,14 @@
 	width: 600px;
 	height: 600px;
 	
+}
+.swiper-button-prev::after {
+	display: none;
+
+}
+.swiper-button-next::after {
+	display: none;
+
 }
 .swiper-button-prev {
 	display: inline-block;
@@ -313,8 +322,7 @@
 	width: 43px;
 }
 </style>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+
 
 <!-- <div class="swiper-container slide">
 	<div class="swiper-wrapper ">
@@ -339,11 +347,6 @@
 	//alert(hid_seq);
 	var count = 0;
 
-	//로그인 모달창 로그인하기
-	$(document).on("click",".login-btn",function(){
-		$('#login-product-modal').css('visibility','hidden');
-		location.href = "/SYJ_Mall/login.action";
-	}); 
 	
 	//로그인 모달창 돌아가기
 	$(document).on("click",".close-btn",function(){
@@ -418,7 +421,7 @@
 		alert();
 	});
 	$(document).on("click", ".comments-input", function(e) {
-		
+	
 		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
 	});
 	$(document).on("click", ".share-btn", function(e) {
@@ -430,8 +433,11 @@
 		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
 	});
 	$(document).on("click", ".reply-btn", function(e) {
-		
-		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+		$('#login-product-modal').css('visibility','hidden');
+		//$('#login-product-modal').css('visibility','visible');
+
+		//location.href = "/SYJ_Mall/login.action";
+		//location.href = "/SYJ_Mall/feed.action?seq=" + seq;
 	});
 
 	
