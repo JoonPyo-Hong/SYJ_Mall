@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.productDetail;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,9 +24,10 @@ public interface IProductDetailService {
 	 * @param ea
 	 * @param kc
 	 * @param sf
+	 * @param rnd
 	 * @return
 	 */
-	int getProductDetilMain(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf);
+	int getProductDetilMain(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, Random rnd);
 	
 	/**
 	 * 쿠키에 존재하는 장바구니 내역 - 비로그인 경우
@@ -34,5 +37,17 @@ public interface IProductDetailService {
 	 * @return
 	 */
 	String getCookieBasket(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc);
+	
+	/**
+	 * 장바구니 관련 메소드
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @param kc
+	 * @param sf
+	 * @param sb
+	 * @return
+	 */
+	int getProductDetailModifyBasket(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb);
 	
 }

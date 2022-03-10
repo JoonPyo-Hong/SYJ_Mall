@@ -22,4 +22,12 @@
 		}
 	</select>
 	
+	
+	<!-- 이 상품은 어때요 (비로그인 상태) -->
+	<select id="productHowInfo" resultType="com.test.SYJ_Mall.productDetail.ProductHowDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_plus_prodt_not_login(#{basketInfo},#{prodtSeq},#{filterSeq})
+		}
+	</select>
+	
 </mapper>

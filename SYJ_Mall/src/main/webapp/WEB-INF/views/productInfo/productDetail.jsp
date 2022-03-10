@@ -526,9 +526,49 @@ hr.division {
   background-repeat: no-repeat;
 }
 
-#prodt_cart_on {
-	display : none;
+.detail-recommended .item-li .name .incart {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_cart_on.png);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
+
+.detail-recommended .item-li .name .alarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico-notification-empty-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.detail-recommended .item-li .name .inalarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico-notification-solid-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.soldout-label {
+	
+	width: 61px;
+  	height: 22px;
+  	position: absolute;
+  	top: 12px;
+  	left: 12px;
+  	background-image: url(/SYJ_Mall/resources/images/product-detail/tag-soldout.png);
+  	background-size: contain;
+
+}
+
 
 .detail-recommended .item-li .price {
   font-size: 16px;
@@ -633,33 +673,33 @@ hr.division {
   font-size: 18px;
 }
 
-.add-to-cart {
+#plus_cart {
   color: #fff;
   font-size: 18px;
   position: absolute;
-  right: 0;
-  width: 80px;
-  height: 80px;
-  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_cart_off.png);
-  background-size: 30%;
+  width: 30px;
+  height: 25px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_friends.png); 
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: -277px  -20px;
+  background-size: 700px  600px;
+  right: 30px;
 }
 
-.remove-to-cart {
+#remove_cart {
   color: #fff;
   font-size: 18px;
   position: absolute;
-  right: 0;
-  width: 80px;
-  height: 80px;
-  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_cart_on.png);
-  background-size: 30%;
+  width: 30px;
+  height: 25px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_friends.png); 
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: -648px  -330px;
+  background-size: 700px  600px;
+  right: 30px;
 }
 
-
+/* no-repeat -1962px -995px; */
 
 /*  모달 작업 */
 /* 모달창 배경 검정색 레이어드 화면 */
@@ -952,29 +992,35 @@ hr.division {
                         <div class="review-total">
                             <div class="title">리뷰 4개</div>
                             <div class="product-review">
-                                <span class="review-star"></span>
-                                <span class="review-star"></span>
-                                <span class="review-star"></span>
-                                <span class="review-star"></span>
-                                <span class="review-star off"></span>
-                                <span class="review-point">5</span>
+                                <c:forEach var="i" begin="1" end="${prodtInfo.prodStars}">
+                       				<span class="review-star"></span>
+                       			</c:forEach>
+	                            <c:forEach var="i" begin="1" end="${prodtInfo.prodStarsRemain}">
+	                       			<span class="review-star off"></span>
+	                       		</c:forEach>
+                                
+                                <span class="review-point">${prodtInfo.prodStars}</span>
                                 <span class="review-perpect">5.0</span>
                             </div>
                         </div>
-                        <div class="review-text">
-                            <!-- 로그인 전 사용자 표시 -->
-                            <!-- <textarea disabled placeholder="로그인 후 리뷰 작성이 가능합니다."></textarea> -->
-                            <!-- 로그인 후 구매하지 않은 사용자 표시 -->
-                            <textarea disabled placeholder="상품을 구매 후 리뷰 작성이 가능합니다."></textarea>
-                            <!-- 로그인 후 실 구매 사용자 표시 -->
-                            <!-- <textarea  placeholder="최소 10자 이상 입력해주세요."></textarea> -->
-                        </div>
-                        <div class="review-button">
-                            <button>
-                                <span class="review-icon"></span>
-                                <span>리뷰를 남겨주세요</span>
-                            </button>
-                        </div>
+                        <!-- 로그인 해주지 않으면 댓글 쓸 권한이 없다. -->
+                        <c:if test="${not empty dtoSeq}">
+	                        <div class="review-text">
+	                            <!-- 로그인 전 사용자 표시 -->
+	                            <!-- <textarea disabled placeholder="로그인 후 리뷰 작성이 가능합니다."></textarea> -->
+	                            <!-- 로그인 후 구매하지 않은 사용자 표시 -->
+	                            <textarea disabled placeholder="상품을 구매 후 리뷰 작성이 가능합니다."></textarea>
+	                            <!-- 로그인 후 실 구매 사용자 표시 -->
+	                            <!-- <textarea  placeholder="최소 10자 이상 입력해주세요."></textarea> -->
+	                        </div>
+                        
+	                        <div class="review-button">
+	                            <button>
+	                                <span class="review-icon"></span>
+	                                <span>리뷰를 남겨주세요</span>
+	                            </button>
+	                        </div>
+	                    </c:if>
                         <div class="review-list">
                             <div class="review-sort">
                                 <button class="sort-btn like">좋아요순</button>
@@ -1032,40 +1078,58 @@ hr.division {
                     <!-- 추천 상품 -->
                     <div class="detail-recommended">
                         <div class="title">잠깐만,<br>이 상품은 어때요?</div>
-                        <ul>
-                            <li class="item-li">
-                                <div class="thumbnail"></div>
-                                <div class="name">
-                                    <div class="nametext">피치파이브 미니키체인_치</div>
-                                    <span class="cart"></span>
-                                </div>
-                                <div class="price">10,000원</div>
-                            </li>
-                            <li class="item-li">
-                                <div class="thumbnail"></div>
-                                <div class="name">
-                                    <div class="nametext">피치파이브 미니키체인_치</div>
-                                    <span class="cart"></span>
-                                </div>
-                                <div class="price">10,000원</div>
-                            </li>
-                            <li class="item-li">
-                                <div class="thumbnail"></div>
-                                <div class="name">
-                                    <div class="nametext">피치파이브 미니키체인_치</div>
-                                    <span class="cart"></span>
-                                </div>
-                                <div class="price">10,000원</div>
-                            </li>
-                            <li class="item-li">
-                                <div class="thumbnail"></div>
-                                <div class="name">
-                                    <div class="nametext">피치파이브 미니키체인_치</div>
-                                    <span class="cart"></span>
-                                </div>
-                                <div class="price">10,000원</div>
-                            </li>
-                        </ul>
+                       	
+                       	<ul>
+							<c:forEach var="phdto" items="${prodtHowInfo}">
+								<c:if test="${phdto.prodCnt eq 0}">
+									<!-- 상품재고가 없는 경우 -->
+									<li class="item-li" id="${phdto.prodId}">
+										<div class="thumbnail"
+											style="background-image : url('${phdto.picUrl}'); ">
+											<div class="soldout-label"></div>
+										</div>
+										<div class="name">
+											<div class="nametext">${phdto.prodNm}</div>
+											<span class="alarm"></span>
+										</div>
+										<div class="price">${phdto.prodPrice}원</div>
+									</li>
+								</c:if>
+	
+	
+								<c:if test="${phdto.prodCnt ne 0 && phdto.discRate eq 0}">
+									<!-- 상품재고는 있고 할인이 없는경우 -->
+									<li class="item-li" id="${phdto.prodId}">
+										<div class="thumbnail"
+											style="background-image : url('${phdto.picUrl}'); "></div>
+										<div class="name">
+											<div class="nametext">${phdto.prodNm}</div>
+											<span class="${phdto.cookieBasket}"></span>
+										</div>
+										<div class="price">${phdto.prodPrice}원</div>
+									</li>
+								</c:if>
+	
+	
+								<c:if test="${phdto.prodCnt ne 0 && phdto.discRate ne 0}">
+									<!-- 상품재고는 있고 할인이 있는 경우 -->
+									<li class="item-li" id="${phdto.prodId}">
+										<div class="thumbnail"
+											style="background-image : url('${phdto.picUrl}'); "></div>
+										<div class="name">
+											<div class="nametext">${phdto.prodNm}</div>
+											<span class="${phdto.cookieBasket}"></span>
+										</div>
+										<div class="price" style="color: #FF447F;">${phdto.discRate}%
+											${phdto.dcPrice}원</div>
+										<div class="price"
+											style="text-decoration: line-through; color: #9A9A9E;">${phdto.prodPrice}원</div>
+									</li>
+								</c:if>
+							</c:forEach>
+						</ul>
+                       
+                       
                     </div>
                     <!-- 최근 조회 상품 -->
                     <div class="detail-recently-viewed">
@@ -1093,8 +1157,8 @@ hr.division {
                     <!-- 하단 바로구매 고정 버튼 -->
                     <div class="bottom-bar">
                         <button class="direct-purchase">구매하기</button>
-                       <!--  <button class="add-to-cart" id="prodt_cart_on"></button> -->
-                        <button class="remove-to-cart" id="prodt_cart_on"></button>
+                        <button class="this_prodt_cart" id="plus_cart" style="visibility: hidden;"></button>
+                        <button class="this_prodt_cart" id="remove_cart" style="visibility: hidden;"></button>
                     </div>
                 </div>
                
@@ -1127,7 +1191,7 @@ hr.division {
                 
 <script>
 
-        // 신규 슬라이드 관련
+        // 상단 슬라이드 관련
         var swiper = new Swiper(".mySwiper", {
             scrollbar: {
                 el: '.swiper-scrollbar',
@@ -1142,7 +1206,9 @@ hr.division {
             },
         });
 
-
+		
+        
+        /*============================= 구매하기 관련 탭 / 세부정보 배송정보 =============================*/
         // 세부 정보 및 배송 관련 탭
         $(document).ready(function () {
 
@@ -1178,7 +1244,12 @@ hr.division {
                 }
             })
 			
-            let buy_btn_tn = -1;
+            
+            let cart_yn = "${prodtInfo.cookieBasket}";// 들어있으면 Y 안들어 있으면 N
+            let selected_prodt_seq = ${prodtInfo.prodtId};//현재 상세페이지에 관한 물품 번호
+            let to_buy_cnt = 0;//구매 원하는 개수정보
+            
+            let this_prodt_price = '${prodtInfo.dcPrice}';
             
             // 구매하기 클릭 시 팝업창
             $(".bottom-bar").click(function () { 
@@ -1187,30 +1258,90 @@ hr.division {
 				$("#testmodal1").css("visibility", "visible");
                 $(".option-modal-wrap").css("bottom", "80px;");
                 $(document.body).css("overflow", "hidden");
+                
+                if (cart_yn == 'N') {
+                	cart_off_display();
+                } else if (cart_yn == 'Y') {
+                	cart_on_display();
+                }
+                
             });
-
-
+			
+            
+			function cart_on_display() {
+				$("#plus_cart").css('visibility','hidden');
+          	   	$("#remove_cart").css('visibility','visible');
+			}
+            
+			function cart_off_display() {
+				$("#plus_cart").css('visibility','visible');
+          	   	$("#remove_cart").css('visibility','hidden');
+			}
+            
+			//카트 상태 변경 함수 -> 현재 상품에 관한 장바구니만 적용
+			//장바구니 버튼 누를 경우
+			$('.this_prodt_cart').click(function(){
+				//여기서 ajax 로 값을 받아와야 한다
+            	$.ajax({
+                type:"GET",
+                url: "/SYJ_Mall/productDetailBasket.action" ,
+                data : {"selected_prodt_seq" : selected_prodt_seq},
+                dataType : "json",
+                success : function(result) {
+                    
+                   if (result == 1) {
+                	   //장바구니에 추가
+                	   cart_yn = 'Y';
+                	   cart_on_display();
+                   } else if (result == 2){
+                   		//장바구니에서 제거
+                   	   	cart_yn = 'N';
+                   		cart_off_display();
+                   } else {
+                	   //에러 처리
+                	   location.href = "/SYJ_Mall/totalError.action"
+                   }
+                },
+                error: function(a,b,c) {
+					console.log(a,b,c);
+				}
+            	});	
+				return false;
+			});
+			
+			
             //모달 제거하는 용도
             $(".overlay-wrap-up").click(function () {
                 $(".overlay-wrap-up").css("visibility", "hidden");
                 $(".option-modal-wrap").css("bottom", "80px");
                 $(document.body).css("overflow", "visible");
                 $(".direct-purchase").text("구매하기");
+                
+                $('.this_prodt_cart').css("visibility","hidden");
             });
             
-            //개수 선택할 경우
+            
+          
+            //개수 선택할 경우 -> 계산식 넣어줘야함.
             $(".option-modal-wrap").click(function(){
-            	
             	return false;
             });
 			
             //select 의 값이 변하는 경우
 			$("#product_buy_cnt").on("change",function(){
-				console.log(this.value);	
+				
+				const buy_cnt = this.value;//구매할 제품 개수
+				let prodt_price = this_prodt_price.replaceAll(',','') * buy_cnt;
+				
+				$('.price-text').text(prodt_price.toLocaleString() + "원");
+				
 			});
-            
-
         })
+        
+        
+        
+       
+        
     </script>
                 
                 

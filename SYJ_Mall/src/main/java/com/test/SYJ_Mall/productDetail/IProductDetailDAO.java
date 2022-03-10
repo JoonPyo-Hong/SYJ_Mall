@@ -2,6 +2,11 @@ package com.test.SYJ_Mall.productDetail;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.common.utill.KakaoCookie;
+
 public interface IProductDetailDAO {
 	
 	/**
@@ -17,5 +22,16 @@ public interface IProductDetailDAO {
 	 * @return
 	 */
 	List<ProductDetailDTO> getProductDetailInfo(int prodtSeq);
+	
+	/**
+	 * 잠깐만 이 상품은 어때요 상품정보
+	 * @param basketInfo
+	 * @param parseInt
+	 * @param filterSeq
+	 * @return
+	 */
+	List<ProductHowDTO> getProductHowInfo(String basketInfo,int prodtSeq, int filterSeq);
+	
+	
 
 }
