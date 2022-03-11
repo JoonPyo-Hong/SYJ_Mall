@@ -27,6 +27,18 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		
 		return template.selectList("ProductDetails.productDetailsInfo",prodtSeq);
 	}
+	
+	//해당 상품 상세내역(로그인 상태)
+	@Override
+	public List<ProductDetailDTO> getProductDetailInfoLogin(int userSeq, int prodtSeq) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("prodtSeq",prodtSeq);
+		
+		return template.selectList("ProductDetails.productDetailsInfoLogin",map);
+		
+	}
 
 	//잠깐만 이 상품은 어때요 상품 객체들
 	@Override
@@ -34,16 +46,14 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		
 		HashMap<String,String> map = new HashMap<String, String>();
 		
-		System.out.println(basketInfo);
-		System.out.println(prodtSeq);
-		System.out.println(filterSeq);
-		
 		map.put("basketInfo",basketInfo);
 		map.put("prodtSeq",Integer.toString(prodtSeq));
 		map.put("filterSeq",Integer.toString(filterSeq));
 
 		return template.selectList("ProductDetails.productHowInfo",map);
 	}
+
+	
 
 
 

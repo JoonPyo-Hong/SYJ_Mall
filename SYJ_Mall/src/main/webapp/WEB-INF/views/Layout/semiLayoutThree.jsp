@@ -11,6 +11,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/commoncss/sortModalWrap4.css">
+<link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
 
 <title>카카오 프렌즈샵</title>
 <!-- 신규 스와이퍼 라이브러리 신규 -->
@@ -20,6 +21,30 @@
 
 </head>
 <body>
+	
+	
+	<!-- 로그인 모달1 -->
+	<div class="overlay-wrapper" id="login-product-modal" style="z-index:20;">
+		<div class="login-modal-wrap">
+			<div class="modal-close">
+				<div class="close-btn"></div>
+			</div>
+			<img class="login-img"
+				src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png" />
+			<div class="login-text">
+				<h3>앗! 로그인</h3>
+				<p>
+					로그인 후 재입고 알림을 신청해주세요<br/> 지금 로그인 화면으로 이동하시겠어요?
+				</p>
+			</div>
+			<div class="login-btn">
+				<button>
+					<span class="login-kakao"></span>
+					<p>로그인하기</p>
+				</button>
+			</div>
+		</div>
+	</div>
 	
 	
 	<!-- 구매 옵션 팝업창 -->
@@ -107,6 +132,33 @@
 	$('.login-btn').click(function() {
 		location.href = "/SYJ_Mall/login.action";
 	});
+	
+	//로그인 모달 열기
+	function login_modal_open() {
+	    const scrollLocation = window.scrollY;
+		$('#login-product-modal').css('top',scrollLocation + 'px');
+	    $(document.body).css('overflow', 'hidden');
+	}
+	
+	//로그인 모달 닫기
+	function login_modal_close() {
+		$('#login-product-modal').css('top','-1400px');
+	    $(document.body).css('overflow', 'scroll');
+	}
+	
+	//로그인 모달창 로그인하기
+  	$(document).on("click",".login-btn",function(){
+  		login_modal_close();
+  		location.href = "/SYJ_Mall/login.action";
+	});
+	
+  	//로그인 모달창 돌아가기
+	$(document).on("click",".close-btn",function(){
+		login_modal_close();
+	});
+	
+	
+	
 </script>
 </body>
 </html>

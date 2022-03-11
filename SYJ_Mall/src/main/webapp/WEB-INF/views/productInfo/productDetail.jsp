@@ -668,10 +668,33 @@ hr.division {
   z-index: 1;
 }
 
+.bottom-bar-alarm {
+  cursor : pointer;
+  position: fixed;
+  bottom: 0;
+  background-color: rgba(251, 46, 69, 0.95);
+  max-width: 640px;
+  width: 100%;
+  height: 80px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+	
+	
+}
+
 .direct-purchase {
   color: #fff;
   font-size: 18px;
 }
+
+.direct-alarm {
+	color: #fff;
+  	font-size: 18px;
+}
+
 
 #plus_cart {
   color: #fff;
@@ -823,7 +846,7 @@ hr.division {
                         </div>
                     </div>
                     <!-- 상품 상세 이미지 -->
-                    <div class="detail-content">
+                   <!--  <div class="detail-content">
                         <div class="detaul-content-title">
                             시크릿 포레스트의 사고뭉치<br>
                             다섯 복숭아, 피치파이브!
@@ -871,7 +894,7 @@ hr.division {
                             class="detaul-content-image">
                         <img src="./../images/product-detail/20210802170327762_210719_CP_plush_toy_M.jpg"
                             class="detaul-content-image">
-                    </div>
+                    </div> -->
                     <!-- 상품 아래 하단 버튼 -->
                     <div class="detail-etc">
                         <button class="detail-btn">
@@ -1155,11 +1178,19 @@ hr.division {
                     </div>
                     
                     <!-- 하단 바로구매 고정 버튼 -->
-                    <div class="bottom-bar">
-                        <button class="direct-purchase">구매하기</button>
-                        <button class="this_prodt_cart" id="plus_cart" style="visibility: hidden;"></button>
-                        <button class="this_prodt_cart" id="remove_cart" style="visibility: hidden;"></button>
-                    </div>
+                    <c:if test="${prodtInfo.prodCnt ne 0}">
+	                    <div class="bottom-bar">
+	                        <button class="direct-purchase">구매하기</button>
+	                        <button class="this_prodt_cart" id="plus_cart" style="visibility: hidden;"></button>
+	                        <button class="this_prodt_cart" id="remove_cart" style="visibility: hidden;"></button>
+	                    </div>
+                    </c:if>
+                    <c:if test="${prodtInfo.prodCnt eq 0}">
+	                    <div class="bottom-bar-alarm">
+	                        <button class="direct-alarm">알림설정</button>
+	                    </div>
+                    </c:if>
+                    
                 </div>
                
 				<div id="kakao-footer" style="height: 230px;">
@@ -1248,7 +1279,6 @@ hr.division {
             let cart_yn = "${prodtInfo.cookieBasket}";// 들어있으면 Y 안들어 있으면 N
             let selected_prodt_seq = ${prodtInfo.prodtId};//현재 상세페이지에 관한 물품 번호
             let to_buy_cnt = 0;//구매 원하는 개수정보
-            
             let this_prodt_price = '${prodtInfo.dcPrice}';
             
             // 구매하기 클릭 시 팝업창
@@ -1310,9 +1340,37 @@ hr.division {
 			});
 			
 			
+			// 알람설정 클릭 시 팝업창 -> 로그인 해줬는지 확인해준다.
+            $(".bottom-bar-alarm").click(function() { 
+            	
+            	$.ajax({
+                    type:"GET",
+                    url: "/SYJ_Mall/productDetailLoginCheck.action" ,
+                    dataType : "json",
+                    success : function(result) {
+                        
+                       if (result == 1) {
+                    	   //로그인된 상태
+                    	   
+                       } else {
+                    	   //로그인 되지 않은 상태
+                    	   login_modal_open();
+                       }
+                    },
+                    error: function(a,b,c) {
+    					console.log(a,b,c);
+    				}
+                	});	
+            	
+            	
+            	//login_modal_open();
+                
+            });
+			
+			
             //모달 제거하는 용도
             $(".overlay-wrap-up").click(function () {
-                $(".overlay-wrap-up").css("visibility", "hidden");
+            	$(".overlay-wrap-up").css("visibility", "hidden");
                 $(".option-modal-wrap").css("bottom", "80px");
                 $(document.body).css("overflow", "visible");
                 $(".direct-purchase").text("구매하기");

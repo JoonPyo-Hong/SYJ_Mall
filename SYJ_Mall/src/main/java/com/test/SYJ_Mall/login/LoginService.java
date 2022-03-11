@@ -1074,7 +1074,9 @@ public class LoginService implements ILoginService {
 			int loginSave = loginSaveYn(request,response,userSeq);//로그인 유지 관련 함수
 			
 			if (loginCode == 0 && loginSave != -1) {// 로그인 성공
-
+				
+				//System.out.println("로그인 성공");
+				
 				int logResult = loginSuccess(request, response, userSeq);// 로그인 인증티켓 발급
 				
 				String lastPage = (String)instanceCookie(request, response, "lastPage");

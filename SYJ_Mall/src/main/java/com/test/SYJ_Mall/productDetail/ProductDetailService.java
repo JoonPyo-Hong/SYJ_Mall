@@ -71,6 +71,9 @@ public class ProductDetailService implements IProductDetailService{
 			HttpSession session = request.getSession();
 			UserDTO dto = (UserDTO) session.getAttribute("userinfo");//로그인 정보
 			
+			//kc = new KakaoCookie();
+			//kc.deleteCookie(request, response, "lastPage");
+			//kc.generateCookie(response, "lastPage", "productDetailMain.action?prodtSeq=" + prodtSeq);// 마지막페이지 쿠키에 저장
 			
 			//공동
 			//1. 상품에 대한 정보
@@ -108,8 +111,8 @@ public class ProductDetailService implements IProductDetailService{
 			//로그인이 된경우
 			else {
 				//1. 상품에 대한 정보
-				//List<ProductDetailDTO> prodtInfo = dao.getProductDetailInfo(prodtSeq);
-				prodtInfo = dao.getProductDetailInfo(Integer.parseInt(prodtSeq));//임시로 넣어둠
+				//1-2. 해당 물품의 상세정보
+				prodtInfo = dao.getProductDetailInfoLogin(dto.getUserSeq(),Integer.parseInt(prodtSeq));
 				
 				if (prodtInfo.size() == 0) return -1;
 				//2. 리뷰 관련
@@ -227,6 +230,27 @@ public class ProductDetailService implements IProductDetailService{
 			}
 
 		} catch (Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+		
+	}
+	
+	//고객이 로그인 해줬는지 안해줬는지 확인해주는 메소드
+	@Override
+	public int getProductLoginYn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		try {
+			
+			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
+
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			if (userInfo == null) return -1;
+			else return 1;
+			
+			
+		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;
 		}

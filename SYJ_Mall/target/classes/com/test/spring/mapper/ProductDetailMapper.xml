@@ -22,6 +22,13 @@
 		}
 	</select>
 	
+	<!-- 해당상품 상세내역 불러오기(로그인 상태) -->
+	<select id="productDetailsInfoLogin" resultType="com.test.SYJ_Mall.productDetail.ProductDetailDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_infos_login(#{userSeq},#{prodtSeq})
+		}
+	</select>
+	
 	
 	<!-- 이 상품은 어때요 (비로그인 상태) -->
 	<select id="productHowInfo" resultType="com.test.SYJ_Mall.productDetail.ProductHowDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >

@@ -29,7 +29,7 @@ public class ProductDetail {
 
 	
 	//제품 상세 페이지
-	@RequestMapping(value = "/productDetailMain.action", method = { RequestMethod.GET})
+	@RequestMapping(value = "/productDetailMain.action", method = { RequestMethod.GET , RequestMethod.POST})
 	public String productDetailMain(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, Random rnd) {
 		
 		int result = service.getProductDetilMain(request,response,ea,kc,sf, rnd);
@@ -40,13 +40,23 @@ public class ProductDetail {
 	}
 	
 	
-	//제품 상세 페이지
+	//제품 상세 페이지 - 장바구니 관련 
 	@RequestMapping(value = "/productDetailBasket.action", method = { RequestMethod.GET})
 	@ResponseBody
 	public int productDetailBasket(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb) {
 		
 		
 		return service.getProductDetailModifyBasket(request,response,ea,kc,sf,sb);
+
+	}
+	
+	
+	//제품 상세 페이지 - 장바구니 관련 
+	@RequestMapping(value = "/productDetailLoginCheck.action", method = { RequestMethod.GET})
+	@ResponseBody
+	public int productDetailLoginCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return service.getProductLoginYn(request,response,ea);
 
 	}
 

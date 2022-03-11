@@ -50,4 +50,13 @@ public interface IProductDetailService {
 	 */
 	int getProductDetailModifyBasket(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb);
 	
+	/**
+	 * 회원이 로그인 했는지 안했는지 확인해주는 메소드
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @return
+	 */
+	int getProductLoginYn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+	
 }

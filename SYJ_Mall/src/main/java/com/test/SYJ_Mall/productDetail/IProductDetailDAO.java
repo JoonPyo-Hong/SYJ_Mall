@@ -24,6 +24,15 @@ public interface IProductDetailDAO {
 	List<ProductDetailDTO> getProductDetailInfo(int prodtSeq);
 	
 	/**
+	 * 상품에 대한 상세정보(로그인 상태)
+	 * @param prodtSeq
+	 * @param parseInt
+	 * @return
+	 */
+	List<ProductDetailDTO> getProductDetailInfoLogin(int userSeq, int prodtSeq);
+	
+	
+	/**
 	 * 잠깐만 이 상품은 어때요 상품정보
 	 * @param basketInfo
 	 * @param parseInt
@@ -31,6 +40,7 @@ public interface IProductDetailDAO {
 	 * @return
 	 */
 	List<ProductHowDTO> getProductHowInfo(String basketInfo,int prodtSeq, int filterSeq);
+	
 	
 	
 

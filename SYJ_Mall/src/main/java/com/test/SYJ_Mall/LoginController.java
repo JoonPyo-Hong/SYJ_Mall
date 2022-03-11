@@ -43,7 +43,7 @@ public class LoginController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 처음에 로그인 페이지로 보내주는 곳
-	@RequestMapping(value = "/login.action", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/login.action", method = { RequestMethod.GET , RequestMethod.POST})
 	public String login(HttpServletRequest request, HttpServletResponse response, String site, KakaoCookie kc, RSAalgorithm rsa, ErrorAlarm ea) {
 		
 		//TEST 용	
