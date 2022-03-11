@@ -497,6 +497,7 @@
 	//1. 버튼을 직접 누른 경우
 	$(".login-btn").click(function() {
 		capcharStart();
+		//packetLogin();
 	});
 
 	//2. 엔터키를 통해서 로그인 시도한 경우
@@ -543,6 +544,7 @@
 		
 		securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
 		securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
+		
 		ajaxCheck(securedUsername, securedPassword);//ajax 호출
 	}
 	

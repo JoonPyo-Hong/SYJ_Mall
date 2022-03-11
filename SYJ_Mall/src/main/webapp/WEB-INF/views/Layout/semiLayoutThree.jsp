@@ -133,11 +133,6 @@
 	$('.home-button').click(function() {
 		location.href = "/SYJ_Mall/searchbackmain.action";
 	});
-
-	/* 로그인 */
-	$('.login-btn').click(function() {
-		location.href = "/SYJ_Mall/login.action";
-	});
 	
 	//로그인 모달 열기
 	function login_modal_open() {

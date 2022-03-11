@@ -45,7 +45,6 @@ public class RSAalgorithm {
 		// 세션에 공개키의 문자열을 키로하여 개인키를 저장한다.
 		session.setAttribute("__rsaPrivateKey__", privateKey);
 
-
 		// 공개키를 문자열로 변환하여 JavaScript RSA 라이브러리 넘겨준다.
 		RSAPublicKeySpec publicSpec = keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
 
@@ -109,6 +108,7 @@ public class RSAalgorithm {
         
         HttpSession session = request.getSession();
         PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
+        
         
         if (privateKey == null) {
             throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다.");

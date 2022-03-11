@@ -122,7 +122,6 @@ public class LoginService implements ILoginService {
 		}
 
 		try {
-			
 			rsa.setRSA(request);
 			
 		} catch (Exception e) {
@@ -746,11 +745,14 @@ public class LoginService implements ILoginService {
 
 			Map<String, String> map = getRSAkeySessionStay(request);// 세션에서 정보를 지우지는 않는다.
 
+			//Map<String, String> map = getRSAkeySessionStay(request);
+			
 			String id = map.get("id");// 아이디
 			String pw = map.get("pw");// 비밀번호
-
+			
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
-		
+
+			
 			// 여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
 			// 0 : 계정 일시 벤 상태, 1: 로그인 허용 상태, -1 : 로그인 입력정보 오류, -100 : 에러발생
 			return dao.firstLoginCheck(ip, id, encPw);
