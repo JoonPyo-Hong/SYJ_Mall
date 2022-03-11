@@ -85,6 +85,12 @@
             </div>
         </div>
     </div>
+    
+    
+    <!-- 알람 옵션 팝업창 -->
+    <div class="overlay-wrap-up" id="testmodal2" style="visibility: hidden;">
+        
+    </div>
 	
 
 	<div id="kakao-wrap">

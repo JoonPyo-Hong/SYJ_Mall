@@ -722,6 +722,33 @@ hr.division {
   right: 30px;
 }
 
+#plus_alarm {
+  color: #fff;
+  font-size: 18px;
+  position: absolute;
+  width: 30px;
+  height: 25px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_friends.png); 
+  background-repeat: no-repeat;
+  background-position: -567px  -460px;
+  background-size: 700px  600px;
+  right: 30px;
+}
+
+#remove_alarm {
+  color: #fff;
+  font-size: 18px;
+  position: absolute;
+  width: 30px;
+  height: 25px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_friends.png); 
+  background-repeat: no-repeat;
+  background-position: -597px  -460px;
+  background-size: 700px  600px;
+  right: 30px;
+}
+
+
 /* no-repeat -1962px -995px; */
 
 /*  모달 작업 */
@@ -1188,6 +1215,8 @@ hr.division {
                     <c:if test="${prodtInfo.prodCnt eq 0}">
 	                    <div class="bottom-bar-alarm">
 	                        <button class="direct-alarm">알림설정</button>
+	                        <button class="this_prodt_alarm" id="plus_alarm" style="visibility: hidden; "></button>
+	                        <button class="this_prodt_alarm" id="remove_alarm" style="visibility: hidden; "></button>
 	                    </div>
                     </c:if>
                     
@@ -1277,6 +1306,7 @@ hr.division {
 			
             
             let cart_yn = "${prodtInfo.cookieBasket}";// 들어있으면 Y 안들어 있으면 N
+            let alarm_yn = "${prodtInfo.alarmYn}";// 들어있으면 Y 안들어 있으면 N
             let selected_prodt_seq = ${prodtInfo.prodtId};//현재 상세페이지에 관한 물품 번호
             let to_buy_cnt = 0;//구매 원하는 개수정보
             let this_prodt_price = '${prodtInfo.dcPrice}';
@@ -1340,6 +1370,16 @@ hr.division {
 			});
 			
 			
+			function alarm_on_display() {
+				$("#plus_alarm").css('visibility','hidden');
+          	   	$("#remove_alarm").css('visibility','visible');
+			}
+            
+			function alarm_off_display() {
+				$("#plus_alarm").css('visibility','visible');
+          	   	$("#remove_alarm").css('visibility','hidden');
+			}
+			
 			// 알람설정 클릭 시 팝업창 -> 로그인 해줬는지 확인해준다.
             $(".bottom-bar-alarm").click(function() { 
             	
@@ -1350,8 +1390,21 @@ hr.division {
                     success : function(result) {
                         
                        if (result == 1) {
-                    	   //로그인된 상태
-                    	   
+                    	   //로그인된 상태 -> 알림설정 창을 켜야한다.
+                    	   $(".bottom-bar-alarm").css("z-index",11);
+                    	   $("#testmodal2").css("visibility", "visible");
+                           $(".option-modal-wrap").css("bottom", "80px;");
+                           $(document.body).css("overflow", "hidden");
+                           
+   
+                           if (alarm_yn == 'N') {
+                        	   $(".direct-alarm").text("즉시 알람설정 하기");
+                        	   alarm_off_display();
+                           } else if (alarm_yn == 'Y') {
+                        	   $(".direct-alarm").text("즉시 알람설정 해제하기");
+                        	   alarm_on_display();
+                           }
+                           
                        } else {
                     	   //로그인 되지 않은 상태
                     	   login_modal_open();
@@ -1374,8 +1427,10 @@ hr.division {
                 $(".option-modal-wrap").css("bottom", "80px");
                 $(document.body).css("overflow", "visible");
                 $(".direct-purchase").text("구매하기");
+                $(".direct-alarm").text("알람설정");
                 
-                $('.this_prodt_cart').css("visibility","hidden");
+                $('.this_prodt_alarm').css("visibility","hidden");//알람 모달 끔
+                $('.this_prodt_cart').css("visibility","hidden");//장바구니 모달 끔
             });
             
             
