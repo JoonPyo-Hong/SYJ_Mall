@@ -72,8 +72,8 @@ public class ProductDetailService implements IProductDetailService{
 			UserDTO dto = (UserDTO) session.getAttribute("userinfo");//로그인 정보
 			
 			//kc = new KakaoCookie();
-			//kc.deleteCookie(request, response, "lastPage");
-			//kc.generateCookie(response, "lastPage", "productDetailMain.action?prodtSeq=" + prodtSeq);// 마지막페이지 쿠키에 저장
+			kc.deleteCookie(request, response, "lastPage");
+			kc.generateCookie(response, "lastPage", "productDetailMain.action?prodtSeq=" + prodtSeq);// 마지막페이지 쿠키에 저장
 			
 			//공동
 			//1. 상품에 대한 정보
