@@ -486,6 +486,7 @@ hr.division {
   height: 160px;
   background-image: url(/SYJ_Mall/resources/images/product-detail/20210622180643348_8809721509975_AW_00.jpg);
   background-size: contain;
+  background-repeat : no-repeat;
 }
 
 .detail-recommended .item-li .thumbnail::after {
@@ -531,7 +532,7 @@ hr.division {
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_cart_on.png);
+  background-image: url(/SYJ_Mall/resources/images/product-detail/Small_30_on.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -1140,7 +1141,7 @@ hr.division {
 										</div>
 										<div class="name">
 											<div class="nametext">${phdto.prodNm}</div>
-											<span class="alarm"></span>
+											<span class="${phdto.alarmYn}"></span>
 										</div>
 										<div class="price">${phdto.prodPrice}원</div>
 									</li>
@@ -1449,6 +1450,7 @@ hr.division {
 				$('.price-text').text(prodt_price.toLocaleString() + "원");
 				
 			});
+            
         })
         
         

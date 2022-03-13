@@ -18,6 +18,27 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
+<style>
+
+.cart {
+	cursor : pointer;
+}
+
+.incart {
+	cursor : pointer;
+}
+
+.alarm {
+	cursor : pointer;
+}
+
+.inalarm {
+	cursor : pointer;
+}
+
+
+</style>
+
 
 </head>
 <body>
@@ -157,6 +178,49 @@
 	$(document).on("click",".close-btn",function(){
 		login_modal_close();
 	});
+  	
+  	//장바구니 눌러줬을때 기능
+  	$('.cart').click(function() {
+  		const prodt_seq = $(this).parent().parent().attr("id");
+  		prodt_cart_def(prodt_seq, $(this));
+  	});
+  
+  	//장바구니 눌러줬을때 기능 - 이미 담겨진 경우
+  	$('.incart').click(function() {
+ 
+  		const prodt_seq = $(this).parent().parent().attr("id");
+  		prodt_cart_def(prodt_seq, $(this));
+  	});
+  	
+  	//장바구니 관련 함수
+  	function prodt_cart_def(prodt_seq, prodt_this) {
+  		
+  		$.ajax({
+        type:"GET",
+        url: "/SYJ_Mall/productDetailBasket.action" ,
+        data : {"selected_prodt_seq" : prodt_seq},
+        dataType : "json",
+        success : function(result) {
+        	
+           if (result == 1) {
+           		//장바구니에 추가
+           		$(prodt_this).attr('class','incart');
+           		
+           } else if (result == 2){
+           		//장바구니에서 제거
+           		$(prodt_this).attr('class','cart');
+           	
+           } else {
+        	   //에러 처리
+        	   location.href = "/SYJ_Mall/totalError.action"
+           }
+        },
+        error: function(a,b,c) {
+			console.log(a,b,c);
+		}
+    	});	
+  	} 
+  	
 	
 	
 	

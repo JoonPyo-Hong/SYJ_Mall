@@ -44,8 +44,7 @@ public class ProductDetail {
 	@RequestMapping(value = "/productDetailBasket.action", method = { RequestMethod.GET})
 	@ResponseBody
 	public int productDetailBasket(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb) {
-		
-		
+				
 		return service.getProductDetailModifyBasket(request,response,ea,kc,sf,sb);
 
 	}
