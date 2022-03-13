@@ -411,32 +411,19 @@
 }
 </style>
 
-<body style="height: 2000px">
+
 <form class="form-login" action="/SYJ_Mall/payment.action" method="post">
 	<input type="hidden" class="input" name="p_seq" value='1,2,3'>
 	<input type="hidden" class="input" name="sum" value='10,20,30'>
 	<button class="btn" type="submit">test</button>
 </form>
- <!-- 공유하기 팝업창 -->
-    <div class="overlay-wrap" id="testmodal1" style="visibility: hidden">
-      <div class="share-modal-wrap">
-        <div class="header">
-          <div class="title">공유하기</div>
-          <div class="close"></div>
-        </div>
-        <div class="list-share">
-          <div class="list-share-btn kakao"></div>
-          <div class="list-share-btn facebook"></div>
-          <div class="list-share-btn url-copy"></div>
-        </div>
-      </div>
-    </div>
+
     
 <div class="container-wrap today-wrap">
 	
 </div>
 
-</body>
+
 <!-- <div class="swiper-container slide">
 	<div class="swiper-wrapper ">
 		<div class="swiper-slide">
