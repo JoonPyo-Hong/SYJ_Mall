@@ -1,3 +1,93 @@
+/*  모달 작업 */
+/* 모달창 배경 검정색 레이어드 화면 */
+.overlay-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all ease-in 0.3s;
+}
+
+/* 구매 옵션 모달창 */
+.share-modal-wrap {
+  position: absolute;
+  position: fixed;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  top: 50%;
+  margin-top: -86px;
+  /* bottom: 80px; */
+  width: 310px;
+  border-radius: 16px;
+}
+
+.share-modal-wrap .header {
+  position: relative;
+  padding: 17px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.share-modal-wrap .header .title {
+  font-size: 18px;
+}
+
+.share-modal-wrap .header .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  overflow: hidden;
+  width: 24px;
+  height: 24px;
+  padding: 14px;
+  background: url(.././images/today/ico_close.png) center no-repeat;
+  background-size: 24px 24px;
+  color: transparent;
+}
+
+.share-modal-wrap .list-share {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 40px 40px;
+}
+
+.share-modal-wrap .list-share-btn {
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+}
+
+.share-modal-wrap .list-share .kakao {
+  background: url(.././images/today/ico_friends_1800.png) center no-repeat;
+  background-position: -380px -140px;
+  background-size: 700px 600px;
+}
+
+.share-modal-wrap .list-share .facebook {
+  background: url(.././images/today/ico_friends_1800.png) center no-repeat;
+  background-position: -460px -140px;
+  background-size: 700px 600px;
+}
+
+.share-modal-wrap .list-share .url-copy {
+  background: url(.././images/today/ico_friends_1800.png) center no-repeat;
+  background-position: -540px -140px;
+  background-size: 700px 600px;
+}
+
 /* 게시글 전체 */
 .box-feed {
   padding: 20px;
