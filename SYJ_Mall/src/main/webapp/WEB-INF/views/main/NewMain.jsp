@@ -6,6 +6,94 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <style>
+/*  모달 작업 */
+/* 모달창 배경 검정색 레이어드 화면 */
+.overlay-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all ease-in 0.3s;
+}
+/* 구매 옵션 모달창 */
+.share-modal-wrap {
+  position: absolute;
+  position: fixed;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  top: 50%;
+  margin-top: -86px;
+  /* bottom: 80px; */
+  width: 310px;
+  border-radius: 16px;
+}
+
+.share-modal-wrap .header {
+  position: relative;
+  padding: 17px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.share-modal-wrap .header .title {
+  font-size: 18px;
+}
+
+.share-modal-wrap .header .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  overflow: hidden;
+  width: 24px;
+  height: 24px;
+  padding: 14px;
+  background: url(/SYJ_Mall/resources/images/today/ico_close.png) center no-repeat;
+  background-size: 24px 24px;
+  color: transparent;
+}
+
+.share-modal-wrap .list-share {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 40px 40px;
+}
+
+.share-modal-wrap .list-share-btn {
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+}
+
+.share-modal-wrap .list-share .kakao {
+  background: url(/SYJ_Mall/resources/images/today/ico_friends_1800.png) center no-repeat;
+  background-position: -380px -140px;
+  background-size: 700px 600px;
+}
+
+.share-modal-wrap .list-share .facebook {
+  background: url(/SYJ_Mall/resources/images/today/ico_friends_1800.png) center no-repeat;
+  background-position: -460px -140px;
+  background-size: 700px 600px;
+}
+
+.share-modal-wrap .list-share .url-copy {
+  background: url(/SYJ_Mall/resources/images/today/ico_friends_1800.png) center no-repeat;
+  background-position: -540px -140px;
+  background-size: 700px 600px;
+}
 /* 게시글 전체 */
 .box-feed {
 	padding: 20px;
@@ -271,7 +359,7 @@
 .option-list-product .list-product-cart .cart-btn {
 	width: 24px;
 	height: 24px;
-	background: url(.././images/today/ico_friends.png) -280px -220px
+	background: url(/SYJ_Mall/resources/images/today/ico_friends.png) -280px -220px
 		no-repeat;
 	background-size: 699px 451px;
 	color: transparent;
@@ -323,7 +411,32 @@
 }
 </style>
 
+<body style="height: 2000px">
+<form class="form-login" action="/SYJ_Mall/payment.action" method="post">
+	<input type="hidden" class="input" name="p_seq" value='1,2,3'>
+	<input type="hidden" class="input" name="sum" value='10,20,30'>
+	<button class="btn" type="submit">test</button>
+</form>
+ <!-- 공유하기 팝업창 -->
+    <div class="overlay-wrap" id="testmodal1" style="visibility: hidden">
+      <div class="share-modal-wrap">
+        <div class="header">
+          <div class="title">공유하기</div>
+          <div class="close"></div>
+        </div>
+        <div class="list-share">
+          <div class="list-share-btn kakao"></div>
+          <div class="list-share-btn facebook"></div>
+          <div class="list-share-btn url-copy"></div>
+        </div>
+      </div>
+    </div>
+    
+<div class="container-wrap today-wrap">
+	
+</div>
 
+</body>
 <!-- <div class="swiper-container slide">
 	<div class="swiper-wrapper ">
 		<div class="swiper-slide">
@@ -333,16 +446,27 @@
 	</div>
 	<div class="swiper-pagination"></div>
 </div> -->
-<form class="form-login" action="/SYJ_Mall/payment.action" method="post">
-	<input type="hidden" class="input" name="p_seq" value='1,2,3'>
-	<input type="hidden" class="input" name="sum" value='10,20,30'>
-	<button class="btn" type="submit">test</button>
-</form>
 
-<div class="container-wrap today-wrap"></div>
 
 <input type="hidden" id="hid_seq" value="${seq}">
 <script type="text/javascript">
+/* $(".login-or-out").click(function () {
+    alert($(this).attr("id"));
+  }); */
+// 공유하기 클릭 시 팝업창
+$(document).on("click",".share-btn",function(){
+  $("#testmodal1").css("visibility", "visible");
+  $(".option-modal-wrap").css("bottom", "80px;");
+  $(document.body).css("overflow", "hidden");
+});
+
+//모달 제거하는 용도
+$(document).on("click",".share-modal-wrap .header .close",function(){
+  $(".overlay-wrap").css("visibility", "hidden");
+  $(".option-modal-wrap").css("bottom", "80px");
+  $(document.body).css("overflow", "visible");
+});
+
 	var hid_seq = $('#hid_seq').val();
 	//alert(hid_seq);
 	var count = 0;
@@ -353,31 +477,7 @@
 		$('#login-product-modal').css('visibility','hidden');
 	});
 	
-	
-	/* 
-	function search_prod_alarm(prodt_id,prodt_this) {
-		$.ajax({
-        	type:"GET",
-        	url: "/SYJ_Mall/charItemAlarmSet.action",
-        	data : "productId=" + prodt_id,
-        	dataType : "json",
-        	success : function(result) {
-        		console.log(result);
-        		if (result == 1) {
-        			$(prodt_this).attr('class','inalarm');
-        		} else if (result == 2) {
-        			$(prodt_this).attr('class','alarm');
-        		} else {
-        			//로그인해야 알람을 넣어줄 수 있는 경우
-        			$('#login-product-modal').css('visibility','visible');
-        			$(document.body).css('overflow','hidden');
-        		}
-        	},
-        	error: function(a,b,c) {
-				console.log(a,b,c);
-		}
-       });
-	} */
+
 	function heart_select(a, b) {
 		$.ajax({
 			url : "new_heart_select.action",
@@ -416,25 +516,18 @@
 			}
 		});
 	}
-	//공유하기
-	$(document).on("click", ".share-btn", function(e) {
-		
-		alert();
-	});
+
 	$(document).on("click", ".comments-input", function(e) {
 	
-		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+		my_login_modal_open();
 	});
-	$(document).on("click", ".share-btn", function(e) {
-		
-		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
-	});
+
 	$(document).on("click", ".txt-count", function(e) {
 		
-		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
+		my_login_modal_open();
 	});
 	$(document).on("click", ".reply-btn", function(e) {
-		$('#login-product-modal').css('visibility','hidden');
+		my_login_modal_open();
 		//$('#login-product-modal').css('visibility','visible');
 
 		//location.href = "/SYJ_Mall/login.action";
@@ -447,20 +540,27 @@
 	$(document).on("click", ".like-btn", function(e) {
 		const id = $(this).attr("id").replace('like-btn_','');
 		
+		var count= parseInt($("#like-count_" + id).text().replace('좋아요','').replace('명',''));
+		
+		$("#like-count_" + id).text("좋아요 "+count+ "명");
 		//로그인 모달!!
-		my_login_modal_open();
+		//my_login_modal_open();
 		
 		var type = "";
-		/* if ($(this).css('background-position') == '-200px -100px') {
+		 if ($(this).css('background-position') == '-200px -100px') {
 			//alert();
 			$(this).css(
 					'background-position', '-160px -100px');
+			count = count-1;
+			$("#like-count_" + id).text("좋아요 "+count+ "명");
 			type = "D";
 		} else if($(this).css('background-position') == '-160px -100px'){
 			$(this).css(
 					'background-position', '-200px -100px');
+			count = count+1;
+			$("#like-count_" + id).text("좋아요 "+count+ "명");
 			type = "I";
-		}  */
+		}  
 		if(type!=""){
 			$.ajax({
 				url: "new_heart_update.action",

@@ -80,6 +80,20 @@
 			</div>
 		</div>
 	</div>
+	 <!-- 공유하기 팝업창 -->
+    <div class="overlay-wrap" id="testmodal1" style="visibility: hidden">
+      <div class="share-modal-wrap">
+        <div class="header">
+          <div class="title">공유하기</div>
+          <div class="close"></div>
+        </div>
+        <div class="list-share">
+          <div class="list-share-btn kakao"></div>
+          <div class="list-share-btn facebook"></div>
+          <div class="list-share-btn url-copy"></div>
+        </div>
+      </div>
+    </div>
 
 	<div id="kakao-wrap">
 		<div id="kakao-head" >

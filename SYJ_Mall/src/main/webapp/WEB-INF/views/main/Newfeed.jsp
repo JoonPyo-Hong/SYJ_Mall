@@ -264,7 +264,7 @@
 .option-list-product .list-product-cart .cart-btn {
 	width: 24px;
 	height: 24px;
-	background: url(.././images/today/ico_friends.png) -280px -220px
+	background: url(/SYJ_Mall/resources/images/today/ico_friends.png)-280px -220px
 		no-repeat;
 	background-size: 699px 451px;
 	color: transparent;
