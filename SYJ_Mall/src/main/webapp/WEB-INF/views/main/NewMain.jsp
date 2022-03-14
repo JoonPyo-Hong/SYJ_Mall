@@ -505,16 +505,20 @@ $(document).on("click",".share-modal-wrap .header .close",function(){
 	}
 
 	$(document).on("click", ".comments-input", function(e) {
-	
+		var seq = $(this).attr("id");
 		my_login_modal_open();
+		location.href = "/SYJ_Mall/new_feed.action?seq=" + seq;
 	});
 
 	$(document).on("click", ".txt-count", function(e) {
-		
+		var seq = $(this).attr("id");
 		my_login_modal_open();
+		location.href = "/SYJ_Mall/new_feed.action?seq=" + seq;
 	});
 	$(document).on("click", ".reply-btn", function(e) {
+		var seq = $(this).attr("id");
 		my_login_modal_open();
+		location.href = "/SYJ_Mall/new_feed.action?seq=" + seq;
 		//$('#login-product-modal').css('visibility','visible');
 
 		//location.href = "/SYJ_Mall/login.action";
@@ -762,7 +766,7 @@ $(document).on("click",".share-modal-wrap .header .close",function(){
 																	+ "</div>"
 																	+ "<div class='util-left'>"
 																	+ "<div class='like-btn' id = 'like-btn_"+this.seq +"'></div>"
-																	+ "<div class='reply-btn'></div>"
+																	+ "<div class='reply-btn' id='"+this.seq+"'></div>"
 																	+ "</div>"
 																	+ "<div class='util-right'>"
 																	+ "<div class='share-btn'></div>"
@@ -775,11 +779,11 @@ $(document).on("click",".share-modal-wrap .header .close",function(){
 																	+ "</ul>"
 																	+ "<ul class='option-list-product'>"
 																	+ "<div class='link-comments'>"
-																	+ "<span class='txt-count'>댓글 13개</span> <span class='info-comments'>"
+																	+ "<span class='txt-count'id='"+this.seq+"'>댓글 13개</span> <span class='info-comments'>"
 																	+ "<span class='name'>최**</span> <span class='comments'>라이언"
 																	+ "귀여웡~~!</span>"
 																	+ "</span>"
-																	+ "<div class='comments-input'>댓글을 남겨주세요</div>"
+																	+ "<div class='comments-input' id='"+this.seq+"'>댓글을 남겨주세요</div>"
 																	+ "</div>"
 																	+ "</div>"
 																	+ "</div>");
