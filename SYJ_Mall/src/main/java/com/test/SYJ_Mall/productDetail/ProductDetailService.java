@@ -191,6 +191,7 @@ public class ProductDetailService implements IProductDetailService{
 				
 				// 해당 물품이 없는 경우 -> 상품 쿠키 객체에 물품 아이디를 추가해준다.
 				if (!cookieFlag) {
+					sb.append(basketList);
 					sb.append(prodtId);
 					sb.append("#");
 					
@@ -255,6 +256,28 @@ public class ProductDetailService implements IProductDetailService{
 			return -1;
 		}
 		
+	}
+	
+	//상품 알람 관련 기능
+	@Override
+	public int getProductDetailModifyAlarm(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonDAO cdao) {
+		
+		try {
+			
+			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			String prodtId = request.getParameter("selected_prodt_seq");
+			
+			if (userInfo == null) return 3;
+			
+			return cdao.setAlarmProdt(userInfo.getUserSeq(), Integer.parseInt(prodtId));	
+			
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
 	}
 	
 	

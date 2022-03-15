@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.common.utill.CommonDAO;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
@@ -58,5 +59,15 @@ public interface IProductDetailService {
 	 * @return
 	 */
 	int getProductLoginYn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+	
+	/**
+	 * 상품알람관련 기능
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @param cdao
+	 * @return
+	 */
+	int getProductDetailModifyAlarm(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonDAO cdao);
 	
 }

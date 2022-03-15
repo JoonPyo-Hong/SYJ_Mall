@@ -824,6 +824,10 @@ hr.division {
 	font-weight: bold;
 }
 
+.thumbnail {
+	cursor : pointer;
+}
+
 
 </style>
 
@@ -1339,7 +1343,7 @@ hr.division {
           	   	$("#remove_cart").css('visibility','hidden');
 			}
             
-			//카트 상태 변경 함수 -> 현재 상품에 관한 장바구니만 적용
+			//카트 상태 변경 함수 -> 현재 상품에 관한 장바구니만 적용!
 			//장바구니 버튼 누를 경우
 			$('.this_prodt_cart').click(function(){
 				//여기서 ajax 로 값을 받아와야 한다
@@ -1448,6 +1452,18 @@ hr.division {
 				let prodt_price = this_prodt_price.replaceAll(',','') * buy_cnt;
 				
 				$('.price-text').text(prodt_price.toLocaleString() + "원");
+				
+			});
+            
+            
+            //잠깐만 이 상품은 어때요? 부분 사진 선택했을 경우 -> 상세페이지로 넘어간다.
+			$('.thumbnail').click(function(){
+				
+				const prodtSeq = $(this).parent('li').attr('id');
+				
+				//console.log(prodtSeq);
+				
+				location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodtSeq;
 				
 			});
             

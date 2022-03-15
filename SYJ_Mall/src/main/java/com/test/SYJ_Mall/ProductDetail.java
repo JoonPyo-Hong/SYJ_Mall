@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.CommonDAO;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
@@ -50,12 +51,21 @@ public class ProductDetail {
 	}
 	
 	
-	//제품 상세 페이지 - 장바구니 관련 
+	//고객이 로그인 해줬는지 안해줬는지 확인해주는 메소드
 	@RequestMapping(value = "/productDetailLoginCheck.action", method = { RequestMethod.GET})
 	@ResponseBody
 	public int productDetailLoginCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
 		return service.getProductLoginYn(request,response,ea);
+
+	}
+	
+	//제품 상세 페이지 - 알람 관련
+	@RequestMapping(value = "/productDetailAlarm.action", method = { RequestMethod.GET})
+	@ResponseBody
+	public int productDetailModifyAlarm(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonDAO cdao) {
+				
+		return service.getProductDetailModifyAlarm(request,response,ea,cdao);
 
 	}
 
