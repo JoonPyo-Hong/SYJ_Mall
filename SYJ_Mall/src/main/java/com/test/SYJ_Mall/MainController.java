@@ -36,18 +36,17 @@ public class MainController {
 	@Autowired
 	private MainService service;
 
-
 	// 메인 화면
-	@RequestMapping(value = "/main.action", method = { RequestMethod.GET ,RequestMethod.POST})
-	public String main(Model model, HttpServletRequest request,HttpServletResponse response,KakaoCookie kc) {
-		
+	@RequestMapping(value = "/main.action", method = { RequestMethod.GET, RequestMethod.POST })
+	public String main(Model model, HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
+
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 		request.setAttribute("selected", "today");
-		
-		kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-		//kc.generateCookie(response, "lastPage", "main");//마지막페이지
-		
+
+		kc.deleteCookie(request, response, "lastPage");// 기존에 있는 마지막 페이지를 지워준다.
+		// kc.generateCookie(response, "lastPage", "main");//마지막페이지
+
 		int seq = 1;
 
 		if (dto == null) {
@@ -56,60 +55,62 @@ public class MainController {
 			seq = dto.getUserSeq();
 		}
 		model.addAttribute("seq", seq);
-		model.addAttribute("seleted","today");
-		
+		model.addAttribute("seleted", "today");
+
 		return "/tiles/mainStart.layout";
 	}
+
 	// new 댓글 화면
-		@RequestMapping(value = "/feed.action", method = { RequestMethod.GET })
-		public String main(Model model, HttpServletRequest request, Integer seq) {
+	@RequestMapping(value = "/feed.action", method = { RequestMethod.GET, RequestMethod.POST })
+	public String feed(Model model, HttpServletRequest request, Integer seq) {
+		System.out.println("test");
+		HttpSession session = request.getSession();
+		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 
-			HttpSession session = request.getSession();
-			UserDTO dto = (UserDTO) session.getAttribute("userinfo");
-
-			int user_seq = 0;
-			String user_name = "";
-			if (dto == null) {
-				user_seq = 0;
-				user_name = "";
-			} else {
-				user_seq = dto.getUserSeq();
-				user_name = dto.getUserName();
-			}
-
-			model.addAttribute("seq", user_seq);
-			model.addAttribute("name", user_name);
-
-			if (seq == null) {
-				seq = 0;
-			}
-
-			/*
-			 * Integer num1 = seq; Integer num2 = seq; HashMap<String, Integer> map = new
-			 * HashMap<String, Integer>(); map.put("num1", num1); map.put("num2", num2);
-			 * List<MainDTO> list1 = service.list(map); model.addAttribute("list1", list1);
-			 * 
-			 * List<String> list2 = service.img(seq); model.addAttribute("list2", list2);
-			 * 
-			 * Integer count = service.heart(seq); model.addAttribute("count", count);
-			 */
-
-			return "/tiles/feedStart.layout";
+		int user_seq = 0;
+		String user_name = "";
+		if (dto == null) {
+			user_seq = 0;
+			user_name = "";
+		} else {
+			user_seq = dto.getUserSeq();
+			user_name = dto.getUserName();
 		}
+
+		model.addAttribute("seq", user_seq);
+		model.addAttribute("name", user_name);
+
+		if (seq == null) {
+			seq = 0;
+		}
+
+		/*
+		 * Integer num1 = seq; Integer num2 = seq; HashMap<String, Integer> map = new
+		 * HashMap<String, Integer>(); map.put("num1", num1); map.put("num2", num2);
+		 * List<MainDTO> list1 = service.list(map); model.addAttribute("list1", list1);
+		 * 
+		 * List<String> list2 = service.img(seq); model.addAttribute("list2", list2);
+		 * 
+		 * Integer count = service.heart(seq); model.addAttribute("count", count);
+		 */
+
+		return "/tiles/feedStart.layout";
+	}
+
 	// 무한 스크롤2
-		@RequestMapping(value = "/new_list.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public Object new_list(@RequestParam("num") int num) {
+	@RequestMapping(value = "/new_list.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object new_list(@RequestParam("num") int num) {
 
-			Integer num1 = num - 1;
-			Integer num2 = num;
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			map.put("num1", num1);
-			map.put("num2", num2);
-			List<NewMainDTO> list = service.new_list(map);
-			//System.out.println(list.get(0).toString());
-			return list;
-		}
+		Integer num1 = num - 1;
+		Integer num2 = num;
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("num1", num1);
+		map.put("num2", num2);
+		List<NewMainDTO> list = service.new_list(map);
+		// System.out.println(list.get(0).toString());
+		return list;
+	}
 
 	// 무한 스크롤
 	@RequestMapping(value = "/list.action", method = { RequestMethod.POST })
@@ -125,6 +126,7 @@ public class MainController {
 
 		return list;
 	}
+
 	// new 메인 이미지
 	@RequestMapping(value = "/new_main_img.action", method = { RequestMethod.POST })
 	@ResponseBody
@@ -134,6 +136,7 @@ public class MainController {
 
 		return list;
 	}
+
 	// char_img
 	@RequestMapping(value = "/char_img.action", method = { RequestMethod.POST })
 	@ResponseBody
@@ -143,6 +146,7 @@ public class MainController {
 
 		return list;
 	}
+
 	// new_main_sub
 	@RequestMapping(value = "/new_main_sub.action", method = { RequestMethod.POST })
 	@ResponseBody
@@ -152,6 +156,7 @@ public class MainController {
 
 		return list;
 	}
+
 	// new_main_sub_img
 	@RequestMapping(value = "/new_main_sub_img.action", method = { RequestMethod.POST })
 	@ResponseBody
@@ -181,17 +186,16 @@ public class MainController {
 
 		return count;
 	}
-	//new 좋아요 갯수
-		@RequestMapping(value = "/heart_count.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public Object heart_count(@RequestParam("num") int num) {
 
-			Integer count = service.heart_count(num);
+	// new 좋아요 갯수
+	@RequestMapping(value = "/heart_count.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object heart_count(@RequestParam("num") int num) {
 
-			return count;
-		}
-	
+		Integer count = service.heart_count(num);
 
+		return count;
+	}
 
 	// 하트 조회
 	@RequestMapping(value = "/heart_select.action", method = { RequestMethod.POST })
@@ -205,11 +209,12 @@ public class MainController {
 
 		return count;
 	}
-	
-	//new 하트 조회
+
+	// new 하트 조회
 	@RequestMapping(value = "/new_heart_select.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public Object new_heart_select(@RequestParam("list_seq") int list_seq, @RequestParam("session_seq") int session_seq) {
+	public Object new_heart_select(@RequestParam("list_seq") int list_seq,
+			@RequestParam("session_seq") int session_seq) {
 
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("list_seq", list_seq);
@@ -233,47 +238,48 @@ public class MainController {
 		service.heart_update(map);
 
 	}
+
 	// new 좋아요 처리 (Insert, Delete로 처리)
-		@RequestMapping(value = "/new_heart_update.action", method = { RequestMethod.POST })
-		@ResponseBody
-		public void new_heart_update(@RequestParam("list_seq") String list_seq, @RequestParam("member_seq") String member_seq,
-				@RequestParam("gubn") String gubn) {
+	@RequestMapping(value = "/new_heart_update.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public void new_heart_update(@RequestParam("list_seq") String list_seq,
+			@RequestParam("member_seq") String member_seq, @RequestParam("gubn") String gubn) {
 
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("list_seq", list_seq);
-			map.put("member_seq", member_seq);
-			map.put("gubn", gubn);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("list_seq", list_seq);
+		map.put("member_seq", member_seq);
+		map.put("gubn", gubn);
 
-			service.new_heart_update(map);
+		service.new_heart_update(map);
 
-		}
-		/*
-		 * // 댓글 화면
-		 * 
-		 * @RequestMapping(value = "/feed.action", method = { RequestMethod.GET })
-		 * public String main(Model model, HttpServletRequest request, Integer seq) {
-		 * 
-		 * HttpSession session = request.getSession(); UserDTO dto = (UserDTO)
-		 * session.getAttribute("userinfo");
-		 * 
-		 * int user_seq = 0; String user_name = ""; if (dto == null) { user_seq = 0;
-		 * user_name = ""; } else { user_seq = dto.getUserSeq(); user_name =
-		 * dto.getUserName(); }
-		 * 
-		 * model.addAttribute("seq", user_seq); model.addAttribute("name", user_name);
-		 * 
-		 * if (seq == null) { seq = 0; }
-		 * 
-		 * Integer num1 = seq; Integer num2 = seq; HashMap<String, Integer> map = new
-		 * HashMap<String, Integer>(); map.put("num1", num1); map.put("num2", num2);
-		 * List<MainDTO> list1 = service.list(map); model.addAttribute("list1", list1);
-		 * 
-		 * List<String> list2 = service.img(seq); model.addAttribute("list2", list2);
-		 * 
-		 * Integer count = service.heart(seq); model.addAttribute("count", count);
-		 * 
-		 * return "/main/Feed"; }
-		 */
+	}
+	/*
+	 * // 댓글 화면
+	 * 
+	 * @RequestMapping(value = "/feed.action", method = { RequestMethod.GET })
+	 * public String main(Model model, HttpServletRequest request, Integer seq) {
+	 * 
+	 * HttpSession session = request.getSession(); UserDTO dto = (UserDTO)
+	 * session.getAttribute("userinfo");
+	 * 
+	 * int user_seq = 0; String user_name = ""; if (dto == null) { user_seq = 0;
+	 * user_name = ""; } else { user_seq = dto.getUserSeq(); user_name =
+	 * dto.getUserName(); }
+	 * 
+	 * model.addAttribute("seq", user_seq); model.addAttribute("name", user_name);
+	 * 
+	 * if (seq == null) { seq = 0; }
+	 * 
+	 * Integer num1 = seq; Integer num2 = seq; HashMap<String, Integer> map = new
+	 * HashMap<String, Integer>(); map.put("num1", num1); map.put("num2", num2);
+	 * List<MainDTO> list1 = service.list(map); model.addAttribute("list1", list1);
+	 * 
+	 * List<String> list2 = service.img(seq); model.addAttribute("list2", list2);
+	 * 
+	 * Integer count = service.heart(seq); model.addAttribute("count", count);
+	 * 
+	 * return "/main/Feed"; }
+	 */
 
 	// 댓글 (Insert)
 	@RequestMapping(value = "/feed_insert.action", method = { RequestMethod.POST })

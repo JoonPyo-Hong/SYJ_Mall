@@ -507,18 +507,18 @@ $(document).on("click",".share-modal-wrap .header .close",function(){
 	$(document).on("click", ".comments-input", function(e) {
 		var seq = $(this).attr("id");
 		my_login_modal_open();
-		location.href = "/SYJ_Mall/new_feed.action?seq=" + seq;
+		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
 	});
 
 	$(document).on("click", ".txt-count", function(e) {
 		var seq = $(this).attr("id");
 		my_login_modal_open();
-		location.href = "/SYJ_Mall/new_feed.action?seq=" + seq;
+		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
 	});
 	$(document).on("click", ".reply-btn", function(e) {
 		var seq = $(this).attr("id");
 		my_login_modal_open();
-		location.href = "/SYJ_Mall/new_feed.action?seq=" + seq;
+		location.href = "/SYJ_Mall/feed.action?seq=" + seq;
 		//$('#login-product-modal').css('visibility','visible');
 
 		//location.href = "/SYJ_Mall/login.action";
