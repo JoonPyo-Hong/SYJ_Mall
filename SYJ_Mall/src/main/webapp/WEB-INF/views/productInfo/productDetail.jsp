@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/mainasset.jsp" %>		
-		
+
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+<script type="text/javascript" src="${path}/resources/js/commonjs/commonLogin.js"></script>		
+
 <style>
 
 /* 대표 이미지 슬라이더 */
@@ -1387,41 +1390,28 @@ hr.division {
 			
 			// 알람설정 클릭 시 팝업창 -> 로그인 해줬는지 확인해준다.
             $(".bottom-bar-alarm").click(function() { 
+            	const login_yn = common_login_user_checking();
             	
-            	$.ajax({
-                    type:"GET",
-                    url: "/SYJ_Mall/productDetailLoginCheck.action" ,
-                    dataType : "json",
-                    success : function(result) {
-                        
-                       if (result == 1) {
-                    	   //로그인된 상태 -> 알림설정 창을 켜야한다.
-                    	   $(".bottom-bar-alarm").css("z-index",11);
-                    	   $("#testmodal2").css("visibility", "visible");
-                           $(".option-modal-wrap").css("bottom", "80px;");
-                           $(document.body).css("overflow", "hidden");
-                           
-   
-                           if (alarm_yn == 'N') {
-                        	   $(".direct-alarm").text("즉시 알람설정 하기");
-                        	   alarm_off_display();
-                           } else if (alarm_yn == 'Y') {
-                        	   $(".direct-alarm").text("즉시 알람설정 해제하기");
-                        	   alarm_on_display();
-                           }
-                           
-                       } else {
-                    	   //로그인 되지 않은 상태
-                    	   login_modal_open();
-                       }
-                    },
-                    error: function(a,b,c) {
-    					console.log(a,b,c);
-    				}
-                	});	
-            	
-            	
-            	//login_modal_open();
+            	if (login_yn == 1) {
+            		//로그인된 상태 -> 알림설정 창을 켜야한다.
+            		$(".bottom-bar-alarm").css("z-index",11);
+             	   	$("#testmodal2").css("visibility", "visible");
+                    $(".option-modal-wrap").css("bottom", "80px;");
+                    $(document.body).css("overflow", "hidden");
+                    
+                    if (alarm_yn == 'N') {
+                 	   $(".direct-alarm").text("즉시 알람설정 하기");
+                 	   alarm_off_display();
+                    } else if (alarm_yn == 'Y') {
+                 	   $(".direct-alarm").text("즉시 알람설정 해제하기");
+                 	   alarm_on_display();
+                    }
+                    
+            	} else {
+            		//로그인 되지 않은 상태
+             	   	common_login_modal_open();
+            	}
+
                 
             });
 			

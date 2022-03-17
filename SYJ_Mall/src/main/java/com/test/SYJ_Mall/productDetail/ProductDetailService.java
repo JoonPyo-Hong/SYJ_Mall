@@ -237,27 +237,6 @@ public class ProductDetailService implements IProductDetailService{
 		
 	}
 	
-	//고객이 로그인 해줬는지 안해줬는지 확인해주는 메소드
-	@Override
-	public int getProductLoginYn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
-		
-		try {
-			
-			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
-
-			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
-			
-			if (userInfo == null) return -1;
-			else return 1;
-			
-			
-		} catch(Exception e) {
-			ea.basicErrorException(request, e);
-			return -1;
-		}
-		
-	}
-	
 	//상품 알람 관련 기능
 	@Override
 	public int getProductDetailModifyAlarm(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonDAO cdao) {

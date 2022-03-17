@@ -17,6 +17,7 @@
 <!-- 신규 스와이퍼 라이브러리 신규 -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="resources/js/commonjs/commonLogin.js"></script>		
 
 <style>
 
@@ -155,28 +156,16 @@
 		location.href = "/SYJ_Mall/searchbackmain.action";
 	});
 	
-	//로그인 모달 열기
-	function login_modal_open() {
-	    const scrollLocation = window.scrollY;
-		$('#login-product-modal').css('top',scrollLocation + 'px');
-	    $(document.body).css('overflow', 'hidden');
-	}
-	
-	//로그인 모달 닫기
-	function login_modal_close() {
-		$('#login-product-modal').css('top','-1400px');
-	    $(document.body).css('overflow', 'scroll');
-	}
 	
 	//로그인 모달창 로그인하기
   	$(document).on("click",".login-btn",function(){
-  		login_modal_close();
-  		location.href = "/SYJ_Mall/login.action";
+  		common_login_modal_close();
+  		common_go_login_page();
 	});
 	
   	//로그인 모달창 돌아가기
 	$(document).on("click",".close-btn",function(){
-		login_modal_close();
+		common_login_modal_close();
 	});
   	
   	

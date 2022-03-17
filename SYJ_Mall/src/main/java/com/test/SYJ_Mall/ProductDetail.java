@@ -50,16 +50,6 @@ public class ProductDetail {
 
 	}
 	
-	
-	//고객이 로그인 해줬는지 안해줬는지 확인해주는 메소드
-	@RequestMapping(value = "/productDetailLoginCheck.action", method = { RequestMethod.GET})
-	@ResponseBody
-	public int productDetailLoginCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
-		
-		return service.getProductLoginYn(request,response,ea);
-
-	}
-	
 	//제품 상세 페이지 - 알람 관련
 	@RequestMapping(value = "/productDetailAlarm.action", method = { RequestMethod.GET})
 	@ResponseBody

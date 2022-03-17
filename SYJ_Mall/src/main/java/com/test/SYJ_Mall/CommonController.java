@@ -1,0 +1,36 @@
+package com.test.SYJ_Mall;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.common.utill.ErrorAlarm;
+import com.test.SYJ_Mall.common.ICommonService;
+
+
+/**
+ * 공통기능 컨트롤러
+ * @author shin
+ *
+ */
+@Controller
+public class CommonController {
+	@Autowired
+	private ICommonService service;
+	
+	
+	//고객이 로그인 해줬는지 확인해주는 메소드
+	@RequestMapping(value = "/kakaoUserLoginCheck.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int kakaoUserLoginCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return service.getUserLoginChecking(request,response,ea);
+	
+	}
+	
+}

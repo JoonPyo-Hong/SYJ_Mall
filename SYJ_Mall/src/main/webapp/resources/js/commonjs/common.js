@@ -30,6 +30,7 @@ function money_dot(money) {
 }
 
 
+// 하단 영역
 function call_footer() {
 	$('#inner-content').append(
 			'<div id="kakao-footer">'
@@ -57,3 +58,8 @@ function call_footer() {
 			+'</div>'
 	);	
 }
+
+
+
+
+

@@ -7,12 +7,12 @@
 <script src = "resources/js/jquery-1.12.4.js"></script>
 <script src = "resources/js/jquery-ui.js"></script>
 <script src = "resources/js/bootstrap.js"></script>
+<script src = "resources/js/bootstrap.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="resources/css/icofont/icofont.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
 
 <style>
 
