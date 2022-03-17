@@ -314,99 +314,385 @@
 .profile img {
 	width: 43px;
 }
+/* 게시글 전체 */
+.box-feed {
+  padding: 20px;
+}
+
+/* 게시글 상단 */
+.head-feed {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-bottom: 15px;
+}
+
+.head-feed .profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 16px;
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+.head-feed .info-head {
+  display: flex;
+  flex-direction: column;
+  padding-left: 8px;
+}
+
+.head-feed .info-head .txt-profile {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+.head-feed .info-head .txt-time {
+  font-size: 13px;
+  line-height: 16px;
+  color: #909092;
+}
+
+/* 게시글 내용 */
+/* 이미지 사진 */
+.body-feed .slide-feed {
+  min-height: 400px;
+  background-color: #ededed;
+}
+
+/* [+] 관련 상품 보러가기 텍스트 형식 */
+.option-link-view {
+  cursor: pointer;
+  position: relative;
+  height: 50px;
+  padding: 0 30px 0 15px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-weight: bold;
+  line-height: 50px;
+  font-size: 14px;
+}
+
+.option-link-view .icon-arrow {
+  position: absolute;
+  top: 16px;
+  right: 11px;
+  width: 16px;
+  height: 16px;
+  background: url(.././images/today/ico_friends.png) -320px 0 no-repeat;
+  background-size: 699px 451px;
+  color: transparent;
+}
+
+/* 정보 영역 */
+.info-feed {
+  position: relative;
+  padding-top: 50px;
+}
+
+.info-feed .like-count {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.info-feed .title {
+  padding-top: 10px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+.info-feed .desc {
+  padding-top: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  word-break: break-all;
+}
+
+.info-feed .util-left {
+  position: absolute;
+  top: 6px;
+  left: -2px;
+  display: flex;
+}
+
+.info-feed .util-right {
+  position: absolute;
+  top: 6px;
+  right: -2px;
+}
+
+.info-feed .util-left .like-btn {
+  width: 32px;
+  height: 32px;
+  background: url(.././images/today/ico_friends.png) -160px -100px no-repeat;
+  background-size: 699px 451px;
+  cursor: pointer;
+}
+
+.info-feed .util-left .reply-btn {
+  width: 32px;
+  height: 32px;
+  background: url(.././images/today/ico_friends.png) -120px -100px no-repeat;
+  background-size: 699px 451px;
+  cursor: pointer;
+}
+
+.info-feed .util-right .share-btn {
+  width: 32px;
+  height: 32px;
+  background: url(.././images/today/ico_friends.png) -80px -100px no-repeat;
+  background-size: 699px 451px;
+  cursor: pointer;
+}
+
+/* [+] 해당 게시글 태그 */
+.option-list-tag {
+  padding-top: 12px;
+  cursor: pointer;
+}
+
+.option-list-tag .list-tag-txt {
+  display: inline-block;
+  line-height: 30px;
+  height: 30px;
+  font-size: 14px;
+  color: #28619e;
+  font-weight: bold;
+  padding: 0 13px;
+  border: 1px solid #c7d6e7;
+  border-radius: 15px;
+  margin-right: 5px;
+}
+
+.option-list-tag .list-tag-txt span {
+  display: block;
+}
+
+/* [+] 관련 상품 보러가기 이미지 형식 */
+.option-list-product {
+  margin-top: 12px;
+  border: 1px solid #dedfe0;
+  border-radius: 10px;
+}
+
+.option-list-product li {
+  position: relative;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-bottom: 1px solid #dedfe0;
+}
+
+.option-list-product li:last-child {
+  border-bottom: none;
+}
+
+.option-list-product .list-product-contents {
+  padding: 4px 0 4px 7px;
+  display: flex;
+}
+
+.option-list-product .list-product-contents .img-product {
+  width: 70px;
+  height: 70px;
+}
+
+.option-list-product .list-product-contents .info-product {
+  padding: 15px 0 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.option-list-product .list-product-contents .info-product .title-product {
+  font-size: 14px;
+  line-height: 16px;
+  color: #747475;
+}
+
+.option-list-product .list-product-contents .info-product .price-product {
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+.option-list-product .list-product-cart .cart-btn {
+  width: 24px;
+  height: 24px;
+  background: url(.././images/today/ico_friends.png) -280px -220px no-repeat;
+  background-size: 699px 451px;
+  color: transparent;
+}
+
+/* 댓글 영역 */
+.link-comments .input-box {
+  margin: 0 20px;
+  position: relative;
+  padding: 13px 62px 13px 14px;
+  border-radius: 0 24px 24px 24px;
+  background-color: #f2f2f2;
+}
+
+.link-comments .input-box textarea {
+  display: block;
+  width: 100%;
+  height: 20px;
+  border: 0;
+  line-height: 20px;
+  background-color: transparent;
+  resize: none;
+}
+
+.link-comments .input-box button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 8px;
+}
+
+.link-comments .input-box button .icon-upload {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../images/today/ico_friends.png) 0 0 no-repeat;
+  background-size: 699px 451px;
+  background-position: -150px -320px;
+  color: transparent;
+}
+
+.wrap-comments {
+  margin-top: 24px;
+  padding: 16px 20px 0;
+  border-top: 1px solid #eff0f2;
+}
+
+.wrap-comments .sorting-filter {
+  display: block;
+  font-size: 13px;
+  line-height: 20px;
+  color: #747475;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+
+.wrap-comments .sorting-filter .ico-sorting {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  vertical-align: top;
+  background: url(../images/today/ico_friends.png) 0 0 no-repeat;
+  background-size: 699px 451px;
+  background-position: -400px 0;
+  color: transparent;
+}
+
+.wrap-comments .list-comments {
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+
+/* 답글 */
+/* .wrap-comments .list-comments2 {
+  float: left;
+} */
+
+.wrap-comments .list-comments2 li {
+  padding-top: 20px;
+  padding-left: 32px;
+}
+
+.wrap-comments .list-comments li {
+  padding-top: 20px;
+}
+
+.wrap-comments .list-comments li:first-child {
+  padding-top: 16px;
+}
+
+.wrap-comments .list-comments li .comments-head {
+  padding-bottom: 3px;
+  font-weight: bold;
+}
+
+.wrap-comments .list-comments li .comments-inp {
+  display: inline-block;
+  margin: 0;
+  padding-right: 14px;
+  max-width: 480px;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+  padding: 13px 14px;
+  border-radius: 0 24px 24px 24px;
+  background-color: #f2f2f2;
+  word-break: break-all;
+}
+
+.wrap-comments .list-comments li .comments-info {
+  padding: 4px 0 0 14px;
+}
+
+.wrap-comments .list-comments li .comments-info .txt-date {
+  float: left;
+  font-size: 13px;
+  line-height: 26px;
+  color: #aeaeaf;
+}
+
+.wrap-comments .list-comments li .comments-info .txt-like {
+  float: left;
+  margin-left: 10px;
+  padding: 4px 0;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 18px;
+  color: #aeaeaf;
+}
+
+.wrap-comments .list-comments li .comments-info .txt-like .on {
+  font-weight: 700;
+  color: #ff447f;
+}
+
+.wrap-comments .list-comments li .comments-info .txt-like .ico-like {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: top;
+  background: url(../images/today/ico_friends.png) 0 0 no-repeat;
+  background-size: 699px 451px;
+  background-position: -210px -280px;
+  color: transparent;
+}
+
+.wrap-comments .list-comments li .comments-info .txt-like .ico-like.on {
+  background-position: -210px -300px;
+}
+
+.wrap-comments .list-comments li .comments-info .txt-reply {
+  float: left;
+  margin-left: 10px;
+  padding: 4px 0;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 18px;
+  color: #aeaeaf;
+}
+
 </style>
 
-
+<input type="hidden" id="l_seq" value="${l_seq}">
 
 
 <div id="kakao-wrap" style="height: 100%">
-      <div id="kakao-head" style="height: 100%">
-        <div id="inner-head">
-          <div class="left-btn">
-            <!-- <button class="hamburger-menu"></button> -->
-            <!-- hamburger-menu -->
-            <input class="burger-check" type="checkbox" id="burger-check" />
-            <label class="burger-icon" for="burger-check">
-              <span class="burger-sticks"></span>
-            </label>
-            <!-- hamburger-menu open -->
-            <div class="navigation">
-              <div class="navigation-inner">
-                <div class="user-info">
-                  <u id="login-need">로그인</u>이 필요해요!
-                  <span>비회원 주문조회</span>
-                </div>
-                <div class="banner"></div>
-                <div class="navigation-menu">
-                  <ul class="navigation-menu-ul">
-                    <li class="navigation-menu-li">장바구니 내역</li>
-                    <li class="navigation-menu-li">주문·배송 내역</li>
-                    <hr />
-                    <li class="navigation-menu-li character-accordion-button">
-                      캐릭터
-                      <div class="drop-down"></div>
-                    </li>
-                    <div class="li-sub-menu character-menu">
-                      <ul class="character-menu-ul">
-                        <li class="character li-Ryan">라이언</li>
-                        <li class="character li-Apeach">어피치</li>
-                        <li class="character li-Muzi">무지</li>
-                        <li class="character li-Frodo">프로도</li>
-                        <li class="character li-Neo">네오</li>
-                        <li class="character li-Tube">튜브</li>
-                        <li class="character li-Jay">제이지</li>
-                        <li class="character li-Con">콘</li>
-                        <li class="character li-Choonsic">춘식</li>
-                        <li class="character li-Jordy">죠르디</li>
-                        <li class="character li-Scappy">스카피</li>
-                        <li class="character li-Angmond">앙몬드</li>
-                        <li class="character li-PendaJr">팬다주니어</li>
-                        <li class="character li-Kereberony">케로&베로니</li>
-                        <li class="character li-Kumdori">꿈돌이</li>
-                      </ul>
-                    </div>
-                    <li class="navigation-menu-li category-accordion-button">
-                      카테고리
-                      <div class="drop-down"></div>
-                    </li>
-                    <div class="li-sub-menu category-menu">
-                      <ul class="category-menu-ul">
-                        <li class="category">전체</li>
-                        <li class="category">테마 기획전</li>
-                        <li class="category">토이</li>
-                        <li class="category">리빙</li>
-                        <li class="category">잡화</li>
-                        <li class="category">문구</li>
-                        <li class="category">의류</li>
-                        <li class="category">파자마</li>
-                        <li class="category">여행/레져</li>
-                        <li class="category">생활테크</li>
-                        <li class="category">폰 액세서리</li>
-                        <li class="category">식품</li>
-                      </ul>
-                    </div>
-                    <hr />
-                    <li class="navigation-menu-li">공지사항</li>
-                    <li class="navigation-menu-li">고객센터</li>
-                    <hr />
-                    <li class="navigation-menu-li">기프트카드 조회·환불</li>
-                    <hr />
-                    <li class="navigation-menu-li">브랜드 스토리</li>
-                    <li class="navigation-menu-li">매장안내</li>
-                    <hr />
-                  </ul>
-                </div>
-                <button class="login-or-out" id="sexy">로그인</button>
-              </div>
-            </div>
-          </div>
-          <div class="title"><button class="title-logo"></button></div>
-          <div class="right-btn">
-            <button class="search"></button>
-            <button class="language"></button>
-          </div>
-        </div>
 
+	
         <div id="kakao-content">
           <div id="inner-content">
             <!-- <div id="kakao-search-content">
@@ -418,16 +704,7 @@
                             <li class="main-tab-li">마이</li>
                         </ul>
                     </div>
-                </div>  -->
-            <div class="main-tab">
-              <ul class="main-tab-ul">
-                <li class="main-tab-li active">오늘</li>
-                <li class="main-tab-li">신규</li>
-                <li class="main-tab-li">인기</li>
-                <li class="main-tab-li">마이</li>
-              </ul>
-            </div>
-
+       
             <div class="container-wrap today-wrap">
               <!-- 게시글 하나 박스 -->
               <div class="box-feed">

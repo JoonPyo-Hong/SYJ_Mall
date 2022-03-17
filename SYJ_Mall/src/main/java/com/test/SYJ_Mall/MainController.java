@@ -56,14 +56,14 @@ public class MainController {
 		}
 		model.addAttribute("seq", seq);
 		model.addAttribute("seleted", "today");
-
+		System.out.println(seq);
 		return "/tiles/mainStart.layout";
 	}
 
 	// new 댓글 화면
-	@RequestMapping(value = "/feed.action", method = { RequestMethod.GET, RequestMethod.POST })
-	public String feed(Model model, HttpServletRequest request, Integer seq) {
-		System.out.println("test");
+	@RequestMapping(value = "/feed.action", method = { RequestMethod.GET })
+	public String feed(Model model, HttpServletRequest request) {
+		
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userinfo");
 
@@ -76,14 +76,16 @@ public class MainController {
 			user_seq = dto.getUserSeq();
 			user_name = dto.getUserName();
 		}
+		 String l_seq = request.getParameter("seq");
 
+		 
 		model.addAttribute("seq", user_seq);
 		model.addAttribute("name", user_name);
-
-		if (seq == null) {
-			seq = 0;
+		model.addAttribute("l_seq", l_seq);
+		if (l_seq == null) {
+			l_seq = "0";
 		}
-
+		System.out.println(l_seq);
 		/*
 		 * Integer num1 = seq; Integer num2 = seq; HashMap<String, Integer> map = new
 		 * HashMap<String, Integer>(); map.put("num1", num1); map.put("num2", num2);

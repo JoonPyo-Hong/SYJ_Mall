@@ -29,7 +29,7 @@ public class NewProductController {
 	// 신규페이지 처음 메인화면
 	@RequestMapping(value = "/newProductMain.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String popularItemMain(HttpServletRequest request, HttpServletResponse response) {
-
+	
 		int result = service.getNewProductInfo(request, response);
 
 		if (result == 1)
