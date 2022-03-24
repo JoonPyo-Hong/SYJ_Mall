@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utill.ErrorAlarm;
+import com.common.utill.KakaoCookie;
+import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.common.ICommonService;
 
 
@@ -32,5 +34,16 @@ public class CommonController {
 		return service.getUserLoginChecking(request,response,ea);
 	
 	}
+	
+	
+	//고객이 로그인 해줬는지 확인해주는 메소드
+	@RequestMapping(value = "/kakaoProductBasketChecking.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int kakaoProductBasketChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb) {
+		
+		return service.getProdtBasketChecking(request,response,ea,kc,sf,sb);
+	
+	}
+	
 	
 }

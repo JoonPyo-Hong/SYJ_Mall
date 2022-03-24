@@ -46,7 +46,7 @@ public class MainController {
 
 		kc.deleteCookie(request, response, "lastPage");// 기존에 있는 마지막 페이지를 지워준다.
 		// kc.generateCookie(response, "lastPage", "main");//마지막페이지
-
+		
 		int seq = 1;
 
 		if (dto == null) {
@@ -56,7 +56,7 @@ public class MainController {
 		}
 		model.addAttribute("seq", seq);
 		model.addAttribute("seleted", "today");
-		System.out.println(seq);
+		//System.out.println(seq);
 		return "/tiles/mainStart.layout";
 	}
 

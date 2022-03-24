@@ -3,6 +3,7 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script type="text/javascript" src="${path}/resources/js/commonjs/commonLogin.js"></script>		
+<script type="text/javascript" src="${path}/resources/js/commonjs/commonBasketAlarm.js"></script>		
 
 <style>
 
@@ -1350,31 +1351,22 @@ hr.division {
 			//장바구니 버튼 누를 경우
 			$('.this_prodt_cart').click(function(){
 				//여기서 ajax 로 값을 받아와야 한다
-            	$.ajax({
-                type:"GET",
-                url: "/SYJ_Mall/productDetailBasket.action" ,
-                data : {"selected_prodt_seq" : selected_prodt_seq},
-                dataType : "json",
-                success : function(result) {
-                    
-                   if (result == 1) {
-                	   //장바구니에 추가
-                	   cart_yn = 'Y';
-                	   cart_on_display();
-                   } else if (result == 2){
-                   		//장바구니에서 제거
-                   	   	cart_yn = 'N';
-                   		cart_off_display();
-                   } else {
-                	   //에러 처리
-                	   location.href = "/SYJ_Mall/totalError.action"
-                   }
-                },
-                error: function(a,b,c) {
-					console.log(a,b,c);
-				}
-            	});	
-				return false;
+            	let result = prodt_alarm_checking(selected_prodt_seq);
+			
+				
+            	 if (result == 1) {
+              	   //장바구니에 추가
+              	   cart_yn = 'Y';
+              	   cart_on_display();
+                 } else if (result == 2){
+               		//장바구니에서 제거
+               	   	cart_yn = 'N';
+               		cart_off_display();
+                 } else {
+              	   //에러 처리
+              	   location.href = "/SYJ_Mall/totalError.action"
+                 } 
+				return false;//이벤트 버블링 발생 제거
 			});
 			
 			

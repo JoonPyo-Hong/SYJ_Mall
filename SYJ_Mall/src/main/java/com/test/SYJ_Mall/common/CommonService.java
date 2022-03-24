@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.common;
 
+import java.util.StringTokenizer;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.common.utill.ErrorAlarm;
+import com.common.utill.KakaoCookie;
+import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.UserDTO;
 
 /**
@@ -40,5 +44,72 @@ public class CommonService implements ICommonService{
 		}
 
 		
+	}
+	
+	// 해당 물품의 장바구니 클릭시 정보 -> 장바구니 담겼는지 안담겼는지 확인해주는 용도
+	@Override
+	public int getProdtBasketChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,KakaoCookie kc, StringFormatClass sf, StringBuffer sb) {
+		try {
+			String prodtId = request.getParameter("selected_prodt_seq");
+			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
+
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+
+			// 1. 로그인 되어 있지 않은 경우
+			if (userInfo == null) {
+				String basketList = (String) kc.getCookieInfo(request, "basketList");
+				
+				// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
+				if (basketList == null) basketList = "";
+
+				// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
+				boolean cookieFlag = sf.findObjectInString(basketList,"#",prodtId);
+				sb = new StringBuffer();
+				
+				// 해당 물품이 없는 경우 -> 상품 쿠키 객체에 물품 아이디를 추가해준다.
+				if (!cookieFlag) {
+					sb.append(basketList);
+					sb.append(prodtId);
+					sb.append("#");
+					
+					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
+					
+					return 1;// 장바구니 추가
+				} 
+				// 해당 물품이 존재하는경우 -> 장바구니에서 빼주기
+				else {
+					StringTokenizer stk = new StringTokenizer(basketList,"#");
+					
+					while(stk.hasMoreTokens()) {
+						
+						String prodtIds = stk.nextToken();
+						
+						if (!prodtIds.equals(prodtId)) {
+							sb.append(prodtIds);
+							sb.append("#");
+						}
+					}
+						
+					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
+					
+					return 2;//장바구니에서 제거
+				}
+				
+			}
+			// 2. 로그인 되어 있는 경우
+			else {
+				//이쪽 로직도 바꿔줘야한다.
+				//int userSeq = userInfo.getUserSeq();// 유저 고유번호
+				//cdao = new CommonDAO();
+				//int result = cdao.setBasketProdt(userSeq, prodtId);
+				//cdao.close();
+
+				return 1;//임시
+
+			}
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
 	}
 }
