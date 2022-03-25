@@ -14,5 +14,13 @@ public interface ICommonDAO {
 	 * @return
 	 */
 	int setProdtAlarmChecking(int userSeq, int productId);
+	
+	/**
+	 * 장바구니 관련 체크 기능 (로그인 된 경우)
+	 * @param userSeq
+	 * @param prodtId
+	 * @return
+	 */
+	int setBasketProdtChecking(int userSeq, int prodtId);
 
 }

@@ -7,16 +7,22 @@
 <mapper namespace="CommonDB">
 	
 	
-	<!-- 로그인 검증과정 -->
+	<!-- 상품 알람 관련 -->
 	<select id="prodtAlarmChecking" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int
-		exec @result = dbo.kakao_popular_product_alaram #{userSeq},#{productId}
+		exec @result = dbo.kakao_common_product_alaram #{userSeq},#{productId}
 		select @result
 		
 	</select>
 	
-	
-	
+	<!-- 상품 장바구니 관련 -->
+	<select id="prodtBasketChecking" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_common_product_basket #{userSeq},#{prodtId}
+		select @result 
+		
+	</select>
 
 </mapper>

@@ -21,13 +21,24 @@ public class CommonDAONew implements ICommonDAO {
 	@Override
 	public int setProdtAlarmChecking(int userSeq, int productId) {
 		
-		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
 		map.put("userSeq",userSeq);
 		map.put("productId",productId);
 		
 		return template.selectOne("CommonDB.prodtAlarmChecking",map);
+	}
+	
+	//장바구니 관련 체크 기능 (로그인이 된 경우)
+	@Override
+	public int setBasketProdtChecking(int userSeq, int prodtId) {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("userSeq",userSeq);
+		map.put("prodtId",prodtId);
+		
+		return template.selectOne("CommonDB.prodtBasketChecking",map);
 	}
 	
 	

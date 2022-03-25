@@ -105,13 +105,8 @@ public class CommonService implements ICommonService{
 			// 2. 로그인 되어 있는 경우
 			else {
 				//이쪽 로직도 바꿔줘야한다.
-				//int userSeq = userInfo.getUserSeq();// 유저 고유번호
-				//cdao = new CommonDAO();
-				//int result = cdao.setBasketProdt(userSeq, prodtId);
-				//cdao.close();
-
-				return 1;//임시
-
+				int userSeq = userInfo.getUserSeq();// 유저 고유번호
+				return dao.setBasketProdtChecking(userSeq, Integer.parseInt(prodtId));
 			}
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);

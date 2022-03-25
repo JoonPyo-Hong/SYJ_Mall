@@ -24,7 +24,6 @@ import com.test.SYJ_Mall.common.ICommonService;
 public class CommonController {
 	@Autowired
 	private ICommonService service;
-	//private CommonDAO cdao;
 	
 	//고객이 로그인 해줬는지 확인해주는 메소드
 	@RequestMapping(value = "/kakaoUserLoginCheck.action", method = { RequestMethod.GET })

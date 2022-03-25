@@ -1,15 +1,15 @@
 ﻿/* 
 	Author      : Seunghwan Shin 
-	Create date : 2021-10-11
-	Description : 상품 알람정보 관련
+	Create date : 2021-03-25
+	Description : 상품 알람정보 관련(공통 SP)
 	     
-	History	: 2021-10-11 Seunghwan Shin	#최초 생성
-			  2022-03-15 Seunghwan Shin	#트랜잭션 관련 로직 변경, 알람정보 수정될때 변경날짜 기록
-	Real DB : exec dbo.kakao_popular_product_alaram 2000001,13
+	History	: 2021-03-25 Seunghwan Shin	#최초 생성
+			  
+	Real DB : exec dbo.kakao_common_product_alaram 2000001,13
 			  
 			  
 */
-alter proc dbo.kakao_popular_product_alaram
+create proc dbo.kakao_common_product_alaram
 	@qoouser_seq	bigint		-- 회원 고유번호
 ,	@product_id		bigint		-- 상품번호
 as

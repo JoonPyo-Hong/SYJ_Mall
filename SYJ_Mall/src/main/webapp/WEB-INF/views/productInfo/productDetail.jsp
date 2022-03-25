@@ -1373,59 +1373,56 @@ hr.division {
 			
 			
 			function alarm_on_display() {
+				$(".direct-alarm").text("즉시 알람설정 해제하기");
 				$("#plus_alarm").css('visibility','hidden');
           	   	$("#remove_alarm").css('visibility','visible');
 			}
             
 			function alarm_off_display() {
+				$(".direct-alarm").text("즉시 알람설정 하기");
 				$("#plus_alarm").css('visibility','visible');
           	   	$("#remove_alarm").css('visibility','hidden');
 			}
 			
-			// 알람설정 클릭 시 팝업창 -> 로그인 해줬는지 확인해준다.
+			// 알람설정 클릭 시 팝업창 -> 로그인 해줬는지 확인해준다. && 알람 설정 관련
             $(".bottom-bar-alarm").click(function() { 
             	
-            	if (alarm_look == -1) {
-            		alarm_look = 1;
-            		const login_yn = common_login_user_checking();
-                	
-                	if (login_yn == 1) {
-                		//로그인 된 상태 -> 알림설정 창을 켜야한다.
-                		$(".bottom-bar-alarm").css("z-index",11);
-                 	   	$("#testmodal2").css("visibility", "visible");
-                        $(".option-modal-wrap").css("bottom", "80px;");
-                        $(document.body).css("overflow", "hidden");
-                        
-                        if (alarm_yn == 'N') {
-                     	   $(".direct-alarm").text("즉시 알람설정 하기");
-                     	   alarm_off_display();
-                        } else if (alarm_yn == 'Y') {
-                     	   $(".direct-alarm").text("즉시 알람설정 해제하기");
-                     	   alarm_on_display();
-                        }
-                        
-                	} else {
-                		//로그인 되지 않은 상태
-                 	   	common_login_modal_open();
-                	}
-            	} else if (alarm_look == 1) {//알림 설정 선택
-            		const alarm_yn = prodt_alarm_checking(selected_prodt_seq);
-    				
-    				if (alarm_yn == 1) {//알람에 들여보냄
-    					$(".direct-alarm").text("즉시 알람설정 해제하기");
-    					alarm_yn == 'Y';
-    				} else if (alarm_yn == 2) {//알람 해제
-    					$(".direct-alarm").text("즉시 알람설정 하기");
-    					alarm_yn == 'N';
-    				} else if (alarm_yn == 3) {//로그인 상태가 아님
-    					//로그인 되지 않은 상태
-                 	   	common_login_modal_open();
-    				} 
-    				else {
-    					location.href = "/SYJ_Mall/totalError.action";
-    				}
+            	const login_yn = common_login_user_checking();
+            	
+            	//1. 첫번째로 알람 설정을 눌러줬을 경우(로그인 된 경우)
+            	if (login_yn == 1 && alarm_look == -1) {
+            		$(".bottom-bar-alarm").css("z-index",11);
+             	   	$("#testmodal2").css("visibility", "visible");
+                    $(".option-modal-wrap").css("bottom", "80px;");
+                    $(document.body).css("overflow", "hidden");
+                    
+                    if (alarm_yn == 'Y') {
+                    	alarm_on_display();
+                    } else {
+                    	alarm_off_display();
+                    }
+                    alarm_look = 1;
             	}
+            	//2. 한번 누르고 다시 눌러줬을 경우(로그인 된 경우)
+            	else if (login_yn == 1 && alarm_look == 1){
+            		const alarm_yn_check = prodt_alarm_checking(selected_prodt_seq);
             		
+            		if (alarm_yn_check == 1) {//알람 설정
+       					alarm_on_display();
+       					alarm_yn = 'Y'
+            		} else if (alarm_yn_check == 2) {//알람 해제
+       					alarm_off_display();
+       					alarm_yn = 'N'
+            		} else if (alarm_yn_check == 3) {//로그인이 안되었을 경우
+            			common_login_modal_open();
+            		}
+            	}
+            	//3. 로그인 되지 않은 경우
+            	else if (login_yn == -1){
+            		common_login_modal_open();
+            	} else {
+            		location.href = "/SYJ_Mall/totalError.action";
+            	}            		
             });
 			
             //모달 제거하는 용도
@@ -1463,8 +1460,6 @@ hr.division {
 			$('.thumbnail').click(function(){
 				
 				const prodtSeq = $(this).parent('li').attr('id');
-				
-				//console.log(prodtSeq);
 				
 				location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodtSeq;
 				
