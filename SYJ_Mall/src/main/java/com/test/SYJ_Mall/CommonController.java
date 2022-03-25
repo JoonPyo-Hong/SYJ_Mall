@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
-import com.test.SYJ_Mall.common.CommonDAO;
 import com.test.SYJ_Mall.common.ICommonService;
 
 

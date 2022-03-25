@@ -1318,6 +1318,7 @@ hr.division {
             
             let cart_yn = "${prodtInfo.cookieBasket}";// 들어있으면 Y 안들어 있으면 N
             let alarm_yn = "${prodtInfo.alarmYn}";// 들어있으면 Y 안들어 있으면 N
+            let alarm_look = -1;//알람 상세창 구분
             let selected_prodt_seq = ${prodtInfo.prodtId};//현재 상세페이지에 관한 물품 번호
             let to_buy_cnt = 0;//구매 원하는 개수정보
             let this_prodt_price = '${prodtInfo.dcPrice}';
@@ -1383,40 +1384,49 @@ hr.division {
 			
 			// 알람설정 클릭 시 팝업창 -> 로그인 해줬는지 확인해준다.
             $(".bottom-bar-alarm").click(function() { 
-            	const login_yn = common_login_user_checking();
             	
-            	if (login_yn == 1) {
-            		//로그인된 상태 -> 알림설정 창을 켜야한다.
-            		$(".bottom-bar-alarm").css("z-index",11);
-             	   	$("#testmodal2").css("visibility", "visible");
-                    $(".option-modal-wrap").css("bottom", "80px;");
-                    $(document.body).css("overflow", "hidden");
-                    
-                    if (alarm_yn == 'N') {
-                 	   $(".direct-alarm").text("즉시 알람설정 하기");
-                 	   alarm_off_display();
-                    } else if (alarm_yn == 'Y') {
-                 	   $(".direct-alarm").text("즉시 알람설정 해제하기");
-                 	   alarm_on_display();
-                    }
-                    
-            	} else {
-            		//로그인 되지 않은 상태
-             	   	common_login_modal_open();
+            	if (alarm_look == -1) {
+            		alarm_look = 1;
+            		const login_yn = common_login_user_checking();
+                	
+                	if (login_yn == 1) {
+                		//로그인 된 상태 -> 알림설정 창을 켜야한다.
+                		$(".bottom-bar-alarm").css("z-index",11);
+                 	   	$("#testmodal2").css("visibility", "visible");
+                        $(".option-modal-wrap").css("bottom", "80px;");
+                        $(document.body).css("overflow", "hidden");
+                        
+                        if (alarm_yn == 'N') {
+                     	   $(".direct-alarm").text("즉시 알람설정 하기");
+                     	   alarm_off_display();
+                        } else if (alarm_yn == 'Y') {
+                     	   $(".direct-alarm").text("즉시 알람설정 해제하기");
+                     	   alarm_on_display();
+                        }
+                        
+                	} else {
+                		//로그인 되지 않은 상태
+                 	   	common_login_modal_open();
+                	}
+            	} else if (alarm_look == 1) {//알림 설정 선택
+            		const alarm_yn = prodt_alarm_checking(selected_prodt_seq);
+    				
+    				if (alarm_yn == 1) {//알람에 들여보냄
+    					$(".direct-alarm").text("즉시 알람설정 해제하기");
+    					alarm_yn == 'Y';
+    				} else if (alarm_yn == 2) {//알람 해제
+    					$(".direct-alarm").text("즉시 알람설정 하기");
+    					alarm_yn == 'N';
+    				} else if (alarm_yn == 3) {//로그인 상태가 아님
+    					//로그인 되지 않은 상태
+                 	   	common_login_modal_open();
+    				} 
+    				else {
+    					location.href = "/SYJ_Mall/totalError.action";
+    				}
             	}
+            		
             });
-			
-			//알림 설정 선택
-			$(".direct-alarm").click(function(){
-				const alarm_yn = prodt_alarm_checking(selected_prodt_seq);
-				
-				if (alarm_yn == 1) {
-					
-				} else if (alarm_yn == -1) {
-					
-				}
-			});
-			
 			
             //모달 제거하는 용도
             $(".overlay-wrap-up").click(function () {
@@ -1426,6 +1436,7 @@ hr.division {
                 $(".direct-purchase").text("구매하기");
                 $(".direct-alarm").text("알람설정");
                 
+                alarm_look = -1;
                 $('.this_prodt_alarm').css("visibility","hidden");//알람 모달 끔
                 $('.this_prodt_cart').css("visibility","hidden");//장바구니 모달 끔
             });

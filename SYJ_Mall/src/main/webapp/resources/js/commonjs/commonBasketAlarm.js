@@ -46,6 +46,7 @@ function prodt_alarm_checking(prodt_seq) {
         	
         	//1 : put the product into Alarm
         	//2 : throw out the product in Alarm 
+        	//3 : not a log on
         	//else : error
         	answer = result;
         	

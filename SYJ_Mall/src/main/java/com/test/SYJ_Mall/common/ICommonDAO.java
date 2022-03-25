@@ -6,5 +6,13 @@ package com.test.SYJ_Mall.common;
  *
  */
 public interface ICommonDAO {
+	
+	/**
+	 * 알람관련 체크 기능
+	 * @param userSeq
+	 * @param productId
+	 * @return
+	 */
+	int setProdtAlarmChecking(int userSeq, int productId);
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybatis를 통해 db연동 -->
+<mapper namespace="CommonDB">
+	
+	
+	<!-- 로그인 검증과정 -->
+	<select id="prodtAlarmChecking" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_popular_product_alaram #{userSeq},#{productId}
+		select @result
+		
+	</select>
+	
+	
+	
+
+</mapper>

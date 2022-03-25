@@ -129,17 +129,17 @@ public class CommonService implements ICommonService{
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
 			
+			
 			// --- 알람 서비스는 로그인이 되어야만 진행이 될수 있는 서비스이다.
 			// 1. 로그인이 안되어있는 경우
 			if (userInfo == null) {
-				return -2;// 로그인이 되어있지 않으면 알람서비스를 이용할 수 없음. -> 로그인 유도
+				return 3;// 로그인이 되어있지 않으면 알람서비스를 이용할 수 없음. -> 로그인 유도
 			}
 			// 2. 로그인이 되어있는 경우
 			else {
-				int userSeq = userInfo.getUserSeq();// 유저 고유번호
+				int userSeq = userInfo.getUserSeq();
 				
-
-				return result;
+				return dao.setProdtAlarmChecking(userSeq, productId);
 			}
 			
 			

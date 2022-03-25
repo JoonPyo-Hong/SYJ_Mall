@@ -5,8 +5,7 @@
 
 <!-- mybatis를 통해 db연동 -->
 <mapper namespace="SYJDB">
-	
-	
+
 	<!-- 로그인 검증과정 -->
 	<select id="loginVerification" resultType="com.test.SYJ_Mall.login.LoginDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		declare @user_seq int
