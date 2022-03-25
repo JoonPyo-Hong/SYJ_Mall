@@ -35,6 +35,15 @@ public interface ICommonService {
 	 */
 	int getProdtBasketChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc,StringFormatClass sf, StringBuffer sb);
 	
+	/**
+	 * 해당 상품에 대한 알람 정보
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @return
+	 */
+	int getProductAlarmChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+	
 	
 	
 	

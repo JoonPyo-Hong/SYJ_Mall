@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="resources/css/icofont/icofont.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src="resources/js/commonjs/common.js"></script>
+<script type="text/javascript" src="resources/js/commonjs/common.js"></script>		
 
 
 <style>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.CommonDAO;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
@@ -33,6 +34,11 @@ public class CommonService implements ICommonService{
 			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
 
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			//System.out.println(userInfo.getUserSeq());
+			
+			//if (userInfo == null) return -1;
+			//else return 1;
 			
 			if (userInfo == null) return -1;
 			else return 1;
@@ -107,6 +113,36 @@ public class CommonService implements ICommonService{
 				return 1;//임시
 
 			}
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+	}
+	
+	//알람설정 관련 메소드
+	@Override
+	public int getProductAlarmChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		try {
+			
+			int productId = Integer.parseInt(request.getParameter("selected_prodt_seq"));// 상품번호
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			// --- 알람 서비스는 로그인이 되어야만 진행이 될수 있는 서비스이다.
+			// 1. 로그인이 안되어있는 경우
+			if (userInfo == null) {
+				return -2;// 로그인이 되어있지 않으면 알람서비스를 이용할 수 없음. -> 로그인 유도
+			}
+			// 2. 로그인이 되어있는 경우
+			else {
+				int userSeq = userInfo.getUserSeq();// 유저 고유번호
+				
+
+				return result;
+			}
+			
+			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;

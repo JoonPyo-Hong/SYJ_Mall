@@ -1279,7 +1279,7 @@ hr.division {
         
         /*============================= 구매하기 관련 탭 / 세부정보 배송정보 =============================*/
         // 세부 정보 및 배송 관련 탭
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             $('.delivery-tab .delivery-tab-btn').click(function () {
                 var tab_id = $(this).attr('data-tab');
@@ -1302,7 +1302,7 @@ hr.division {
                 }
             })
 
-            $('.detail-etc .delivery-btn').click(function () {
+            $('.detail-etc .delivery-btn').click(function() {
                 // 배송 반품 버튼
                 if ($('.detail-etc  .delivery-detail-wrap').css('display') == 'block') {
                     $('.detail-etc .delivery-btn').removeClass('active');
@@ -1313,6 +1313,8 @@ hr.division {
                 }
             })
 			
+            
+            
             
             let cart_yn = "${prodtInfo.cookieBasket}";// 들어있으면 Y 안들어 있으면 N
             let alarm_yn = "${prodtInfo.alarmYn}";// 들어있으면 Y 안들어 있으면 N
@@ -1351,9 +1353,8 @@ hr.division {
 			//장바구니 버튼 누를 경우
 			$('.this_prodt_cart').click(function(){
 				//여기서 ajax 로 값을 받아와야 한다
-            	let result = prodt_alarm_checking(selected_prodt_seq);
-			
-				
+            	const result = prodt_basket_checking(selected_prodt_seq);
+            	
             	 if (result == 1) {
               	   //장바구니에 추가
               	   cart_yn = 'Y';
@@ -1364,7 +1365,7 @@ hr.division {
                		cart_off_display();
                  } else {
               	   //에러 처리
-              	   location.href = "/SYJ_Mall/totalError.action"
+              	   location.href = "/SYJ_Mall/totalError.action";
                  } 
 				return false;//이벤트 버블링 발생 제거
 			});
@@ -1403,9 +1404,18 @@ hr.division {
             		//로그인 되지 않은 상태
              	   	common_login_modal_open();
             	}
-
-                
             });
+			
+			//알림 설정 선택
+			$(".direct-alarm").click(function(){
+				const alarm_yn = prodt_alarm_checking(selected_prodt_seq);
+				
+				if (alarm_yn == 1) {
+					
+				} else if (alarm_yn == -1) {
+					
+				}
+			});
 			
 			
             //모달 제거하는 용도

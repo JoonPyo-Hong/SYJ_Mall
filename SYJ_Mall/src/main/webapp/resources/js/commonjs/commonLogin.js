@@ -3,17 +3,23 @@
 
 //checking log-in state
 function common_login_user_checking() {
+	
+	let login_answer;
+	
 	$.ajax({
 		type: "GET",
 		url: "/SYJ_Mall/kakaoUserLoginCheck.action",
 		dataType: "json",
+		async : false,
 		success: function(result) {
-			return result;
+			login_answer = result;
 		},
 		error: function(a, b, c) {
 			console.log(a, b, c);
 		}
 	});
+	
+	return login_answer;
 }
 
 

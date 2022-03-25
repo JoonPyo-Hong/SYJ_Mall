@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
+import com.test.SYJ_Mall.common.CommonDAO;
 import com.test.SYJ_Mall.common.ICommonService;
 
 
@@ -24,7 +25,7 @@ import com.test.SYJ_Mall.common.ICommonService;
 public class CommonController {
 	@Autowired
 	private ICommonService service;
-	
+	//private CommonDAO cdao;
 	
 	//고객이 로그인 해줬는지 확인해주는 메소드
 	@RequestMapping(value = "/kakaoUserLoginCheck.action", method = { RequestMethod.GET })
@@ -36,7 +37,7 @@ public class CommonController {
 	}
 	
 	
-	//고객이 로그인 해줬는지 확인해주는 메소드
+	//장바구니 클릭할 경우 -> 장바구니 input or output
 	@RequestMapping(value = "/kakaoProductBasketChecking.action", method = { RequestMethod.GET })
 	@ResponseBody
 	public int kakaoProductBasketChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb) {
@@ -45,5 +46,12 @@ public class CommonController {
 	
 	}
 	
+	//알람 클릭한 경우 -> 알람 설정 또는 알람 제거
+	@RequestMapping(value = "/kakaoProductAlarmChecking.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int kakaoProductAlarmChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return service.getProductAlarmChecking(request,response,ea);
+	}
 	
 }

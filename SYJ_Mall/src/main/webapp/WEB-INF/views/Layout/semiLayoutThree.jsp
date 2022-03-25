@@ -168,16 +168,6 @@
 		common_login_modal_close();
 	});
   	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-	
 	
 </script>
 </body>
