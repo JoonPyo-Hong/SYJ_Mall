@@ -39,24 +39,4 @@ public class ProductDetail {
 		else return "/testwaiting/kakaoerror";
 		
 	}
-	
-	
-	//제품 상세 페이지 - 장바구니 관련 
-	@RequestMapping(value = "/productDetailBasket.action", method = { RequestMethod.GET})
-	@ResponseBody
-	public int productDetailBasket(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb) {
-				
-		return service.getProductDetailModifyBasket(request,response,ea,kc,sf,sb);
-
-	}
-	
-	//제품 상세 페이지 - 알람 관련
-	@RequestMapping(value = "/productDetailAlarm.action", method = { RequestMethod.GET})
-	@ResponseBody
-	public int productDetailModifyAlarm(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonDAO cdao) {
-				
-		return service.getProductDetailModifyAlarm(request,response,ea,cdao);
-
-	}
-
 }

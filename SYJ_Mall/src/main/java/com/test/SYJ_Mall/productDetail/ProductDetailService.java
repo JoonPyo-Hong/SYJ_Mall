@@ -71,7 +71,7 @@ public class ProductDetailService implements IProductDetailService{
 			HttpSession session = request.getSession();
 			UserDTO dto = (UserDTO) session.getAttribute("userinfo");//로그인 정보
 			
-			//kc = new KakaoCookie();
+
 			kc.deleteCookie(request, response, "lastPage");
 			kc.generateCookie(response, "lastPage", "productDetailMain.action?prodtSeq=" + prodtSeq);// 마지막페이지 쿠키에 저장
 			
@@ -79,8 +79,10 @@ public class ProductDetailService implements IProductDetailService{
 			//1. 상품에 대한 정보
 			//1-1. 해당 물품의 헤드 사진
 			List<String> headImgUrls = dao.getProductHeadImages(Integer.parseInt(prodtSeq));
-			List<ProductDetailDTO> prodtInfo;
-			List<ProductHowDTO> prodtHowInfo;
+			List<ProductDetailDTO> prodtInfo;//해당 상품 상세정보들
+			List<ProductHowDTO> prodtHowInfo;//잠깐만 이 상품은 어때요 상품 객체들
+			
+			//2. 리뷰 정보
 			
 			//로그인이 안된 경우
 			if (dto == null) {
@@ -97,16 +99,13 @@ public class ProductDetailService implements IProductDetailService{
 				boolean cookieFlag = sf.findObjectInString(basketInfo,"#",prodtSeq);
 				if (cookieFlag) prodtInfo.get(0).setCookieBasket("Y");
 				
-				
-				//2. 리뷰 관련
-				
-				
-				//3. 잠깐만 이 상품은 어때요
+
+				//2. 잠깐만 이 상품은 어때요
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
 				prodtHowInfo = dao.getProductHowInfo(basketInfo,Integer.parseInt(prodtSeq),filterSeq);
 				
 				
-				//4. 최근 본 상품
+				//3. 최근 본 상품
 			} 
 			//로그인이 된경우
 			else {
@@ -115,15 +114,13 @@ public class ProductDetailService implements IProductDetailService{
 				prodtInfo = dao.getProductDetailInfoLogin(dto.getUserSeq(),Integer.parseInt(prodtSeq));
 				
 				if (prodtInfo.size() == 0) return -1;
-				//2. 리뷰 관련
-				
-				
-				//3. 잠깐만 이 상품은 어때요 -> 임시
+
+				//2. 잠깐만 이 상품은 어때요 -> 임시
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
 				prodtHowInfo = dao.getProductHowInfo("",Integer.parseInt(prodtSeq),filterSeq);
 				
 				
-				//4. 최근 본 상품
+				//3. 최근 본 상품
 				
 				request.setAttribute("dtoSeq", dto.getUserSeq());//해당 물품의 상세정보
 			}
@@ -167,97 +164,5 @@ public class ProductDetailService implements IProductDetailService{
 			}
 		}
 	}
-	
-	// 장바구니 관련 서비스
-	@Override
-	public int getProductDetailModifyBasket(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb) {
-		
-		try {
-			String prodtId = request.getParameter("selected_prodt_seq");
-			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
-
-			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
-
-			// 1. 로그인 되어 있지 않은 경우
-			if (userInfo == null) {
-				String basketList = (String) kc.getCookieInfo(request, "basketList");
-				
-				// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
-				if (basketList == null) basketList = "";
-
-				// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
-				boolean cookieFlag = sf.findObjectInString(basketList,"#",prodtId);
-				sb = new StringBuffer();
-				
-				// 해당 물품이 없는 경우 -> 상품 쿠키 객체에 물품 아이디를 추가해준다.
-				if (!cookieFlag) {
-					sb.append(basketList);
-					sb.append(prodtId);
-					sb.append("#");
-					
-					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
-					
-					return 1;// 장바구니 추가
-				} 
-				// 해당 물품이 존재하는경우 -> 장바구니에서 빼주기
-				else {
-					StringTokenizer stk = new StringTokenizer(basketList,"#");
-					
-					while(stk.hasMoreTokens()) {
-						
-						String prodtIds = stk.nextToken();
-						
-						if (!prodtIds.equals(prodtId)) {
-							sb.append(prodtIds);
-							sb.append("#");
-						}
-					}
-						
-					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
-					
-					return 2;//장바구니에서 제거
-				}
-				
-			}
-			// 2. 로그인 되어 있는 경우
-			else {
-				//int userSeq = userInfo.getUserSeq();// 유저 고유번호
-				//cdao = new CommonDAO();
-				//int result = cdao.setBasketProdt(userSeq, prodtId);
-				//cdao.close();
-
-				return 1;//임시
-
-			}
-
-		} catch (Exception e) {
-			ea.basicErrorException(request, e);
-			return -1;
-		}
-		
-	}
-	
-	//상품 알람 관련 기능
-	@Override
-	public int getProductDetailModifyAlarm(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonDAO cdao) {
-		
-		try {
-			
-			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
-			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
-			
-			String prodtId = request.getParameter("selected_prodt_seq");
-			
-			if (userInfo == null) return 3;
-			
-			return cdao.setAlarmProdt(userInfo.getUserSeq(), Integer.parseInt(prodtId));	
-			
-			
-		} catch(Exception e) {
-			ea.basicErrorException(request, e);
-			return -1;
-		}
-	}
-	
 	
 }

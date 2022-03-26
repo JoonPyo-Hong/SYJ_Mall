@@ -881,7 +881,7 @@ hr.division {
                             <span class="review-count">(${prodtInfo.prodBuyCnt})</span>
                         </div>
                     </div>
-                    <!-- 상품 상세 이미지 -->
+                    <!-- 상품 상세설명 이미지 -->
                    <!--  <div class="detail-content">
                         <div class="detaul-content-title">
                             시크릿 포레스트의 사고뭉치<br>
@@ -1371,13 +1371,14 @@ hr.division {
 				return false;//이벤트 버블링 발생 제거
 			});
 			
-			
+			//알람관련1
 			function alarm_on_display() {
 				$(".direct-alarm").text("즉시 알람설정 해제하기");
 				$("#plus_alarm").css('visibility','hidden');
           	   	$("#remove_alarm").css('visibility','visible');
 			}
-            
+			
+			//알람관련2
 			function alarm_off_display() {
 				$(".direct-alarm").text("즉시 알람설정 하기");
 				$("#plus_alarm").css('visibility','visible');

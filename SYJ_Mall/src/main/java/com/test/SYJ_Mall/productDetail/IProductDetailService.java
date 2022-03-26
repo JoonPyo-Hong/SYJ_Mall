@@ -39,27 +39,5 @@ public interface IProductDetailService {
 	 */
 	String getCookieBasket(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc);
 	
-	/**
-	 * 장바구니 관련 메소드
-	 * @param request
-	 * @param response
-	 * @param ea
-	 * @param kc
-	 * @param sf
-	 * @param sb
-	 * @return
-	 */
-	int getProductDetailModifyBasket(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, StringBuffer sb);
-	
-	
-	/**
-	 * 상품알람관련 기능
-	 * @param request
-	 * @param response
-	 * @param ea
-	 * @param cdao
-	 * @return
-	 */
-	int getProductDetailModifyAlarm(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonDAO cdao);
-	
+
 }
