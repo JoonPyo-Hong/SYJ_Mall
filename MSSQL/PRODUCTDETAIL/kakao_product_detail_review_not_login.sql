@@ -5,7 +5,7 @@
 	     
 	History	: 2022-03-27 Seunghwan Shin	#최초생성
 	
-	Real DB : exec dbo.kakao_product_detail_review_not_login 9,1,1
+	Real DB : exec dbo.kakao_product_detail_review_not_login 9,1,1, ''
 
 */
 alter proc dbo.kakao_product_detail_review_not_login
@@ -57,7 +57,7 @@ begin
 			and kpp.review_exists_yn = 'Y'
 			and kpp.review_reg_dt <= @current_time_new
 		) m
-		where m.rn between (@paging_new-1)*4 and (@paging_new)*4
+		where m.rn between 4*(@paging_new)-3 and (@paging_new)*4
 	end
 	-- 2. 좋아요순
 	else if (@sort_option_new = 2)
@@ -97,7 +97,7 @@ begin
 			and kpp.review_exists_yn = 'Y'
 			and kpp.review_reg_dt <= @current_time_new
 		) m
-		where m.rn between (@paging_new-1)*4 and (@paging_new)*4
+		where m.rn between 4*(@paging_new)-3 and (@paging_new)*4
 	end
 			
 end

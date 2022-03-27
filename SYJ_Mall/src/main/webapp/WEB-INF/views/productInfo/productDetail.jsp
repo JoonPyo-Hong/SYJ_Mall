@@ -1149,7 +1149,10 @@ div.theme-more-view::after {
                                 </c:forEach>
                             </ul>
                             
-                            <div class="theme-more-view">더 보기</div>
+                            <c:if test="${totalReviewPage ne 1}">
+                            	<div class="theme-more-view">더 보기</div>
+                            </c:if>
+                            
                             <!-- <div class="pagination">
                                 <div class="pagination-left-arrow"></div>
                                 <div class="pagination-page">1</div>
@@ -1490,11 +1493,12 @@ div.theme-more-view::after {
           	
           	//리뷰 더 보기 버튼 눌렀을 경우
           	$('.theme-more-view').click(function(){
+          		
           		current_page++;
           		
           		if (total_page_count >= current_page) {
           			review_add();
-          		}
+          		} 
           		
           	});
           	
@@ -1503,42 +1507,44 @@ div.theme-more-view::after {
           		
           		$.ajax({
                 	type:"GET",
-                    url: "/SYJ_Mall/newProductMainAddAjax.action" ,
+                    url: "/SYJ_Mall/productReviewAdd.action" ,
                     async : false,
-                    data : {"selected_prodt_seq" : selected_prodt_seq, "sortOption" : review_sorted_option, "current_page" : current_page},
+                    data : {"selected_prodt_seq" : selected_prodt_seq, "sortOption" : review_sorted_option, "current_page" : current_page, "review_show_day" : review_show_day},
                     dataType : "json",
                     success : function(result) {
                         
+                    	console.log(result);
+                    	
                     	if (result == null) alert('error');
                     	
                     	let review_length = result.length;
+                    	let comment;
                     	
                     	for (let i = 0; i < review_length; i++) {
-                    		$("#review_content").append(
-                    			'<li class="review-item">'
-                    			+ '<div class="name">' + result[i].userId + '</div>'
-                                + '<div class="star">'
-                        	);
+                    		comment += '<li class="review-item">';
+                    		comment += '<div class="name">' + result[i].userId + '</div>'
+                    		comment += '<div class="star">'
                     		
                     		for (let j = 0; j < result[i].starCount; j++) {
-                    			$("#review_content").append(
-                    				'<span class="review-star"></span>'
-                    			);
+                    			comment += '<span class="review-star"></span>'
                     		}
                     		
                     		for (let j = 0; j < result[i].starCountRemain; j++) {
-                    			$("#review_content").append(
-                    				'<span class="review-star off"></span>'
-                    			);
+                    			comment += '<span class="review-star off"></span>'	
                     		}
                     		
-                    		$("#review_content").append(
-                        		'<div class="contents">' + result[i].comment + '</div>'
-                        		+ '<div class="like">'
-                            	+ '<button>좋아요 ' + result[i].likeCount + '명</button>'
-                        		+ '</div>'
-                            );
-                    		
+                    		comment += '</div>';
+                    		comment += '<div class="contents">' + result[i].comment + '</div>';
+                    		comment += '<div class="like">';
+                    		comment += '<button>좋아요 ' + result[i].likeCount + '명</button>'
+                    		comment += '</div>'
+                    		comment += '</li>'
+                    	}
+                    	
+                    	$("#review_content").append(comment);
+                    	
+                    	if (total_page_count == current_page) {
+                    		$(".theme-more-view").remove();
                     	}
                     	
                     },

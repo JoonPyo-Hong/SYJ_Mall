@@ -197,15 +197,15 @@ public class ProductDetailService implements IProductDetailService{
 			
 			//로그인 되어 있지 않은 경우
 			if (dto == null) {
-				return dao.getProductReview(prodtSeq, sortOption , currentPage, currentTime);
+				prodtReviewInfo = dao.getProductReview(prodtSeq, sortOption , currentPage, currentTime);
 			}
 			//로그인 되어 있는 경우
 			else {
 				//여기선 좀 다르게 해줘야함.
-				return dao.getProductReview(prodtSeq, sortOption , currentPage, currentTime);
+				prodtReviewInfo = dao.getProductReview(prodtSeq, sortOption , currentPage, currentTime);
 			}
 			
-			
+			return prodtReviewInfo;
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return null;
