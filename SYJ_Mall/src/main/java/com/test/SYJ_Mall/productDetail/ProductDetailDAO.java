@@ -39,19 +39,67 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		return template.selectList("ProductDetails.productDetailsInfoLogin",map);
 		
 	}
-
-	//잠깐만 이 상품은 어때요 상품 객체들
+	
+	//잠깐만 이 상품은 어때요 대분류 정보
 	@Override
-	public List<ProductHowDTO> getProductHowInfo(String basketInfo, int prodtSeq, int filterSeq) {
+	public List<Integer> getProductCategory() {
+		
+		return template.selectList("ProductDetails.productHowInfoCategory");
+	}
+
+	//잠깐만 이 상품은 어때요 상품 객체들(로그인이 안된 경우)
+	@Override
+	public List<ProductHowDTO> getProductHowInfo(String basketInfo, int prodtSeq, int filterSeq, int selectCategory) {
 		
 		HashMap<String,String> map = new HashMap<String, String>();
 		
 		map.put("basketInfo",basketInfo);
 		map.put("prodtSeq",Integer.toString(prodtSeq));
 		map.put("filterSeq",Integer.toString(filterSeq));
+		map.put("selectCategory",Integer.toString(selectCategory));
 
 		return template.selectList("ProductDetails.productHowInfo",map);
 	}
+	
+	//잠깐만 이 상품은 어때요 상품 객체들(로그인이 된 경우)
+	@Override
+	public List<ProductHowDTO> getProductHowInfoLogin(int userSeq, int prodtSeq, int filterSeq, int selectCategory) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		
+		map.put("userSeq",userSeq);
+		map.put("prodtSeq",prodtSeq);
+		map.put("filterSeq",filterSeq);
+		map.put("selectCategory",selectCategory);
+		
+		return template.selectList("ProductDetails.productHowInfoLogon",map);
+	}
+
+	//상품에 관한 리뷰 정보
+	@Override
+	public List<ProductDetailReviewDTO> getProductReview(int prodtSeq, int sortOption, int paging) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		
+		map.put("prodtSeq",prodtSeq);
+		map.put("sortOption",sortOption);
+		map.put("paging",paging);
+		
+		return template.selectList("ProductDetails.productReview",map);
+	}
+
+	//상품에 관한 전체 리뷰 개수
+	@Override
+	public int getProductReviewCounts(int prodtSeq) {
+		
+		return template.selectOne("ProductDetails.productReviewTotalCount",prodtSeq);
+	}
+
+
+	
+
+
+	
 
 	
 

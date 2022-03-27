@@ -79,10 +79,13 @@ public class ProductDetailService implements IProductDetailService{
 			//1. 상품에 대한 정보
 			//1-1. 해당 물품의 헤드 사진
 			List<String> headImgUrls = dao.getProductHeadImages(Integer.parseInt(prodtSeq));
+			List<Integer> prodtMainCategory = dao.getProductCategory();
 			List<ProductDetailDTO> prodtInfo;//해당 상품 상세정보들
 			List<ProductHowDTO> prodtHowInfo;//잠깐만 이 상품은 어때요 상품 객체들
+			List<ProductDetailReviewDTO> prodtReviewInfo;//해당상품 리뷰정보
 			
-			//2. 리뷰 정보
+			int selectCategory = rnd.nextInt(prodtMainCategory.size());//선택된 대분류 번호
+			int totalReviewCount = dao.getProductReviewCounts(Integer.parseInt(prodtSeq));//해당상품 리뷰 총 개수
 			
 			//로그인이 안된 경우
 			if (dto == null) {
@@ -99,29 +102,39 @@ public class ProductDetailService implements IProductDetailService{
 				boolean cookieFlag = sf.findObjectInString(basketInfo,"#",prodtSeq);
 				if (cookieFlag) prodtInfo.get(0).setCookieBasket("Y");
 				
-
-				//2. 잠깐만 이 상품은 어때요
+				
+				//2. 리뷰 정보 -> 좋아요 순 최신순 선택 : 기본은 최신순으로
+				int sortOption = 1;
+				prodtReviewInfo = dao.getProductReview(Integer.parseInt(prodtSeq), sortOption , 1);
+				
+				//3. 잠깐만 이 상품은 어때요
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
-				prodtHowInfo = dao.getProductHowInfo(basketInfo,Integer.parseInt(prodtSeq),filterSeq);
+				prodtHowInfo = dao.getProductHowInfo(basketInfo,Integer.parseInt(prodtSeq),filterSeq,selectCategory);
 				
 				
-				//3. 최근 본 상품
+				//4. 최근 본 상품
 			} 
 			//로그인이 된경우
 			else {
+				
+				int userSeq = dto.getUserSeq();//회원 고유번호
+				
 				//1. 상품에 대한 정보
 				//1-2. 해당 물품의 상세정보
-				prodtInfo = dao.getProductDetailInfoLogin(dto.getUserSeq(),Integer.parseInt(prodtSeq));
+				prodtInfo = dao.getProductDetailInfoLogin(userSeq,Integer.parseInt(prodtSeq));
 				
 				if (prodtInfo.size() == 0) return -1;
-
-				//2. 잠깐만 이 상품은 어때요 -> 임시
+				
+				//2. 리뷰 정보 -> 좋아요 순 최신순 선택 : 기본은 최신순으로 -> 로그인 시에는 바꿔줘야한다.
+				int sortOption = 1;
+				prodtReviewInfo = dao.getProductReview(Integer.parseInt(prodtSeq), sortOption , 1);
+				
+				//3. 잠깐만 이 상품은 어때요
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
-				prodtHowInfo = dao.getProductHowInfo("",Integer.parseInt(prodtSeq),filterSeq);
+				prodtHowInfo = dao.getProductHowInfoLogin(userSeq,Integer.parseInt(prodtSeq),filterSeq, selectCategory);
 				
 				
-				//3. 최근 본 상품
-				
+				//4. 최근 본 상품
 				request.setAttribute("dtoSeq", dto.getUserSeq());//해당 물품의 상세정보
 			}
 			
@@ -130,7 +143,8 @@ public class ProductDetailService implements IProductDetailService{
 			request.setAttribute("headImgUrls", headImgUrls);//해당 물품의 헤드 사진
 			request.setAttribute("prodtInfo", prodtInfo.get(0));//해당 물품의 상세정보
 			request.setAttribute("prodtHowInfo", prodtHowInfo);//해당 물품의 상세정보
-			
+			request.setAttribute("prodtReviewInfo", prodtReviewInfo);// 해당물품 관련리뷰 정보
+			request.setAttribute("totalReviewCount", totalReviewCount);// 해당물품 관련리뷰 전체 개수
 			
 			return 1;
 		} catch(Exception e) {

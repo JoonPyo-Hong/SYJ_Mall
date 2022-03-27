@@ -31,15 +31,51 @@ public interface IProductDetailDAO {
 	 */
 	List<ProductDetailDTO> getProductDetailInfoLogin(int userSeq, int prodtSeq);
 	
+	/**
+	 * 잠깐만 이 상품은 어때요 대분류 정보
+	 * @return
+	 */
+	List<Integer> getProductCategory();
 	
 	/**
 	 * 잠깐만 이 상품은 어때요 상품정보
 	 * @param basketInfo
 	 * @param parseInt
 	 * @param filterSeq
+	 * @param selectCategory
 	 * @return
 	 */
-	List<ProductHowDTO> getProductHowInfo(String basketInfo,int prodtSeq, int filterSeq);
+	List<ProductHowDTO> getProductHowInfo(String basketInfo,int prodtSeq, int filterSeq, int selectCategory);
+	
+	/**
+	 * 잠깐만 이 상품은 어때요 상품정보 - 로그인 한 경우
+	 * @param userSeq
+	 * @param prodtSeq
+	 * @param filterSeq
+	 * @param selectCategory
+	 * @return
+	 */
+	List<ProductHowDTO> getProductHowInfoLogin(int userSeq, int prodtSeq, int filterSeq, int selectCategory);
+	
+	/**
+	 * 상품에 관한 리뷰 정보
+	 * @param prodtSeq
+	 * @param sortOption
+	 * @param paging
+	 * @return
+	 */
+	List<ProductDetailReviewDTO> getProductReview(int prodtSeq, int sortOption, int paging);
+	
+	/**
+	 * 상품에 관한 전체 리뷰 개수
+	 * @param prodtSeq
+	 * @return
+	 */
+	int getProductReviewCounts(int prodtSeq);
+
+	
+	
+	
 	
 	
 	

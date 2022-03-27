@@ -1,31 +1,28 @@
 ﻿/* 
 	Author      : Seunghwan Shin 
-	Create date : 2021-03-10   
-	Description : 잠깐만 이 상품은 어때요 탭 - 비로그인 시
+	Create date : 2021-03-27   
+	Description : 잠깐만 이 상품은 어때요 탭 - 로그인 시
 	     
-	History	: 2021-03-10 Seunghwan Shin	#최초 생성	
-			  2021-03-27 Seunghwan Shin	#selectCategory 파라미터 추가
+	History	: 2021-03-27 Seunghwan Shin	#최초 생성	
+
 	
-	Real DB : exec dbo.kakao_product_detail_plus_prodt_not_login '13#12#30',11 ,1 , 2
-			  exec dbo.kakao_product_detail_plus_prodt_not_login '13#12#30',11 ,2 , 7
-			  exec dbo.kakao_product_detail_plus_prodt_not_login '13#12#30',11 ,3 , 4
-			  exec dbo.kakao_product_detail_plus_prodt_not_login '13#12#30',11 ,4 , 5
+	Real DB : exec dbo.kakao_product_detail_plus_prodt_login 2000001,11 ,1 , 3
+			  exec dbo.kakao_product_detail_plus_prodt_login 2000001,11 ,2 , 3
+			  exec dbo.kakao_product_detail_plus_prodt_login 2000001,11 ,3 , 3
+			  exec dbo.kakao_product_detail_plus_prodt_login 2000001,11 ,4 , 3
 
 */
-alter proc dbo.kakao_product_detail_plus_prodt_not_login
-	@basket_info		varchar(3000)		-- 쿠키정보
-,	@prodt_seq			varchar(20)			-- 상품 번호
-,	@list_sort_type		varchar(20)			-- 순서조건
-,	@main_category_code	varchar(20)			-- 메인 카테고리 조건
+create proc dbo.kakao_product_detail_plus_prodt_login
+	@user_seq		bigint		-- 유저고유번호
+,	@prodt_seq		bigint		-- 상품 번호
+,	@list_sort_type int			-- 순서조건
+,	@main_category_code	int		-- 메인 카테고리 조건
 as 
 set nocount on 
 set transaction isolation level read uncommitted 
 begin
 			
-			set @prodt_seq = convert(bigint,@prodt_seq)
-			set @list_sort_type = convert(int,@list_sort_type)
-
-
+			
 			if (@list_sort_type = 1)
 			begin
 				-- 날짜순
@@ -38,7 +35,7 @@ begin
 				,	m.product_img as picUrl
 				,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
 				,	m.cookieBasket as cookieBasket
-				,	'alarm' as alarmYn
+				,	m.alarmYn as alarmYn
 				from
 				(
 					select
@@ -49,14 +46,17 @@ begin
 					,	kpt.product_price 
 					,	kpt.discount_rate 
 					,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-					,	case when ss.value is null then 'cart'
+					,	case when kusc.product_id is null then 'cart'
 							 else 'incart' end as cookieBasket
+					,	case when kuai.product_id is null then 'alarm'
+							 else 'inalarm' end as alarmYn
 					from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 					inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 					inner join dbo.KAKAO_PRODUCT_MAIN_CATEGORY kpmc with(nolock) on kpmc.main_category_code = kpc.main_category_code
-					left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-					where kpi.rep_img_yn = 'Y'
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.product_id = kpt.product_id and kusc.qoouser_seq = @user_seq
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kpt.product_id = kuai.product_id and kuai.qoouser_seq = @user_seq
+					where  kpi.rep_img_yn = 'Y'
 					and kpi.head_img_yn = 'Y'
 					and kpmc.main_category_code = @main_category_code
 					and kpt.product_id <> @prodt_seq
@@ -64,7 +64,7 @@ begin
 				) as m
 				where m.rn between 1 and 4
 			end
-			else if (@list_sort_type = 2)
+			if (@list_sort_type = 2)
 			begin
 				-- 가격 낮은 순
 				select
@@ -76,7 +76,7 @@ begin
 				,	m.product_img as picUrl
 				,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
 				,	m.cookieBasket as cookieBasket
-				,	'alarm' as alarmYn
+				,	m.alarmYn as alarmYn
 				from
 				(
 					select
@@ -87,14 +87,17 @@ begin
 					,	kpt.product_price 
 					,	kpt.discount_rate 
 					,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-					,	case when ss.value is null then 'cart'
+					,	case when kusc.product_id is null then 'cart'
 							 else 'incart' end as cookieBasket
+					,	case when kuai.product_id is null then 'alarm'
+							 else 'inalarm' end as alarmYn
 					from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 					inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 					inner join dbo.KAKAO_PRODUCT_MAIN_CATEGORY kpmc with(nolock) on kpmc.main_category_code = kpc.main_category_code
-					left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-					where kpi.rep_img_yn = 'Y'
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.product_id = kpt.product_id and kusc.qoouser_seq = @user_seq
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kpt.product_id = kuai.product_id and kuai.qoouser_seq = @user_seq
+					where  kpi.rep_img_yn = 'Y'
 					and kpi.head_img_yn = 'Y'
 					and kpmc.main_category_code = @main_category_code
 					and kpt.product_id <> @prodt_seq
@@ -102,9 +105,9 @@ begin
 				) as m
 				where m.rn between 1 and 4
 			end
-			else if (@list_sort_type = 3)
+			if (@list_sort_type = 3)
 			begin
-				--상품 개수 많은 순
+				-- 상품 개수 많은 순
 				select
 					m.product_id as prodId
 				,	m.product_nm as prodNm
@@ -114,7 +117,7 @@ begin
 				,	m.product_img as picUrl
 				,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
 				,	m.cookieBasket as cookieBasket
-				,	'alarm' as alarmYn
+				,	m.alarmYn as alarmYn
 				from
 				(
 					select
@@ -125,14 +128,17 @@ begin
 					,	kpt.product_price 
 					,	kpt.discount_rate 
 					,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-					,	case when ss.value is null then 'cart'
+					,	case when kusc.product_id is null then 'cart'
 							 else 'incart' end as cookieBasket
+					,	case when kuai.product_id is null then 'alarm'
+							 else 'inalarm' end as alarmYn
 					from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 					inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 					inner join dbo.KAKAO_PRODUCT_MAIN_CATEGORY kpmc with(nolock) on kpmc.main_category_code = kpc.main_category_code
-					left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-					where kpi.rep_img_yn = 'Y'
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.product_id = kpt.product_id and kusc.qoouser_seq = @user_seq
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kpt.product_id = kuai.product_id and kuai.qoouser_seq = @user_seq
+					where  kpi.rep_img_yn = 'Y'
 					and kpi.head_img_yn = 'Y'
 					and kpmc.main_category_code = @main_category_code
 					and kpt.product_id <> @prodt_seq
@@ -140,9 +146,9 @@ begin
 				) as m
 				where m.rn between 1 and 4
 			end
-			else if (@list_sort_type = 4)
+			if (@list_sort_type = 4)
 			begin
-				--할인률 높은 순
+				-- 할인률 높은 순
 				select
 					m.product_id as prodId
 				,	m.product_nm as prodNm
@@ -152,7 +158,7 @@ begin
 				,	m.product_img as picUrl
 				,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
 				,	m.cookieBasket as cookieBasket
-				,	'alarm' as alarmYn
+				,	m.alarmYn as alarmYn
 				from
 				(
 					select
@@ -163,14 +169,17 @@ begin
 					,	kpt.product_price 
 					,	kpt.discount_rate 
 					,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-					,	case when ss.value is null then 'cart'
+					,	case when kusc.product_id is null then 'cart'
 							 else 'incart' end as cookieBasket
+					,	case when kuai.product_id is null then 'alarm'
+							 else 'inalarm' end as alarmYn
 					from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
 					inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
 					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
 					inner join dbo.KAKAO_PRODUCT_MAIN_CATEGORY kpmc with(nolock) on kpmc.main_category_code = kpc.main_category_code
-					left join string_split(@basket_info,'#') ss on convert(bigint,ss.value) = kpt.product_id
-					where kpi.rep_img_yn = 'Y'
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.product_id = kpt.product_id and kusc.qoouser_seq = @user_seq
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kpt.product_id = kuai.product_id and kuai.qoouser_seq = @user_seq
+					where  kpi.rep_img_yn = 'Y'
 					and kpi.head_img_yn = 'Y'
 					and kpmc.main_category_code = @main_category_code
 					and kpt.product_id <> @prodt_seq
@@ -178,6 +187,8 @@ begin
 				) as m
 				where m.rn between 1 and 4
 			end
+
+			
 end
 
 

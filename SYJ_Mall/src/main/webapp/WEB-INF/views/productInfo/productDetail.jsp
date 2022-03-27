@@ -460,6 +460,40 @@ hr.division {
   line-height: 1.5;
 }
 
+/* 리뷰 더보기 */
+div.theme-more-view:hover{
+	cursor : pointer;
+}
+
+div.theme-more-view {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	width: 340px;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 4px;
+	border-width: 1px;
+	color: rgb(30, 30, 30);
+	font-size: 15px;
+	font-weight: normal;
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(230, 230, 230);
+	box-sizing: border-box;
+}
+
+div.theme-more-view::after {
+	content: "";
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	margin-top: -4px;
+	margin-left: 2px;
+	background-size: 13px;
+}
+
+
 /* 추천 상품 */
 .detail-recommended {
   padding: 31px 20px 0px;
@@ -1049,7 +1083,7 @@ hr.division {
                     <!-- 리뷰 -->
                     <div class="detail-review">
                         <div class="review-total">
-                            <div class="title">리뷰 4개</div>
+                            <div class="title">리뷰 ${totalReviewCount}개</div>
                             <div class="product-review">
                                 <c:forEach var="i" begin="1" end="${prodtInfo.prodStars}">
                        				<span class="review-star"></span>
@@ -1085,51 +1119,42 @@ hr.division {
                                 <button class="sort-btn like">좋아요순</button>
                                 <button class="sort-btn recent">최신순</button>
                             </div>
-                            <ul>
-                                <li class="review-item">
-                                    <div class="name">한*창</div>
-                                    <div class="star">
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="date">2021.08.14</span>
-                                    </div>
-                                    <div class="contents">
-                                        전 시간낭비에 타고난 재능이 있습니다. 이런 제가 낭비를 하지 않았습니다. 긴말하지 않겠습니다.
-                                    </div>
-                                    <div class="like">
-                                        <button>좋아요 1명</button>
-                                    </div>
-
-                                </li>
-                                <li class="review-item">
-                                    <div class="name">손*린</div>
-                                    <div class="star">
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="review-star"></span>
-                                        <span class="date">2021.08.11</span>
-                                    </div>
-                                    <div class="contents">
-                                        어피치를 좋아한다면 빚을 내서라도 사십시오<br>
-                                        너무 귀여우니까 다시 한번 말합니다<br>
-                                        빚을 내서라도 사십시오
-                                    </div>
-                                    <div class="like">
-                                        <button>좋아요 4명</button>
-                                    </div>
-
-                                </li>
+                            
+                            <!-- 리뷰관련 -->
+                            <ul id = "review_content">
+                                <c:forEach var="reviewDto" items="${prodtReviewInfo}">
+                                	<li class="review-item">
+	                                    <div class="name">${reviewDto.userId}</div>
+	                                    <div class="star">
+		                                    <c:forEach var="i" begin="1" end="${reviewDto.starCount}">
+	                       						<span class="review-star"></span>
+	                       					</c:forEach>
+	                       					<c:forEach var="i" begin="1" end="${reviewDto.starCountRemain}">
+	                       						<span class="review-star off"></span>
+	                       					</c:forEach>
+	                       					<span class="date">${reviewDto.reviewDate}</span>
+	                                    </div>
+	                                    <div class="contents">
+	                                        ${reviewDto.comment}
+	                                    </div>
+	      								<c:if test="${reviewDto.likeYn eq 'Y'}">
+	      									<!-- 로그인한 경우 -->
+	      								</c:if>
+	      								<c:if test="${reviewDto.likeYn eq 'N'}">
+	      									<div class="like">
+	                                        	<button>좋아요 ${reviewDto.likeCount}명</button>
+	                                    	</div>
+	      								</c:if>
+                                	</li>
+                                </c:forEach>
                             </ul>
-                            <div class="pagination">
+                            
+                            <div class="theme-more-view">더 보기</div>
+                            <!-- <div class="pagination">
                                 <div class="pagination-left-arrow"></div>
                                 <div class="pagination-page">1</div>
                                 <div class="pagination-right-arrow"></div>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
@@ -1456,8 +1481,12 @@ hr.division {
 				
 			});
             
+			/*============================= 리뷰 관련 =============================*/
+            let review_total_count = ${totalReviewCount};//해당상품에 관한 총 리뷰 개수
+			
             
-            //잠깐만 이 상품은 어때요? 부분 사진 선택했을 경우 -> 상세페이지로 넘어간다.
+			/*============================= 잠깐만 이 상품은 어때요 탭 =============================*/
+            //부분 사진 선택했을 경우 -> 상세페이지로 넘어간다.
 			$('.thumbnail').click(function(){
 				
 				const prodtSeq = $(this).parent('li').attr('id');
@@ -1465,6 +1494,9 @@ hr.division {
 				location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodtSeq;
 				
 			});
+            
+            //해당 물품 알람이나 장바구니 선택했을 경우
+            
             
         })
         
