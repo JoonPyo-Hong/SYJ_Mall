@@ -9,16 +9,23 @@
 
 */
 alter proc dbo.kakao_product_detail_review_not_login
-	@prodt_seq		bigint		-- 상품고유 번호
-,	@sort_option	int			-- 정렬 옵션
-,	@paging			int			-- 페이징
+	@prodt_seq		varchar(20)		-- 상품고유 번호
+,	@sort_option	varchar(20)		-- 정렬 옵션
+,	@paging			varchar(20)		-- 페이징
+,	@current_time 	varchar(40)		-- 기준날
 as 
 set nocount on 
 set transaction isolation level read uncommitted 
 begin
 	
+	
+	declare @prodt_seq_new bigint = convert(bigint,@prodt_seq)
+	,	@sort_option_new int = convert(int,@sort_option)
+	,	@paging_new int = convert(int,@paging)
+	,	@current_time_new datetime = convert(datetime,@current_time)
+	
 	-- 1. 최신순
-	if (@sort_option = 1)
+	if (@sort_option_new = 1)
 	begin
 		select
 			m.userId as userId
@@ -39,20 +46,21 @@ begin
 			,	kpp.review_content as comment
 			,	(
 					select count(*) from dbo.KAKAO_PRODUCT_LIKE_USER kplu with(nolock) 
-					where kplu.product_id = 9 
+					where kplu.product_id = @prodt_seq_new 
 					and kplu.prodt_like_yn = 'Y'
 					and kpp.pd_order_seq = kplu.pd_order_seq
  				) as likeCount
 			,	'N' as likeYn
 			from dbo.QOO10_USER_REAL qur with(nolock)
 			inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on qur.qoouser_seq = kpp.qoouser_seq
-			where kpp.product_id = 9
+			where kpp.product_id = @prodt_seq_new
 			and kpp.review_exists_yn = 'Y'
+			and kpp.review_reg_dt <= @current_time_new
 		) m
-		where m.rn between (@paging-1)*4 and (@paging)*4
+		where m.rn between (@paging_new-1)*4 and (@paging_new)*4
 	end
 	-- 2. 좋아요순
-	else if (@sort_option = 2)
+	else if (@sort_option_new = 2)
 	begin
 		select
 			m.userId as userId
@@ -67,7 +75,7 @@ begin
 			select 
 				row_number() over (order by (
 					select count(*) from dbo.KAKAO_PRODUCT_LIKE_USER kplu with(nolock) 
-					where kplu.product_id = 9 
+					where kplu.product_id = @prodt_seq 
 					and kplu.prodt_like_yn = 'Y'
 					and kpp.pd_order_seq = kplu.pd_order_seq
  				) desc) as rn
@@ -78,17 +86,18 @@ begin
 			,	kpp.review_content as comment
 			,	(
 					select count(*) from dbo.KAKAO_PRODUCT_LIKE_USER kplu with(nolock) 
-					where kplu.product_id = 9 
+					where kplu.product_id = @prodt_seq 
 					and kplu.prodt_like_yn = 'Y'
 					and kpp.pd_order_seq = kplu.pd_order_seq
  				) as likeCount
 			,	'N' as likeYn
 			from dbo.QOO10_USER_REAL qur with(nolock)
 			inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on qur.qoouser_seq = kpp.qoouser_seq
-			where kpp.product_id = 9
+			where kpp.product_id = @prodt_seq
 			and kpp.review_exists_yn = 'Y'
+			and kpp.review_reg_dt <= @current_time_new
 		) m
-		where m.rn between (@paging-1)*4 and (@paging)*4
+		where m.rn between (@paging_new-1)*4 and (@paging_new)*4
 	end
 			
 end

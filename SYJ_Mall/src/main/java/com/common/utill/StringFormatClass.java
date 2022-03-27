@@ -171,5 +171,8 @@ public class StringFormatClass {
 		return false;
 	}
 	
+	
+	
+	
 
 }

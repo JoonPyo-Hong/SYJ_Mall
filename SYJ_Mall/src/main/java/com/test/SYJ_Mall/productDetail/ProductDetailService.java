@@ -1,9 +1,7 @@
 package com.test.SYJ_Mall.productDetail;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.common.utill.CommonDAO;
+import com.common.utill.CommonDate;
 import com.common.utill.ErrorAlarm;
-import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.UserDTO;
@@ -63,7 +60,7 @@ public class ProductDetailService implements IProductDetailService{
 
 	*/
 	@Override
-	public int getProductDetilMain(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, Random rnd) {
+	public int getProductDetilMain(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, StringFormatClass sf, Random rnd,CommonDate cd) {
 		
 		try {
 			
@@ -84,8 +81,10 @@ public class ProductDetailService implements IProductDetailService{
 			List<ProductHowDTO> prodtHowInfo;//잠깐만 이 상품은 어때요 상품 객체들
 			List<ProductDetailReviewDTO> prodtReviewInfo;//해당상품 리뷰정보
 			
-			int selectCategory = rnd.nextInt(prodtMainCategory.size());//선택된 대분류 번호
+			int selectCategory = prodtMainCategory.get(rnd.nextInt(prodtMainCategory.size()));//선택된 대분류 번호
 			int totalReviewCount = dao.getProductReviewCounts(Integer.parseInt(prodtSeq));//해당상품 리뷰 총 개수
+			int totalReviewPage = (int)Math.ceil(totalReviewCount/4.0);
+			String currentTime = cd.getPresentTime();
 			
 			//로그인이 안된 경우
 			if (dto == null) {
@@ -105,7 +104,7 @@ public class ProductDetailService implements IProductDetailService{
 				
 				//2. 리뷰 정보 -> 좋아요 순 최신순 선택 : 기본은 최신순으로
 				int sortOption = 1;
-				prodtReviewInfo = dao.getProductReview(Integer.parseInt(prodtSeq), sortOption , 1);
+				prodtReviewInfo = dao.getProductReview(prodtSeq, sortOption , 1, currentTime);
 				
 				//3. 잠깐만 이 상품은 어때요
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
@@ -127,7 +126,7 @@ public class ProductDetailService implements IProductDetailService{
 				
 				//2. 리뷰 정보 -> 좋아요 순 최신순 선택 : 기본은 최신순으로 -> 로그인 시에는 바꿔줘야한다.
 				int sortOption = 1;
-				prodtReviewInfo = dao.getProductReview(Integer.parseInt(prodtSeq), sortOption , 1);
+				prodtReviewInfo = dao.getProductReview(prodtSeq, sortOption , 1, currentTime);
 				
 				//3. 잠깐만 이 상품은 어때요
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
@@ -145,6 +144,9 @@ public class ProductDetailService implements IProductDetailService{
 			request.setAttribute("prodtHowInfo", prodtHowInfo);//해당 물품의 상세정보
 			request.setAttribute("prodtReviewInfo", prodtReviewInfo);// 해당물품 관련리뷰 정보
 			request.setAttribute("totalReviewCount", totalReviewCount);// 해당물품 관련리뷰 전체 개수
+			request.setAttribute("totalReviewPage", totalReviewPage);// 해당물품 페이징이 몇번 일어나는지 밝혀줌
+			request.setAttribute("currentTime", currentTime);// 기준시간
+			
 			
 			return 1;
 		} catch(Exception e) {
@@ -176,6 +178,37 @@ public class ProductDetailService implements IProductDetailService{
 			} else {// basketList 에 지금 아무런 정보가 존재하지 않는경우
 				return basketList;// 기존쿠키 넘기기
 			}
+		}
+	}
+	
+	//리뷰 더보기 기능
+	@Override
+	public List<ProductDetailReviewDTO> getProdtReviewPage(HttpServletRequest request, ErrorAlarm ea) {
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO dto = (UserDTO) session.getAttribute("userinfo");//로그인 정보
+			List<ProductDetailReviewDTO> prodtReviewInfo;//해당상품 리뷰정보
+			
+			String prodtSeq = request.getParameter("selected_prodt_seq");//상품번호
+			int sortOption = Integer.parseInt(request.getParameter("sortOption"));//상품번호
+			int currentPage = Integer.parseInt(request.getParameter("current_page"));//상품번호
+			String currentTime = request.getParameter("review_show_day");//리뷰 관점 시간
+			
+			//로그인 되어 있지 않은 경우
+			if (dto == null) {
+				return dao.getProductReview(prodtSeq, sortOption , currentPage, currentTime);
+			}
+			//로그인 되어 있는 경우
+			else {
+				//여기선 좀 다르게 해줘야함.
+				return dao.getProductReview(prodtSeq, sortOption , currentPage, currentTime);
+			}
+			
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return null;
 		}
 	}
 	

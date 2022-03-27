@@ -77,13 +77,14 @@ public class ProductDetailDAO implements IProductDetailDAO {
 
 	//상품에 관한 리뷰 정보
 	@Override
-	public List<ProductDetailReviewDTO> getProductReview(int prodtSeq, int sortOption, int paging) {
+	public List<ProductDetailReviewDTO> getProductReview(String prodtSeq, int sortOption, int paging, String currentTime) {
 		
-		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		HashMap<String,String> map = new HashMap<String, String>();
 		
 		map.put("prodtSeq",prodtSeq);
-		map.put("sortOption",sortOption);
-		map.put("paging",paging);
+		map.put("sortOption",Integer.toString(sortOption));
+		map.put("paging",Integer.toString(paging));
+		map.put("currentTime",currentTime);
 		
 		return template.selectList("ProductDetails.productReview",map);
 	}

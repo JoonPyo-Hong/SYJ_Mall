@@ -64,7 +64,7 @@ public interface IProductDetailDAO {
 	 * @param paging
 	 * @return
 	 */
-	List<ProductDetailReviewDTO> getProductReview(int prodtSeq, int sortOption, int paging);
+	List<ProductDetailReviewDTO> getProductReview(String prodtSeq, int sortOption, int paging ,String currentTime);
 	
 	/**
 	 * 상품에 관한 전체 리뷰 개수

@@ -1482,8 +1482,72 @@ div.theme-more-view::after {
 			});
             
 			/*============================= 리뷰 관련 =============================*/
-            let review_total_count = ${totalReviewCount};//해당상품에 관한 총 리뷰 개수
-			
+          	const review_total_count = ${totalReviewCount};//해당상품에 관한 총 리뷰 개수
+          	const total_page_count = ${totalReviewPage};//총 몇번의 리뷰 더보기를 할 수 있는지 정해주는 인덱스
+          	const review_show_day = "${currentTime}";//리뷰 관련 정보 고정 날짜기준으로 보기 -> 새로운 리뷰가 갑자기 생길때 믹스 될수 있으므로
+          	let	review_sorted_option = 1;//기본적으로 정렬옵션은 1로고정
+          	let current_page = 1;
+          	
+          	//리뷰 더 보기 버튼 눌렀을 경우
+          	$('.theme-more-view').click(function(){
+          		current_page++;
+          		
+          		if (total_page_count >= current_page) {
+          			review_add();
+          		}
+          		
+          	});
+          	
+          	
+          	function review_add() {
+          		
+          		$.ajax({
+                	type:"GET",
+                    url: "/SYJ_Mall/newProductMainAddAjax.action" ,
+                    async : false,
+                    data : {"selected_prodt_seq" : selected_prodt_seq, "sortOption" : review_sorted_option, "current_page" : current_page},
+                    dataType : "json",
+                    success : function(result) {
+                        
+                    	if (result == null) alert('error');
+                    	
+                    	let review_length = result.length;
+                    	
+                    	for (let i = 0; i < review_length; i++) {
+                    		$("#review_content").append(
+                    			'<li class="review-item">'
+                    			+ '<div class="name">' + result[i].userId + '</div>'
+                                + '<div class="star">'
+                        	);
+                    		
+                    		for (let j = 0; j < result[i].starCount; j++) {
+                    			$("#review_content").append(
+                    				'<span class="review-star"></span>'
+                    			);
+                    		}
+                    		
+                    		for (let j = 0; j < result[i].starCountRemain; j++) {
+                    			$("#review_content").append(
+                    				'<span class="review-star off"></span>'
+                    			);
+                    		}
+                    		
+                    		$("#review_content").append(
+                        		'<div class="contents">' + result[i].comment + '</div>'
+                        		+ '<div class="like">'
+                            	+ '<button>좋아요 ' + result[i].likeCount + '명</button>'
+                        		+ '</div>'
+                            );
+                    		
+                    	}
+                    	
+                    },
+                    error: function(a,b,c) {
+        					console.log(a,b,c);
+        			}
+                });	
+          	}
+          	
             
 			/*============================= 잠깐만 이 상품은 어때요 탭 =============================*/
             //부분 사진 선택했을 경우 -> 상세페이지로 넘어간다.

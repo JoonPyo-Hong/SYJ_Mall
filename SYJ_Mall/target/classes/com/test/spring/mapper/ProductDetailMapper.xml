@@ -60,7 +60,7 @@
 	<!-- 상품 리뷰 관련 (비로그인 상태) -->
 	<select id="productReview" resultType="com.test.SYJ_Mall.productDetail.ProductDetailReviewDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
 		{
-			call dbo.kakao_product_detail_review_not_login(#{prodtSeq},#{sortOption},#{paging})
+			call dbo.kakao_product_detail_review_not_login(#{prodtSeq},#{sortOption},#{paging},#{currentTime})
 		}
 	</select>
 	

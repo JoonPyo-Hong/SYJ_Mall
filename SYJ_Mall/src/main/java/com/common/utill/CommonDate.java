@@ -56,7 +56,7 @@ public class CommonDate {
 	}
 	
 	/**
-	 * 현재시간 정보 저장--> 굳이 필요없을거 같은데?
+	 * 현재시간 정보 저장
 	 * @return
 	 */
 	public String getPresentTime() {
@@ -75,17 +75,20 @@ public class CommonDate {
 
 		sb.append(years);
 		sb.append("-");
-		sb.append(months);
+		sb.append(dateTypeConvert(Integer.toString(months)));
 		sb.append("-");
-		sb.append(date);
-		sb.append("-");
-		sb.append(hour);
-		sb.append("-");
-		sb.append(min);
-		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(date)));
+		sb.append(" ");
+		
+		sb.append(dateTypeConvert(Integer.toString(hour)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(min)));
+		sb.append(":");
 		sb.append(sec);
 
 		return sb.toString();
 	}
+	
+	
 
 }
