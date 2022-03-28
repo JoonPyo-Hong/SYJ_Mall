@@ -137,15 +137,13 @@ public class ProductDetailService implements IProductDetailService{
 				request.setAttribute("dtoSeq", dto.getUserSeq());//해당 물품의 상세정보
 			}
 			
-			
-			
 			request.setAttribute("headImgUrls", headImgUrls);//해당 물품의 헤드 사진
 			request.setAttribute("prodtInfo", prodtInfo.get(0));//해당 물품의 상세정보
 			request.setAttribute("prodtHowInfo", prodtHowInfo);//해당 물품의 상세정보
 			request.setAttribute("prodtReviewInfo", prodtReviewInfo);// 해당물품 관련리뷰 정보
 			request.setAttribute("totalReviewCount", totalReviewCount);// 해당물품 관련리뷰 전체 개수
 			request.setAttribute("totalReviewPage", totalReviewPage);// 해당물품 페이징이 몇번 일어나는지 밝혀줌
-			request.setAttribute("currentTime", currentTime);// 기준시간
+			request.setAttribute("currentTime", currentTime);//리뷰보는 기준 시간
 			
 			
 			return 1;
