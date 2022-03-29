@@ -1162,7 +1162,7 @@ div.theme-more-view::after {
                         </div>
                     </div>
                     <hr class="division">
-                    <!-- 추천 상품 -->
+                    <!-- 잠깐만 이 상품은 어떄요 탭 -->
                     <div class="detail-recommended">
                         <div class="title">잠깐만,<br>이 상품은 어때요?</div>
                        	
@@ -1565,7 +1565,54 @@ div.theme-more-view::after {
 				
 			});
             
-            //해당 물품 알람이나 장바구니 선택했을 경우
+            
+            /* $('.cart').click(function(){
+            	alert('cart');
+            });
+            
+            $('.incart').click(function(){
+            	alert('incart');
+            }); */
+            
+            //해당 물품 장바구니 선택했을 경우
+            $('.cart').click(function(){
+            	const this_object = $(this);
+            	const prodt_id = $(this).parent().parent().attr("id");
+            	
+            	const result = prodt_basket_checking(prodt_id);
+            	
+            	if (result == 1) {
+            		$(this_object).attr('class','incart');
+            	} else if (result == 2) {
+            		$(this_object).attr('class','cart');
+            	} else {
+            		location.href = "/SYJ_Mall/totalError.action";
+            	}
+            });
+            
+            //해당 물품 알람 선택했을 경우
+            $('.alarm').click(function(){
+            	const this_object = $(this);
+            	const prodt_id = $(this).parent().parent().attr("id");
+            	
+            	const logon_yn = common_login_user_checking()
+            	
+            	if (logon_yn == -1) {
+            		common_login_modal_open();
+            	}
+            	
+            	const result = prodt_alarm_checking(prodt_id);
+            	
+            	if (result == 1) {
+            		$(this_object).attr('class','inalarm');
+            	} else if (result == 2) {
+            		$(this_object).attr('class','alarm');
+            	} else if (result == 3){
+            		common_login_modal_open();
+            	} else {
+            		location.href = "/SYJ_Mall/totalError.action";
+            	}
+            });
             
             
         })

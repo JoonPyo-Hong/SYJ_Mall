@@ -32,7 +32,9 @@
 	<!-- 이 상품은 어때요 상품정보 대분류 번호 가져와 줄것-->
 	<select id="productHowInfoCategory" resultType="Integer" statementType="CALLABLE" >
 
-			SELECT DISTINCT main_category_code FROM dbo.KAKAO_PRODUCT_CATEGORY WITH(NOLOCK)
+		{
+			call dbo.kakao_product_detail_main_category_info 
+		}
 
 	</select>
 	

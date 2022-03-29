@@ -85,6 +85,7 @@ public class ProductDetailService implements IProductDetailService{
 			int totalReviewCount = dao.getProductReviewCounts(Integer.parseInt(prodtSeq));//해당상품 리뷰 총 개수
 			int totalReviewPage = (int)Math.ceil(totalReviewCount/4.0);
 			String currentTime = cd.getPresentTime();
+
 			
 			//로그인이 안된 경우
 			if (dto == null) {

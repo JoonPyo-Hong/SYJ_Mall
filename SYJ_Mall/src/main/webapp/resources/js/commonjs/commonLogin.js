@@ -13,6 +13,9 @@ function common_login_user_checking() {
 		async : false,
 		success: function(result) {
 			login_answer = result;
+			// logon : 1
+			// not logon : -1
+			
 		},
 		error: function(a, b, c) {
 			console.log(a, b, c);
