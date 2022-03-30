@@ -52,4 +52,15 @@ public class CommonController {
 		return service.getProductAlarmChecking(request,response,ea);
 	}
 	
+	
+	//소켓 테스트용
+	@RequestMapping(value = "/socketTest.action", method = { RequestMethod.GET })
+	public String socketTest(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return "/socket/socktTest";
+	
+	}
+		
+	
+	
 }
