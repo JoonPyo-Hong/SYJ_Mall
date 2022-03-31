@@ -2,6 +2,7 @@ package com.test.SYJ_Mall;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,11 +54,25 @@ public class CommonController {
 	}
 	
 	
+	//소켓 테스트용1
+	@RequestMapping(value = "/socketsetId.action", method = { RequestMethod.GET })
+	public String socketId(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+
+		return "/socketTest/idgen";
+
+	}
+	
+	
+	
 	//소켓 테스트용
-	@RequestMapping(value = "/socketTest.action", method = { RequestMethod.GET })
+	@RequestMapping(value = "/socketTestClean.action", method = { RequestMethod.GET })
 	public String socketTest(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
-		return "/socket/socktTest";
+		String id = request.getParameter("setId");
+		
+		request.setAttribute("id", id);
+		
+		return "/socketTest/websock";
 	
 	}
 		

@@ -41,20 +41,6 @@
     	</beans:property>
 	</beans:bean>
 	
-	
-	
 
-	<beans:bean id="echoHandler" class="com.test.SYJ_Mall.sockets.EchoHandler" />
-	
-	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/echo-ws" />
-			<websocket:handshake-interceptors>
-				<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-			</websocket:handshake-interceptors>
-		<websocket:sockjs />
-	</websocket:handlers>
-
-	
-	
 	
 </beans:beans>
