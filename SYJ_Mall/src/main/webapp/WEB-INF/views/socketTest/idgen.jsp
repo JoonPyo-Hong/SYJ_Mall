@@ -24,7 +24,7 @@
 	<script type="text/javascript">
 	  
 		function send() {
-			location.href = "/SYJ_Mall/socketTestClean.action?setId=" + $('#idgenerate').val();
+			location.href = "/SYJ_Mall/syloveshtext.action?setId=" + $('#idgenerate').val();
 		}
 	
 	</script>

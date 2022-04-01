@@ -32,7 +32,7 @@ public class Websocket {
     public void onOpen(Session session) {
         logger.info("Open session id:"+session.getId());
         try {
-            final Basic basic=session.getBasicRemote();
+            final Basic basic = session.getBasicRemote();
             basic.sendText("대화방에 연결 되었습니다.");
         }catch (Exception e) {
             // TODO: handle exception

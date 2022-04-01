@@ -40,7 +40,7 @@
               return;
           }
           //웹소켓 객체 만드는 코드
-          ws = new WebSocket("ws://byeanma.kro.kr:9089/SYJ_Mall/echo.action");
+          ws = new WebSocket("ws://byeanma.kro.kr:9081/SYJ_Mall/echo.action");
           
           ws.onopen = function(event){
               if(event.data === undefined){

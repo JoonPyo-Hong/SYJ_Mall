@@ -55,7 +55,7 @@ public class CommonController {
 	
 	
 	//소켓 테스트용1
-	@RequestMapping(value = "/socketsetId.action", method = { RequestMethod.GET })
+	@RequestMapping(value = "/sylovesh.action", method = { RequestMethod.GET })
 	public String socketId(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 
 		return "/socketTest/idgen";
@@ -65,7 +65,7 @@ public class CommonController {
 	
 	
 	//소켓 테스트용
-	@RequestMapping(value = "/socketTestClean.action", method = { RequestMethod.GET })
+	@RequestMapping(value = "/syloveshtext.action", method = { RequestMethod.GET })
 	public String socketTest(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
 		String id = request.getParameter("setId");
