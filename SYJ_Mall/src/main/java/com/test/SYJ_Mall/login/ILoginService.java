@@ -21,6 +21,7 @@ import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
+import com.test.SYJ_Mall.CommonWebsocket;
 
 /**
  * 로그인 서비스 인터페이스
@@ -433,6 +434,15 @@ public interface ILoginService {
 	 * @return
 	 */
 	int autoLoginBanned(HttpServletRequest request, ErrorAlarm ea);
+	
+	/**
+	 * QR code 생성해주기
+	 * @param request
+	 * @param CommonWebsocket
+	 * @param ea
+	 * @return
+	 */
+	int getPrintQrCode(HttpServletRequest request, CommonWebsocket cw, ErrorAlarm ea);
 	
 
 	

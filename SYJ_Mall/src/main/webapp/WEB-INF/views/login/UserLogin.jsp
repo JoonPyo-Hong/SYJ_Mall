@@ -621,8 +621,6 @@
 	
 	//QR 코드 로그인을 누른 경우
 	$('.qr-login-btn').click(function(){
-		//qr_ajax_function();
-		//$("#myModal").modal();
 		location.href = "/SYJ_Mall/loginQr.action";
 	});
 	

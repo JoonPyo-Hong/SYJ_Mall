@@ -65,16 +65,16 @@ public class CommonController {
 	
 	
 	//소켓 테스트용
-//	@RequestMapping(value = "/syloveshtext.action", method = { RequestMethod.GET })
-//	public String socketTest(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
-//		
-//		String id = request.getParameter("setId");
-//		
-//		request.setAttribute("id", id);
-//		
-//		return "/socketTest/websock";
-//	
-//	}
+	@RequestMapping(value = "/syloveshtext.action", method = { RequestMethod.GET })
+	public String socketTest(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		String id = request.getParameter("setId");
+		
+		request.setAttribute("id", id);
+		
+		return "/socketTest/websock";
+	
+	}
 		
 	
 	

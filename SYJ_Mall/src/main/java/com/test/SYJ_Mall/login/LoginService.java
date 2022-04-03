@@ -2,13 +2,12 @@ package com.test.SYJ_Mall.login;
 
 import java.net.URLEncoder;
 import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,6 +17,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,7 @@ import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
+import com.test.SYJ_Mall.CommonWebsocket;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
 /**
@@ -1137,7 +1138,7 @@ public class LoginService implements ILoginService {
 			String uuid = UUID.randomUUID().toString();//uuid 생성
 			String requestIpAddress = ic.getClientIP(request);//qr 로그인 시도하는 컴퓨터측 ip 정보
 			
-			int daoResult = dao.insertQrCheck(uuid,requestIpAddress);
+			//int daoResult = dao.insertQrCheck(uuid,requestIpAddress);
 			
 			//http://byeanma.kro.kr:9089/SYJ_Mall/loginQr.action -> url + uuid 번호 생성
 			//request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
@@ -1146,9 +1147,11 @@ public class LoginService implements ILoginService {
 			request.setAttribute("qrhttps", uuid);
 			
 			
-			if (daoResult == 1) return 1;
-			else return -1;
+			//if (daoResult == 1) return 1;
+			//else return -1;
 		    
+			return 1;
+			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;//오류 발생
@@ -1305,6 +1308,40 @@ public class LoginService implements ILoginService {
 			ea.basicErrorException(request, e);
 			return -1;
 		}
+	}
+	
+	//Qr code 생성
+	@Override
+	public int getPrintQrCode(HttpServletRequest request, CommonWebsocket cw, ErrorAlarm ea) {
+		
+		try {
+			
+			cw = new CommonWebsocket();
+			
+			List<Session> sessionLists = cw.sessionLists;
+			Map<String,String> guidLists = cw.guidLists;
+			
+			for (int i = 0; i < sessionLists.size(); i++) {
+				System.out.println(sessionLists.get(i).getId());
+			}
+			
+			Iterator<String> keys = guidLists.keySet().iterator();
+			
+			while(keys.hasNext()) {
+				String key = keys.next();
+				System.out.println( String.format("키 : %s, 값 : %s", key, guidLists.get(key)) );
+
+			}
+
+	
+			
+			
+			return 1;
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+		
 	}
 
 

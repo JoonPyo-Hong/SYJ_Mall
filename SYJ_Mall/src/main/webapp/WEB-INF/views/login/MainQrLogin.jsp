@@ -316,19 +316,19 @@
         </ul>
       </div>
       <div class="txt-copyright">Copyright © <b>Kakao Corp.</b> All rights reserved.</div>
+      <button id="send_message" type="button" onclick="openSocket();">메세지 전송</button>
     </div>
   </div>
-  <script>
+  <script type="text/javascript">
     
-  	let qruuid = '${qrhttps}';
- 	let qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps=${qrhttps}';
- 	//let qr_result = -1;
+  	let qruuid; //= '${qrhttps}';
+ 	//let qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps=${qrhttps}';
   	
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
   					//가로, 세로 높이 조절 
   							width : 150, height : 150 
   							});
-  	qrcode.makeCode(qrhttps);
+  	//qrcode.makeCode(qrhttps);
   	
   	
   	let time = 300;
@@ -341,7 +341,7 @@
 	  	sec = time % 60;
 	 	
 	  	//여기서 계속 ajax를 통해서 불러와줘야한다. -> qr코드로 로그인을 할지 말지 정할것이다.
-	  	qr_checking_user_pass(qruuid);
+	  	//qr_checking_user_pass(qruuid);
 	  	
 	  	
 		const zeroMin = String(min).padStart(2,'0');
@@ -376,8 +376,82 @@
 	});
 	
 	
+	//qr code 보여주기
+	/* function qrShow() {
+		$.ajax({
+			type : "POST",
+			url : "/SYJ_Mall/loginQrCheck.action",
+			dataType : "json",
+			success : function(result) {				
+				
+			},
+			error : function(a, b, c) {
+				alert('error');
+			}
+		});
+	} */
+	
+	
+	/************************* QR 코드 socket 처리 *************************/
+	var wss;//socket 객체
+
+	//window.onload = function(){
+		openSocket();
+		//send();
+		//ws.send(qruuid);
+  	//} 
+	
+	function openSocket() {
+		if(wss !== undefined && wss.readyState !== WebSocket.CLOSED ){
+            writeResponse("WebSocket is already opened.");
+            return;
+           	}
+		 
+		//웹소켓 객체 만드는 코드
+		//wss = new WebSocket("ws://byeanma.kro.kr:9089/SYJ_Mall/echo.action");
+		wss = new WebSocket("ws://byeanma.kro.kr:${serverPort}/SYJ_Mall/qrecho.action");
+		
+		
+		wss.onopen = function(event){			
+            if(event.data === undefined){
+
+            	return;
+            }
+        };
+        
+        wss.onmessage = function(event){
+            //console.log('writeResponse');
+            console.log(event.data);
+        };
+        
+        wss.onclose = function(event){
+            //writeResponse("대화 종료");
+        }	
+	}
+	
+	/* function send(){ 
+		 //ws.send(qruuid);
+		ws.send("test");
+	} */
+	
+	function send() {
+		var text = 'test';
+		wss.send(text);
+	}
+	
+	function closeSocket(){
+		wss.close();
+    }
+	
+	function testConsole(text) {
+		qruuid = text;
+		console.log(text);
+	}
+
+	
+	/************************* QR 코드 ajax 처리 *************************/
 	//qr 로그인 검증 socket 과 비슷한 처리
-	function qr_checking_user_pass(qruuid) {
+	/* function qr_checking_user_pass(qruuid) {
 		
 		$.ajax({
 			type : "POST",
@@ -409,10 +483,10 @@
 				alert('error');
 			}
 		});
-	}
+	} */
 	
 	//timeout 되거나 새로고침을 한 경우 -> 기존의 uuid 를 db에서 지워준다.
-	function timeout_qr_session(qruuid) {
+	/* function timeout_qr_session(qruuid) {
 		
 		let qr_result = -1;
 		
@@ -437,7 +511,7 @@
 		
 		return qr_result;
 		
-	}
+	} */
 	
 
   </script>

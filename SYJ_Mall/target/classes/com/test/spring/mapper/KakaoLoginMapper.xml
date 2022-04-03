@@ -178,7 +178,8 @@
 				
 	</select>
 	
-	<!-- QR 관련 url 정보 저장-->
+	
+	<!-- QR 관련 url 정보 저장 디비까지 갈 필요 없을듯?-->
 	<select id="setQrUrl" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int

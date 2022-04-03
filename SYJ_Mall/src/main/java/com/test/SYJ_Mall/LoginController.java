@@ -187,6 +187,19 @@ public class LoginController {
 		
 	}
 	
+	@RequestMapping(value = "/loginQrPrint.action", method = { RequestMethod.GET })
+	public String loginQrPrint(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, CommonWebsocket cw) {
+		
+		//int passCheckUserSeq = logService.qrCheckingUser(request,ea);//QR 로그인이 허용된 유저의 고유번호
+		
+		//return logService.getPrintQrCode(request,cw,ea);
+		
+		logService.getPrintQrCode(request,cw,ea);
+		
+		return "/testwaiting/kakaoerror";
+	}
+	
+	
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우
 	@RequestMapping(value = "/loginQrPrevCheck.action", method = { RequestMethod.GET })
