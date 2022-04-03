@@ -42,20 +42,21 @@ public class CommonWebsocket {
 		
 		try {
 			final Basic basic = session.getBasicRemote();
-			
-			//uuid 생성
 			String uuid = UUID.randomUUID().toString();//uuid 생성
-			guidLists.put(session.getId(), uuid);
+			//guidLists.put(session.getId(), uuid);
+			guidLists.put(uuid, session.getId());
 			
-			basic.sendText(uuid);
+			basic.sendText("gen,"+uuid);
 			sessionLists.add(session);//새로운 세션 등록
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-		}
-		
-		
+		}	
 	}
+	
+	
+	
 	
 	/*
      * 내가 입력하는 메세지
@@ -69,22 +70,22 @@ public class CommonWebsocket {
     	//message = message.split(",")[0];//해당 사람이 보낸 문자.
     	
     	
-    	System.out.println(session.getId());
-    	System.out.println("message : " + message);
+    	//System.out.println(session.getId());
+    	//System.out.println("message : " + message);
     	//System.out.println("message : " + message);
     	
     	
         //logger.info("Message From " + sender + ": "+message);
         
-//        try {
-//            final Basic basic = session.getBasicRemote();
-//            basic.sendText("<나> : " + message);
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//            System.out.println(e.getMessage());
-//        }
+        try {
+            final Basic basic = session.getBasicRemote();
+            basic.sendText("pass," + message);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
         
-        //sendAllSessionToMessage(session,message);
+        sendAllSessionToMessage(session,message);
     }
     
     
@@ -98,7 +99,7 @@ public class CommonWebsocket {
     	
         try {
             for(Session session : CommonWebsocket.sessionLists) {
-                if(!self.getId().equals(session.getId())) {
+                if(self.getId().equals(session.getId())) {
                     session.getBasicRemote().sendText("message : " + message);
                 }
             }
@@ -119,7 +120,9 @@ public class CommonWebsocket {
 	@OnClose
 	public void onClose(Session session) {
 		logger.info("Session " + session.getId() + " has ended");
+		guidLists.remove(session.getId());
 		sessionLists.remove(session);
+		System.out.println(sessionLists.size());
 	} 
 	
 }

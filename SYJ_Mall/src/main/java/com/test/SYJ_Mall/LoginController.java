@@ -187,6 +187,7 @@ public class LoginController {
 		
 	}
 	
+	//테스트용 없애줄것이다
 	@RequestMapping(value = "/loginQrPrint.action", method = { RequestMethod.GET })
 	public String loginQrPrint(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, CommonWebsocket cw) {
 		

@@ -1167,11 +1167,13 @@ public class LoginService implements ILoginService {
 			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
 			String decodeQrSeqCode;
 			int result = -1;
-
+			
+			
 			if (QrSeqCode == null) {
 				
-				int qrResult = dao.deleteQrUuid(qruuid);
-				if (qrResult == 1) result = 2;
+				//int qrResult = dao.deleteQrUuid(qruuid);
+				//if (qrResult == 1) result = 2;
+				result = 2;
 				
 			} else {
 				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
@@ -1180,11 +1182,37 @@ public class LoginService implements ILoginService {
 				request.setAttribute("QrSeqCode",QrSeqCode);
 				request.setAttribute("qruuid",qruuid);
 				
-				result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
+				CommonWebsocket cw = new CommonWebsocket();
+				
+				//result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
+				Map<String,String> guidLists = cw.guidLists;
+				//List<Session> sessionLists = cw.sessionLists;
+				
+				//String qrSeq = "";
+				//Session UserQrSession = null;
+				
+//				if (guidLists.get(qruuid) != null) {
+//					result = 1;
+//					qrSeq = guidLists.get(qruuid);
+//
+//					for (Session seq : sessionLists) {
+//						if (seq.getId().equals(qrSeq)) {
+//							UserQrSession = seq;
+//						}
+//					}
+//				} 
+				
+				if (guidLists.get(qruuid) != null) {
+					
+				}
 				
 				//uuid 에 대한 정보가 존재하고 회원에 대한 정보도 존재하는 경우 -> 해당 아이피,회원 아이디를 마스킹하여 가져와준다.
 				if (result == 1) {
+					
 					List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
+					
+					//cw.onMessage(qrSeq, UserQrSession);
+					
 					if (qrIdIpdtoList.size() == 1) {
 						LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);
 						String qrUserId = sf.maskigId(qrIdIpdto.getUserId());

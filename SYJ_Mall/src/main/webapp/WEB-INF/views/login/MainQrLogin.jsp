@@ -316,19 +316,18 @@
         </ul>
       </div>
       <div class="txt-copyright">Copyright © <b>Kakao Corp.</b> All rights reserved.</div>
-      <button id="send_message" type="button" onclick="openSocket();">메세지 전송</button>
+      <button id="send_message" type="button" onclick="send();">메세지 전송</button>
     </div>
   </div>
   <script type="text/javascript">
     
-  	let qruuid; //= '${qrhttps}';
- 	//let qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps=${qrhttps}';
+  	let qruuid;
+ 	let qrhttps;
   	
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
   					//가로, 세로 높이 조절 
   							width : 150, height : 150 
   							});
-  	//qrcode.makeCode(qrhttps);
   	
   	
   	let time = 300;
@@ -340,9 +339,8 @@
 		min = parseInt(time / 60);
 	  	sec = time % 60;
 	 	
-	  	//여기서 계속 ajax를 통해서 불러와줘야한다. -> qr코드로 로그인을 할지 말지 정할것이다.
+	  	//여기서 계속 ajax를 통해서 불러와줘야한다. -> qr코드로 로그인을 할지 말지 정할것이다.<제거>
 	  	//qr_checking_user_pass(qruuid);
-	  	
 	  	
 		const zeroMin = String(min).padStart(2,'0');
 		const zerosec = String(sec).padStart(2,'0');
@@ -353,9 +351,9 @@
 		// 5분 지날 시 자동 리셋
 		// QR 코드 이미지 변경 로직 추가 예정
 		if (time < 1) {
-			const delete_result = timeout_qr_session(qruuid);
-			if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
-			else location.href = "/SYJ_Mall/totalError.action";
+			closeSocket();
+			openSocket();
+			time = 300;
 				  
 		}
 	
@@ -363,9 +361,16 @@
    	
 	// 리셋 버튼 클릭 시 타이머 리셋
 	$('#resetBtn').click(function(){
-		const delete_result = timeout_qr_session(qruuid);
-		if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
-		else location.href = "/SYJ_Mall/totalError.action";
+		closeSocket();
+		openSocket();
+		time = 300; 
+		//location.href = "/SYJ_Mall/loginQr.action";
+		/* closeSocket();
+		openSocket();
+		time = 10; */
+		//const delete_result = timeout_qr_session(qruuid);
+		//if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
+		//else location.href = "/SYJ_Mall/totalError.action";
 	});
 		
 	//일반로그인 창으로 넘어가기
@@ -376,34 +381,16 @@
 	});
 	
 	
-	//qr code 보여주기
-	/* function qrShow() {
-		$.ajax({
-			type : "POST",
-			url : "/SYJ_Mall/loginQrCheck.action",
-			dataType : "json",
-			success : function(result) {				
-				
-			},
-			error : function(a, b, c) {
-				alert('error');
-			}
-		});
-	} */
-	
-	
 	/************************* QR 코드 socket 처리 *************************/
 	var wss;//socket 객체
 
-	//window.onload = function(){
-		openSocket();
-		//send();
-		//ws.send(qruuid);
-  	//} 
+	window.onload = function(){
+		openSocket();	
+  	} 
 	
 	function openSocket() {
 		if(wss !== undefined && wss.readyState !== WebSocket.CLOSED ){
-            writeResponse("WebSocket is already opened.");
+            //writeResponse("WebSocket is already opened.");
             return;
            	}
 		 
@@ -414,14 +401,29 @@
 		
 		wss.onopen = function(event){			
             if(event.data === undefined){
-
             	return;
             }
         };
         
         wss.onmessage = function(event){
-            //console.log('writeResponse');
             console.log(event.data);
+            let gubun = event.data.split(",");
+            
+            let first = gubun[0];
+            let second = gubun[1];
+            
+			if (first == 'gen') {
+				qruuid = event.data;
+	            qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps='+qruuid;
+	            qrcode.makeCode(qrhttps);//qr code 이미지 생성
+			}   
+			else {
+					
+			}
+            
+            //qruuid = event.data;
+            //qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps='+qruuid;
+            //qrcode.makeCode(qrhttps);//qr code 이미지 생성
         };
         
         wss.onclose = function(event){
@@ -429,13 +431,8 @@
         }	
 	}
 	
-	/* function send(){ 
-		 //ws.send(qruuid);
-		ws.send("test");
-	} */
-	
 	function send() {
-		var text = 'test';
+		var text = 'test,test';
 		wss.send(text);
 	}
 	
