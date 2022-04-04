@@ -364,26 +364,22 @@
 		closeSocket();
 		openSocket();
 		time = 300; 
-		//location.href = "/SYJ_Mall/loginQr.action";
-		/* closeSocket();
-		openSocket();
-		time = 10; */
-		//const delete_result = timeout_qr_session(qruuid);
-		//if (delete_result == 1) location.href = "/SYJ_Mall/loginQr.action";
-		//else location.href = "/SYJ_Mall/totalError.action";
 	});
 		
 	//일반로그인 창으로 넘어가기
 	$('.info-another').click(function(){
-		const delete_result = timeout_qr_session(qruuid);
-		if (delete_result == 1) location.href = "/SYJ_Mall/login.action"; 
-		else location.href = "/SYJ_Mall/totalError.action";
+		closeSocket();
+		location.href = "/SYJ_Mall/login.action";
+		//const delete_result = timeout_qr_session(qruuid);
+		//if (delete_result == 1) location.href = "/SYJ_Mall/login.action"; 
+		//else location.href = "/SYJ_Mall/totalError.action";
 	});
 	
 	
 	/************************* QR 코드 socket 처리 *************************/
-	var wss;//socket 객체
-
+	let wss;//socket 객체
+	let request_ip = '${requestIpAddress}';
+	
 	window.onload = function(){
 		openSocket();	
   	} 
@@ -412,13 +408,15 @@
             let first = gubun[0];
             let second = gubun[1];
             
+            //qr code 를 생성해주고 이미지에 뿌려주는 경우
 			if (first == 'gen') {
-				qruuid = event.data;
-	            qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps='+qruuid;
+				qruuid = second;
+	            qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps='+ qruuid + '&tryip=' + request_ip;
 	            qrcode.makeCode(qrhttps);//qr code 이미지 생성
 			}   
 			else {
-					
+			
+				
 			}
             
             //qruuid = event.data;

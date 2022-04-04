@@ -300,6 +300,13 @@ public class LoginDAO implements ILoginDAO {
 
 		return template.selectOne("SYJDB.qrUuidDelete", uuid);
 	}
+
+	//고객확인 메소드
+	@Override
+	public int checkUserExists(int decodeQrSeqCode) {
+		
+		return template.selectOne("SYJDB.qrUserYn", decodeQrSeqCode);
+	}
 	
 	
 }

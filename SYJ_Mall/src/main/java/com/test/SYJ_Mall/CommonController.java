@@ -54,6 +54,7 @@ public class CommonController {
 	}
 	
 	
+	
 	//소켓 테스트용1
 	@RequestMapping(value = "/sylovesh.action", method = { RequestMethod.GET })
 	public String socketId(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {

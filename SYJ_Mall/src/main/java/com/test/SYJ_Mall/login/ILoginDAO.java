@@ -225,6 +225,13 @@ public interface ILoginDAO {
 	 */
 	int deleteQrUuid(String uuid);
 
+	/**
+	 * 고객인지 아닌지 판단
+	 * @param decodeQrSeqCode
+	 * @return
+	 */
+	int checkUserExists(int decodeQrSeqCode);
+
 
 
 

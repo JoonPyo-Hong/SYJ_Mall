@@ -43,8 +43,7 @@ public class CommonWebsocket {
 		try {
 			final Basic basic = session.getBasicRemote();
 			String uuid = UUID.randomUUID().toString();//uuid 생성
-			//guidLists.put(session.getId(), uuid);
-			guidLists.put(uuid, session.getId());
+			guidLists.put(uuid, session.getId());//uuid 가 key의 역할을 수행
 			
 			basic.sendText("gen,"+uuid);
 			sessionLists.add(session);//새로운 세션 등록

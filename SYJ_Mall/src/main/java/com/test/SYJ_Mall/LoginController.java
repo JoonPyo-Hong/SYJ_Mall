@@ -204,10 +204,12 @@ public class LoginController {
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우
 	@RequestMapping(value = "/loginQrPrevCheck.action", method = { RequestMethod.GET })
-	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea) {
+	public String loginQrCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea, CommonWebsocket cw) {
 		
 		
-		int qrPrevCheck = logService.loginQrPrevCheck(request,response,kc,au,sf,ea);
+		int qrPrevCheck = logService.loginQrPrevCheck(request,response,kc,au,sf,ea, cw);
+		
+		//int qrPrevCheck = 1;//임시
 		
 		if (qrPrevCheck == 1) return "/login/UserQrChecking";
 		else if (qrPrevCheck == 2) return "/semitiles/QrLoginNotUserSeq.layout";

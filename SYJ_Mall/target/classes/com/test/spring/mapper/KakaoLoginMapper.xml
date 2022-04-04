@@ -234,6 +234,15 @@
 				
 	</select>
 	
+	<!-- 고객인지 아닌지 판단해주기 -->
+	<select id="qrUserYn" resultType="Integer"  parameterType="Integer" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_set_qr_user_yn #{decodeQrSeqCode}
+		select @result
+				
+	</select>
+	
 	
 
 </mapper>

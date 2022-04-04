@@ -1135,21 +1135,17 @@ public class LoginService implements ILoginService {
 		
 		try {
 			
-			String uuid = UUID.randomUUID().toString();//uuid 생성
-			String requestIpAddress = ic.getClientIP(request);//qr 로그인 시도하는 컴퓨터측 ip 정보
-			
 			//int daoResult = dao.insertQrCheck(uuid,requestIpAddress);
 			
-			//http://byeanma.kro.kr:9089/SYJ_Mall/loginQr.action -> url + uuid 번호 생성
-			//request.setAttribute("qrhttps", "http://byeanma.kro.kr:9089/SYJ_Mall/loginQrCheck.action?qrhttps=" + uuid);
+			//qr 시도하는 컴퓨터측 ip 정보
+			String requestIpAddress = ic.getClientIP(request);//qr 로그인 시도하는 컴퓨터측 ip 정보
+			
+			//현재 열려있는 서버포트
 			int serverPort = request.getServerPort();
+			
 			request.setAttribute("serverPort", serverPort);
-			request.setAttribute("qrhttps", uuid);
+			request.setAttribute("requestIpAddress", requestIpAddress);
 			
-			
-			//if (daoResult == 1) return 1;
-			//else return -1;
-		    
 			return 1;
 			
 		} catch(Exception e) {
@@ -1160,32 +1156,48 @@ public class LoginService implements ILoginService {
 	
 	//QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
 	@Override
-	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea) {
+	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea, CommonWebsocket cw) {
 		try {
 			
 			String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
+			String tryIp = request.getParameter("tryip");//넘어온 시도 ip 정보
 			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
 			String decodeQrSeqCode;
+			
 			int result = -1;
 			
-			
+			// 최근 15일동안 모바일에서 로그인한 기록이 없음
 			if (QrSeqCode == null) {
-				
-				//int qrResult = dao.deleteQrUuid(qruuid);
-				//if (qrResult == 1) result = 2;
+	
 				result = 2;
 				
 			} else {
-				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));//고객번호가 암호화 되어있는데 이것을 복호화 시킨다.
 				
 				//확인창 화면에서 정보를 볼수 있도록 request 객체에 넘겨준다.
 				request.setAttribute("QrSeqCode",QrSeqCode);
 				request.setAttribute("qruuid",qruuid);
+				request.setAttribute("tryIp",tryIp);
 				
-				CommonWebsocket cw = new CommonWebsocket();
+				//cw = new CommonWebsocket();
 				
-				//result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
+				//1. uuid 에 대한 정보가 현재 소켓 세션에도 존재하는지 찾아준다.
 				Map<String,String> guidLists = cw.guidLists;
+				
+				int uuidPass = -1;
+				if (guidLists.get(qruuid) != null) uuidPass = 1; 
+				
+				//2. 복호화된 고객번호가 존재하는지 찾아준다.
+				int userYn = dao.checkUserExists(Integer.parseInt(decodeQrSeqCode));//여기서 이상한 복호화가 되면 오류가 자연스럽게 발생할것이다.
+				
+				
+				System.out.println("uuidPass : " + uuidPass);
+				System.out.println("userYn : " + userYn);
+				
+				
+				result = 1;
+				//result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
+				//Map<String,String> guidLists = cw.guidLists;
 				//List<Session> sessionLists = cw.sessionLists;
 				
 				//String qrSeq = "";
@@ -1202,27 +1214,27 @@ public class LoginService implements ILoginService {
 //					}
 //				} 
 				
-				if (guidLists.get(qruuid) != null) {
-					
-				}
+//				if (guidLists.get(qruuid) != null) {
+//					
+//				}
 				
 				//uuid 에 대한 정보가 존재하고 회원에 대한 정보도 존재하는 경우 -> 해당 아이피,회원 아이디를 마스킹하여 가져와준다.
-				if (result == 1) {
-					
-					List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
-					
-					//cw.onMessage(qrSeq, UserQrSession);
-					
-					if (qrIdIpdtoList.size() == 1) {
-						LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);
-						String qrUserId = sf.maskigId(qrIdIpdto.getUserId());
-						String qrUserIp = qrIdIpdto.getUserIp();
-						
-						request.setAttribute("qrUserId",qrUserId);
-						request.setAttribute("qrUserIp",qrUserIp);
-					}
-					else result = -1;
-				} 
+//				if (uuidPass == 1 && userYn == 1) {
+//					
+//					List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
+//					
+//					//cw.onMessage(qrSeq, UserQrSession);
+//					
+//					if (qrIdIpdtoList.size() == 1) {
+//						LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);
+//						String qrUserId = sf.maskigId(qrIdIpdto.getUserId());
+//						String qrUserIp = qrIdIpdto.getUserIp();
+//						
+//						request.setAttribute("qrUserId",qrUserId);
+//						request.setAttribute("qrUserIp",qrUserIp);
+//					}
+//					else result = -1;
+//				} 
 				
 			}
 			

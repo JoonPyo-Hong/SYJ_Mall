@@ -407,9 +407,10 @@ public interface ILoginService {
 	 * @param au
 	 * @param sf
 	 * @param ea
+	 * @param cw
 	 * @return	1: 정상, -1: 실패(오류), -2: 아이디 존재하지 않음(회원의 고유번호 존재하지 않음), -3: uuid 자체가 존재하지 않음
 	 */
-	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse respons,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea);
+	int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse respons,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea, CommonWebsocket cw);
 	
 	/**
 	 * 타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
