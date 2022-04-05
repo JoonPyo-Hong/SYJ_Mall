@@ -1164,13 +1164,13 @@ public class LoginService implements ILoginService {
 			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
 			String decodeQrSeqCode;
 			
-			int result = -1;
+			//int result = -1;
 			
 			// 최근 15일동안 모바일에서 로그인한 기록이 없음
 			if (QrSeqCode == null) {
 	
-				result = 2;
-				
+				//result = 2;
+				return 2;
 			} else {
 				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));//고객번호가 암호화 되어있는데 이것을 복호화 시킨다.
 				
@@ -1179,23 +1179,24 @@ public class LoginService implements ILoginService {
 				request.setAttribute("qruuid",qruuid);
 				request.setAttribute("tryIp",tryIp);
 				
-				//cw = new CommonWebsocket();
-				
-				//1. uuid 에 대한 정보가 현재 소켓 세션에도 존재하는지 찾아준다.
+				// 넘어온 uuid 에 대한 정보가 현재 소켓 세션에도 존재하는지 찾아준다.
 				Map<String,String> guidLists = cw.guidLists;
+				if (guidLists.get(qruuid) == null) return 2; 
 				
-				int uuidPass = -1;
-				if (guidLists.get(qruuid) != null) uuidPass = 1; 
+				// 소켓에 저장된 uuid에 대해서 문제가 없다면 해당 아이피와 유저의 번호가 문제없는지 확인해준다.
+				//int userCheck = dao.checkUserPassYn();
+				
 				
 				//2. 복호화된 고객번호가 존재하는지 찾아준다.
-				int userYn = dao.checkUserExists(Integer.parseInt(decodeQrSeqCode));//여기서 이상한 복호화가 되면 오류가 자연스럽게 발생할것이다.
+				//int userYn = dao.checkUserExists(Integer.parseInt(decodeQrSeqCode));//여기서 이상한 복호화가 되면 오류가 자연스럽게 발생할것이다.
+				//int 
+				
+//				if (uuidPass == 1 && userYn == 1) {
+//					
+//				}
 				
 				
-				System.out.println("uuidPass : " + uuidPass);
-				System.out.println("userYn : " + userYn);
-				
-				
-				result = 1;
+				//result = 1;
 				//result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
 				//Map<String,String> guidLists = cw.guidLists;
 				//List<Session> sessionLists = cw.sessionLists;
