@@ -234,7 +234,7 @@
 				
 	</select>
 	
-	<!-- 고객인지 아닌지 판단해주기 -->
+	<!-- 고객인지 아닌지 판단해주기(필요없을 듯) -->
 	<select id="qrUserYn" resultType="Integer"  parameterType="Integer" statementType="CALLABLE" >
 		
 		declare @result int
@@ -242,6 +242,17 @@
 		select @result
 				
 	</select>
+	
+	
+	<!-- QR 로그인 전 해당 아이피 아이디에 문제 없는지 확인하는 작업 -->
+	<select id="qrUserOpenYn" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_get_qr_user_login_yn #{decodeQrSeqCode},#{tryIp}
+		select @result
+				
+	</select>
+	
 	
 	
 

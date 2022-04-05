@@ -232,6 +232,14 @@ public interface ILoginDAO {
 	 */
 	int checkUserExists(int decodeQrSeqCode);
 
+	/**
+	 * QR 코드 로그인을 하기위한 검증단계 - 해당 아이디와 아이피가 문제가 없는지 확인해줌.
+	 * @param decodeQrSeqCode
+	 * @param tryIp
+	 * @return
+	 */
+	int checkUserPassYn(String decodeQrSeqCode, String tryIp);
+
 
 
 

@@ -204,6 +204,35 @@ public class CommonDAO {
 		}
 	}
 	
+	/**
+	 * 유저번호에 해당하는 유저 id 정보 가져오기
+	 * @param userSeq
+	 * @return
+	 */
+	public String getUserId(int userSeq) {
+		
+		try {
+			
+			String userId = "";
+		
+			String sql = "{call kakao_common_get_user_id(?)}";
+			
+			stat = conn.prepareCall(sql);
+			stat.setInt("user_seq", userSeq);
+			stat.execute();
+			rs = stat.getResultSet();
+			
+			if (rs.next()) {
+				userId = rs.getString("userId");
+			}
+			
+			return userId;
+			
+		} catch(Exception e) {
+			return null;
+		}
+	}
+	
 	
 	
 

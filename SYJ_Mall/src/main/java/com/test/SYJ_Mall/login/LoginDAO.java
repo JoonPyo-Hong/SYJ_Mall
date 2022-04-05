@@ -307,6 +307,17 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.qrUserYn", decodeQrSeqCode);
 	}
+
+	//QR 코드 로그인을 하기위한 검증단계 - 해당 아이디와 아이피가 문제가 없는지 확인해줌.
+	@Override
+	public int checkUserPassYn(String decodeQrSeqCode, String tryIp) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("decodeQrSeqCode",decodeQrSeqCode);
+		map.put("tryIp",tryIp);
+		
+		return template.selectOne("SYJDB.qrUserOpenYn", decodeQrSeqCode);
+	}
 	
 	
 }

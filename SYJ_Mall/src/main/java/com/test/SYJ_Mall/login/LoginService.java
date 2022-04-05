@@ -1156,7 +1156,7 @@ public class LoginService implements ILoginService {
 	
 	//QR 코드 모바일 기기로 접근하는 처음경우 uuid 등 기본정보 조회
 	@Override
-	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea, CommonWebsocket cw) {
+	public int loginQrPrevCheck(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc,AES256Util au,StringFormatClass sf, ErrorAlarm ea, CommonWebsocket cw, CommonDAO cdao) {
 		try {
 			
 			String qruuid = request.getParameter("qrhttps");//넘어온 uuid 정보
@@ -1164,12 +1164,8 @@ public class LoginService implements ILoginService {
 			String QrSeqCode = (String) kc.getCookieInfo(request, "QrSeqCode");
 			String decodeQrSeqCode;
 			
-			//int result = -1;
-			
 			// 최근 15일동안 모바일에서 로그인한 기록이 없음
 			if (QrSeqCode == null) {
-	
-				//result = 2;
 				return 2;
 			} else {
 				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));//고객번호가 암호화 되어있는데 이것을 복호화 시킨다.
@@ -1179,13 +1175,23 @@ public class LoginService implements ILoginService {
 				request.setAttribute("qruuid",qruuid);
 				request.setAttribute("tryIp",tryIp);
 				
+				//고객번호가 이상한 경우 -> 숫자가 아닌 경우
+				if (!sf.isStringDigit(decodeQrSeqCode)) return -1;
+				
 				// 넘어온 uuid 에 대한 정보가 현재 소켓 세션에도 존재하는지 찾아준다.
 				Map<String,String> guidLists = cw.guidLists;
 				if (guidLists.get(qruuid) == null) return 2; 
 				
 				// 소켓에 저장된 uuid에 대해서 문제가 없다면 해당 아이피와 유저의 번호가 문제없는지 확인해준다.
-				//int userCheck = dao.checkUserPassYn();
+				int userCheck = dao.checkUserPassYn(decodeQrSeqCode,tryIp);
 				
+				if (userCheck != 1) return -1;//문제 있는경우 오류 발생
+				
+				String userId = cdao.getUserId(Integer.parseInt(decodeQrSeqCode));
+				
+				System.out.println("userId : " + userId);
+				
+				//List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
 				
 				//2. 복호화된 고객번호가 존재하는지 찾아준다.
 				//int userYn = dao.checkUserExists(Integer.parseInt(decodeQrSeqCode));//여기서 이상한 복호화가 되면 오류가 자연스럽게 발생할것이다.
@@ -1239,7 +1245,7 @@ public class LoginService implements ILoginService {
 				
 			}
 			
-			return result;
+			return 1;
 			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);

@@ -5,12 +5,11 @@
 		     
 	History	: 2022-04-05 Seunghwan Shin	#최초 생성
 	
-	Real DB : exec dbo.kakao_get_qr_user_login_yn '123-33-22', 2000001, '192.221.443.112'
+	Real DB : exec dbo.kakao_get_qr_user_login_yn 2000001, '192.221.443.112'
 			  
 */ 
-create proc dbo.kakao_get_qr_user_login_yn
-	@uuid UNIQUEIDENTIFIER	-- uuid
-,	@user_seq bigint		-- 유저 고유변호
+alter proc dbo.kakao_get_qr_user_login_yn
+	@user_seq bigint		-- 유저 고유변호
 ,	@try_ip varchar(200)	-- 유저 qr 시도 아이피 번호
 as
 set nocount on 
@@ -35,6 +34,8 @@ begin
 			delete dbo.TBLBANNEDIPLIST where banned_ip_address = @try_ip
 
 			if @@ERROR <> 0 return -2
+
+			return 1
 		end
 		else -- 로그인 정보가 존재하지 않는 경우
 		begin
