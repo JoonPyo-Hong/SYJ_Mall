@@ -376,9 +376,10 @@ public interface ILoginService {
 	 * @param kc
 	 * @param au
 	 * @param sf
+	 * @param cw
 	 * @return
 	 */
-	int loginQrChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf);
+	int loginQrChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf, CommonWebsocket cw);
 	
 	/**
 	 * QR 코드 통과한 후 로그인 권한 부여
@@ -445,6 +446,16 @@ public interface ILoginService {
 	 * @return
 	 */
 	int getPrintQrCode(HttpServletRequest request, CommonWebsocket cw, ErrorAlarm ea);
+	
+	/**
+	 * QR 로그인 마지막단계 - qr 로그인 시도하는 디바이스에서 로그인을 허용할지 허용하지 않을지 정해준다.
+	 * @param request
+	 * @param ea
+	 * @param cw
+	 * @param ic
+	 * @return
+	 */
+	int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic);
 	
 
 	

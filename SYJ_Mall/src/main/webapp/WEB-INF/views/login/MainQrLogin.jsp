@@ -414,9 +414,14 @@
 	            qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps='+ qruuid + '&tryip=' + request_ip;
 	            qrcode.makeCode(qrhttps);//qr code 이미지 생성
 			}   
-			else {
-			
-				
+			else if (first == 'qruuid'){
+				//여기서 로그인 처리를 해줘야한다.
+				QRLogin(second)
+				//closeSocket();
+				//location.href = "/SYJ_Mall/main.action";
+			} else {
+				closeSocket();
+				location.href = "/SYJ_Mall/totalError.action";
 			}
             
             //qruuid = event.data;
@@ -442,7 +447,25 @@
 		qruuid = text;
 		console.log(text);
 	}
+	
+	function QRLogin(qruuid) {
+		$.ajax({
+			type : "POST",
+			url : "/SYJ_Mall/loginQrDeviceCheck.action",
+			data : {
+				"qruuid" : qruuid
+			},
+			dataType : "json",
+			success : function(result) {
+				
+				console.log(result);
 
+			},
+			error : function(a, b, c) {
+				alert('error');
+			}
+		});
+	}
 	
 	/************************* QR 코드 ajax 처리 *************************/
 	//qr 로그인 검증 socket 과 비슷한 처리

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
+import javax.websocket.RemoteEndpoint.Basic;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1167,13 +1169,14 @@ public class LoginService implements ILoginService {
 			// 최근 15일동안 모바일에서 로그인한 기록이 없음
 			if (QrSeqCode == null) {
 				return 2;
-			} else {
+			} 
+			// 최근 15일 이내에 모바일에서 로그인한 기록이 있음
+			else {
 				decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));//고객번호가 암호화 되어있는데 이것을 복호화 시킨다.
 				
 				//확인창 화면에서 정보를 볼수 있도록 request 객체에 넘겨준다.
-				request.setAttribute("QrSeqCode",QrSeqCode);
+				request.setAttribute("QrSeqCode",QrSeqCode);//고객번호가 그냥 넘어가면 안되므로 암호화 상태로 넘겨준다.
 				request.setAttribute("qruuid",qruuid);
-				request.setAttribute("tryIp",tryIp);
 				
 				//고객번호가 이상한 경우 -> 숫자가 아닌 경우
 				if (!sf.isStringDigit(decodeQrSeqCode)) return -1;
@@ -1188,60 +1191,10 @@ public class LoginService implements ILoginService {
 				if (userCheck != 1) return -1;//문제 있는경우 오류 발생
 				
 				String userId = cdao.getUserId(Integer.parseInt(decodeQrSeqCode));
+				cdao.close();
 				
-				System.out.println("userId : " + userId);
-				
-				//List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
-				
-				//2. 복호화된 고객번호가 존재하는지 찾아준다.
-				//int userYn = dao.checkUserExists(Integer.parseInt(decodeQrSeqCode));//여기서 이상한 복호화가 되면 오류가 자연스럽게 발생할것이다.
-				//int 
-				
-//				if (uuidPass == 1 && userYn == 1) {
-//					
-//				}
-				
-				
-				//result = 1;
-				//result = dao.checkPrevQrExists(qruuid,decodeQrSeqCode);
-				//Map<String,String> guidLists = cw.guidLists;
-				//List<Session> sessionLists = cw.sessionLists;
-				
-				//String qrSeq = "";
-				//Session UserQrSession = null;
-				
-//				if (guidLists.get(qruuid) != null) {
-//					result = 1;
-//					qrSeq = guidLists.get(qruuid);
-//
-//					for (Session seq : sessionLists) {
-//						if (seq.getId().equals(qrSeq)) {
-//							UserQrSession = seq;
-//						}
-//					}
-//				} 
-				
-//				if (guidLists.get(qruuid) != null) {
-//					
-//				}
-				
-				//uuid 에 대한 정보가 존재하고 회원에 대한 정보도 존재하는 경우 -> 해당 아이피,회원 아이디를 마스킹하여 가져와준다.
-//				if (uuidPass == 1 && userYn == 1) {
-//					
-//					List<LoginQrIdIpDTO> qrIdIpdtoList = dao.getUserQrIdIp(qruuid,decodeQrSeqCode);
-//					
-//					//cw.onMessage(qrSeq, UserQrSession);
-//					
-//					if (qrIdIpdtoList.size() == 1) {
-//						LoginQrIdIpDTO qrIdIpdto = qrIdIpdtoList.get(0);
-//						String qrUserId = sf.maskigId(qrIdIpdto.getUserId());
-//						String qrUserIp = qrIdIpdto.getUserIp();
-//						
-//						request.setAttribute("qrUserId",qrUserId);
-//						request.setAttribute("qrUserIp",qrUserIp);
-//					}
-//					else result = -1;
-//				} 
+				request.setAttribute("qrUserId",userId);
+				request.setAttribute("qrUserIp",tryIp);
 				
 			}
 			
@@ -1256,17 +1209,38 @@ public class LoginService implements ILoginService {
 
 	//모바일기기에서 아이디 체킹하는 작업 -> QR 로그인 허용
 	@Override
-	public int loginQrChecking(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf) {
+	public int loginQrChecking(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf, CommonWebsocket cw) {
 		
 		try {
 			
 			String qruuid = request.getParameter("qruuid");//넘어온 uuid 정보
 			String QrSeqCode = request.getParameter("QrSeqCode");//유저 고유번호
-			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));
+			String decodeQrSeqCode = sf.findDigitString(au.decrypt(QrSeqCode));//유저 고유번호 복호화
+			
+			//이쪽에서 로그인 허용해줘야한다.
+			Map<String,String> guidLists = cw.guidLists;
+			List<Session> sessionLists = cw.sessionLists;
+			Map<String,String> guidUserSeqMap = cw.guidUserSeqMap;
+			
+			Session selectSession = null;
+			
+			String sessionId = guidLists.get(qruuid);
+			
+			for (Session s : sessionLists) {
+				if (s.getId().equals(sessionId)) {
+					selectSession = s;
+					break;
+				}
+			}
+			
+			guidUserSeqMap.put(sessionId, decodeQrSeqCode);
+			
+			final Basic basic = selectSession.getBasicRemote();
+			basic.sendText("qruuid," + qruuid);
 			
 			request.setAttribute("qrResult", "허용");
 			
-			return dao.checkingQrUserInfo(qruuid,decodeQrSeqCode);
+			return 1;
 			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
@@ -1357,7 +1331,7 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//Qr code 생성
+	//Qr code 생성 - 확인
 	@Override
 	public int getPrintQrCode(HttpServletRequest request, CommonWebsocket cw, ErrorAlarm ea) {
 		
@@ -1380,15 +1354,38 @@ public class LoginService implements ILoginService {
 
 			}
 
-	
-			
-			
 			return 1;
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;
 		}
 		
+	}
+	
+	
+	//QR 로그인 마지막단계 - qr 로그인 시도하는 디바이스에서 로그인을 허용할지 말지 정해준다.
+	@Override
+	public int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic) {
+		
+		try {
+			
+			String uuid = request.getParameter("qruuid");//넘겨져온 정보
+			String ip = ic.getClientIP(request);
+			
+			//List<Session> sessionLists = cw.sessionLists;
+			Map<String,String> guidLists = cw.guidLists;
+			Map<String,String> guidUserSeqMap = cw.guidUserSeqMap;
+			
+			String sessionId = guidLists.get(uuid);
+			String userSeq = guidUserSeqMap.get(sessionId);
+			
+			System.out.println("pass userSeq : " + userSeq);
+			
+			return 1;
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
 	}
 
 

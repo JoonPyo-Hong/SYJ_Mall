@@ -24,6 +24,7 @@ public class CommonWebsocket {
 	
 	public static final List<Session> sessionLists = new ArrayList<Session>();
 	public static final Map<String,String> guidLists = new HashMap<String,String>();
+	public static final Map<String,String> guidUserSeqMap = new HashMap<String,String>();
 	
 	private static final Logger logger = LoggerFactory.getLogger(CommonWebsocket.class);
 	
@@ -121,6 +122,7 @@ public class CommonWebsocket {
 		logger.info("Session " + session.getId() + " has ended");
 		guidLists.remove(session.getId());
 		sessionLists.remove(session);
+		guidUserSeqMap.remove(session.getId());
 		System.out.println(sessionLists.size());
 	} 
 	

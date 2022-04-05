@@ -253,7 +253,7 @@ public class LoginDAO implements ILoginDAO {
 		return  template.selectOne("SYJDB.setQrUrl", map);
 	}
 
-	//QR 관련 로직 - 접속허용관련 메서드
+	//QR 관련 로직 - 접속허용관련 메서드(필요없을 예정)
 	@Override
 	public int checkingQrUserInfo(String qruuid, String decodeQrSeqCode) {
 		

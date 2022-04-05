@@ -62,11 +62,13 @@
         Copyright &copy; <span style="font-weight: bold;">Kakao Corp.</span> All rights reserved.
     </div>
     
+    <!-- 로그인 허용 -->
     <form action="/SYJ_Mall/loginQrLastCheck.action" method = "POST" id = "qr_form">
         <input type="hidden" name="qruuid" id="qruuid" value="${qruuid}" />
 		<input type="hidden" name="QrSeqCode" id="QrSeqCode" value="${QrSeqCode}" />   
    </form>
    
+   <!-- 로그인 허용하지 않음 -->
    <form action="/SYJ_Mall/loginQrLastCheckNotAgree.action" method = "POST" id = "qr_form_not_agree">
         <input type="hidden" name="qr_uuid" id="qr_uuid" value="${qruuid}" /> 
    </form>

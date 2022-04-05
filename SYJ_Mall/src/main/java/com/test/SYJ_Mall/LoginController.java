@@ -209,15 +209,23 @@ public class LoginController {
 		
 		int qrPrevCheck = logService.loginQrPrevCheck(request,response,kc,au,sf,ea,cw,cdao);
 		
-		//int qrPrevCheck = 1;//임시
-		
 		if (qrPrevCheck == 1) return "/login/UserQrChecking";
 		else if (qrPrevCheck == 2) return "/semitiles/QrLoginNotUserSeq.layout";
 		else return "/testwaiting/kakaoerror";
 		
 	}
 	
-	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인 (1초마다 확인해줌)
+	//QR 로그인 원하는 디바이스에서 통과시킬지 말지 처리
+	@RequestMapping(value = "/loginQrDeviceCheck.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public int loginQrDeviceCheck(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea,CommonWebsocket cw, IpCheck ic) {
+		
+		return logService.getQrDevicePassYn(request,ea,cw,ic);
+		
+	}
+	
+	
+	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인 (1초마다 확인해줌)<삭제예정>
 	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public int loginQrCheckajax(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
@@ -239,9 +247,9 @@ public class LoginController {
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 로그인 허용
 	@RequestMapping(value = "/loginQrLastCheck.action", method = { RequestMethod.POST })
-	public String loginQrLastCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf) {
+	public String loginQrLastCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, KakaoCookie kc, AES256Util au, StringFormatClass sf, CommonWebsocket cw) {
 	
-		int qrLastCheck = logService.loginQrChecking(request, response,ea,kc,au,sf);
+		int qrLastCheck = logService.loginQrChecking(request, response,ea,kc,au,sf,cw);
 				
 		if (qrLastCheck == 1) return "/login/QrLoginResult";
 		else return "/testwaiting/kakaoerror";
