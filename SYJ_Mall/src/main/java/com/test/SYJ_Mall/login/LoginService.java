@@ -1368,7 +1368,10 @@ public class LoginService implements ILoginService {
 		
 		try {
 			
-			String uuid = request.getParameter("qruuid");//넘겨져온 uuid정보
+			String uuid = request.getParameter("throwUuid");//넘겨져온 uuid정보
+			
+			System.out.println("uuid : " + uuid);
+			
 			String ip = ic.getClientIP(request);
 			
 			//List<Session> sessionLists = cw.sessionLists;
@@ -1379,10 +1382,21 @@ public class LoginService implements ILoginService {
 			String userSeq = guidUserSeqMap.get(sessionId);
 			
 			
+			System.out.println("sessionId : " + sessionId);
+			System.out.println("userSeq : " + userSeq);
+			
 			//해야될것
 			//1. userSeq 가 존재하는지 판단하고 존재하지 않으면 오류발생으로 보낸다.
 			//2. userSeq 가 존재한다면 해당 회원의 기본정보를 디비에서 조회해서 가져와준다.
 			//3. 로그인 로직을 따른다.
+			
+			if (sessionId != null && userSeq != null) {
+				
+				int qrLoginResult = dao.getQrLoginResult(userSeq,ip);
+				
+				System.out.println("qrLoginResult = " + qrLoginResult);
+				
+			} else return -1;
 			
 			return 1;
 		} catch(Exception e) {

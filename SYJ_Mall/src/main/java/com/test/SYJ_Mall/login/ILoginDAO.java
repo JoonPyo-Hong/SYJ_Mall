@@ -240,6 +240,14 @@ public interface ILoginDAO {
 	 */
 	int checkUserPassYn(String decodeQrSeqCode, String tryIp);
 
+	/**
+	 * QR 로그인 로그 기록 및 권한설정
+	 * @param userSeq
+	 * @param ip
+	 * @return
+	 */
+	int getQrLoginResult(String userSeq, String ip);
+
 
 
 

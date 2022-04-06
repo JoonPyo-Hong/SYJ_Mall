@@ -318,6 +318,17 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.qrUserOpenYn", decodeQrSeqCode);
 	}
+
+	// QR 로그인 로그 기록 및 권한설정
+	@Override
+	public int getQrLoginResult(String userSeq, String ip) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userSeq",userSeq);
+		map.put("ip",ip);
+		
+		return template.selectOne("SYJDB.qrUserLoginAuthor", map);
+	}
 	
 	
 }

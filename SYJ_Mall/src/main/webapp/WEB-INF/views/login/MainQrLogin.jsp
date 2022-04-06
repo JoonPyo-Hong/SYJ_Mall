@@ -459,6 +459,8 @@
 	// ajax 로 안불러와도 될거 같은데? -> 바로 넘겨주는 처리로 변경
 	function QRLogin(qruuid) {
 		
+		//alert(qruuid);
+		
 		$('#throwUuid').val(qruuid);
 		$('#last_checking_form').submit();
 		/* $.ajax({
