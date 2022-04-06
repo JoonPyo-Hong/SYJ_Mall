@@ -217,10 +217,9 @@ public class LoginController {
 	
 	//QR 로그인 원하는 디바이스에서 통과시킬지 말지 처리
 	@RequestMapping(value = "/loginQrDeviceCheck.action", method = { RequestMethod.POST })
-	@ResponseBody
-	public int loginQrDeviceCheck(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea,CommonWebsocket cw, IpCheck ic) {
+	public int loginQrDeviceCheck(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea,CommonWebsocket cw, IpCheck ic, KakaoCookie kc) {
 		
-		return logService.getQrDevicePassYn(request,ea,cw,ic);
+		return logService.getQrDevicePassYn(request,ea,cw,ic, kc);
 		
 	}
 	

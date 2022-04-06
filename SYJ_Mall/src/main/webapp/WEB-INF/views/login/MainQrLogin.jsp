@@ -319,6 +319,14 @@
       <button id="send_message" type="button" onclick="send();">메세지 전송</button>
     </div>
   </div>
+  
+  <form action="/SYJ_Mall/loginQrDeviceCheck.action" method = "POST" id = "last_checking_form">
+            	
+        <input type="hidden" name="throwUuid" id="throwUuid" value="" />
+           
+  </form>
+  
+  
   <script type="text/javascript">
     
   	let qruuid;
@@ -416,7 +424,7 @@
 			}   
 			else if (first == 'qruuid'){
 				//여기서 로그인 처리를 해줘야한다.
-				QRLogin(second)
+				QRLogin(second);
 				//closeSocket();
 				//location.href = "/SYJ_Mall/main.action";
 			} else {
@@ -448,8 +456,12 @@
 		console.log(text);
 	}
 	
+	// ajax 로 안불러와도 될거 같은데? -> 바로 넘겨주는 처리로 변경
 	function QRLogin(qruuid) {
-		$.ajax({
+		
+		$('#throwUuid').val(qruuid);
+		$('#last_checking_form').submit();
+		/* $.ajax({
 			type : "POST",
 			url : "/SYJ_Mall/loginQrDeviceCheck.action",
 			data : {
@@ -464,7 +476,7 @@
 			error : function(a, b, c) {
 				alert('error');
 			}
-		});
+		}); */
 	}
 	
 	/************************* QR 코드 ajax 처리 *************************/

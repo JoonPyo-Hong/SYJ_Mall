@@ -1137,8 +1137,6 @@ public class LoginService implements ILoginService {
 		
 		try {
 			
-			//int daoResult = dao.insertQrCheck(uuid,requestIpAddress);
-			
 			//qr 시도하는 컴퓨터측 ip 정보
 			String requestIpAddress = ic.getClientIP(request);//qr 로그인 시도하는 컴퓨터측 ip 정보
 			
@@ -1233,6 +1231,7 @@ public class LoginService implements ILoginService {
 				}
 			}
 			
+			//허용을 해준다면 해당 세션아이디와 복호화된 고객의 고유번호를 넘겨준다
 			guidUserSeqMap.put(sessionId, decodeQrSeqCode);
 			
 			final Basic basic = selectSession.getBasicRemote();
@@ -1365,11 +1364,11 @@ public class LoginService implements ILoginService {
 	
 	//QR 로그인 마지막단계 - qr 로그인 시도하는 디바이스에서 로그인을 허용할지 말지 정해준다.
 	@Override
-	public int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic) {
+	public int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc) {
 		
 		try {
 			
-			String uuid = request.getParameter("qruuid");//넘겨져온 정보
+			String uuid = request.getParameter("qruuid");//넘겨져온 uuid정보
 			String ip = ic.getClientIP(request);
 			
 			//List<Session> sessionLists = cw.sessionLists;
@@ -1379,7 +1378,11 @@ public class LoginService implements ILoginService {
 			String sessionId = guidLists.get(uuid);
 			String userSeq = guidUserSeqMap.get(sessionId);
 			
-			System.out.println("pass userSeq : " + userSeq);
+			
+			//해야될것
+			//1. userSeq 가 존재하는지 판단하고 존재하지 않으면 오류발생으로 보낸다.
+			//2. userSeq 가 존재한다면 해당 회원의 기본정보를 디비에서 조회해서 가져와준다.
+			//3. 로그인 로직을 따른다.
 			
 			return 1;
 		} catch(Exception e) {

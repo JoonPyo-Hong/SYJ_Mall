@@ -453,9 +453,10 @@ public interface ILoginService {
 	 * @param ea
 	 * @param cw
 	 * @param ic
+	 * @param kc
 	 * @return
 	 */
-	int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic);
+	int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc);
 	
 
 	
