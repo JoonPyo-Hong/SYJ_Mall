@@ -323,6 +323,9 @@ public class LoginDAO implements ILoginDAO {
 	@Override
 	public int getQrLoginResult(String userSeq, String ip) {
 		
+		System.out.println("userSeq : " + userSeq);
+		System.out.println("ip : " + ip);
+		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("userSeq",userSeq);
 		map.put("ip",ip);

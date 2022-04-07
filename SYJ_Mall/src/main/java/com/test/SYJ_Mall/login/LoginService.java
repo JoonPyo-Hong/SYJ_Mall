@@ -1249,14 +1249,29 @@ public class LoginService implements ILoginService {
 	
 	//모바일기기에서 아이디 체킹하는 작업 -> QR 로그인 허용하지 않음
 	@Override
-	public int loginQrCheckingNotAgree(HttpServletRequest request, ErrorAlarm ea) {
+	public int loginQrCheckingNotAgree(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw) {
 		try {
 			
 			String qruuid = request.getParameter("qr_uuid");//넘어온 uuid 정보
 			
+			List<Session> sessionLists = cw.sessionLists;
+			Map<String,String> guidLists = cw.guidLists;
+			
+			String sessionId = guidLists.get(qruuid);
+			
+			for (Session s : sessionLists) {
+				if (s.getId().equals(sessionId)) {
+					
+					final Basic basic = s.getBasicRemote();
+					basic.sendText("stop," + qruuid);
+					
+					break;
+				}
+			}
+			
 			request.setAttribute("qrResult", "비허용");
 			
-			return dao.deleteQrUuid(qruuid);
+			return 1;
 			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
@@ -1364,13 +1379,13 @@ public class LoginService implements ILoginService {
 	
 	//QR 로그인 마지막단계 - qr 로그인 시도하는 디바이스에서 로그인을 허용할지 말지 정해준다.
 	@Override
-	public int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc) {
+	public String getQrDevicePassYn(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc) {
 		
 		try {
 			
 			String uuid = request.getParameter("throwUuid");//넘겨져온 uuid정보
 			
-			System.out.println("uuid : " + uuid);
+			//System.out.println("uuid : " + uuid);
 			
 			String ip = ic.getClientIP(request);
 			
@@ -1382,9 +1397,6 @@ public class LoginService implements ILoginService {
 			String userSeq = guidUserSeqMap.get(sessionId);
 			
 			
-			System.out.println("sessionId : " + sessionId);
-			System.out.println("userSeq : " + userSeq);
-			
 			//해야될것
 			//1. userSeq 가 존재하는지 판단하고 존재하지 않으면 오류발생으로 보낸다.
 			//2. userSeq 가 존재한다면 해당 회원의 기본정보를 디비에서 조회해서 가져와준다.
@@ -1394,14 +1406,49 @@ public class LoginService implements ILoginService {
 				
 				int qrLoginResult = dao.getQrLoginResult(userSeq,ip);
 				
-				System.out.println("qrLoginResult = " + qrLoginResult);
+				// 1. 정확하게 로그인 성공한 경우
+				if (qrLoginResult == 0) {
+					int loginYn = loginSuccess(request, response, Integer.parseInt(userSeq));// 로그인 인증티켓 발급
+					
+					if (loginYn == -1) return "error";
+					
+					String lastPage = (String)kc.getCookieInfo(request, "lastPage");
+					
+					if (lastPage == null) {
+						goMain(request);
+						return "/tiles/mainStart.layout";// 메인페이지로 이동
+					} else if (lastPage.indexOf("?") != -1) {
+						//인코딩 처리를 잘 해줘야한다.
+						String url = urlEncoder(lastPage);
+						return "redirect:/" + url;
+					} else {
+						return "forward:/" + lastPage + ".action";
+					}
+				} else if (qrLoginResult == 1) {
+					// 2. 로그인 성공 : 하지만 비밀번호를 변경해줘야한다.
+					// 아래에서 기본적으로 정보와 rsa키를 넘겨야한다.
+					int result = userRedefinedPw(request, Integer.parseInt(userSeq), ip ,ea);
+					
+					if (result == 1) {
+						return "/login/UserLoginPwRedefine";
+					} else {
+						return "/testwaiting/kakaoerror";// 문제생겼을시에 에러페이지로 이동
+					}
+				} else if (qrLoginResult == 2) {
+					// 3. 보안정책을 따라야하는 경우 --> 사진을 골라야한다.
+					
+					//자동로그인 방지 알고리즘 실행
+					request = AutoLoginBanned(request, Integer.parseInt(userSeq), ip);
+					return "/login/UserAutoLoginCheck";
+				} else return "error";
 				
-			} else return -1;
+				
+				
+			} else return "error";
 			
-			return 1;
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
-			return -1;
+			return "error";
 		}
 	}
 

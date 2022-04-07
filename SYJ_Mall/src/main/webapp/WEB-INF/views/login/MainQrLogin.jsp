@@ -427,14 +427,13 @@
 				QRLogin(second);
 				//closeSocket();
 				//location.href = "/SYJ_Mall/main.action";
+			} else if (first == 'stop') {
+				closeSocket();
+				location.href  = '/SYJ_Mall/qrLoginBannedMonitor.action';
 			} else {
 				closeSocket();
 				location.href = "/SYJ_Mall/totalError.action";
 			}
-            
-            //qruuid = event.data;
-            //qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps='+qruuid;
-            //qrcode.makeCode(qrhttps);//qr code 이미지 생성
         };
         
         wss.onclose = function(event){
@@ -456,29 +455,12 @@
 		console.log(text);
 	}
 	
-	// ajax 로 안불러와도 될거 같은데? -> 바로 넘겨주는 처리로 변경
+	//바로 넘겨주는 처리로 변경
 	function QRLogin(qruuid) {
-		
-		//alert(qruuid);
 		
 		$('#throwUuid').val(qruuid);
 		$('#last_checking_form').submit();
-		/* $.ajax({
-			type : "POST",
-			url : "/SYJ_Mall/loginQrDeviceCheck.action",
-			data : {
-				"qruuid" : qruuid
-			},
-			dataType : "json",
-			success : function(result) {
-				
-				console.log(result);
-
-			},
-			error : function(a, b, c) {
-				alert('error');
-			}
-		}); */
+		
 	}
 	
 	/************************* QR 코드 ajax 처리 *************************/

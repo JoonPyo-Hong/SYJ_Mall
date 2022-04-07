@@ -220,11 +220,11 @@ public class LoginController {
 	public String loginQrDeviceCheck(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea,CommonWebsocket cw, IpCheck ic, KakaoCookie kc) {
 		
 		//return 
-		int result = logService.getQrDevicePassYn(request,ea,cw,ic, kc);
+		String result = logService.getQrDevicePassYn(request,response,ea,cw,ic, kc);
 		
 		System.out.println("result = " + result);
 		
-		return "/testwaiting/kakaoerror";
+		return result;
 	}
 	
 	
@@ -262,9 +262,11 @@ public class LoginController {
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 로그인 허용하지 않음
 	@RequestMapping(value = "/loginQrLastCheckNotAgree.action", method = { RequestMethod.POST })
-	public String loginQrLastCheckNotAgree(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+	public String loginQrLastCheckNotAgree(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonWebsocket cw) {
 		
-		int qrLastCheck = logService.loginQrCheckingNotAgree(request,ea);
+		int qrLastCheck = logService.loginQrCheckingNotAgree(request,ea,cw);
+		
+		//System.out.println("qrLastCheck : " + qrLastCheck);
 		
 		if (qrLastCheck == 1) return "/login/QrLoginResult";
 		else return "/testwaiting/kakaoerror";

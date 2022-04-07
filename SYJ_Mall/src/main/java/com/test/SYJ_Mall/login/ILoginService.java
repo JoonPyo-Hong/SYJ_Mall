@@ -426,9 +426,10 @@ public interface ILoginService {
 	 * 모바일기기에서 아이디 체킹하는 작업 -> QR 로그인 허용하지 않음
 	 * @param request
 	 * @param ea
+	 * @param cw
 	 * @return
 	 */
-	int loginQrCheckingNotAgree(HttpServletRequest request,ErrorAlarm ea);
+	int loginQrCheckingNotAgree(HttpServletRequest request,ErrorAlarm ea, CommonWebsocket cw);
 	
 	/**
 	 * 자동로그인 방지 실패한 경우의 로직
@@ -450,13 +451,14 @@ public interface ILoginService {
 	/**
 	 * QR 로그인 마지막단계 - qr 로그인 시도하는 디바이스에서 로그인을 허용할지 허용하지 않을지 정해준다.
 	 * @param request
+	 * @param response
 	 * @param ea
 	 * @param cw
 	 * @param ic
 	 * @param kc
 	 * @return
 	 */
-	int getQrDevicePassYn(HttpServletRequest request, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc);
+	String getQrDevicePassYn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc);
 	
 
 	

@@ -31,7 +31,7 @@ public class CommonWebsocket {
 	//소켓통신 객체만 생성
 	public CommonWebsocket() {
 		// TODO Auto-generated constructor stub
-		System.out.println("QR 관련 웹소켓(서버) 객체생성");
+		//System.out.println("QR 관련 웹소켓(서버) 객체생성");
 	}
 	
 	//소켓통신 직접 연결
@@ -123,7 +123,7 @@ public class CommonWebsocket {
 		guidLists.remove(session.getId());
 		sessionLists.remove(session);
 		guidUserSeqMap.remove(session.getId());
-		System.out.println(sessionLists.size());
+		//System.out.println(sessionLists.size());
 	} 
 	
 }

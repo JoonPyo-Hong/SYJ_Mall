@@ -258,7 +258,7 @@
 	<select id="qrUserLoginAuthor" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int
-		exec result = dbo.kakao_user_qr_login #{userSeq}, #{ip}
+		exec @result = dbo.kakao_user_qr_login #{userSeq}, #{ip}
 		select @result
 				
 	</select>
