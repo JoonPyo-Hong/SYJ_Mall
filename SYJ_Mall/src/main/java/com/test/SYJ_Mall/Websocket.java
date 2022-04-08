@@ -50,49 +50,48 @@ public class Websocket {
      * @param sender
      * @param message
      */
-//    private void sendAllSessionToMessage(Session self, String sender, String message) {
-//    	
-//        try {
-//            for(Session session : Websocket.sessionList) {
-//                if(!self.getId().equals(session.getId())) {
-//                    session.getBasicRemote().sendText(sender + " : " + message);
-//                }
-//            }
-//        }catch (Exception e) {
-//            // TODO: handle exception
-//            System.out.println(e.getMessage());
-//        }
-//    }
+    private void sendAllSessionToMessage(Session self, String sender, String message) {
+    	
+        try {
+            for(Session session : Websocket.sessionList) {
+                if(!self.getId().equals(session.getId())) {
+                    session.getBasicRemote().sendText(sender + " : " + message);
+                }
+            }
+        }catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
+    }
 	
     /*
      * 내가 입력하는 메세지
      * @param message
      * @param session
      */
-    //@OnMessage
-//    public void onMessage(String message,Session session) {
-//    	
-//    	String sender = message.split(",")[1];//보내준 사람 객체.
-//    	message = message.split(",")[0];//해당 사람이 보낸 문자.
-//    	
-//    	System.out.println("sender : " + sender);
-//    	System.out.println("message : " + message);
-//    	
-//    	
-//        logger.info("Message From " + sender + ": "+message);
-//        
-//        try {
-//            final Basic basic = session.getBasicRemote();
-//            basic.sendText("<나> : " + message);
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//            System.out.println(e.getMessage());
-//        }
-//        
-//        
-//        
-//        sendAllSessionToMessage(session, sender, message);
-//    }
+    @OnMessage
+    public void onMessage(String message,Session session) {
+    	
+    	String sender = message.split(",")[1];//보내준 사람 객체.
+    	message = message.split(",")[0];//해당 사람이 보낸 문자.
+    	
+    	//System.out.println("sender : " + sender);
+    	//System.out.println("message : " + message);
+    	
+    	
+        logger.info("Message From " + sender + ": "+message);
+        
+        try {
+            final Basic basic = session.getBasicRemote();
+            basic.sendText("<나> : " + message);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
+        
+        
+        sendAllSessionToMessage(session, sender, message);
+    }
     
     @OnError
     public void onError(Throwable e,Session session) {

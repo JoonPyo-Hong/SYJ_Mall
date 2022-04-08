@@ -263,13 +263,6 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.qrMobileIngoChecking", map);
 	}
-
-	//유저정보 가져오기
-	@Override
-	public int checkingQrUserGrant(String uuid) {
-		
-		return template.selectOne("SYJDB.qrMobileUserSeq", uuid);
-	}
 	
 	
 	//QR 코드 인증 - QR 코드 사용을 위해 QR url 생성후 테이블 정보에 QR 요청 정보가 있는지 확인해주기
@@ -322,9 +315,6 @@ public class LoginDAO implements ILoginDAO {
 	// QR 로그인 로그 기록 및 권한설정
 	@Override
 	public int getQrLoginResult(String userSeq, String ip) {
-		
-		System.out.println("userSeq : " + userSeq);
-		System.out.println("ip : " + ip);
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("userSeq",userSeq);

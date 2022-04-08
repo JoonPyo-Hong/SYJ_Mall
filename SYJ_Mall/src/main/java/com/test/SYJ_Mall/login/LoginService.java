@@ -1293,38 +1293,6 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//QR 코드 uid 대한 로그인정보 획득한 경우 유저 정보 부여
-	@Override
-	public int qrCheckingUser(HttpServletRequest request,ErrorAlarm ea) {
-		
-		try {
-			
-			String uuid = request.getParameter("qruuid");
-			
-			return dao.checkingQrUserGrant(uuid);
-			
-		} catch(Exception e) {
-			ea.basicErrorException(request, e);
-			return -1;//오류 발생
-		}
-	}
-	
-	//타임아웃이 되거나 리프레쉬한 경우 기존의 uuid 정보를 db에서 제거해준다.
-	@Override
-	public int loginQrDelete(HttpServletRequest request, ErrorAlarm ea) {
-		
-		try {
-			
-			String uuid = request.getParameter("qruuid");
-			
-			return dao.deleteQrUuid(uuid);
-			
-		} catch(Exception e) {
-			ea.basicErrorException(request, e);
-			return -1;//오류 발생
-		}
-	}
-	
 	//자동 로그인 방지통과하지 못한 경우의 처리
 	@Override
 	public int autoLoginBanned(HttpServletRequest request, ErrorAlarm ea) {
@@ -1345,7 +1313,7 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//Qr code 생성 - 확인
+	//Qr code 생성 - 확인(테스트용)
 	@Override
 	public int getPrintQrCode(HttpServletRequest request, CommonWebsocket cw, ErrorAlarm ea) {
 		
@@ -1385,19 +1353,14 @@ public class LoginService implements ILoginService {
 			
 			String uuid = request.getParameter("throwUuid");//넘겨져온 uuid정보
 			
-			//System.out.println("uuid : " + uuid);
-			
 			String ip = ic.getClientIP(request);
 			
-			//List<Session> sessionLists = cw.sessionLists;
 			Map<String,String> guidLists = cw.guidLists;
 			Map<String,String> guidUserSeqMap = cw.guidUserSeqMap;
 			
 			String sessionId = guidLists.get(uuid);
 			String userSeq = guidUserSeqMap.get(sessionId);
 			
-			
-			//해야될것
 			//1. userSeq 가 존재하는지 판단하고 존재하지 않으면 오류발생으로 보낸다.
 			//2. userSeq 가 존재한다면 해당 회원의 기본정보를 디비에서 조회해서 가져와준다.
 			//3. 로그인 로직을 따른다.
@@ -1451,12 +1414,5 @@ public class LoginService implements ILoginService {
 			return "error";
 		}
 	}
-
-
-	
-	
-	
-
-	
 
 }

@@ -194,12 +194,6 @@ public interface ILoginDAO {
 	 */
 	int checkingQrUserInfo(String qruuid, String decodeQrSeqCode);
 
-	/**
-	 * QR 코드 인증 - 유저SEQ 가져오기
-	 * @param uuid
-	 * @return
-	 */
-	int checkingQrUserGrant(String uuid);
 
 	/**
 	 * QR 코드 인증 - QR 코드 사용을 위해 QR url 생성후 테이블 정보에 QR 요청 정보가 있는지 확인해주기

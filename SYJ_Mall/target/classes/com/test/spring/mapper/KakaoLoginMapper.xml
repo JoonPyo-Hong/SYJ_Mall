@@ -215,15 +215,7 @@
 		select @result
 				
 	</select>
-	
-	<!-- QR 관련 유저 번호 가져오기-->
-	<select id="qrMobileUserSeq" resultType="Integer"  parameterType="String" statementType="CALLABLE" >
-		
-		declare @result int
-		exec @result = dbo.kakao_qr_grant_user_seq #{uuid}
-		select @result
-				
-	</select>
+
 	
 	<!-- 타임아웃되거나 리프레시당한 uuid 지워주기-->
 	<select id="qrUuidDelete" resultType="Integer"  parameterType="String" statementType="CALLABLE" >

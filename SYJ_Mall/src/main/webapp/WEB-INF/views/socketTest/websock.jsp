@@ -43,13 +43,13 @@
           ws = new WebSocket("ws://byeanma.kro.kr:9089/SYJ_Mall/echo.action");
           
           ws.onopen = function(event){
-             console.log("??" + event.data);
+             //console.log("??" + event.data);
         	  
         	  if(event.data === undefined){
             		return;
               }
               
-              console.log(event.data);
+              //console.log(event.data);
               
               writeResponse(event.data);
           };

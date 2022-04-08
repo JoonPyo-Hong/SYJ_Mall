@@ -191,9 +191,6 @@ public class LoginController {
 	@RequestMapping(value = "/loginQrPrint.action", method = { RequestMethod.GET })
 	public String loginQrPrint(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, CommonWebsocket cw) {
 		
-		//int passCheckUserSeq = logService.qrCheckingUser(request,ea);//QR 로그인이 허용된 유저의 고유번호
-		
-		//return logService.getPrintQrCode(request,cw,ea);
 		
 		logService.getPrintQrCode(request,cw,ea);
 		
@@ -219,34 +216,11 @@ public class LoginController {
 	@RequestMapping(value = "/loginQrDeviceCheck.action", method = { RequestMethod.POST })
 	public String loginQrDeviceCheck(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea,CommonWebsocket cw, IpCheck ic, KakaoCookie kc) {
 		
-		//return 
 		String result = logService.getQrDevicePassYn(request,response,ea,cw,ic, kc);
-		
-		System.out.println("result = " + result);
 		
 		return result;
 	}
 	
-	
-	//ajax 로 계속 확인 - qr 검증이 완료되었는지 아닌지 확인 (1초마다 확인해줌)<삭제예정>
-	@RequestMapping(value = "/loginQrCheck.action", method = { RequestMethod.POST })
-	@ResponseBody
-	public int loginQrCheckajax(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
-		
-		int passCheckUserSeq = logService.qrCheckingUser(request,ea);//QR 로그인이 허용된 유저의 고유번호
-		
-		if (passCheckUserSeq == -2) {
-			return 2;
-		} else if (passCheckUserSeq != -1) {
-			int grantResult = logService.grantResult(request,response,passCheckUserSeq,ea);
-			
-			if (grantResult == 1) return 1;
-			else return -2;
-		} else {
-			return 0;
-		}
-		
-	}
 	
 	//QR 검증 -> 핸드폰으로 qr 코드를 찍어서 넘어온 경우 -> 로그인 허용
 	@RequestMapping(value = "/loginQrLastCheck.action", method = { RequestMethod.POST })
@@ -273,14 +247,6 @@ public class LoginController {
 		
 	}
 	
-	
-	//QR 검증 -> 타임아웃이나 새로고침을 한경우 기존 uuid 를 제거해준다.
-	@RequestMapping(value = "/loginQrRemove.action", method = { RequestMethod.POST })
-	@ResponseBody
-	public int loginQrRemove(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
-		
-		return logService.loginQrDelete(request, ea);
-	}
 	
 	//QR 로그인 접근 비허용 컨트롤러
 	@RequestMapping(value = "/qrLoginBannedMonitor.action", method = { RequestMethod.GET })
