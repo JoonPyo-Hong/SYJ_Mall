@@ -41,18 +41,8 @@
               <div id="resetBtn" class="ico-reset"></div>
             </div>
           </div>
-          <!-- 로그인 상태 유지 체크 -->
-          <div class="set-login">
-            <input type="checkbox" id="stay-login" class="set-check">
-            <label class="set-text" for="stay-login">
-              <span class="ico-check"></span>
-              <span class="ico-text">로그인 상태 유지</span></label>
-          </div>
         </div>
-        <!-- 확인 버튼 -->
-        <div class="login-btn-box">
-          <button class="qr-login-btn">확인</button>
-        </div>
+        
         <!-- 하단 카카오 계정 직접 입력 -->
         <div class="info-another">
           카카오 계정 직접 입력
@@ -71,7 +61,6 @@
         </ul>
       </div>
       <div class="txt-copyright">Copyright © <b>Kakao Corp.</b> All rights reserved.</div>
-      <button id="send_message" type="button" onclick="send();">메세지 전송</button>
     </div>
   </div>
   
@@ -85,8 +74,7 @@
   <script type="text/javascript">
     
 	let qruuid;
- 	let qrhttps;
-  	let time = 300;
+  	let time
 	let min = "";
 	let sec = "";
 	
@@ -109,102 +97,33 @@
 		
 		// if Timecount over 5min then refresh Qrcode and timer 
 		if (time < 1) {
-			closeSocket();
-			openSocket();
-			time = 300;
-				  
+			refreshQr();				  
 		}
 	}, 1000);
    	
-	// if click the refresh button then refresh Qrcode and timer
-	$('#resetBtn').click(function(){
-		closeSocket();
-		openSocket();
-		time = 300; 
-	});
-		
-	//go to genenral login page
-	$('.info-another').click(function(){
-		closeSocket();
-		location.href = "/SYJ_Mall/login.action";
-	});
+
 	
 	
 	/************************* QR Code Socket process *************************/
-	let wss;//socket Object
 	let request_ip = '${requestIpAddress}';
+	let server_port = '${serverPort}'
 	
 	window.onload = function(){
-		openSocket();	
+		openSocket(server_port,request_ip);
+		time = 300;
   	} 
 	
-	function openSocket() {
-		if(wss !== undefined && wss.readyState !== WebSocket.CLOSED ){
-            alert("WebSocket is already opened.");
-            return;
-           	}
-		 
-		//Generate Websocekt
-		wss = new WebSocket("ws://byeanma.kro.kr:${serverPort}/SYJ_Mall/qrecho.action");
+	//if click the refresh button then refresh Qrcode and timer
+	$(document).on("click","#resetBtn",function(e){
+		refreshQr();
+	});
 		
-		
-		wss.onopen = function(event){			
-            if(event.data === undefined){
-            	return;
-            }
-        };
-        
-        wss.onmessage = function(event){
-            console.log(event.data);
-            let gubun = event.data.split(",");
-            
-            let first = gubun[0];
-            let second = gubun[1];
-            
-            //Generate Qrcode and making Qr image
-			if (first == 'gen') {
-				qruuid = second;
-	            qrhttps = 'http://byeanma.kro.kr:${serverPort}/SYJ_Mall/loginQrPrevCheck.action?qrhttps='+ qruuid + '&tryip=' + request_ip;
-	            qrcode.makeCode(qrhttps);//qr code image making
-			}   
-			else if (first == 'qruuid'){
-				//login pass
-				QRLogin(second);
-			} else if (first == 'stop') {
-				closeSocket();
-				location.href  = '/SYJ_Mall/qrLoginBannedMonitor.action';
-			} else {
-				closeSocket();
-				location.href = "/SYJ_Mall/totalError.action";
-			}
-        };
-        
-        wss.onclose = function(event){
-			
-        }	
-	}
-	
-	function send() {
-		var text = 'test,test';
-		wss.send(text);
-	}
-	
-	function closeSocket(){
-		wss.close();
-    }
-	
-	function testConsole(text) {
-		qruuid = text;
-		console.log(text);
-	}
-	
-	//Post the Qrcode Backend logic
-	function QRLogin(qruuid) {
-		
-		$('#throwUuid').val(qruuid);
-		$('#last_checking_form').submit();
-		
-	}
+	//go to genenral login page
+	$(document).on("click",".info-another",function(e){
+		closeSocket();
+		location.href = "/SYJ_Mall/login.action";
+	});
+
 
   </script>
 </body>

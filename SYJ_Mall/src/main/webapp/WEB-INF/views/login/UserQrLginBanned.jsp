@@ -22,7 +22,7 @@
 	<script>
 	 
 		$("#gologin").click(function(){
-			location.href = "/SYJ_Mall/login.action";
+			location.href = "/SYJ_Mall/main.action";
 		});
 	 
 	</script>

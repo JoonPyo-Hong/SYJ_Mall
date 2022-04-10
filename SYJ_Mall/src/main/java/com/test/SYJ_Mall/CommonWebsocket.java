@@ -66,16 +66,7 @@ public class CommonWebsocket {
     @OnMessage
     public void onMessage(String message,Session session) {
     	
-    	//String sender = message.split(",")[1];//보내준 사람 객체.
-    	//message = message.split(",")[0];//해당 사람이 보낸 문자.
     	
-    	
-    	//System.out.println(session.getId());
-    	//System.out.println("message : " + message);
-    	//System.out.println("message : " + message);
-    	
-    	
-        //logger.info("Message From " + sender + ": "+message);
         
         try {
             final Basic basic = session.getBasicRemote();
