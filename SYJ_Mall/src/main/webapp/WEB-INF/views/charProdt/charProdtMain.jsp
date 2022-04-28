@@ -14,14 +14,14 @@
 <title>카카오 프렌즈샵</title>
 <link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/loginModal2.css">
-<link rel="stylesheet" href="resources/css/charProdt/product_category_character6.css">
+<link rel="stylesheet" href="resources/css/charProdt/product_category_character7.css">
 <link rel="stylesheet" href="resources/css/commoncss/sortModalWrap4.css">
 </head>
 <body>
 
 	<!-- 로그인 모달창 -->
 	<div class="overlay-wrap" id="login-product-modal"
-		style="visibility: hidden; z-index : 20;">
+		style="visibility: hidden; z-index: 20;">
 		<div class="login-modal-wrap">
 			<div class="modal-close">
 				<div class="close-btn"></div>
@@ -31,7 +31,7 @@
 			<div class="login-text">
 				<h3>앗! 로그인</h3>
 				<p>
-					로그인 후 재입고 알림을 신청해주세요<br/> 지금 로그인 화면으로 이동하시겠어요?
+					로그인 후 재입고 알림을 신청해주세요<br /> 지금 로그인 화면으로 이동하시겠어요?
 				</p>
 			</div>
 			<div class="login-btn">
@@ -43,7 +43,8 @@
 		</div>
 	</div>
 	<!-- 정렬 모달창 -->
-	<div class="overlay-wrap" id="sort-modal" style="visibility: hidden; z-index: 20;">
+	<div class="overlay-wrap" id="sort-modal"
+		style="visibility: hidden; z-index: 20;">
 		<div class="sort-modal-wrap">
 			<div class="sort-list" id="buy-sort">
 				<div class="sort-text">판매량순</div>
@@ -77,8 +78,8 @@
 	</div>
 
 	<div id="kakao-wrap">
-		<div id="kakao-head" style="position:fixed; z-index: 10;">
-			<div id="inner-head" style="background-color : #FFFFFF;">
+		<div id="kakao-head" style="position: fixed; z-index: 10;">
+			<div id="inner-head" style="background-color: #FFFFFF;">
 				<div class="left-btn">
 					<button class="back-button"></button>
 					<button class="home-button"></button>
@@ -89,14 +90,18 @@
 					<button class="language"></button>
 				</div>
 			</div>
-			<div id="inner-tab"></div>
-			<div class="container-wrap product-category-character"
-				style="margin: 0px auto;">
-				<div class="category-banner" style=" background: url(/SYJ_Mall/${charHeadPicUrl}) right 0px /cover no-repeat;">
+			<!-- <div id="inner-tab" style="height:10px;"></div> -->
+		</div>
+
+
+		<div id="kakao-content" style="overflow: scroll;">
+			<div class="container-wrap product-category-character" style="margin: 0px auto;">
+				<div class="category-banner"
+					style=" background: url(/SYJ_Mall/${charHeadPicUrl}) right 0px /cover no-repeat; margin-top : 50px;">
 					<span class="category-title">${charHeadName}</span> <img
 						class="select-icon"
 						src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png"
-						alt="foldWhite" /> <select id="select_char">
+						alt="foldWhite"/> <select id="select_char">
 						<option value="0">-------------캐릭터 선택-------------</option>
 						<option value="1">라이언</option>
 						<option value="2">어피치</option>
@@ -116,7 +121,7 @@
 					</select>
 				</div>
 				<!-- 상품 정렬 및 개수 -->
-				<div class="category-header" style="background-color : #FFFFFF;">
+				<div class="category-header" style="background-color: #FFFFFF;">
 					<div class="sort">
 						<c:if test="${sortedOption eq 1}">
 							<span class="sort-title" id="content-sort-name">판매량순</span>
@@ -139,7 +144,7 @@
 								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</c:if>
 					</div>
-					<div class="detail" style="background-color : #FFFFFF;">
+					<div class="detail" style="background-color: #FFFFFF;">
 						<div class="all-count">
 							총 <b>${charHeadCount}</b>개
 						</div>
@@ -151,9 +156,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div id="kakao-content" style="overflow: scroll;">
-			<div id="media-vacant"></div>
+
+			<!-- <div id="media-vacant"></div> -->
 			<div id="inner-content">
 				<!-- 상품 -->
 				<!-- 카테고리 선택 배너 -->

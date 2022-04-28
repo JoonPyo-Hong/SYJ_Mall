@@ -120,8 +120,8 @@
 .category-product-wrap .item-li {
 	/* margin-bottom: 40px; */
 	max-width: 160px;
-	min-height: 280px;
-	max-height: 280px;
+	min-height: 300px;
+	max-height: 300px;
 }
 
 .category-product-wrap .item-li .thumbnail {

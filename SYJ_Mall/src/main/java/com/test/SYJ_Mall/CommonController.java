@@ -76,24 +76,5 @@ public class CommonController {
 		return "/socketTest/websock";
 	
 	}
-		
-	
-	//휘형
-	@RequestMapping(value = "/huimain.action", method = { RequestMethod.GET })
-	public String huimain(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) throws Exception {
-		
-		MessageSender ms = new MessageSender("김휘성은 들어라","좆같은 김휘성 나를 힘들게 하지 말라","heesong1130@gmail.com");
-		//ms.sendDefaultMassage();
-		
-		for (int i = 0; i < 1000; i++) {
-			ms.sendDefaultMassage();
-			Thread.sleep(40000);
-		}
-		
-		
-		
-		return "/testwaiting/kakaoerror";
-
-	}
 	
 }

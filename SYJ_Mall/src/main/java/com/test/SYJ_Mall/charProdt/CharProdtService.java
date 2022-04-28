@@ -48,8 +48,7 @@ public class CharProdtService implements ICharProdtService {
 			}
 
 			// 정렬옵션 지정
-			if ((sortedOption == null)
-					|| (!(sfc.isStringDigit(sortedOption) && sfc.stringToDigitTerm(sortedOption, 1, 4)))) {
+			if ((sortedOption == null) || (!(sfc.isStringDigit(sortedOption) && sfc.stringToDigitTerm(sortedOption, 1, 4)))) {
 				sortedOption = "1";
 			}
 
