@@ -180,7 +180,6 @@
 /* section 공통 */
 .product-new-section {
 	padding: 49px 20px;
-	border-top: 10px solid rgb(235, 235, 235);
 }
 
 .product-new-section .sub-title {
@@ -210,8 +209,8 @@
 .new-product-item-wrap .item-li {
 	/* margin-bottom: 40px; */
 	max-width: 160px;
-	min-height: 280px;
-	max-height: 280px;
+	min-height: 300px;
+	max-height: 300px;
 }
 
 .new-product-item-wrap .item-li:hover {
@@ -272,8 +271,7 @@
 	display: inline-block;
 	width: 24px;
 	height: 24px;
-	background-image:
-		url(/SYJ_Mall/resources/images/product_category/Small_30_off.png);
+	background-image:url(/SYJ_Mall/resources/images/product_category/Small_30_off.png);
 	background-size: contain;
 	background-repeat: no-repeat;
 }

@@ -34,7 +34,6 @@
 	 -->
 
 	
-	<!-- 구분 위에꺼는 안쓸거임 : 아래 타일즈를 쓸 예정 --> 	
 	
 	<!-- 메인 타일즈 -->
 	<definition name="newbdefault" template="/WEB-INF/views/Layout/totalLayout.jsp">

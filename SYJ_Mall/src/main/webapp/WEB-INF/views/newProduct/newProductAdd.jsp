@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
-<link rel="stylesheet" href="resources/css/newProduct/newProductMainFinal.css">
+<link rel="stylesheet" href="resources/css/newProduct/newProductMainEnd.css">
 
 <div class="container-wrap new-product-new">
 	<div class="product-new-section theme-wrap">

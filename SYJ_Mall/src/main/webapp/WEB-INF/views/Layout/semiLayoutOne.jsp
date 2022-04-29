@@ -8,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <link rel="stylesheet" href="resources/css/mainLayout/mainTilesLayout.css">
 <link rel="stylesheet" href="resources/css/mainLayout/searchTest.css">
 <link rel="stylesheet" href="resources/css/commoncss/sortModalWrap4.css">
@@ -17,8 +16,6 @@
 <link rel="stylesheet" href="resources/css/semitiles/semiSeen.css">
 <link rel="stylesheet" href="resources/css/semitiles/semiTilesResult.css">
 <link rel="stylesheet" href="resources/css/newProduct/product_category.css">
-
-
 <title>카카오 프렌즈샵</title>
 <!-- 스와이프 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
@@ -82,8 +79,7 @@
 
 
 	<div id="kakao-wrap">
-		<div id="kakao-head"
-			style="position: fixed; z-index: 10; background-color: #FFFFFF;">
+		<div id="kakao-head" style="position: fixed; z-index: 10; background-color: #FFFFFF;">
 			<div id="inner-head">
 				<div class="left-btn">
 					<button class="back-button"></button>
@@ -95,44 +91,45 @@
 					<button class="language"></button>
 				</div>
 			</div>
-			<div id="inner-tab">
+		</div>
+
+		<div id="kakao-content" style="overflow: scroll;">
+			<div id="inner-tab" style="margin-top : 50px;">
 				<!-- 상품 정렬 및 개수 -->
 				<div class="product-category" style="margin: 0px auto">
 					<!-- 카테고리 선택 배너 -->
 					<div class="category-banner" style="background: url(/SYJ_Mall/${selectBcDto.catRepImg}) right 0px / cover no-repeat;">
-						
-						<span class="category-title">${selectBcDto.bigCatNm}</span> 
-						<img class="select-icon" src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png" alt="foldWhite" />
-						
-							<select style="height: 100%;" id="big_category_select">
-								<!-- <option>---------------카테고리 선택---------------</option> -->
-								<c:forEach var="thsjt" items="${themeSubjectList}"> 
-									<c:if test="${thsjt.selected eq 'Y'}">
-										<option selected value="${thsjt.categoryCode}">${thsjt.bigCatNm}</option>
-									</c:if>
-									<c:if test="${thsjt.selected eq 'N'}">
-										<option value="${thsjt.categoryCode}">${thsjt.bigCatNm}</option>
-									</c:if>
-								</c:forEach>
-							</select>
+						<span class="category-title">${selectBcDto.bigCatNm}</span> <img
+							class="select-icon"
+							src="/SYJ_Mall/resources/images/product_category/ico_category_header_fold.png"
+							alt="foldWhite" /> <select style="height: 100%;"
+							id="big_category_select">
+							<!-- <option>---------------카테고리 선택---------------</option> -->
+							<c:forEach var="thsjt" items="${themeSubjectList}">
+								<c:if test="${thsjt.selected eq 'Y'}">
+									<option selected value="${thsjt.categoryCode}">${thsjt.bigCatNm}</option>
+								</c:if>
+								<c:if test="${thsjt.selected eq 'N'}">
+									<option value="${thsjt.categoryCode}">${thsjt.bigCatNm}</option>
+								</c:if>
+							</c:forEach>
+						</select>
 					</div>
 					<!-- 상품 정렬 및 개수 이쪽도 바꿔줘야한다.-->
 					<div class="category-header">
 						<div class="sort">
-							<span class="sort-title">
-								<c:if test="${sortedOption eq 1}">
+							<span class="sort-title"> <c:if
+									test="${sortedOption eq 1}">
 									판매량순
-								</c:if>
-								<c:if test="${sortedOption eq 2}">
+								</c:if> <c:if test="${sortedOption eq 2}">
 									신상품순
-								</c:if>
-								<c:if test="${sortedOption eq 3}">
+								</c:if> <c:if test="${sortedOption eq 3}">
 									낮은가격순
-								</c:if>
-								<c:if test="${sortedOption eq 4}">
+								</c:if> <c:if test="${sortedOption eq 4}">
 									높은가격순
 								</c:if>
-							</span> <img class="sort-icon" src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
+							</span> <img class="sort-icon"
+								src="/SYJ_Mall/resources/images/product_category/dropdown_down.png" />
 						</div>
 						<div class="category-tab">
 							<div class="category-tab-frame">
@@ -142,20 +139,24 @@
 											<c:when test="${prodtCat.categoryNmLen <= 4}">
 												<c:choose>
 													<c:when test="${prodtCatgr eq prodtCat.categoryNum}">
-														<li value="${prodtCat.categoryNum}" class="active" style="min-width: 100px;">${prodtCat.categoryNm}</li>
+														<li value="${prodtCat.categoryNum}" class="active"
+															style="min-width: 100px;">${prodtCat.categoryNm}</li>
 													</c:when>
 													<c:when test="${prodtCatgr ne prodtCat.categoryNum}">
-														<li value="${prodtCat.categoryNum}" style="min-width: 100px;">${prodtCat.categoryNm}</li>
+														<li value="${prodtCat.categoryNum}"
+															style="min-width: 100px;">${prodtCat.categoryNm}</li>
 													</c:when>
 												</c:choose>
 											</c:when>
 											<c:when test="${prodtCat.categoryNmLen > 4}">
 												<c:choose>
 													<c:when test="${prodtCatgr eq prodtCat.categoryNum}">
-														<li value="${prodtCat.categoryNum}" class="active" style="min-width: 170px;">${prodtCat.categoryNm}</li>
+														<li value="${prodtCat.categoryNum}" class="active"
+															style="min-width: 170px;">${prodtCat.categoryNm}</li>
 													</c:when>
 													<c:when test="${prodtCatgr ne prodtCat.categoryNum}">
-														<li value="${prodtCat.categoryNum}" style="min-width: 170px;">${prodtCat.categoryNm}</li>
+														<li value="${prodtCat.categoryNum}"
+															style="min-width: 170px;">${prodtCat.categoryNm}</li>
 													</c:when>
 												</c:choose>
 											</c:when>
@@ -169,16 +170,14 @@
 								총 <b>${prodtCount}</b>개
 							</div>
 							<div class="check-global">
-								<img src="/SYJ_Mall/resources/images/product_category/ico_checked.png" /> <span>글로벌
-									배송 가능상품 보기</span>
+								<img
+									src="/SYJ_Mall/resources/images/product_category/ico_checked.png" />
+								<span>글로벌 배송 가능상품 보기</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div id="kakao-content" style="overflow: scroll;">
-			<div id = "vacant_area" ></div>
 			<div id="inner-content">
 				<!-- 여기에 타일즈 내용이 들어가야함 -->
 				<tiles:insertAttribute name="body" ignore="false" />
