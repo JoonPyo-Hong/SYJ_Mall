@@ -26,7 +26,7 @@ public class MyPagesController {
 	
 	// 신규페이지 처음 메인화면
 	@RequestMapping(value = "/myPageMain.action", method = { RequestMethod.GET })
-	public String myPageMain(HttpServletRequest request, HttpServletResponse response) {
+	public String myPageMain(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
 
 		int result = service.getMyPageSelect(request,response);
 		
@@ -37,7 +37,7 @@ public class MyPagesController {
 		//1. 최근 본 내역
 		if (result == 1) {	
 			
-			int seenResult = service.getMyPageSeen(request,response);
+			int seenResult = service.getMyPageSeen(request,response,kc);
 			
 			if (seenResult == 1) return "/tiles/myPageRecent.layout";
 			else return "/testwaiting/kakaoerror";
@@ -75,9 +75,9 @@ public class MyPagesController {
 	//최근 본 내역 - 물품 삭제
 	@RequestMapping(value = "/myPageProdSeenDelete.action", method = { RequestMethod.GET })
 	@ResponseBody
-	public int myPageProdSeenDelete(HttpServletRequest request, HttpServletResponse response) {
+	public int myPageProdSeenDelete(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
 		
-		return service.deleteMyPageProdSeen(request,response);
+		return service.deleteMyPageProdSeen(request,response,kc);
 	}
 	
 	//최근 본 내역 - 모든 물품 삭제

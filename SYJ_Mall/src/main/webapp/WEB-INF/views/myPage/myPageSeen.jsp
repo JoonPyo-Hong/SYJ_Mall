@@ -28,7 +28,7 @@
 				<div class="recent-list-item" id = "${mpsList.prodId}">
 					<!-- 이미지 및 상품 내용-->
 					<div class="product-content">
-						<a href="#">
+						<a href="/SYJ_Mall/productDetailMain.action?prodtSeq=${mpsList.prodId}">
 							<div class="product-img" style="background : url(/SYJ_Mall/${mpsList.picUrl}) no-repeat; background-size: cover"></div>
 						</a>
 						<!-- 할인 하는 경우 -->
@@ -88,8 +88,6 @@
 			},
 			dataType : "json",
 			success : function(result) {
-				
-				//console.log(result);
 				
 				//쿠키에서 정상적으로 상품을 제거한 경우 -> 아직 상품이 남아 있는 경우
 				if (result == 1) {

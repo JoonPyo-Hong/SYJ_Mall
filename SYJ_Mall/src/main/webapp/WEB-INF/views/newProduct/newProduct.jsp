@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 
-<link rel="stylesheet" href="resources/css/newProduct/newProductMainFinal.css">
+<link rel="stylesheet" href="resources/css/newProduct/newProductMainEnd.css">
 <!-- 슬라이드 라이브러리 -->
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -157,8 +157,7 @@
 
 
 <script>
-	
-	
+		
 	// 신규 슬라이드 관련
 	var swiper = new Swiper(".mySwiper", {
 		allowTouchMove : true,

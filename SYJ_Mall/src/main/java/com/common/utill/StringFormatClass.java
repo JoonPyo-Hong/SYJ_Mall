@@ -1,5 +1,7 @@
 package com.common.utill;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
@@ -14,6 +16,7 @@ public class StringFormatClass {
 	public StringFormatClass() {
 		super();
 	}
+	
 
 	/**
 	 * 휴대폰 번호가 그대로 넘어오면 하이푼해줘서 넘겨주는 역할
@@ -172,7 +175,75 @@ public class StringFormatClass {
 	}
 	
 	
+	/**
+	 * StringBuffer class 를 따라한 것으로 각 문자열을 합쳐준다.
+	 * @param str1
+	 * @param str2
+	 * @return
+	 */
+	public String addString(String str1, String str2) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(str1);
+		sb.append(str2);
+		
+		return sb.toString();
+	}
 	
+	
+	/**
+	 * 특정 문자열에서 특정 문자를 이용하여 스플릿 한 결과를 큐에 집어넣어 반환해준다.
+	 * @param str
+	 * @param split
+	 * @return
+	 */
+	public Queue<String> tokenizerQueue(String str, String split) {
+		
+		Queue<String> queue = new LinkedList<String>();
+		
+		StringTokenizer stk = new StringTokenizer(str,split);
+		
+		while(stk.hasMoreTokens()) {
+			queue.offer(stk.nextToken());
+		}
+		
+		return queue;	
+	}
+	
+	/**
+	 * 특정 문자열에서 특정 문자를 이용하여 스플릿 한 결과를 큐에 집어넣어 반환해준다.
+	 * @param str
+	 * @param split
+	 * @return
+	 */
+//	public Queue<String> tokenizerQueueInverseN(String str, String split , int topN) {
+//		
+//		Queue<String> queue = new LinkedList<String>();
+//		
+//		String[] inputs = str.split(split);
+//		
+//		for (int i = inputs.length-1; i >= 0; i--) {
+//			queue.offer(inputs[i]);
+//		}
+//		
+//		return queue;	
+//	}
+	
+	
+	/**
+	 * Queue 에 저장 된 데이터를 특정 문자열로 구분하여 String 으로 반환하는 형식
+	 * @param inQueue
+	 * @return
+	 */
+	public String queueToStirng(Queue<String> inQueue, String split) {
+		StringBuffer sb = new StringBuffer();
+		
+		while(inQueue.size() != 0) {
+			sb.append(split);
+			sb.append(inQueue.poll());
+		}
+		
+		return sb.toString();
+	}
 	
 
 }

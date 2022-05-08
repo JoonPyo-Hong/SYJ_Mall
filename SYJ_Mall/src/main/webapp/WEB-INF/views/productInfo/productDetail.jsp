@@ -973,7 +973,7 @@ div.theme-more-view::after {
                         </button>
                         <div class="detail-contents">
                             <ul>
-                                <li>품명 및 모델명 : 라이언과 춘식이의 만년달력 8809814921707
+                                <li>품명 및 모델명 : ${prodtInfo.prodNm}
                                 </li>
                                 <li>법에 의한 인증, 허가 등을 받았음을 확인할 수 있는 경우 그에 대한 사항 : 해당없음
                                 </li>

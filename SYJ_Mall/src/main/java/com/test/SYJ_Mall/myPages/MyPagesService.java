@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,50 +64,53 @@ public class MyPagesService implements IMyPagesService {
 
 	}
 
-	// 쿠키에 존재하는 나의 상품 조회내역 가져오기
-	@Override
-	public String getCookieSeen(HttpServletRequest request, HttpServletResponse response) {
-
-		KakaoCookie kc = new KakaoCookie();
-
+	// 쿠키에 존재하는 나의 상품 조회내역 가져오기 : 정렬을 수행해서 가져와 준다.
+	public String getCookieSeen(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
+		
+		StringFormatClass sfc = new StringFormatClass();
 		String seenList = (String) kc.getCookieInfo(request, "seenList");
-
-		// 쿠키내에  내가 조회한 상품내역이 없는경우
-		if (seenList == null) {
-
-			kc.generateCookie(response, "seenList", "", 60 * 60 * 24 * 7);// 쿠키생성 7 일동안 유지
-			String newBasketList = (String) kc.getCookieInfo(request, "seenList");
-
-			return newBasketList;
-
-		} else {
-			// 쿠키내에  내가 조회한 상품내역이 있는경우
-
-			if (seenList.length() != 0) {
-				seenList = seenList.substring(0, seenList.length() - 1);
-				return seenList;// 기존쿠키 넘기기
-			} else {// seenList 에 지금 아무런 정보가 존재하지 않는경우
-				return seenList;// 기존쿠키 넘기기
-			}
-		}
+		
+		if (seenList == null) return null;
+		
+		return seenList;
+		
+//		// 쿠키내에  내가 조회한 상품내역이 없는경우
+//		if (seenList == null) {
+//
+//			kc.generateCookie(response, "seenList", "", 60 * 60 * 24 * 7);// 쿠키생성 7 일동안 유지
+//			String newBasketList = (String) kc.getCookieInfo(request, "seenList");
+//
+//			return newBasketList;
+//
+//		} else {
+//			// 쿠키내에  내가 조회한 상품내역이 있는경우
+//			if (seenList.length() != 0) {
+//				seenList = seenList.substring(0, seenList.length() - 1);
+//				return seenList;// 기존쿠키 넘기기
+//			} else {// seenList 에 지금 아무런 정보가 존재하지 않는경우
+//				return seenList;// 기존쿠키 넘기기
+//			}
+//		}
 	}
 	
 	
 	//마이페이지 - 최근 본 상품
 	@Override
-	public int getMyPageSeen(HttpServletRequest request, HttpServletResponse response) {
+	public int getMyPageSeen(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
 		
 		try {
-			String seenList = getCookieSeen(request,response);
+			String seenList = getCookieSeen(request,response,kc);
 			
-			//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
-			List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
-			KakaoCookie kc = new KakaoCookie();
-
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=1");// 마지막페이지
 			
-			request.setAttribute("mpsList", mpsList);
+			if (seenList == null) request.setAttribute("mpsList", null);
+			else {
+				//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
+				List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
+
+				request.setAttribute("mpsList", mpsList);
+			}
 			
 			return 1;
 		} catch(Exception e) {
@@ -122,7 +126,7 @@ public class MyPagesService implements IMyPagesService {
 	
 	//최근본 상품 목록에서 해당 상품 지워주기 -> 쿠키에서 제거
 	@Override
-	public int deleteMyPageProdSeen(HttpServletRequest request, HttpServletResponse response) {
+	public int deleteMyPageProdSeen(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
 		
 		try {
 			
@@ -133,11 +137,9 @@ public class MyPagesService implements IMyPagesService {
 			if (sfc.isStringDigit(prodId)) {
 				
 				//제품에 해당하는 숫자를 쿠키내역에서 지워줘야한다.
-				String seenList = getCookieSeen(request,response);//쿠키내역에 해당되는 숫자더미
+				String seenList = getCookieSeen(request,response,kc);//쿠키내역에 해당되는 숫자더미
 				StringTokenizer stk1 = new StringTokenizer(seenList,"#");
 				int equalProdCount = 0;//숫자에 해당하는 제품이 있는지 체크
-				KakaoCookie kc = new KakaoCookie();
-
 				
 				while(stk1.hasMoreTokens()) {
 					//체크

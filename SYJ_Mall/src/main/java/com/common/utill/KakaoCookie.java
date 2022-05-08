@@ -173,7 +173,6 @@ public class KakaoCookie {
 			kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
 			return 1;
 		}
-
 	}
 	
 	/**
@@ -204,7 +203,7 @@ public class KakaoCookie {
 	
 	
 	/**
-	 * 장바구니에 담긴 최근 본 객체 관리 (개수가 50개가 넘어가면 앞에 있는 숫자부터 지워줘야한다.)
+	 * 장바구니에 담긴 최근 본 객체 관리 (개수가 50개가 넘어가면 앞에 있는 숫자부터 지워줘야한다.) -> 이거 안쓸것.
 	 * @param request
 	 * @param response
 	 * @param productId	물품 번호

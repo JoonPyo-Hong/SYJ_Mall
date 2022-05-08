@@ -96,6 +96,15 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		return template.selectOne("ProductDetails.productReviewTotalCount",prodtSeq);
 	}
 
+	//최근 본 상품 요기있네 객체들
+	@Override
+	public List<ProductRecentDTO> getProductRecentInfo(String string, int parseInt, int filterSeq, int selectCategory) {
+		
+		
+		
+		return null;
+	}
+
 
 	
 

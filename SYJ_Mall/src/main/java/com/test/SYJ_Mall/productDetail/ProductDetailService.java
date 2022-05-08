@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall.productDetail;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,12 +74,35 @@ public class ProductDetailService implements IProductDetailService{
 			kc.generateCookie(response, "lastPage", "productDetailMain.action?prodtSeq=" + prodtSeq);// 마지막페이지 쿠키에 저장
 			
 			//공동
+			//0. 쿠키 히스토리에 추가해주기 -> 50 개 넘어가면 자연스럽게 가장 먼저 들어온 개체부터 삭제한다.
+			//kc.deleteCookie(request, response, "seenList");
+			
+			String seenList = (String)kc.getCookieInfo(request,"seenList");
+			
+			if (seenList == null) kc.generateCookie(response,"seenList","#"+prodtSeq, 60 * 60 * 24 * 7);
+			else {
+				
+				boolean prodtYn = sf.findObjectInString(seenList,"#",prodtSeq);
+				
+				Queue<String> prodtQueue = sf.tokenizerQueue(seenList, "#");
+				
+				if (prodtYn) prodtQueue.remove(prodtSeq);
+				if (prodtQueue.size() >= 50) prodtQueue.poll();
+				
+				prodtQueue.offer(prodtSeq);
+				seenList = sf.queueToStirng(prodtQueue,"#");
+			
+				kc.modifyCookie(request, response, "seenList", seenList, 60 * 60 * 24 * 7);
+			}
+			
+			
 			//1. 상품에 대한 정보
 			//1-1. 해당 물품의 헤드 사진
 			List<String> headImgUrls = dao.getProductHeadImages(Integer.parseInt(prodtSeq));
-			List<Integer> prodtMainCategory = dao.getProductCategory();
+			List<Integer> prodtMainCategory = dao.getProductCategory();//이거 왜 가져와주는거지?
 			List<ProductDetailDTO> prodtInfo;//해당 상품 상세정보들
 			List<ProductHowDTO> prodtHowInfo;//잠깐만 이 상품은 어때요 상품 객체들
+			List<ProductRecentDTO> recentSeenList;//최근 본 상품이 요기있네 상품 객체들
 			List<ProductDetailReviewDTO> prodtReviewInfo;//해당상품 리뷰정보
 			
 			int selectCategory = prodtMainCategory.get(rnd.nextInt(prodtMainCategory.size()));//선택된 대분류 번호
@@ -102,7 +126,6 @@ public class ProductDetailService implements IProductDetailService{
 				boolean cookieFlag = sf.findObjectInString(basketInfo,"#",prodtSeq);
 				if (cookieFlag) prodtInfo.get(0).setCookieBasket("Y");
 				
-				
 				//2. 리뷰 정보 -> 좋아요 순 최신순 선택 : 기본은 최신순으로
 				int sortOption = 1;
 				prodtReviewInfo = dao.getProductReview(prodtSeq, sortOption , 1, currentTime);
@@ -111,8 +134,14 @@ public class ProductDetailService implements IProductDetailService{
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
 				prodtHowInfo = dao.getProductHowInfo(basketInfo,Integer.parseInt(prodtSeq),filterSeq,selectCategory);
 				
-				
 				//4. 최근 본 상품
+				String prodtSeenList = (String)kc.getCookieInfo(request, "seenList");
+				if (prodtSeenList != null) {
+					Queue<String> prodtQueue = sf.tokenizerQueue(prodtSeenList,"#");
+					prodtQueue.remove(prodtSeq);
+					recentSeenList = dao.getProductRecentInfo(sf.queueToStirng(prodtQueue,"#"));
+				}
+				
 			} 
 			//로그인이 된경우
 			else {

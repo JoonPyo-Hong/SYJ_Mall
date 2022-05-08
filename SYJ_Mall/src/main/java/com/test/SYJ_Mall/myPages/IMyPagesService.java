@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.common.utill.KakaoCookie;
+
 public interface IMyPagesService {
 	
 	/**
@@ -19,17 +21,19 @@ public interface IMyPagesService {
 	 * 마이페이지 - 최근 본 페이지
 	 * @param request
 	 * @param response
+	 * @param kc
 	 * @return
 	 */
-	int getMyPageSeen(HttpServletRequest request, HttpServletResponse response);
+	int getMyPageSeen(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc);
 	
 	/**
 	 * 쿠키에 존재하는 나의 상품 클릭내역 가져오기
 	 * @param request
 	 * @param response
+	 * @param kc
 	 * @return
 	 */
-	String getCookieSeen(HttpServletRequest request, HttpServletResponse response);
+	String getCookieSeen(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc);
 	
 	/**
 	 * 최근본 상품 목록에서 해당 상품 지워주기 -> 쿠키에서 제거
@@ -37,7 +41,7 @@ public interface IMyPagesService {
 	 * @param response
 	 * @return
 	 */
-	int deleteMyPageProdSeen(HttpServletRequest request, HttpServletResponse response);
+	int deleteMyPageProdSeen(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc);
 	
 	/**
 	 * 최근본 상품 목록에서 모든 상품 지워주기 -> 쿠키에서 제거

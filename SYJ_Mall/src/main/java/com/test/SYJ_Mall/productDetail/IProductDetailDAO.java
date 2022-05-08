@@ -72,6 +72,13 @@ public interface IProductDetailDAO {
 	 * @return
 	 */
 	int getProductReviewCounts(int prodtSeq);
+	
+	/**
+	 * 최근본 상품 요기 있네 객체들
+	 * @param string
+	 * @return
+	 */
+	List<ProductRecentDTO> getProductRecentInfo(String string);
 
 	
 	
