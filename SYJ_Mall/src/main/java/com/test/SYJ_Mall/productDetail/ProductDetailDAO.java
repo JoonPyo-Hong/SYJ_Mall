@@ -96,13 +96,28 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		return template.selectOne("ProductDetails.productReviewTotalCount",prodtSeq);
 	}
 
-	//최근 본 상품 요기있네 객체들
+	
+	// 최근 본 상품 요기있네 객체들
 	@Override
-	public List<ProductRecentDTO> getProductRecentInfo(String string, int parseInt, int filterSeq, int selectCategory) {
+	public List<ProductRecentDTO> getProductRecentInfo(String recentSeen, String basketInfo) {
 		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("recentSeen",recentSeen);
+		map.put("basketInfo",basketInfo);
 		
+		return template.selectList("ProductDetails.productRecentInfo",map);
+	}
+
+	
+	// 최근본 상품 요기 있네 객체들 - 로그인 된 경우
+	@Override
+	public List<ProductRecentDTO> getProductRecentInfoLogin(String userSeq, String recentSeen) {
 		
-		return null;
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("userSeq",userSeq);
+		map.put("recentSeen",recentSeen);
+		
+		return template.selectList("ProductDetails.productRecentInfoLogin",map);
 	}
 
 

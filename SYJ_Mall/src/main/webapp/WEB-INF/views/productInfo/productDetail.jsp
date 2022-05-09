@@ -646,6 +646,7 @@ div.theme-more-view::after {
   height: 160px;
   background-image: url(/SYJ_Mall/resources/images/product-detail/20210622180615640_8809814920519_8809814920519_AW_00.jpg);
   background-size: contain;
+  background-repeat : no-repeat;
 }
 
 .detail-recently-viewed .item-li .thumbnail::after {
@@ -685,6 +686,37 @@ div.theme-more-view::after {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.detail-recently-viewed .item-li .name .incart {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/Small_30_on.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.detail-recently-viewed .item-li .name .alarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico-notification-empty-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.detail-recently-viewed .item-li .name .inalarm {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico-notification-solid-24.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 
 .detail-recently-viewed .item-li .price {
   font-size: 16px;
@@ -1218,28 +1250,62 @@ div.theme-more-view::after {
                        
                        
                     </div>
+                    
+                    <c:if test = "${not empty recentSeenList}">
                     <!-- 최근 조회 상품 -->
                     <div class="detail-recently-viewed">
                         <div class="title">최근 본 상품이<br>요기 있네</div>
                         <ul>
-                            <li class="item-li">
-                                <div class="thumbnail"></div>
-                                <div class="name">
-                                    <div class="nametext">피치파이브 페이스인형_피</div>
-                                    <span class="cart"></span>
-                                </div>
-                                <div class="price">15,000원</div>
-                            </li>
-                            <li class="item-li">
-                                <div class="thumbnail"></div>
-                                <div class="name">
-                                    <div class="nametext">피치파이브 페이스인형_피</div>
-                                    <span class="cart"></span>
-                                </div>
-                                <div class="price">15,000원</div>
-                            </li>
+                            <c:forEach var="rcdto" items="${recentSeenList}">
+								<c:if test="${rcdto.prodCnt eq 0}">
+									<!-- 상품재고가 없는 경우 -->
+									<li class="item-li" id="${rcdto.prodId}">
+										<div class="thumbnail"
+											style="background-image : url('${rcdto.picUrl}'); ">
+											<div class="soldout-label"></div>
+										</div>
+										<div class="name">
+											<div class="nametext">${rcdto.prodNm}</div>
+											<span class="${rcdto.alarmYn}"></span>
+										</div>
+										<div class="price">${rcdto.prodPrice}원</div>
+									</li>
+								</c:if>
+	
+	
+								<c:if test="${rcdto.prodCnt ne 0 && rcdto.discRate eq 0}">
+									<!-- 상품재고는 있고 할인이 없는경우 -->
+									<li class="item-li" id="${rcdto.prodId}">
+										<div class="thumbnail"
+											style="background-image : url('${rcdto.picUrl}'); "></div>
+										<div class="name">
+											<div class="nametext">${rcdto.prodNm}</div>
+											<span class="${rcdto.cookieBasket}"></span>
+										</div>
+										<div class="price">${rcdto.prodPrice}원</div>
+									</li>
+								</c:if>
+	
+	
+								<c:if test="${rcdto.prodCnt ne 0 && rcdto.discRate ne 0}">
+									<!-- 상품재고는 있고 할인이 있는 경우 -->
+									<li class="item-li" id="${rcdto.prodId}">
+										<div class="thumbnail"
+											style="background-image : url('${rcdto.picUrl}'); "></div>
+										<div class="name">
+											<div class="nametext">${rcdto.prodNm}</div>
+											<span class="${rcdto.cookieBasket}"></span>
+										</div>
+										<div class="price" style="color: #FF447F;">${rcdto.discRate}%
+											${rcdto.dcPrice}원</div>
+										<div class="price"
+											style="text-decoration: line-through; color: #9A9A9E;">${rcdto.prodPrice}원</div>
+									</li>
+								</c:if>
+							</c:forEach>
                         </ul>
                     </div>
+                    </c:if>
                     
                     <!-- 하단 바로구매 고정 버튼 -->
                     <c:if test="${prodtInfo.prodCnt ne 0}">
@@ -1564,15 +1630,7 @@ div.theme-more-view::after {
 				location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodtSeq;
 				
 			});
-            
-            
-            /* $('.cart').click(function(){
-            	alert('cart');
-            });
-            
-            $('.incart').click(function(){
-            	alert('incart');
-            }); */
+   
             
             //해당 물품 장바구니 선택했을 경우
             $('.cart').click(function(){
@@ -1580,6 +1638,7 @@ div.theme-more-view::after {
             	const prodt_id = $(this).parent().parent().attr("id");
             	
             	const result = prodt_basket_checking(prodt_id);
+            	
             	
             	if (result == 1) {
             		$(this_object).attr('class','incart');
@@ -1590,8 +1649,54 @@ div.theme-more-view::after {
             	}
             });
             
+            
+          	//해당 물품 장바구니 선택했을 경우
+            $('.incart').click(function(){
+            	const this_object = $(this);
+            	const prodt_id = $(this).parent().parent().attr("id");
+            	
+            	const result = prodt_basket_checking(prodt_id);
+            	
+            	
+            	if (result == 1) {
+            		$(this_object).attr('class','incart');
+            	} else if (result == 2) {
+            		$(this_object).attr('class','cart');
+            	} else {
+            		location.href = "/SYJ_Mall/totalError.action";
+            	}
+            });
+            
+            
+            
             //해당 물품 알람 선택했을 경우
             $('.alarm').click(function(){
+            	const this_object = $(this);
+            	const prodt_id = $(this).parent().parent().attr("id");
+            	
+            	const logon_yn = common_login_user_checking()
+            	
+            	if (logon_yn == -1) {
+            		common_login_modal_open();
+            	}
+            	
+            	const result = prodt_alarm_checking(prodt_id);
+            	
+            	if (result == 1) {
+            		$(this_object).attr('class','inalarm');
+            	} else if (result == 2) {
+            		$(this_object).attr('class','alarm');
+            	} else if (result == 3){
+            		common_login_modal_open();
+            	} else {
+            		location.href = "/SYJ_Mall/totalError.action";
+            	}
+            });
+            
+            
+            
+          //해당 물품 알람 선택했을 경우
+            $('.inalarm').click(function(){
             	const this_object = $(this);
             	const prodt_id = $(this).parent().parent().attr("id");
             	

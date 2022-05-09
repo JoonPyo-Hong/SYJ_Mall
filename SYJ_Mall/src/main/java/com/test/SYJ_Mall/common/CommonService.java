@@ -60,15 +60,17 @@ public class CommonService implements ICommonService{
 			HttpSession session = request.getSession();// 로그인 상태인지 아닌지 체크해준다.
 
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
-
+			
+			
 			// 1. 로그인 되어 있지 않은 경우
 			if (userInfo == null) {
 				String basketList = (String) kc.getCookieInfo(request, "basketList");
+				//System.out.println(basketList);
 				
 				// 이미 장바구니에 담긴 번호인지 체크해준다.--> null check 해줘야한다.
 				if (basketList == null) basketList = "";
 
-				// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 -1을 리턴할것
+				// 장바구니 쿠키 객체에서 해당물품번호가 있는지 찾아준다. 없으면 false을 리턴할것
 				boolean cookieFlag = sf.findObjectInString(basketList,"#",prodtId);
 				sb = new StringBuffer();
 				
@@ -79,7 +81,7 @@ public class CommonService implements ICommonService{
 					sb.append("#");
 					
 					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
-					
+					//System.out.println(basketList);
 					return 1;// 장바구니 추가
 				} 
 				// 해당 물품이 존재하는경우 -> 장바구니에서 빼주기
@@ -97,9 +99,11 @@ public class CommonService implements ICommonService{
 					}
 						
 					kc.modifyCookie(request, response, "basketList", sb.toString(), 60 * 60 * 24 * 7);
-					
+					//System.out.println(basketList);
 					return 2;//장바구니에서 제거
 				}
+				
+				
 				
 			}
 			// 2. 로그인 되어 있는 경우

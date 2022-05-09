@@ -66,5 +66,21 @@
 		}
 	</select>
 	
+	<!-- 최근 본 상품 요기있네(비로그인 상태)  -->
+	<select id="productRecentInfo" resultType="com.test.SYJ_Mall.productDetail.ProductRecentDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_recent_seen_not_login(#{recentSeen},#{basketInfo})
+		}
+	</select>
+	
+	<!-- 최근 본 상품 요기있네(로그인 상태)  -->
+	<select id="productRecentInfoLogin" resultType="com.test.SYJ_Mall.productDetail.ProductRecentDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_recent_seen_login(#{userSeq},#{recentSeen})
+		}
+	</select>
+	
+	
+	
 	
 </mapper>

@@ -76,9 +76,18 @@ public interface IProductDetailDAO {
 	/**
 	 * 최근본 상품 요기 있네 객체들
 	 * @param string
+	 * @param basketInfo
 	 * @return
 	 */
-	List<ProductRecentDTO> getProductRecentInfo(String string);
+	List<ProductRecentDTO> getProductRecentInfo(String string,String basketInfo);
+	
+	/**
+	 * 최근본 상품 요기 있네 객체들 - 로그인 된 경우
+	 * @param string
+	 * @param queueToString
+	 * @return
+	 */
+	List<ProductRecentDTO> getProductRecentInfoLogin(String string, String queueToString);
 
 	
 	

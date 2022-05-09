@@ -209,41 +209,42 @@ public class StringFormatClass {
 		return queue;	
 	}
 	
-	/**
-	 * 특정 문자열에서 특정 문자를 이용하여 스플릿 한 결과를 큐에 집어넣어 반환해준다.
-	 * @param str
-	 * @param split
-	 * @return
-	 */
-//	public Queue<String> tokenizerQueueInverseN(String str, String split , int topN) {
-//		
-//		Queue<String> queue = new LinkedList<String>();
-//		
-//		String[] inputs = str.split(split);
-//		
-//		for (int i = inputs.length-1; i >= 0; i--) {
-//			queue.offer(inputs[i]);
-//		}
-//		
-//		return queue;	
-//	}
-	
 	
 	/**
 	 * Queue 에 저장 된 데이터를 특정 문자열로 구분하여 String 으로 반환하는 형식
 	 * @param inQueue
 	 * @return
 	 */
-	public String queueToStirng(Queue<String> inQueue, String split) {
+	public String queueToString(Queue<String> inQueue, String split) {
 		StringBuffer sb = new StringBuffer();
 		
 		while(inQueue.size() != 0) {
-			sb.append(split);
 			sb.append(inQueue.poll());
+			sb.append(split);
 		}
 		
 		return sb.toString();
 	}
 	
+	/**
+	 * 구분자로 나뉘어진 문자를 큐에 들어간 역순으로 뽑기 
+	 * @param inQueue
+	 * @param split
+	 * @param topN
+	 * @return
+	 */
+	public String topNrecentQueue(Queue<String> inQueue, String split, int topN) {
+		StringBuffer sb = new StringBuffer();
 
+		while(!inQueue.isEmpty()) {
+			if (inQueue.size() <= topN) {
+				sb.append(inQueue.poll());
+				sb.append("#");
+			} else inQueue.poll();
+		}
+		
+		return sb.toString();
+	}
+	
+	
 }

@@ -11,7 +11,7 @@
 			exec @result = dbo.kakao_common_product_basket 2000008,1
 			select @result   
 */
-CREATE proc dbo.kakao_common_product_basket
+alter proc dbo.kakao_common_product_basket
 	@qoouser_seq	bigint		-- 회원 고유번호
 ,	@product_id		bigint		-- 상품번호
 as
@@ -61,7 +61,7 @@ begin
 			return 1
 		end
 		-- 회원이 선택한 품목이 장바구니 내역에 있경우 -> 삭제
-		else if exists (select * from dbo.KAKAO_USER_SHOPPING_CART where qoouser_seq = @qoouser_seq and product_id = @product_id and cart_del_yn = 'N' )
+		else if exists (select * from dbo.KAKAO_USER_SHOPPING_CART with(nolock) where qoouser_seq = @qoouser_seq and product_id = @product_id and cart_del_yn = 'N' )
 		begin
 
 			update dbo.KAKAO_USER_SHOPPING_CART
@@ -74,6 +74,7 @@ begin
 			return 2;
 		end
 end
+
 
 
 

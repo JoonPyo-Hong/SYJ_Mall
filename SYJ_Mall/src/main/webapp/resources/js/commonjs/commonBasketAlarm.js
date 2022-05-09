@@ -19,6 +19,7 @@ function prodt_basket_checking(prodt_seq) {
         	//2 : throw out the product in basket 
         	//else : error
         	answer = result;
+        
         	
         },
         error: function(a,b,c) {
