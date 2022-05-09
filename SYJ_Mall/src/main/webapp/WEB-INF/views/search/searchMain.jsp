@@ -103,6 +103,14 @@
 		const userinputName = "${userinputName}";//유저가 넘긴 검색단어정보
 		const productSeq = "${productSeq}";
 		
+		
+		/* 상품 클릭할때 생기는 이벤트  -> 상품페이지로 보내줄것이다.*/
+		$(document).on("click", ".item-li", function() {
+			let prodt_id = $(this).attr('id');
+			location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodt_id;
+		});
+
+		
 		//검색결과를 몇개씩 보여줄지 처리 -> ajax 처리
 		$('#kakao-content').on(
 				"scroll",
@@ -111,10 +119,6 @@
 					const scrollHeight = document.getElementById('kakao-content').scrollHeight;
 					const scrollTop = document.getElementById('kakao-content').scrollTop;
 					const height = $('#kakao-content').height();
-					
-					//console.log("scrollHeight : " + scrollHeight);
-					//console.log("scrollTop : " + scrollTop);
-					//console.log("height : " + height);
 					
 					if ((scrollTop + height >= scrollHeight)) {	
 						if (paging <= totalPagingCount && paging >= 0) {
@@ -202,14 +206,6 @@
 	        	});	
 		}
 		
-		
-		/* sold out 처리도 해줘야할것이다. */
-		
-		/* 상품 클릭할때 생기는 이벤트 */
-		$(document).on("click",".item-li",function(){
-			let prodt_id = $(this).attr('id');
-			alert(prodt_id);
-		});
 		
 		/* 아래부분은 일단 장바구니 또는 알림표시 클릭하면 생기는 이벤트 */	
 		

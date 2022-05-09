@@ -1639,6 +1639,7 @@ div.theme-more-view::after {
             	
             	const result = prodt_basket_checking(prodt_id);
             	
+            	//console.log("result : " + result);
             	
             	if (result == 1) {
             		$(this_object).attr('class','incart');
@@ -1657,6 +1658,7 @@ div.theme-more-view::after {
             	
             	const result = prodt_basket_checking(prodt_id);
             	
+            	console.log("result : " + result);
             	
             	if (result == 1) {
             		$(this_object).attr('class','incart');
@@ -1671,32 +1673,6 @@ div.theme-more-view::after {
             
             //해당 물품 알람 선택했을 경우
             $('.alarm').click(function(){
-            	const this_object = $(this);
-            	const prodt_id = $(this).parent().parent().attr("id");
-            	
-            	const logon_yn = common_login_user_checking()
-            	
-            	if (logon_yn == -1) {
-            		common_login_modal_open();
-            	}
-            	
-            	const result = prodt_alarm_checking(prodt_id);
-            	
-            	if (result == 1) {
-            		$(this_object).attr('class','inalarm');
-            	} else if (result == 2) {
-            		$(this_object).attr('class','alarm');
-            	} else if (result == 3){
-            		common_login_modal_open();
-            	} else {
-            		location.href = "/SYJ_Mall/totalError.action";
-            	}
-            });
-            
-            
-            
-          //해당 물품 알람 선택했을 경우
-            $('.inalarm').click(function(){
             	const this_object = $(this);
             	const prodt_id = $(this).parent().parent().attr("id");
             	

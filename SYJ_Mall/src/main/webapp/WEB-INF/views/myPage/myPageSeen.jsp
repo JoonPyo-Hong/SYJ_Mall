@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
 <link rel="stylesheet" href="resources/css/myPage/myPageSeen.css">
 
-<div class="container-wrap mypage-seen-wrap" id="ctwmsw">
+<div class="container-wrap mypage-seen-wrap" id="ctwmsw" style="overflow : scroll;">
 
 	<div class="seen-header">
 		<div class="seen-text">최대 50개까지 저장됩니다.</div>
