@@ -17,4 +17,6 @@ public class ProductDetailReviewDTO {
 	private String comment;
 	private int likeCount;
 	private String likeYn;
+	private int pdOrderSeq;
+	private int productId;
 }

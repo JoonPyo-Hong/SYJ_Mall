@@ -1148,8 +1148,8 @@ div.theme-more-view::after {
 	                    </c:if>
                         <div class="review-list">
                             <div class="review-sort">
-                                <button class="sort-btn like">좋아요순</button>
-                                <button class="sort-btn recent">최신순</button>
+                                <button class="sort-btn like" id="like_btns">좋아요순</button>
+                                <button class="sort-btn recent" id="recent_btns">최신순</button>
                             </div>
                             
                             <!-- 리뷰관련 -->
@@ -1174,7 +1174,7 @@ div.theme-more-view::after {
 	      								</c:if>
 	      								<c:if test="${reviewDto.likeYn eq 'N'}">
 	      									<div class="like">
-	                                        	<button>좋아요 ${reviewDto.likeCount}명</button>
+	                                        	<button class="prodt_like_btn" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}">좋아요 ${reviewDto.likeCount}명</button>
 	                                    	</div>
 	      								</c:if>
                                 	</li>
@@ -1559,13 +1559,10 @@ div.theme-more-view::after {
           	
           	//리뷰 더 보기 버튼 눌렀을 경우
           	$('.theme-more-view').click(function(){
-          		
           		current_page++;
-          		
           		if (total_page_count >= current_page) {
           			review_add();
-          		} 
-          		
+          		}
           	});
           	
           	
@@ -1578,13 +1575,11 @@ div.theme-more-view::after {
                     data : {"selected_prodt_seq" : selected_prodt_seq, "sortOption" : review_sorted_option, "current_page" : current_page, "review_show_day" : review_show_day},
                     dataType : "json",
                     success : function(result) {
-                        
-                    	console.log(result);
                     	
                     	if (result == null) alert('error');
                     	
                     	let review_length = result.length;
-                    	let comment;
+                    	let comment = "";
                     	
                     	for (let i = 0; i < review_length; i++) {
                     		comment += '<li class="review-item">';
@@ -1599,10 +1594,11 @@ div.theme-more-view::after {
                     			comment += '<span class="review-star off"></span>'	
                     		}
                     		
+                    		comment += '<span class="date">'+ result[i].reviewDate +'</span>'
                     		comment += '</div>';
                     		comment += '<div class="contents">' + result[i].comment + '</div>';
                     		comment += '<div class="like">';
-                    		comment += '<button>좋아요 ' + result[i].likeCount + '명</button>'
+                    		comment += '<button class="prodt_like_btn" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '">좋아요 ' + result[i].likeCount + '명</button>'
                     		comment += '</div>'
                     		comment += '</li>'
                     	}
@@ -1610,7 +1606,7 @@ div.theme-more-view::after {
                     	$("#review_content").append(comment);
                     	
                     	if (total_page_count == current_page) {
-                    		$(".theme-more-view").remove();
+                    		$(".theme-more-view").css('visibility','hidden');
                     	}
                     	
                     },
@@ -1620,15 +1616,55 @@ div.theme-more-view::after {
                 });	
           	}
           	
-            
+          	//좋아요순 눌렀을 경우에
+          	$("#like_btns").click(function(){
+          		review_sorted_option = 2;
+          		current_page = 1;
+          		$('#like_btns').css("background-color","rgb(141, 146, 161)");
+          		$('#like_btns').css("color","#fff");
+          		$('#recent_btns').css("background-color","#fff");
+          		$('#recent_btns').css("color","#808080");
+          		$('#review_content').empty();
+          		review_add();
+          		$(".theme-more-view").css('visibility','visible');
+          	});
+          	
+          	//최신순 눌렀을 경우에
+            $("#recent_btns").click(function(){
+            	review_sorted_option = 1;
+          		current_page = 1;
+          		$('#recent_btns').css("background-color","rgb(141, 146, 161)");
+          		$('#recent_btns').css("color","#fff");
+          		$('#like_btns').css("background-color","#fff");
+          		$('#like_btns').css("color","#808080");
+          		$('#review_content').empty();
+          		review_add();
+          		$(".theme-more-view").css('visibility','visible');
+          	});
+          	 
+          	
+          	//해당 리뷰에 대해서 좋아요 버튼 눌렀을 경우(** 진행중)
+          	$(document).on("click",'.prodt_like_btn',function(e){
+
+          		const login_result = common_login_user_checking();
+          		
+          		console.log(login_result);
+          		
+          		//로그인 안한경우 - 좋아요 누를 수 없다.
+				if (login_result == -1) common_login_modal_open();
+				//로그인 한 경우 - 좋아요 누를 수 있다.
+				else if (login_result == 1) {
+					//여기서 좋아요 누르기 시전해줄것.	
+				}
+			});
+	
+ 
+          	
 			/*============================= 잠깐만 이 상품은 어때요 탭 =============================*/
             //부분 사진 선택했을 경우 -> 상세페이지로 넘어간다.
 			$('.thumbnail').click(function(){
-				
 				const prodtSeq = $(this).parent('li').attr('id');
-				
 				location.href = "/SYJ_Mall/productDetailMain.action?prodtSeq=" + prodtSeq;
-				
 			});
    
             
@@ -1636,10 +1672,7 @@ div.theme-more-view::after {
             $('.cart').click(function(){
             	const this_object = $(this);
             	const prodt_id = $(this).parent().parent().attr("id");
-            	
             	const result = prodt_basket_checking(prodt_id);
-            	
-            	//console.log("result : " + result);
             	
             	if (result == 1) {
             		$(this_object).attr('class','incart');
@@ -1655,7 +1688,6 @@ div.theme-more-view::after {
             $('.incart').click(function(){
             	const this_object = $(this);
             	const prodt_id = $(this).parent().parent().attr("id");
-            	
             	const result = prodt_basket_checking(prodt_id);
             	
             	console.log("result : " + result);
@@ -1675,7 +1707,6 @@ div.theme-more-view::after {
             $('.alarm').click(function(){
             	const this_object = $(this);
             	const prodt_id = $(this).parent().parent().attr("id");
-            	
             	const logon_yn = common_login_user_checking()
             	
             	if (logon_yn == -1) {

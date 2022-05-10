@@ -4,11 +4,12 @@
 	Description : 리뷰 상세내용 가져오기
 	     
 	History	: 2022-03-27 Seunghwan Shin	#최초생성
+			  2022-05-10 Seunghwan Shin	#상품고유번호 구매번호 컬럼 추가
 	
 	Real DB : exec dbo.kakao_product_detail_review_not_login 9,1,1, ''
 
 */
-CREATE proc dbo.kakao_product_detail_review_not_login
+alter proc dbo.kakao_product_detail_review_not_login
 	@prodt_seq		varchar(20)		-- 상품고유 번호
 ,	@sort_option	varchar(20)		-- 정렬 옵션
 ,	@paging			varchar(20)		-- 페이징
@@ -35,6 +36,8 @@ begin
 		,	m.comment as comment
 		,	m.likeCount as likeCount
 		,	m.likeYn as likeYn
+		,	m.pd_order_seq as pdOrderSeq
+		,	m.product_id as productId
 		from
 		(
 			select 
@@ -51,6 +54,8 @@ begin
 					and kpp.pd_order_seq = kplu.pd_order_seq
  				) as likeCount
 			,	'N' as likeYn
+			,	kpp.pd_order_seq
+			,	kpp.product_id
 			from dbo.QOO10_USER_REAL qur with(nolock)
 			inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on qur.qoouser_seq = kpp.qoouser_seq
 			where kpp.product_id = @prodt_seq_new
@@ -70,6 +75,8 @@ begin
 		,	m.comment as comment
 		,	m.likeCount as likeCount
 		,	m.likeYn as likeYn
+		,	m.pd_order_seq as pdOrderSeq
+		,	m.product_id as productId
 		from
 		(
 			select 
@@ -91,6 +98,8 @@ begin
 					and kpp.pd_order_seq = kplu.pd_order_seq
  				) as likeCount
 			,	'N' as likeYn
+			,	kpp.pd_order_seq
+			,	kpp.product_id
 			from dbo.QOO10_USER_REAL qur with(nolock)
 			inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on qur.qoouser_seq = kpp.qoouser_seq
 			where kpp.product_id = @prodt_seq
