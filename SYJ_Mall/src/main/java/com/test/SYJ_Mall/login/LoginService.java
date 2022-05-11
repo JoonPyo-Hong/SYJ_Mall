@@ -1131,7 +1131,7 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//QR 관련 로직 -> QR관련 url을 생성해준다. && 테이블에 데이터를 넣어준다. (QR 첫단계)
+	//QR 관련 로직 -> QR관련 url을 생성해준다.
 	@Override
 	public int loginGetQr(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea) {
 		
@@ -1176,7 +1176,7 @@ public class LoginService implements ILoginService {
 				request.setAttribute("QrSeqCode",QrSeqCode);//고객번호가 그냥 넘어가면 안되므로 암호화 상태로 넘겨준다.
 				request.setAttribute("qruuid",qruuid);
 				
-				//고객번호가 이상한 경우 -> 숫자가 아닌 경우
+				//고객번호가 이상한 경우 -> 숫자가 아닌 경우(공격시도로 볼 수 있음)
 				if (!sf.isStringDigit(decodeQrSeqCode)) return -1;
 				
 				// 넘어온 uuid 에 대한 정보가 현재 소켓 세션에도 존재하는지 찾아준다.

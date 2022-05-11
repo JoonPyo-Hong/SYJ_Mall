@@ -78,7 +78,7 @@
 	let min = "";
 	let sec = "";
 	
-	
+	//위의 qr 코드 박스에 어떤 qr code 값을 넣을 것인지 지정해주는 코드
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
   					//width, height modify
   							width : 150, height : 150 
@@ -97,7 +97,7 @@
 		
 		// if Timecount over 5min then refresh Qrcode and timer 
 		if (time < 1) {
-			refreshQr();				  
+			refreshQr();//location reload 역할 수행				  
 		}
 	}, 1000);
    	
@@ -106,7 +106,7 @@
 	
 	/************************* QR Code Socket process *************************/
 	let request_ip = '${requestIpAddress}';
-	let server_port = '${serverPort}'
+	let server_port = '${serverPort}';
 	
 	window.onload = function(){
 		openSocket(server_port,request_ip);
