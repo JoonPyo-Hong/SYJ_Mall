@@ -1188,7 +1188,7 @@ public class LoginService implements ILoginService {
 				
 				if (userCheck != 1) return -1;//문제 있는경우 오류 발생
 				
-				String userId = cdao.getUserId(Integer.parseInt(decodeQrSeqCode));
+				String userId = cdao.getUserId(Integer.parseInt(decodeQrSeqCode));//db 단에서 정보를 조회해준다.
 				cdao.close();
 				
 				request.setAttribute("qrUserId",userId);

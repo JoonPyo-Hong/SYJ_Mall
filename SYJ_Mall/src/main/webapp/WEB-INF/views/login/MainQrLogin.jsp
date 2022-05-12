@@ -73,10 +73,10 @@
   
   <script type="text/javascript">
     
-	let qruuid;
-  	let time
-	let min = "";
-	let sec = "";
+	let qruuid; 	//Universally Unique IDentifier
+  	let time; 		//총 시간
+	let min = "";	//분
+	let sec = "";	//초
 	
 	//위의 qr 코드 박스에 어떤 qr code 값을 넣을 것인지 지정해주는 코드
   	let qrcode = new QRCode(document.getElementById("qrcode"), { 
