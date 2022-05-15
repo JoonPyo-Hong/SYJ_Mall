@@ -1,9 +1,138 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>
-<link rel="stylesheet" href="resources/css/myPage/myPageSeen.css">
+<script type="text/javascript" src="resources/js/commonjs/common.js"></script>
+<!-- <link rel="stylesheet" href="resources/css/myPage/myPageSeen.css">
+ -->
+<style>
 
-<div class="container-wrap mypage-seen-wrap" id="ctwmsw" style="overflow : scroll;">
+.seen-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 48px;
+	padding-right: 15px;
+	padding-left: 20px;
+}
+
+.seen-header .seen-text {
+	font-size: 13px;
+	color: rgb(154, 154, 158);
+	/* garbage-27-grey.png */
+}
+
+.delete-all {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.delete-all-btn {
+	font-size: 14px;
+	color: rgb(102, 102, 102);
+	cursor: pointer;
+}
+
+.delete-all-icon {
+	width: 27px;
+	height: 27px;
+	background-image:
+		url(/SYJ_Mall/resources/images/mypage_seen/garbage-27-grey.png);
+	background-size: contain;
+}
+
+.delete-all-icon:hover {
+	cursor: pointer;
+}
+
+.recent-list-wrap {
+	border-top: 1px solid rgb(242, 242, 242);
+	overflow-y: auto;
+}
+
+.recent-list-item {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	border-bottom: 1px solid rgb(242, 242, 242);
+	padding: 20px;
+}
+
+.product-content {
+	display: flex;
+}
+
+.product-img {
+	position: relative;
+	width: 64px;
+	height: 64px;
+}
+
+.product-img::after {
+	position: absolute;
+	inset: 0px;
+	background: rgba(0, 0, 0, 0.02);
+	content: "";
+	width: 100%;
+	z-index: 0;
+	padding-top: 100%;
+}
+
+.product-text {
+	display: flex;
+	flex-direction: column;
+	margin-left: 20px;
+}
+
+.product-text .product-name {
+	font-size: 16px;
+	color: rgb(119, 119, 119);
+}
+
+.product-text .product-price {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.product-text .product-price-discount {
+	font-size: 16px;
+	font-weight: bold;
+	color: red;
+}
+
+.product-text .product-price-prediscount {
+	font-size: 16px;
+	text-decoration: line-through; 
+	color:#909092;
+}
+
+.recent-list-delete-btn {
+	width: 24px;
+	height: 24px;
+	background:
+		url(/SYJ_Mall/resources/images/mypage_seen/delete-small-18-light-grey.png)
+		no-repeat;
+	background-size: 16px 16px;
+	cursor: pointer;
+}
+
+#ctwmsw {
+	height:1200px;
+}
+
+
+@media(max-width: 640px){
+	#ctwmsw {
+		height:1000px;
+	}
+	
+}
+
+</style>
+
+
+
+<div class="container-wrap mypage-seen-wrap" id="ctwmsw">
 
 	<div class="seen-header">
 		<div class="seen-text">최대 50개까지 저장됩니다.</div>
@@ -58,7 +187,12 @@
 
 
 <script>
-
+	
+	const recentSeenSize = ${mpsListSize};
+	
+	window.onload = function(){
+		if (${mpsListSize} < 12) call_footer();
+	} 
 	
 	/* 물품에 대한 삭제 버튼을 눌렀을 경우  -> 페이지에서 없애고 쿠키에서도 제거해준다.*/
 	$(document).on("click",'.recent-list-delete-btn',function(e){
@@ -144,6 +278,7 @@
 	
 	let page_end = 0;//푸터 자연스럽게 보여주기 위함
 	
+	
 	$('#kakao-content').on(
 		"scroll",
 		function(){
@@ -156,12 +291,12 @@
 			console.log("scrollTop : " + scrollTop);
 			console.log("height : " + height);
 			
-			if ((scrollTop + height >= scrollHeight) && page_end == 0) {	
-				call_footer();
-				
+			if ((scrollTop + height >= scrollHeight) && page_end == 0 && recentSeenSize >= 12) {	
+				call_footer_kakao('#ctwmsw');
+				//alert('??');
 				page_end = -1;
 			}
-	});	
+	});   
 	
 	
 	

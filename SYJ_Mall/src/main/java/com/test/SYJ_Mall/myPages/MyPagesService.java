@@ -108,7 +108,9 @@ public class MyPagesService implements IMyPagesService {
 			else {
 				//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
 				List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
-
+				
+				
+				request.setAttribute("mpsListSize", mpsList.size());
 				request.setAttribute("mpsList", mpsList);
 			}
 			
