@@ -42,6 +42,9 @@ public class SearchService implements ISearchService {
 			String sortedOption = request.getParameter("sortedOption");// 정렬옵션
 			String sortedCharOption = request.getParameter("sortedCharOption");//캐릭터 필터링 옵션
 			
+			
+			System.out.println("inputName : " + inputName);
+			
 			//필터링 옵션
 			if (sortedOption == null) {
 				request.setAttribute("sortedOption", "1");
@@ -65,7 +68,8 @@ public class SearchService implements ISearchService {
 			
 			
 			KakaoCookie kc = new KakaoCookie();
-
+			
+			
 			if (userDto == null) {
 				// 유저 정보가 없는경우 -> 로그인을 하지 않은 경우
 				// 쿠키객체를 가져와서 장바구니에 담은 정보를 가져와준다.
@@ -73,7 +77,7 @@ public class SearchService implements ISearchService {
 
 				// System.out.println("basketList : " + basketList);
 				searchProdto = dao.getSearchResultProds(inputName, productSeq, 1, basketList, sortedOption,sortedCharOption);// 처음데이터를 가져오는 것이므로 1 을 넣어준다. => 6개만 가져와준다.
-
+				
 			} else {
 				// 유저 정보가 있는 경우 -> 로그인을 한 경우
 				searchProdto = dao.getSearchResultProdsLogon(userDto.getUserSeq(), inputName, productSeq, 1, sortedOption);
@@ -85,8 +89,16 @@ public class SearchService implements ISearchService {
 
 				request.setAttribute("userinputName", inputName);
 				
+				//단어로만 넘길경우 단어에 특수문자가 있는 경우 문제가 생긴다. -> 마지막 페이지 자체의 인코딩 또는 디코딩이 필요함. => last 페이지 모두 디코딩 인코딩이 필요함.
+				
 				kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-				kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName + "&sortedOption=" + sortedOption + "&sortedCharOption=" + sortedCharOption);// 마지막페이지
+				String lastPageString = "searchresult.action?inputName=" + inputName + "&sortedOption=" + sortedOption + "&sortedCharOption=" + sortedCharOption;
+				kc.generateUrlCookie(response, lastPageString, 60 * 60 * 24 * 7);
+				//System.out.println(testString);
+				//kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName + "&sortedOption=" + sortedOption + "&sortedCharOption=" + sortedCharOption);// 마지막페이지
+				//kc.generateCookie(response, "lastPage", testString);// 마지막페이지
+				
+				
 				
 			} else {
 				// 2. 클릭해서 넘긴 경우

@@ -1,5 +1,7 @@
 package com.common.utill;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,7 +75,8 @@ public class KakaoCookie {
 		}
 
 		return object;
-	}
+	}		
+	
 	
 	/**					
 	 * 쿠키이름에 대한 쿠키값 수정
@@ -260,11 +263,56 @@ public class KakaoCookie {
 		else {
 			return -1;
 		}
-		
-		
-
 	}
 	
+	
+	/**
+	 * url 쿠키 정보 가져오기
+	 * @param request
+	 * @return
+	 */
+	public String getUrlCookieInfo(HttpServletRequest request) {
+			
+		String urlString = null;
+		
+		try {
+			Cookie[] cookies = request.getCookies();
+			
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies != null) {
+					if (cookies[i].getName().equals("lastPage")) {
+						urlString = cookies[i].getValue();
+						break;
+					}
+				} 
+			}
+			
+			urlString = URLDecoder.decode(urlString,"UTF-8");
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+			return urlString;
+		}
+		return urlString;
+	}
+	
+	/**
+	 * url 쿠키생성 + 유지시간 설정
+	 * @param response
+	 * @param cookieName		쿠키이름
+	 * @param cookieValue		쿠키값
+	 * @param setTimeSecond		쿠키유지시간(초단위)
+	 */
+	public void generateUrlCookie(HttpServletResponse response,String cookieValue,int setTimeSecond) throws Exception{
+		
+		cookieValue = URLEncoder.encode(cookieValue,"UTF-8");
+		
+		Cookie cookie = new Cookie("lastPage",cookieValue);
+		cookie.setMaxAge(setTimeSecond);//지속시간을 정해준다.
+		cookie.setPath("/");//모든 경로에서 해당 쿠키를 접근가능하도록 설정해준다.
+		response.addCookie(cookie);
+		
+	}
 	
 	
 

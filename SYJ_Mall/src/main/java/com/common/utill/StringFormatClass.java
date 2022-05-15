@@ -1,5 +1,6 @@
 package com.common.utill;
 
+import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -244,7 +245,6 @@ public class StringFormatClass {
 		}
 		
 		return sb.toString();
-	}
-	
+	}	
 	
 }
