@@ -62,7 +62,7 @@ public class CharProdtService implements ICharProdtService {
 			// 마지막 페이지 정보 쿠키에 넘기는 작업 
 			KakaoCookie ck = new KakaoCookie();
 			ck.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-			ck.generateCookie(response, "lastPage", "charAtProdtStart.action?charSeq=" + charSeq);// 마지막페이지
+			ck.generateUrlCookie(response, "charAtProdtStart.action?charSeq=" + charSeq, 60 * 60 * 24 * 7);
 			
 			List<CharProdtDTO> charProdts;
 

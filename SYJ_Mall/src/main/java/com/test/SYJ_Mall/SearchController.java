@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.KakaoCookie;
 import com.common.utill.Performance;
 import com.test.SYJ_Mall.login.UserDTO;
 import com.test.SYJ_Mall.search.ISearchService;
@@ -113,10 +114,10 @@ public class SearchController {
 
 	// 검색하고 -> 뒤로가기처리
 	@RequestMapping(value = "/searchback.action", method = { RequestMethod.GET })
-	public String searchback(HttpServletRequest request, HttpServletResponse response) {
+	public String searchback(HttpServletRequest request, HttpServletResponse response,KakaoCookie kc) {
 
 		// 어떤페이지를 마지막으로 방문했는지 쿠키정보를 조회해 봐야한다.
-		String lastPage = (String) service.instanceCookie(request, response, "lastPage");
+		String lastPage = (String) service.instanceCookie(request, response, kc);
 		
 		if (lastPage == null) {
 
@@ -132,11 +133,11 @@ public class SearchController {
 
 	// 검색하고 -> 메인페이지로 보내주기
 	@RequestMapping(value = "/searchbackmain.action", method = { RequestMethod.GET })
-	public String searchbackmain(HttpServletRequest request, HttpServletResponse response) {
+	public String searchbackmain(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
 
 		// 어떤페이지를 마지막으로 방문했는지 쿠키정보를 조회해 봐야한다. --> 애를 왜 넣어주는거지?
-		Object lastPage = service.instanceCookie(request, response, "lastPage");
-
+		Object lastPage = service.instanceCookie(request, response, kc);
+		
 		service.goMain(request);
 
 		return "/tiles/mainStart.layout";// 메인페이지로 이동

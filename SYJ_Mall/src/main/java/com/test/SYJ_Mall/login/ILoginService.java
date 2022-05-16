@@ -353,9 +353,10 @@ public interface ILoginService {
 	 * @param response
 	 * @param ic
 	 * @param ea
+	 * @param kc
 	 * @return
 	 */
-	String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea);
+	String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea, KakaoCookie kc);
 	
 	/**
 	 * QR 관련 로직

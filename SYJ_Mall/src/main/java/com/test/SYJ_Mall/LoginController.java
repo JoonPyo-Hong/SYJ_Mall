@@ -138,8 +138,8 @@ public class LoginController {
 			int result = logService.autoLoginPassLogOn(request, response, ea);
 
 			if (result == 1) {
-
-				String lastPage = (String) kc.getCookieInfo(request, "lastPage");
+				
+				String lastPage = kc.getUrlCookieInfo(request);
 				kc.deleteCookie(request, response, "lastPage");
 
 				if (lastPage == null) {

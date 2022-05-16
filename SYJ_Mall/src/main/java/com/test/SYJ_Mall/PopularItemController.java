@@ -30,7 +30,7 @@ public class PopularItemController {
 			UserDTO userInfo = (UserDTO)session.getAttribute("userinfo");
 			//마지막 페이지 정보 쿠키에 넘기는 작업
 			KakaoCookie ck = new KakaoCookie();
-			ck.generateCookie(response, "lastPage", "popularMain");
+			ck.generateUrlCookie(response, "popularMain", 60 * 60 * 24 * 7);
 			
 			int popResult = -1;
 			

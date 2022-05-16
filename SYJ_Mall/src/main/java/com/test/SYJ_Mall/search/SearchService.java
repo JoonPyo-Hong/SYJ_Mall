@@ -42,9 +42,6 @@ public class SearchService implements ISearchService {
 			String sortedOption = request.getParameter("sortedOption");// 정렬옵션
 			String sortedCharOption = request.getParameter("sortedCharOption");//캐릭터 필터링 옵션
 			
-			
-			System.out.println("inputName : " + inputName);
-			
 			//필터링 옵션
 			if (sortedOption == null) {
 				request.setAttribute("sortedOption", "1");
@@ -94,11 +91,6 @@ public class SearchService implements ISearchService {
 				kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 				String lastPageString = "searchresult.action?inputName=" + inputName + "&sortedOption=" + sortedOption + "&sortedCharOption=" + sortedCharOption;
 				kc.generateUrlCookie(response, lastPageString, 60 * 60 * 24 * 7);
-				//System.out.println(testString);
-				//kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName + "&sortedOption=" + sortedOption + "&sortedCharOption=" + sortedCharOption);// 마지막페이지
-				//kc.generateCookie(response, "lastPage", testString);// 마지막페이지
-				
-				
 				
 			} else {
 				// 2. 클릭해서 넘긴 경우
@@ -109,7 +101,7 @@ public class SearchService implements ISearchService {
 				if (searchProdto.size() != 0) request.setAttribute("userinputName", searchProdto.get(0).getProdNm());// 넘겨준 단어 -> 검색에 적은 단어에 매치되는 상품번호(엔터를 안치고 온 경우) 화면에 표시해줄 단어
 								
 				kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-				kc.generateCookie(response, "lastPage", "searchresult.action?inputName=" + inputName);// 마지막페이지
+				kc.generateUrlCookie(response,"searchresult.action?inputName=" + inputName,60 * 60 * 24 * 7);
 			}
 
 
@@ -129,11 +121,10 @@ public class SearchService implements ISearchService {
 
 	// 마지막 접속 페이지 쿠키 정보 조회
 	@Override
-	public Object instanceCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+	public Object instanceCookie(HttpServletRequest request, HttpServletResponse response, KakaoCookie ck) {
 
-		KakaoCookie ck = new KakaoCookie();
-		Object result = ck.getCookieInfo(request, cookieName);
-		ck.deleteCookie(request, response, cookieName);
+		Object result = ck.getUrlCookieInfo(request);
+		ck.deleteCookie(request, response, "lastPage");
 
 		return result;
 	}
@@ -298,8 +289,10 @@ public class SearchService implements ISearchService {
 	public int lastPageIndexing(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
-
-			String lastPage = (String) instanceCookie(request, response, "lastPage");
+			
+			KakaoCookie kc = new KakaoCookie();
+			
+			String lastPage = (String) instanceCookie(request, response,kc);
 
 			if (lastPage == null) {
 				request.setAttribute("lastPage", "/SYJ_Mall/main.action");

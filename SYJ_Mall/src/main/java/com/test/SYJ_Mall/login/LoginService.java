@@ -850,7 +850,7 @@ public class LoginService implements ILoginService {
 	public int modifyCookie(HttpServletRequest request, HttpServletResponse response, String addUrl,KakaoCookie kc, ErrorAlarm ea) {
 		try {
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-			kc.generateCookie(response, "lastPage", addUrl);//마지막페이지
+			kc.generateUrlCookie(response, addUrl, 60 * 60 * 24 * 7);
 			
 			return 1;
 		} catch(Exception e) {
@@ -875,7 +875,7 @@ public class LoginService implements ILoginService {
 			kc.deleteCookie(request, response, "loginSaveUserPw");
 			kc.deleteCookie(request, response, "loginSaveUserSeq");
 			
-			String lastPage = (String)instanceCookie(request, response, "lastPage");
+			String lastPage = kc.getUrlCookieInfo(request);
 			
 			if (lastPage == null) {
 				goMain(request);
@@ -1006,7 +1006,7 @@ public class LoginService implements ILoginService {
 
 					int logResult = loginSuccess(request, response, userSeq);// 로그인 인증티켓 발급
 					
-					String lastPage = (String)instanceCookie(request, response, "lastPage");
+					String lastPage = kc.getUrlCookieInfo(request);
 					
 					if (logResult == 1) {
 						if (lastPage == null) {
@@ -1057,7 +1057,7 @@ public class LoginService implements ILoginService {
 	
 	//로그인 관련 서비스 메서드
 	@Override
-	public String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea) {
+	public String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea, KakaoCookie kc) {
 		
 		try {
 			
@@ -1084,7 +1084,7 @@ public class LoginService implements ILoginService {
 				
 				int logResult = loginSuccess(request, response, userSeq);// 로그인 인증티켓 발급
 				
-				String lastPage = (String)instanceCookie(request, response, "lastPage");
+				String lastPage = kc.getUrlCookieInfo(request);
 				
 				if (logResult == 1) {
 					
@@ -1375,7 +1375,7 @@ public class LoginService implements ILoginService {
 					
 					if (loginYn == -1) return "error";
 					
-					String lastPage = (String)kc.getCookieInfo(request, "lastPage");
+					String lastPage = kc.getUrlCookieInfo(request);
 					
 					if (lastPage == null) {
 						goMain(request);

@@ -69,9 +69,10 @@ public class ProductDetailService implements IProductDetailService{
 			HttpSession session = request.getSession();
 			UserDTO dto = (UserDTO) session.getAttribute("userinfo");//로그인 정보
 			
-
 			kc.deleteCookie(request, response, "lastPage");
-			kc.generateCookie(response, "lastPage", "productDetailMain.action?prodtSeq=" + prodtSeq);// 마지막페이지 쿠키에 저장
+			kc.generateUrlCookie(response,"productDetailMain.action?prodtSeq=" + prodtSeq,60 * 60 * 24 * 7);
+			//kc.deleteCookie(request, response, "lastPage");
+			//kc.generateCookie(response, "lastPage", "productDetailMain.action?prodtSeq=" + prodtSeq);// 마지막페이지 쿠키에 저장
 			
 			//공동
 			//0. 쿠키 히스토리에 추가해주기 -> 50 개 넘어가면 자연스럽게 가장 먼저 들어온 개체부터 삭제한다.

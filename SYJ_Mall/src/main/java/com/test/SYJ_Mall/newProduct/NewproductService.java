@@ -38,7 +38,8 @@ public class NewproductService implements INewProductService {
 			
 			// 마지막 페이지 정보 쿠키에 넘기는 작업
 			KakaoCookie ck = new KakaoCookie();
-			ck.generateCookie(response, "lastPage", "newProductMain");// 마지막페이지
+			ck.generateUrlCookie(response,"newProductMain",60 * 60 * 24 * 7);
+			//ck.generateCookie(response, "lastPage", "newProductMain");// 마지막페이지
 
 			// 공통부분 - 상단 물품 배너 리스트
 			List<RecommendTopProdDTO> recTopPrdList = dao.getRecommendTopProdDTOList();

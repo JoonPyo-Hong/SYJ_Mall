@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.common.utill.KakaoCookie;
 /**
  * 검색서비스
  * @author shin
@@ -28,10 +30,10 @@ public interface ISearchService {
 	 * 마지막 접속 페이지 쿠키 가져오기
 	 * @param request		
 	 * @param response		
-	 * @param cookieName	쿠키이름
+	 * @param ck	쿠키객체
 	 * @return				해당 쿠키이름에 대응되는 value
 	 */
-	Object instanceCookie(HttpServletRequest request, HttpServletResponse response, String cookieName);
+	Object instanceCookie(HttpServletRequest request, HttpServletResponse response, KakaoCookie ck);
 	
 	/**
 	 * 메인페이지로 보내주기
