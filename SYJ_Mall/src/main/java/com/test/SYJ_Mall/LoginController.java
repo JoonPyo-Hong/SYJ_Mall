@@ -99,10 +99,10 @@ public class LoginController {
 
 	// 로그인페이지에서 정보를 넘겨주는곳 => 로그인 검증
 	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST})
-	public String loginVerification(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea) {
+	public String loginVerification(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea, KakaoCookie kc) {
 
 		
-		String userLoginResult = logService.loginVerifyLogic(request,response,ic,ea);
+		String userLoginResult = logService.loginVerifyLogic(request,response,ic,ea,kc);
 		
 		if (userLoginResult.equals("error")) return "/testwaiting/kakaoerror";
 		else return userLoginResult;
