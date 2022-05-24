@@ -409,6 +409,10 @@ hr.division {
   margin-top: 40px;
 }
 
+.review-item-ul {
+  padding-left: 0px;
+}
+
 /* 리뷰 정렬 */
 .review-sort {
   margin-bottom: 20px;
@@ -474,18 +478,29 @@ hr.division {
   font-weight: 400;
   word-break: break-all;
 }
+.review-item .like {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-top: 15px;
+  cursor: pointer;
+}
+.review-item .like .heart {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-image: url(./../images/product-detail/ico_friends.png);
+  background-size: 700px 700px;
+  background-position: 0 -400px;
+}
+
+.review-item .like .heart.check {
+  background-position: -40px -400px;
+}
 .review-item .like button {
-  height: 25px;
   font-size: 14px;
-  font-weight: 400;
   color: rgb(154, 154, 158);
   text-align: left;
-  margin-top: 15px;
-  padding-left: 30px;
-  background-image: url(./../images/product-detail/ryan_gray.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 0px center;
 }
 
 .pagination {
@@ -515,6 +530,7 @@ hr.division {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-left: 0px;
 }
 
 .detail-recommended .item-li {
@@ -592,6 +608,7 @@ hr.division {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-left: 0px;
 }
 
 .detail-recently-viewed .item-li {
