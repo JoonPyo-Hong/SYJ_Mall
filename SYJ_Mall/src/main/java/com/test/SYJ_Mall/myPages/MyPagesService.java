@@ -37,7 +37,6 @@ public class MyPagesService implements IMyPagesService {
 			StringFormatClass sfc = new StringFormatClass();
 			int myPageNum = 1;
 
-			//System.out.println("? : " + request.getParameter("myPageNum"));	
 			
 			if (request.getParameter("myPageNum") != null) {
 				if (sfc.isStringDigit(request.getParameter("myPageNum"))) {
@@ -102,13 +101,13 @@ public class MyPagesService implements IMyPagesService {
 			String seenList = getCookieSeen(request,response,kc);
 			
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=1");// 마지막페이지
+			kc.generateUrlCookie(response, "myPageMain.action?myPageNum=1", 60 * 60 * 24 * 7);// 마지막페이지
+
 			
 			if (seenList == null) request.setAttribute("mpsList", null);
 			else {
 				//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
 				List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
-				
 				
 				request.setAttribute("mpsListSize", mpsList.size());
 				request.setAttribute("mpsList", mpsList);
@@ -226,7 +225,7 @@ public class MyPagesService implements IMyPagesService {
 			KakaoCookie kc = new KakaoCookie();
 
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=2");// 마지막페이지
+			kc.generateUrlCookie(response, "myPageMain.action?myPageNum=2", 60 * 60 * 24 * 7);// 마지막페이지
 			
 			//여기서 로그인을 했는지 한번 더 체크해준다.
 			HttpSession session = request.getSession();
@@ -256,7 +255,8 @@ public class MyPagesService implements IMyPagesService {
 			KakaoCookie kc = new KakaoCookie();
 
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=3");// 마지막페이지
+			kc.generateUrlCookie(response, "myPageMain.action?myPageNum=3", 60 * 60 * 24 * 7);// 마지막페이지
+			
 			
 			
 			//request.setAttribute("myBassketSignal", "x533");//장바구니임을 확인하려는 로직 -> 푸터가 안뜨게 하기 위함
@@ -417,7 +417,8 @@ public class MyPagesService implements IMyPagesService {
 			KakaoCookie kc = new KakaoCookie();
 
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
-			kc.generateCookie(response, "lastPage", "myPageMain.action?myPageNum=4");// 마지막페이지
+			kc.generateUrlCookie(response, "myPageMain.action?myPageNum=4", 60 * 60 * 24 * 7);// 마지막페이지
+			
 			
 			//여기서 로그인을 했는지 한번 더 체크해준다.
 			HttpSession session = request.getSession();

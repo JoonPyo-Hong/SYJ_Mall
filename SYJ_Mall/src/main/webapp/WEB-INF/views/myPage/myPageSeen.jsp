@@ -106,9 +106,9 @@
 					
 					$('#ctwmsw').append(
 							'<div class="order-list-nodata">'
-							+		'<div class="standing-ryan"></div>'
-							+		'<div class="empty-message">내역이 없어요</div>'
-							+	'</div>'
+							+	'<div class="standing-ryan"></div>'
+							+	'<div class="empty-message">내역이 없어요</div>'
+							+'</div>'
 						)
 				}
 				
