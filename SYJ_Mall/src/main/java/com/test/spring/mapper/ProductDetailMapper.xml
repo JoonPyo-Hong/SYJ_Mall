@@ -80,6 +80,13 @@
 		}
 	</select>
 	
+	<!-- 상품 리뷰 관련 (비로그인 상태) -->
+	<select id="productReviewLogin" resultType="com.test.SYJ_Mall.productDetail.ProductDetailReviewDTO" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_review_login(#{prodtSeq},#{sortOption},#{paging},#{currentTime},#{userSeq})
+		}
+	</select>
+	
 	
 	
 	

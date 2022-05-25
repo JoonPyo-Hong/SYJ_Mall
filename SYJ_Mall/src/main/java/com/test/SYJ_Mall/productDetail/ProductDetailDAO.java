@@ -120,6 +120,22 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		return template.selectList("ProductDetails.productRecentInfoLogin",map);
 	}
 
+	
+	//상품에 관한 리뷰 정보 - 로그인 된 경우
+	@Override
+	public List<ProductDetailReviewDTO> getProductReviewLogin(String prodtSeq, int sortOption, int paging, String currentTime, int userSeq) {
+		
+		HashMap<String,String> map = new HashMap<String, String>();
+		
+		map.put("prodtSeq",prodtSeq);
+		map.put("sortOption",Integer.toString(sortOption));
+		map.put("paging",Integer.toString(paging));
+		map.put("currentTime",currentTime);
+		map.put("userSeq", Integer.toString(userSeq));
+		
+		return template.selectList("ProductDetails.productReviewLogin",map);
+	}
+
 
 	
 

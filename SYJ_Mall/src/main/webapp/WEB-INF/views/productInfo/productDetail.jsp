@@ -370,6 +370,10 @@ hr.division {
   margin-top: 40px;
 }
 
+.review-item-ul {
+  padding-left: 0px;
+}
+
 /* 리뷰 정렬 */
 .review-sort {
   margin-bottom: 20px;
@@ -435,18 +439,32 @@ hr.division {
   font-weight: 400;
   word-break: break-all;
 }
+
+.review-item .like {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.review-item .like .heart {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-image: url(/SYJ_Mall/resources/images/product-detail/ico_friends_new.png);
+  background-size: 700px 700px;
+  background-position: 0 -400px;
+}
+
+.review-item .like .heart.check {
+  background-position: -40px -400px;
+}
+
 .review-item .like button {
-  height: 25px;
   font-size: 14px;
-  font-weight: 400;
   color: rgb(154, 154, 158);
   text-align: left;
-  margin-top: 15px;
-  padding-left: 30px;
-  background-image: url(/SYJ_Mall/resources/images/product-detail/ryan_gray.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 0px center;
 }
 
 .pagination {
@@ -510,6 +528,7 @@ div.theme-more-view::after {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-left: 0px;/* 수정사항 */
 }
 
 .detail-recommended .item-li {
@@ -632,6 +651,7 @@ div.theme-more-view::after {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-left: 0px;/* 수정함 */
 }
 
 .detail-recently-viewed .item-li {
@@ -1152,34 +1172,68 @@ div.theme-more-view::after {
                                 <button class="sort-btn recent" id="recent_btns">최신순</button>
                             </div>
                             
-                            <!-- 리뷰관련 -->
-                            <ul id = "review_content">
-                                <c:forEach var="reviewDto" items="${prodtReviewInfo}">
-                                	<li class="review-item">
-	                                    <div class="name">${reviewDto.userId}</div>
-	                                    <div class="star">
-		                                    <c:forEach var="i" begin="1" end="${reviewDto.starCount}">
-	                       						<span class="review-star"></span>
-	                       					</c:forEach>
-	                       					<c:forEach var="i" begin="1" end="${reviewDto.starCountRemain}">
-	                       						<span class="review-star off"></span>
-	                       					</c:forEach>
-	                       					<span class="date">${reviewDto.reviewDate}</span>
-	                                    </div>
-	                                    <div class="contents">
-	                                        ${reviewDto.comment}
-	                                    </div>
-	      								<c:if test="${reviewDto.likeYn eq 'Y'}">
-	      									<!-- 로그인한 경우 -->
-	      								</c:if>
-	      								<c:if test="${reviewDto.likeYn eq 'N'}">
-	      									<div class="like">
-	                                        	<button class="prodt_like_btn" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}">좋아요 ${reviewDto.likeCount}명</button>
-	                                    	</div>
-	      								</c:if>
-                                	</li>
-                                </c:forEach>
-                            </ul>
+                            <!-- 리뷰관련 로그인 하지 않은 경우-->
+                            <c:if test="${empty dtoSeq}">
+	                            <ul id = "review_content" class="review-item-ul">
+	                                <c:forEach var="reviewDto" items="${prodtReviewInfo}">
+	                                	<li class="review-item">
+		                                    <div class="name">${reviewDto.userId}</div>
+		                                    <div class="star">
+			                                    <c:forEach var="i" begin="1" end="${reviewDto.starCount}">
+		                       						<span class="review-star"></span>
+		                       					</c:forEach>
+		                       					<c:forEach var="i" begin="1" end="${reviewDto.starCountRemain}">
+		                       						<span class="review-star off"></span>
+		                       					</c:forEach>
+		                       					<span class="date">${reviewDto.reviewDate}</span>
+		                                    </div>
+		                                    <div class="contents">
+		                                        ${reviewDto.comment}
+		                                    </div>
+		      								<div class="like">
+		      									<span class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></span>
+		      									<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
+		                                    </div>
+	                                	</li>
+	                                </c:forEach>
+	                            </ul>
+                            </c:if>
+                            
+                            <!-- 리뷰관련 로그인 한 경우-->
+                            <c:if test="${not empty dtoSeq}">
+	                            <ul id = "review_content" class="review-item-ul">
+	                                <c:forEach var="reviewDto" items="${prodtReviewInfo}">
+	                                	<li class="review-item">
+		                                    <div class="name">${reviewDto.userId}</div>
+		                                    <div class="star">
+			                                    <c:forEach var="i" begin="1" end="${reviewDto.starCount}">
+		                       						<span class="review-star"></span>
+		                       					</c:forEach>
+		                       					<c:forEach var="i" begin="1" end="${reviewDto.starCountRemain}">
+		                       						<span class="review-star off"></span>
+		                       					</c:forEach>
+		                       					<span class="date">${reviewDto.reviewDate}</span>
+		                                    </div>
+		                                    <div class="contents">
+		                                        ${reviewDto.comment}
+		                                    </div>
+		      								<c:if test="${reviewDto.likeYn eq 'N'}">
+		      									<div class="like">
+		      										<span class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></span>
+		      										<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
+		                                    	</div>
+		      								</c:if>
+		      								<c:if test="${reviewDto.likeYn eq 'Y'}">
+		      									<div class="like">
+		      										<span class="heart check" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></span>
+		      										<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
+		                                    	</div>
+		      								</c:if>
+	                                	</li>
+	                                </c:forEach>
+	                            </ul>
+                            </c:if>
+                            
                             
                             <c:if test="${totalReviewPage ne 1}">
                             	<div class="theme-more-view">더 보기</div>
@@ -1557,6 +1611,7 @@ div.theme-more-view::after {
           	let	review_sorted_option = 1;//기본적으로 정렬옵션은 1로고정
           	let current_page = 1;
           	
+          	
           	//리뷰 더 보기 버튼 눌렀을 경우
           	$('.theme-more-view').click(function(){
           		current_page++;
@@ -1598,7 +1653,11 @@ div.theme-more-view::after {
                     		comment += '</div>';
                     		comment += '<div class="contents">' + result[i].comment + '</div>';
                     		comment += '<div class="like">';
-                    		comment += '<button class="prodt_like_btn" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '">좋아요 ' + result[i].likeCount + '명</button>'
+                    		
+                    		if (result[i].likeYn == 'Y') comment += '<span class="heart check" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '"></span>';
+                    		else comment += '<span class="heart" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '"></span>';
+                    		
+                    		comment += '<button>&nbsp;좋아요 ' + result[i].likeCount + '명</button>'
                     		comment += '</div>'
                     		comment += '</li>'
                     	}

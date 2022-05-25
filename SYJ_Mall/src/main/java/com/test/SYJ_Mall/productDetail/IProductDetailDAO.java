@@ -88,6 +88,17 @@ public interface IProductDetailDAO {
 	 * @return
 	 */
 	List<ProductRecentDTO> getProductRecentInfoLogin(String string, String queueToString);
+	
+	/**
+	 * 상품에 관한 리뷰 정보 - 로그인 한 경우
+	 * @param prodtSeq
+	 * @param sortOption
+	 * @param paging
+	 * @param currentTime
+	 * @param userSeq
+	 * @return
+	 */
+	List<ProductDetailReviewDTO> getProductReviewLogin(String prodtSeq, int sortOption, int paging, String currentTime,int userSeq);
 
 	
 	

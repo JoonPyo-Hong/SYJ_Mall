@@ -155,14 +155,15 @@ public class ProductDetailService implements IProductDetailService{
 				
 				//2. 리뷰 정보 -> 좋아요 순 최신순 선택 : 기본은 최신순으로 -> 로그인 시에는 바꿔줘야한다.
 				int sortOption = 1;
-				prodtReviewInfo = dao.getProductReview(prodtSeq, sortOption , 1, currentTime);
+				prodtReviewInfo = dao.getProductReviewLogin(prodtSeq, sortOption , 1, currentTime,userSeq);
+				
 				
 				//3. 잠깐만 이 상품은 어때요
 				int filterSeq = rnd.nextInt(4) + 1;//필터링 번호
 				prodtHowInfo = dao.getProductHowInfoLogin(userSeq,Integer.parseInt(prodtSeq),filterSeq, selectCategory);
 				
 				
-				//4. 최근 본 상품 -> 여기 다시 고쳥야함
+				//4. 최근 본 상품 -> 여기 다시 고쳐야함??
 				String prodtSeenList = (String)kc.getCookieInfo(request, "seenList");
 				if (prodtSeenList != null) {
 					Queue<String> prodtQueue = sf.tokenizerQueue(prodtSeenList,"#");
@@ -238,7 +239,7 @@ public class ProductDetailService implements IProductDetailService{
 			//로그인 되어 있는 경우
 			else {
 				//여기선 좀 다르게 해줘야함.
-				prodtReviewInfo = dao.getProductReview(prodtSeq, sortOption , currentPage, currentTime);
+				prodtReviewInfo = dao.getProductReviewLogin(prodtSeq, sortOption , currentPage, currentTime, dto.getUserSeq());
 			}
 			
 			return prodtReviewInfo;
