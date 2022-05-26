@@ -24,5 +24,14 @@
 		select @result 
 		
 	</select>
+	
+	<!-- 리뷰에 대한 좋아요 관련 -->
+	<select id="reviewLikeCheck" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int
+		exec @result = dbo.kakao_review_like_info_checking #{userSeq},#{orderSeq},#{prodtId}
+		select @result
+		
+	</select>
 
 </mapper>

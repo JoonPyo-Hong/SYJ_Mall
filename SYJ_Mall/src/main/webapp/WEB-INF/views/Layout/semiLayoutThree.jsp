@@ -68,6 +68,29 @@
 		</div>
 	</div>
 	
+	<!-- 로그인 모달2 -->
+	<div class="overlay-wrapper" id="login-product-modal-like" style="z-index:20;">
+		<div class="login-modal-wrap">
+			<div class="modal-close">
+				<div class="close-btn"></div>
+			</div>
+			<img class="login-img"
+				src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png" />
+			<div class="login-text">
+				<h3>앗! 로그인</h3>
+				<p>
+					좋아요는 로그인 이후에 누를 수 있어요!<br/> 지금 로그인 화면으로 이동하시겠어요?
+				</p>
+			</div>
+			<div class="login-btn">
+				<button>
+					<span class="login-kakao"></span>
+					<p>로그인하기</p>
+				</button>
+			</div>
+		</div>
+	</div>
+	
 	
 	<!-- 구매 옵션 팝업창 -->
     <div class="overlay-wrap-up" id="testmodal1" style="visibility: hidden;">
@@ -166,6 +189,7 @@
   	//로그인 모달창 돌아가기
 	$(document).on("click",".close-btn",function(){
 		common_login_modal_close();
+		common_login_modal_like_close();
 	});
   	
 	

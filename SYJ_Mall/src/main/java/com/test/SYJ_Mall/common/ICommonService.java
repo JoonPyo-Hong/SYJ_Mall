@@ -44,6 +44,15 @@ public interface ICommonService {
 	 */
 	int getProductAlarmChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
 	
+	/**
+	 * 해당 리뷰에 대해서 유저가 좋아요를 했는지 아닌지 확인해주고 또한 좋아요 처리에 대한 로직
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @return
+	 */
+	int setReviewCheckingInfo(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+	
 	
 	
 	

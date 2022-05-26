@@ -22,5 +22,14 @@ public interface ICommonDAO {
 	 * @return
 	 */
 	int setBasketProdtChecking(int userSeq, int prodtId);
+	
+	/**
+	 * 해당 리뷰에 대해서 유저가 좋아요를 했는지 아닌지 확인해주고 또한 좋아요 처리에 대한 로직
+	 * @param userSeq
+	 * @param orderSeq
+	 * @param prodtId
+	 * @return
+	 */
+	int setReviewLikeControl(int userSeq, int orderSeq, int prodtId);
 
 }

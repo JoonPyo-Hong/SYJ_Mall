@@ -147,4 +147,28 @@ public class CommonService implements ICommonService{
 			return -1;
 		}
 	}
+	
+	//해당 리뷰에 대해서 유저가 좋아요를 했는지 아닌지 확인해주고 또한 좋아요 처리에 대한 로직
+	@Override
+	public int setReviewCheckingInfo(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+
+		try {
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			String inputInfo = request.getParameter("inputInfo");
+			
+			if (userInfo == null) return 0;
+			
+			StringTokenizer stk = new StringTokenizer(inputInfo,"#");
+			
+			int orderSeq = Integer.parseInt(stk.nextToken());
+			int prodtId = Integer.parseInt(stk.nextToken());
+			
+			return dao.setReviewLikeControl(userInfo.getUserSeq(),orderSeq,prodtId);
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+	}
 }

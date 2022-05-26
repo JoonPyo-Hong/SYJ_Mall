@@ -41,6 +41,21 @@ function common_login_modal_close() {
 }
 
 
+//open the login-modal2 : review like btn
+function common_login_modal_like_open() {
+	const scrollLocation = window.scrollY;
+	$('#login-product-modal-like').css('top', scrollLocation + 'px');
+	$(document.body).css('overflow', 'hidden');
+}
+
+
+//close the login-modal2 : review like btn
+function common_login_modal_like_close() {
+	$('#login-product-modal-like').css('top', '-1400px');
+	$(document.body).css('overflow', 'scroll');
+}
+
+
 //go login page
 function common_go_login_page() {
 	location.href = "/SYJ_Mall/login.action";	

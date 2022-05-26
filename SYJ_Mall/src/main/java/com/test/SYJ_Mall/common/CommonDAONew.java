@@ -40,6 +40,18 @@ public class CommonDAONew implements ICommonDAO {
 		
 		return template.selectOne("CommonDB.prodtBasketChecking",map);
 	}
+
+	//해당 리뷰에 대해서 유저가 좋아요를 했는지 아닌지 확인해주고 또한 좋아요 처리에 대한 로직
+	@Override
+	public int setReviewLikeControl(int userSeq, int orderSeq, int prodtId) {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("orderSeq",orderSeq);
+		map.put("prodtId",prodtId);
+		
+		return template.selectOne("CommonDB.reviewLikeCheck",map);
+	}
 	
 	
 }

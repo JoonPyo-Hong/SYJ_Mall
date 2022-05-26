@@ -53,6 +53,17 @@ public class CommonController {
 		return service.getProductAlarmChecking(request,response,ea);
 	}
 	
+	//해당 리뷰에 대해서 유저가 좋아요를 했는지 아닌지 확인해주고 또한 좋아요 처리에 대한 로직
+	@RequestMapping(value = "/kakaoReviewLikeChecking.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int kakaoReviewLikeChecking(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return service.setReviewCheckingInfo(request,response,ea);
+	}
+		
+		
+	
+	/*========================================아래는 테스트 용도========================================*/
 	
 	
 	//소켓 테스트용1

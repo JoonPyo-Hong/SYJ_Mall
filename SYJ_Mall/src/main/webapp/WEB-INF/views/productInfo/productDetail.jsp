@@ -3,7 +3,8 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script type="text/javascript" src="${path}/resources/js/commonjs/commonLogin.js"></script>		
-<script type="text/javascript" src="${path}/resources/js/commonjs/commonBasketAlarm.js"></script>		
+<script type="text/javascript" src="${path}/resources/js/commonjs/commonBasketAlarm.js"></script>	
+<script type="text/javascript" src="${path}/resources/js/commonjs/commonLike.js"></script>		
 
 <style>
 
@@ -1191,7 +1192,7 @@ div.theme-more-view::after {
 		                                        ${reviewDto.comment}
 		                                    </div>
 		      								<div class="like">
-		      									<span class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></span>
+		      									<div class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></div>
 		      									<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
 		                                    </div>
 	                                	</li>
@@ -1219,13 +1220,13 @@ div.theme-more-view::after {
 		                                    </div>
 		      								<c:if test="${reviewDto.likeYn eq 'N'}">
 		      									<div class="like">
-		      										<span class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></span>
+		      										<div class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></div>
 		      										<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
 		                                    	</div>
 		      								</c:if>
 		      								<c:if test="${reviewDto.likeYn eq 'Y'}">
 		      									<div class="like">
-		      										<span class="heart check" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></span>
+		      										<div class="heart check" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></div>
 		      										<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
 		                                    	</div>
 		      								</c:if>
@@ -1655,7 +1656,7 @@ div.theme-more-view::after {
                     		comment += '<div class="like">';
                     		
                     		if (result[i].likeYn == 'Y') comment += '<span class="heart check" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '"></span>';
-                    		else comment += '<span class="heart" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '"></span>';
+                    		else comment += '<div class="heart" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '"></div>';
                     		
                     		comment += '<button>&nbsp;좋아요 ' + result[i].likeCount + '명</button>'
                     		comment += '</div>'
@@ -1703,17 +1704,22 @@ div.theme-more-view::after {
           	 
           	
           	//해당 리뷰에 대해서 좋아요 버튼 눌렀을 경우(** 진행중)
-          	$(document).on("click",'.prodt_like_btn',function(e){
-
+          	$(document).on("click",'.heart',function(e){
+				
+          		const object = $(this);
+          		const click_info = $(this).attr('id');
+          		
           		const login_result = common_login_user_checking();
           		
-          		console.log(login_result);
-          		
           		//로그인 안한경우 - 좋아요 누를 수 없다.
-				if (login_result == -1) common_login_modal_open();
-				//로그인 한 경우 - 좋아요 누를 수 있다.
+				if (login_result == -1) common_login_modal_like_open();
+          		//로그인 한 경우 - 좋아요 누를 수 있다.
 				else if (login_result == 1) {
-					//여기서 좋아요 누르기 시전해줄것.	
+					//여기서 좋아요 누르기 작업 진행
+					let review_result = review_like_checking(click_info);
+					
+					if (review_result == 1) $(object).attr('class','heart check');
+					if (review_result == 2) $(object).attr('class','heart');
 				}
 			});
 	
