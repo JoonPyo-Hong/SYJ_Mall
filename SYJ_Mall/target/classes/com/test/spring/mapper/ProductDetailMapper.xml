@@ -87,6 +87,12 @@
 		}
 	</select>
 	
+	<!-- 특정 유저가 해당 상품을 구매했는지 또한 이미 리뷰를 작성했는지 확인 -->
+	<select id="productBuyReviewChecking" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		   declare @result int 
+		   exec @result = dbo.kakao_product_detail_buy_write_check #{userSeq},#{prodtSeq}
+		   select @result
+	</select>
 	
 	
 	

@@ -99,6 +99,15 @@ public interface IProductDetailDAO {
 	 * @return
 	 */
 	List<ProductDetailReviewDTO> getProductReviewLogin(String prodtSeq, int sortOption, int paging, String currentTime,int userSeq);
+	
+	
+	/**
+	 * 특정 유저가 해당 상품을 구매했는지 또한 이미 리뷰를 작성했는지 확인
+	 * @param userSeq
+	 * @param prodtSeq
+	 * @return
+	 */
+	int getProdtBuyReviewChecking(int userSeq, int prodtSeq);
 
 	
 	

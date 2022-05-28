@@ -172,7 +172,12 @@ public class ProductDetailService implements IProductDetailService{
 					recentSeenList = dao.getProductRecentInfoLogin(Integer.toString(userSeq),sf.topNrecentQueue(prodtQueue,"#",4));
 				}
 				
+				//해당 제품을 샀는지 또는 이미 리뷰를 작성했는지 확인해준다.
+				int prodtBuyReviewCheck = dao.getProdtBuyReviewChecking(userSeq,Integer.parseInt(prodtSeq));
+				
 				request.setAttribute("dtoSeq", dto.getUserSeq());//해당 물품의 상세정보
+				request.setAttribute("prodtBuyReviewCheck", prodtBuyReviewCheck);
+				
 			}
 			
 			request.setAttribute("headImgUrls", headImgUrls);//해당 물품의 헤드 사진

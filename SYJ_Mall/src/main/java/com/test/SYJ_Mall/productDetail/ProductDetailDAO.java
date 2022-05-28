@@ -136,6 +136,17 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		return template.selectList("ProductDetails.productReviewLogin",map);
 	}
 
+	//특정 유저가 해당 상품을 구매했는지 또한 이미 리뷰를 작성했는지 확인
+	@Override
+	public int getProdtBuyReviewChecking(int userSeq, int prodtSeq) {
+		
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userSeq",userSeq);
+		map.put("prodtSeq",prodtSeq);
+		
+		return template.selectOne("ProductDetails.productBuyReviewChecking",map);
+	}
+
 
 	
 

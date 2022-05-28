@@ -1149,15 +1149,36 @@ div.theme-more-view::after {
                                 <span class="review-perpect">5.0</span>
                             </div>
                         </div>
-                        <!-- 로그인 해주지 않으면 댓글 쓸 권한이 없다. -->
+                        
+                        
+                        <!-- 로그인이 된 경우 -->
                         <c:if test="${not empty dtoSeq}">
+                        	<c:if test="${prodtBuyReviewCheck eq 1}">
+		                        <div class="review-text">
+		                            <!-- 로그인 후 실 구매 사용자 표시 -->
+		                            <textarea placeholder="최소 10자 이상 입력해주세요."></textarea>
+		                        </div>
+	                        </c:if>
+	                        <c:if test="${prodtBuyReviewCheck eq -1}">
+		                        <div class="review-text">
+		                            <!-- 로그인 후 구매하지 않은 사용자 표시 -->
+		                            <textarea disabled placeholder="상품을 구매 후 리뷰 작성이 가능합니다."></textarea>
+		                        </div>
+	                        </c:if>
+                        
+	                        <div class="review-button">
+	                            <button>
+	                                <span class="review-icon"></span>
+	                                <span>리뷰를 남겨주세요</span>
+	                            </button>
+	                        </div>
+	                    </c:if>
+	                    
+	                    <!-- 로그인이 되지 않은 경우 -->
+                        <c:if test="${empty dtoSeq}">
 	                        <div class="review-text">
 	                            <!-- 로그인 전 사용자 표시 -->
-	                            <!-- <textarea disabled placeholder="로그인 후 리뷰 작성이 가능합니다."></textarea> -->
-	                            <!-- 로그인 후 구매하지 않은 사용자 표시 -->
-	                            <textarea disabled placeholder="상품을 구매 후 리뷰 작성이 가능합니다."></textarea>
-	                            <!-- 로그인 후 실 구매 사용자 표시 -->
-	                            <!-- <textarea  placeholder="최소 10자 이상 입력해주세요."></textarea> -->
+	                            <textarea disabled placeholder="로그인 후 리뷰 작성이 가능합니다."></textarea>
 	                        </div>
                         
 	                        <div class="review-button">
@@ -1167,6 +1188,8 @@ div.theme-more-view::after {
 	                            </button>
 	                        </div>
 	                    </c:if>
+	                    
+	                    
                         <div class="review-list">
                             <div class="review-sort">
                                 <button class="sort-btn like" id="like_btns">좋아요순</button>
@@ -1703,7 +1726,7 @@ div.theme-more-view::after {
           	});
           	 
           	
-          	//해당 리뷰에 대해서 좋아요 버튼 눌렀을 경우(** 진행중)
+          	//해당 리뷰에 대해서 좋아요 버튼 눌렀을 경우
           	$(document).on("click",'.heart',function(e){
 				
           		const object = $(this);
@@ -1722,8 +1745,30 @@ div.theme-more-view::after {
 					if (review_result == 2) $(object).attr('class','heart');
 				}
 			});
-	
- 
+			
+          	
+          	//해당 상품에 대한 리뷰를 작성한다.
+          	function review_write() {
+          		
+          		$.ajax({
+                	type:"POST",
+                    url: "/SYJ_Mall/productReviewWrite.action" ,
+                    async : false,
+                    data : {"selected_prodt_seq" : selected_prodt_seq, "sortOption" : review_sorted_option, "current_page" : current_page, "review_show_day" : review_show_day},
+                    dataType : "json",
+                    success : function(result) {
+                    	
+                    },
+                    error: function(a,b,c) {
+        					console.log(a,b,c);
+        			}
+                });	
+          	}
+ 			
+          	$('.review-button').click(function(){
+          		console.log($('.review-text').children('textarea').val());
+          	});
+          	
           	
 			/*============================= 잠깐만 이 상품은 어때요 탭 =============================*/
             //부분 사진 선택했을 경우 -> 상세페이지로 넘어간다.
