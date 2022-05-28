@@ -190,6 +190,7 @@ public class ProductDetailService implements IProductDetailService{
 			request.setAttribute("recentSeenList", recentSeenList);//최근 본 상품
 			
 			
+			
 			return 1;
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
@@ -251,6 +252,36 @@ public class ProductDetailService implements IProductDetailService{
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return null;
+		}
+	}
+	
+	//리뷰 쓰기
+	@Override
+	public int getReviewWritingInfo(HttpServletRequest request, ErrorAlarm ea) {
+		
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO dto = (UserDTO) session.getAttribute("userinfo");//로그인 정보
+			
+			if (dto == null) return -2;
+			
+			String reviewText = request.getParameter("write_info");
+			String starCount = request.getParameter("star_count");
+			String prodtSeq = request.getParameter("selected_prodt_seq");
+			String userSeq = Integer.toString(dto.getUserSeq());
+			
+			
+			//System.out.println(reviewText);
+			//System.out.println(starCount);
+			//System.out.println(prodtSeq);
+			//System.out.println(userSeq);
+			
+			return dao.getProductReviewWriting(userSeq,prodtSeq,reviewText,starCount);
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
 		}
 	}
 	

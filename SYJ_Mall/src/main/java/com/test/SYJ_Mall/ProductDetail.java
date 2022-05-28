@@ -50,18 +50,12 @@ public class ProductDetail {
 		return service.getProdtReviewPage(request,ea);
 	}
 	
-	//제품 상세 페이지
+	//리뷰쓰기
 	@RequestMapping(value = "/productReviewWrite.action", method = { RequestMethod.GET , RequestMethod.POST})
 	@ResponseBody
 	public int productReviewWrite(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
 		
-		//return service.getProdtReviewWriting(request,ea);
-		
-		String input = request.getParameter("throws");
-		
-		System.out.println(input);
-		
-		return 0;
+		return service.getReviewWritingInfo(request,ea);
 	}
 	
 }

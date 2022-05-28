@@ -108,6 +108,16 @@ public interface IProductDetailDAO {
 	 * @return
 	 */
 	int getProdtBuyReviewChecking(int userSeq, int prodtSeq);
+	
+	/**
+	 * 상품에 관한 리뷰 등록
+	 * @param userSeq
+	 * @param prodtSeq
+	 * @param reviewText
+	 * @param starCount
+	 * @return
+	 */
+	int getProductReviewWriting(String userSeq, String prodtSeq, String reviewText, String starCount);
 
 	
 	

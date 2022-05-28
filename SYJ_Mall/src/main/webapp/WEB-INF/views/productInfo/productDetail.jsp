@@ -82,6 +82,15 @@
   align-items: center;
   margin-top: 10px;
 }
+
+#review_star .review-star:hover{
+	cursor : pointer;
+}
+
+#review_star .review-star off:hover{
+	cursor : pointer;
+}
+
 .review-star {
   display: inline-block;
   width: 14px;
@@ -1137,15 +1146,17 @@ div.theme-more-view::after {
                     <div class="detail-review">
                         <div class="review-total">
                             <div class="title">리뷰 ${totalReviewCount}개</div>
-                            <div class="product-review">
-                                <c:forEach var="i" begin="1" end="${prodtInfo.prodStars}">
-                       				<span class="review-star"></span>
-                       			</c:forEach>
-	                            <c:forEach var="i" begin="1" end="${prodtInfo.prodStarsRemain}">
-	                       			<span class="review-star off"></span>
-	                       		</c:forEach>
-                                
-                                <span class="review-point">${prodtInfo.prodStars}</span>
+                            <div class="product-review" id="review_star">
+								<c:forEach var="i" begin="1" end="5">
+									<c:if test="${i le prodtInfo.prodStars}">
+										<span class="review-star" id="star_${i}"></span>
+									</c:if>
+									<c:if test="${i gt prodtInfo.prodStars}">
+										<span class="review-star off" id="star_${i}"></span>
+									</c:if>
+								</c:forEach>
+
+								<span class="review-point">${prodtInfo.prodStars}</span>
                                 <span class="review-perpect">5.0</span>
                             </div>
                         </div>
@@ -1631,7 +1642,7 @@ div.theme-more-view::after {
 			/*============================= 리뷰 관련 =============================*/
           	const review_total_count = ${totalReviewCount};//해당상품에 관한 총 리뷰 개수
           	const total_page_count = ${totalReviewPage};//총 몇번의 리뷰 더보기를 할 수 있는지 정해주는 인덱스
-          	const review_show_day = "${currentTime}";//리뷰 관련 정보 고정 날짜기준으로 보기 -> 새로운 리뷰가 갑자기 생길때 믹스 될수 있으므로
+          	let review_show_day = "${currentTime}";//리뷰 관련 정보 고정 날짜기준으로 보기 -> 새로운 리뷰가 갑자기 생길때 믹스 될수 있으므로
           	let	review_sorted_option = 1;//기본적으로 정렬옵션은 1로고정
           	let current_page = 1;
           	
@@ -1701,6 +1712,16 @@ div.theme-more-view::after {
           	
           	//좋아요순 눌렀을 경우에
           	$("#like_btns").click(function(){
+          		popular_like();
+          	});
+          	
+          	//최신순 눌렀을 경우에
+            $("#recent_btns").click(function(){
+            	recent_like();
+          	});
+          	
+          	
+          	function popular_like() {
           		review_sorted_option = 2;
           		current_page = 1;
           		$('#like_btns').css("background-color","rgb(141, 146, 161)");
@@ -1710,11 +1731,10 @@ div.theme-more-view::after {
           		$('#review_content').empty();
           		review_add();
           		$(".theme-more-view").css('visibility','visible');
-          	});
+          	}
           	
-          	//최신순 눌렀을 경우에
-            $("#recent_btns").click(function(){
-            	review_sorted_option = 1;
+          	function recent_like() {
+          		review_sorted_option = 1;
           		current_page = 1;
           		$('#recent_btns').css("background-color","rgb(141, 146, 161)");
           		$('#recent_btns').css("color","#fff");
@@ -1723,8 +1743,7 @@ div.theme-more-view::after {
           		$('#review_content').empty();
           		review_add();
           		$(".theme-more-view").css('visibility','visible');
-          	});
-          	 
+          	}
           	
           	//해당 리뷰에 대해서 좋아요 버튼 눌렀을 경우
           	$(document).on("click",'.heart',function(e){
@@ -1747,16 +1766,35 @@ div.theme-more-view::after {
 			});
 			
           	
+          	let star_count = ${prodtInfo.prodStars};//별의 개수
+          	
+          	//selected_prodt_seq
           	//해당 상품에 대한 리뷰를 작성한다.
-          	function review_write() {
+          	function review_write(text_info,selected_prodt_seq,star_count) {
           		
           		$.ajax({
                 	type:"POST",
                     url: "/SYJ_Mall/productReviewWrite.action" ,
                     async : false,
-                    data : {"selected_prodt_seq" : selected_prodt_seq, "sortOption" : review_sorted_option, "current_page" : current_page, "review_show_day" : review_show_day},
+                    data : {"write_info" : text_info, "selected_prodt_seq" : selected_prodt_seq, "star_count" : star_count},
                     dataType : "json",
                     success : function(result) {
+                    	
+                    	console.log(result);
+                    	
+                    	if (result == -1) {
+                    		location.href = "/SYJ_Mall/totalError.action";
+                    	} else if (result == 1) {
+                    		//글동록 -> 바로 적어주는 로직이 필요해보인다.
+                    		setTimeout(function() {
+                    			location.reload();
+                    		},500);
+                    		
+                    	} else if (result == -2) {
+                    		//구입한 적이 없음
+                    	} else if (result == -3) {
+                    		//이미 글을 싸지름
+                    	}
                     	
                     },
                     error: function(a,b,c) {
@@ -1764,9 +1802,48 @@ div.theme-more-view::after {
         			}
                 });	
           	}
- 			
+
+          	//별점 지정해주기
+          	$('#review_star .review-star').click(function(){
+          		const star_index = $(this).attr('id').split('_')[1];
+          		
+          		if (star_index == star_count) {
+          			star_count = 0;
+          			
+          			for (let i = 1; i <= 5; i++) {
+          				$('#star_' + i).attr('class','review-star off');
+          			}
+          			
+          		} else {
+          			star_count = star_index;
+          			
+          			for (let i = 1; i <= 5; i++) {
+          				if (i <= star_index) $('#star_' + i).attr('class','review-star');
+          				else $('#star_' + i).attr('class','review-star off');
+          			}          			
+          		}
+          		
+          		$('.review-point').text(star_count);
+          	});
+          	
+          	
+          	//리뷰 쓰기
           	$('.review-button').click(function(){
-          		console.log($('.review-text').children('textarea').val());
+          		let today = new Date();   
+
+                let year = today.getFullYear(); 
+                let month = today.getMonth() + 1;  
+                let date = today.getDate();  
+                let hour = today.getHours();
+                let min =  today.getMinutes();
+                let sec = today.getSeconds();
+          		
+                review_show_day = year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + sec;
+                
+          		const write_info = $('.review-text').children('textarea').val();
+          		
+          		$('.review-text').children('textarea').val('');
+          		review_write(write_info,selected_prodt_seq,star_count);
           	});
           	
           	

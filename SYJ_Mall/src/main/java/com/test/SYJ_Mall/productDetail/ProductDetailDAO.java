@@ -147,6 +147,19 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		return template.selectOne("ProductDetails.productBuyReviewChecking",map);
 	}
 
+	//상품에 관한 리뷰 등록
+	@Override
+	public int getProductReviewWriting(String userSeq, String prodtSeq, String reviewText, String starCount) {
+
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("userSeq",userSeq);
+		map.put("prodtSeq",prodtSeq);
+		map.put("reviewText",reviewText);
+		map.put("starCount",starCount);
+		
+		return template.selectOne("ProductDetails.productBuyReviewWriting",map);
+	}
+
 
 	
 

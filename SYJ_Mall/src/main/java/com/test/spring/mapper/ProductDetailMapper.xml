@@ -95,5 +95,13 @@
 	</select>
 	
 	
+	<!-- 리뷰등록 -->
+	<select id="productBuyReviewWriting" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		   declare @result int 
+		   exec @result = dbo.kakao_product_detail_review_write #{userSeq},#{prodtSeq},#{reviewText},#{starCount}
+		   select @result
+	</select>
+	
+	
 	
 </mapper>

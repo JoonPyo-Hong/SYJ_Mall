@@ -49,5 +49,8 @@ public interface IProductDetailService {
 	 */
 	List<ProductDetailReviewDTO> getProdtReviewPage(HttpServletRequest request, ErrorAlarm ea);
 	
+	//리뷰쓰기
+	int getReviewWritingInfo(HttpServletRequest request, ErrorAlarm ea);
+	
 
 }
