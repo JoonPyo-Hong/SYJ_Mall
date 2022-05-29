@@ -56,6 +56,5 @@ public class ProductDetail {
 	public int productReviewWrite(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
 		
 		return service.getReviewWritingInfo(request,ea);
-	}
-	
+	}	
 }

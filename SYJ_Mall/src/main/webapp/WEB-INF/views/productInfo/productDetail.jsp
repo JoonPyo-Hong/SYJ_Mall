@@ -1768,7 +1768,7 @@ div.theme-more-view::after {
           	
           	let star_count = ${prodtInfo.prodStars};//별의 개수
           	
-          	//selected_prodt_seq
+          	
           	//해당 상품에 대한 리뷰를 작성한다.
           	function review_write(text_info,selected_prodt_seq,star_count) {
           		
@@ -1789,11 +1789,10 @@ div.theme-more-view::after {
                     		setTimeout(function() {
                     			location.reload();
                     		},500);
-                    		
                     	} else if (result == -2) {
                     		//구입한 적이 없음
                     	} else if (result == -3) {
-                    		//이미 글을 싸지름
+                    		//이미 글을 작성함
                     	}
                     	
                     },
@@ -1829,16 +1828,7 @@ div.theme-more-view::after {
           	
           	//리뷰 쓰기
           	$('.review-button').click(function(){
-          		let today = new Date();   
-
-                let year = today.getFullYear(); 
-                let month = today.getMonth() + 1;  
-                let date = today.getDate();  
-                let hour = today.getHours();
-                let min =  today.getMinutes();
-                let sec = today.getSeconds();
           		
-                review_show_day = year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + sec;
                 
           		const write_info = $('.review-text').children('textarea').val();
           		
