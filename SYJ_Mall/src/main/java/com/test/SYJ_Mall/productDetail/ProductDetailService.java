@@ -103,6 +103,10 @@ public class ProductDetailService implements IProductDetailService{
 			List<ProductRecentDTO> recentSeenList = null;//최근 본 상품이 요기있네 상품 객체들
 			List<ProductDetailReviewDTO> prodtReviewInfo;//해당상품 리뷰정보
 			
+			//해당 제품을 샀는지 또는 이미 리뷰를 작성했는지 확인해준다.
+			int prodtBuyReviewCheck = -99;
+			
+			
 			int selectCategory = prodtMainCategory.get(rnd.nextInt(prodtMainCategory.size()));//선택된 대분류 번호
 			int totalReviewCount = dao.getProductReviewCounts(Integer.parseInt(prodtSeq));//해당상품 리뷰 총 개수
 			int totalReviewPage = (int)Math.ceil(totalReviewCount/4.0);
@@ -173,10 +177,9 @@ public class ProductDetailService implements IProductDetailService{
 				}
 				
 				//해당 제품을 샀는지 또는 이미 리뷰를 작성했는지 확인해준다.
-				int prodtBuyReviewCheck = dao.getProdtBuyReviewChecking(userSeq,Integer.parseInt(prodtSeq));
+				prodtBuyReviewCheck = dao.getProdtBuyReviewChecking(userSeq,Integer.parseInt(prodtSeq));
 				
 				request.setAttribute("dtoSeq", dto.getUserSeq());//해당 물품의 상세정보
-				request.setAttribute("prodtBuyReviewCheck", prodtBuyReviewCheck);
 				
 			}
 			
@@ -188,6 +191,7 @@ public class ProductDetailService implements IProductDetailService{
 			request.setAttribute("totalReviewPage", totalReviewPage);// 해당물품 페이징이 몇번 일어나는지 밝혀줌
 			request.setAttribute("currentTime", currentTime);//리뷰보는 기준 시간
 			request.setAttribute("recentSeenList", recentSeenList);//최근 본 상품
+			request.setAttribute("prodtBuyReviewCheck", prodtBuyReviewCheck);//해당 제품을 샀는지 또는 이미 리뷰를 작성했는지 확인해준다.
 			
 			
 			

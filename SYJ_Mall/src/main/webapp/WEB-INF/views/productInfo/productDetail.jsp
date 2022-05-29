@@ -1169,20 +1169,43 @@ div.theme-more-view::after {
 		                            <!-- 로그인 후 실 구매 사용자 표시 -->
 		                            <textarea placeholder="최소 10자 이상 입력해주세요."></textarea>
 		                        </div>
+		                        
+		                        <div class="review-button">
+	                            	<button>
+	                                	<span class="review-icon"></span>
+	                                	<span>리뷰를 남겨주세요</span>
+	                            	</button>
+	                        	</div>
 	                        </c:if>
-	                        <c:if test="${prodtBuyReviewCheck eq -1}">
+	                        <c:if test="${prodtBuyReviewCheck eq -2}">
 		                        <div class="review-text">
 		                            <!-- 로그인 후 구매하지 않은 사용자 표시 -->
 		                            <textarea disabled placeholder="상품을 구매 후 리뷰 작성이 가능합니다."></textarea>
 		                        </div>
+		                        
+		                        <div class="review-button">
+	                            	<button disabled='disabled'>
+	                                	<span class="review-icon"></span>
+	                                	<span>리뷰를 남겨주세요</span>
+	                            	</button>
+	                        	</div>
+		                        
+	                        </c:if>
+	                        <c:if test="${prodtBuyReviewCheck eq -3}">
+		                        <div class="review-text">
+		                            <!-- 이미 상품 후기를 쓴 경우 -->
+		                            <textarea disabled placeholder="이미 상품후기를 써주셨습니다."></textarea>
+		                        </div>
+		                        
+		                         <div class="review-button">
+	                            	<button disabled='disabled'>
+	                                	<span class="review-icon"></span>
+	                                	<span>리뷰를 남겨주세요</span>
+	                            	</button>
+	                        	</div>
 	                        </c:if>
                         
-	                        <div class="review-button">
-	                            <button>
-	                                <span class="review-icon"></span>
-	                                <span>리뷰를 남겨주세요</span>
-	                            </button>
-	                        </div>
+	                        
 	                    </c:if>
 	                    
 	                    <!-- 로그인이 되지 않은 경우 -->
@@ -1193,7 +1216,7 @@ div.theme-more-view::after {
 	                        </div>
                         
 	                        <div class="review-button">
-	                            <button>
+	                            <button disabled='disabled'>
 	                                <span class="review-icon"></span>
 	                                <span>리뷰를 남겨주세요</span>
 	                            </button>
@@ -1788,7 +1811,7 @@ div.theme-more-view::after {
                     		//글동록 -> 바로 적어주는 로직이 필요해보인다.
                     		setTimeout(function() {
                     			location.reload();
-                    		},500);
+                    		},800);
                     	} else if (result == -2) {
                     		//구입한 적이 없음
                     	} else if (result == -3) {
@@ -1826,14 +1849,26 @@ div.theme-more-view::after {
           	});
           	
           	
+          	const prodt_review_check = ${prodtBuyReviewCheck};
+          	
           	//리뷰 쓰기
           	$('.review-button').click(function(){
           		
-                
-          		const write_info = $('.review-text').children('textarea').val();
-          		
-          		$('.review-text').children('textarea').val('');
-          		review_write(write_info,selected_prodt_seq,star_count);
+          		if (prodt_review_check == 1) {
+          			
+          			const write_info = $('.review-text').children('textarea').val();
+              		
+              		$('.review-text').children('textarea').val('');
+              		review_write(write_info,selected_prodt_seq,star_count);
+              		
+          		} else if (prodt_review_check == -2) {
+          			//구입한 적이 없는 경우
+          		} else if (prodt_review_check == -3) {
+          			//이미 해당 제품에 대해서 리뷰를 남긴 경우
+          		} else {
+          			//로그인이 안된 경우
+          			
+          		}
           	});
           	
           	
