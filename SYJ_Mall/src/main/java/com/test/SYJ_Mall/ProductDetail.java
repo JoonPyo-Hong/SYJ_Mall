@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.utill.CommonDate;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
+import com.common.utill.MessageSender;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.productDetail.IProductDetailService;
 import com.test.SYJ_Mall.productDetail.ProductDetailReviewDTO;
@@ -56,5 +57,16 @@ public class ProductDetail {
 	public int productReviewWrite(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
 		
 		return service.getReviewWritingInfo(request,ea);
-	}	
+	}
+	
+	//리뷰쓰기(test 용도)
+	@RequestMapping(value = "/shtestint.action", method = { RequestMethod.GET , RequestMethod.POST})
+	public String shtestint(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
+		
+		MessageSender ms = new MessageSender("test","<div>test</div>","ssh9308@naver.com");
+		ms.sendDefaultHtmlMassage();
+		
+		return null;
+	}
+	
 }
