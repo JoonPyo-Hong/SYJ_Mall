@@ -41,19 +41,28 @@ public class ErrorAlarm {
 	 */
 	public void sendErrorMassegeAdmin() {
 		CommonDAO dao = new CommonDAO();
-		
+		CommonDate cd = new CommonDate();
 		//관리자 주소-> db에서 받아와야함.
 		List<String> userEmail = dao.getAdminEmailAddress();
  		
 		StringWriter errors = new StringWriter();
-		errors.append("ip : ");
-		errors.append(this.ip + "\n");
-		errors.append("Error contents : \n");
+		errors.append("<table border='1' style='width:800px;'>");
+		errors.append("<th colspan = '2' style='color:red; font-size: 2em; font-weight: bolder;'>Error Occurred In SYJ_Mall</th>");
+		errors.append("<tr><td>machine ip</td><td>Date of occurrence</td></tr>");
+		errors.append("<tr><td>");
+		errors.append(this.ip);
+		errors.append("</td><td>");
+		errors.append(cd.getPresentTime());
+		errors.append("</td></tr>");
+		errors.append("<tr><td colspan='2' style='color: red; font-size: 1.3em; font-weight: bolder; text-align: center;'>Error Log</td></tr>");
+		errors.append("<tr><td colspan='2'>");
 		e.printStackTrace(new PrintWriter(errors));
+		errors.append("</td></tr></table>");
+		
 
 		MessageSender ms = new MessageSender("Error into SYJ_Mall!", errors.toString(), userEmail);
 
-		int result = ms.sendDefaultMassages();
+		int result = ms.sendDefaultHtmlMassages();
 		
 		//System.out.println("result : " + result);
 	}

@@ -113,118 +113,12 @@
 <body>
 
 
-  <table border="1" style="width:800px;">
-    <th colspan = "2" style="color:red; font-size: 2em;">Error Occurred In SYJ_Mall</th>
-    <tr>
-      <td>machine ip</td>
-      <td>Date of occurrence</td>
-    </tr>
-    <tr>
-      <td>192.988.12.33</td>
-      <td>2022-02-15 13:44:22:33</td>
-    </tr>
-    <tr>
-      <td colspan="2">Error Log</td>
-    </tr>
-    <tr>
-      <td colspan="2">Error contents :
-org.springframework.jdbc.BadSqlGrammarException:
-### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 키워드 'exec' 근처의 구문이 잘못되었습니다.
-### The error may exist in file [C:\Users\신승환\Desktop\java\SYJ_Mall\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SYJ_Mall\WEB-INF\classes\com\test\spring\mapper\ProductDetailMapper.xml]
-### The error may involve ProductDetails.productBuyReviewWriting-Inline
-### The error occurred while setting parameters
-### SQL: declare @result int       exec @result = exec dbo.kakao_product_detail_review_write ?,?,?,?      select @result
-### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 키워드 'exec' 근처의 구문이 잘못되었습니다.
-; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 키워드 'exec' 근처의 구문이 잘못되었습니다.
-        at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:233)
-        at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
-        at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
-        at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:371)
-        at jdk.proxy3/jdk.proxy3.$Proxy13.selectOne(Unknown Source)
-        at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:163)
-        at com.test.SYJ_Mall.productDetail.ProductDetailDAO.getProductReviewWriting(ProductDetailDAO.java:160)
-        at com.test.SYJ_Mall.productDetail.ProductDetailService.getReviewWritingInfo(ProductDetailService.java:274)
-        at com.test.SYJ_Mall.ProductDetail.productReviewWrite(ProductDetail.java:58)
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-        at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-        at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
-        at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133)
-        at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97)
-        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827)
-        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738)
-        at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
-        at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)
-        at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897)
-        at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
-        at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872)
-        at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
-        at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
-        at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
-        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
-        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-        at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
-        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-        at com.test.SYJ_Mall.filter.CrossScriptingFilter.doFilter(CrossScriptingFilter.java:27)
-        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-        at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)
-        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
-        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:201)
-        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-        at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
-        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
-        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
-        at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:698)
-        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
-        at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:616)
-        at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-        at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
-        at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1629)
-        at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-        at java.base/java.lang.Thread.run(Thread.java:833)
-Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: 키워드 'exec' 근처의 구문이 잘못되었습니다.
-        at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
-        at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1632)
-        at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:600)
-        at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:522)
-        at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7225)
-        at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:3053)
-        at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:247)
-        at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:222)
-        at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:503)
-        at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
-        at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
-        at jdk.internal.reflect.GeneratedMethodAccessor62.invoke(Unknown Source)
-        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-        at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-        at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:62)
-        at jdk.proxy4/jdk.proxy4.$Proxy32.execute(Unknown Source)
-        at org.apache.ibatis.executor.statement.CallableStatementHandler.query(CallableStatementHandler.java:66)
-        at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:73)
-        at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:60)
-        at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:267)
-        at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:137)
-        at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:96)
-        at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:77)
-        at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:108)
-        at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:102)
-        at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:66)
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-        at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-        at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:358)
-        ... 51 more</td>
-    </tr>
+  <table border='1' style='width:800px;'>
+    <th colspan = '2' style='color:red; font-size: 2em; font-weight: bolder;'>Error Occurred In SYJ_Mall</th>
+    <tr><td>machine ip</td><td>Date of occurrence</td></tr>
+    <tr><td>192.988.12.33</td><td>2022-02-15 13:44:22:33</td></tr>
+    <tr><td colspan='2' style='color: red; font-size: 1.3em; font-weight: bolder; text-align: center;'>Error Log</td></tr>
+    <tr><td colspan='2'></td></tr>
   </table>
 
 
