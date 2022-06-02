@@ -4,7 +4,7 @@
 	Description : 회원이 주문한 물품 모든 객체 가져와주기
 	    
 	History		: 2022-01-01 Seunghwan Shin	#최초 생성
-				  2022-06-02 Seunghwan Shin	#주문 상태 한글로 변경, 제품 코드 추가
+				  2022-06-02 Seunghwan Shin	#제품 코드 추가
 				  
 	REAL DB		: exec dbo.kakao_mypage_order_list 2000001
 */
@@ -20,12 +20,7 @@ begin
 
 	select
 		kpt.product_nm as prodtName
-	,	case when kp.order_stat = 'S0' then N'주문접수'
-			 when kp.order_stat = 'S1' then N'배송준비중'
-			 when kp.order_stat = 'S2' then N'배송중'
-			 when kp.order_stat = 'S3' then N'배송완료'
-			 when kp.order_stat = 'S4' then N'구매확정'
-		end as orderState
+	,	kp.order_stat as orderState
 	,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as prodtImg
 	,	convert(char(10),kp.reg_dt,102) as orderDatetime
 	,	kpt.product_id as prodtSeq
@@ -40,4 +35,3 @@ begin
 	and kp.reg_dt between @start_date and @today
 	order by orderDatetime desc
 end
-

@@ -150,35 +150,24 @@
   vertical-align: top;
   background: url(/SYJ_Mall/resources/images/mypage_orderlist/ico_friends.png) 0 0 no-repeat;
   background-size: 700px 600px;
-  background-position: -620px 0;
+  background-position: -620px 0px;
 }
 
-
-.orderlist-history .box-history ul li .info-orderlist .state .order-reception {
-	display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  vertical-align: top;
-  background: url(/SYJ_Mall/resources/images/mypage_orderlist/ico_friends.png) 0 0 no-repeat;
-  background-size: 700px 600px;
-	background-position: -620px 0;
-}
 
 
 .orderlist-history .box-history ul li .info-orderlist .state .ready-to-ship {
-	display: inline-block;
+  display: inline-block;
   width: 16px;
   height: 16px;
   margin-right: 4px;
   vertical-align: top;
   background: url(/SYJ_Mall/resources/images/mypage_orderlist/ico_friends.png) 0 0 no-repeat;
   background-size: 700px 600px;
-	background-position: -620px -20px;
+  background-position: -620px -20px;
 }
 
 .orderlist-history .box-history ul li .info-orderlist .state .shipping {
-	display: inline-block;
+  display: inline-block;
   width: 16px;
   height: 16px;
   margin-right: 4px;
@@ -189,7 +178,7 @@
 }
 
 .orderlist-history .box-history ul li .info-orderlist .state .delivery-complete {
-	display: inline-block;
+  display: inline-block;
   width: 16px;
   height: 16px;
   margin-right: 4px;
@@ -200,7 +189,7 @@
 }
 
 .orderlist-history .box-history ul li .info-orderlist .state .purchase-confirmation {
-	display: inline-block;
+	  display: inline-block;
   width: 16px;
   height: 16px;
   margin-right: 4px;
@@ -209,34 +198,6 @@
   background-size: 700px 600px;
 	background-position: -620px -80px;
 }
-
-
-
-/* .orderlist-history .box-history ul li .info-orderlist .state .ready-to-ship {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  vertical-align: top;
-  background: url(/SYJ_Mall/resources/images/mypage_orderlist/ico_friends.png) 0 0 no-repeat;
-  background-size: 700px 600px;
-  background-position: -620px 0;
-}
-
-.orderlist-history .box-history ul li .info-orderlist .state .ready-to-ship {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  vertical-align: top;
-  background: url(/SYJ_Mall/resources/images/mypage_orderlist/ico_friends.png) 0 0 no-repeat;
-  background-size: 700px 600px;
-  background-position: -620px 0;
-}
- */
-
-
-
 
 
 .orderlist-history .box-history ul li .info-orderlist .state .text {
@@ -309,7 +270,23 @@
 											<div class="info-orderlist">
 												<div class="title">${mpl.prodtName}</div>
 												<div class="state">
-													
+													<c:choose>
+														<c:when test="${mpl.orderState eq 'S0'}">
+															<span class="order-reception"></span> <span class="text">주문접수</span>
+														</c:when>
+														<c:when test="${mpl.orderState eq 'S1'}">
+															<span class="ready-to-ship"></span> <span class="text">배송준비중</span>
+														</c:when>
+														<c:when test="${mpl.orderState eq 'S2'}">
+															<span class="shipping"></span> <span class="text">배송중</span>
+														</c:when>
+														<c:when test="${mpl.orderState eq 'S3'}">
+															<span class="delivery-complete"></span> <span class="text">배송완료</span>
+														</c:when> 
+														<c:when test="${mpl.orderState eq 'S4'}">
+															<span class="purchase-confirmation"></span> <span class="text">구매확정</span>
+														</c:when>
+													</c:choose>
 												</div>
 											</div>
 										</div>

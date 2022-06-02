@@ -7961,3 +7961,6 @@ Command-line arguments:  -os win32 -ws win32 -arch x86
 
 !ENTRY org.eclipse.osgi 2 1 2022-06-02 22:13:49.936
 !MESSAGE NLS unused message: AboutFeaturesDialog_SimpleTitle in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.core.resources 4 567 2022-06-02 23:56:23.899
+!MESSAGE 'C:\Users\신승환\Desktop\java\SYJ_Mall\ERD\.metadata\.plugins\org.eclipse.core.resources\.root\.indexes\properties.index'의 메타데이터를 읽을 수 없습니다.  예기치 않은 버전: 0
