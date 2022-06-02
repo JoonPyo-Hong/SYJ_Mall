@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.test.SYJ_Mall.myPages.IMyPagesService;
 
@@ -26,7 +27,7 @@ public class MyPagesController {
 	
 	// 신규페이지 처음 메인화면
 	@RequestMapping(value = "/myPageMain.action", method = { RequestMethod.GET })
-	public String myPageMain(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc) {
+	public String myPageMain(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc, ErrorAlarm ea) {
 
 		int result = service.getMyPageSelect(request,response);
 		
@@ -64,7 +65,7 @@ public class MyPagesController {
 		//4. 주문내역(로그인 필요) -> 로그인 검증 한번 더 해준다.
 		else if (result == 4) {
 			
-			int orderResult = service.getMyPageOrderList(request,response);
+			int orderResult = service.getMyPageOrderList(request,response,ea);
 			
 			if (orderResult == 1) return "/tiles/myPageOrderHistory.layout";
 			else return "/semitiles/loginDirect.layout";

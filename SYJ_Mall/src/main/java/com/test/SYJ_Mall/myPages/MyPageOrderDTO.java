@@ -12,4 +12,5 @@ public class MyPageOrderDTO {
 	private String orderState;//주문 상태
 	private String prodtImg;//제품 이미지
 	private String orderDatetime;//제품 주문 일
+	private String prodtSeq;//제품 고유번호
 }

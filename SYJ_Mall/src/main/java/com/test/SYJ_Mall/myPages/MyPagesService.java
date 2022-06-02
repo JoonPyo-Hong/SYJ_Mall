@@ -411,7 +411,7 @@ public class MyPagesService implements IMyPagesService {
 	
 	//마이페이지 주문내역
 	@Override
-	public int getMyPageOrderList(HttpServletRequest request,HttpServletResponse response) {
+	public int getMyPageOrderList(HttpServletRequest request,HttpServletResponse response, ErrorAlarm ea) {
 		
 		try {
 			KakaoCookie kc = new KakaoCookie();
@@ -440,10 +440,6 @@ public class MyPagesService implements IMyPagesService {
 			
 			
 		} catch(Exception e) {
-			IpCheck ic = new IpCheck();
-			String ip = ic.getClientIP(request);
-				
-			ErrorAlarm ea = new ErrorAlarm(e, ip);
 			ea.errorDbAndMail();
 			return -1;
 		}

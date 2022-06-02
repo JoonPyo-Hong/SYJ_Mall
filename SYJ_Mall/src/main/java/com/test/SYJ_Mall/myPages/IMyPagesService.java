@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 
 public interface IMyPagesService {
@@ -87,8 +88,9 @@ public interface IMyPagesService {
 	 * 마이페이지 주문내역
 	 * @param request
 	 * @param response
+	 * @param ea
 	 * @return
 	 */
-	int getMyPageOrderList(HttpServletRequest request,HttpServletResponse response);
+	int getMyPageOrderList(HttpServletRequest request,HttpServletResponse response, ErrorAlarm ea);
 	
 }
