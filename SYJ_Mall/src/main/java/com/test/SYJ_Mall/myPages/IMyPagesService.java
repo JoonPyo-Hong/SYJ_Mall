@@ -93,4 +93,15 @@ public interface IMyPagesService {
 	 */
 	int getMyPageOrderList(HttpServletRequest request,HttpServletResponse response, ErrorAlarm ea);
 	
+	/**
+	 * 주문정보 상세 내역
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @return
+	 */
+	int getProdtOrderHist(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+
+
+	
 }

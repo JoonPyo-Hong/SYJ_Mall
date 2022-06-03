@@ -47,5 +47,13 @@ public interface IMyPagesDAO {
 	 * @return
 	 */
 	List<String> getMyPageDtoDateList(int userSeq);
+	
+	/**
+	 * 회원이 주문한 물품 자세한 사항 정보 가져와주기
+	 * @param prodtOrderSeq
+	 * @param userSeq
+	 * @return
+	 */
+	List<MyPageOrderProdtDTO> getMyPageOrderProdts(String prodtOrderSeq, int userSeq);
 
 }

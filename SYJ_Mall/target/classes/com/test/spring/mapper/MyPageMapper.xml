@@ -71,6 +71,18 @@
 	</select>
 	
 	
+	<!-- 주문내역 물품 날짜 객체 -->
+	<select id="myPageOrderProdtList"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.myPages.MyPageOrderProdtDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_order_list_prodts(#{userSeq},#{prodtOrderSeq})
+		}
+	</select>
+	
+	
+	
 	
 
 </mapper>

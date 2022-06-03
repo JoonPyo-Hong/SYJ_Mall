@@ -114,6 +114,19 @@ public class MyPagesController {
 		
 	}
 	
+	//상품주문 히스토리 디테일 관련
+	@RequestMapping(value = "/myPageOrderListDetail.action", method = { RequestMethod.GET })
+	public String myPageOrderListDetail(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		int result = service.getProdtOrderHist(request,response,ea);
+		
+		if (result == 1) {
+			return "/semitiles/productOrderHistoryDetail.layout";
+		} else {
+			return "/testwaiting/kakaoerror";
+		}
+	}
+	
 	
 	
 }

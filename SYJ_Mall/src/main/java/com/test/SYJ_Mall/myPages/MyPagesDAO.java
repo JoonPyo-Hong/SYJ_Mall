@@ -59,4 +59,15 @@ public class MyPagesDAO implements IMyPagesDAO{
 		return template.selectList("MyPages.myPageOrderDateList",userSeq);
 	}
 	
+	//회원이 주문한 물품 자세한 사항 정보 가져와주기
+	@Override
+	public List<MyPageOrderProdtDTO> getMyPageOrderProdts(String prodtOrderSeq, int userSeq) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("prodtOrderSeq",prodtOrderSeq);
+		map.put("userSeq",Integer.toString(userSeq));
+		
+		return template.selectList("MyPages.myPageOrderProdtList",map);
+	}
+	
 }

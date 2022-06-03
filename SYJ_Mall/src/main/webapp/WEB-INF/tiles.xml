@@ -150,6 +150,11 @@
 		<put-attribute name = "body" value="/WEB-INF/views/productInfo/productDetail.jsp"/>	
 	</definition>
 	
+	
+	<!-- 주문상세 -->
+	<definition name = "/semitiles/productOrderHistoryDetail.layout" extends="newsemiDefaultThree">
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageOrderHistoryDetail.jsp"/>	
+	</definition>
 
 	
 	
