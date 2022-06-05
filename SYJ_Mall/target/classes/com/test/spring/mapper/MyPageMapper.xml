@@ -82,6 +82,28 @@
 	</select>
 	
 	
+	<!-- 회원이 주문한 물품 자세한 사항 정보 -->
+	<select id="myPageOrderProdtList"
+		parameterType="java.util.HashMap"
+		resultType="String"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_order_list_prodts(#{userSeq},#{prodtOrderSeq})
+		}
+	</select>
+	
+	
+	<!-- 해당 주문번호에 대응되는 주문처리단계 -->
+	<select id="myPageOrderProdtStep"
+		parameterType="String"
+		resultType="String"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_order_list_prodts_cur_step(#{prodtOrderSeq})
+		}
+	</select>
+	
+	
 	
 	
 

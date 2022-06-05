@@ -269,14 +269,6 @@
 </style>
 
 
-
-
-
-
-
-
-
-
 <div class="container-wrap product-order-detail">
 
           <!-- 주문번호 -->

@@ -55,5 +55,12 @@ public interface IMyPagesDAO {
 	 * @return
 	 */
 	List<MyPageOrderProdtDTO> getMyPageOrderProdts(String prodtOrderSeq, int userSeq);
+	
+	/**
+	 * 주문처리 단계
+	 * @param prodtOrderSeq
+	 * @return
+	 */
+	String getMyPageOrderStep(String prodtOrderSeq);
 
 }

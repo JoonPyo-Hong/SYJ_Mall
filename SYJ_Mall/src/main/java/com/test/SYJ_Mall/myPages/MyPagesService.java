@@ -451,28 +451,25 @@ public class MyPagesService implements IMyPagesService {
 	public int getProdtOrderHist(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
 		try {
-			// 따로따로 가져오는게 편할듯 보인다.
-			//가져와야 할것
+			HttpSession session = request.getSession();
+			UserDTO udto = (UserDTO)session.getAttribute("userinfo");
 			
-			//String prodtOrderSeq = request.getParameter(null);//주문번호
-			int userSeq = 2000001;
-			String prodtOrderSeq = "K0000000001";
+			if (udto == null) return -1;
 			
-			//1. 주문번호(단수)
+			//1. 주문번호
+			String prodtOrderSeq = request.getParameter("prodtOrderSeq");//주문번호
+			int userSeq = udto.getUserSeq();
+			
 			//2. 주문처리 단계(단수)
-			//String orderStep = ;
-			
+			String orderStep = dao.getMyPageOrderStep(prodtOrderSeq);
 			
 			//MyPageOrderProdtDTO
 			//3. 주문제품 (복수)
 			//	- 제품 고유 번호
 			//	- 제품 이름 (복수)
 			//	- 제품 가격 (복수)
-			//	- 제품 갯수 (복수)
-			
+			//	- 제품 주문 갯수 (복수)
 			List<MyPageOrderProdtDTO> prodtsDetails = dao.getMyPageOrderProdts(prodtOrderSeq,userSeq);
-			
-			System.out.println(prodtsDetails.size());
 			
 			// MyPageOrderPayDTO
 			//4. 결제정보 (단수)
@@ -480,9 +477,11 @@ public class MyPagesService implements IMyPagesService {
 			//	- 결제일시 (단수)
 			//	- 상품가격 (단수) => 모든 제품의 가격을 더한거라고 생각하면 된다.
 			//	- 배송비 (단수)
-			//	- 포인트 (단수)
+			//	- 사용 포인트 (단수)
 			//	- 기프트카드 (단수)
 			//	- 최종 결제금액 (단수)
+			
+			
 			
 			//MyPageOrderPayUserDTO
 			//5. 배송지 정보 (단수)
@@ -493,17 +492,15 @@ public class MyPagesService implements IMyPagesService {
 			
 			
 			
+			request.setAttribute("orderProdtLists", prodtsDetails);//주문제품 내역에 존재하는 물품들의 정보
 			
 			
-			
-			
+			return 1;
 			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;
 		}
-		
-		return 0;
 	}
 	
 	

@@ -1,13 +1,13 @@
-/*
+﻿/*
 	Author      : Seunghwan Shin
-	Create date : 2022-06-03 
+	Create date : 2022-06-04 
 	Description : 회원이 주문한 물품 자세한 사항 정보 가져와주기
 	    
-	History		: 2022-06-03 Seunghwan Shin	#최초 생성
+	History		: 2022-06-04 Seunghwan Shin	#최초 생성
 				  
 	REAL DB		: exec dbo.kakao_mypage_order_list_prodts 2000001 ,'K0000000001'
 */
-alter proc dbo.kakao_mypage_order_list_prodts
+alter proc dbo.kakao_mypage_order_list_steps
 	@user_seq				bigint		-- 회원 고유번호
 ,	@pd_oreder_detail_seq 	varchar(30)	-- 주문 번호
 as
@@ -17,10 +17,7 @@ begin
 	
 	
 	select 
-		kpt.product_id as prodtSeq
-	,	kpt.product_nm as prodtName
-	,	convert(numeric(10,2),kpt.product_price * (1-(kpt.discount_rate / 100.0))) as prodtPrice
-	,	kpp.product_buy_count as prodtBuyCount
+		order_stat
 	from dbo.KAKAO_PAYMENT_ORDER kpo with(nolock)
 	inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpo.pd_order_seq = kpp.pd_order_seq 
 	inner join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpp.product_id

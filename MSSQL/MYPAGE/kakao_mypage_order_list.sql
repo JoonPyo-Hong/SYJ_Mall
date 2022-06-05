@@ -23,7 +23,7 @@ begin
 	,	kp.order_stat as orderState
 	,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as prodtImg
 	,	convert(char(10),kp.reg_dt,102) as orderDatetime
-	,	kpt.product_id as prodtSeq
+	,	kpo.pd_order_detail_seq as prodtOrderSeq
 	from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
 	inner join dbo.KAKAO_PRODUCT_PAYMENT kpp with(nolock) on kpt.product_id = kpp.product_id
 	inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpi.product_id = kpt.product_id

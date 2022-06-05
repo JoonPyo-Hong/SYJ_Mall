@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Author      : Seunghwan Shin
 	Create date : 2022-06-03 
 	Description : 회원이 주문한 물품 자세한 사항 정보 가져와주기
@@ -7,7 +7,7 @@
 				  
 	REAL DB		: exec dbo.kakao_mypage_order_list_prodts 2000001 ,'K0000000001'
 */
-alter proc dbo.kakao_mypage_order_list_prodts
+CREATE proc dbo.kakao_mypage_order_list_prodts
 	@user_seq				bigint		-- 회원 고유번호
 ,	@pd_oreder_detail_seq 	varchar(30)	-- 주문 번호
 as
@@ -29,5 +29,7 @@ begin
 
 
 end
+
+
 
 

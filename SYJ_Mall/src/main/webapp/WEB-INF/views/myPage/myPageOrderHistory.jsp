@@ -262,7 +262,7 @@
 						<c:forEach var="mpl" items="${mpList}">
 							<c:choose>
 								<c:when test="${mpl.orderDatetime eq md}">
-									<li class="orderlist-contents" onclick="location.href='/SYJ_Mall/productDetailMain.action?prodtSeq=${mpl.prodtSeq}'">
+									<li class="orderlist-contents" onclick="location.href='/SYJ_Mall/myPageOrderListDetail.action?prodtOrderSeq=${mpl.prodtOrderSeq}'">
 										<div class="order-info">
 											<div class="wrap-thumb">
 												<img src="/SYJ_Mall/${mpl.prodtImg}">

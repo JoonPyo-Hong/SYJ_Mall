@@ -70,4 +70,11 @@ public class MyPagesDAO implements IMyPagesDAO{
 		return template.selectList("MyPages.myPageOrderProdtList",map);
 	}
 	
+	//주문처리 단계(단수)
+	@Override
+	public String getMyPageOrderStep(String prodtOrderSeq) {
+		
+		return template.selectOne("MyPages.myPageOrderProdtStep",prodtOrderSeq);
+	}
+	
 }
