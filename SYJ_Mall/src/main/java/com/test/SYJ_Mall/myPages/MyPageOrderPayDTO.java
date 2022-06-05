@@ -9,11 +9,10 @@ import lombok.Data;
  */
 @Data
 public class MyPageOrderPayDTO {
-	private int paySudan;//결제수단
 	private String payDatetime;//결제일시
-	private int payMoney;//전체 상품 가격
-	private int payPoint;// 사용 포인트비용
-	private int payShippment;//배송비
-	private int payGiftCard;//기프트카드 사용비용
-	private int totalPayMomey;//모든공제액을 뺀 총비용
+	private String payMoney;//전체 상품 가격
+	private String payPoint;// 사용 포인트비용
+	private String payShippment;//배송비
+	private String payGiftCard;//기프트카드 사용비용
+	private String totalPayMomey;//모든공제액을 뺀 총비용 - 포인트 기프트카드 제외하고 정산해야 하는 비용
 }

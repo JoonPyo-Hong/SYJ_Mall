@@ -469,7 +469,9 @@ public class MyPagesService implements IMyPagesService {
 			//	- 제품 이름 (복수)
 			//	- 제품 가격 (복수)
 			//	- 제품 주문 갯수 (복수)
+			//	- 제품 사진(복수)
 			List<MyPageOrderProdtDTO> prodtsDetails = dao.getMyPageOrderProdts(prodtOrderSeq,userSeq);
+
 			
 			// MyPageOrderPayDTO
 			//4. 결제정보 (단수)
@@ -480,7 +482,7 @@ public class MyPagesService implements IMyPagesService {
 			//	- 사용 포인트 (단수)
 			//	- 기프트카드 (단수)
 			//	- 최종 결제금액 (단수)
-			
+			List<MyPageOrderPayDTO> prodtPays = dao.getMyPageOrderProdtsPay(prodtOrderSeq);
 			
 			
 			//MyPageOrderPayUserDTO
@@ -489,10 +491,13 @@ public class MyPagesService implements IMyPagesService {
 			//	- 주문고객 핸드폰 번호
 			//	- 주문고객 이메일 주소
 			//	- 받는분 주소
+			List<MyPageOrderPayUserDTO> shipmentInfos = dao.getMyPageOrderProdtsShipmentInfos(userSeq,prodtOrderSeq);
 			
-			
-			
-			request.setAttribute("orderProdtLists", prodtsDetails);//주문제품 내역에 존재하는 물품들의 정보
+			request.setAttribute("prodtOrderSeq", prodtOrderSeq);//주문번호
+			request.setAttribute("orderStep", orderStep);//주문처리 현재 단계
+			request.setAttribute("orderProdtList", prodtsDetails);//주문제품 내역에 존재하는 물품들의 정보
+			request.setAttribute("prodtPays", prodtPays.get(0));//결제정보
+			request.setAttribute("shipmentInfos", shipmentInfos.get(0));//주문제품 내역에 대응하는 고객 기본정보
 			
 			
 			return 1;

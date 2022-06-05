@@ -62,5 +62,21 @@ public interface IMyPagesDAO {
 	 * @return
 	 */
 	String getMyPageOrderStep(String prodtOrderSeq);
+	
+	
+	/**
+	 * 결제정보
+	 * @param prodtOrderSeq
+	 * @return
+	 */
+	List<MyPageOrderPayDTO> getMyPageOrderProdtsPay(String prodtOrderSeq);
+	
+	/**
+	 * 주문정보에 대응되는 고객 기본정보 가져오기
+	 * @param userSeq
+	 * @param prodtOrderSeq
+	 * @return
+	 */
+	List<MyPageOrderPayUserDTO> getMyPageOrderProdtsShipmentInfos(int userSeq, String prodtOrderSeq);
 
 }

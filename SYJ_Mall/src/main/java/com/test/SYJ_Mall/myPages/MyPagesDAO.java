@@ -67,7 +67,7 @@ public class MyPagesDAO implements IMyPagesDAO{
 		map.put("prodtOrderSeq",prodtOrderSeq);
 		map.put("userSeq",Integer.toString(userSeq));
 		
-		return template.selectList("MyPages.myPageOrderProdtList",map);
+		return template.selectList("MyPages.myPageOrderProdtDetailList",map);
 	}
 	
 	//주문처리 단계(단수)
@@ -75,6 +75,24 @@ public class MyPagesDAO implements IMyPagesDAO{
 	public String getMyPageOrderStep(String prodtOrderSeq) {
 		
 		return template.selectOne("MyPages.myPageOrderProdtStep",prodtOrderSeq);
+	}
+	
+	//결제정보
+	@Override
+	public List<MyPageOrderPayDTO> getMyPageOrderProdtsPay(String prodtOrderSeq) {
+		
+		return template.selectList("MyPages.myPageOrderProdtPayInfo",prodtOrderSeq);
+	}
+	
+	//주문정보에 대응되는 고객 기본정보 가져오기
+	@Override
+	public List<MyPageOrderPayUserDTO> getMyPageOrderProdtsShipmentInfos(int userSeq, String prodtOrderSeq) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("prodtOrderSeq",prodtOrderSeq);
+		
+		return template.selectList("MyPages.myPageOrderProdtUserInfo",map);
 	}
 	
 }

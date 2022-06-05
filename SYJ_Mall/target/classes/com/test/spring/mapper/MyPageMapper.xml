@@ -71,21 +71,10 @@
 	</select>
 	
 	
-	<!-- 주문내역 물품 날짜 객체 -->
-	<select id="myPageOrderProdtList"
+	<!-- 회원이 주문한 물품 자세한 사항 정보 -->
+	<select id="myPageOrderProdtDetailList"
 		parameterType="java.util.HashMap"
 		resultType="com.test.SYJ_Mall.myPages.MyPageOrderProdtDTO"
-		statementType="CALLABLE">
-		{
-		call dbo.kakao_mypage_order_list_prodts(#{userSeq},#{prodtOrderSeq})
-		}
-	</select>
-	
-	
-	<!-- 회원이 주문한 물품 자세한 사항 정보 -->
-	<select id="myPageOrderProdtList"
-		parameterType="java.util.HashMap"
-		resultType="String"
 		statementType="CALLABLE">
 		{
 		call dbo.kakao_mypage_order_list_prodts(#{userSeq},#{prodtOrderSeq})
@@ -104,6 +93,26 @@
 	</select>
 	
 	
+	<!-- 해당 주문번호에 대응되는 결제정보 -->
+	<select id="myPageOrderProdtPayInfo"
+		parameterType="String"
+		resultType="com.test.SYJ_Mall.myPages.MyPageOrderPayDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_order_list_prodts_payment_info(#{prodtOrderSeq})
+		}
+	</select>	
+	
+	
+	<!-- 해당 주문번호에 대응되는 유저정보 -->
+	<select id="myPageOrderProdtUserInfo"
+		parameterType="java.util.HashMap"
+		resultType="com.test.SYJ_Mall.myPages.MyPageOrderPayUserDTO"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_mypage_order_list_prodts_user_infos(#{userSeq},#{prodtOrderSeq})
+		}
+	</select>	
 	
 	
 

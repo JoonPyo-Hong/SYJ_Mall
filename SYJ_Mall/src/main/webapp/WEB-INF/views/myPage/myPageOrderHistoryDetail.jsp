@@ -40,7 +40,7 @@
   width: 14px;
   height: 17px;
   margin: 0px 7px;
-  background: url(../images/mypage_orderlist_detail/ico_step.png) 0% 0% / 14px
+  background: url(/SYJ_Mall/resources/images/mypage_orderlist_detail/ico_step.png) 0% 0% / 14px
     no-repeat;
 }
 
@@ -273,12 +273,38 @@
 
           <!-- 주문번호 -->
           <div class="order-number-box-wrap">
-            <div class="order-number">주문번호 K2112291627309793</div>
+            <div class="order-number">주문번호 ${prodtOrderSeq}</div>
             <ul class="order-step">
-              <li class="active">주문 접수</li>
-              <li>배송 준비중</li>
-              <li>배송중</li>
-              <li>배송 완료</li>
+              <c:if test="${orderStep eq 'S0'}">
+              	<li class="active">주문 접수</li>
+              	<li>배송 준비중</li>
+              	<li>배송중</li>
+              	<li>배송 완료</li>
+              </c:if>
+              <c:if test="${orderStep eq 'S1'}">
+              	<li>주문 접수</li>
+              	<li class="active">배송 준비중</li>
+              	<li>배송중</li>
+              	<li>배송 완료</li>
+              </c:if>
+              <c:if test="${orderStep eq 'S2'}">
+              	<li>주문 접수</li>
+              	<li>배송 준비중</li>
+              	<li class="active">배송중</li>
+              	<li>배송 완료</li>
+              </c:if>
+              <c:if test="${orderStep eq 'S3'}">
+              	<li>주문 접수</li>
+              	<li>배송 준비중</li>
+              	<li>배송중</li>
+              	<li class="active">배송 완료</li>
+              </c:if>
+              <c:if test="${orderStep eq 'S4'}">
+              	<li>주문 접수</li>
+              	<li>배송 준비중</li>
+              	<li>배송중</li>
+              	<li class="active">배송 완료</li>
+              </c:if>
             </ul>
             <!-- 전체 취소는 주문 접수 일 때 만 화면에 표기 -->
             <button class="cancel">전체 취소</button>
@@ -287,25 +313,43 @@
           <!-- 주문제품 -->
           <div class="order-item-box-wrap">
             <div class="title">주문제품</div>
-            <div class="order-item-list">
-              <ul>
-                <li>
-                  <div class="order-info">
-                    <div class="wrap-thumb">
-                      <img src="./images/mypage_orderlist/product.jpg">
-                    </div>
-                    <div class="info-orderlist">
-                      <div class="info">
-                        <div class="info-title">2022 탁상용 캘린더_프렌즈</div>
-                        <div class="unit-price">8000원 / 1개</div>
-                      </div>
-                      <div class="state">주문접수</div>
-                    </div>
-                  </div>
-                  <button class="service">실시간 상담</button>
-                </li>
-              </ul>
-            </div>
+            <c:forEach var="opls" items="${orderProdtList}">
+	           <div class="order-item-list" id="${opls.prodtSeq}">
+	              <ul>
+	                <li>
+	                  <div class="order-info">
+	                    <div class="wrap-thumb">
+	                      <img src="${opls.prodtImg}">
+	                    </div>
+	                    <div class="info-orderlist">
+	                      <div class="info">
+	                        <div class="info-title">${opls.prodtName}</div>
+	                        <div class="unit-price">${opls.prodtPrice}원 / ${opls.prodtBuyCount}개</div>
+	                      </div>
+	                      <c:if test="${orderStep eq 'S0'}">
+	                      	<div class="state">주문접수</div>
+	                      </c:if>
+	                      <c:if test="${orderStep eq 'S1'}">
+	                      	<div class="state">배송 준비중</div>
+	                      </c:if>
+	                      <c:if test="${orderStep eq 'S2'}">
+	                      	<div class="state">배송중</div>
+	                      </c:if>
+	                      <c:if test="${orderStep eq 'S3'}">
+	                      	<div class="state">배송 완료</div>
+	                      </c:if>
+	                      <c:if test="${orderStep eq 'S4'}">
+	                      	<div class="state">구매 확정</div>
+	                      </c:if>
+	                    </div>
+	                  </div>
+	                  <button class="service">실시간 상담</button>
+	                </li>
+	              </ul>
+	            </div>
+            </c:forEach>
+
+            
           </div>
           <!-- 결제정보 -->
           <div class="purchase-box-wrap">
@@ -317,29 +361,29 @@
               </li>
               <li>
                 <div class="list-title">결제일시</div>
-                <div class="list-contents">2022-01-01 15:25:13</div>
+                <div class="list-contents">${prodtPays.payDatetime}</div>
               </li>
             </ul>
             <ul class="list-type product-info">
               <li>
                 <div class="list-title">상품가</div>
-                <div class="list-contents"><b>8,000원</b></div>
+                <div class="list-contents"><b>${prodtPays.payMoney}원</b></div>
               </li>
               <li>
                 <div class="list-title">배송비</div>
-                <div class="list-contents">3,000원</div>
+                <div class="list-contents">${prodtPays.payShippment}원</div>
               </li>
               <li>
                 <div class="list-title">포인트</div>
-                <div class="list-contents">0원</div>
+                <div class="list-contents">${prodtPays.payPoint}원</div>
               </li>
               <li>
                 <div class="list-title">기프트카드</div>
-                <div class="list-contents">0원</div>
+                <div class="list-contents">${prodtPays.payGiftCard}원</div>
               </li>
               <li class="final-cost">
                 <div class="list-title">최종 결제금액</div>
-                <div class="list-contents">11,000원</div>
+                <div class="list-contents">${prodtPays.totalPayMomey}원</div>
               </li>
             </ul>
           </div>
@@ -349,15 +393,15 @@
             <div class="order-customer info-box">
               <div class="customer">주문고객</div>
               <div class="customer-info">
-                <div><b class="name">예림</b> 01012345678</div>
-                <div>kakao@naver.com</div>
+                <div><b class="name">${shipmentInfos.userName}</b> ${shipmentInfos.userPhoneNum}</div>
+                <div>${shipmentInfos.userEmail}</div>
               </div>
             </div>
             <div class="receive-customer info-box">
               <div class="customer">받는 분</div>
               <div class="customer-info">
-                <div><b class="name">예림</b> 01012345678</div>
-                <div>[63309] 제주특별자치도 제주시 첨단로 242</div>
+                <div><b class="name">${shipmentInfos.userName}</b>${shipmentInfos.userPhoneNum}</div>
+                <div>${shipmentInfos.userAddr}</div>
               </div>
             </div>
           </div>
