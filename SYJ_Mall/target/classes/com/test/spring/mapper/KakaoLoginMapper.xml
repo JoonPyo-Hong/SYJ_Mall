@@ -49,9 +49,9 @@
 	<select id="qooSignUpsp" resultType="Integer" parameterType="com.test.SYJ_Mall.login.SignUpDTO" statementType="CALLABLE" >
 		
 		declare @result int
-		exec dbo.qoo_sign_up #{qoouser_id},#{qoouser_pw},#{qoouser_birthday},#{qoouser_email},#{qoouser_gender},
+		exec @result = dbo.qoo_sign_up #{qoouser_id},#{qoouser_pw},#{qoouser_birthday},#{qoouser_email},#{qoouser_gender},
 							 #{qoouser_nation}, #{qoouser_ipaddress}, #{qoouser_phone_num}, #{qoouser_receive_email},
-							 #{qoouser_receive_sms}, #{qoouser_name}, @result output
+							 #{qoouser_receive_sms}, #{qoouser_name}, #{qoouser_addr_info}
 		select @result
 		
 	</select>

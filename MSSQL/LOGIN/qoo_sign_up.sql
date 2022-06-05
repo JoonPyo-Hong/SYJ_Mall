@@ -5,6 +5,7 @@
 	     
 	History	: 2021-05-22 Seunghwan Shin	#최초 생성  
 			  2022-03-02 Seunghwan Shin	#트랜잭션 처리 변경  
+			  2022-06-05 Seunghwan Shin	#회원주소 추가
 */
 alter proc dbo.qoo_sign_up
 	@qoouser_id varchar(100) -- 아이디
@@ -18,7 +19,7 @@ alter proc dbo.qoo_sign_up
 ,	@qoouser_receive_email char(1) -- 이메일 알람
 ,	@qoouser_receive_sms char(1) -- sms 알람
 ,	@qoouser_name nvarchar(30) -- 이름
-,	@check int output
+,	@qoouser_address nvarchar(200) -- 회원주소
 as 
 set nocount on 
 set transaction isolation level read uncommitted 
@@ -44,6 +45,7 @@ begin
 			,	qoouser_lastlogin_datetime
 			,	qoouser_lastlogin_ipaddress
 			,	qoouser_name
+			,	qoouser_address
 			)
 			values
 			(
@@ -64,15 +66,16 @@ begin
 			,	null
 			,	@qoouser_ipaddress
 			,	@qoouser_name
+			,	@qoouser_address
 			)
 		
 			if @@ERROR <> 0
 			begin
-				set @check = -1
+				return -1
 			end
 			else
 			begin
-				set @check = 1
+				return 1
 			end
 
 end

@@ -7,6 +7,7 @@
 <script type="text/javascript" src="<c:url value="resources/js/rsa.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/prng4.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
@@ -14,6 +15,28 @@
     <link rel="icon" href="resources/images/main/kakao_ryan.ico">
 	<link rel = "stylesheet" href = "resources/css/userlogin/userSignUp.css">
 </head>
+
+<style>
+
+.input_box {
+	position: relative;
+}
+
+.search-icon {
+	position: absolute;
+	display: block;
+	background: url(/SYJ_Mall/resources/images/main2/ico_search.png) center center  no-repeat;
+	background-size: 45%;
+	cursor: pointer;
+	height : 45px;
+	width : 45px;
+	top: 20px;
+  	right: 2px;
+}
+	
+
+</style>
+
 <body>
 	
     <input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}" />
@@ -161,12 +184,22 @@
             <div class="error_next_box" id="smserrmsg" style="display:none;"></div>
         </div>
 
-        
-
-
+        <div id="user_addr_info_first" class="input_box">
+       		<div class = "info_name">주소찾기</div>
+       		<div class = "info_write"><input id = "addr_input_first" class = "inputs_info" type="text" name = "addr_input_first" autocomplete="off" readonly="readonly"></div>
+       		<div class = "search-icon" id="juso_search"></div>
+       		<div class = "info_write"><input id = "addr_input_second" class = "inputs_info" type="text" name = "addr_input_second" autocomplete="off" placeholder="나머지 주소"></div>
+        	
+        	<div class="error_next_box" id="addrerrmsg" style="display:none;"></div>
+        </div>
+		
+		<div style="height:50px;"></div>
+		
         <div id = "submit_button" style="margin-top:50px;">
             <input id = "submit_info" type="button" value="가입하기">
         </div>
+        
+        <div style="height:50px;"></div>
 
     </form>
 
@@ -712,12 +745,7 @@
         		return false;
         	}
         	
-        	//아래조건은 필요없을듯
-        	/*if(phoneVal.length != 11) {
-        		common('phoneerrmsg','red','휴대전화번호를 확인해주십시오.');
-        		return false;
-        	} */
-        	
+
         	var isCheck = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g
         	
         	if(!isCheck.test(phoneVal)) {
@@ -821,6 +849,62 @@
             
         });
         
+        
+      	//12. 회원의 주소 입력
+      	var addrFlag_first = false;
+      	
+      	$('#addr_input_first').blur(function(){
+      		addrFlag_first = false;
+      		
+      		var checkAddr = this.value;
+      		
+        	if (checkAddr == "") {
+        		common('addrerrmsg','red','주소를 확인해주세요.');
+        		return false;
+        	}
+      		
+        	commondel('addrerrmsg');
+        	addrFlag_first = true;
+      	});
+      	
+      	
+       //13. 회원의 상세주소 입력
+       var addrFlag_second = false;
+      	
+    	$('#addr_input_second').blur(function(){
+    		addrFlag_second = false;
+    		
+    		var checkAddrPlus = this.value;
+    		
+      		if (checkAddrPlus == "") {
+      			common('addrerrmsg','red','상세주소를 확인해주세요.');
+      			return false;
+      		}
+      		commondel('addrerrmsg');
+      		addrFlag_second = true;
+    	});
+       
+       
+   		$(document).on("click", "#addr_input_first",function(e) {
+   			addr_input();
+   		});
+   		
+   		$(document).on("click", "#juso_search",function(e) {
+   			addr_input();
+   		});
+      	
+   		//다음 주소 라이브러리 발생
+      	function addr_input() {
+      		new daum.Postcode({
+	            oncomplete: function(data) {
+	  
+	                let roadAddr = data.roadAddress; 
+
+	                document.getElementById("addr_input_first").value = roadAddr;
+	            }
+			}).open();
+      	}
+      	
                 
 
 
@@ -888,7 +972,7 @@
       		
       		if (idFlag == true && pwFlag == true && pwCheckFlag == true && nameFlag == true && 
       			genderFlag == true && nationFlag == true && birthFlag == true && emailchFlag == true &&
-      			emailFlag == true && phoneFlag == true && smsFlag == true) {
+      			emailFlag == true && phoneFlag == true && smsFlag == true && addrFlag_first == true && addrFlag_second == true) {
       			
           		var username = document.getElementById("id_input").value;//유저가 작성한 아이디
           	    var password = document.getElementById("pw_input").value;//유저가 작성한 비밀번호
@@ -970,11 +1054,24 @@
       				return false;
       			}
       			
+      			//12. 주소를 넣지 않은 경우
+      			if (addrFlag_first == false) {
+      				$("#addr_input_first").focus();
+      				return false;
+      			}
+      			
+      			//13. 상세주소를 넣지 않은 경우
+      			if (addrFlag_second == false) {
+      				$("#addr_input_second").focus();
+      				return false;
+      			}
+      			
       		}
 
       	});
         
-        
+      	
+      		
       	//회원가입 버튼 클릭시 -> 데이터를 넘겨주는 부분
       	function submitEncryptedForm(username, password, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
       	    var rsa = new RSAKey();

@@ -11,22 +11,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
-<meta name="viewport"
-	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <title>카카오 프렌즈샵</title>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- <script type="text/javascript" src="./js/main.js"></script> -->
 <!--  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" /> -->
-<link rel="stylesheet" type="text/css"
-	href="resources/css/pay/fonts.css" />
-<link rel="stylesheet" type="text/css"
-	href="resources/css/pay/common.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/pay/fonts.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/pay/common.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/pay/main.css" />
 <!-- <link rel="stylesheet" type="text/css" href="./css/basket.css" /> -->
 <link rel="stylesheet" type="text/css" href="resources/css/pay/seen.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/pay/act.css" />
-<link rel="stylesheet" type="text/css"
-	href="resources/css/pay/product_order.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/pay/product_order.css" />
 </head>
 <body>
 
