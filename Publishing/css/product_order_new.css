@@ -63,9 +63,9 @@ input[type="checkbox"]:checked + label {
   position: relative;
   width: 100px;
   height: 100px;
-  background: url(../images/product_order/20210617184011808_8809721509685_8809721509685_AW_00.jpg)
-    no-repeat;
-  background-size: contain;
+  background:no-repeat;
+  background-size: cover;/*contain; 바꿨는데 나중에 확인ㄴ*/
+ 
 }
 
 .product-text {
@@ -346,9 +346,7 @@ input[type="radio"] {
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
-  padding-left : 10px;
   border-bottom: 1px solid rgb(245, 246, 246);
-
 }
 
 .pay-list-li {
@@ -426,13 +424,11 @@ input[type="radio"] {
   margin-left: 7px;
   font-size: 13px;
   color: rgb(154, 154, 158);
- 
 }
 
 .pay-agree-wrapper .check-box-area .check-box-text {
   font-size: 15px;
   margin-left: 10px;
-  width:300px;
 }
 
 .pay-agree-wrapper .check-box-area .check-box-text.underline {

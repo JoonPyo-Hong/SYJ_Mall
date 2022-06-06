@@ -150,10 +150,14 @@
 		<put-attribute name = "body" value="/WEB-INF/views/productInfo/productDetail.jsp"/>	
 	</definition>
 	
-	
 	<!-- 주문상세 -->
 	<definition name = "/semitiles/productOrderHistoryDetail.layout" extends="newsemiDefaultThree">
 		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageOrderHistoryDetail.jsp"/>	
+	</definition>
+	
+	<!-- 결제하기(주문하기) -->
+	<definition name = "/semitiles/productOrderPay.layout" extends="newsemiDefaultTwo">
+		<put-attribute name = "body" value="/WEB-INF/views/prodtPay/prodtOrderPay.jsp"/>	
 	</definition>
 
 	

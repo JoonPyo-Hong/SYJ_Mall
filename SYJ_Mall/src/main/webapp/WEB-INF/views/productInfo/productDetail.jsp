@@ -1250,7 +1250,7 @@ div.theme-more-view::after {
 		                                    </div>
 		      								<div class="like">
 		      									<div class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></div>
-		      									<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
+		      									<button>좋아요 ${reviewDto.likeCount}명</button>
 		                                    </div>
 	                                	</li>
 	                                </c:forEach>
@@ -1278,13 +1278,13 @@ div.theme-more-view::after {
 		      								<c:if test="${reviewDto.likeYn eq 'N'}">
 		      									<div class="like">
 		      										<div class="heart" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></div>
-		      										<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
+		      										<button>좋아요 ${reviewDto.likeCount}명</button>
 		                                    	</div>
 		      								</c:if>
 		      								<c:if test="${reviewDto.likeYn eq 'Y'}">
 		      									<div class="like">
 		      										<div class="heart check" id="${reviewDto.pdOrderSeq}#${reviewDto.productId}"></div>
-		      										<button>&nbsp;좋아요 ${reviewDto.likeCount}명</button>
+		      										<button>좋아요 ${reviewDto.likeCount}명</button>
 		                                    	</div>
 		      								</c:if>
 	                                	</li>
@@ -1715,7 +1715,7 @@ div.theme-more-view::after {
                     		if (result[i].likeYn == 'Y') comment += '<span class="heart check" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '"></span>';
                     		else comment += '<div class="heart" id="' + result[i].pdOrderSeq +'#'+ result[i].productId + '"></div>';
                     		
-                    		comment += '<button>&nbsp;좋아요 ' + result[i].likeCount + '명</button>'
+                    		comment += '<button>좋아요 ' + result[i].likeCount + '명</button>'
                     		comment += '</div>'
                     		comment += '</li>'
                     	}
@@ -1806,7 +1806,7 @@ div.theme-more-view::after {
                     dataType : "json",
                     success : function(result) {
 						
-                    	$(object).siblings('button').text(' 좋아요 ' + result + '명' );
+                    	$(object).siblings('button').text('좋아요 ' + result + '명' );
                     	
                     },
                     error: function(a,b,c) {
