@@ -2,6 +2,7 @@ package com.test.SYJ_Mall.productDetail;
 
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,8 +50,21 @@ public interface IProductDetailService {
 	 */
 	List<ProductDetailReviewDTO> getProdtReviewPage(HttpServletRequest request, ErrorAlarm ea);
 	
-	//리뷰쓰기
+	/**
+	 * 리뷰쓰기
+	 * @param request
+	 * @param ea
+	 * @return
+	 */
 	int getReviewWritingInfo(HttpServletRequest request, ErrorAlarm ea);
+	
+	/**
+	 * 리뷰에 대해서 좋아요 눌렀을 경우에 해당 리뷰에 대한 좋아요 개수 가져오기
+	 * @param request
+	 * @param ea
+	 * @return
+	 */
+	int getReviewWritingLikeCnt(HttpServletRequest request, ErrorAlarm ea);
 	
 
 }

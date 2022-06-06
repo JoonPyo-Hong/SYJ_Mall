@@ -2,6 +2,7 @@ package com.test.SYJ_Mall;
 
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,7 @@ import com.test.SYJ_Mall.productDetail.ProductDetailReviewDTO;
  *
  */
 @Controller
-public class ProductDetail {
+public class ProductDetailController {
 	
 	@Autowired
 	private IProductDetailService service;
@@ -58,6 +59,15 @@ public class ProductDetail {
 		
 		return service.getReviewWritingInfo(request,ea);
 	}
+	
+	//댓글에 좋아요 누른 경우 -> 현재 좋아요 개수 가져오기
+	@RequestMapping(value = "/productReviewLikeCnt.action", method = { RequestMethod.GET , RequestMethod.POST})
+	@ResponseBody
+	public int productReviewLikeCnt(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea) {
+		
+		return service.getReviewWritingLikeCnt(request,ea);
+	}
+	
 	
 	//리뷰쓰기(test 용도)
 	@RequestMapping(value = "/shtestint.action", method = { RequestMethod.GET , RequestMethod.POST})

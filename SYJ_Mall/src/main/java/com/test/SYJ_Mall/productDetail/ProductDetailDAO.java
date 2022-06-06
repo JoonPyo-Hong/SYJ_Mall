@@ -160,6 +160,16 @@ public class ProductDetailDAO implements IProductDetailDAO {
 		return template.selectOne("ProductDetails.productBuyReviewWriting",map);
 	}
 
+	//리뷰에 대해서 좋아요 눌렀을 경우에 해당 리뷰에 대한 좋아요 개수 가져오기
+	@Override
+	public int getProductReviewLikeCnt(String pdOrderSeq, String prodtId) {
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("pdOrderSeq",pdOrderSeq);
+		map.put("prodtId",prodtId);
+		
+		return template.selectOne("ProductDetails.productBuyReviewLikeCnt",map);
+	}
+
 
 	
 

@@ -13,29 +13,8 @@
     <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
     <title>Document</title>
     <link rel="icon" href="resources/images/main/kakao_ryan.ico">
-	<link rel = "stylesheet" href = "resources/css/userlogin/userSignUp.css">
+	<link rel = "stylesheet" href = "resources/css/userlogin/userSignUpNew.css">
 </head>
-
-<style>
-
-.input_box {
-	position: relative;
-}
-
-.search-icon {
-	position: absolute;
-	display: block;
-	background: url(/SYJ_Mall/resources/images/main2/ico_search.png) center center  no-repeat;
-	background-size: 45%;
-	cursor: pointer;
-	height : 45px;
-	width : 45px;
-	top: 20px;
-  	right: 2px;
-}
-	
-
-</style>
 
 <body>
 	

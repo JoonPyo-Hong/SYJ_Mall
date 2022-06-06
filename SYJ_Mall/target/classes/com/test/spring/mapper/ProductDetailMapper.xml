@@ -102,6 +102,13 @@
 		   select @result
 	</select>
 	
+	<!-- 리뷰에 대해서 좋아요 눌렀을 경우에 해당 리뷰에 대한 좋아요 개수 가져오기 -->
+	<select id="productBuyReviewLikeCnt" resultType="Integer" parameterType="java.util.HashMap" statementType="CALLABLE" >
+		{
+			call dbo.kakao_product_detail_review_like_cnt(#{prodtId},#{pdOrderSeq})
+		}
+	</select>
+	
 	
 	
 </mapper>

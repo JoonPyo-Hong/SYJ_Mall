@@ -91,6 +91,10 @@
   display: flex;
 }
 
+.order-info:hover{
+  cursor:pointer;
+}
+
 .order-item-box-wrap ul li .wrap-thumb {
   overflow: hidden;
   float: left;
@@ -314,7 +318,7 @@
           <div class="order-item-box-wrap">
             <div class="title">주문제품</div>
             <c:forEach var="opls" items="${orderProdtList}">
-	           <div class="order-item-list" id="${opls.prodtSeq}">
+	           <div class="order-item-list" id="${opls.prodtSeq}" onclick="location.href='/SYJ_Mall/productDetailMain.action?prodtSeq=${opls.prodtSeq}'">
 	              <ul>
 	                <li>
 	                  <div class="order-info">

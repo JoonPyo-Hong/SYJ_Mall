@@ -118,6 +118,14 @@ public interface IProductDetailDAO {
 	 * @return
 	 */
 	int getProductReviewWriting(String userSeq, String prodtSeq, String reviewText, String starCount);
+	
+	/**
+	 * 리뷰에 대해서 좋아요 눌렀을 경우에 해당 리뷰에 대한 좋아요 개수 가져오기
+	 * @param pdOrderSeq
+	 * @param prodtId
+	 * @return
+	 */
+	int getProductReviewLikeCnt(String pdOrderSeq, String prodtId);
 
 	
 	

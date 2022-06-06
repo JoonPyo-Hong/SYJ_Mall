@@ -1783,11 +1783,38 @@ div.theme-more-view::after {
 					//여기서 좋아요 누르기 작업 진행
 					let review_result = review_like_checking(click_info);
 					
-					if (review_result == 1) $(object).attr('class','heart check');
-					if (review_result == 2) $(object).attr('class','heart');
+					if (review_result == 1) {//좋아요 + 1
+						$(object).attr('class','heart check');
+						get_review_like_cnt(object);
+					}
+					if (review_result == 2) {//좋아요 - 1
+						 $(object).attr('class','heart');
+						 get_review_like_cnt(object);
+					}
 				}
 			});
 			
+          	//리뷰에 좋아요 눌렀을 경우에 현재 좋아요 개수 가져오기
+          	function get_review_like_cnt(object) {
+          		const review_like_id = $(object).attr('id');
+          		
+          		$.ajax({
+                	type:"GET",
+                    url: "/SYJ_Mall/productReviewLikeCnt.action" ,
+                    async : false,
+                    data : {"reviewId" : review_like_id},
+                    dataType : "json",
+                    success : function(result) {
+						
+                    	$(object).siblings('button').text(' 좋아요 ' + result + '명' );
+                    	
+                    },
+                    error: function(a,b,c) {
+        					console.log(a,b,c);
+        			}
+          		
+          		});
+          	}
           	
           	let star_count = ${prodtInfo.prodStars};//별의 개수
           	
@@ -1811,7 +1838,7 @@ div.theme-more-view::after {
                     		//글동록 -> 바로 적어주는 로직이 필요해보인다.
                     		setTimeout(function() {
                     			location.reload();
-                    		},800);
+                    		},1200);
                     	} else if (result == -2) {
                     		//구입한 적이 없음
                     	} else if (result == -3) {

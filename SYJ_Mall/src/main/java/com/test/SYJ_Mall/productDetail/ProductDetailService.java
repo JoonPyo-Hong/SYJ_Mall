@@ -3,6 +3,7 @@ package com.test.SYJ_Mall.productDetail;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -283,6 +284,25 @@ public class ProductDetailService implements IProductDetailService{
 			
 			return dao.getProductReviewWriting(userSeq,prodtSeq,reviewText,starCount);
 			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+	}
+	
+	//리뷰에 대해서 좋아요 눌렀을 경우에 해당 리뷰에 대한 좋아요 개수 가져오기
+	@Override
+	public int getReviewWritingLikeCnt(HttpServletRequest request, ErrorAlarm ea) {
+		try {
+			
+			String reviewInfo = request.getParameter("reviewId");
+			
+			StringTokenizer stk = new StringTokenizer(reviewInfo,"#");
+			
+			String pdOrderSeq = stk.nextToken();
+			String prodtId = stk.nextToken();
+			
+			return dao.getProductReviewLikeCnt(pdOrderSeq,prodtId);
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;

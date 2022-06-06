@@ -43,10 +43,24 @@
         /* 회원가입 정보 입력하는 란 */
         .input_box {
             /* border: 1px solid red; */
+            position: relative;
             margin: 10px auto;
             width: 350px;
             height: 80px;
         }
+       
+        .search-icon {
+			position: absolute;
+			display: block;
+			background: url(/SYJ_Mall/resources/images/main2/ico_search.png) center center  no-repeat;
+			background-size: 45%;
+			cursor: pointer;
+			height : 45px;
+			width : 45px;
+			top: 20px;
+		  	right: 2px;
+		}
+	
 
         /* 정보입력창 감싸는 영역 */
         .info_write {
