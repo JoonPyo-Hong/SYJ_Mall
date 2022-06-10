@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>        
+ <script type="text/javascript" src="resources/js/commonjs/common.js"></script>
  
  
  <style>
@@ -260,15 +261,8 @@ select {
 /* 결제수단 선택 */
 .pay-select-wrap .pay-select-title {
   font-weight: bold;
-  padding-top: 20px;
-  height: 38px;
-  font-size: 16px;
-}
-
-.pay-select-wrap .pay-select-title {
-  font-weight: bold;
-  padding-top: 20px;
-  height: 38px;
+  padding-top: 10px;
+  height: 40px;
   font-size: 16px;
 }
 
@@ -599,10 +593,11 @@ input[type="radio"] {
        <!-- 입력 창 -->
        <!-- 나라 -->
        <div class="input-text-row select-country">
-         <label content="한국" height="45" class="select-label">
+         <!-- <label content="한국" height="45" class="select-label"> -->
            <select height="45" class="select-select" name="shippingCountry">
              <option value="KR">한국</option>
-           </select></label>
+           </select>
+       	<!-- </label> -->
        </div>
        <div required="" class="input-text-row field-name">
          <input placeholder="이름" error="0" align="left" padding="15" class="input-text" name="shippingName"
@@ -613,17 +608,15 @@ input[type="radio"] {
            name="shippingName" value="" />
        </div>
        <div class="input-text-row field-address">
-         <input placeholder="주소 찾기" error=" 0" align="left" padding="15" class="input-text" name="shippingName"
-           value="" />
-         <div class="field-address-search-icon"></div>
+         <input placeholder="주소 찾기" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_first" value="" />
+         <div class="field-address-search-icon" id="addr_search_icon"></div> 
        </div>
        <div class="input-text-row field-address-detail">
-         <input placeholder="나머지 주소" error=" 0" align="left" padding="15" class="input-text" name="shippingName"
-           value="" />
+         <input placeholder="나머지 주소" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_second" value="" />
        </div>
        <div class="input-text-row field-text-area">
-         <textarea maxlength="50" placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
-         <p class="textarea-messages">50자 이내로 입력해주세요 (0 / 50)</p>
+         <textarea id="msg_input" maxlength="50" placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
+         <p class="textarea-messages" id="msg_len_check">50자 이내로 입력해주세요 (0 / 50)</p>
        </div>
        <!-- 자동 저장 -->
        <div class="check-box-area">
@@ -685,11 +678,11 @@ input[type="radio"] {
        <div class="pay-select-title">
          결제수단 선택
        </div>
-       <div class="pay-methods-paylabel-wrap">
-         <input id="kakaopay" type="radio" value="kakaopay" checked="" name="paylabel">
-         <label for="kakaopay" class="pay-methods-paylabel kakaopay">카카오페이</label>
+       <div class="pay-methods-paylabel-wrap" >
+         <input id="kakaopay" type="radio" value="kakaopay" checked="" name="paylabel" >
+         <label for="kakaopay" class="pay-methods-paylabel kakaopay"  style="height : 116px;">카카오페이</label>
          <input id="creditcard" type="radio" value="creditcard" name="paylabel">
-         <label for="creditcard" class="pay-methods-paylabel creditcard">신용카드</label>
+         <label for="creditcard" class="pay-methods-paylabel creditcard"  style="height : 116px;">신용카드</label>
        </div>
        <p class="pay-methods-help">
          <strong>카카오페이</strong>로 간편하고 안전하게 결제!
@@ -739,3 +732,46 @@ input[type="radio"] {
       </div>
     </div>
   </div>
+  
+  
+  
+  <script>
+  	
+  /* 배송요청 메시지 작성 이벤트 처리  */
+  let text_flag = true;
+  
+  $(document).on('keyup','#msg_input',function(e){
+		const text_len = $('#msg_input').val().length;
+		
+		let inner_msg = '50자 이내로 입력해주세요';
+		inner_msg += ' (';
+		inner_msg += text_len;
+		inner_msg += ' / ';
+		inner_msg += '50)';
+		
+		$('#msg_len_check').text(inner_msg);
+		
+		
+	});
+  	
+  
+  /* 주소 찾아주기 */	
+  $('#ship_name_first').click(function(){
+	  search_user_addr('ship_name_first'); 
+  });
+  
+  $('#addr_search_icon').click(function(){
+	  search_user_addr('ship_name_first'); 
+  });
+  	
+  	
+
+  
+  
+  
+  </script>
+  
+  
+  
+  
+  

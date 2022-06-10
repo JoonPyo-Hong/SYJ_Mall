@@ -8,6 +8,7 @@
 <script type="text/javascript" src="<c:url value="resources/js/prng4.js"/>"></script>
 <script type="text/javascript" src="<c:url value="resources/js/rng.js"/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ <script type="text/javascript" src="resources/js/commonjs/common.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
@@ -865,15 +866,15 @@
        
        
    		$(document).on("click", "#addr_input_first",function(e) {
-   			addr_input();
+   			search_user_addr('addr_input_first');
    		});
    		
    		$(document).on("click", "#juso_search",function(e) {
-   			addr_input();
+   			search_user_addr('addr_input_first');
    		});
       	
    		//다음 주소 라이브러리 발생
-      	function addr_input() {
+/*       	function addr_input() {
       		new daum.Postcode({
 	            oncomplete: function(data) {
 	  
@@ -883,7 +884,7 @@
 	            }
 			}).open();
       	}
-      	
+      	 */
                 
 
 

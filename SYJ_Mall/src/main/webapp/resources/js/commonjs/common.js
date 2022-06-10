@@ -1,6 +1,5 @@
 
 //-------------common use js
-
 //mobile / pc checking
 function device_check() {
 	// device checking
@@ -28,6 +27,24 @@ function money_dot(money) {
 	
 	return money.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
+
+
+// find address
+function search_user_addr(target) {
+	
+	new daum.Postcode({
+		oncomplete: function(data) {
+	  
+	   	let roadAddr = data.roadAddress; 
+		
+		console.log(target);
+		
+	   	document.getElementById(target).value = roadAddr;
+		
+		}
+	}).open();
+}
+
 
 
 // footer area add
