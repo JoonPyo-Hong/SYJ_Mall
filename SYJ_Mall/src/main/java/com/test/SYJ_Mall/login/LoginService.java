@@ -400,12 +400,13 @@ public class LoginService implements ILoginService {
 			String qoouser_receive_email = request.getParameter("email_agree_input");
 			String qoouser_receive_sms = request.getParameter("sms_agree_input");
 			
-			String qoouser_addr_info = request.getParameter("addr_input_first") + " " + request.getParameter("addr_input_second"); 
-			
+			String qoouser_addr_info = request.getParameter("addr_input_first"); 
+			String qoouser_addr_info_detail = request.getParameter("addr_input_second");
 			String qoouser_ipaddress = ipCheck(request);
 			
 			dto = new SignUpDTO(qoouser_id, qoouser_pw, qoouser_name, qoouser_gender, qoouser_nation, qoouser_birthday,
-					qoouser_phone_num, qoouser_email, qoouser_receive_email, qoouser_receive_sms, qoouser_ipaddress, qoouser_addr_info);
+					qoouser_phone_num, qoouser_email, qoouser_receive_email, qoouser_receive_sms, qoouser_ipaddress, qoouser_addr_info,
+					qoouser_addr_info_detail);
 
 			return dao.signUp(dto);
 		} catch(Exception e) {

@@ -16,7 +16,8 @@ public class SignUpDTO {
 	
 	public SignUpDTO(String qoouser_id, String qoouser_pw, String qoouser_name, String qoouser_gender,
 			String qoouser_nation, String qoouser_birthday, String qoouser_phone_num, String qoouser_email,
-			String qoouser_receive_email, String qoouser_receive_sms, String qoouser_ipaddress, String qoouser_addr_info) {
+			String qoouser_receive_email, String qoouser_receive_sms, String qoouser_ipaddress, String qoouser_addr_info,
+			String qoouser_addr_info_detail) {
 		super();
 		this.qoouser_id = qoouser_id;
 		this.qoouser_pw = qoouser_pw;
@@ -30,6 +31,7 @@ public class SignUpDTO {
 		this.qoouser_receive_sms = qoouser_receive_sms;
 		this.qoouser_ipaddress = qoouser_ipaddress;
 		this.qoouser_addr_info = qoouser_addr_info;
+		this.qoouser_addr_info_detail = qoouser_addr_info_detail;
 	}
 	
 	private String qoouser_id;
@@ -44,4 +46,5 @@ public class SignUpDTO {
 	private String qoouser_receive_sms;
 	private String qoouser_ipaddress;
 	private String qoouser_addr_info;
+	private String qoouser_addr_info_detail;
 }
