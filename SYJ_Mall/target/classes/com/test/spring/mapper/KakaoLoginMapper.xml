@@ -51,7 +51,7 @@
 		declare @result int
 		exec @result = dbo.qoo_sign_up #{qoouser_id},#{qoouser_pw},#{qoouser_birthday},#{qoouser_email},#{qoouser_gender},
 							 #{qoouser_nation}, #{qoouser_ipaddress}, #{qoouser_phone_num}, #{qoouser_receive_email},
-							 #{qoouser_receive_sms}, #{qoouser_name}, #{qoouser_addr_info}
+							 #{qoouser_receive_sms}, #{qoouser_name}, #{qoouser_addr_info} , #{qoouser_addr_info_detail}
 		select @result
 		
 	</select>

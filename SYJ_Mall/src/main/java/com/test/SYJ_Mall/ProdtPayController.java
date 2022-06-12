@@ -23,11 +23,13 @@ public class ProdtPayController {
 	private IProdtPayService service;
 	
 	//결제페이지 화면
-	@RequestMapping(value = "/prodtPayMain.action", method = { RequestMethod.GET })
+	@RequestMapping(value = "/prodtPayMain.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String prodtPayMain(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc, ErrorAlarm ea, StringFormatClass sf) {
 		
 		int result = service.getProdtPayStart(request,response,kc,ea,sf);
 		
-		return "/semitiles/productOrderPay.layout";
+		if (result == 1) return "/semitiles/productOrderPay.layout";
+		else return "/testwaiting/kakaoerror";
+		
 	}
 }

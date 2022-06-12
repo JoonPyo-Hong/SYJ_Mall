@@ -39,6 +39,7 @@ hr.division {
   background-size: 20px 20px;
 }
 
+
 input[id="product-checkbox"] {
   display: none;
 }
@@ -286,50 +287,52 @@ input[id="product-checkbox"]:checked {
 		</div>
 	</div>
 	<hr class="division" />
+	
 
-	<div class="basket-list-wrap">
-		<c:forEach var="mbdto" items="${mbdtoList}">
-				
-				<div class="basket-list-item" id="${mbdto.prodId}">
-					<div class="basket-left">
-						<!-- 상품 체크박스 -->
-						<div class="basket-check">
-							<label class="product-checkbox-label" id="pic${mbdto.prodId}"for="product-checkbox">
-								<input id="product-checkbox" type="checkbox" class="product-checkbox-input" />
-							</label>
-						</div>
-						<!-- 상품 내용 및 수량 -->
-						<div class="basket-content">
-							<a href="#">
-								<div class="product-img" style="background : url(/SYJ_Mall/${mbdto.picUrl}) no-repeat; background-size: contain"></div>
-							</a>
-							<div class="basket-text">
-								<c:choose>
-									<c:when test='${mbdto.dcYn eq "Y"}'>
-										<span class="product-name">${mbdto.prodNm}</span> <span class="product-price">${mbdto.dcPrice}원  <span class="product-price-dc">${mbdto.prodPrice}원</span></span>
-									</c:when>
-									<c:otherwise>
-										<span class="product-name">${mbdto.prodNm}</span> <span class="product-price">${mbdto.prodPrice}원</span>
-									</c:otherwise>
-								</c:choose>
-								<div class="product-count">
-									<label content="4" class="select-box__Label-iihqm7-0">
-										<select class="select-box__Select-iihqm7-2" onchange="buy_count_selected()">
-											<option value="1" selected>${mbdto.buyCount}</option>
-											<c:forEach var="num" begin="2" end="20">
-												<option value="${num}">${num}</option>
-											</c:forEach>
-										</select>
-									</label>
+		<div class="basket-list-wrap">
+			<c:forEach var="mbdto" items="${mbdtoList}">
+					
+					<div class="basket-list-item" id="${mbdto.prodId}">
+						<div class="basket-left">
+							<!-- 상품 체크박스 -->
+							<div class="basket-check">
+								<label class="product-checkbox-label" id="pic${mbdto.prodId}"for="product-checkbox">
+									<input id="product-checkbox" type="checkbox" class="product-checkbox-input" value="0"/>
+								</label>
+							</div>
+							<!-- 상품 내용 및 수량 -->
+							<div class="basket-content">
+								<a href="#">
+									<div class="product-img" style="background : url(/SYJ_Mall/${mbdto.picUrl}) no-repeat; background-size: contain"></div>
+								</a>
+								<div class="basket-text">
+									<c:choose>
+										<c:when test='${mbdto.dcYn eq "Y"}'>
+											<span class="product-name">${mbdto.prodNm}</span> <span class="product-price">${mbdto.dcPrice}원  <span class="product-price-dc">${mbdto.prodPrice}원</span></span>
+										</c:when>
+										<c:otherwise>
+											<span class="product-name">${mbdto.prodNm}</span> <span class="product-price">${mbdto.prodPrice}원</span>
+										</c:otherwise>
+									</c:choose>
+									<div class="product-count">
+										<label content="4" class="select-box__Label-iihqm7-0">
+											<select class="select-box__Select-iihqm7-2" onchange="buy_count_selected()">
+												<option value="1" selected>${mbdto.buyCount}</option>
+												<c:forEach var="num" begin="2" end="20">
+													<option value="${num}">${num}</option>
+												</c:forEach>
+											</select>
+										</label>
+									</div>
 								</div>
 							</div>
 						</div>
+						<!-- 상품 삭제 -->
+						<div class="basket-list-delete-btn"></div>
 					</div>
-					<!-- 상품 삭제 -->
-					<div class="basket-list-delete-btn"></div>
-				</div>
-		</c:forEach>
-	</div>
+			</c:forEach>
+		</div>
+
 	
 	<!-- 선택 상품 총 금액 영역-->
 	<div class="total-cost-bar-wrap">
@@ -365,12 +368,18 @@ input[id="product-checkbox"]:checked {
 	</c:if>
 </div>
 
+<form id = "prodt_pay_go" action="/SYJ_Mall/prodtPayMain.action" method="post">
+	<input type="hidden" name="product_obj_id" id="product_obj_id">
+	<input type="hidden" name="product_obj_cnt" id="product_obj_cnt">
+</form>
+ 
+
 <script>
 	
 	
 	let total_seleted = -1;//전체 선택 표시
 	let mbdto_json_arr = ${mbdtoJsonArr};//장바구니 내의 제품 json array
-
+	
 	
 	//선택한 물품을 체크해주거나 안해주거나 해주는 용도
 	$(document).on("click",".product-checkbox-label",function(e) {
@@ -379,7 +388,7 @@ input[id="product-checkbox"]:checked {
 		
 		let prodt_id = $(this).parent().parent().parent().attr("id");
 		
-		console.log(prodt_id);
+		//console.log(prodt_id);
 		const result = prodt_seleted_yn(prodt_id);
 		
 		
@@ -473,9 +482,9 @@ input[id="product-checkbox"]:checked {
 				const prodt_id = mbdto_json_arr[i].prodId;	
 				const prodt_cost = mbdto_json_arr[i].prodPrice;
 				const buy_count = $('#'+ prodt_id +' .select-box__Select-iihqm7-2 option:selected').val();
+				mbdto_json_arr[i].buyCount = buy_count;
 				
 				total_money += (parseInt(prodt_cost) * parseInt(buy_count));
-				
 			}
 		}
 		
@@ -578,6 +587,36 @@ input[id="product-checkbox"]:checked {
 	function basket_f5() {
 		location.href = "/SYJ_Mall/myPageMain.action?myPageNum=3";
 	}
+
+	
+ 	$('.bottom-bar').click(function(){
+ 		//결제페이지로 정보를 넘겨야 한다.
+ 		let prodt_id_list = '';
+ 		let prodt_cnt_list = '';
+ 				
+ 		
+ 		for (let i = 0; i < mbdto_json_arr.length; i++) {
+ 			
+ 			if (mbdto_json_arr[i].checkYn == 'Y') {
+ 				
+ 				prodt_id_list += mbdto_json_arr[i].prodId;
+ 				prodt_id_list += '#';
+ 				
+ 				prodt_cnt_list += mbdto_json_arr[i].buyCount;
+ 				prodt_cnt_list += '#';
+ 				
+ 			}
+ 		}
+ 		
+ 		$('#product_obj_id').val(prodt_id_list);
+ 		$('#product_obj_cnt').val(prodt_cnt_list);
+ 		
+ 		$('#prodt_pay_go').submit();
+ 		
+ 	});
+	
+
+	
 	
 	
 </script>
