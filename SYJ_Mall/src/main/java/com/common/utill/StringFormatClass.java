@@ -245,6 +245,32 @@ public class StringFormatClass {
 		}
 		
 		return sb.toString();
-	}	
+	}
+	
+	
+	/**
+	 * 구분자로 나뉘어진 문자를 배열에 담아서 리턴
+	 * @param input
+	 * @param split
+	 * @return
+	 */
+	public Object[] stringSplitList(String input, String split) {
+		
+		StringTokenizer stk = new StringTokenizer(input,split);
+		
+		int arrLength = stk.countTokens();
+		Object[] objArr = new Object[arrLength];
+		
+		int arrIndex = 0;
+		
+		while(stk.hasMoreTokens()) {
+			objArr[arrIndex] = stk.nextElement();
+			arrIndex++;
+		}
+		
+		return objArr;
+	}
+	
+	
 	
 }
