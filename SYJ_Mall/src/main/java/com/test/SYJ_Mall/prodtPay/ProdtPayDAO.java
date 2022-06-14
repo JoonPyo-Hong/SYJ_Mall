@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.prodtPay;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,13 @@ public class ProdtPayDAO implements IProdtPayDAO {
 	public int getTest() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	//구매할 상품의 정보 가져오기
+	@Override
+	public List<ProdtPayDTO> getProdtPayList(String prodtId) {
+		
+		return null;
 	}
 	
 	

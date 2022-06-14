@@ -249,22 +249,22 @@ public class StringFormatClass {
 	
 	
 	/**
-	 * 구분자로 나뉘어진 문자를 배열에 담아서 리턴
+	 * 문자를 구분자를 기준으로 나누어 배열로 리턴
 	 * @param input
 	 * @param split
 	 * @return
 	 */
-	public Object[] stringSplitList(String input, String split) {
+	public String[] stringSplitList(String input, String split) {
 		
 		StringTokenizer stk = new StringTokenizer(input,split);
 		
 		int arrLength = stk.countTokens();
-		Object[] objArr = new Object[arrLength];
+		String[] objArr = new String[arrLength];
 		
 		int arrIndex = 0;
 		
 		while(stk.hasMoreTokens()) {
-			objArr[arrIndex] = stk.nextElement();
+			objArr[arrIndex] = stk.nextToken();
 			arrIndex++;
 		}
 		

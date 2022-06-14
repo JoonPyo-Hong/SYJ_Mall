@@ -1,11 +1,13 @@
 package com.test.SYJ_Mall.prodtPay;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,15 +40,21 @@ public class ProdtPayService implements IProdtPayService {
 			String prodtId = request.getParameter("product_obj_id");
 			String prodtCnt = request.getParameter("product_obj_cnt");
 			
-			Integer[] prodtIdArr = (Integer[]) sf.stringSplitList(prodtId,"#");
-			Integer[] prodtCntArr = (Integer[]) sf.stringSplitList(prodtCnt,"#");
+			String[] prodtIdArr = sf.stringSplitList(prodtId,"#");//아이디
+			String[] prodtCntArr = sf.stringSplitList(prodtCnt,"#");//해당 아이디에 대한 물품 구매개수
 			
 			//개수가 안맞으면 오류발생시킨다.
 			if (prodtIdArr.length != prodtCntArr.length) return -1;
 			
+			Map<String,Integer> prodtCntMap = new HashMap<String, Integer>();
+			
+			for (int i = 0; i < prodtIdArr.length; i++) {
+				prodtCntMap.put(prodtIdArr[i],Integer.parseInt(prodtCntArr[i]));
+			}
+			
 			
 			//1. 주문제품 관련 객체 가져오기 => 마이페이지에서 넘긴 정보로 가야한다.
-			
+			List<ProdtPayDTO> prodtList = dao.getProdtPayList(prodtId);
 			
 			
 			
