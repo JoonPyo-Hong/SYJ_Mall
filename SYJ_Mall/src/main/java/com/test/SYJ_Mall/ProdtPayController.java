@@ -28,6 +28,8 @@ public class ProdtPayController {
 		
 		int result = service.getProdtPayStart(request,response,kc,ea,sf);
 		
+		request.setAttribute("topInputWord", "주문하기");
+		
 		if (result == 1) return "/semitiles/productOrderPay.layout";
 		else return "/testwaiting/kakaoerror";
 		

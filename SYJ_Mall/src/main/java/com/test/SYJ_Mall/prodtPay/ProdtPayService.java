@@ -52,13 +52,26 @@ public class ProdtPayService implements IProdtPayService {
 				prodtCntMap.put(prodtIdArr[i],Integer.parseInt(prodtCntArr[i]));
 			}
 			
-			
 			//1. 주문제품 관련 객체 가져오기 => 마이페이지에서 넘긴 정보로 가야한다.
 			List<ProdtPayDTO> prodtList = dao.getProdtPayList(prodtId);
 			
+			System.out.println(prodtList.get(0).getProdtImgUrl());
 			
+			if (prodtList.size() != 0) {
+				//고객이 몇개주문을 원하는지 값을 넘겨준다.
+				for (int i = 0; i < prodtList.size(); i++) {
+					ProdtPayDTO pdto = prodtList.get(i);
+					int prodtSeq = pdto.getProdtSeq();
+					
+					if (pdto.getPossibleProdtCnt() != 0) pdto.setProdtBuyCnt(prodtCntMap.get(Integer.toString(prodtSeq)));
+				}
+				
+				System.out.println(prodtList.get(0).getProdtImgUrl());
+				
+				request.setAttribute("prodtList", prodtList);
+			}
 			
-			
+
 			
 			
 			return 1;

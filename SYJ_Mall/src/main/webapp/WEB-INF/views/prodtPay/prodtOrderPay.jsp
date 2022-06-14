@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/newMainAsset.jsp"%>        
- <script type="text/javascript" src="resources/js/commonjs/common.js"></script>
  
  
  <style>
@@ -66,12 +65,10 @@ input[type="checkbox"]:checked + label {
   border-bottom: 1px solid rgb(242, 242, 242);
 }
 
-.product-img {
+.product-imgs {
   position: relative;
   width: 100px;
   height: 100px;
-  background: url(/SYJ_Mall/resources/images/product_order/20210617184011808_8809721509685_8809721509685_AW_00.jpg)
-    no-repeat;
   background-size: contain;
 }
 
@@ -488,6 +485,16 @@ input[type="radio"] {
   border-radius: 50%;
   margin-right: 5px;
 }
+
+
+/* 검색결과 없을 시 */
+.order-list-nodata {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 100px 0px;
+}
  
  
  
@@ -498,19 +505,65 @@ input[type="radio"] {
  
  <!-- 마이페이지 컨텐츠 -->
  <div class="container-wrap product-order">
-   <!-- 데이터 없을 시 -->
-   <!-- <div class="order-list-nodata">
+  
+  <c:if test="${empty prodtList}">
+  	<!-- 데이터 없을 시 -->
+   	<div class="order-list-nodata">
        <div class="standing-ryan"></div>
        <div class="empty-message">내역이 없어요</div>
-     </div> -->
-   <!-- 데이터 있을 시 -->
+   	</div> 
+  </c:if>
+
+	<c:if test="${not empty prodtList}">
+     <!-- 데이터 있을 시 -->
    <!-- 상품 주문서 -->
    <!-- 01 주문제품 -->
    <div class="order-section">
      <div class="order-section-title first-title">01 주문제품</div>
      <!-- 주문 제품 아이템 리스트 -->
+     <c:forEach var="pdl" items="${prodtList}">
+		
+		<div class="product-item-list" id='${pdl.prodtSeq}'>
+			<div class="product-imgs">
+				<a href="#">
+					<div class="product-imgs" style="background-image : url('${pdl.prodtImgUrl}')"></div>
+				</a>
+			</div>
+			<div class="product-text">
+				<div class="product-text-row name-row">
+					<div class="product-name">${pdl.prodtName}</div>
+					<div class="product-list-delete-btn"></div>
+				</div>
+				<div class="product-text-row count-row">
+					<div class="product-count">
+						<label content="4" class="select-box-label"> 
+							<select class="select-box-select">
+								<c:if test="${pdl.possibleProdtCnt eq 0}">
+									<!-- 재고없음으로 처리해야한다. -->
+								</c:if>
+								<c:if test="${pdl.possibleProdtCnt ge 20}">
+									<c:forEach var="num" begin="1" end="20">
+										<option value="${num}">${num}</option>
+									</c:forEach>
+								</c:if>
+								<c:if test="${pdl.possibleProdtCnt lt 20}">
+									<c:forEach var="num" begin="1" end="${pdl.possibleProdtCnt}">
+										<option value="${num}">${num}</option>
+									</c:forEach>
+								</c:if>
+							</select>
+						</label>
+					</div>
+					<div class="product-price">${pdl.prodtPrice}원</div>
+				</div>
+			</div>
+		</div>
+	
+	</c:forEach>
+     
+     
      <!-- 하나 -->
-     <div class="product-item-list">
+  <!--    <div class="product-item-list">
        <div class="product-img">
          <a href="#">
            <div class="product-img"></div>
@@ -534,7 +587,7 @@ input[type="radio"] {
          </div>
        </div>
      </div>
-     <!-- 둘 -->
+     둘
      <div class="product-item-list">
        <div class="product-img">
          <a href="#">
@@ -558,7 +611,11 @@ input[type="radio"] {
            <div class="product-price">49,000원</div>
          </div>
        </div>
-     </div>
+     </div> -->
+     
+     
+     
+     
      <div class="product-total-price">
        <div class="price-list">
          <span class="title">상품가</span>
@@ -574,6 +631,8 @@ input[type="radio"] {
        </div>
      </div>
    </div>
+   
+   
    <!-- 02 배송지정보 -->
    <div class="order-section">
      <div class="order-section-title">02 배송지정보</div>
@@ -730,7 +789,11 @@ input[type="radio"] {
             배송비는 고객님께서 부담하셔야 합니다. 또한 글로벌 배송 서비스 이용시 배송 국가에 따라 발생할 수 있는 관세 및 각종 세금 등 기타 비용은 수취인이 부담하셔야 합니다. </li>
         </ul>
       </div>
-    </div>
+    </div> 	
+   	
+   	
+   	</c:if>
+
   </div>
   
   

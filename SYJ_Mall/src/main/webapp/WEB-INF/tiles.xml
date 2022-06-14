@@ -155,8 +155,15 @@
 		<put-attribute name = "body" value="/WEB-INF/views/myPage/myPageOrderHistoryDetail.jsp"/>	
 	</definition>
 	
+	
+	
+	<!-- 4. 세미타일즈 input 버전 -->
+	<definition name="newsemiDefaultInputWord" template="/WEB-INF/views/Layout/semiLayoutInput.jsp">
+		<put-attribute name="body" value="" />
+	</definition>	
+	
 	<!-- 결제하기(주문하기) -->
-	<definition name = "/semitiles/productOrderPay.layout" extends="newsemiDefaultTwo">
+	<definition name = "/semitiles/productOrderPay.layout" extends="newsemiDefaultInputWord">
 		<put-attribute name = "body" value="/WEB-INF/views/prodtPay/prodtOrderPay.jsp"/>	
 	</definition>
 

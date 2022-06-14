@@ -8,7 +8,7 @@
 	<!-- 구매할 제품리스트 가져오는 sp -->
 	<select id="buyProdtList" resultType="com.test.SYJ_Mall.prodtPay.ProdtPayDTO" parameterType="String" statementType="CALLABLE">
 		{
-		call dbo.kakao_search_product(#{inputWord})
+		call dbo.kakao_product_pay_infos(#{prodtId})
 		}
 	</select>
 

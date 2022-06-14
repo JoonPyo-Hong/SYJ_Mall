@@ -11,7 +11,7 @@ import lombok.Data;
 public class ProdtPayDTO {
 	private int prodtSeq;
 	private String prodtName;
-	private int prodtPrice;
+	private String prodtPrice;
 	private int possibleProdtCnt;
 	private int prodtBuyCnt;
 	private String prodtImgUrl;

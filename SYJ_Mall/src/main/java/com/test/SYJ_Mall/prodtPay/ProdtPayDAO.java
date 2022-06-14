@@ -26,7 +26,7 @@ public class ProdtPayDAO implements IProdtPayDAO {
 	@Override
 	public List<ProdtPayDTO> getProdtPayList(String prodtId) {
 		
-		return null;
+		return template.selectList("ProdtPay.buyProdtList",prodtId);
 	}
 	
 	
