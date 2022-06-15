@@ -534,6 +534,7 @@ input[type="radio"] {
 					<div class="product-name">${pdl.prodtName}</div>
 					<div class="product-list-delete-btn"></div>
 				</div>
+				
 				<div class="product-text-row count-row">
 					<div class="product-count">
 						<label content="4" class="select-box-label"> 
@@ -543,12 +544,22 @@ input[type="radio"] {
 								</c:if>
 								<c:if test="${pdl.possibleProdtCnt ge 20}">
 									<c:forEach var="num" begin="1" end="20">
-										<option value="${num}">${num}</option>
+										<c:if test="${num eq pdl.prodtBuyCnt}">
+											<option selected value="${num}">${num}</option>
+										</c:if>
+										<c:if test="${num ne pdl.prodtBuyCnt}">
+											<option value="${num}">${num}</option>
+										</c:if>
 									</c:forEach>
 								</c:if>
 								<c:if test="${pdl.possibleProdtCnt lt 20}">
 									<c:forEach var="num" begin="1" end="${pdl.possibleProdtCnt}">
-										<option value="${num}">${num}</option>
+										<c:if test="${num eq pdl.prodtBuyCnt}">
+											<option selected value="${num}">${num}</option>
+										</c:if>
+										<c:if test="${num ne pdl.prodtBuyCnt}">
+											<option value="${num}">${num}</option>
+										</c:if>
 									</c:forEach>
 								</c:if>
 							</select>
@@ -556,78 +567,25 @@ input[type="radio"] {
 					</div>
 					<div class="product-price">${pdl.prodtPrice}원</div>
 				</div>
+				
 			</div>
 		</div>
 	
 	</c:forEach>
      
      
-     <!-- 하나 -->
-  <!--    <div class="product-item-list">
-       <div class="product-img">
-         <a href="#">
-           <div class="product-img"></div>
-         </a>
-       </div>
-       <div class="product-text">
-         <div class="product-text-row name-row">
-           <div class="product-name">춘식이 폭신폭신 페이스 쿠션 </div>
-           <div class="product-list-delete-btn"></div>
-         </div>
-         <div class="product-text-row count-row">
-           <div class="product-count">
-             <label content="4" class="select-box-label">
-               <select class="select-box-select">
-                 <option value="1">1</option>
-                 <option value="2">2</option>
-               </select>
-             </label>
-           </div>
-           <div class="product-price">36,000원</div>
-         </div>
-       </div>
-     </div>
-     둘
-     <div class="product-item-list">
-       <div class="product-img">
-         <a href="#">
-           <div class="product-img"></div>
-         </a>
-       </div>
-       <div class="product-text">
-         <div class="product-text-row name-row">
-           <div class="product-name">춘식이 말랑쿠션</div>
-           <div class="product-list-delete-btn"></div>
-         </div>
-         <div class="product-text-row count-row">
-           <div class="product-count">
-             <label content="4" class="select-box-label">
-               <select class="select-box-select">
-                 <option value="1">1</option>
-                 <option value="2">2</option>
-               </select>
-             </label>
-           </div>
-           <div class="product-price">49,000원</div>
-         </div>
-       </div>
-     </div> -->
-     
-     
-     
-     
      <div class="product-total-price">
        <div class="price-list">
          <span class="title">상품가</span>
-         <span class="price">85,000원</span>
+         <span class="price">${totalProdtPay}원</span>
        </div>
        <div class="price-list">
          <span class="title">배송비</span>
-         <span class="price free">무료</span>
+         <span class="price free">${shipFee}원</span>
        </div>
        <div class="price-list">
          <span class="title"><b>총합</b></span>
-         <span class="price"><b>85,000원</b></span>
+         <span class="price"><b>${totalProdtPayShip}원</b></span>
        </div>
      </div>
    </div>
@@ -636,57 +594,120 @@ input[type="radio"] {
    <!-- 02 배송지정보 -->
    <div class="order-section">
      <div class="order-section-title">02 배송지정보</div>
+     
+     
      <!-- 배송지 주소 입력 -->
-     <div class="delivery-address">
-       <div class="address-title">
-         <div class="sub-title">받는분</div>
-         <div class="check-box">
-           <label for="sameAsBuyer" class="check-box-label">
-             <span class="check-box-text">주문고객과 동일</span>
-           </label>
-           <input type="checkbox" class="check-box__InputCheckBox-sc-1p7znud-5" id="sameAsBuyer"
-             name="sameAsBuyer" checked="" />
-           <label for="sameAsBuyer"></label>
-         </div>
-       </div>
-       <!-- 입력 창 -->
-       <!-- 나라 -->
-       <div class="input-text-row select-country">
-         <!-- <label content="한국" height="45" class="select-label"> -->
-           <select height="45" class="select-select" name="shippingCountry">
-             <option value="KR">한국</option>
-           </select>
-       	<!-- </label> -->
-       </div>
-       <div required="" class="input-text-row field-name">
-         <input placeholder="이름" error="0" align="left" padding="15" class="input-text" name="shippingName"
-           value="" />
-       </div>
-       <div class="input-text-row field-phone">
-         <input placeholder="전화번호 (-없이 입력)" error="0" align="left" padding="15" class="input-text"
-           name="shippingName" value="" />
-       </div>
-       <div class="input-text-row field-address">
-         <input placeholder="주소 찾기" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_first" value="" />
-         <div class="field-address-search-icon" id="addr_search_icon"></div> 
-       </div>
-       <div class="input-text-row field-address-detail">
-         <input placeholder="나머지 주소" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_second" value="" />
-       </div>
-       <div class="input-text-row field-text-area">
-         <textarea id="msg_input" maxlength="50" placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
-         <p class="textarea-messages" id="msg_len_check">50자 이내로 입력해주세요 (0 / 50)</p>
-       </div>
-       <!-- 자동 저장 -->
-       <div class="check-box-area">
-         <div class="check-box-container">
-           <input type="checkbox" class="check-box-input" id="saveAddress" name="saveAddress" />
-           <label for="saveAddress"></label>
-           <label for="saveAddress" class="check-box-label"><span class="check-box-text">내 정보 및 기본
-               배송지로 저장</span></label>
-         </div>
-       </div>
-     </div>
+     <c:if test="${empty userDtoList}">
+	    <div class="delivery-address">
+	       <div class="address-title">
+	         <div class="sub-title">받는분</div>
+	         <div class="check-box">
+	           <label for="sameAsBuyer" class="check-box-label">
+	             <span class="check-box-text">주문고객과 동일</span>
+	           </label>
+	           <input type="checkbox" class="check-box__InputCheckBox-sc-1p7znud-5" id="sameAsBuyer"
+	             name="sameAsBuyer" checked="" />
+	           <label for="sameAsBuyer"></label>
+	         </div>
+	       </div>
+	       <!-- 입력 창 -->
+	       <!-- 나라 -->
+	       <div class="input-text-row select-country">
+	         <!-- <label content="한국" height="45" class="select-label"> -->
+	           <select height="45" class="select-select" name="shippingCountry">
+	             <option value="KR">한국</option>
+	           </select>
+	       	<!-- </label> -->
+	       </div>
+	       <div required="" class="input-text-row field-name">
+	         <input placeholder="이름" error="0" align="left" padding="15" class="input-text" name="shippingName"
+	           value="" />
+	       </div>
+	       <div class="input-text-row field-phone">
+	         <input placeholder="전화번호 (-없이 입력)" error="0" align="left" padding="15" class="input-text"
+	           name="shippingName" value="" />
+	       </div>
+	       <div class="input-text-row field-address">
+	         <input placeholder="주소 찾기" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_first" value="" />
+	         <div class="field-address-search-icon" id="addr_search_icon"></div> 
+	       </div>
+	       <div class="input-text-row field-address-detail">
+	         <input placeholder="나머지 주소" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_second" value="" />
+	       </div>
+	       <div class="input-text-row field-text-area">
+	         <textarea id="msg_input" maxlength="50" placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
+	         <p class="textarea-messages" id="msg_len_check">50자 이내로 입력해주세요 (0 / 50)</p>
+	       </div>
+	       <!-- 자동 저장 -->
+	       <div class="check-box-area">
+	         <div class="check-box-container">
+	           <input type="checkbox" class="check-box-input" id="saveAddress" name="saveAddress" />
+	           <label for="saveAddress"></label>
+	           <label for="saveAddress" class="check-box-label"><span class="check-box-text">내 정보 및 기본
+	               배송지로 저장</span></label>
+	         </div>
+	       </div>
+	     </div>
+     </c:if>
+     
+     
+     <c:if test="${not empty userDtoList}">
+	    <div class="delivery-address">
+	       <div class="address-title">
+	         <div class="sub-title">받는분</div>
+	         <div class="check-box">
+	           <label for="sameAsBuyer" class="check-box-label">
+	             <span class="check-box-text">주문고객과 동일</span>
+	           </label>
+	           <input type="checkbox" class="check-box__InputCheckBox-sc-1p7znud-5" id="sameAsBuyer"
+	             name="sameAsBuyer" checked="" />
+	           <label for="sameAsBuyer"></label>
+	         </div>
+	       </div>
+	       <!-- 입력 창 -->
+	       <!-- 나라 -->
+	       <div class="input-text-row select-country">
+	         <!-- <label content="한국" height="45" class="select-label"> -->
+	           <select height="45" class="select-select" name="shippingCountry">
+	             <option value="KR">한국</option>
+	           </select>
+	       	<!-- </label> -->
+	       </div>
+	       <div required="" class="input-text-row field-name">
+	         <input placeholder="이름" error="0" align="left" padding="15" class="input-text" name="shippingName"
+	           value="${userDtoList.userName}" />
+	       </div>
+	       <div class="input-text-row field-phone">
+	         <input placeholder="전화번호 (-없이 입력)" error="0" align="left" padding="15" class="input-text"
+	           name="shippingName" value="${userDtoList.userPhoneNum}" />
+	       </div>
+	       <div class="input-text-row field-address">
+	         <input placeholder="주소 찾기" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_first" value="${userDtoList.userFirstAddr}" />
+	         <div class="field-address-search-icon" id="addr_search_icon"></div> 
+	       </div>
+	       <div class="input-text-row field-address-detail">
+	         <input placeholder="나머지 주소" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_second" value="${userDtoList.userSecondAddr}" />
+	       </div>
+	       <div class="input-text-row field-text-area">
+	         <textarea id="msg_input" maxlength="50" placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
+	         <p class="textarea-messages" id="msg_len_check">50자 이내로 입력해주세요 (0 / 50)</p>
+	       </div>
+	       <!-- 자동 저장 -->
+	       <div class="check-box-area">
+	         <div class="check-box-container">
+	           <input type="checkbox" class="check-box-input" id="saveAddress" name="saveAddress" />
+	           <label for="saveAddress"></label>
+	           <label for="saveAddress" class="check-box-label"><span class="check-box-text">내 정보 및 기본
+	               배송지로 저장</span></label>
+	         </div>
+	       </div>
+	     </div>
+     </c:if>
+     
+
+     
+     
+     
      <!-- 배달 도착 예정일 및 공지 -->
      <div class="delivery-information">
        <p class="delivery-information-title">9/7(화) 도착 예정</p>

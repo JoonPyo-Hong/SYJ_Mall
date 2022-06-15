@@ -17,5 +17,12 @@ public interface IProdtPayDAO {
 	 * @return
 	 */
 	List<ProdtPayDTO> getProdtPayList(String prodtId);
+	
+	/**
+	 * 유저정보 가져와주기
+	 * @param userSeq
+	 * @return
+	 */
+	List<ProdtPayUserDTO> getProdtPayUserInfo(int userSeq);
 
 }

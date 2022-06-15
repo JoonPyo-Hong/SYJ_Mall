@@ -1,6 +1,6 @@
 package com.common.utill;
 
-import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -269,6 +269,18 @@ public class StringFormatClass {
 		}
 		
 		return objArr;
+	}
+	
+	/**
+	 * 화폐단위 컴마 찍어주는 로직
+	 * @param money
+	 * @return
+	 */
+	public String moneyDotString(int money) {
+		DecimalFormat df = new DecimalFormat("###,###");
+		
+		return df.format(money);
+		
 	}
 	
 	

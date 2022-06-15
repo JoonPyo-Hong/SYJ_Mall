@@ -29,5 +29,12 @@ public class ProdtPayDAO implements IProdtPayDAO {
 		return template.selectList("ProdtPay.buyProdtList",prodtId);
 	}
 	
+	//유저정보 가져와주기
+	@Override
+	public List<ProdtPayUserDTO> getProdtPayUserInfo(int userSeq) {
+		
+		return template.selectList("ProdtPay.buyProdtUserInfos",userSeq);
+	}
+	
 	
 }

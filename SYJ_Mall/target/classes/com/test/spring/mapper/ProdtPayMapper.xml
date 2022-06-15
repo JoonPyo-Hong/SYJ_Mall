@@ -11,6 +11,14 @@
 		call dbo.kakao_product_pay_infos(#{prodtId})
 		}
 	</select>
+	
+	
+	<!-- 구매할 유저의 배송 정보 가져와주는 SP -->
+	<select id="buyProdtUserInfos" resultType="com.test.SYJ_Mall.prodtPay.ProdtPayUserDTO" parameterType="Integer" statementType="CALLABLE">
+		{
+		call dbo.kakao_product_pay_user_infos(#{userSeq})
+		}
+	</select>
 
 
 	
