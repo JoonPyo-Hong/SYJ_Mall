@@ -31,6 +31,8 @@ public class ProdtPayService implements IProdtPayService {
 		
 		try {
 			
+			//리프레시 한 경우에 오류가 발생하므로 세션에 넣어주는 방법을 모색해야 한다.
+			
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
 			

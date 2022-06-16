@@ -847,7 +847,12 @@ input[type="radio"] {
   $('#addr_search_icon').click(function(){
 	  search_user_addr('ship_name_first'); 
   });
-  	
+  
+  
+  /* 주문 고객과 동일 체크 했을경우 */
+  $('#sameAsBuyer').click(function(){
+	 console.log('test'); 
+  });
   	
 
   
