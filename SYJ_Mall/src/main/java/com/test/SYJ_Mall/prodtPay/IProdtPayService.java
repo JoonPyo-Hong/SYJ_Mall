@@ -24,5 +24,14 @@ public interface IProdtPayService {
 	 * @return
 	 */
 	int getProdtPayStart(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc, ErrorAlarm ea,StringFormatClass sf);
+	
+	/**
+	 * 고객의 기본 배송정보 가져오기
+	 * @param request
+	 * @param response
+	 * @param ErrorAlarm
+	 * @return
+	 */
+	ProdtPayUserDTO getProdtPayUserInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
 
 }

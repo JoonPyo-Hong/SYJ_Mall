@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.prodtPay;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,25 +37,59 @@ public class ProdtPayService implements IProdtPayService {
 			
 			//로그인이 안된 경우에는 접근 불가 처리 해준다.
 			if (userInfo == null) return -1;
-		
-			String prodtId = request.getParameter("product_obj_id");
-			String prodtCnt = request.getParameter("product_obj_cnt");
 			
-			String[] prodtIdArr = sf.stringSplitList(prodtId,"#");//아이디
-			String[] prodtCntArr = sf.stringSplitList(prodtCnt,"#");//해당 아이디에 대한 물품 구매개수
-			
-			//개수가 안맞으면 오류발생시킨다.
-			if (prodtIdArr.length != prodtCntArr.length) return -1;
-			
-			Map<String,Integer> prodtCntMap = new HashMap<String, Integer>();
-			
-			for (int i = 0; i < prodtIdArr.length; i++) {
-				prodtCntMap.put(prodtIdArr[i],Integer.parseInt(prodtCntArr[i]));
-			}
+			List<ProdtInstDTO> pidtoList = (List<ProdtInstDTO>) session.getAttribute("pidtoList");//세션에 존재하는 유저의 주문관련 제품정보들
+			Map<String,Integer> prodtCntMap = new HashMap<String,Integer>();//해당 주문제품 map 에 넣어주기
 			
 			//1. 주문제품 관련 객체 가져오기 => 마이페이지에서 넘긴 정보로 가야한다.
-			List<ProdtPayDTO> prodtList = dao.getProdtPayList(prodtId);
+			List<ProdtPayDTO> prodtList;
+			String prodtDbInfoList;//디비로 넘길 물품번호 개체들
 			
+			//회원 장바구니 정보 세션이 존재하는 경우
+			if (pidtoList != null) {
+				StringBuffer sb = new StringBuffer();
+				
+				for (ProdtInstDTO dto : pidtoList) {
+					sb.append(dto.getProdtId());
+					sb.append("#");
+				}
+				
+				prodtDbInfoList = sb.toString();
+				
+			} 
+			//회원 장바구니 정보 세션이 존재하지 않는 경우
+			else {
+				String prodtId = request.getParameter("product_obj_id");
+				String prodtCnt = request.getParameter("product_obj_cnt");
+				
+				prodtDbInfoList = prodtId;
+				
+				String[] prodtIdArr = sf.stringSplitList(prodtId,"#");//아이디
+				String[] prodtCntArr = sf.stringSplitList(prodtCnt,"#");//해당 아이디에 대한 물품 구매개수
+				
+				//개수가 맞지 않으면 종료 시킨다.
+				if (prodtIdArr.length != prodtCntArr.length) return -1;
+				
+				//세션에 회원이 주문할 물품정보 넣어주기
+				pidtoList = new ArrayList<ProdtInstDTO>();
+				
+				for (int i = 0; i < prodtIdArr.length; i++) {
+					pidtoList.add(new ProdtInstDTO(prodtIdArr[i],Integer.parseInt(prodtCntArr[i])));
+				}
+				
+				session.setAttribute("pidtoList", pidtoList);
+			}
+			
+			//좀더 빠르게 찾기 위해 map 객체에 넣어주기
+			for (int i = 0; i < pidtoList.size(); i++) {
+				String prodtSeq = pidtoList.get(i).getProdtId();
+				int prodtCnt = pidtoList.get(i). getProdtCnt();
+				
+				prodtCntMap.put(prodtSeq,prodtCnt);
+			}
+			
+			prodtList = dao.getProdtPayList(prodtDbInfoList);
+						
 			//배송비 지정
 			int shipFee = 3000;//향후에 다시 지정해도됨-기본 3000원 지정
 			
@@ -82,12 +117,10 @@ public class ProdtPayService implements IProdtPayService {
 			//상품가 + 배송비 지정
 			int totalProdtPayShip = shipFee + totalProdtPay;
 			
-			
 			//2. 주문고객 정보 객체 가져오기
 			List<ProdtPayUserDTO> userDtoList = dao.getProdtPayUserInfo(userInfo.getUserSeq());
 			
 			if (userDtoList.size() != 0) request.setAttribute("userDtoList", userDtoList.get(0));
-			
 			
 			request.setAttribute("shipFee", sf.moneyDotString(shipFee));//배송비
 			request.setAttribute("totalProdtPay", sf.moneyDotString(totalProdtPay));//총상품 비용
@@ -97,6 +130,27 @@ public class ProdtPayService implements IProdtPayService {
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;
+		}
+	}
+	
+	//고객의 기본 배송정보 가져오기
+	@Override
+	public ProdtPayUserDTO getProdtPayUserInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			List<ProdtPayUserDTO> userDtoList = dao.getProdtPayUserInfo(userInfo.getUserSeq());
+			
+			if (userDtoList.size() == 0) return null;
+			
+			return userDtoList.get(0);
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return null;
 		}
 	}
 }

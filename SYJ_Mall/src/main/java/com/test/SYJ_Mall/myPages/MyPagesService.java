@@ -252,17 +252,17 @@ public class MyPagesService implements IMyPagesService {
 	public int getMyPageBasket(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
+			
 			KakaoCookie kc = new KakaoCookie();
 
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 			kc.generateUrlCookie(response, "myPageMain.action?myPageNum=3", 60 * 60 * 24 * 7);// 마지막페이지
 			
-			
-			
 			//request.setAttribute("myBassketSignal", "x533");//장바구니임을 확인하려는 로직 -> 푸터가 안뜨게 하기 위함
 			
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			session.removeAttribute("pidtoList");
 			
 			List<MyPageBasketDTO> mbdtoList;//마이페이지 - 장바구니 객체
 			

@@ -674,19 +674,17 @@ input[type="radio"] {
 	       	<!-- </label> -->
 	       </div>
 	       <div required="" class="input-text-row field-name">
-	         <input placeholder="이름" error="0" align="left" padding="15" class="input-text" name="shippingName"
-	           value="${userDtoList.userName}" />
+	         <input placeholder="이름" error="0" align="left" padding="15" class="input-text" id="ship_user_name" name="ship_user_name" value="${userDtoList.userName}" />
 	       </div>
 	       <div class="input-text-row field-phone">
-	         <input placeholder="전화번호 (-없이 입력)" error="0" align="left" padding="15" class="input-text"
-	           name="shippingName" value="${userDtoList.userPhoneNum}" />
+	         <input placeholder="전화번호 (-없이 입력)" error="0" align="left" padding="15" class="input-text" id="ship_user_phone" name="ship_user_phone" value="${userDtoList.userPhoneNum}" />
 	       </div>
 	       <div class="input-text-row field-address">
-	         <input placeholder="주소 찾기" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_first" value="${userDtoList.userFirstAddr}" />
+	         <input placeholder="주소 찾기" error=" 0" align="left" padding="15" class="input-text" name="ship_name_first" id="ship_name_first" value="${userDtoList.userFirstAddr}" />
 	         <div class="field-address-search-icon" id="addr_search_icon"></div> 
 	       </div>
 	       <div class="input-text-row field-address-detail">
-	         <input placeholder="나머지 주소" error=" 0" align="left" padding="15" class="input-text" name="shippingName" id="ship_name_second" value="${userDtoList.userSecondAddr}" />
+	         <input placeholder="나머지 주소" error=" 0" align="left" padding="15" class="input-text" name="ship_name_second" id="ship_name_second" value="${userDtoList.userSecondAddr}" />
 	       </div>
 	       <div class="input-text-row field-text-area">
 	         <textarea id="msg_input" maxlength="50" placeholder="배송 요청메시지가 있으시면 남겨주세요. (주소 작성란이 아닙니다.)"></textarea>
@@ -728,14 +726,14 @@ input[type="radio"] {
      <ul class="pay-list-ul">
        <li class="pay-list-li">
          <div>상품가</div>
-         <div><b>85,000원</b></div>
+         <div><b>${totalProdtPay}원</b></div>
        </li>
        <li class="pay-list-li">
          <div>배송비</div>
-         <div>무료</div>
+         <div>${shipFee}원</div>
        </li>
        <li class="pay-list-li">
-         <div class="point">포인트
+         <div class="point">카카오 포인트
            <div class="total-point">(1,000,000p)</div>
          </div>
          <div>
@@ -750,7 +748,7 @@ input[type="radio"] {
        </li>
        <li class="pay-list-li">
          <div><b>최종 결제금액</b></div>
-         <div class="total-price"><b>85,000원</b></div>
+         <div class="total-price"><b>${totalProdtPayShip}원</b></div>
        </li>
      </ul>
      <!-- 결제수단 선택 -->
@@ -821,10 +819,10 @@ input[type="radio"] {
   
   <script>
   	
-  /* 배송요청 메시지 작성 이벤트 처리  */
-  let text_flag = true;
-  
-  $(document).on('keyup','#msg_input',function(e){
+	 /* 배송요청 메시지 작성 이벤트 처리  */
+	 let text_flag = true;
+	 
+	 $(document).on('keyup','#msg_input',function(e){
 		const text_len = $('#msg_input').val().length;
 		
 		let inner_msg = '50자 이내로 입력해주세요';
@@ -837,22 +835,58 @@ input[type="radio"] {
 		
 		
 	});
-  	
-  
-  /* 주소 찾아주기 */	
-  $('#ship_name_first').click(function(){
-	  search_user_addr('ship_name_first'); 
-  });
-  
-  $('#addr_search_icon').click(function(){
-	  search_user_addr('ship_name_first'); 
-  });
-  	
-  	
-
-  
-  
-  
+	 	
+	 
+	 /* 주소 찾아주기 */	
+	 $('#ship_name_first').click(function(){
+	  	search_user_addr('ship_name_first'); 
+	 });
+	 
+	 $('#addr_search_icon').click(function(){
+	  	search_user_addr('ship_name_first'); 
+	 });
+	 		
+	 
+	 let same_as_buyer_flag = 1;
+	 
+	 $('#sameAsBuyer').click(function(){
+		same_as_buyer_flag *= -1;	 
+		
+		if (same_as_buyer_flag == -1) {
+			$('#ship_user_name').val('');
+			$('#ship_user_phone').val('');
+			$('#ship_name_first').val('');
+			$('#ship_name_second').val('');
+		} else {
+			user_shipping_info_ajax();
+		}
+		
+	 });
+	 
+	 /* 고객 기본 배송정보 가져오기 */
+	 function user_shipping_info_ajax() {
+			
+		 $.ajax({
+            	type:"GET",
+            	url: "/SYJ_Mall/prodtPayUserInfos.action",
+            	success : function(result) {
+            		
+            		if (result == null) {
+            			alert('오류 발생');
+            		} else {
+            			$('#ship_user_name').val(result.userName);
+            			$('#ship_user_phone').val(result.userPhoneNum);
+            			$('#ship_name_first').val(result.userFirstAddr);
+            			$('#ship_name_second').val(result.userSecondAddr);
+            		}
+            	},
+            	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+           });
+	 }
+	 
+	 
   </script>
   
   
