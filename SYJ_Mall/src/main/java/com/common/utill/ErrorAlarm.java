@@ -46,7 +46,7 @@ public class ErrorAlarm {
 		List<String> userEmail = dao.getAdminEmailAddress();
  		
 		StringWriter errors = new StringWriter();
-		errors.append("<table border='1' style='width:800px;'>");
+		errors.append("<table border='1' style='width:1200px;'>");
 		errors.append("<th colspan = '2' style='color:red; font-size: 2em; font-weight: bolder;'>Error Occurred In SYJ_Mall</th>");
 		errors.append("<tr><td>machine ip</td><td>Date of occurrence</td></tr>");
 		errors.append("<tr><td>");
@@ -59,12 +59,15 @@ public class ErrorAlarm {
 		e.printStackTrace(new PrintWriter(errors));
 		errors.append("</td></tr></table>");
 		
-
-		MessageSender ms = new MessageSender("Error into SYJ_Mall!", errors.toString(), userEmail);
-
-		int result = ms.sendDefaultHtmlMassages();
+		String errorsMsg = errors.toString();
+		errorsMsg = errorsMsg.replaceAll("\\)", ")<br>");
+		errorsMsg = errorsMsg.replaceAll("\\###", "<br>###");
 		
-		//System.out.println("result : " + result);
+
+		MessageSender ms = new MessageSender("Error into SYJ_Mall!", errorsMsg, userEmail);
+
+		ms.sendDefaultHtmlMassages();
+
 	}
 	
 	/**
