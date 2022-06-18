@@ -13,4 +13,5 @@ public class ProdtPayUserDTO {
 	private String userPhoneNum;
 	private String userFirstAddr;
 	private String userSecondAddr;
+	//유저 포인트랑 기프트카드 가져와야함
 }

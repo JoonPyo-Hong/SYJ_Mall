@@ -41,7 +41,7 @@ public class ProdtPayService implements IProdtPayService {
 			List<ProdtInstDTO> pidtoList = (List<ProdtInstDTO>) session.getAttribute("pidtoList");//세션에 존재하는 유저의 주문관련 제품정보들
 			Map<String,Integer> prodtCntMap = new HashMap<String,Integer>();//해당 주문제품 map 에 넣어주기
 			
-			//1. 주문제품 관련 객체 가져오기 => 마이페이지에서 넘긴 정보로 가야한다.
+			/*==================1. 주문제품 관련 객체 가져오기 => 마이페이지에서 넘긴 정보로 가야한다.==================*/
 			List<ProdtPayDTO> prodtList;
 			String prodtDbInfoList;//디비로 넘길 물품번호 개체들
 			
@@ -117,7 +117,8 @@ public class ProdtPayService implements IProdtPayService {
 			//상품가 + 배송비 지정
 			int totalProdtPayShip = shipFee + totalProdtPay;
 			
-			//2. 주문고객 정보 객체 가져오기
+
+			/*==================2. 주문고객 정보 객체 가져오기==================*/
 			List<ProdtPayUserDTO> userDtoList = dao.getProdtPayUserInfo(userInfo.getUserSeq());
 			
 			if (userDtoList.size() != 0) request.setAttribute("userDtoList", userDtoList.get(0));
