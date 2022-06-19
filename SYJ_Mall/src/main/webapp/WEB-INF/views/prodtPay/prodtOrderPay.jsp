@@ -734,10 +734,10 @@ input[type="radio"] {
        </li>
        <li class="pay-list-li">
          <div class="point">카카오 포인트
-           <div class="total-point">(1,000,000p)</div>
+           <div class="total-point">(${userHasCoin}p)</div>
          </div>
          <div>
-           <input align="right" padding="15" class="input-text" value="100,000,000" style="width:180px;">
+           <input align="right" padding="15" class="input-text" value="0" style="width:180px;">
          </div>
        </li>
        <li class="pay-list-li">

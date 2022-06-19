@@ -55,7 +55,6 @@ public class ProdtPayService implements IProdtPayService {
 				}
 				
 				prodtDbInfoList = sb.toString();
-				
 			} 
 			//회원 장바구니 정보 세션이 존재하지 않는 경우
 			else {
@@ -121,7 +120,14 @@ public class ProdtPayService implements IProdtPayService {
 			/*==================2. 주문고객 정보 객체 가져오기==================*/
 			List<ProdtPayUserDTO> userDtoList = dao.getProdtPayUserInfo(userInfo.getUserSeq());
 			
-			if (userDtoList.size() != 0) request.setAttribute("userDtoList", userDtoList.get(0));
+			if (userDtoList.size() != 0) {
+				ProdtPayUserDTO udl = userDtoList.get(0);
+				String hasCoin =  sf.moneyDotString(udl.getUserHasCoin());
+				
+				request.setAttribute("userDtoList", udl);
+				request.setAttribute("userHasCoin", hasCoin);
+			}
+				
 			
 			request.setAttribute("shipFee", sf.moneyDotString(shipFee));//배송비
 			request.setAttribute("totalProdtPay", sf.moneyDotString(totalProdtPay));//총상품 비용
