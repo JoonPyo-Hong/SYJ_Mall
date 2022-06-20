@@ -1,5 +1,9 @@
 package com.test.SYJ_Mall.common;
 
+import java.util.List;
+
+import com.test.SYJ_Mall.prodtPay.ProdtPayDTO;
+
 /**
  * 공통 기능 dao 인터페이스
  * @author shin
@@ -31,5 +35,12 @@ public interface ICommonDAO {
 	 * @return
 	 */
 	int setReviewLikeControl(int userSeq, int orderSeq, int prodtId);
+	
+	/**
+	 * 체크박스에서 해당 물품의 갯수를 선택할 경우 해당 제품의 정보를 다시 가져와주는 로직
+	 * @param prodtSeq
+	 * @return
+	 */
+	List<ProdtPayDTO> getProdtDtos(int prodtSeq);
 
 }

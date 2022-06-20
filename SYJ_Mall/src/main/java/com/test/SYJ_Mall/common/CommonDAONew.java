@@ -1,10 +1,13 @@
 package com.test.SYJ_Mall.common;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.test.SYJ_Mall.prodtPay.ProdtPayDTO;
 
 /**
  * 공통 기능 dao
@@ -51,6 +54,13 @@ public class CommonDAONew implements ICommonDAO {
 		map.put("prodtId",prodtId);
 		
 		return template.selectOne("CommonDB.reviewLikeCheck",map);
+	}
+	
+	// 체크박스에서 해당 물품의 갯수를 선택할 경우 해당 제품의 정보를 다시 가져와주는 로직
+	@Override
+	public List<ProdtPayDTO> getProdtDtos(int prodtSeq) {
+		
+		return null;
 	}
 	
 	

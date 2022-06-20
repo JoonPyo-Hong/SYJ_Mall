@@ -37,14 +37,37 @@ function search_user_addr(target) {
 	  
 	   	let roadAddr = data.roadAddress; 
 		
-		console.log(target);
-		
 	   	document.getElementById(target).value = roadAddr;
 		
 		}
 	}).open();
 }
 
+
+//Get product information when checkbox is selected - Brings back information about an object
+function getProdtInfos(prodt_seq) {
+	
+	$.ajax({
+        type:"GET",
+        url: "/SYJ_Mall/kakaoProductBasketChecking.action" ,
+        async: false,
+        data : {"selected_prodt_seq" : prodt_seq},
+        dataType : "json",
+        success : function(result) {
+        	
+        	//1 : put the product into basket
+        	//2 : throw out the product in basket 
+        	//else : error
+        	answer = result;
+        
+        	
+        },
+        error: function(a,b,c) {
+			console.log(a,b,c);
+			return -1;
+		}
+    });	
+} 
 
 
 // footer area add

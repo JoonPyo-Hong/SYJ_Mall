@@ -14,6 +14,7 @@ import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.common.ICommonService;
+import com.test.SYJ_Mall.prodtPay.ProdtPayDTO;
 
 
 /**
@@ -61,7 +62,17 @@ public class CommonController {
 		return service.setReviewCheckingInfo(request,response,ea);
 	}
 		
+	//체크박스에서 해당 물품의 갯수를 선택할 경우 해당 제품의 정보를 다시 가져와주는 로직
+	@RequestMapping(value = "/kakaoGetProdtcheckInfo.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public ProdtPayDTO kakaoGetProdtcheckInfo(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
 		
+		return service.getProdtCheckedInfos(request,response,ea,sf);
+	}
+			
+		
+	
+	
 	
 	/*========================================아래는 테스트 용도========================================*/
 	
