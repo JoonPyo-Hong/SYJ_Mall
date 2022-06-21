@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +15,7 @@ import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.prodtPay.IProdtPayService;
+import com.test.SYJ_Mall.prodtPay.ProdtPayDTO;
 import com.test.SYJ_Mall.prodtPay.ProdtPayUserDTO;
 /**
  * 상품결제 Controller
@@ -43,5 +46,16 @@ public class ProdtPayController {
 	public ProdtPayUserDTO prodtPayUserInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		return service.getProdtPayUserInfos(request,response,ea);
 	}
+	
+	
+	//체크박스에서 해당 물품의 갯수를 선택할 경우 해당 제품의 정보를 다시 가져와주는 로직
+	@RequestMapping(value = "/prodtcheckInfos.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public List<ProdtPayDTO> prodtcheckInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
+		
+		return service.getProdtCheckedInfos(request,response,ea,sf);
+	}
+			
+	
 	
 }

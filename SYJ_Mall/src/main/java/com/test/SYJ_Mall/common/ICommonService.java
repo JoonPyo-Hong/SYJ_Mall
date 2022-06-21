@@ -54,18 +54,4 @@ public interface ICommonService {
 	 */
 	int setReviewCheckingInfo(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
 	
-	/**
-	 * 체크박스에서 해당 물품의 갯수를 선택할 경우 해당 제품의 정보를 다시 가져와주는 로직
-	 * @param request
-	 * @param response
-	 * @param ea
-	 * @param sf
-	 * @return
-	 */
-	ProdtPayDTO getProdtCheckedInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf);
-	
-	
-	
-	
-
 }

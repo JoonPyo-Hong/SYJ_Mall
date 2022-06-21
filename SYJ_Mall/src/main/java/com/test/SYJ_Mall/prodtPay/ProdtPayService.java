@@ -160,4 +160,85 @@ public class ProdtPayService implements IProdtPayService {
 			return null;
 		}
 	}
+	
+	//체크박스에서 해당 물품의 갯수를 선택할 경우 해당 제품의 정보를 다시 가져와주는 로직
+	@Override
+	public List<ProdtPayDTO> getProdtCheckedInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
+		
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			//로그인이 안된 경우에는 접근 불가 처리 해준다.
+			if (userInfo == null) return null;
+			
+			String selectProdtSeq = request.getParameter("selectProdtSeq");
+			int selectProdtCnt = Integer.parseInt(request.getParameter("selectProdtCnt"));
+			
+			List<ProdtInstDTO> pidtoList = (List<ProdtInstDTO>) session.getAttribute("pidtoList");//세션에 존재하는 유저의 주문관련 제품정보들
+			Map<String,Integer> prodtCntMap = new HashMap<String,Integer>();//해당 주문제품 map 에 넣어주기
+			
+			/*==================1. 주문제품 관련 객체 가져오기==================*/
+			List<ProdtPayDTO> prodtList;//제품 정보 객체
+			String prodtDbInfoList;//디비로 넘길 물품번호 개체들
+			
+			//회원 장바구니 정보 세션이 존재하는 경우
+			if (pidtoList != null) {
+				StringBuffer sb = new StringBuffer();
+				
+				for (ProdtInstDTO dto : pidtoList) {
+					sb.append(dto.getProdtId());
+					sb.append("#");
+				}
+				
+				prodtDbInfoList = sb.toString();
+			} else {
+				prodtDbInfoList = "";
+			}
+			
+			//좀더 빠르게 찾기 위해 map 객체에 넣어주기 -> 이부분에서 특정 물픔을 어떤수량으로 바꿨는지 체크를 해줘야한다.
+			for (int i = 0; i < pidtoList.size(); i++) {
+				ProdtInstDTO pidto = pidtoList.get(i);
+				String prodtSeq = pidto.getProdtId();
+				int prodtCnt; 
+				
+				if (pidto.getProdtId().equals(selectProdtSeq)) {
+					pidto.setProdtCnt(selectProdtCnt);
+					prodtCnt = pidto.getProdtCnt();
+					
+				} else prodtCnt = pidtoList.get(i).getProdtCnt();
+				
+				prodtCntMap.put(prodtSeq,prodtCnt);
+			}
+						
+			prodtList = dao.getProdtPayList(prodtDbInfoList);
+			
+			//고객이 몇개주문을 원하는지 값을 넘겨준다.
+			for (int i = 0; i < prodtList.size(); i++) {
+				ProdtPayDTO pdto = prodtList.get(i);
+				int prodtSeq = pdto.getProdtSeq();
+				pdto.setProdtBuyCnt(prodtCntMap.get(Integer.toString(prodtSeq)));
+				
+				//일단 갑자기 재고가 없어질 경우에 생각해줘야 될 로직임
+				//if (pdto.getPossibleProdtCnt() != 0) pdto.setProdtBuyCnt(prodtCntMap.get(Integer.toString(prodtSeq)));
+				int pdtosPrice = Integer.parseInt(pdto.getProdtPrice()) * pdto.getProdtBuyCnt();
+				pdto.setProdtPrice(sf.moneyDotString(pdtosPrice));
+				
+			}
+			
+			//session 새롭게 update
+			session.removeAttribute("pidtoList");
+			session.setAttribute("pidtoList", pidtoList);
+			
+			
+			return prodtList;
+			
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return null;
+		}
+		
+	}
 }

@@ -886,11 +886,43 @@ input[type="radio"] {
            });
 	 }
 	 
+	 
+	 $(document).on('change','.select-box-select',function(e){
+		 
+		 const prodt_cnt = $(this).val();
+		 const prodt_seq = $(this).parents('.product-item-list').attr('id');
+		
+		 user_shipping_info_ajax(prodt_seq,prodt_cnt);
+		 
+	 });
+	 
+	 
 	 /* 제품 개수 선택할때 해당 제품 수량,값 정보 가져와주기 */
+	function user_shipping_info_ajax(prodt_seq,prodt_cnt) {
+	
+		$.ajax({
+			type : "GET",
+			url : "/SYJ_Mall/prodtcheckInfos.action",
+			async : false,
+	        data : {"selectProdtSeq" : prodt_seq, "selectProdtCnt" : prodt_cnt},
+	        dataType : "json",
+			success : function(result) {
+				
+				//이부분에서 계산식이 들어가줘야 한다. => 총 얼마가 나오는지 계산해줘야 한다.
+				console.log(result[0].prodtSeq);
+				
+				//기존에 모든 사진 등등의 정보를 없애고 다시 정보를 덮어씌워주면 된다.
+				
+			},
+			error : function(a, b, c) {
+				console.log(a, b, c);
+			}
+		});
+		
+	}
 	 
 	 
-	 
-  </script>
+</script>
   
   
   

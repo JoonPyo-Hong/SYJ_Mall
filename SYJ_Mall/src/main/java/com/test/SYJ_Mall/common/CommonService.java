@@ -173,36 +173,4 @@ public class CommonService implements ICommonService{
 		}
 	}
 	
-	//체크박스에서 해당 물품의 갯수를 선택할 경우 해당 제품의 정보를 다시 가져와주는 로직
-	@Override
-	public ProdtPayDTO getProdtCheckedInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
-		
-		try {
-			
-			/*
-			 * HttpSession session = request.getSession(); UserDTO userInfo = (UserDTO)
-			 * session.getAttribute("userinfo");
-			 * 
-			 * int prodtSeq = Integer.parseInt(request.getParameter("prodtSeq")); int
-			 * wantCnt = Integer.parseInt(request.getParameter("wantProdtCnt"));
-			 * 
-			 * if (userInfo == null) return null;
-			 * 
-			 * List<ProdtPayDTO> prodtDTOs = dao.getProdtDtos(prodtSeq);
-			 * 
-			 * if (prodtDTOs.size() == 1) { ProdtPayDTO pdto = prodtDTOs.get(0);
-			 * pdto.setProdtBuyCnt(wantCnt);
-			 * 
-			 * 
-			 * }
-			 */
-			
-			//return prodtDTOs.get(0);
-			return null;
-			
-		} catch(Exception e) {
-			ea.basicErrorException(request, e);
-			return null;
-		}
-	}
 }
