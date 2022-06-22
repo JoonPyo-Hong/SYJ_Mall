@@ -24,8 +24,12 @@ function device_check() {
 
 // dot on money
 function money_dot(money) {
-	
 	return money.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+
+//delete dot on money
+function not_money_dot(money) {
+	return money.toString().replace(',','');
 }
 
 

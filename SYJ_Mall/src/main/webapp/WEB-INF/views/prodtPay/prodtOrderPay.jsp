@@ -520,6 +520,8 @@ input[type="radio"] {
    <!-- 01 주문제품 -->
    <div class="order-section">
      <div class="order-section-title first-title">01 주문제품</div>
+     
+     <div id="prodt_lists_infos">
      <!-- 주문 제품 아이템 리스트 -->
      <c:forEach var="pdl" items="${prodtList}">
 		
@@ -572,20 +574,21 @@ input[type="radio"] {
 		</div>
 	
 	</c:forEach>
+	</div>
      
      
      <div class="product-total-price">
        <div class="price-list">
          <span class="title">상품가</span>
-         <span class="price">${totalProdtPay}원</span>
+         <span class="price" id="prodt_cost">${totalProdtPay}원</span>
        </div>
        <div class="price-list">
          <span class="title">배송비</span>
-         <span class="price free">${shipFee}원</span>
+         <span class="price free" id="shipping_cost">${shipFee}원</span>
        </div>
        <div class="price-list">
          <span class="title"><b>총합</b></span>
-         <span class="price"><b>${totalProdtPayShip}원</b></span>
+         <span class="price" id="total_prodt_cost" style="font-weight: bolder;">${totalProdtPayShip}원</span>
        </div>
      </div>
    </div>
@@ -726,7 +729,7 @@ input[type="radio"] {
      <ul class="pay-list-ul">
        <li class="pay-list-li">
          <div>상품가</div>
-         <div><b>${totalProdtPay}원</b></div>
+         <div id='pay_prodt_cost' style="font-weight: bolder;">${totalProdtPay}원</div>
        </li>
        <li class="pay-list-li">
          <div>배송비</div>
@@ -748,7 +751,7 @@ input[type="radio"] {
        </li>
        <li class="pay-list-li">
          <div><b>최종 결제금액</b></div>
-         <div class="total-price"><b>${totalProdtPayShip}원</b></div>
+         <div class="total-price" id='pay_prodt_total_cost' style="font-weight: bolder;">${totalProdtPayShip}원</div>
        </li>
      </ul>
      <!-- 결제수단 선택 -->
@@ -886,12 +889,14 @@ input[type="radio"] {
            });
 	 }
 	 
-	 
+	 //제품의 개수를 바꿀 경우에 로직 처리
 	 $(document).on('change','.select-box-select',function(e){
 		 
 		 const prodt_cnt = $(this).val();
 		 const prodt_seq = $(this).parents('.product-item-list').attr('id');
 		
+		 console.log("? : " + ${shipFee})
+		 
 		 user_shipping_info_ajax(prodt_seq,prodt_cnt);
 		 
 	 });
@@ -908,10 +913,74 @@ input[type="radio"] {
 	        dataType : "json",
 			success : function(result) {
 				
-				//이부분에서 계산식이 들어가줘야 한다. => 총 얼마가 나오는지 계산해줘야 한다.
-				console.log(result[0].prodtSeq);
+				let inner_text = '';
+				let total_prodt_cost = 0;
+				//console.log(not_money_dot(ship_cost));
+				let total_prodt_ship_cost = Number(not_money_dot(3000));
+				
+				for (let i = 0; i < result.length; i++) {
+					
+					let prodt_cost_int = Number(not_money_dot(result[i].prodtPrice));
+					total_prodt_cost += prodt_cost_int;
+					
+					inner_text += '<div class="product-item-list" id="' + result[i].prodtSeq + '">';
+					inner_text += '<div class="product-imgs">';
+					inner_text += '<a href="#">';
+					inner_text += '<div class="product-imgs" style="background-image : url(' + result[i].prodtImgUrl +')"></div>'
+					inner_text += '</a>'
+					inner_text += '</div>'
+					inner_text += '<div class="product-text">'
+					inner_text += '<div class="product-text-row name-row">';
+					inner_text += '<div class="product-name">' + result[i].prodtName +'</div>';
+					inner_text += '<div class="product-list-delete-btn"></div>';
+					inner_text += '</div>'
+					inner_text += '<div class="product-text-row count-row">'
+					inner_text += '<div class="product-count">'
+					inner_text += '<label content="4" class="select-box-label">'
+					inner_text += '<select class="select-box-select">'
+					
+					let ps_cnt = result[i].possibleProdtCnt;
+					let cur_cnt = result[i].prodtBuyCnt;
+					
+					if (ps_cnt == 0) {
+						//재고없음으로 처리해야함.
+					} else if (ps_cnt >= 20) {
+						for(let j = 1; j <= 20; j++) {
+							if (cur_cnt == j) {
+								inner_text += '<option selected value="'+j+'">'+j+'</option>'
+							} else {
+								inner_text += '<option value="'+j+'">'+j+'</option>'
+							}
+						}
+					} else {
+						for(let j = 1; j <= ps_cnt; j++) {
+							if (cur_cnt == j) {
+								inner_text += '<option selected value="'+j+'">'+j+'</option>'
+							} else {
+								inner_text += '<option value="'+j+'">'+j+'</option>'
+							}
+						}
+					}
+					
+					inner_text += '</select>';
+					inner_text += '</label>';
+					inner_text += '</div>';
+					inner_text += '<div class="product-price">'+result[i].prodtPrice+'원</div>';
+					inner_text += '</div></div></div>';
+				}
 				
 				//기존에 모든 사진 등등의 정보를 없애고 다시 정보를 덮어씌워주면 된다.
+				$('.product-item-list').remove();//삭제
+				$('#prodt_lists_infos').append(inner_text);//삽입
+				
+				//아래에서는 요금을 산정해준다.
+				total_prodt_ship_cost += total_prodt_cost;
+				
+				$('#prodt_cost').text(money_dot(total_prodt_cost) + '원');
+				$('#total_prodt_cost').text(money_dot(total_prodt_ship_cost) + '원');
+				$('#pay_prodt_cost').text(money_dot(total_prodt_cost) + '원');
+				$('#pay_prodt_total_cost').text(money_dot(total_prodt_ship_cost) + '원');
+
 				
 			},
 			error : function(a, b, c) {
