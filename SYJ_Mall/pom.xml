@@ -19,6 +19,13 @@
 	
 	</properties>
 	<dependencies>
+
+		<!-- 셀레니움 -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.141.59</version>
+		</dependency>
 		
 		<!-- 양방향 암호화 AES256 -->
 		<dependency>
