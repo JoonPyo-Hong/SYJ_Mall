@@ -30,7 +30,7 @@ public class CrawlerService implements ICrawlerService {
 			
 			//Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/chromedriver.exe");
 	        
-			Path path = Paths.get("C:\\Users\\신승환\\Desktop\\java\\SYJ_Mall\\SYJ_Mall\\src\\main\\webapp\\resources\\etc\\chromedriver.exe");
+			Path path = Paths.get("C:\\Users\\신승환\\Desktop\\java\\SYJ_Mall\\SYJ_Mall\\src\\main\\webapp\\resources\\etc\\chromedriver2.exe");
 			
 			
 			//options = Options()
