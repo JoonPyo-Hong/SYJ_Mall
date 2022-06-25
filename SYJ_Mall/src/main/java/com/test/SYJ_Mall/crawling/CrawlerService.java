@@ -54,15 +54,57 @@ public class CrawlerService implements ICrawlerService {
 	        ChromeDriver driver = new ChromeDriver(options);
 	        
 	        // 빈 탭 생성
-	        driver.executeScript("window.open('about:blank','_blank');");
+	        //driver.executeScript("window.open('about:blank','_blank');");
 			
+	        // 탭 목록 가져오기
+	        //List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+	        
+	        // 첫번째 탭으로 전환
+	        //driver.switchTo().window(tabs.get(0));
+	        //driver.get("https://hogangnono.com/apt/23D34/0/2/review");
+	        driver.get("https://hogangnono.com");
+	        
+	        Thread.sleep(1000);
+	        
+	        //아파트명 검색
+	        driver.findElement(By.className("css-wyfpkg")).click();
+	        driver.findElement(By.className("keyword")).sendKeys("송파파크데일 2단지");
+	        driver.findElement(By.className("btn-search")).click();
+	        
+	        Thread.sleep(1000);
+	        
+	        //목록중에서 선택 -> 첫번째 목록을 선택해줌
+	        List<WebElement> elements = driver.findElements(By.className("apt"));
+	        elements.get(0).click();
+	        
+	        Thread.sleep(1000);
+	        
+	        //댓글 클릭
+	        driver.findElement(By.className("comment")).click();
+	        
+	        Thread.sleep(1000);
+	        
+	        //로그인하기 클릭
+	        driver.findElement(By.className("css-wri049")).click();
+	        
+	        Thread.sleep(1000);
+	        
+	        //카카오로 로그인 진행
+	        driver.findElement(By.className("css-1esm3dl")).click();
+	        
 	        // 탭 목록 가져오기
 	        List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 	        
-	        // 첫번째 탭으로 전환
-	        driver.switchTo().window(tabs.get(0));
-	        driver.get("https://hogangnono.com/apt/23D34/0/2/review");
-	       
+	        driver.switchTo().window(tabs.get(1));
+	        
+	        //카카오 로그인 진행 id_email_2_label
+	        driver.findElement(By.id("id_email_2")).sendKeys("01051393792");
+	        driver.findElement(By.id("id_password_3")).sendKeys("sh156452");
+	        
+	        driver.findElement(By.className("id_password_3")).sendKeys("sh156452"); 
+	        //btn_g
+	        
+	        
 	        //아이디 넘겨주기
 	        //driver.findElement(By.id("id_email_2")).sendKeys("");
 	        //driver.findElement(By.id("id_password_3")).sendKeys("");
@@ -72,21 +114,21 @@ public class CrawlerService implements ICrawlerService {
 	        //driver.findElement(By.className("btn_g btn_confirm submit")).click();
 	        
 	        //btn_g btn_confirm submit
-	        List<WebElement> elements = driver.findElements(By.className("css-wri049"));
-	        
-	        System.out.println(elements.size());
-	       
-	        for (WebElement ele : elements) {
-	        	String src = ele.getText();
-        		System.out.println(src);
-        		ele.click();
-	        }
-	        
-	        //css-1esm3dl
-	        
-	        WebElement elm = driver.findElement(By.className("css-1esm3dl"));
-	        
-	        elm.click();
+//	        List<WebElement> elements = driver.findElements(By.className("css-wri049"));
+//	        
+//	        System.out.println(elements.size());
+//	       
+//	        for (WebElement ele : elements) {
+//	        	String src = ele.getText();
+//        		System.out.println(src);
+//        		ele.click();
+//	        }
+//	        
+//	        //css-1esm3dl
+//	        
+//	        WebElement elm = driver.findElement(By.className("css-1esm3dl"));
+//	        
+//	        elm.click();
 	        //driver.get("https://hogangnono.com/apt/23D34/0/2/review");
 	      
 	        //List<WebElement> elements = driver.findElements(By.className("css-9uvvzn"));
