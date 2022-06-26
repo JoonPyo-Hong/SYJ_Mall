@@ -110,8 +110,8 @@ public class CrawlerService implements ICrawlerService {
 	        driver.switchTo().window(tabs.get(1));
 	        
 	        //카카오 로그인 진행 id_email_2_label
-	        driver.findElement(By.id("id_email_2")).sendKeys("01051393792");
-	        driver.findElement(By.id("id_password_3")).sendKeys("sh156452");
+	        driver.findElement(By.id("id_email_2")).sendKeys("");
+	        driver.findElement(By.id("id_password_3")).sendKeys("");
 	        
 	        //btn_g
 	        List<WebElement> btnsEles = driver.findElements(By.className("btn_g"));
