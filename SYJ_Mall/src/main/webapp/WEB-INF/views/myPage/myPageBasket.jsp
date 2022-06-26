@@ -13,7 +13,10 @@ hr.division {
   border: none;
   border-top: 1px solid rgb(227, 229, 232);
   background-color: rgb(247, 247, 247);
-  margin: 0 !important;g
+  margin: 0 !important;
+  
+  }
+  
 .basket-header {
   display: flex;
   align-items: center;

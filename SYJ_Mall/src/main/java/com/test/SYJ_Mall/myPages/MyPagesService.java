@@ -69,6 +69,7 @@ public class MyPagesService implements IMyPagesService {
 		StringFormatClass sfc = new StringFormatClass();
 		String seenList = (String) kc.getCookieInfo(request, "seenList");
 		
+		
 		if (seenList == null) return null;
 		
 		return seenList;
@@ -106,6 +107,7 @@ public class MyPagesService implements IMyPagesService {
 			
 			if (seenList == null) request.setAttribute("mpsList", null);
 			else {
+
 				//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
 				List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
 				

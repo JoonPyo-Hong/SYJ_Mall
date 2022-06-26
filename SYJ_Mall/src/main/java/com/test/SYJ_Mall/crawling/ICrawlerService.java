@@ -17,5 +17,15 @@ public interface ICrawlerService {
 	 * @return
 	 */
 	int goCrawling(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf);
+	
+	/**
+	 * 테스트
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @param sf
+	 * @return
+	 */
+	int goTesting(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf);
 
 }

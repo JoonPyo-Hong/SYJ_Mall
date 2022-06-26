@@ -20,11 +20,16 @@
 	</properties>
 	<dependencies>
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>31.0.1-jre</version>
+		</dependency>
 		<!-- 셀레니움 -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
+			<version>4.2.0</version>
 		</dependency>
 		
 		<!-- 양방향 암호화 AES256 -->

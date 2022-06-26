@@ -113,15 +113,31 @@
 <body>
 
 
-  <table border='1' style='width:800px;'>
+  <!-- <table border='1' style='width:800px;'>
     <th colspan = '2' style='color:red; font-size: 2em; font-weight: bolder;'>Error Occurred In SYJ_Mall</th>
     <tr><td>machine ip</td><td>Date of occurrence</td></tr>
     <tr><td>192.988.12.33</td><td>2022-02-15 13:44:22:33</td></tr>
     <tr><td colspan='2' style='color: red; font-size: 1.3em; font-weight: bolder; text-align: center;'>Error Log</td></tr>
     <tr><td colspan='2'></td></tr>
-  </table>
+  </table> -->
+
+  <button id="here">click</button>
+  <div style="border: 1px solid red; height: 3000px;" id="test"></div>
 
 
+  <script>
+    document.getElementById('here').onclick = function(){
+       //window.scrollTo(0,document.body.scrollHeight);
+      window.scrollBy(0,document.body.scrollHeight);
+      //let test = document.getElementById('test');
+      //test.scrollTop = 0;
+
+    }
+
+    
+
+
+  </script>
 
 
 </body>

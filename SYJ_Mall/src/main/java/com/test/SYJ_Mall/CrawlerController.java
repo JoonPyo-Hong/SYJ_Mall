@@ -29,6 +29,8 @@ public class CrawlerController {
 		
 		int result = service.goCrawling(request,response,ea,sf);
 		
+		//int test = service.goTesting(request,response,ea,sf);
+		
 		return null;
 	}
 }
