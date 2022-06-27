@@ -159,95 +159,13 @@ public class CrawlerService implements ICrawlerService {
 	        	System.out.println(we.getText());
 	        }
 	        
-	        
-	        //css-twiiik
-	        
-	        
-	        //JavascriptExecutor js = (JavascriptExecutor) driver;
-	        
-	        //int deltaY = iframe.getRect().y;
-	        
-	        //Actions action = new Actions(driver);
-	        
-	        //action.scrollByAmount(0, deltaY).perform();
-	        
-	        //action.sc
-	        //perform();
 
-	        //action.moveByOffset(deltaY, 0);
-	        
-	        
-	        
-	        //driver.switchTo().window(tabs.get(0));
-	        //css-1poz24i -> 이쪽부분 스크롤 걸어야한다.
-	        
-	        //JavascriptExecutor js = (JavascriptExecutor) driver;
-	        
-	       // Thread.sleep(1000);
-	        
-	        //js.executeScript("window.scrollTo(0, document.body.getElementsByClassName('css-1poz24i').scrollHeight);");
-	        //List<WebElement> scrollEles = driver.findElements(By.className("css-1poz24i"));
-	        
-	        
-	        //Actions action = new Actions(driver);
-	        //WebElement we = driver.findElement(By.xpath("html/body/div[13]/ul/li[4]/a"));
-
-	        
-	        //js.executeScript(scrollEles.get(0),);
-	        
-	        //js.executeScript("window.scrollTo(0, document.body.getElementsByClassName('css-1poz24i').scrollHeight);");
-	        
-	        //System.out.println(scrollEles.size());
-	        
-	        
-	        //**css-twiiik -> 모든 더보기 클릭해줘야 한다.
-	        
-	        
-	        
-	        
-	        //아이디 넘겨주기
-	        //driver.findElement(By.id("id_email_2")).sendKeys("");
-	        //driver.findElement(By.id("id_password_3")).sendKeys("");
-	        
-	        //Thread.sleep(1000);
-	        
-	        //driver.findElement(By.className("btn_g btn_confirm submit")).click();
-	        
-	        //btn_g btn_confirm submit
-//	        List<WebElement> elements = driver.findElements(By.className("css-wri049"));
-//	        
-//	        System.out.println(elements.size());
-//	       
-//	        for (WebElement ele : elements) {
-//	        	String src = ele.getText();
-//        		System.out.println(src);
-//        		ele.click();
-//	        }
-//	        
-//	        //css-1esm3dl
-//	        
-//	        WebElement elm = driver.findElement(By.className("css-1esm3dl"));
-//	        
-//	        elm.click();
-	        //driver.get("https://hogangnono.com/apt/23D34/0/2/review");
-	      
-	        //List<WebElement> elements = driver.findElements(By.className("css-9uvvzn"));
-	        
-	        
-//	        for (WebElement ele : elements) {
-//	        	String src = ele.getText();
-//	        	
-//	        	if (src.equals("로그인")) ele.click();
-//	        	
-//	        	System.out.println(src);
-//	        }
-	        
 	      
 	        
 			return 0;
 		} catch(Exception e) {
 			e.printStackTrace();
-			//ea.basicErrorException(request, e);
+
 			
 			System.out.println("error");
 			
