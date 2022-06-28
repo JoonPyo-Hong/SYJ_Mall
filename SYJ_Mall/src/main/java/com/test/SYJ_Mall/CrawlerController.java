@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.CommonDAO;
+import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
-import com.common.utill.KakaoCookie;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.crawling.ICrawlerService;
 
@@ -25,9 +26,12 @@ public class CrawlerController {
 	
 	//결제페이지 화면
 	@RequestMapping(value = "/crawlingMain.action", method = { RequestMethod.GET, RequestMethod.POST })
-	public String crawlingMain(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
+	public String crawlingMain(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf, Encryption enc, CommonDAO cdao) {
 		
-		int result = service.goCrawling(request,response,ea,sf);
+		
+		//System.out.println(System.getProperty("user.dir"));
+		
+		int result = service.goCrawling(request,response,ea,sf,enc,cdao);
 		
 		//int test = service.goTesting(request,response,ea,sf);
 		

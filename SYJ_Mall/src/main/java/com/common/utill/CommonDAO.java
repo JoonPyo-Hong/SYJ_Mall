@@ -235,5 +235,42 @@ public class CommonDAO {
 	
 	
 	
+	/**
+	 * 어드민 카카오 계정정보 가져오기
+	 * @param userSeq
+	 * @return
+	 */
+	public AdminKakaoDTO getAdminKaKaosInfo(int userSeq) {
+		
+		try {
+			
+		
+			String sql = "{call kakao_common_admin_master_infos(?)}";
+			
+			stat = conn.prepareCall(sql);
+			stat.setInt("admin_seq", userSeq);
+			stat.execute();
+			rs = stat.getResultSet();
+			
+			AdminKakaoDTO dto = new AdminKakaoDTO();
+			
+			if (rs.next()) {
+				
+				dto.setKakaoId(rs.getString("kakaoId"));
+				dto.setKakaoPw(rs.getString("kakaoPw"));
+				dto.setMasterKey(rs.getString("masterKey"));
+				
+			}
+			
+			stat.close();
+			
+			return dto;
+			
+		} catch(Exception e) {
+			return null;
+		}
+	}
+	
+	
 
 }

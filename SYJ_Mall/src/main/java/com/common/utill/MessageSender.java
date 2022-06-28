@@ -199,7 +199,7 @@ public class MessageSender {
 		}
 	}
 	
-	//메일보내기-다수에게 보내기
+	//메일보내기-다수에게 HTML 메일 보내기
 	public int sendDefaultHtmlMassages() {
 
 		try {

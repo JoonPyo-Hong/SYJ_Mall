@@ -19,6 +19,9 @@ import org.openqa.selenium.interactions.WheelInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.AdminKakaoDTO;
+import com.common.utill.CommonDAO;
+import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.StringFormatClass;
 
@@ -29,20 +32,10 @@ public class CrawlerService implements ICrawlerService {
 	
 	//크롤링 서비스 구현
 	@Override
-	public int goCrawling(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
+	public int goCrawling(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf,Encryption enc, CommonDAO cdao) {
 		try {
-			
-			//System.out.println(System.getProperty("user.dir"));
-			
-			//Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/chromedriver.exe");
-	        
-			Path path = Paths.get("C:\\Users\\신승환\\Desktop\\java\\SYJ_Mall\\SYJ_Mall\\src\\main\\webapp\\resources\\etc\\chromedriver2.exe");
-			
-			
-			//options = Options()
-			//options.binary_location= 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 
-			//driver = webdriver.Chrome('path/chromedriver_win32/chromedriver.exe', chrome_options = options)
+			Path path = Paths.get(System.getProperty("user.dir"), "chromedriver.exe");
 
 			
 			// WebDriver 경로 설정
@@ -68,10 +61,11 @@ public class CrawlerService implements ICrawlerService {
 	        //driver.get("https://hogangnono.com/apt/23D34/0/2/review");
 	        driver.get("https://hogangnono.com");
 	        
+	        Thread.sleep(1000);
 	        
 	        //아파트명 검색
 	        driver.findElement(By.className("css-wyfpkg")).click();
-	        driver.findElement(By.className("keyword")).sendKeys("본동 유원강변");
+	        driver.findElement(By.className("keyword")).sendKeys("아파트 이름");
 	        driver.findElement(By.className("btn-search")).click();
 	        
 	        Thread.sleep(1000);
@@ -97,7 +91,6 @@ public class CrawlerService implements ICrawlerService {
 
 	        
 	        //로그인하기 클릭
-	        ///driver.findElement(By.className("css-wri049")).click();
 	        driver.findElement(By.className("css-wri049")).sendKeys(Keys.ENTER);
 	        Thread.sleep(1000);
 	        
@@ -107,11 +100,16 @@ public class CrawlerService implements ICrawlerService {
 	        // 탭 목록 가져오기
 	        List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 	        
+	        //인터넷 창 변환
 	        driver.switchTo().window(tabs.get(1));
 	        
+	        //어드민 카카오 아이디 비밀번호 가져오기
+	        AdminKakaoDTO adto = cdao.getAdminKaKaosInfo(1);
+	        String dcyPw = enc.returnDcyVoca(adto.getKakaoPw(),adto.getMasterKey());
+	        
 	        //카카오 로그인 진행 id_email_2_label
-	        driver.findElement(By.id("id_email_2")).sendKeys("");
-	        driver.findElement(By.id("id_password_3")).sendKeys("");
+	        driver.findElement(By.id("id_email_2")).sendKeys(adto.getKakaoId());
+	        driver.findElement(By.id("id_password_3")).sendKeys(dcyPw);
 	        
 	        //btn_g
 	        List<WebElement> btnsEles = driver.findElements(By.className("btn_g"));
@@ -138,37 +136,49 @@ public class CrawlerService implements ICrawlerService {
 	        }
 	        
 	        
-	        //모든 댓글 더보기 누르기
+	        
 	        List<WebElement> addComments = driver.findElements(By.className("css-twiiik"));
 	        
 	        System.out.println(addComments.size());
 	        
 	        Thread.sleep(5000);
 	        
-	        
+	        //모든 댓글 더보기 누르기
 	        for (WebElement we : addComments) {
 	        	we.sendKeys(Keys.ENTER);
-	        	//Thread.sleep(100);
 	        }
+	        
+	        
+	        //n년전
+	        //css-qvx8ct
+	        
+	        //가짜 아이디
+	        //css-1yc0y8n
+	        
+	        //진짜 아이디
+	        //css-jroi9m
 	        
 	        
 	        //모든 댓글 내용 출력 css-9uvvzn
+	        List<WebElement> years = driver.findElements(By.className("css-qvx8ct"));
+	        List<WebElement> fakeIds = driver.findElements(By.className("css-1yc0y8n"));
+	        List<WebElement> realIds = driver.findElements(By.className("css-jroi9m"));
 	        List<WebElement> comments = driver.findElements(By.className("css-9uvvzn"));
 	        
-	        for (WebElement we : comments) {
-	        	System.out.println(we.getText());
+	        
+	        for (int i = 0; i < comments.size(); i++) {
+	        	System.out.println(years.get(i).getText());
+	        	System.out.println(fakeIds.get(i).getText());
+	        	System.out.println(realIds.get(i).getText());
+	        	System.out.println(comments.get(i).getText());
+	        	System.out.println("=====================");
 	        }
 	        
-
-	      
 	        
 			return 0;
 		} catch(Exception e) {
 			e.printStackTrace();
 
-			
-			System.out.println("error");
-			
 			return -1;
 		}
 	}
