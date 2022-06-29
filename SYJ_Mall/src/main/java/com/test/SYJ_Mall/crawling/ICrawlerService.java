@@ -31,5 +31,13 @@ public interface ICrawlerService {
 	 * @return
 	 */
 	int goTesting(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf);
+	
+	/**
+	 * 엑셀테스트
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int getExcelLogic(HttpServletRequest request, HttpServletResponse response);
 
 }

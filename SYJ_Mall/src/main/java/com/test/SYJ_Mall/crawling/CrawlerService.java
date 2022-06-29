@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.crawling;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -8,6 +10,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Color;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -215,6 +228,89 @@ public class CrawlerService implements ICrawlerService {
 	        
 	        
 	        return 1;
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return -1;
+		}
+	}
+
+	//엑셀테스트
+	@Override
+	public int getExcelLogic(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			
+		
+			XSSFWorkbook xssfWb = null; 
+			XSSFSheet xssfSheet = null; 
+			XSSFRow xssfRow = null; 
+			XSSFCell xssfCell = null;
+
+			int rowNo = 0; // 행의 갯수 
+			
+			xssfWb = new XSSFWorkbook(); //XSSFWorkbook 객체 생성
+			xssfSheet = xssfWb.createSheet("워크 시트1"); // 워크시트 이름 설정
+			
+			// 폰트 스타일
+			XSSFFont font = xssfWb.createFont();
+			font.setFontName(HSSFFont.FONT_ARIAL); // 폰트 스타일
+			font.setFontHeightInPoints((short)20); // 폰트 크기
+			font.setBold(true); // Bold 설정
+			
+			//테이블 셀 스타일
+			CellStyle cellStyle = xssfWb.createCellStyle();
+			xssfSheet.setColumnWidth(0, (xssfSheet.getColumnWidth(0))+(short)2048); // 0번째 컬럼 넓이 조절
+			
+			cellStyle.setFont(font); // cellStyle에 font를 적용
+			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 정렬
+
+			//셀병합
+			xssfSheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 4)); //첫행, 마지막행, 첫열, 마지막열 병합
+			
+			// 타이틀 생성
+			xssfRow = xssfSheet.createRow(rowNo++); // 행 객체 추가
+			xssfCell = xssfRow.createCell((short) 0); // 추가한 행에 셀 객체 추가
+			xssfCell.setCellStyle(cellStyle); // 셀에 스타일 지정
+			xssfCell.setCellValue("호갱노노 아파트이름 리뷰"); // 데이터 입력
+			
+			xssfSheet.createRow(rowNo++);
+			xssfRow = xssfSheet.createRow(rowNo++);  // 빈행 추가
+			
+			//테이블 스타일 설정
+			CellStyle tableCellStyle = xssfWb.createCellStyle();
+			tableCellStyle.setBorderTop((short) 5);    // 테두리 위쪽
+			tableCellStyle.setBorderBottom((short) 5); // 테두리 아래쪽
+			tableCellStyle.setBorderLeft((short) 5);   // 테두리 왼쪽
+			tableCellStyle.setBorderRight((short) 5);  // 테두리 오른쪽
+			
+			xssfRow = xssfSheet.createRow(rowNo++);
+			xssfCell = xssfRow.createCell((short) 0);
+			xssfCell.setCellStyle(tableCellStyle);
+			xssfCell.setCellValue("아이디");
+			xssfCell = xssfRow.createCell((short) 1);
+			xssfCell.setCellStyle(tableCellStyle);
+			xssfCell.setCellValue("시기");
+			xssfCell = xssfRow.createCell((short) 2);
+			xssfCell.setCellStyle(tableCellStyle);
+			xssfCell.setCellValue("셀3");
+			xssfCell = xssfRow.createCell((short) 3);
+			xssfCell.setCellStyle(tableCellStyle);
+			xssfCell.setCellValue("셀4");
+			xssfCell = xssfRow.createCell((short) 4);
+			xssfCell.setCellStyle(tableCellStyle);
+			
+			Path path = Paths.get(System.getProperty("user.dir"), "excelFile/test.xlsx");
+			
+			String localFile = path.toString();
+			
+			File file = new File(localFile);
+			FileOutputStream fos = null;
+			fos = new FileOutputStream(file);
+			xssfWb.write(fos);
+	
+			if (fos != null) fos.close();
+			
+			return 1;
 		} catch(Exception e) {
 			e.printStackTrace();
 			
