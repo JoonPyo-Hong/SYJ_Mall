@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Color;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -36,6 +34,7 @@ import com.common.utill.AdminKakaoDTO;
 import com.common.utill.CommonDAO;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
+import com.common.utill.ExcelGenerate;
 import com.common.utill.StringFormatClass;
 
 @Service
@@ -74,11 +73,11 @@ public class CrawlerService implements ICrawlerService {
 	        //driver.get("https://hogangnono.com/apt/23D34/0/2/review");
 	        driver.get("https://hogangnono.com");
 	        
-	        Thread.sleep(1000);
+	        Thread.sleep(2000);
 	        
 	        //아파트명 검색
-	        driver.findElement(By.className("css-wyfpkg")).click();
-	        driver.findElement(By.className("keyword")).sendKeys("아파트 이름");
+	        driver.findElement(By.className("css-ouxt45")).click();
+	        driver.findElement(By.className("keyword")).sendKeys("상계동 상계주공1단지");
 	        driver.findElement(By.className("btn-search")).click();
 	        
 	        Thread.sleep(1000);
@@ -94,7 +93,7 @@ public class CrawlerService implements ICrawlerService {
 	        
 	        Thread.sleep(3000);
 	        
-	        WebElement iframe = driver.findElement(By.className("css-1poz24i"));
+	        WebElement iframe = driver.findElement(By.className("css-vx1isg"));
 	        
 	        WheelInput.ScrollOrigin scrollOrigins = WheelInput.ScrollOrigin.fromElement(iframe);
 	        	
@@ -104,11 +103,11 @@ public class CrawlerService implements ICrawlerService {
 
 	        
 	        //로그인하기 클릭
-	        driver.findElement(By.className("css-wri049")).sendKeys(Keys.ENTER);
+	        driver.findElement(By.className("css-1gh9m71")).sendKeys(Keys.ENTER);
 	        Thread.sleep(1000);
 	        
 	        //카카오로 로그인 진행
-	        driver.findElement(By.className("css-1esm3dl")).click();
+	        driver.findElement(By.className("css-1yil1p4")).click();
 	        
 	        // 탭 목록 가져오기
 	        List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
@@ -138,19 +137,25 @@ public class CrawlerService implements ICrawlerService {
 	        
 	        //사용자 로그인 응답대기 -> 일단 10초로 걸어둠
 	        Thread.sleep(10000);
-	       
+	        
+	        System.out.println("시작!");
+	        
+	        Thread.sleep(5000);
+	        
+	        iframe = driver.findElement(By.className("css-vx1isg"));
 	        
 	        WheelInput.ScrollOrigin scrollOrigin = WheelInput.ScrollOrigin.fromElement(iframe);
 	        
-	        for (int i = 0; i < 50; i++) {
+	        for (int i = 0; i < 200; i++) {
 	        	new Actions(driver)
 	            .scrollFromOrigin(scrollOrigin, 0, 2000)
 	            .perform();
 	        }
 	        
 	        
+	        Thread.sleep(5000);
 	        
-	        List<WebElement> addComments = driver.findElements(By.className("css-twiiik"));
+	        List<WebElement> addComments = driver.findElements(By.className("css-1pwash7"));
 	        
 	        System.out.println(addComments.size());
 	        
@@ -173,22 +178,41 @@ public class CrawlerService implements ICrawlerService {
 	        
 	        
 	        //모든 댓글 내용 출력 css-9uvvzn
-	        List<WebElement> years = driver.findElements(By.className("css-qvx8ct"));
-	        List<WebElement> fakeIds = driver.findElements(By.className("css-1yc0y8n"));
-	        List<WebElement> realIds = driver.findElements(By.className("css-jroi9m"));
-	        List<WebElement> comments = driver.findElements(By.className("css-9uvvzn"));
+	        List<WebElement> years = driver.findElements(By.className("css-11sbhjp"));
+	        List<WebElement> fakeIds = driver.findElements(By.className("css-7uflit"));
+	        List<WebElement> realIds = driver.findElements(By.className("css-156l0bp"));
+	        List<WebElement> comments = driver.findElements(By.className("css-17aohek"));
+	        
+	        System.out.println("years : " + years.size());
+	        System.out.println("fakeIds : " + fakeIds.size());
+	        System.out.println("realIds : " + realIds.size());
+	        System.out.println("comments : " + comments.size());
 	        
 	        
-	        for (int i = 0; i < comments.size(); i++) {
-	        	System.out.println(years.get(i).getText());
-	        	System.out.println(fakeIds.get(i).getText());
-	        	System.out.println(realIds.get(i).getText());
-	        	System.out.println(comments.get(i).getText());
-	        	System.out.println("=====================");
+	        CrawlingThreeDTO[] cArr = new CrawlingThreeDTO[comments.size()];
+	        
+	        for (int i = 0; i < cArr.length; i++) {
+	        	String innerYear = years.get(i).getText();
+	        	String innerFakeIds = fakeIds.get(i).getText();
+	        	String innerRealIds = realIds.get(i).getText();
+	        	String innerComments = comments.get(i).getText();
+	        	
+	        	int index = innerYear.indexOf("전");
+	        	CrawlingThreeDTO dto = new CrawlingThreeDTO();
+	        	dto.setStr1(innerYear.substring(0,index+1));
+	        	dto.setStr2(innerFakeIds + " (" + innerRealIds + ") ");
+	        	dto.setStr3(innerComments);
+	        	
+	        	cArr[i] = dto;
 	        }
 	        
+	        Path paths = Paths.get(System.getProperty("user.dir"), "excelFile/test.xlsx");
+			String localFiles = paths.toString();
 	        
-			return 0;
+	        ExcelGenerate excel = new ExcelGenerate("아파트 이름",localFiles);
+
+			return excel.setExcelThree(cArr);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 
@@ -265,7 +289,7 @@ public class CrawlerService implements ICrawlerService {
 			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 정렬
 
 			//셀병합
-			xssfSheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 4)); //첫행, 마지막행, 첫열, 마지막열 병합
+			//xssfSheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 2)); //첫행, 마지막행, 첫열, 마지막열 병합
 			
 			// 타이틀 생성
 			xssfRow = xssfSheet.createRow(rowNo++); // 행 객체 추가
@@ -292,12 +316,24 @@ public class CrawlerService implements ICrawlerService {
 			xssfCell.setCellValue("시기");
 			xssfCell = xssfRow.createCell((short) 2);
 			xssfCell.setCellStyle(tableCellStyle);
-			xssfCell.setCellValue("셀3");
-			xssfCell = xssfRow.createCell((short) 3);
+			xssfCell.setCellValue("내용");
+			
+			xssfRow = xssfSheet.createRow(rowNo++);
+			xssfCell = xssfRow.createCell((short) 0);
 			xssfCell.setCellStyle(tableCellStyle);
-			xssfCell.setCellValue("셀4");
-			xssfCell = xssfRow.createCell((short) 4);
+			xssfCell.setCellValue("아이디");
+			xssfCell = xssfRow.createCell((short) 1);
 			xssfCell.setCellStyle(tableCellStyle);
+			xssfCell.setCellValue("시기");
+			xssfCell = xssfRow.createCell((short) 2);
+			xssfCell.setCellStyle(tableCellStyle);
+			xssfCell.setCellValue("내용");
+			
+//			xssfCell = xssfRow.createCell((short) 3);
+//			xssfCell.setCellStyle(tableCellStyle);
+//			xssfCell.setCellValue("셀4");
+//			xssfCell = xssfRow.createCell((short) 4);
+//			xssfCell.setCellStyle(tableCellStyle);
 			
 			Path path = Paths.get(System.getProperty("user.dir"), "excelFile/test.xlsx");
 			
