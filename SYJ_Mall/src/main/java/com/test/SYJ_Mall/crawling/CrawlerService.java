@@ -77,7 +77,7 @@ public class CrawlerService implements ICrawlerService {
 	        
 	        //아파트명 검색
 	        driver.findElement(By.className("css-ouxt45")).click();
-	        driver.findElement(By.className("keyword")).sendKeys("상계동 상계주공1단지");
+	        driver.findElement(By.className("keyword")).sendKeys("");
 	        driver.findElement(By.className("btn-search")).click();
 	        
 	        Thread.sleep(1000);

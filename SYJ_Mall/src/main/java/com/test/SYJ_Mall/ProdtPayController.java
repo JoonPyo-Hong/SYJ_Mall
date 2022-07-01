@@ -55,6 +55,15 @@ public class ProdtPayController {
 		
 		return service.getProdtCheckedInfos(request,response,ea,sf);
 	}
+	
+	//회원의 기프트카드 금액 조회
+	@RequestMapping(value = "/prodtPayUserGiftCard.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public String prodtPayUserGiftCard(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
+		
+		return service.getProdtUserGiftCard(request,response,ea,sf);
+	}
+	
 			
 	
 	

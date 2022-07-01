@@ -46,6 +46,16 @@ public interface IProdtPayService {
 	 */
 	List<ProdtPayDTO> getProdtCheckedInfos(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf);
 
+	/**
+	 * 회원의 기프트카드 조회
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @param sf
+	 * @return
+	 */
+	String getProdtUserGiftCard(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf);
+
 	
 
 

@@ -241,4 +241,22 @@ public class ProdtPayService implements IProdtPayService {
 		}
 		
 	}
+	
+	//회원의 기프트 카드 조회
+	@Override
+	public String getProdtUserGiftCard(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, StringFormatClass sf) {
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			if (userInfo == null) return null;
+			
+			return dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return null;
+		}
+	}
 }

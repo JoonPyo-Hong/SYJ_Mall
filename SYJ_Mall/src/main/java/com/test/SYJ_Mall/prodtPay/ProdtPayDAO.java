@@ -36,5 +36,12 @@ public class ProdtPayDAO implements IProdtPayDAO {
 		return template.selectList("ProdtPay.buyProdtUserInfos",userSeq);
 	}
 	
+	//유저의 기프트카드 잔액 가져오기
+	@Override
+	public String getProdtUserGiftMoney(int userSeq) {
+		
+		return template.selectOne("ProdtPay.buyProdtUserInfos",userSeq);
+	}
+	
 	
 }

@@ -27,7 +27,7 @@ public class Websocket {
 
 	public Websocket() {
 		// TODO Auto-generated constructor stub
-		System.out.println("웹소켓(서버) 객체생성");
+		//System.out.println("웹소켓(서버) 객체생성");
 	}
 	
     @OnOpen

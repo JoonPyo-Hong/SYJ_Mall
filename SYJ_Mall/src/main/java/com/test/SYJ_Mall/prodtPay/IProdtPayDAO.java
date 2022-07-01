@@ -24,5 +24,12 @@ public interface IProdtPayDAO {
 	 * @return
 	 */
 	List<ProdtPayUserDTO> getProdtPayUserInfo(int userSeq);
+	
+	/**
+	 * 유저의 기프트카드 잔액 가져오기
+	 * @param userSeq
+	 * @return
+	 */
+	String getProdtUserGiftMoney(int userSeq);
 
 }

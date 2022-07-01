@@ -861,13 +861,13 @@ input[type="radio"] {
 			$('#ship_name_first').val('');
 			$('#ship_name_second').val('');
 		} else {
-			user_shipping_info_ajax();
+			user_shipping_info_basic_ajax();
 		}
 		
 	 });
 	 
 	 /* 고객 기본 배송정보 가져오기 */
-	 function user_shipping_info_ajax() {
+	 function user_shipping_info_basic_ajax() {
 			
 		 $.ajax({
             	type:"GET",
@@ -989,6 +989,29 @@ input[type="radio"] {
 		});
 		
 	}
+	 
+	/* 카드 조회 */
+	function user_has_gift_card() {
+		 $.ajax({
+         	type:"GET",
+         	url: "/SYJ_Mall/prodtPayUserInfos.action",
+         	success : function(result) {
+         		
+         		if (result == null) {
+         			alert('오류 발생');
+         		} else {
+         			$('#ship_user_name').val(result.userName);
+         			$('#ship_user_phone').val(result.userPhoneNum);
+         			$('#ship_name_first').val(result.userFirstAddr);
+         			$('#ship_name_second').val(result.userSecondAddr);
+         		}
+         	},
+         	error: function(a,b,c) {
+					console.log(a,b,c);
+			}
+        });
+	}
+	 
 	 
 	 
 </script>
