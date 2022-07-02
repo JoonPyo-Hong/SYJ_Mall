@@ -916,7 +916,8 @@ input[type="radio"] {
 				let inner_text = '';
 				let total_prodt_cost = 0;
 				//console.log(not_money_dot(ship_cost));
-				let total_prodt_ship_cost = Number(not_money_dot(3000));
+				let total_prodt_ship_cost = parseInt(not_money_dot(3000));
+				
 				
 				for (let i = 0; i < result.length; i++) {
 					
@@ -976,6 +977,8 @@ input[type="radio"] {
 				//아래에서는 요금을 산정해준다.
 				total_prodt_ship_cost += total_prodt_cost;
 				
+				console.log(total_prodt_ship_cost);
+				
 				$('#prodt_cost').text(money_dot(total_prodt_cost) + '원');
 				$('#total_prodt_cost').text(money_dot(total_prodt_ship_cost) + '원');
 				$('#pay_prodt_cost').text(money_dot(total_prodt_cost) + '원');
@@ -989,22 +992,20 @@ input[type="radio"] {
 		});
 		
 	}
+	
+	/* 카드 조회해주기 */
+	$('.pay-detail-button').click(function(){
+		user_has_gift_card();
+	}); 
 	 
-	/* 카드 조회 */
+	/* 카드 조회 관련 함수 */
 	function user_has_gift_card() {
 		 $.ajax({
          	type:"GET",
-         	url: "/SYJ_Mall/prodtPayUserInfos.action",
+         	url: "/SYJ_Mall/prodtPayUserGiftCard.action",
          	success : function(result) {
          		
-         		if (result == null) {
-         			alert('오류 발생');
-         		} else {
-         			$('#ship_user_name').val(result.userName);
-         			$('#ship_user_phone').val(result.userPhoneNum);
-         			$('#ship_name_first').val(result.userFirstAddr);
-         			$('#ship_name_second').val(result.userSecondAddr);
-         		}
+         		console.log(result);
          	},
          	error: function(a,b,c) {
 					console.log(a,b,c);

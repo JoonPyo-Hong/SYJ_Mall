@@ -40,7 +40,7 @@ public class ProdtPayDAO implements IProdtPayDAO {
 	@Override
 	public String getProdtUserGiftMoney(int userSeq) {
 		
-		return template.selectOne("ProdtPay.buyProdtUserInfos",userSeq);
+		return template.selectOne("ProdtPay.buyProdtUserGiftBalance",userSeq);
 	}
 	
 	
