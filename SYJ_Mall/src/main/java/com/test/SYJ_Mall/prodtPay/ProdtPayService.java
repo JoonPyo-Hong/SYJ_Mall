@@ -197,6 +197,7 @@ public class ProdtPayService implements IProdtPayService {
 				prodtDbInfoList = "";
 			}
 			
+			
 			//좀더 빠르게 찾기 위해 map 객체에 넣어주기 -> 이부분에서 특정 물픔을 어떤수량으로 바꿨는지 체크를 해줘야한다.
 			for (int i = 0; i < pidtoList.size(); i++) {
 				ProdtInstDTO pidto = pidtoList.get(i);
@@ -227,6 +228,7 @@ public class ProdtPayService implements IProdtPayService {
 				
 			}
 			
+			
 			//session 새롭게 update
 			session.removeAttribute("pidtoList");
 			session.setAttribute("pidtoList", pidtoList);
@@ -252,7 +254,14 @@ public class ProdtPayService implements IProdtPayService {
 			
 			if (userInfo == null) return null;
 			
-			return dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+			String userGiftBalance = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+			
+			//현재 기프트 카드 조회했다는걸 세션정보에 유지시켜줘야 한다.
+			session.removeAttribute("userGiftBalance");
+			session.setAttribute("userGiftBalance", userGiftBalance);
+			
+			
+			return userGiftBalance;
 			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);

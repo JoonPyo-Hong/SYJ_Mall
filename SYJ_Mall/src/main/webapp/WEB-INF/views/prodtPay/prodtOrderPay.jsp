@@ -740,14 +740,23 @@ input[type="radio"] {
            <div class="total-point">(${userHasCoin}p)</div>
          </div>
          <div>
-           <input align="right" padding="15" class="input-text" value="0" style="width:180px;">
+           <input align="right" padding="15" class="input-text" id='kakao_has_point' value="0" style="width:180px;">
          </div>
        </li>
        <li class="pay-list-li">
          <div>기프트카드</div>
-         <div>
-           <button type="button" class="pay-detail-button">카드 조회</button>
-         </div>
+         
+         <c:if test="${empty userGiftBalance}">
+         	<div id='gift_card_balance'>
+           		<button type="button" class="pay-detail-button">카드 조회</button>
+         	</div>
+         </c:if>
+         
+         <c:if test="${not empty userGiftBalance}">
+         	<input align="right" padding="15" class="input-text" id="kakao_has_gift" value="${userGiftBalance}" style="width:180px;">
+         </c:if>
+         
+
        </li>
        <li class="pay-list-li">
          <div><b>최종 결제금액</b></div>
@@ -894,10 +903,9 @@ input[type="radio"] {
 		 
 		 const prodt_cnt = $(this).val();
 		 const prodt_seq = $(this).parents('.product-item-list').attr('id');
-		
-		 console.log("? : " + ${shipFee})
 		 
 		 user_shipping_info_ajax(prodt_seq,prodt_cnt);
+		 user_has_gift_card();
 		 
 	 });
 	 
@@ -915,13 +923,12 @@ input[type="radio"] {
 				
 				let inner_text = '';
 				let total_prodt_cost = 0;
-				//console.log(not_money_dot(ship_cost));
 				let total_prodt_ship_cost = parseInt(not_money_dot(3000));
 				
 				
 				for (let i = 0; i < result.length; i++) {
 					
-					let prodt_cost_int = Number(not_money_dot(result[i].prodtPrice));
+					let prodt_cost_int = parseInt(not_money_dot(result[i].prodtPrice));
 					total_prodt_cost += prodt_cost_int;
 					
 					inner_text += '<div class="product-item-list" id="' + result[i].prodtSeq + '">';
@@ -976,9 +983,7 @@ input[type="radio"] {
 				
 				//아래에서는 요금을 산정해준다.
 				total_prodt_ship_cost += total_prodt_cost;
-				
-				console.log(total_prodt_ship_cost);
-				
+
 				$('#prodt_cost').text(money_dot(total_prodt_cost) + '원');
 				$('#total_prodt_cost').text(money_dot(total_prodt_ship_cost) + '원');
 				$('#pay_prodt_cost').text(money_dot(total_prodt_cost) + '원');
@@ -1005,13 +1010,21 @@ input[type="radio"] {
          	url: "/SYJ_Mall/prodtPayUserGiftCard.action",
          	success : function(result) {
          		
-         		console.log(result);
+         		if (result != null) {
+         			$('.pay-detail-button').remove();
+             		$('#gift_card_balance').append('<input align="right" padding="15" class="input-text" id="kakao_has_gift" value="'+result+'" style="width:180px;">');
+         		}
          	},
          	error: function(a,b,c) {
 					console.log(a,b,c);
 			}
         });
 	}
+	
+	
+	/* 카카오 포인트 관련 함수 */
+	
+	 //주문고객 정보 객체를 세션에 통일해서 담는것을 목표로 해야한다.
 	 
 	 
 	 
