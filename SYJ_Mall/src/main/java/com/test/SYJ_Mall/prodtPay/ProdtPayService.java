@@ -41,26 +41,19 @@ public class ProdtPayService implements IProdtPayService {
 			List<ProdtInstDTO> pidtoList = (List<ProdtInstDTO>) session.getAttribute("pidtoList");//세션에 존재하는 유저의 주문관련 제품정보들
 			Map<String,Integer> prodtCntMap = new HashMap<String,Integer>();//해당 주문제품 map 에 넣어주기
 			
+			//마이페이지에서 넘어온 경우는 세션을 없애주고 시작해야한다.
+			String prodtId = request.getParameter("product_obj_id");
+			String prodtCnt = request.getParameter("product_obj_cnt");
+			
 			/*==================1. 주문제품 관련 객체 가져오기 => 마이페이지에서 넘긴 정보로 가야한다.==================*/
 			List<ProdtPayDTO> prodtList;
-			String prodtDbInfoList;//디비로 넘길 물품번호 개체들
+			String prodtDbInfoList = null;//디비로 넘길 물품번호 개체들
 			
-			//회원 장바구니 정보 세션이 존재하는 경우
-			if (pidtoList != null) {
-				StringBuffer sb = new StringBuffer();
+			//마이페이지에서 넘어온 경우
+			if (prodtId != null && prodtCnt != null) {
 				
-				for (ProdtInstDTO dto : pidtoList) {
-					sb.append(dto.getProdtId());
-					sb.append("#");
-				}
-				
-				prodtDbInfoList = sb.toString();
-			} 
-			//회원 장바구니 정보 세션이 존재하지 않는 경우
-			else {
-				String prodtId = request.getParameter("product_obj_id");
-				String prodtCnt = request.getParameter("product_obj_cnt");
-				
+				//기존세션 지워준다.
+				session.removeAttribute("pidtoList");
 				prodtDbInfoList = prodtId;
 				
 				String[] prodtIdArr = sf.stringSplitList(prodtId,"#");//아이디
@@ -76,15 +69,28 @@ public class ProdtPayService implements IProdtPayService {
 					pidtoList.add(new ProdtInstDTO(prodtIdArr[i],Integer.parseInt(prodtCntArr[i])));
 				}
 				
-				session.setAttribute("pidtoList", pidtoList);
+				session.setAttribute("pidtoList", pidtoList);	
+			} 
+			//마이페이지에서 넘어온 경우가 아니고 세션이 존재하는 경우
+			else if (pidtoList != null) {
+				StringBuffer sb = new StringBuffer();
+				
+				for (ProdtInstDTO dto : pidtoList) {
+					sb.append(dto.getProdtId());
+					sb.append("#");
+				}
+				
+				prodtDbInfoList = sb.toString();
+			} else {
+				return -1;
 			}
 			
 			//좀더 빠르게 찾기 위해 map 객체에 넣어주기
 			for (int i = 0; i < pidtoList.size(); i++) {
 				String prodtSeq = pidtoList.get(i).getProdtId();
-				int prodtCnt = pidtoList.get(i). getProdtCnt();
+				int prodtCnts = pidtoList.get(i). getProdtCnt();
 				
-				prodtCntMap.put(prodtSeq,prodtCnt);
+				prodtCntMap.put(prodtSeq,prodtCnts);
 			}
 			
 			prodtList = dao.getProdtPayList(prodtDbInfoList);

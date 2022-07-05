@@ -389,7 +389,6 @@ input[id="product-checkbox"]:checked {
 		
 		let prodt_id = $(this).parent().parent().parent().attr("id");
 		
-		//console.log(prodt_id);
 		const result = prodt_seleted_yn(prodt_id);
 		
 		
@@ -453,6 +452,7 @@ input[id="product-checkbox"]:checked {
 		const select_count = total_select_count() + "개 선택";
 		$('.delete-count').text(select_count);
 		buy_count_selected();
+		
 		
 		e.preventDefault();
 	});
@@ -548,8 +548,6 @@ input[id="product-checkbox"]:checked {
 	            data : {"prodtIds" : delete_prodt_string },
 	            dataType : "json",
 	            success : function(result) {
-	                
-	            	//console.log(result);
 	            	
 	            	for (let i = 0; i < result.length; i++) {
 	            		const prodt_id = result[i];
@@ -611,7 +609,8 @@ input[id="product-checkbox"]:checked {
  		
  		$('#product_obj_id').val(prodt_id_list);
  		$('#product_obj_cnt').val(prodt_cnt_list);
- 		
+		
+
  		$('#prodt_pay_go').submit();
  		
  	});
