@@ -9,7 +9,7 @@
 	Real DB :	exec dbo.kakao_mypage_basket_no_login '118#117#119#31'
 
 */ 
-create proc dbo.kakao_mypage_basket_no_login
+alter proc dbo.kakao_mypage_basket_no_login
 	@basket_info varchar(3000)	-- 쿠키정보
 as 
 set nocount on 
@@ -24,7 +24,6 @@ begin
 	,	case when kpt.discount_rate = 0 then 'N'
 		else 'Y' end as dcYn
 	,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as picUrl
-	--,kpi.product_img as picUrl
 	,	1 as buyCount
 	from string_split(@basket_info,'#') ss
 	inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on convert(bigint,ss.value) =  kpt.product_id
