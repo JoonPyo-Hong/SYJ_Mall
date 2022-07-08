@@ -61,124 +61,103 @@ begin
 				else if (@sorted_option = 2)
 				begin
 					select
-						m.product_id as prodId
-					,	m.product_nm as prodNm
-					,	m.product_count as prodCnt
-					,	format(m.product_price,'#,#') as prodPrice
-					,	m.discount_rate as discRate
-					,	m.product_img as picUrl
-					,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
-					,	m.cart as cookieBasket
-					,	m.category_nm as categoryNm
-					,	m.alarmYn as alarmYn
-					from
-					(
-						select
-							row_number() over (order by kpt.reg_dt desc) as rn
-						,	kpt.product_id 
-						,	kpt.product_nm 
-						,	kpt.product_count 
-						,	kpt.product_price 
-						,	kpt.discount_rate 
-						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-						,	kpc.category_nm
+							kpt.product_id as prodId
+						,	kpt.product_nm as prodNm
+						,	kpt.product_count as prodCnt
+						,	format(kpt.product_price,'#,#') as prodPrice
+						,	kpt.discount_rate as discRate
+						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as picUrl
+						,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
 						,	case when kusc.cart_del_yn is null then 'cart'
-								 when kusc.cart_del_yn = 'Y' then 'cart'
-								 else 'incart' end as cart
+									when kusc.cart_del_yn = 'Y' then 'cart'
+									else 'incart' end as cookieBasket
+						,	kpc.category_nm as categoryNm
 						,	case when kuai.del_yn is null then 'alarm'
-						         when kuai.del_yn = 'Y' then 'alarm'
-						         else 'inalarm' end as alarmYn
-						from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
-						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
-						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-						left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
-						left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
-						where kpi.rep_img_yn = 'Y'
-						and kpi.head_img_yn = 'Y'
-					) as m
-					where m.rn between 16*@paging-15 and 16*@paging
+									when kuai.del_yn = 'Y' then 'alarm'
+									else 'inalarm' end as alarmYn
+					from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+					inner join(
+						select 
+							product_id
+						from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+						order by reg_dt desc
+						offset (@paging-1) * 16 rows
+						fetch next 16 rows only
+					) kjrs on kjrs.product_id = kpt.product_id
+					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
+					inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
+					where kpi.rep_img_yn = 'Y'
+					and kpi.head_img_yn = 'Y'					
 				end
 				--낮은 가격순
 				else if (@sorted_option = 3)
 				begin
 					select
-						m.product_id as prodId
-					,	m.product_nm as prodNm
-					,	m.product_count as prodCnt
-					,	format(m.product_price,'#,#') as prodPrice
-					,	m.discount_rate as discRate
-					,	m.product_img as picUrl
-					,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
-					,	m.cart as cookieBasket
-					,	m.category_nm as categoryNm
-					,	m.alarmYn as alarmYn
-					from
-					(
-						select
-							row_number() over (order by kpt.product_price) as rn
-						,	kpt.product_id 
-						,	kpt.product_nm 
-						,	kpt.product_count 
-						,	kpt.product_price 
-						,	kpt.discount_rate 
-						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-						,	kpc.category_nm
+							kpt.product_id as prodId
+						,	kpt.product_nm as prodNm
+						,	kpt.product_count as prodCnt
+						,	format(kpt.product_price,'#,#') as prodPrice
+						,	kpt.discount_rate as discRate
+						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as picUrl
+						,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
 						,	case when kusc.cart_del_yn is null then 'cart'
-								 when kusc.cart_del_yn = 'Y' then 'cart'
-								 else 'incart' end as cart
+									when kusc.cart_del_yn = 'Y' then 'cart'
+									else 'incart' end as cookieBasket
+						,	kpc.category_nm as categoryNm
 						,	case when kuai.del_yn is null then 'alarm'
-						         when kuai.del_yn = 'Y' then 'alarm'
-						         else 'inalarm' end as alarmYn
-						from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
-						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
-						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-						left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
-						left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
-						where kpi.rep_img_yn = 'Y'
-						and kpi.head_img_yn = 'Y'
-					) as m
-					where m.rn between 16*@paging-15 and 16*@paging
+									when kuai.del_yn = 'Y' then 'alarm'
+									else 'inalarm' end as alarmYn
+					from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+					inner join(
+						select 
+							product_id
+						from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+						order by product_price
+						offset (@paging-1) * 16 rows
+						fetch next 16 rows only
+					) kjrs on kjrs.product_id = kpt.product_id
+					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
+					inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
+					where kpi.rep_img_yn = 'Y'
+					and kpi.head_img_yn = 'Y'
 				end
 				--높은 가격순
 				else if (@sorted_option = 4)
 				begin
 					select
-						m.product_id as prodId
-					,	m.product_nm as prodNm
-					,	m.product_count as prodCnt
-					,	format(m.product_price,'#,#') as prodPrice
-					,	m.discount_rate as discRate
-					,	m.product_img as picUrl
-					,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
-					,	m.cart as cookieBasket
-					,	m.category_nm as categoryNm
-					,	m.alarmYn as alarmYn
-					from
-					(
-						select
-							row_number() over (order by kpt.product_price desc) as rn
-						,	kpt.product_id 
-						,	kpt.product_nm 
-						,	kpt.product_count 
-						,	kpt.product_price 
-						,	kpt.discount_rate 
-						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-						,	kpc.category_nm
+							kpt.product_id as prodId
+						,	kpt.product_nm as prodNm
+						,	kpt.product_count as prodCnt
+						,	format(kpt.product_price,'#,#') as prodPrice
+						,	kpt.discount_rate as discRate
+						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as picUrl
+						,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
 						,	case when kusc.cart_del_yn is null then 'cart'
-								 when kusc.cart_del_yn = 'Y' then 'cart'
-								 else 'incart' end as cart
+									when kusc.cart_del_yn = 'Y' then 'cart'
+									else 'incart' end as cookieBasket
+						,	kpc.category_nm as categoryNm
 						,	case when kuai.del_yn is null then 'alarm'
-						         when kuai.del_yn = 'Y' then 'alarm'
-						         else 'inalarm' end as alarmYn
-						from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
-						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
-						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-						left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
-						left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
-						where kpi.rep_img_yn = 'Y'
-						and kpi.head_img_yn = 'Y'
-					) as m
-					where m.rn between 16*@paging-15 and 16*@paging				
+									when kuai.del_yn = 'Y' then 'alarm'
+									else 'inalarm' end as alarmYn
+					from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+					inner join(
+						select 
+							product_id
+						from dbo.KAKAO_PRODUCT_TABLE with(nolock)
+						order by product_price desc
+						offset (@paging-1) * 16 rows
+						fetch next 16 rows only
+					) kjrs on kjrs.product_id = kpt.product_id
+					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
+					inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
+					where kpi.rep_img_yn = 'Y'
+					and kpi.head_img_yn = 'Y'		
 				end										
 end
 
