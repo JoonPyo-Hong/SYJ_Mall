@@ -5,8 +5,9 @@
 	     
 	History	:	2021-11-26 Seunghwan Shin	#최초 생성
 				2021-12-26 Seunghwan Shin	#인덱싱 테이블 수정
+				2022-07-08 Seunghwan Shin	#쿼리 성능 개선을 위해 페이징 알고리즘 변경
 	
-	Real DB : exec dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category '119#118#9', '1', '0',
+	Real DB : exec dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category 2000001, '1', '1'
 
 */
 alter proc dbo.kakao_recommend_new_theme_add_no_big_category_no_small_category
@@ -26,43 +27,35 @@ begin
 				if(@sorted_option = 1)
 				begin
 					select
-						m.product_id as prodId
-					,	m.product_nm as prodNm
-					,	m.product_count as prodCnt
-					,	format(m.product_price,'#,#') as prodPrice
-					,	m.discount_rate as discRate
-					,	m.product_img as picUrl
-					,	format(m.product_price * (1-(m.discount_rate)/100.0) ,'#,#') as dcPrice
-					,	m.cart as cookieBasket
-					,	m.category_nm as categoryNm
-					,	m.alarmYn as alarmYn
-					from
-					(
-						select
-							row_number() over (order by kjr.buy_cnt desc) as rn
-						,	kpt.product_id 
-						,	kpt.product_nm 
-						,	kpt.product_count 
-						,	kpt.product_price 
-						,	kpt.discount_rate 
-						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as product_img
-						,	kpc.category_nm
+							kpt.product_id as prodId
+						,	kpt.product_nm as prodNm
+						,	kpt.product_count as prodCnt
+						,	format(kpt.product_price,'#,#') as prodPrice
+						,	kpt.discount_rate as discRate
+						,	replace(replace(replace(kpi.product_img,N' ',N'%20'),N'(',N'%20'),N')',N'') as picUrl
+						,	format(kpt.product_price * (1-(kpt.discount_rate)/100.0) ,'#,#') as dcPrice
 						,	case when kusc.cart_del_yn is null then 'cart'
-								 when kusc.cart_del_yn = 'Y' then 'cart'
-								 else 'incart' end as cart
+									when kusc.cart_del_yn = 'Y' then 'cart'
+									else 'incart' end as cookieBasket
+						,	kpc.category_nm as categoryNm
 						,	case when kuai.del_yn is null then 'alarm'
-						         when kuai.del_yn = 'Y' then 'alarm'
-						         else 'inalarm' end as alarmYn
-						from dbo.KAKAO_PRODUCT_IMG kpi with(nolock)
-						inner loop join dbo.KAKAO_PRODUCT_TABLE kpt with(nolock) on kpt.product_id = kpi.product_id
-						inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
-						left join dbo.KAKAO_JOB_RANK kjr with(nolock) on kjr.product_id = kpt.product_id
-						left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
-						left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
-						where kpi.rep_img_yn = 'Y'
-						and kpi.head_img_yn = 'Y'
-					) as m
-					where m.rn between 16*@paging-15 and 16*@paging
+									when kuai.del_yn = 'Y' then 'alarm'
+									else 'inalarm' end as alarmYn
+					from dbo.KAKAO_PRODUCT_TABLE kpt with(nolock)
+					inner join(
+						select 
+							product_id
+						from dbo.KAKAO_JOB_RANK with(nolock)
+						order by buy_cnt desc
+						offset (@paging-1) * 16 rows
+						fetch next 16 rows only
+					) kjrs on kjrs.product_id = kpt.product_id
+					inner join dbo.KAKAO_PRODUCT_CATEGORY kpc with(nolock) on kpt.category_code = kpc.category_code
+					inner join dbo.KAKAO_PRODUCT_IMG kpi with(nolock) on kpt.product_id = kpi.product_id
+					left join dbo.KAKAO_USER_SHOPPING_CART kusc with(nolock) on kusc.qoouser_seq = @qoouser_seq_no and kusc.product_id = kpt.product_id
+					left join dbo.KAKAO_USER_ALRAM_INFO kuai with(nolock) on kuai.qoouser_seq = @qoouser_seq_no and kuai.product_id = kpt.product_id
+					where kpi.rep_img_yn = 'Y'
+					and kpi.head_img_yn = 'Y'
 				end
 				----최신제품 순
 				else if (@sorted_option = 2)
