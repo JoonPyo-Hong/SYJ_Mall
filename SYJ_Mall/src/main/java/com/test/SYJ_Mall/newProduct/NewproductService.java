@@ -379,8 +379,7 @@ public class NewproductService implements INewProductService {
 					//2-1 소분류 필터가 없는경우 : 전체
 					if (prodtCatgr == 0) {
 						//상품의 총 갯수.
-						//prodtCount = dao.getNoBigCategoryCount();
-						prodtCount = dao.getExistBigCategoryCount(themeNum);
+						prodtCount = dao.getBigCategoryCount(themeNum);
 						perProdtCount =  (int)Math.ceil(prodtCount/16.0);
 						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
 						rtp = dao.getBigCategoryNoSmallCategoryLogin(userInfo.getUserSeq(),themeNum,sortedOption,paging);

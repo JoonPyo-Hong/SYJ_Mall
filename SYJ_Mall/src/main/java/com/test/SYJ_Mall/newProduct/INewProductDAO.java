@@ -194,12 +194,7 @@ public interface INewProductDAO {
 	 */
 	List<RecommendThemeDTO> getBigCategoryExistSmallCategoryLogin(int userSeq, int themeNum, int prodtCatgr,int sortedOption, int paging);
 	
-	/**
-	 * 대분류는 존재하지만 소분류는 존재하지 않는 경우의 상품개수
-	 * @param themeNum
-	 * @return
-	 */
-	int getExistBigCategoryCount(int themeNum);
+
 	
 
 	
