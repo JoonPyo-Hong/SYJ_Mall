@@ -240,6 +240,18 @@
 		}
 		
 	</select>
+	
+	
+	<!-- 대분류는 존재하지만 소분류는 존재하지 않는 경우의 상품개수 (로그인 시) -->
+	<select id="getExistBigCategoryCount"
+		parameterType="Integer"
+		resultType="Integer"
+		statementType="CALLABLE">
+		{
+		call dbo.kakao_recommend_new_theme_exists_big_categoty_count (#{themeNum})
+		}
+		
+	</select>
 
 	
 	

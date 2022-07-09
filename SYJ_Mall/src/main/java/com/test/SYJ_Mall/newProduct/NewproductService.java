@@ -307,6 +307,7 @@ public class NewproductService implements INewProductService {
 				
 				//1.상품 대분류 전체인 경우 -> 즉 대분류 필터가 없다는 뜻이다.
 				if (themeNum == 1) {
+					
 					//소분류의 필터유무
 					//1-1 소분류 필터가 없는경우 : 전체 -> 애는 갯수를 좀 다르게 설정할것 pending issue 로 인해서
 					if (prodtCatgr == 0) {
@@ -365,6 +366,7 @@ public class NewproductService implements INewProductService {
 						//상품의 총 갯수. 전체중 소분류 필터
 						prodtCount = dao.getSmallCategoryCountFilter(prodtCatgr,themeNum);
 						perProdtCount =  (int)Math.ceil(prodtCount/8.0);
+						
 						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
 						rtp = dao.getNoBigCategoryExistSmallCategoryLogin(userInfo.getUserSeq(),prodtCatgr,sortedOption,paging);
 					}
@@ -377,7 +379,8 @@ public class NewproductService implements INewProductService {
 					//2-1 소분류 필터가 없는경우 : 전체
 					if (prodtCatgr == 0) {
 						//상품의 총 갯수.
-						prodtCount = dao.getNoBigCategoryCount();
+						//prodtCount = dao.getNoBigCategoryCount();
+						prodtCount = dao.getExistBigCategoryCount(themeNum);
 						perProdtCount =  (int)Math.ceil(prodtCount/16.0);
 						//상품 상세목록 가져오기(필터링 포함 : 가격순 필터링과 같은 필터링)
 						rtp = dao.getBigCategoryNoSmallCategoryLogin(userInfo.getUserSeq(),themeNum,sortedOption,paging);

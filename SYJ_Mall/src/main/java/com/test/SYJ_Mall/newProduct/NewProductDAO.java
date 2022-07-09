@@ -229,6 +229,10 @@ public class NewProductDAO implements INewProductDAO {
 		map.put("sortedOption",sortedOption);
 		map.put("paging",paging);
 		
+		System.out.println("userSeq : " + userSeq);
+		System.out.println("prodtCatgr : " + prodtCatgr);
+		System.out.println("sortedOption : " + sortedOption);
+		System.out.println("paging : " + paging);
 		
 		return template.selectList("newProducts.getNoBigCategoryExistSmallCategoryLogin",map);
 	}
@@ -258,6 +262,13 @@ public class NewProductDAO implements INewProductDAO {
 		map.put("paging",paging);
 		
 		return template.selectList("newProducts.getBigCategoryExistSmallCategoryLogin",map);
+	}
+
+	//대분류는 존재하지만 소분류는 존재하지 않는 경우의 상품개수
+	@Override
+	public int getExistBigCategoryCount(int themeNum) {
+		
+		return template.selectOne("newProducts.getExistBigCategoryCount",themeNum);
 	}
 
 	

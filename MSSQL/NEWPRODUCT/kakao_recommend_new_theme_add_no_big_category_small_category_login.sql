@@ -5,14 +5,14 @@
 	     
 	History	:	2021-11-27 Seunghwan Shin	#최초 생성
 				2021-12-26 Seunghwan Shin	#인덱싱 테이블 수정
+				2021-07-09 Seunghwan Shin	#쿼리성능 개선을 위해 페이징 알고리즘 수정
 				
 	
 	Real DB : exec dbo.kakao_recommend_new_theme_add_no_big_category_small_category_login 2000001, 2, 1, 1 , 1
 
 */
-alter proc dbo.kakao_recommend_new_theme_add_no_big_category_small_category_login
+CREATE proc dbo.kakao_recommend_new_theme_add_no_big_category_small_category_login
 	@qoouser_seq_no bigint			-- 유저 고유번호
-,	@theme_no		int				-- 대분류 번호
 ,	@prodt_catgry	int				-- 소분류 번호
 ,	@sorted_option  int				-- 정렬옵션
 ,	@paging			int				-- 페이징 번호
@@ -21,6 +21,7 @@ set nocount on
 set transaction isolation level read uncommitted 
 begin
 			
+
 			declare @buy_date_standard datetime = '2020-10-10'--그냥 기준으로 잡아놓은것
 			declare @buy_date_past datetime = dateadd(day,-7,@buy_date_standard)
 
@@ -65,9 +66,9 @@ begin
 						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 						and kpc.category_code = @prodt_catgry
-						and kpc.main_category_code = @theme_no
 					) as m
 					where m.rn between 16*@paging-15 and 16*@paging
+
 				end
 				----최신제품 순
 				else if (@sorted_option = 2)
@@ -108,7 +109,6 @@ begin
 						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 						and kpc.category_code = @prodt_catgry
-						and kpc.main_category_code = @theme_no
 					) as m
 					where m.rn between 16*@paging-15 and 16*@paging
 				end
@@ -151,7 +151,6 @@ begin
 						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 						and kpc.category_code = @prodt_catgry
-						and kpc.main_category_code = @theme_no
 					) as m
 					where m.rn between 16*@paging-15 and 16*@paging
 				end
@@ -194,7 +193,6 @@ begin
 						where kpi.rep_img_yn = 'Y'
 						and kpi.head_img_yn = 'Y'
 						and kpc.category_code = @prodt_catgry
-						and kpc.main_category_code = @theme_no
 					) as m
 					where m.rn between 16*@paging-15 and 16*@paging				
 				end										
