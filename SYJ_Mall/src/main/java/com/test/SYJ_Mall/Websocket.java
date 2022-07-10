@@ -75,10 +75,6 @@ public class Websocket {
     	String sender = message.split(",")[1];//보내준 사람 객체.
     	message = message.split(",")[0];//해당 사람이 보낸 문자.
     	
-    	//System.out.println("sender : " + sender);
-    	//System.out.println("message : " + message);
-    	
-    	
         logger.info("Message From " + sender + ": "+message);
         
         try {

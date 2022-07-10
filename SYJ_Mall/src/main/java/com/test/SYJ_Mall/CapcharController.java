@@ -69,9 +69,9 @@ public class CapcharController {
 	         wr.close();
 	  
 	         int responseCode = con.getResponseCode();
-	         System.out.println("\nSending 'POST' request to URL : " + url);
-	         System.out.println("Post parameters : " + postParams);
-	         System.out.println("Response Code : " + responseCode);
+//	         System.out.println("\nSending 'POST' request to URL : " + url);
+//	         System.out.println("Post parameters : " + postParams);
+//	         System.out.println("Response Code : " + responseCode);
 	  
 	         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 	         String inputLine;
@@ -98,8 +98,8 @@ public class CapcharController {
 	         //jsonReader.close();
 	         
 	         
-	         System.out.println(gRecaptchaResponse);
-	         System.out.println(secret);
+//	         System.out.println(gRecaptchaResponse);
+//	         System.out.println(secret);
 	         
 	         
 	         //System.out.println(jsonObject);
