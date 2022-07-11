@@ -30,6 +30,13 @@ public interface IProdtPayDAO {
 	 * @param userSeq
 	 * @return
 	 */
-	String getProdtUserGiftMoney(int userSeq);
+	int getProdtUserGiftMoney(int userSeq);
+	
+	/**
+	 * 유저의 카카오포인트 잔액 가져오기
+	 * @param userSeq
+	 * @return
+	 */
+	int getProdtUserKakaoPoint(int userSeq);
 
 }

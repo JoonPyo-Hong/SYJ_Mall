@@ -374,6 +374,7 @@ input[type="radio"] {
   flex-direction: column;
 }
 
+
 .pay-list-li .point .total-point {
   display: inline-block;
   color: rgb(0, 135, 255);
@@ -737,14 +738,18 @@ input[type="radio"] {
        </li>
        <li class="pay-list-li">
          <div class="point">카카오 포인트
-           <div class="total-point">(${userHasCoin}p)</div>
+           <div class="total-point" id="have_kakao_point">(${userHasCoin}p)</div>
          </div>
          <div>
            <input align="right" padding="15" class="input-text" id='kakao_has_point' value="0" style="width:180px;">
          </div>
        </li>
        <li class="pay-list-li">
-         <div>기프트카드</div>
+         <div class="point" id="user_gift_card">기프트카드
+         	<c:if test="${not empty userGiftBalance}">
+         		<div class="total-point" id="have_gift_point">(${userGiftBalance}p)</div>
+         	</c:if>
+         </div>
          
          <c:if test="${empty userGiftBalance}">
          	<div id='gift_card_balance'>
@@ -752,10 +757,10 @@ input[type="radio"] {
          	</div>
          </c:if>
          
-         <c:if test="${not empty userGiftBalance}">
-         	<input align="right" padding="15" class="input-text" id="kakao_has_gift" value="${userGiftBalance}" style="width:180px;">
+		 <c:if test="${not empty userGiftBalance}">
+         	<input align="right" padding="15" class="input-text" id="kakao_has_gift" value="0" style="width:180px;">
          </c:if>
-         
+          
 
        </li>
        <li class="pay-list-li">
@@ -905,7 +910,6 @@ input[type="radio"] {
 		 const prodt_seq = $(this).parents('.product-item-list').attr('id');
 		 
 		 user_shipping_info_ajax(prodt_seq,prodt_cnt);
-		 user_has_gift_card();
 		 
 	 });
 	 
@@ -1012,7 +1016,8 @@ input[type="radio"] {
          		
          		if (result != null) {
          			$('.pay-detail-button').remove();
-             		$('#gift_card_balance').append('<input align="right" padding="15" class="input-text" id="kakao_has_gift" value="'+result+'" style="width:180px;">');
+             		$('#gift_card_balance').append('<input align="right" padding="15" class="input-text" id="kakao_has_gift" value="0" style="width:180px;">');
+             		$('#user_gift_card').append('<div class="total-point" id="have_gift_point">(' + result +'p)</div>')
          		}
          	},
          	error: function(a,b,c) {
@@ -1021,9 +1026,41 @@ input[type="radio"] {
         });
 	}
 	
+	$(document).on('blur','#kakao_has_point',function(e){
+		point_checking($(this),1);
+	});
 	
-	/* 카카오 포인트 관련 함수 */
-	//주문고객 정보 객체를 세션에 통일해서 담는것을 목표로 해야한다.
+	$(document).on('blur','#kakao_has_gift',function(e){
+		point_checking($(this),2);
+	});
+	
+	
+	/* 카카오 포인트 또는 기프트 카드 블러 처리되었을때 사용할 수 있는 범위의 금액을 넣었는지 확인해주는 작업 */
+	function point_checking(object_id,check_num) {
+		
+		const use_cost = $(object_id).val();
+		
+		$.ajax({
+         	type:"GET",
+         	url: "/SYJ_Mall/prodtPayUserBalanceCheck.action",
+	        data : {"useCost" : use_cost, "checkNum" : check_num},
+	        dataType : "json",
+         	success : function(result) {
+         			
+         		console.log(result);
+         		
+         		if (check_num == 1) {
+         			$('#kakao_has_point').val('130,000');
+         		} else if (check_num == 2) {
+         			$('#kakao_has_gift').val('130,000');
+         		}
+         		
+         	},
+         	error: function(a,b,c) {
+				console.log(a,b,c);
+			}
+        });
+	}
 	
 	
 	

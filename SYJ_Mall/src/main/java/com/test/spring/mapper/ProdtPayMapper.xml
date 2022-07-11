@@ -21,11 +21,19 @@
 	</select>
 
 	<!-- 구매할 유저의 기프트 카드 잔액 조회 -->
-	<select id="buyProdtUserGiftBalance" resultType="String" parameterType="Integer" statementType="CALLABLE">
+	<select id="buyProdtUserGiftBalance" resultType="Integer" parameterType="Integer" statementType="CALLABLE">
 		{
 		call dbo.kakao_product_pay_user_gift_card_balance(#{userSeq})
 		}
 	</select>
+	
+	<!-- 구매할 유저의 카카오 포인트 잔액 조회 -->
+	<select id="buyProdtUserKakaoPointBalance" resultType="Integer" parameterType="Integer" statementType="CALLABLE">
+		{
+		call dbo.kakao_product_pay_user_kakao_point_balance(#{userSeq})
+		}
+	</select>
+	
 
 	
 

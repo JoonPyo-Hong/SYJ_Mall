@@ -260,7 +260,7 @@ public class ProdtPayService implements IProdtPayService {
 			
 			if (userInfo == null) return null;
 			
-			String userGiftBalance = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+			String userGiftBalance = sf.moneyDotString(dao.getProdtUserGiftMoney(userInfo.getUserSeq()));
 			
 			//현재 기프트 카드 조회했다는걸 세션정보에 유지시켜줘야 한다.
 			session.removeAttribute("userGiftBalance");
@@ -272,6 +272,49 @@ public class ProdtPayService implements IProdtPayService {
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return null;
+		}
+	}
+	
+	// 회원이 가용할 수 있는 최대 카카오포인트 or 기프트 카드 금액 체크
+	@Override
+	public int getProdtUserBalance(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf) {
+		
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			
+			if (userInfo == null) return 0;
+			
+			int useCost = Integer.parseInt(request.getParameter("useCost"));
+			int checkNum = Integer.parseInt(request.getParameter("checkNum"));
+		
+			
+			if (checkNum == 1) {
+				//카카오 포인트 조회
+				int userKakaoBalance = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
+				int resultBalance = useCost > userKakaoBalance ? userKakaoBalance : useCost;
+				
+				System.out.println(sf.moneyDotString(resultBalance));
+				
+				return resultBalance;
+				
+			} else if (checkNum == 2) {
+				//기프트 카드 조회
+				int userGiftBalance = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+				int resultBalance = useCost > userGiftBalance ? userGiftBalance : useCost;
+				
+				System.out.println(sf.moneyDotString(resultBalance));
+				
+				return resultBalance;
+				
+			} else return 0;
+			
+			
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return 0;
 		}
 	}
 }

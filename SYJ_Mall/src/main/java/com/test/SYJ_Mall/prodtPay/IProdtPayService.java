@@ -55,6 +55,16 @@ public interface IProdtPayService {
 	 * @return
 	 */
 	String getProdtUserGiftCard(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf);
+	
+	/**
+	 * 회원이 가용할 수 있는 최대 카카오포인트 or 기프트 카드 금액 체크
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @param sf
+	 * @return
+	 */
+	int getProdtUserBalance(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf);
 
 	
 

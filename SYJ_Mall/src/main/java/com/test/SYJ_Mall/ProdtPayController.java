@@ -63,6 +63,18 @@ public class ProdtPayController {
 		
 		return service.getProdtUserGiftCard(request,response,ea,sf);
 	}
+
+	//회원의 기프트카드 또는 카카오 포인트 사용할 수 있는 금액 산정
+	@RequestMapping(value = "/prodtPayUserBalanceCheck.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public int prodtPayUserBalanceCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
+		
+		int result = service.getProdtUserBalance(request,response,ea,sf);
+		
+		//System.out.println(result);
+		
+		return result;
+	}
 	
 			
 	

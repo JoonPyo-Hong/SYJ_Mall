@@ -873,20 +873,6 @@
    			search_user_addr('addr_input_first');
    		});
       	
-   		//다음 주소 라이브러리 발생
-/*       	function addr_input() {
-      		new daum.Postcode({
-	            oncomplete: function(data) {
-	  
-	                let roadAddr = data.roadAddress; 
-
-	                document.getElementById("addr_input_first").value = roadAddr;
-	            }
-			}).open();
-      	}
-      	 */
-                
-
 
 
         //생년월일 관련

@@ -38,9 +38,15 @@ public class ProdtPayDAO implements IProdtPayDAO {
 	
 	//유저의 기프트카드 잔액 가져오기
 	@Override
-	public String getProdtUserGiftMoney(int userSeq) {
+	public int getProdtUserGiftMoney(int userSeq) {
 		
 		return template.selectOne("ProdtPay.buyProdtUserGiftBalance",userSeq);
+	}
+	
+	//유저의 카카오 포인트 잔액 가져오기
+	@Override
+	public int getProdtUserKakaoPoint(int userSeq) {
+		return template.selectOne("ProdtPay.buyProdtUserKakaoPointBalance",userSeq);
 	}
 	
 	
