@@ -291,7 +291,7 @@ public class ProdtPayService implements IProdtPayService {
 		
 			
 			if (checkNum == 1) {
-				//카카오 포인트 조회
+				//카카오 포인트 조회..
 				int userKakaoBalance = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
 				int resultBalance = useCost > userKakaoBalance ? userKakaoBalance : useCost;
 				
