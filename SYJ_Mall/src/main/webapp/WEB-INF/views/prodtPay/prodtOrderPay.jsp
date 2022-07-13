@@ -1046,13 +1046,11 @@ input[type="radio"] {
 	        data : {"useCost" : use_cost, "checkNum" : check_num},
 	        dataType : "json",
          	success : function(result) {
-         			
-         		console.log(result);
          		
          		if (check_num == 1) {
-         			$('#kakao_has_point').val('130,000');
+         			$('#kakao_has_point').val(money_dot(result));
          		} else if (check_num == 2) {
-         			$('#kakao_has_gift').val('130,000');
+         			$('#kakao_has_gift').val(money_dot(result));
          		}
          		
          	},

@@ -291,11 +291,10 @@ public class ProdtPayService implements IProdtPayService {
 		
 			
 			if (checkNum == 1) {
-				//카카오 포인트 조회..
+				//카카오 포인트 조회
 				int userKakaoBalance = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
 				int resultBalance = useCost > userKakaoBalance ? userKakaoBalance : useCost;
 				
-				System.out.println(sf.moneyDotString(resultBalance));
 				
 				return resultBalance;
 				
@@ -303,8 +302,7 @@ public class ProdtPayService implements IProdtPayService {
 				//기프트 카드 조회
 				int userGiftBalance = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
 				int resultBalance = useCost > userGiftBalance ? userGiftBalance : useCost;
-				
-				System.out.println(sf.moneyDotString(resultBalance));
+
 				
 				return resultBalance;
 				
