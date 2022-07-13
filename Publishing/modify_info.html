@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <meta name="viewport" content="width=380, height=740, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0" /> -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <title>카카오 프렌즈샵</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-ico" />
+    <link rel="stylesheet" type="text/css" href="./css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/modtfy_info.css" />
+  </head>
+
+  <body>
+    <div id="kakao-wrap">
+      <div id="kakao-head">
+        <div id="inner-head">
+          <div class="left-btn">
+            <!-- <button class="hamburger-menu"></button> -->
+            <button class="back-button"></button>
+            <!-- ic_back_2x.png -->
+            <!-- gnb-home-18-black@2x.png -->
+            <button class="home-button"></button>
+          </div>
+          <!-- <div class="title"><button class="title-logo"></button></div> -->
+          <div class="title">정보수정</div>
+          <div class="right-btn">
+            <button class="search"></button>
+            <button class="language"></button>
+          </div>
+        </div>
+      </div>
+      <div id="kakao-content">
+        <div id="inner-content">
+          <div class="container-wrap modify-info-wrap">
+            <!-- 정보수정 입력 영역 -->
+            <form class="modify-info">
+              <div class="item-form">
+                <div class="title">정보수정</div>
+                <label for="modify-name">이름</label>
+                <input
+                  id="modify-name"
+                  placeholder="이름 입력"
+                  onkeyup="check()"
+                />
+              </div>
+              <div class="btn-wrap">
+                <button class="btn cancel-btn" id="cancel-btn" disabled>
+                  취소
+                </button>
+                <button class="btn save-btn" id="save-btn" disabled>
+                  저장
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="kakao-footer">
+        <div id="inner-footer">
+          <div class="info-service">
+            <ul>
+              <li>제휴문의</li>
+              <span class="footer-divider"></span>
+              <li>고객문의</li>
+              <span class="footer-divider"></span>
+              <li>이용약관</li>
+              <span class="footer-divider"></span>
+              <li>개인정보처리방침</li>
+              <span class="footer-divider"></span>
+              <li>지식재산권보호센터</li>
+            </ul>
+          </div>
+          <div class="logo">
+            <div class="toggler">
+              <span class="toggler-logo"></span>
+              <span class="toggler-icon"></span>
+            </div>
+            <div class="best-family"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // input 데이터 없을 시 확인 버튼 비활성화
+      const check = () => {
+        const modifyName = document.getElementById("modify-name").value;
+
+        if (modifyName) {
+          document.getElementById("save-btn").disabled = false;
+        } else {
+          document.getElementById("save-btn").disabled = true;
+        }
+      };
+    </script>
+  </body>
+</html>
