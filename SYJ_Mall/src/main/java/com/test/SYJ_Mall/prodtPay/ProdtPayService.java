@@ -283,10 +283,13 @@ public class ProdtPayService implements IProdtPayService {
 			
 			HttpSession session = request.getSession();
 			UserDTO userInfo = (UserDTO) session.getAttribute("userinfo");
+			String useCostStr = request.getParameter("useCost");
 			
-			if (userInfo == null) return 0;
-			
+			int INTMAX = Integer.MAX_VALUE;
 			int useCost = Integer.parseInt(request.getParameter("useCost"));
+			
+			if (userInfo == null || !sf.isStringDigit(useCostStr) || useCost > INTMAX) return 0;
+			
 			int checkNum = Integer.parseInt(request.getParameter("checkNum"));
 		
 			
@@ -295,7 +298,6 @@ public class ProdtPayService implements IProdtPayService {
 				int userKakaoBalance = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
 				int resultBalance = useCost > userKakaoBalance ? userKakaoBalance : useCost;
 				
-				
 				return resultBalance;
 				
 			} else if (checkNum == 2) {
@@ -303,7 +305,6 @@ public class ProdtPayService implements IProdtPayService {
 				int userGiftBalance = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
 				int resultBalance = useCost > userGiftBalance ? userGiftBalance : useCost;
 
-				
 				return resultBalance;
 				
 			} else return 0;

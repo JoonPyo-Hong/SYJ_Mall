@@ -738,10 +738,10 @@ input[type="radio"] {
        </li>
        <li class="pay-list-li">
          <div class="point">카카오 포인트
-           <div class="total-point" id="have_kakao_point">(${userHasCoin}p)</div>
+           <div class="total-point" id="have_kakao_point" >(${userHasCoin}p)</div>
          </div>
          <div>
-           <input align="right" padding="15" class="input-text" id='kakao_has_point' value="0" style="width:180px;">
+           <input align="right" padding="15" class="input-text" id='kakao_has_point' maxlength="9" value="0" style="width:180px;">
          </div>
        </li>
        <li class="pay-list-li">
@@ -758,7 +758,7 @@ input[type="radio"] {
          </c:if>
          
 		 <c:if test="${not empty userGiftBalance}">
-         	<input align="right" padding="15" class="input-text" id="kakao_has_gift" value="0" style="width:180px;">
+         	<input align="right" padding="15" class="input-text" id="kakao_has_gift" maxlength="9" value="0" style="width:180px;">
          </c:if>
           
 
@@ -1040,24 +1040,36 @@ input[type="radio"] {
 		
 		const use_cost = $(object_id).val();
 		
-		$.ajax({
-         	type:"GET",
-         	url: "/SYJ_Mall/prodtPayUserBalanceCheck.action",
-	        data : {"useCost" : use_cost, "checkNum" : check_num},
-	        dataType : "json",
-         	success : function(result) {
-         		
-         		if (check_num == 1) {
-         			$('#kakao_has_point').val(money_dot(result));
-         		} else if (check_num == 2) {
-         			$('#kakao_has_gift').val(money_dot(result));
-         		}
-         		
-         	},
-         	error: function(a,b,c) {
-				console.log(a,b,c);
-			}
-        });
+		//문자인지 숫자인지 걸러내는 작업
+		if (use_cost.length <= 9 && !isNaN(use_cost)) {
+			$.ajax({
+	         	type:"GET",
+	         	url: "/SYJ_Mall/prodtPayUserBalanceCheck.action",
+		        data : {"useCost" : use_cost, "checkNum" : check_num},
+		        dataType : "json",
+	         	success : function(result) {
+	         		
+	         		if (check_num == 1) {
+	         			$('#kakao_has_point').val(money_dot(result));
+	         		} else if (check_num == 2) {
+	         			$('#kakao_has_gift').val(money_dot(result));
+	         		}
+	         		
+	         	},
+	         	error: function(a,b,c) {
+					console.log(a,b,c);
+				}
+	        });
+		} else {
+			if (check_num == 1) {
+     			$('#kakao_has_point').val(0);
+     		} else if (check_num == 2) {
+     			$('#kakao_has_gift').val(0);
+     		}
+     		
+		}
+		
+		
 	}
 	
 	

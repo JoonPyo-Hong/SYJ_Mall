@@ -71,8 +71,6 @@ public class ProdtPayController {
 		
 		int result = service.getProdtUserBalance(request,response,ea,sf);
 		
-		//System.out.println(result);
-		
 		return result;
 	}
 	
