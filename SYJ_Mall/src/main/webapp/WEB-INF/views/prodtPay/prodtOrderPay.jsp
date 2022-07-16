@@ -1065,11 +1065,8 @@ input[type="radio"] {
      			$('#kakao_has_point').val(0);
      		} else if (check_num == 2) {
      			$('#kakao_has_gift').val(0);
-     		}
-     		
+     		}     		
 		}
-		
-		
 	}
 	
 	

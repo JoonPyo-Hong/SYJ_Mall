@@ -218,7 +218,9 @@ public class ProdtPayService implements IProdtPayService {
 				
 				prodtCntMap.put(prodtSeq,prodtCnt);
 			}
-						
+			
+			
+			
 			prodtList = dao.getProdtPayList(prodtDbInfoList);
 			
 			//고객이 몇개주문을 원하는지 값을 넘겨준다.
