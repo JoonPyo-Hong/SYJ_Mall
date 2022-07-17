@@ -183,23 +183,6 @@ public class ProdtPayService implements IProdtPayService {
 			//로그인이 안된 경우에는 접근 불가 처리 해준다.
 			if (userInfo == null) return null;
 			
-			int kakaoHasPoint = Integer.parseInt(request.getParameter("kakaoHasPoint"));
-			int kakaoHasGift = Integer.parseInt(request.getParameter("kakaoHasGift"));
-			
-			int dbUserPoint = 0;
-			int dbUserGift = 0;
-			
-			if (kakaoHasPoint == 0 && kakaoHasGift != 0) {
-				dbUserGift = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
-			} else if (kakaoHasPoint != 0 && kakaoHasGift == 0) {
-				dbUserPoint = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
-			} else {
-				dbUserPoint = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
-				dbUserGift = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
-			}
-			
-			if (dbUserPoint < kakaoHasPoint) kakaoHasPoint = 0;
-			if (dbUserGift < kakaoHasGift) kakaoHasGift = 0;
 			
 			String selectProdtSeq = request.getParameter("selectProdtSeq");
 			int selectProdtCnt = Integer.parseInt(request.getParameter("selectProdtCnt"));
@@ -261,7 +244,6 @@ public class ProdtPayService implements IProdtPayService {
 				
 			}
 			
-			totalProdtPayShip -= (kakaoHasPoint + kakaoHasGift);
 			
 			//session 새롭게 update
 			session.removeAttribute("pidtoList");

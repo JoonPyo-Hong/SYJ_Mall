@@ -909,10 +909,11 @@ input[type="radio"] {
 		 const prodt_cnt = $(this).val();
 		 const prodt_seq = $(this).parents('.product-item-list').attr('id');
 		 
-		 let kakao_has_point = $('#kakao_has_point').val();
+		 let kakao_has_point = not_money_dot($('#kakao_has_point').val());
 		 let kakao_has_gift = $('#kakao_has_gift').val();
 		 
 		 if (kakao_has_gift == null) kakao_has_gift = 0;
+		 else kakao_has_gift = not_money_dot(kakao_has_gift);
 		 
 		 user_shipping_info_ajax(prodt_seq,prodt_cnt,kakao_has_point,kakao_has_gift);
 		 
@@ -926,18 +927,16 @@ input[type="radio"] {
 			type : "GET",
 			url : "/SYJ_Mall/prodtcheckInfos.action",
 			async : true,
-	        data : {"selectProdtSeq" : prodt_seq, "selectProdtCnt" : prodt_cnt, "kakaoHasPoint" : kakao_has_point, "kakaoHasGift" : kakao_has_gift},
+	        data : {"selectProdtSeq" : prodt_seq, "selectProdtCnt" : prodt_cnt},
 	        dataType : "json",
 			success : function(result) {
 				
 				let inner_text = '';
 				let total_prodt_cost = 0;
-				let total_prodt_ship_cost = parseInt(not_money_dot(3000));
+				let total_prodt_ship_cost_first = 3000;
+				let total_prodt_ship_cost = 3000;
 				
-				let kakao_has_point_val = $('#kakao_has_point').val();
-				let kakao_has_gift_val = $('#kakao_has_gift').val();
-				
-				if (kakao_has_gift_val == null) kakao_has_gift_val = 0;
+
 				
 				for (let i = 0; i < result.length; i++) {
 					
@@ -997,10 +996,13 @@ input[type="radio"] {
 				
 				//아래에서는 요금을 산정해준다.
 				total_prodt_ship_cost += total_prodt_cost;
-				total_prodt_ship_cost -= (kakao_has_point_val + kakao_has_gift_val);
+				total_prodt_ship_cost_first += total_prodt_cost;
+				let additional_price = parseInt(kakao_has_point) + parseInt(kakao_has_gift);
+				total_prodt_ship_cost = total_prodt_ship_cost - additional_price;
+
 				
 				$('#prodt_cost').text(money_dot(total_prodt_cost) + '원');
-				$('#total_prodt_cost').text(money_dot(total_prodt_ship_cost) + '원');
+				$('#total_prodt_cost').text(money_dot(total_prodt_ship_cost_first) + '원');
 				$('#pay_prodt_cost').text(money_dot(total_prodt_cost) + '원');
 				$('#pay_prodt_total_cost').text(money_dot(total_prodt_ship_cost) + '원');
 
@@ -1032,7 +1034,7 @@ input[type="radio"] {
          		}
          	},
          	error: function(a,b,c) {
-					console.log(a,b,c);
+				console.log(a,b,c);
 			}
         });
 	}
@@ -1052,9 +1054,11 @@ input[type="radio"] {
 		const use_cost = $(object_id).val();
 		
 		let kakao_has_point_val = not_money_dot($('#kakao_has_point').val());
-		let kakao_has_gift_val = not_money_dot($('#kakao_has_gift').val());
+		let kakao_has_gift_val = $('#kakao_has_gift').val();
+		//not_money_dot($('#kakao_has_gift').val());
 		
 		if (kakao_has_gift_val == null) kakao_has_gift_val = 0;
+		else kakao_has_gift_val = not_money_dot(kakao_has_gift_val);
 		
 		//문자인지 숫자인지 걸러내는 작업
 		if (use_cost.length <= 9 && !isNaN(use_cost)) {
