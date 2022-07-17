@@ -995,6 +995,15 @@ public class LoginService implements ILoginService {
 				
 	            HashMap<String, String> map = rsa.getRSASessionMaintainChoice(secureKey,loginSaveUserId,loginSaveUserPw);
 	            
+	            if (map == null) {
+	            	
+	            	kc.deleteCookie(request, response, "loginSaveUserId");
+	            	kc.deleteCookie(request, response, "loginSaveUserPw");
+	            	kc.deleteCookie(request, response, "loginSaveUserSeq");
+	            	
+	            	return "crash";
+	            }
+	            
 	            String id = map.get("id");// 아이디
 				String pw = map.get("pw");// 비밀번호
 	            

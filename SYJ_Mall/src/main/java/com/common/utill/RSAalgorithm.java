@@ -148,7 +148,7 @@ public class RSAalgorithm {
 			
             return map;
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 		

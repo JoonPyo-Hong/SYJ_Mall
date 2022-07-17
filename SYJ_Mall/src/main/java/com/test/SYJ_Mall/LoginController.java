@@ -55,6 +55,7 @@ public class LoginController {
 		String loginStayYn = logService.getLoginStayYn(request,response,kc,rsa,ea);
 		
 		if (loginStayYn.equals("error")) return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
+		else if (loginStayYn.equals("crash")) return "/login/UserLogin";
 		else if (!loginStayYn.equals("pass")) return loginStayYn;   
 		
 		// =====================================================
