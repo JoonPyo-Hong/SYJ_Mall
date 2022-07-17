@@ -909,19 +909,24 @@ input[type="radio"] {
 		 const prodt_cnt = $(this).val();
 		 const prodt_seq = $(this).parents('.product-item-list').attr('id');
 		 
-		 user_shipping_info_ajax(prodt_seq,prodt_cnt);
+		 let kakao_has_point = $('#kakao_has_point').val();
+		 let kakao_has_gift = $('#kakao_has_gift').val();
+		 
+		 if (kakao_has_gift == null) kakao_has_gift = 0;
+		 
+		 user_shipping_info_ajax(prodt_seq,prodt_cnt,kakao_has_point,kakao_has_gift);
 		 
 	 });
 	 
 	 
 	 /* 제품 개수 선택할때 해당 제품 수량,값 정보 가져와주기 */
-	function user_shipping_info_ajax(prodt_seq,prodt_cnt) {
+	function user_shipping_info_ajax(prodt_seq,prodt_cnt,kakao_has_point,kakao_has_gift) {
 	
 		$.ajax({
 			type : "GET",
 			url : "/SYJ_Mall/prodtcheckInfos.action",
-			async : false,
-	        data : {"selectProdtSeq" : prodt_seq, "selectProdtCnt" : prodt_cnt},
+			async : true,
+	        data : {"selectProdtSeq" : prodt_seq, "selectProdtCnt" : prodt_cnt, "kakaoHasPoint" : kakao_has_point, "kakaoHasGift" : kakao_has_gift},
 	        dataType : "json",
 			success : function(result) {
 				
@@ -929,10 +934,15 @@ input[type="radio"] {
 				let total_prodt_cost = 0;
 				let total_prodt_ship_cost = parseInt(not_money_dot(3000));
 				
+				let kakao_has_point_val = $('#kakao_has_point').val();
+				let kakao_has_gift_val = $('#kakao_has_gift').val();
+				
+				if (kakao_has_gift_val == null) kakao_has_gift_val = 0;
 				
 				for (let i = 0; i < result.length; i++) {
 					
 					let prodt_cost_int = parseInt(not_money_dot(result[i].prodtPrice));
+					
 					total_prodt_cost += prodt_cost_int;
 					
 					inner_text += '<div class="product-item-list" id="' + result[i].prodtSeq + '">';
@@ -987,7 +997,8 @@ input[type="radio"] {
 				
 				//아래에서는 요금을 산정해준다.
 				total_prodt_ship_cost += total_prodt_cost;
-
+				total_prodt_ship_cost -= (kakao_has_point_val + kakao_has_gift_val);
+				
 				$('#prodt_cost').text(money_dot(total_prodt_cost) + '원');
 				$('#total_prodt_cost').text(money_dot(total_prodt_ship_cost) + '원');
 				$('#pay_prodt_cost').text(money_dot(total_prodt_cost) + '원');
@@ -1040,20 +1051,32 @@ input[type="radio"] {
 		
 		const use_cost = $(object_id).val();
 		
+		let kakao_has_point_val = not_money_dot($('#kakao_has_point').val());
+		let kakao_has_gift_val = not_money_dot($('#kakao_has_gift').val());
+		
+		if (kakao_has_gift_val == null) kakao_has_gift_val = 0;
+		
 		//문자인지 숫자인지 걸러내는 작업
 		if (use_cost.length <= 9 && !isNaN(use_cost)) {
 			$.ajax({
 	         	type:"GET",
 	         	url: "/SYJ_Mall/prodtPayUserBalanceCheck.action",
-		        data : {"useCost" : use_cost, "checkNum" : check_num},
+		        data : {"useCost" : use_cost, "checkNum" : check_num, "kakaoHasPoint" : kakao_has_point_val,"kakaoHasGift" : kakao_has_gift_val},
 		        dataType : "json",
 	         	success : function(result) {
 	         		
+	         		
+	         		const user_point_balance = result[0];
+	         		const user_gift_balance = result[1];
+	         		const total_payment = result[2];
+	         		
 	         		if (check_num == 1) {
-	         			$('#kakao_has_point').val(money_dot(result));
+	         			$('#kakao_has_point').val(money_dot(user_point_balance));
 	         		} else if (check_num == 2) {
-	         			$('#kakao_has_gift').val(money_dot(result));
-	         		}
+	         			$('#kakao_has_gift').val(money_dot(user_gift_balance));
+	         		} 
+	         		
+	         		$('#pay_prodt_total_cost').text(money_dot(total_payment)+'원');
 	         		
 	         	},
 	         	error: function(a,b,c) {

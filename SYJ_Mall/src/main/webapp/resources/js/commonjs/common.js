@@ -29,7 +29,7 @@ function money_dot(money) {
 
 //delete dot on money
 function not_money_dot(money) {
-	return money.toString().replace(',','');
+	return money.toString().replaceAll(',','');
 }
 
 

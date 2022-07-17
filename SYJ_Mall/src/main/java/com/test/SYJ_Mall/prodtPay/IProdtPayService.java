@@ -64,7 +64,7 @@ public interface IProdtPayService {
 	 * @param sf
 	 * @return
 	 */
-	int getProdtUserBalance(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf);
+	List<Integer> getProdtUserBalance(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf);
 
 	
 

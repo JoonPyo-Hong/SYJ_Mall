@@ -139,6 +139,10 @@ public class ProdtPayService implements IProdtPayService {
 			request.setAttribute("totalProdtPay", sf.moneyDotString(totalProdtPay));//총상품 비용
 			request.setAttribute("totalProdtPayShip", sf.moneyDotString(totalProdtPayShip));//총상품 비용 + 배송비용
 			
+			////총상품 비용 + 배송비용 session
+			session.removeAttribute("totalProdtPayShipSession");
+			session.setAttribute("totalProdtPayShipSession", totalProdtPayShip);
+			
 			return 1;
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
@@ -179,13 +183,31 @@ public class ProdtPayService implements IProdtPayService {
 			//로그인이 안된 경우에는 접근 불가 처리 해준다.
 			if (userInfo == null) return null;
 			
+			int kakaoHasPoint = Integer.parseInt(request.getParameter("kakaoHasPoint"));
+			int kakaoHasGift = Integer.parseInt(request.getParameter("kakaoHasGift"));
+			
+			int dbUserPoint = 0;
+			int dbUserGift = 0;
+			
+			if (kakaoHasPoint == 0 && kakaoHasGift != 0) {
+				dbUserGift = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+			} else if (kakaoHasPoint != 0 && kakaoHasGift == 0) {
+				dbUserPoint = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
+			} else {
+				dbUserPoint = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
+				dbUserGift = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+			}
+			
+			if (dbUserPoint < kakaoHasPoint) kakaoHasPoint = 0;
+			if (dbUserGift < kakaoHasGift) kakaoHasGift = 0;
+			
 			String selectProdtSeq = request.getParameter("selectProdtSeq");
 			int selectProdtCnt = Integer.parseInt(request.getParameter("selectProdtCnt"));
 			
 			List<ProdtInstDTO> pidtoList = (List<ProdtInstDTO>) session.getAttribute("pidtoList");//세션에 존재하는 유저의 주문관련 제품정보들
 			Map<String,Integer> prodtCntMap = new HashMap<String,Integer>();//해당 주문제품 map 에 넣어주기
 			
-			/*==================1. 주문제품 관련 객체 가져오기==================*/
+			/*================== 1. 주문제품 관련 객체 가져오기 ==================*/
 			List<ProdtPayDTO> prodtList;//제품 정보 객체
 			String prodtDbInfoList;//디비로 넘길 물품번호 개체들
 			
@@ -223,6 +245,8 @@ public class ProdtPayService implements IProdtPayService {
 			
 			prodtList = dao.getProdtPayList(prodtDbInfoList);
 			
+			int totalProdtPayShip = 3000;
+			
 			//고객이 몇개주문을 원하는지 값을 넘겨준다.
 			for (int i = 0; i < prodtList.size(); i++) {
 				ProdtPayDTO pdto = prodtList.get(i);
@@ -232,14 +256,20 @@ public class ProdtPayService implements IProdtPayService {
 				//일단 갑자기 재고가 없어질 경우에 생각해줘야 될 로직임
 				//if (pdto.getPossibleProdtCnt() != 0) pdto.setProdtBuyCnt(prodtCntMap.get(Integer.toString(prodtSeq)));
 				int pdtosPrice = Integer.parseInt(pdto.getProdtPrice()) * pdto.getProdtBuyCnt();
+				totalProdtPayShip += pdtosPrice;
 				pdto.setProdtPrice(sf.moneyDotString(pdtosPrice));
 				
 			}
 			
+			totalProdtPayShip -= (kakaoHasPoint + kakaoHasGift);
 			
 			//session 새롭게 update
 			session.removeAttribute("pidtoList");
 			session.setAttribute("pidtoList", pidtoList);
+			
+			//총상품 비용 + 배송비용 session
+			session.removeAttribute("totalProdtPayShipSession");
+			session.setAttribute("totalProdtPayShipSession", totalProdtPayShip);
 			
 			
 			return prodtList;
@@ -252,7 +282,7 @@ public class ProdtPayService implements IProdtPayService {
 		
 	}
 	
-	//회원의 기프트 카드 조회
+	//회원의 기프트 카드 조회 -> 가용가능한 기프트 카드 금액을 보여준다.
 	@Override
 	public String getProdtUserGiftCard(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, StringFormatClass sf) {
 		try {
@@ -279,7 +309,7 @@ public class ProdtPayService implements IProdtPayService {
 	
 	// 회원이 가용할 수 있는 최대 카카오포인트 or 기프트 카드 금액 체크
 	@Override
-	public int getProdtUserBalance(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf) {
+	public List<Integer> getProdtUserBalance(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf) {
 		
 		try {
 			
@@ -290,32 +320,96 @@ public class ProdtPayService implements IProdtPayService {
 			int INTMAX = Integer.MAX_VALUE;
 			int useCost = Integer.parseInt(request.getParameter("useCost"));
 			
-			if (userInfo == null || !sf.isStringDigit(useCostStr) || useCost > INTMAX) return 0;
+			//리스트는 고객 포인트, 고객 기프트 , 총가격으로 구성할것
+			List<Integer> resultArr = new ArrayList<Integer>();
+			
+			int totalProdtPayShip = (Integer) session.getAttribute("totalProdtPayShipSession");//현재 물품 전체 금액
+			
+			if (userInfo == null || !sf.isStringDigit(useCostStr) || useCost > INTMAX) {
+				resultArr.add(0);// 고객 포인트
+				resultArr.add(0);// 고객 기프트
+				resultArr.add(totalProdtPayShip);// 총 가격
+				
+				return resultArr;
+			}
+			
 			
 			int checkNum = Integer.parseInt(request.getParameter("checkNum"));
-		
 			
 			if (checkNum == 1) {
 				//카카오 포인트 조회
 				int userKakaoBalance = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
 				int resultBalance = useCost > userKakaoBalance ? userKakaoBalance : useCost;
 				
-				return resultBalance;
+				int kakaoHasGift = Integer.parseInt(request.getParameter("kakaoHasGift"));
 				
+				if (kakaoHasGift != 0) {
+					int dbUserGift = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
+					kakaoHasGift = dbUserGift >= kakaoHasGift ? kakaoHasGift : 0;
+				}
+				
+				int totalUserCostPay = totalProdtPayShip - (resultBalance + kakaoHasGift);
+				
+				// 회원의 기프트카드 사용과 포인트 사용량이 현재 모든 물품의 총합보다 더 큰 경우
+				if (totalUserCostPay >= 0) {
+					
+					resultArr.add(resultBalance);
+					resultArr.add(kakaoHasGift);
+					resultArr.add(totalUserCostPay);
+					
+					return resultArr;
+				} else {
+					
+					resultBalance = totalProdtPayShip - kakaoHasGift;
+					
+					resultArr.add(resultBalance);
+					resultArr.add(kakaoHasGift);
+					resultArr.add(0);
+					
+					return resultArr;
+				}
+
 			} else if (checkNum == 2) {
 				//기프트 카드 조회
 				int userGiftBalance = dao.getProdtUserGiftMoney(userInfo.getUserSeq());
 				int resultBalance = useCost > userGiftBalance ? userGiftBalance : useCost;
-
-				return resultBalance;
 				
-			} else return 0;
+				int kakaoHasPoint = Integer.parseInt(request.getParameter("kakaoHasPoint"));
+				
+				if (kakaoHasPoint != 0) {
+					int dbUserPoint = dao.getProdtUserKakaoPoint(userInfo.getUserSeq());
+					kakaoHasPoint = dbUserPoint >= kakaoHasPoint ? kakaoHasPoint : 0;
+				}
+				
+				int totalUserCostPay = totalProdtPayShip - (resultBalance + kakaoHasPoint);
+			
+				
+				// 회원의 기프트카드 사용과 포인트 사용량이 현재 모든 물품의 총합보다 더 큰 경우
+				if (totalUserCostPay >= 0) {
+					
+					resultArr.add(kakaoHasPoint);
+					resultArr.add(resultBalance);
+					resultArr.add(totalUserCostPay);
+					
+					return resultArr;
+				} else {
+					
+					resultBalance = totalProdtPayShip - kakaoHasPoint;
+					
+					resultArr.add(kakaoHasPoint);
+					resultArr.add(resultBalance);
+					resultArr.add(0);
+					
+					return resultArr;
+				}
+				
+			} else return null;
 			
 			
 			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
-			return 0;
+			return null;
 		}
 	}
 }
