@@ -166,6 +166,11 @@
 	<definition name = "/semitiles/productOrderPay.layout" extends="newsemiDefaultInputWord">
 		<put-attribute name = "body" value="/WEB-INF/views/prodtPay/prodtOrderPay.jsp"/>	
 	</definition>
+	
+	<!-- 회원의 자기 정보 변경 -->
+	<definition name = "/semitiles/userInfoEdit.layout" extends="newsemiDefaultInputWord">
+		<put-attribute name = "body" value="/WEB-INF/views/myPage/userInfoEdit.jsp"/>	
+	</definition>
 
 	
 	

@@ -510,6 +510,25 @@ public class MyPagesService implements IMyPagesService {
 		}
 	}
 	
+	//유저정보 변경
+	@Override
+	public int getUserInfoEdited(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO udto = (UserDTO)session.getAttribute("userinfo");
+			
+			if (udto == null) return -1;
+			
+			request.setAttribute("userName", udto.getUserName());
+			
+			return 1;
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+	}
+	
 	
 	
 	

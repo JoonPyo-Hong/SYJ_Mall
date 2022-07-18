@@ -127,6 +127,19 @@ public class MyPagesController {
 		}
 	}
 	
+	//자신의 정보 수정
+	@RequestMapping(value = "/myInfoEdited.action", method = { RequestMethod.GET })
+	public String myInfoEdited(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		int result = service.getUserInfoEdited(request,response,ea);
+		
+		if (result == 1) {
+			return "/semitiles/userInfoEdit.layout";
+		} else {
+			return "/testwaiting/kakaoerror";
+		}
+	}
+	
 	
 	
 }

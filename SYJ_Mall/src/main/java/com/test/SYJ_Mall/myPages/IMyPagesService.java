@@ -101,6 +101,15 @@ public interface IMyPagesService {
 	 * @return
 	 */
 	int getProdtOrderHist(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+	
+	/**
+	 * 유저 정보 변경
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @return
+	 */
+	int getUserInfoEdited(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
 
 
 	

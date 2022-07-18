@@ -29,7 +29,7 @@
 
 	<div id="kakao-wrap">
 		<div id="kakao-head" style="position: fixed; z-index: 10; background-color: #FFFFFF;">
-			<div id="inner-head">
+			<div id="inner-head" style="border-bottom: 1px solid #E3E5E8;">
 				<div class="left-btn">
 					<button class="back-button"></button>
 					<button class="home-button"></button>
