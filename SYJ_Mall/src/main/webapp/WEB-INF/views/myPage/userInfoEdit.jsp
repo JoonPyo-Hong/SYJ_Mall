@@ -47,10 +47,9 @@
   width: 50%;
   font-weight: bold;
   font-size: 16px;
-  line-height: 60px;
   border-radius: 8px;
   border-color: #3c404b;
-  background-color: #3c404b;
+  background-color: #3c404b; 
   color: #fff;
   cursor: pointer;
 }
@@ -78,15 +77,32 @@
      <div class="item-form">
        <div class="title">정보수정</div>
        <label for="modify-name">이름</label>
-       <input id="modify-name" placeholder="이름 입력" value="${userName}" onkeyup="check()"/>
+     	
+     	<c:if test="${not empty userName}">  
+       		<input id="modify-name" placeholder="이름 입력" value="${userName}" style="" maxlength="5" onkeyup="inputCheck()"/>
+     	</c:if>
+     	<c:if test="${empty userName}">  
+       		<input id="modify-name" placeholder="이름 입력" value="" onkeyup="inputCheck()"/>
+     	</c:if>
+     
      </div>
      <div class="btn-wrap">
-       <button class="btn cancel-btn" id="cancel-btn" disabled>
-         취소
-       </button>
-       <button class="btn save-btn" id="save-btn" disabled>
-         저장
-       </button>
+       <c:if test="${not empty userName}">  
+	       <button class="btn cancel-btn" id="cancel-btn">
+	         취소
+	       </button>
+	       <button class="btn save-btn" id="save-btn">
+	         저장
+	       </button>
+       </c:if>
+       <c:if test="${empty userName}">  
+	       <button class="btn cancel-btn" id="cancel-btn" disabled>
+	         취소
+	       </button>
+	       <button class="btn save-btn" id="save-btn" disabled>
+	         저장
+	       </button>
+      </c:if>
      </div>
    </form>
  </div>
@@ -99,16 +115,22 @@
 <script>
 	
 	// input 데이터 없을 시 확인 버튼 비활성화
-	
-	const check = () => {
+	const inputCheck = () => {
 	  const modifyName = document.getElementById("modify-name").value;
-	
+	  
 	  if (modifyName) {
 	    document.getElementById("save-btn").disabled = false;
 	  } else {
 	    document.getElementById("save-btn").disabled = true;
 	  }
 	};
+	
+	//고객의 이름을 바꿔주는 function
+	
+	
+	
+	
+	
 
 </script>
  
