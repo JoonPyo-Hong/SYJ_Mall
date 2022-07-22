@@ -140,6 +140,15 @@ public class MyPagesController {
 		}
 	}
 	
+	//장바구니 - 특정 물품 내역 여러개 삭제
+	@RequestMapping(value = "/myInfoEditedUserName.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public int myInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		return service.getUserInfoEditedUserName(request,response,ea);
+	}
+	
+	
 	
 	
 }

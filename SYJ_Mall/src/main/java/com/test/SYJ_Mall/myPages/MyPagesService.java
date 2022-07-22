@@ -529,6 +529,20 @@ public class MyPagesService implements IMyPagesService {
 		}
 	}
 	
+	//유저정보를 sp 내에서 변경해준다.
+	@Override
+	public int getUserInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		try {
+			
+			
+			
+			return 1;
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+ 	}
+	
 	
 	
 	

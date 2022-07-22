@@ -110,6 +110,15 @@ public interface IMyPagesService {
 	 * @return
 	 */
 	int getUserInfoEdited(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+	
+	/**
+	 * 유저정보를 변경해준다.
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @return
+	 */
+	int getUserInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
 
 
 	

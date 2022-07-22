@@ -126,7 +126,33 @@
 	};
 	
 	//고객의 이름을 바꿔주는 function
-	
+	function user_name_modify() {
+		$.ajax({
+			type : "POST",
+			url : "/SYJ_Mall/userLoginVerificationCheck.action",
+			data : {
+				"securedUsername" : securedUsername,
+				"securedPassword" : securedPassword
+			},
+			dataType : "json",
+			success : function(result) {
+
+				if (result == 1) {
+					$("#input_form").submit();
+				} else if (result == -1){
+					modal_situation("가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.");
+				} else if (result == 0){
+					modal_situation("로그인 접속 요청 횟수 초과입니다.");
+				} else {
+					modal_situation("비 정상적인 접근입니다.");
+				}
+
+			},
+			error : function(a, b, c) {
+				alert('error');
+			}
+		});
+	}
 	
 	
 	
