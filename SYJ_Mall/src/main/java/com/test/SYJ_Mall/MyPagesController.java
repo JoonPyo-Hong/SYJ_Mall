@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
+import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.myPages.IMyPagesService;
 
 /**
@@ -143,9 +144,9 @@ public class MyPagesController {
 	//장바구니 - 특정 물품 내역 여러개 삭제
 	@RequestMapping(value = "/myInfoEditedUserName.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public int myInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+	public int myInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
 		
-		return service.getUserInfoEditedUserName(request,response,ea);
+		return service.getUserInfoEditedUserName(request,response,ea,sf);
 	}
 	
 	

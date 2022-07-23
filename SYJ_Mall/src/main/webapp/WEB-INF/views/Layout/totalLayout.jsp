@@ -26,6 +26,10 @@
 
 }
 
+.user-info_login:hover {
+	cursor : pointer;
+}
+
 </style>
 
 </head>
@@ -543,8 +547,10 @@
 			    $(document.body).css('overflow', 'scroll');
 			}
 			
-			
-			
+			//user-info_login
+			$(document).on("click", ".user-info_login", function() {
+				location.href = "/SYJ_Mall/myInfoEdited.action";
+			});
 			
 			
 	</script>

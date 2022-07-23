@@ -1342,7 +1342,7 @@ public class LoginService implements ILoginService {
 			
 			while(keys.hasNext()) {
 				String key = keys.next();
-				System.out.println( String.format("키 : %s, 값 : %s", key, guidLists.get(key)) );
+				//System.out.println( String.format("키 : %s, 값 : %s", key, guidLists.get(key)) );
 
 			}
 

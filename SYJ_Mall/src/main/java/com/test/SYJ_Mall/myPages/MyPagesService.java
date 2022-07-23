@@ -531,12 +531,36 @@ public class MyPagesService implements IMyPagesService {
 	
 	//유저정보를 sp 내에서 변경해준다.
 	@Override
-	public int getUserInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+	public int getUserInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, StringFormatClass sf) {
 		try {
 			
+			String modifyName = request.getParameter("modifyName");
 			
+			HttpSession session = request.getSession();
+			UserDTO udto = (UserDTO)session.getAttribute("userinfo");
 			
-			return 1;
+			if (udto == null) return -1;
+			
+			boolean flag = false;
+			
+			//여기서 한번 더 체크해줘야 한다.
+			flag = sf.isStringMessage(modifyName);
+			
+			if (!flag) return 2;
+			
+			flag = sf.inputStringLength(modifyName,10);
+			
+			if (!flag) return 3;
+			
+			int result = dao.modifyUserInfoName(udto.getUserSeq(),modifyName);
+			
+			if (result == 1) {
+				udto.setUserName(modifyName);
+				session.setAttribute("userinfo", udto);
+			}
+			
+			return result;
+			
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return -1;

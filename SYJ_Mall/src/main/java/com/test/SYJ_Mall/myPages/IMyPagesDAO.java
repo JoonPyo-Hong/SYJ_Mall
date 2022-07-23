@@ -78,5 +78,13 @@ public interface IMyPagesDAO {
 	 * @return
 	 */
 	List<MyPageOrderPayUserDTO> getMyPageOrderProdtsShipmentInfos(int userSeq, String prodtOrderSeq);
+	
+	/**
+	 * 고객의 이름 변경하기
+	 * @param userSeq
+	 * @param modifyName
+	 * @return
+	 */
+	int modifyUserInfoName(int userSeq, String modifyName);
 
 }

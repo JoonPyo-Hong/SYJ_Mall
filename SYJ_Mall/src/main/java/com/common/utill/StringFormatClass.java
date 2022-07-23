@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -283,8 +284,29 @@ public class StringFormatClass {
 		
 	}
 	
-
+	/**
+	 * 글자가 한글과 영어로만 이루어졌는지 체크해준다.
+	 * @param text
+	 * @return
+	 */
+	public boolean isStringMessage(String text) {
+		Pattern pattern = Pattern.compile("^[a-zA-Z가-힣]*$");
+		Matcher mc = pattern.matcher(text);
+		return mc.find();
+	}
 	
+	/**
+	 * 문자열의 길이가 기준보다 긴지 적은지 체크해준다.
+	 * @param text
+	 * @return
+	 */
+	public boolean inputStringLength(String text ,int standard) {
+		
+		int textLen = text.length();
+		
+		return textLen > standard ? false : true;
+	
+	}
 	
 	
 }

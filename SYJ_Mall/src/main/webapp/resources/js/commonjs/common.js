@@ -74,6 +74,9 @@ function getProdtInfos(prodt_seq) {
 } 
 
 
+
+
+
 // footer area add
 function call_footer() {
 	$('#inner-content').append(
@@ -103,6 +106,7 @@ function call_footer() {
 	);	
 }
 
+//call footer area add
 function call_footer_kakao(content_id) {
 	$(content_id).append(
 			'<div id="kakao-footer">'
@@ -130,6 +134,29 @@ function call_footer_kakao(content_id) {
 			+'</div>'
 	);	
 }
+
+
+//In case of customer input information error - modal open
+function user_input_error_response_open(subject,inner_text) {
+	
+	let inner_text_msg = '';
+	inner_text_msg += '<h3>' + subject + '</h3>';
+	inner_text_msg += '<p>' + inner_text + '<p>';
+	
+	$('.error-text').append(inner_text_msg);
+	
+	const scrollLocation = window.scrollY;
+	$('#error_modal_check').css('top', scrollLocation + 'px');
+	$(document.body).css('overflow', 'hidden');
+}
+
+
+//In case of customer input information error - modal close
+function user_input_error_response_close() { 
+	$('#error_modal_check').css('top', '-1400px');
+	$(document.body).css('overflow', 'scroll');
+}
+
 
 
 

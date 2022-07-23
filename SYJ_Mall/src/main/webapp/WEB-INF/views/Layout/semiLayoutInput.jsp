@@ -23,10 +23,122 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
 
+
+<style>
+
+/* 모달 작업 */
+.overlay-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  top : -1400px;
+}
+
+/* 정렬 모달창 */
+.error-modal-wrap {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  bottom: 50%;
+  margin-bottom: -175.5px;
+  width: 310px;
+  /* height: 350px; */
+  border-radius: 16px;
+}
+
+.error-modal-wrap .modal-close {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.error-modal-wrap .modal-close .close-btn {
+  width: 24px;
+  height: 24px;
+  background: url(/SYJ_Mall/resources/images/login_modal/close-24.png) no-repeat;
+  background-size: contain;
+  margin-right: 15px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.error-modal-wrap .error-img {
+  margin-bottom: 6px;
+  width: 128px;
+  height: 128px;
+}
+
+.error-modal-wrap .error-text {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+.error-modal-wrap .error-text p {
+  font-weight: normal;
+  font-size: 16px;
+  text-align: center;
+  padding: 0px 10px 20px;
+}
+
+.error-modal-wrap .return-btn {
+  margin-bottom: 40px;
+}
+
+.error-modal-wrap .return-btn button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  min-height: 48px;
+  border-radius: 35px;
+  text-align: center;
+  background-color: rgb(255, 235, 0);
+}
+
+.error-modal-wrap .return-btn button p {
+  font-weight: bold;
+  font-size: 15px;
+  letter-spacing: -0.25px;
+  margin-left: 5px;
+}
+
+
+</style>
+
+
 </head>
 <body>
+	
+	
+	<!-- 체크 모달1 -->
+	<div class="overlay-wrapper" id="error_modal_check" style="z-index:20;">
+		<div class="error-modal-wrap">
+			<div class="modal-close">
+				<div class="close-btn" onclick="user_input_error_response_close()"></div>
+			</div>
+			<img class="error-img" src="/SYJ_Mall/resources/images/login_modal/character-3-d-apeach-128-2.png" />
+			<div class="error-text">
 
-
+			</div>
+			<div class="return-btn">
+				<button onclick="user_input_error_response_close()">
+					<p>돌아가기</p>
+				</button>
+			</div>
+		</div>
+	</div>
+	
+	
 	<div id="kakao-wrap">
 		<div id="kakao-head" style="position: fixed; z-index: 10; background-color: #FFFFFF;">
 			<div id="inner-head" style="border-bottom: 1px solid #E3E5E8;">
@@ -48,6 +160,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<c:if test="${not empty geustOrderInquiry}">
 		<div id="kakao-footer">
 			<div id="inner-footer">
@@ -94,6 +207,8 @@
 	$('.login-btn').click(function() {
 		location.href = "/SYJ_Mall/login.action";
 	});
+	
+	
 </script>
 </body>
 </html>

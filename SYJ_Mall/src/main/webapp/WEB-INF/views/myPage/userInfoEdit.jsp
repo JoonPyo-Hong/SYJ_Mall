@@ -73,7 +73,7 @@
 
  <div class="container-wrap modify-info-wrap" style="padding-top:80px;">
    <!-- 정보수정 입력 영역 -->
-   <form class="modify-info">
+   <div class="modify-info">
      <div class="item-form">
        <div class="title">정보수정</div>
        <label for="modify-name">이름</label>
@@ -104,11 +104,9 @@
 	       </button>
       </c:if>
      </div>
-   </form>
+   </div>
  </div>
  
-
-
 
 
 
@@ -125,35 +123,72 @@
 	  }
 	};
 	
-	//고객의 이름을 바꿔주는 function
-	function user_name_modify() {
-		$.ajax({
-			type : "POST",
-			url : "/SYJ_Mall/userLoginVerificationCheck.action",
-			data : {
-				"securedUsername" : securedUsername,
-				"securedPassword" : securedPassword
-			},
-			dataType : "json",
-			success : function(result) {
-
-				if (result == 1) {
-					$("#input_form").submit();
-				} else if (result == -1){
-					modal_situation("가입되지 않은 아이디이거나, 잘못된 비밀번호 입니다.");
-				} else if (result == 0){
-					modal_situation("로그인 접속 요청 횟수 초과입니다.");
-				} else {
-					modal_situation("비 정상적인 접근입니다.");
-				}
-
-			},
-			error : function(a, b, c) {
-				alert('error');
-			}
-		});
-	}
 	
+	$('#save-btn').click(function(){
+		const user_input_name = $('#modify-name').val(); 
+		
+		user_name_modify(user_input_name);
+	});
+	
+	
+	//고객의 이름을 바꿔주는 function
+	function user_name_modify(user_input_name) {
+		
+		let front_check = check_user_name(user_input_name);
+		
+		console.log("front_check : " + front_check); 
+		
+		if (front_check == true) {
+			$.ajax({
+				type : "POST",
+				url : "/SYJ_Mall/myInfoEditedUserName.action",
+				data : {
+					"modifyName" : user_input_name,
+				},
+				dataType : "json",
+				success : function(result) {
+					
+					if (result == 1) {
+						//성공 -> 성공페이지로 보내준다.
+						location.href="/SYJ_Mall/passUserEdit.action?innerText=회원의 이름변경이";
+					} else if (result == 2) {
+						user_input_error_response_open('이름을 확인해주세요!','한글과 영문 대 소문자를 사용하세요.<br>(특수기호,공백 사용 불가)');
+					} else if (result == 3) {
+						user_input_error_response_open('이름을 확인해주세요!','너무 긴 이름입니다.');
+					} else {
+						location.href="/SYJ_Mall/raiseErrorResult.action";
+					}
+				},
+				error : function(a, b, c) {
+					alert('error');
+				}
+			});
+		}
+	}
+
+	
+	//유저의 이름을 체크
+	function check_user_name(user_name) {
+		
+		let nonchar = /[^가-힣a-zA-Z]/gi;//이름에 해당되는 정규식
+		let number = /[0-9]/gi;//숫자 제외해줄것
+		
+		if (user_name != "" && number.test(user_name)) {
+		    user_input_error_response_open('이름을 확인해주세요!','이름에 숫자는 사용할 수 없습니다.');
+		    return false;
+		}
+		if (user_name != "" && nonchar.test(user_name)) {
+		    user_input_error_response_open('이름을 확인해주세요!','한글과 영문 대 소문자를 사용하세요.<br>(특수기호,공백 사용 불가)');
+		    return false;
+		}
+		if(user_name.length > 10) {
+		    user_input_error_response_open('이름을 확인해주세요!','너무 긴 이름입니다.');
+		    return false;
+		}
+		
+		return true;
+	}
+
 	
 	
 	

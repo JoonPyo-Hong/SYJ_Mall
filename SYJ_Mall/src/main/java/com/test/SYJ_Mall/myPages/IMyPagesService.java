@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.common.utill.ErrorAlarm;
 import com.common.utill.KakaoCookie;
+import com.common.utill.StringFormatClass;
 
 public interface IMyPagesService {
 	
@@ -116,9 +117,10 @@ public interface IMyPagesService {
 	 * @param request
 	 * @param response
 	 * @param ea
+	 * @param sf
 	 * @return
 	 */
-	int getUserInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea);
+	int getUserInfoEditedUserName(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea , StringFormatClass sf);
 
 
 	

@@ -62,6 +62,25 @@ public class CommonController {
 		return service.setReviewCheckingInfo(request,response,ea);
 	}
 		
+	//회원요청에 대한 완료 처리 - 공통
+	@RequestMapping(value = "/passUserEdit.action", method = { RequestMethod.GET })
+	public String passUserEdit(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+		
+		String innerText = request.getParameter("innerText");
+		
+		request.setAttribute("innerText", innerText);
+		
+		return "/Common/commonResult";
+
+	}
+	
+	//오류가 생겼을 때 오류 페이지로 보내준다.
+	@RequestMapping(value = "/raiseErrorResult.action", method = { RequestMethod.GET })
+	public String raiseErrorResult(HttpServletRequest request, HttpServletResponse response) {
+
+		return "/testwaiting/kakaoerror";
+
+	}
 	
 	
 	

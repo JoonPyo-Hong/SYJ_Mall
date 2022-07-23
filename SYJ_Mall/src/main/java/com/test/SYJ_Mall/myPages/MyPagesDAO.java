@@ -95,4 +95,15 @@ public class MyPagesDAO implements IMyPagesDAO{
 		return template.selectList("MyPages.myPageOrderProdtUserInfo",map);
 	}
 	
+	//고객의 이름 변경하기
+	@Override
+	public int modifyUserInfoName(int userSeq, String modifyName) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userSeq",Integer.toString(userSeq));
+		map.put("modifyName",modifyName);
+		
+		return template.selectOne("MyPages.myPageUserNameEdit",map);
+	}
+	
 }

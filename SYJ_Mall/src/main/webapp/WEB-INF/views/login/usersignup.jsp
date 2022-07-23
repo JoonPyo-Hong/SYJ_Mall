@@ -399,6 +399,7 @@
         
         //4. 이름 체크
         var nameFlag = false;
+        
         $("#name_input").blur(function(){
             
             nameFlag = false;//초기화

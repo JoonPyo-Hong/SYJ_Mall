@@ -114,6 +114,15 @@
 		}
 	</select>	
 	
+	<!-- 회원의 이름 변경 -->
+	<select id="myPageUserNameEdit" parameterType="java.util.HashMap" resultType="Integer" statementType="CALLABLE">
+	
+		   declare @result int 
+		   exec @result = dbo.kakao_mypage_edit_user_name #{userSeq},#{modifyName}
+		   select @result
+	
+	</select>
+	
 	
 
 </mapper>
