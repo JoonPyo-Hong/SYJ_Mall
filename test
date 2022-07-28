@@ -1,1 +1,48 @@
-test
+#include <iostream>
+#include <queue>
+#include <vector>
+#include<sstream>
+#include<string>
+
+using namespace std;
+
+priority_queue<int> pq_list[1001];
+int input[1001] = {6,2,3,4,1,5};
+
+
+int main()
+{
+    
+    int index = 0;
+    int list_index = 0;
+    int result = 0;
+    
+    while(1) {
+        int num = input[index++];
+        
+        if(num == 0) break;
+        
+        int flag = 0;
+        
+        for (int i = 0; i < list_index; i++) {
+            int conpar = pq_list[i].top();
+            if (-conpar < num) {
+                pq_list[i].push(-num);
+                flag = 1;
+            }
+        }
+        
+        if (!flag) {
+            priority_queue<int> pq;
+            pq.push(-num);
+            pq_list[list_index++] = pq;
+            result++;
+        }
+    }
+    
+    
+    cout << result;
+
+    
+    return 0;
+}
