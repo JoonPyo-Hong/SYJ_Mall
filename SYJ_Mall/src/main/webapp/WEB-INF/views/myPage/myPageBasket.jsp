@@ -288,11 +288,8 @@ input[id="product-checkbox"]:checked {
 		</div>
 	</div>
 	<hr class="division" />
-	
-
 		<div class="basket-list-wrap">
 			<c:forEach var="mbdto" items="${mbdtoList}">
-					
 					<div class="basket-list-item" id="${mbdto.prodId}">
 						<div class="basket-left">
 							<!-- 상품 체크박스 -->
@@ -303,7 +300,7 @@ input[id="product-checkbox"]:checked {
 							</div>
 							<!-- 상품 내용 및 수량 -->
 							<div class="basket-content">
-								<a href="#">
+								<a href='/SYJ_Mall/productDetailMain.action?prodtSeq=${mbdto.prodId}'>
 									<div class="product-img" style="background : url(/SYJ_Mall/${mbdto.picUrl}) no-repeat; background-size: contain"></div>
 								</a>
 								<div class="basket-text">
