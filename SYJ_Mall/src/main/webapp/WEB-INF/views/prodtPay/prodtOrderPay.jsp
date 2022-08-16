@@ -1015,6 +1015,14 @@ input[type="radio"] {
 		
 	}
 	
+	 
+	/* 제품삭제 해주는 로직 */
+	$('.product-list-delete-btn').click(function(){
+		let parent = $(this).parent().parent().parent();
+		$(parent).remove();//현재 리무브 처리 되어있지만 애를 연동해서 지워야 한다. -> 장바구니와도 연동 시켜야 한다.
+	}) 
+	
+	
 	/* 카드 조회해주기 */
 	$('.pay-detail-button').click(function(){
 		user_has_gift_card();
