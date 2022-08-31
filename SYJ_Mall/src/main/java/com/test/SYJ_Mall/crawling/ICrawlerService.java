@@ -1,5 +1,7 @@
 package com.test.SYJ_Mall.crawling;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,5 +41,15 @@ public interface ICrawlerService {
 	 * @return
 	 */
 	int getExcelLogic(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 그라파나 관련 엑셀 비교
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @param sf
+	 * @return
+	 */
+	List<String> getGrafanaExcelLogic(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf, String url);
 
 }

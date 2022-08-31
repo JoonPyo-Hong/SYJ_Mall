@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,5 +55,27 @@ public class CrawlerController {
 
 		return null;
 	}
+	
+	// 엑셀
+	@RequestMapping(value = "/excelGrafanaMain.action", method = { RequestMethod.GET, RequestMethod.POST })
+	public String grafanaComparison(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,StringFormatClass sf) {
+
+		List<String> result1 = service.getGrafanaExcelLogic(request, response ,ea, sf, "C:\\test\\a1.xlsx");
+		List<String> result2 = service.getGrafanaExcelLogic(request, response ,ea, sf, "C:\\test\\a2.xlsx");
+		
+		for (int i = 0; i < result1.size(); i++) {
+			String comp = result1.get(i);
+			
+			for (int j = 0; j < result2.size(); j++) {
+				if (comp.equals(result2.get(j))) {
+					System.out.println(result1.get(i));
+				}
+			}
+		}
+		
+		
+		return null;
+	}
+	
 
 }
