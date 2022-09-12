@@ -55,9 +55,9 @@ public class ElasticService implements IElasticService {
 //				    		.setDefaultCredentialsProvider(credentialsProvider);
 //				    }
 //				}));
+			 
 			
-			
-			GetSourceRequest getSourceRequest = new GetSourceRequest("study_query_dsl", "1");
+			GetSourceRequest getSourceRequest = new GetSourceRequest("study_query_dsl", "4");
 			RequestOptions options = RequestOptions.DEFAULT;
 			
 			System.out.println(client.existsSource(getSourceRequest, options));
