@@ -751,8 +751,6 @@ public class LoginService implements ILoginService {
 
 			Map<String, String> map = getRSAkeySessionStay(request);// 세션에서 정보를 지우지는 않는다.
 
-			//Map<String, String> map = getRSAkeySessionStay(request);
-			
 			String id = map.get("id");// 아이디
 			String pw = map.get("pw");// 비밀번호
 			

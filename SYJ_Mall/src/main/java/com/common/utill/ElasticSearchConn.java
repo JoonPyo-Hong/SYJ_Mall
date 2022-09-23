@@ -17,12 +17,12 @@ public class ElasticSearchConn {
 	
 	
 	/**
-	 * 
+	 * ElasticSearchConn 객체
 	 */
 	public ElasticSearchConn() {}
 	
 	/**
-	 * Conn 객체 
+	 * ElasticSearchConn 객체
 	 * @param hostName
 	 * @param port
 	 * @param scheme
@@ -44,4 +44,6 @@ public class ElasticSearchConn {
 		
 		return client;
 	}
+	
+	//public int inputData
 }

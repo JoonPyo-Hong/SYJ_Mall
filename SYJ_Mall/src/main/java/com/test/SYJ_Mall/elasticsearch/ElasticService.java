@@ -1,7 +1,5 @@
 package com.test.SYJ_Mall.elasticsearch;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,32 +31,52 @@ public class ElasticService implements IElasticService {
 	public int getConnectElastic(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec) {
 		
 		try {
-			
-//			String hostname = "192.168.43.128";
-//			int port = 9200;
-//			String scheme = "http";
-//			HttpHost host = new HttpHost(hostname, port, scheme);
-//			RestClientBuilder restClientBuilder = RestClient.builder(host);
-//			RestHighLevelClient client = new RestHighLevelClient(restClientBuilder);
-//			
-			ec = new ElasticSearchConn("192.168.43.128", 9200, "http");
+
+			ec = new ElasticSearchConn("218.48.201.158", 9200, "http");
 			RestHighLevelClient client = ec.elasticClient();
 			
-			GetSourceRequest getSourceRequest = new GetSourceRequest("study_query_dsl", "1");
+			GetSourceRequest getSourceRequest = new GetSourceRequest("log_try_ip", "rHJ5aoMBTyjlI_upWwq5");
 			RequestOptions options = RequestOptions.DEFAULT;
 			
-			GetSourceResponse eresp = client.getSource(getSourceRequest, options);
-			Map<String,Object> map = eresp.getSource();
-			System.out.println(map.get("message"));
+			System.out.println(client.existsSource(getSourceRequest, options));
+			
+			//GetIndexRequest req = new GetIndexRequest("log_try_ip");
+			
+			//req.addFeatures(null)
+			
+			//System.out.println(client.indices().ex(getSourceRequest, options));
+			
+			//boolean exists = client.indices().exists(req,options);
+			
+			//System.out.println(exists);
+			
+			//client.putScript(null, options);
+			
+			//GetSourceResponse eresp = client.getSource(getSourceRequest, options);
+			
+			//Map<String,Object> map = eresp.getSource();
+			//System.out.println(map.get("message"));
 			
 			
+//			String jsonString = "{" +
+//				      "\"name\":\"kdyhkdy\"," +
+//				      "\"new_col\":\"25\","+
+//				      "\"addr\":\"samsung\"," +
+//				      "\"workplace\":\"index_bu_seo\","+
+//				      "\"added_col4\":[{\"aa\":[{\"depth3\":[{\"vvv4\":99}]}],\"bb\":\"bbbbbbb\"}]" +
+//				      "}";
 			
+			
+		
 			
 			
 	        client.close();
-			return 0;
+			
+	        
+	        return 0;
 		} catch (Exception e) {
-			ea.basicErrorException(request, e);
+			//ea.basicErrorException(request, e);
+			e.printStackTrace();
 			return -1;
 		}
 		
