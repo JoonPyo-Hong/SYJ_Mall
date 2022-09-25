@@ -31,8 +31,7 @@ public class ElasticService implements IElasticService {
 	public int getConnectElastic(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec) {
 		
 		try {
-
-			ec = new ElasticSearchConn("218.48.201.158", 9200, "http");
+			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
 			RestHighLevelClient client = ec.elasticClient();
 			
 			GetSourceRequest getSourceRequest = new GetSourceRequest("log_try_ip", "rHJ5aoMBTyjlI_upWwq5");
