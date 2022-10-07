@@ -31,13 +31,15 @@ public class ElasticService implements IElasticService {
 	public int getConnectElastic(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec) {
 		
 		try {
-			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
-			RestHighLevelClient client = ec.elasticClient();
 			
-			GetSourceRequest getSourceRequest = new GetSourceRequest("log_try_ip", "rHJ5aoMBTyjlI_upWwq5");
-			RequestOptions options = RequestOptions.DEFAULT;
+			throw new Exception();
+			//ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			//RestHighLevelClient client = ec.elasticClient();
 			
-			System.out.println(client.existsSource(getSourceRequest, options));
+			//GetSourceRequest getSourceRequest = new GetSourceRequest("log_try_ip", "rHJ5aoMBTyjlI_upWwq5");
+			//RequestOptions options = RequestOptions.DEFAULT;
+			
+			//System.out.println(client.existsSource(getSourceRequest, options));
 			
 			//GetIndexRequest req = new GetIndexRequest("log_try_ip");
 			
@@ -69,13 +71,13 @@ public class ElasticService implements IElasticService {
 		
 			
 			
-	        client.close();
+	       //client.close();
 			
 	        
-	        return 0;
+	        //return 0;
 		} catch (Exception e) {
-			//ea.basicErrorException(request, e);
-			e.printStackTrace();
+			ea.basicErrorException(request, e);
+			//e.printStackTrace();
 			return -1;
 		}
 		
