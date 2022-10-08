@@ -3,10 +3,11 @@ package com.test.SYJ_Mall.elasticsearch;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.core.GetSourceRequest;
-import org.elasticsearch.client.core.GetSourceResponse;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,28 @@ public class ElasticService implements IElasticService {
 		
 		try {
 			
-			throw new Exception();
-			//ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
-			//RestHighLevelClient client = ec.elasticClient();
+			//throw new Exception();
+			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			RestHighLevelClient client = ec.elasticClient();
+			
+			IndexRequest indexRequest = new IndexRequest("my_index_test_1","_doc");
+			RequestOptions options = RequestOptions.DEFAULT;
+			IndexResponse indexResponse;
+			
+			for (int i = 0; i < 10; i++) {
+				String jsonString = "{" +
+					      "\"name\":\"kdyhkdy\"," +
+					      "\"age\":\""+i+"\""+
+					      "}";
+				
+				//위의 jsonString을 JSON타입으로 변환하여 indexRequest에 담습니다.
+				indexRequest.source(jsonString,XContentType.JSON);
+				indexResponse = client.index(indexRequest, options);
+			}
+			
+			
+
+			
 			
 			//GetSourceRequest getSourceRequest = new GetSourceRequest("log_try_ip", "rHJ5aoMBTyjlI_upWwq5");
 			//RequestOptions options = RequestOptions.DEFAULT;
@@ -71,13 +91,12 @@ public class ElasticService implements IElasticService {
 		
 			
 			
-	       //client.close();
+	       client.close();
 			
 	        
-	        //return 0;
+	        return 0;
 		} catch (Exception e) {
 			ea.basicErrorException(request, e);
-			//e.printStackTrace();
 			return -1;
 		}
 		
