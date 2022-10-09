@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.CommonDate;
 import com.common.utill.ElasticSearchConn;
 import com.common.utill.ErrorAlarm;
 import com.test.SYJ_Mall.elasticsearch.IElasticService;
@@ -25,9 +26,9 @@ public class ElasticsearchController {
 	private IElasticService service;
 	
 	@RequestMapping(value = "/elasticsearch.action", method = { RequestMethod.GET , RequestMethod.POST})
-	public String elasticMain(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec) {
+	public String elasticMain(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
 			
-		int result = service.getConnectElastic(request,response,ea,ec);
+		int result = service.getConnectElastic(request,response,ea,ec,cd);
 		
 		System.out.println(result);
 		

@@ -11,6 +11,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.CommonDate;
 import com.common.utill.ElasticSearchConn;
 import com.common.utill.ErrorAlarm;
 
@@ -29,23 +30,29 @@ public class ElasticService implements IElasticService {
 	
 	
 	@Override
-	public int getConnectElastic(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec) {
+	public int getConnectElastic(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
 		
 		try {
 			
 			//throw new Exception();
-			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			//ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			ec = new ElasticSearchConn("10.107.11.66", 9200, "http");
 			RestHighLevelClient client = ec.elasticClient();
 			
-			IndexRequest indexRequest = new IndexRequest("my1_index","_doc");
+			IndexRequest indexRequest = new IndexRequest("movie_index_99","_doc");
 			RequestOptions options = RequestOptions.DEFAULT;
 			IndexResponse indexResponse;
 			
+			String presentDate = cd.getPresentTimeMille();
+			
+			System.out.println(presentDate);
+			
 			String jsonString = "{" +
-				      "\"name\":\"kdyhkdy\"," +
-				      "\"age\":\"bye\","+
-				      "\"number\":\"13\""+
-				      "}";
+						"\"@timestamp\":\""+presentDate+"\"," +  
+						"\"movieCd\":132," +
+						"\"movieNm\":\"bye\","+
+						"\"movieNmEn\":\"bye\""+
+						"}";
 			
 			indexRequest.source(jsonString,XContentType.JSON);
 			indexResponse = client.index(indexRequest, options);

@@ -89,6 +89,39 @@ public class CommonDate {
 		return sb.toString();
 	}
 	
+	public String getPresentTimeMille() {
+
+		Calendar c1 = Calendar.getInstance();
+
+		int years = c1.get(Calendar.YEAR);
+		int months = c1.get(Calendar.MONTH) + 1;
+		int date = c1.get(Calendar.DATE);
+
+		int hour = c1.get(Calendar.HOUR_OF_DAY);
+		int min = c1.get(Calendar.MINUTE);
+		int sec = c1.get(Calendar.SECOND);
+		int milSec = c1.get(Calendar.MILLISECOND);
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(years);
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(months)));
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(date)));
+		sb.append(" ");
+		
+		sb.append(dateTypeConvert(Integer.toString(hour)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(min)));
+		sb.append(":");
+		sb.append(sec);
+		sb.append(".");
+		sb.append(milSec);
+
+		return sb.toString();
+	}
+	
 	
 
 }
