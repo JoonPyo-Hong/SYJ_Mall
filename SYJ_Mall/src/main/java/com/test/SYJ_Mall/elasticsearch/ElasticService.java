@@ -37,20 +37,29 @@ public class ElasticService implements IElasticService {
 			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
 			RestHighLevelClient client = ec.elasticClient();
 			
-			IndexRequest indexRequest = new IndexRequest("my_index_test_1","_doc");
+			IndexRequest indexRequest = new IndexRequest("my1_index","_doc");
 			RequestOptions options = RequestOptions.DEFAULT;
 			IndexResponse indexResponse;
 			
-			for (int i = 0; i < 10; i++) {
-				String jsonString = "{" +
-					      "\"name\":\"kdyhkdy\"," +
-					      "\"age\":\""+i+"\""+
-					      "}";
-				
-				//위의 jsonString을 JSON타입으로 변환하여 indexRequest에 담습니다.
-				indexRequest.source(jsonString,XContentType.JSON);
-				indexResponse = client.index(indexRequest, options);
-			}
+			String jsonString = "{" +
+				      "\"name\":\"kdyhkdy\"," +
+				      "\"age\":\"bye\","+
+				      "\"number\":\"13\""+
+				      "}";
+			
+			indexRequest.source(jsonString,XContentType.JSON);
+			indexResponse = client.index(indexRequest, options);
+			
+//			for (int i = 0; i < 10; i++) {
+//				String jsonString = "{" +
+//					      "\"name\":\"kdyhkdy\"," +
+//					      "\"crazy\":\""+i+"\""+
+//					      "}";
+//				
+//				//위의 jsonString을 JSON타입으로 변환하여 indexRequest에 담습니다.
+//				indexRequest.source(jsonString,XContentType.JSON);
+//				indexResponse = client.index(indexRequest, options);
+//			}
 			
 			
 
