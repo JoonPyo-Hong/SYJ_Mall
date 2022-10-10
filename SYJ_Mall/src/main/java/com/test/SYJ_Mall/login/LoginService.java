@@ -6,21 +6,27 @@ import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 import javax.websocket.RemoteEndpoint.Basic;
+import javax.websocket.Session;
 
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +35,7 @@ import com.common.utill.AES256Util;
 import com.common.utill.AutoLoginPic;
 import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
+import com.common.utill.ElasticSearchConn;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
@@ -741,7 +748,7 @@ public class LoginService implements ILoginService {
 
 	// 존재하는 아이디인지 체크 - 모달창 띄워줄것
 	@Override
-	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea) {
+	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
 
 		String ip = "";
 
@@ -756,6 +763,35 @@ public class LoginService implements ILoginService {
 			
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 
+			//elasticsearch 에서 정보를 가져옴
+			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			RestHighLevelClient client = ec.elasticClient();
+			RequestOptions options = RequestOptions.DEFAULT;
+			
+			BoolQueryBuilder query = QueryBuilders.boolQuery();
+			
+			Calendar thisTimeUTC = cd.getPresentTimeMilleUTCCal();
+			Calendar preTimeUTC = cd.getMinusSecMille(thisTimeUTC,-100);
+			
+			query.must(QueryBuilders.termQuery("ip",ip));
+			
+			System.out.println(cd.formatStringTime(preTimeUTC));
+			System.out.println(cd.formatStringTime(thisTimeUTC));
+			
+			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.formatStringTime(preTimeUTC)));
+			query.must(QueryBuilders.rangeQuery("@timestamp").lte(cd.formatStringTime(thisTimeUTC)));
+			
+			SearchRequest searchRequest = new SearchRequest();
+			searchRequest.indices("login_cnt_index_1");
+			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder(); 
+			
+			sourceBuilder.query(query);
+			searchRequest.source(sourceBuilder);
+			SearchResponse srep = client.search(searchRequest, RequestOptions.DEFAULT);
+			
+			
+			System.out.println(srep.getHits().getTotalHits());
+			//System.out.println(srep.t);
 			
 			// 여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
 			// 0 : 계정 일시 벤 상태, 1: 로그인 허용 상태, -1 : 로그인 입력정보 오류, -100 : 에러발생

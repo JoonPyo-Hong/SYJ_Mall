@@ -19,5 +19,16 @@ public interface IElasticService {
 	 * @return
 	 */
 	int getConnectElastic(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd);
+	
+	/**
+	 * elasticsearch tests
+	 * @param request
+	 * @param response
+	 * @param ea
+	 * @param ec
+	 * @param cd
+	 * @return
+	 */
+	int getConnectElasticTestt(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd);
 
 }

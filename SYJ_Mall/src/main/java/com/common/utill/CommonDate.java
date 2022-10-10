@@ -181,5 +181,70 @@ public class CommonDate {
 	}
 	
 	
+	/**
+	 * 현재시간 정보 저장 (밀리초) - UTC 기준
+	 * @return
+	 */
+	public Calendar getPresentTimeMilleUTCCal() {
+
+		Calendar c1 = Calendar.getInstance();
+		
+		c1.add(Calendar.HOUR_OF_DAY, -9);
+	
+		return c1;
+	}
+	
+	/**
+	 * 날짜를 String 타입으로 변환
+	 * @param cal
+	 * @return
+	 */
+	public String formatStringTime(Calendar cal) {
+		
+		int years = cal.get(Calendar.YEAR);
+		int months = cal.get(Calendar.MONTH) + 1;
+		int date = cal.get(Calendar.DATE);
+
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int min = cal.get(Calendar.MINUTE);
+		int sec = cal.get(Calendar.SECOND);
+		int milSec = cal.get(Calendar.MILLISECOND);
+		
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(years);
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(months)));
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(date)));
+		sb.append(" ");
+		
+		sb.append(dateTypeConvert(Integer.toString(hour)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(min)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(sec)));
+		sb.append(".");
+		sb.append(dateMilliConvert(Integer.toString(milSec)));
+		
+		return sb.toString();
+
+	}
+	
+	/**
+	 * 현재시간 특정시간 전,후 시간 가져오기
+	 * @param inSec
+	 * @param cal
+	 * @return
+	 */
+	public Calendar getMinusSecMille(Calendar cal, int inSec) {
+		
+		cal.add(Calendar.SECOND, inSec);
+		
+		return cal;
+
+	}
+	
+	
 
 }

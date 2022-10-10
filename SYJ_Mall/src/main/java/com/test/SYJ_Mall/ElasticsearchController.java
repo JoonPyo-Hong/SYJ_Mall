@@ -35,4 +35,15 @@ public class ElasticsearchController {
 		return "";
 	}
 	
+	
+	@RequestMapping(value = "/elasticsearchTest.action", method = { RequestMethod.GET , RequestMethod.POST})
+	public String elasticMainTest(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
+			
+		int result = service.getConnectElasticTestt(request,response,ea,ec,cd);
+		
+		System.out.println(result);
+		
+		return "";
+	}
+	
 }

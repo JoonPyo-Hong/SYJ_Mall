@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.utill.AES256Util;
 import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
+import com.common.utill.ElasticSearchConn;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
@@ -92,9 +93,9 @@ public class LoginController {
 	//로그인 입력 정보에 따른 처리
 	@RequestMapping(value = "/userLoginVerificationCheck.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public int loginVerificationCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
+	public int loginVerificationCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
 
-		return logService.userIdPwCheck(request,ea);
+		return logService.userIdPwCheck(request,ea,ec,cd);
 
 	}
 

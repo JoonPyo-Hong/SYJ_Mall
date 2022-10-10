@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import com.common.utill.AES256Util;
 import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
+import com.common.utill.ElasticSearchConn;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
@@ -249,7 +250,7 @@ public interface ILoginService {
 	 * @param ea		에러처리 관련 객체
 	 * @return			1 : 존재함, -1 : 존재하지 않음 / 벤당한 아이피로 접속
 	 */
-	int userIdPwCheck(HttpServletRequest request,ErrorAlarm ea);
+	int userIdPwCheck(HttpServletRequest request,ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd);
 	
 	/**
 	 * RSA 대칭키 복호화

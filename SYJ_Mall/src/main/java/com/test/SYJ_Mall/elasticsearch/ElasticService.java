@@ -5,9 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +72,40 @@ public class ElasticService implements IElasticService {
 	        return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return -1;
+		}
+		
+	}
+
+
+	@Override
+	public int getConnectElasticTestt(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
+		try {
+			
+			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			RestHighLevelClient client = ec.elasticClient();
+			RequestOptions options = RequestOptions.DEFAULT;
+
+			BoolQueryBuilder query = QueryBuilders.boolQuery();
+			query.must(QueryBuilders.termQuery("ip", "192.143.98.11"));
+			//query.must(QueryBuilders.rangeQuery("@timestamp").gte("2022-10-10 09:16:54.001"));
+			//query.must(QueryBuilders.rangeQuery("@timestamp").lte("2022-10-10 09:17:54.001"));
+			
+			SearchRequest searchRequest = new SearchRequest();
+			searchRequest.indices("login_cnt_index_1");
+			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder(); 
+	
+			sourceBuilder.query(query);
+			searchRequest.source(sourceBuilder);
+			SearchResponse srep = client.search(searchRequest, RequestOptions.DEFAULT);
+		
+			System.out.println(srep.getHits().getTotalHits());
+			
+
+			return 1;
+			
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
 			return -1;
 		}
 		
