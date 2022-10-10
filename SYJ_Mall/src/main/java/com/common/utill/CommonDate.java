@@ -26,6 +26,21 @@ public class CommonDate {
 		return input;
 
 	}
+	
+	/**
+	 * millitime 이 한자리수거나 두자리 수인 경우에 세자리로 맞춰주는 메소
+	 * @param input
+	 * @return
+	 */
+	public String dateMilliConvert(String input) {
+		if (input.length() == 1) {
+			input = "00" + input;
+		} else if (input.length() == 2) {
+			input = "0" + input;
+		}
+		
+		return input;
+	}
 
 	/**
 	 * 더미날짜 생성
@@ -89,6 +104,10 @@ public class CommonDate {
 		return sb.toString();
 	}
 	
+	/**
+	 * 현재시간 정보 저장 (밀리초)
+	 * @return
+	 */
 	public String getPresentTimeMille() {
 
 		Calendar c1 = Calendar.getInstance();
@@ -115,9 +134,48 @@ public class CommonDate {
 		sb.append(":");
 		sb.append(dateTypeConvert(Integer.toString(min)));
 		sb.append(":");
-		sb.append(sec);
+		sb.append(dateTypeConvert(Integer.toString(sec)));
 		sb.append(".");
 		sb.append(milSec);
+
+		return sb.toString();
+	}
+	
+	/**
+	 * 현재시간 정보 저장 (밀리초) - UTC 기준
+	 * @return
+	 */
+	public String getPresentTimeMilleUTC() {
+
+		Calendar c1 = Calendar.getInstance();
+		
+		c1.add(Calendar.HOUR_OF_DAY, -9);
+		
+		int years = c1.get(Calendar.YEAR);
+		int months = c1.get(Calendar.MONTH) + 1;
+		int date = c1.get(Calendar.DATE);
+
+		int hour = c1.get(Calendar.HOUR_OF_DAY);
+		int min = c1.get(Calendar.MINUTE);
+		int sec = c1.get(Calendar.SECOND);
+		int milSec = c1.get(Calendar.MILLISECOND);
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(years);
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(months)));
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(date)));
+		sb.append(" ");
+		
+		sb.append(dateTypeConvert(Integer.toString(hour)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(min)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(sec)));
+		sb.append(".");
+		sb.append(dateMilliConvert(Integer.toString(milSec)));
 
 		return sb.toString();
 	}
