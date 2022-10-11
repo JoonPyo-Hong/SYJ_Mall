@@ -3,6 +3,7 @@ package com.test.SYJ_Mall.elasticsearch;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.lucene.search.TotalHits;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -39,7 +40,6 @@ public class ElasticService implements IElasticService {
 		
 		try {
 			
-			
 			ec = new ElasticSearchConn("10.107.11.66", 9200, "http");
 			RestHighLevelClient client = ec.elasticClient();
 			
@@ -69,9 +69,11 @@ public class ElasticService implements IElasticService {
 	       client.close();
 			
 	        
-	        return 0;
+	       return 0;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			ea.basicErrorException(request, e);
+			
 			return -1;
 		}
 		
@@ -98,8 +100,10 @@ public class ElasticService implements IElasticService {
 			sourceBuilder.query(query);
 			searchRequest.source(sourceBuilder);
 			SearchResponse srep = client.search(searchRequest, RequestOptions.DEFAULT);
-		
-			System.out.println(srep.getHits().getTotalHits());
+			
+			TotalHits result = srep.getHits().getTotalHits();
+			
+			System.out.println(result.value);
 			
 
 			return 1;

@@ -20,10 +20,13 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
 
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -750,51 +753,77 @@ public class LoginService implements ILoginService {
 	@Override
 	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
 
-		String ip = "";
-
 		try {
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
-			ip = ipCheck(request);// 아이피 주소 체크
+			String ip = ipCheck(request);// 아이피 주소 체크
 
 			Map<String, String> map = getRSAkeySessionStay(request);// 세션에서 정보를 지우지는 않는다.
 
 			String id = map.get("id");// 아이디
 			String pw = map.get("pw");// 비밀번호
-			
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
-
-			//elasticsearch 에서 정보를 가져옴
+			
+			//elasticsearch conn info
 			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
 			RestHighLevelClient client = ec.elasticClient();
-			RequestOptions options = RequestOptions.DEFAULT;
+			IndexResponse indexResponse;
+			String indexName = "login_cnt_index_1";
 			
+			//1. 해당 아이피가 벤당한 아이피인지 체크해주는 SP 작성요망
+			
+			
+			//2. 해당 ip를 elasticsearch 로그로 남겨준다.
+			IndexRequest indexRequest = new IndexRequest(indexName,"_doc");
+			
+			String presentDate = cd.getPresentTimeMilleUTC();
+			
+			String jsonString = "{" +
+					"\"@timestamp\":\""+presentDate+"\"," +  
+					"\"ip\":\"" + ip + "\""+
+					"}";
+			
+			indexRequest.source(jsonString,XContentType.JSON);
+			indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
+			
+			
+			//3. 해당 아이피가 얼마나 접속시도 했는지 확인 - elasticsearch 를 통해서 해당 ip로 얼마나 접속시도를 했는지 정보를 받아온다.
 			BoolQueryBuilder query = QueryBuilders.boolQuery();
 			
 			Calendar thisTimeUTC = cd.getPresentTimeMilleUTCCal();
-			Calendar preTimeUTC = cd.getMinusSecMille(thisTimeUTC,-100);
+			Calendar preTimeUTC = cd.getMinusSecMille(thisTimeUTC,-15);
 			
 			query.must(QueryBuilders.termQuery("ip",ip));
-			
-			System.out.println(cd.formatStringTime(preTimeUTC));
-			System.out.println(cd.formatStringTime(thisTimeUTC));
-			
 			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.formatStringTime(preTimeUTC)));
 			query.must(QueryBuilders.rangeQuery("@timestamp").lte(cd.formatStringTime(thisTimeUTC)));
 			
 			SearchRequest searchRequest = new SearchRequest();
-			searchRequest.indices("login_cnt_index_1");
-			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder(); 
+			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+			
+			searchRequest.indices(indexName);
 			
 			sourceBuilder.query(query);
 			searchRequest.source(sourceBuilder);
+			
 			SearchResponse srep = client.search(searchRequest, RequestOptions.DEFAULT);
 			
+			long loginTyrCnt = srep.getHits().getTotalHits().value;
 			
-			System.out.println(srep.getHits().getTotalHits());
-			//System.out.println(srep.t);
+			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
+			if (loginTyrCnt >= 4) {
+				//벤시키는 sp 작성
+				
+				return 0;//계정 임시 벤 상태
+			} 
+			
+			
+			// 로그인 정보가 존재하는지 체크
+			// 
+			
+			// System.out.println(srep.getHits().getTotalHits());
+			// System.out.println(srep.t);
 			
 			// 여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
-			// 0 : 계정 일시 벤 상태, 1: 로그인 허용 상태, -1 : 로그인 입력정보 오류, -100 : 에러발생
+			// 0: 계정 일시 벤 상태, 1: 로그인 허용 상태, 2: 로그인 입력정보 오류, -1 : 에러발생
 			return dao.firstLoginCheck(ip, id, encPw);
 			
 
