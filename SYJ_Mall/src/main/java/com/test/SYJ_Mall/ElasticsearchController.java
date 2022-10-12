@@ -46,4 +46,15 @@ public class ElasticsearchController {
 		return "";
 	}
 	
+	
+	@RequestMapping(value = "/elasticsearchCreate.action", method = { RequestMethod.GET , RequestMethod.POST})
+	public String elasticCreate(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
+			
+		int result = service.getConnectElasticCreate(request,response,ea,ec,cd);
+		
+		System.out.println(result);
+		
+		return "";
+	}
+	
 }

@@ -1,5 +1,8 @@
 package com.test.SYJ_Mall.elasticsearch;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +13,9 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.CreateIndexRequest;
+import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -113,5 +119,63 @@ public class ElasticService implements IElasticService {
 			return -1;
 		}
 		
+	}
+
+
+	@Override
+	public int getConnectElasticCreate(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
+		
+		try {
+			
+			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			RestHighLevelClient client = ec.elasticClient();
+			RequestOptions options = RequestOptions.DEFAULT;
+			
+			CreateIndexRequest elaReq = new CreateIndexRequest("sh_test_1");
+			
+			elaReq.settings(Settings.builder() 
+				    .put("index.number_of_shards", 3)
+				    .put("index.number_of_replicas", 1));
+			
+			Map<String, Object> message = new HashMap<String, Object>();
+			Map<String, Object> properties = new HashMap<String, Object>();
+			Map<String, Object> mapping = new HashMap<String, Object>();
+			
+			
+			message.put("type", "text");
+			properties.put("message", message);
+			
+			message = new HashMap<String, Object>();
+			
+			message.put("type", "integer");
+			properties.put("age", message);
+			
+			message = new HashMap<String, Object>();
+			
+			message.put("type", "date");
+			properties.put("today", message);
+			
+			
+			mapping.put("properties", properties);
+			
+			
+			
+			elaReq.mapping(mapping);
+			
+			
+			CreateIndexResponse createIndexResponse = client.indices().create(elaReq, options);
+			
+			boolean acknowledged = createIndexResponse.isAcknowledged(); 
+			boolean shardsAcknowledged = createIndexResponse.isShardsAcknowledged();
+			
+			System.out.println(acknowledged);
+			System.out.println(shardsAcknowledged);
+			
+			return 0;
+			
+		} catch (Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
 	}
 }
