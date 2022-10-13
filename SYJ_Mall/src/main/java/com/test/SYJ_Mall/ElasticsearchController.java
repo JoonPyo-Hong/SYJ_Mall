@@ -57,4 +57,14 @@ public class ElasticsearchController {
 		return "";
 	}
 	
+	@RequestMapping(value = "/elasticsearchPost.action", method = { RequestMethod.GET , RequestMethod.POST})
+	public String elasticPost(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
+			
+		int result = service.getConnectElasticPost(request,response,ea,ec,cd);
+		
+		System.out.println(result);
+		
+		return "";
+	}
+	
 }

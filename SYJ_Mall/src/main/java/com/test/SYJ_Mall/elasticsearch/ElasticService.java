@@ -137,23 +137,33 @@ public class ElasticService implements IElasticService {
 				    .put("index.number_of_shards", 3)
 				    .put("index.number_of_replicas", 1));
 			
-			Map<String, Object> message = new HashMap<String, Object>();
+			String[] fields = {"message","age","today"};
+			String[] types = {"text","integer","date"};
+			
+			Map<String, Object> message;
 			Map<String, Object> properties = new HashMap<String, Object>();
 			Map<String, Object> mapping = new HashMap<String, Object>();
 			
 			
-			message.put("type", "text");
-			properties.put("message", message);
+			for (int i = 0; i < fields.length; i++) {
+				message = new HashMap<String, Object>();
+				message.put("type",types[i]);
+				properties.put(fields[i],message);
+			}
 			
-			message = new HashMap<String, Object>();
 			
-			message.put("type", "integer");
-			properties.put("age", message);
+			//message.put("type", "text");
+			//properties.put("message", message);
 			
-			message = new HashMap<String, Object>();
+			//message = new HashMap<String, Object>();
 			
-			message.put("type", "date");
-			properties.put("today", message);
+			//message.put("type", "integer");
+			//properties.put("age", message);
+			
+			//message = new HashMap<String, Object>();
+			
+			//message.put("type", "date");
+			//properties.put("today", message);
 			
 			
 			mapping.put("properties", properties);
@@ -174,6 +184,37 @@ public class ElasticService implements IElasticService {
 			return 0;
 			
 		} catch (Exception e) {
+			ea.basicErrorException(request, e);
+			return -1;
+		}
+	}
+
+
+	@Override
+	public int getConnectElasticPost(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
+		try {
+			
+			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+			RestHighLevelClient client = ec.elasticClient();
+			
+			IndexRequest indexRequest = new IndexRequest("sh_test_1","_doc");
+			RequestOptions options = RequestOptions.DEFAULT;
+			IndexResponse indexResponse;
+			
+			
+			Map<String, Object> jsonMap = new HashMap<String, Object>();
+			jsonMap.put("age", 32);
+			jsonMap.put("message","what the");
+			jsonMap.put("today", cd.getPresentTimeMilleUTCCal());
+			
+			indexRequest.source(jsonMap);
+			indexResponse = client.index(indexRequest, options);
+			
+			client.close();
+			
+			return 0;
+		} catch(Exception e) {
+			e.printStackTrace();
 			ea.basicErrorException(request, e);
 			return -1;
 		}
