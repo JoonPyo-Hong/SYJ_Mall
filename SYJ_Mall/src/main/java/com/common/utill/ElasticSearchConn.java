@@ -1,6 +1,12 @@
 package com.common.utill;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -11,10 +17,11 @@ import org.elasticsearch.client.RestHighLevelClient;
  *
  */
 public class ElasticSearchConn {
-	private String hostName;
-	private int port;
-	private String scheme;
-	
+	private String hostName;//(deprecated)
+	private int port; //(deprecated)
+	private String scheme; //(deprecated)
+	private RequestOptions options = RequestOptions.DEFAULT;
+	private RestHighLevelClient client;
 	
 	/**
 	 * ElasticSearchConn 객체
@@ -31,11 +38,16 @@ public class ElasticSearchConn {
 		this.hostName = hostName;
 		this.port = port;
 		this.scheme = scheme;
+		
+		HttpHost host = new HttpHost(hostName, port, scheme);
+		RestClientBuilder restClientBuilder = RestClient.builder(host);
+		this.client = new RestHighLevelClient(restClientBuilder);
 	}
 	
+	
 	/**
-	 * elastic client
-	 * @return
+	 * elastic client(deprecated)
+	 * @return RestHighLevelClient
 	 */
 	public RestHighLevelClient elasticClient() {
 		HttpHost host = new HttpHost(this.hostName, this.port, this.scheme);
@@ -45,5 +57,18 @@ public class ElasticSearchConn {
 		return client;
 	}
 	
-	//public int inputData
+	public IndexResponse elasticPostData(String indexName, HashMap<String, Object> jsonMap) throws Exception {
+		
+		IndexResponse indexResponse;
+		IndexRequest indexRequest = new IndexRequest(indexName,"_doc");
+		
+		indexRequest.source(jsonMap);
+		indexResponse = this.client.index(indexRequest, this.options);
+		
+		return indexResponse;
+	}
+	
+	
+	
+	
 }

@@ -764,56 +764,73 @@ public class LoginService implements ILoginService {
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 			
 			//elasticsearch conn info
-			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
-			RestHighLevelClient client = ec.elasticClient();
-			IndexResponse indexResponse;
-			String indexName = "login_cnt_index_1";
+			HashMap<String,Object> jsonMap = new HashMap<String, Object>();
+			Calendar curTime = cd.getPresentTimeMilleUTCCal();
+			jsonMap.put("@timestamp",12341234);
+			jsonMap.put("ip",ip);
+			
+			String dateNAme = cd.getCurrentDateIndex("login_cnt_index",curTime);
+			System.out.println(dateNAme);
+			
+			IndexResponse indexresp = ec.elasticPostData(dateNAme,jsonMap);
+			
+			System.out.println(indexresp.getResult());
+			System.out.println(indexresp.getSeqNo());
+			
+			//정상적인 값이 나오면 getSeqNo = 0 을 뱉는다.
+			
+			//if (indexresp.getResult())
+			
+//			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+//			RestHighLevelClient client = ec.elasticClient();
+//			IndexResponse indexResponse;
+//			String indexName = "login_cnt_index_1";
 			
 			//1. 해당 아이피가 벤당한 아이피인지 체크해주는 SP 작성요망
 			
 			
 			//2. 해당 ip를 elasticsearch 로그로 남겨준다.
-			IndexRequest indexRequest = new IndexRequest(indexName,"_doc");
-			
-			String presentDate = cd.getPresentTimeMilleUTC();
-			
-			String jsonString = "{" +
-					"\"@timestamp\":\""+presentDate+"\"," +  
-					"\"ip\":\"" + ip + "\""+
-					"}";
-			
-			indexRequest.source(jsonString,XContentType.JSON);
-			indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
+//			IndexRequest indexRequest = new IndexRequest(indexName,"_doc");
+//			
+//			String presentDate = cd.getPresentTimeMilleUTC();
+//			
+//			String jsonString = "{" +
+//					"\"@timestamp\":\""+presentDate+"\"," +  
+//					"\"ip\":\"" + ip + "\""+
+//					"}";
+//			
+//			indexRequest.source(jsonString,XContentType.JSON);
+//			indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
 			
 			
 			//3. 해당 아이피가 얼마나 접속시도 했는지 확인 - elasticsearch 를 통해서 해당 ip로 얼마나 접속시도를 했는지 정보를 받아온다.
-			BoolQueryBuilder query = QueryBuilders.boolQuery();
-			
-			Calendar thisTimeUTC = cd.getPresentTimeMilleUTCCal();
-			Calendar preTimeUTC = cd.getMinusSecMille(thisTimeUTC,-15);
-			
-			query.must(QueryBuilders.termQuery("ip",ip));
-			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.formatStringTime(preTimeUTC)));
-			query.must(QueryBuilders.rangeQuery("@timestamp").lte(cd.formatStringTime(thisTimeUTC)));
-			
-			SearchRequest searchRequest = new SearchRequest();
-			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-			
-			searchRequest.indices(indexName);
-			
-			sourceBuilder.query(query);
-			searchRequest.source(sourceBuilder);
-			
-			SearchResponse srep = client.search(searchRequest, RequestOptions.DEFAULT);
-			
-			long loginTyrCnt = srep.getHits().getTotalHits().value;
-			
-			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
-			if (loginTyrCnt >= 4) {
-				//벤시키는 sp 작성
-				
-				return 0;//계정 임시 벤 상태
-			} 
+//			BoolQueryBuilder query = QueryBuilders.boolQuery();
+//			
+//			Calendar thisTimeUTC = cd.getPresentTimeMilleUTCCal();
+//			Calendar preTimeUTC = cd.getMinusSecMille(thisTimeUTC,-15);
+//			
+//			query.must(QueryBuilders.termQuery("ip",ip));
+//			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.formatStringTime(preTimeUTC)));
+//			query.must(QueryBuilders.rangeQuery("@timestamp").lte(cd.formatStringTime(thisTimeUTC)));
+//			
+//			SearchRequest searchRequest = new SearchRequest();
+//			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+//			
+//			searchRequest.indices(indexName);
+//			
+//			sourceBuilder.query(query);
+//			searchRequest.source(sourceBuilder);
+//			
+//			SearchResponse srep = client.search(searchRequest, RequestOptions.DEFAULT);
+//			
+//			long loginTyrCnt = srep.getHits().getTotalHits().value;
+//			
+//			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
+//			if (loginTyrCnt >= 4) {
+//				//벤시키는 sp 작성
+//				
+//				return 0;//계정 임시 벤 상태
+//			} 
 			
 			
 			// 로그인 정보가 존재하는지 체크

@@ -245,6 +245,29 @@ public class CommonDate {
 
 	}
 	
+	/**
+	 * elasticsearch index 형태로 현재 시간 데이터 뽑기
+	 * @param cal
+	 * @return
+	 */
+	public String getCurrentDateIndex(String prefix, Calendar cal) {
+		int years = cal.get(Calendar.YEAR);
+		String months = dateTypeConvert(Integer.toString(cal.get(Calendar.MONTH) + 1));
+		String date = dateTypeConvert(Integer.toString(cal.get(Calendar.DATE)));
+		
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(prefix);
+		sb.append("_");
+		sb.append(years);
+		sb.append("_");
+		sb.append(months);
+		sb.append("_");
+		sb.append(date);
+		
+		return sb.toString();
+	}
+	
 	
 
 }

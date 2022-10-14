@@ -94,7 +94,8 @@ public class LoginController {
 	@RequestMapping(value = "/userLoginVerificationCheck.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public int loginVerificationCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
-
+		
+		ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
 		return logService.userIdPwCheck(request,ea,ec,cd);
 
 	}
