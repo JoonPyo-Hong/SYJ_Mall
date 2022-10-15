@@ -763,23 +763,19 @@ public class LoginService implements ILoginService {
 			String pw = map.get("pw");// 비밀번호
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 			
-			//elasticsearch conn info
+			//elasticsearch conn info -> log write
 			HashMap<String,Object> jsonMap = new HashMap<String, Object>();
 			Calendar curTime = cd.getPresentTimeMilleUTCCal();
-			jsonMap.put("@timestamp",12341234);
+			jsonMap.put("@timestamp",curTime);
 			jsonMap.put("ip",ip);
 			
 			String dateNAme = cd.getCurrentDateIndex("login_cnt_index",curTime);
-			System.out.println(dateNAme);
-			
 			IndexResponse indexresp = ec.elasticPostData(dateNAme,jsonMap);
-			
-			System.out.println(indexresp.getResult());
-			System.out.println(indexresp.getSeqNo());
+
 			
 			//정상적인 값이 나오면 getSeqNo = 0 을 뱉는다.
+			if (indexresp.getSeqNo() != 0) return -1;
 			
-			//if (indexresp.getResult())
 			
 //			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
 //			RestHighLevelClient client = ec.elasticClient();
