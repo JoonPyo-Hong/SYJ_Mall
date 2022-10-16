@@ -1,7 +1,6 @@
 package com.common.utill;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.index.IndexRequest;
@@ -11,11 +10,14 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 
+import lombok.Data;
+
 /**
  * elasitcsearch 연결객체
  * @author shin
  *
  */
+@Data
 public class ElasticSearchConn {
 	private String hostName;//(deprecated)
 	private int port; //(deprecated)
@@ -57,6 +59,13 @@ public class ElasticSearchConn {
 		return client;
 	}
 	
+	/**
+	 * Post data to Index
+	 * @param indexName
+	 * @param jsonMap
+	 * @return
+	 * @throws Exception
+	 */
 	public IndexResponse elasticPostData(String indexName, HashMap<String, Object> jsonMap) throws Exception {
 		
 		IndexResponse indexResponse;

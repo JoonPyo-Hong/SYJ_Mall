@@ -769,20 +769,42 @@ public class LoginService implements ILoginService {
 			jsonMap.put("@timestamp",curTime);
 			jsonMap.put("ip",ip);
 			
-			String dateNAme = cd.getCurrentDateIndex("login_cnt_index",curTime);
-			IndexResponse indexresp = ec.elasticPostData(dateNAme,jsonMap);
+			String dateNameIndex = cd.getCurrentDateIndex("login_cnt_index",curTime);
+			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
 
 			
 			//정상적인 값이 나오면 getSeqNo = 0 을 뱉는다.
 			if (indexresp.getSeqNo() != 0) return -1;
 			
 			
-//			ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
-//			RestHighLevelClient client = ec.elasticClient();
-//			IndexResponse indexResponse;
-//			String indexName = "login_cnt_index_1";
+			//1. 해당 아이피로 얼마나 접속시도를 했는지 체크  
+			BoolQueryBuilder query = QueryBuilders.boolQuery();
+			SearchRequest searchRequest = new SearchRequest();
+			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 			
-			//1. 해당 아이피가 벤당한 아이피인지 체크해주는 SP 작성요망
+			query.must(QueryBuilders.termQuery("ip",ip));
+			query.must(QueryBuilders.rangeQuery("@timestamp").gte(curTime));
+			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTime,-15)));
+			
+			searchRequest.indices(dateNameIndex);
+			sourceBuilder.query(query);
+			searchRequest.source(sourceBuilder);
+			
+			SearchResponse srep = ec.getClient().search(searchRequest, RequestOptions.DEFAULT);
+			long loginTyrCnt = srep.getHits().getTotalHits().value;
+			
+			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
+			if (loginTyrCnt >= 4) {
+				//벤시키는 sp 작성
+				
+				
+				
+				return 0;//계정 임시 벤 상태
+			} 
+			
+			
+			
+			//2. 해당 아이피가 벤당한 아이피인지 체크해주는 SP 작성요망
 			
 			
 			//2. 해당 ip를 elasticsearch 로그로 남겨준다.
