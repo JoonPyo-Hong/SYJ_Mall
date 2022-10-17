@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall.login;
 
 import java.security.PrivateKey;
+import java.util.Calendar;
 import java.util.List;
 
 import com.common.utill.AdverDTO;
@@ -241,6 +242,14 @@ public interface ILoginDAO {
 	 * @return
 	 */
 	int getQrLoginResult(String userSeq, String ip);
+
+	/**
+	 * Ip Bann 시켜주는 로직
+	 * @param ip
+	 * @param presentTimeMilleCal
+	 * @return
+	 */
+	int setIpBanned(String ip, String presentTimeMilleCal);
 
 
 

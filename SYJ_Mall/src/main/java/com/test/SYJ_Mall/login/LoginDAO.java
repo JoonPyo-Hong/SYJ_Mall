@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall.login;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -321,6 +322,17 @@ public class LoginDAO implements ILoginDAO {
 		map.put("ip",ip);
 		
 		return template.selectOne("SYJDB.qrUserLoginAuthor", map);
+	}
+	
+	// 해당 ip 벤시켜주기
+	@Override
+	public int setIpBanned(String ip, String presentTimeMilleCal) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("ip",ip);
+		map.put("getdate",presentTimeMilleCal);
+		
+		return template.selectOne("SYJDB.setIpBanned", map);
 	}
 	
 	

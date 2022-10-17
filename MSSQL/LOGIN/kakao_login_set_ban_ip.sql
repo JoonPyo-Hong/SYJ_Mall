@@ -19,20 +19,40 @@ set nocount on
 set transaction isolation level read uncommitted
 begin
 
-	declare @banned_count	int
+	declare @banned_count int
 
 	select
 		@banned_count = banned_count
 	from dbo.TBLBANNEDIPLIST with(nolock) 
 	where banned_ip_address = @user_ip_address
 		
-	if (@banned_count != 0)
+	if (@banned_count <> 0)
 	begin
 		update dbo.TBLBANNEDIPLIST
 		set banned_count = banned_count + 1
+		where banned_ip_address = @user_ip_address
 
 		if (@@error <> 0) return -1
 		else return @banned_count
+	end
+	else
+	begin
+		insert into dbo.TBLBANNEDIPLIST
+		(
+			banned_ip_address
+		,	banned_count
+		,	banned_end_date
+		) 
+		values
+		(
+			@user_ip_address
+		,	1
+		,	@cur_date
+		)
+
+		if (@@error <> 0) return -1
+		else return @banned_count
+
 	end
 
 	
@@ -40,6 +60,8 @@ begin
 
 end
 
+
+--select * from dbo.TBLBANNEDIPLIST with(nolock)
 
 
 

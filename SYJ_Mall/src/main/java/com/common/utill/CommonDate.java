@@ -180,6 +180,17 @@ public class CommonDate {
 		return sb.toString();
 	}
 	
+	/**
+	 * 현재시간 정보 저장 (밀리초) - 한국시간 기준
+	 * @return
+	 */
+	public Calendar getPresentTimeMilleKORCal() {
+
+		Calendar c1 = Calendar.getInstance();
+		
+		return c1;
+	}
+	
 	
 	/**
 	 * 현재시간 정보 저장 (밀리초) - UTC 기준
@@ -192,6 +203,17 @@ public class CommonDate {
 		c1.add(Calendar.HOUR_OF_DAY, -9);
 	
 		return c1;
+	}
+	
+	/**
+	 * UTC 를 한국시간으로 변환
+	 * @return
+	 */
+	public Calendar getPresentTimeMilleCal(Calendar c) {
+		
+		c.add(Calendar.HOUR_OF_DAY, 9);
+	
+		return c;
 	}
 	
 	/**

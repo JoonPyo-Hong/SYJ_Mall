@@ -754,6 +754,8 @@ public class LoginService implements ILoginService {
 	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
 
 		try {
+			System.out.println("??");
+			
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 			String ip = ipCheck(request);// 아이피 주소 체크
 
@@ -765,17 +767,19 @@ public class LoginService implements ILoginService {
 			
 			//elasticsearch conn info -> log write
 			HashMap<String,Object> jsonMap = new HashMap<String, Object>();
-			Calendar curTime = cd.getPresentTimeMilleUTCCal();
+			Calendar curTime = cd.getPresentTimeMilleKORCal();
 			jsonMap.put("@timestamp",curTime);
 			jsonMap.put("ip",ip);
 			
 			String dateNameIndex = cd.getCurrentDateIndex("login_cnt_index",curTime);
 			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
 
+			//System.out.println("resp : " + indexresp.getSeqNo());
 			
 			//정상적인 값이 나오면 getSeqNo = 0 을 뱉는다.
-			if (indexresp.getSeqNo() != 0) return -1;
+			//if (indexresp.getSeqNo() != 0) return -1;
 			
+			//System.out.println("!!");
 			
 			//1. 해당 아이피로 얼마나 접속시도를 했는지 체크  
 			BoolQueryBuilder query = QueryBuilders.boolQuery();
@@ -784,7 +788,7 @@ public class LoginService implements ILoginService {
 			
 			query.must(QueryBuilders.termQuery("ip",ip));
 			query.must(QueryBuilders.rangeQuery("@timestamp").gte(curTime));
-			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTime,-15)));
+			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTime,-1000)));
 			
 			searchRequest.indices(dateNameIndex);
 			sourceBuilder.query(query);
@@ -793,11 +797,17 @@ public class LoginService implements ILoginService {
 			SearchResponse srep = ec.getClient().search(searchRequest, RequestOptions.DEFAULT);
 			long loginTyrCnt = srep.getHits().getTotalHits().value;
 			
+			System.out.println("loginTyrCnt : " + loginTyrCnt);
+			
 			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
 			if (loginTyrCnt >= 4) {
+				
+				System.out.println("what");
 				//벤시키는 sp 작성
+				//int logCnt = dao.setIpBanned(ip,cd.formatStringTime(cd.getPresentTimeMilleCal(curTime)));
+				int logCnt = dao.setIpBanned(ip,cd.formatStringTime(curTime));
 				
-				
+				System.out.println(logCnt);
 				
 				return 0;//계정 임시 벤 상태
 			} 
