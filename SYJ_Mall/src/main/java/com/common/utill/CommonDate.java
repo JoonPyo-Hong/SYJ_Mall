@@ -261,9 +261,11 @@ public class CommonDate {
 	 */
 	public Calendar getMinusSecMille(Calendar cal, int inSec) {
 		
-		cal.add(Calendar.SECOND, inSec);
+		Calendar newCal = Calendar.getInstance();
 		
-		return cal;
+		newCal.add(Calendar.SECOND, inSec);
+		
+		return newCal;
 
 	}
 	

@@ -260,7 +260,7 @@
 	<select id="setIpBanned" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int
-		exec @result = dbo.kakao_user_qr_login #{ip},#{getdate}
+		exec @result = dbo.kakao_login_set_ban_ip #{ip},#{getdate}
 		select @result
 				
 	</select>

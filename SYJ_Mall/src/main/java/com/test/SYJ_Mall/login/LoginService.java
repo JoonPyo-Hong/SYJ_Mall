@@ -767,17 +767,20 @@ public class LoginService implements ILoginService {
 			
 			//elasticsearch conn info -> log write
 			HashMap<String,Object> jsonMap = new HashMap<String, Object>();
-			Calendar curTime = cd.getPresentTimeMilleKORCal();
-			jsonMap.put("@timestamp",curTime);
+			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
+			Calendar curTime = cd.getPresentTimeMilleUTCCal();
+			jsonMap.put("@timestamp",curTimeKor);
 			jsonMap.put("ip",ip);
 			
-			String dateNameIndex = cd.getCurrentDateIndex("login_cnt_index",curTime);
+			String dateNameIndex = cd.getCurrentDateIndex("login_cnt_index",curTimeKor);
 			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
 
 			//System.out.println("resp : " + indexresp.getSeqNo());
 			
 			//정상적인 값이 나오면 getSeqNo = 0 을 뱉는다.
 			//if (indexresp.getSeqNo() != 0) return -1;
+			
+			System.out.println("curTime : " + cd.formatStringTime(curTimeKor));
 			
 			//System.out.println("!!");
 			
@@ -787,8 +790,13 @@ public class LoginService implements ILoginService {
 			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 			
 			query.must(QueryBuilders.termQuery("ip",ip));
-			query.must(QueryBuilders.rangeQuery("@timestamp").gte(curTime));
-			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTime,-1000)));
+			
+			System.out.println(cd.getMinusSecMille(curTimeKor,-10000));
+			System.out.println(curTimeKor);
+			
+			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTimeKor,-100)));
+			query.must(QueryBuilders.rangeQuery("@timestamp").lte(curTimeKor));
+			
 			
 			searchRequest.indices(dateNameIndex);
 			sourceBuilder.query(query);
@@ -804,8 +812,7 @@ public class LoginService implements ILoginService {
 				
 				System.out.println("what");
 				//벤시키는 sp 작성
-				//int logCnt = dao.setIpBanned(ip,cd.formatStringTime(cd.getPresentTimeMilleCal(curTime)));
-				int logCnt = dao.setIpBanned(ip,cd.formatStringTime(curTime));
+				int logCnt = dao.setIpBanned(ip,cd.formatStringTime(curTimeKor));
 				
 				System.out.println(logCnt);
 				
