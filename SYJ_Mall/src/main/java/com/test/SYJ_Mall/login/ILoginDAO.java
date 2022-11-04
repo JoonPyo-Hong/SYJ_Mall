@@ -251,6 +251,32 @@ public interface ILoginDAO {
 	 */
 	int setIpBanned(String ip, String presentTimeMilleCal);
 
+	/**
+	 * 벤당한 아이피인지 확인
+	 * @param ip
+	 * @param curTimeKor
+	 * @return
+	 */
+	int checkingIpBanned(String ip, String curTimeKor);
+
+	/**
+	 * 아이디 비밀번호 확인
+	 * @param ip
+	 * @param formatStringTime
+	 * @param id
+	 * @param encPw
+	 * @return
+	 */
+	int checkingUserIdPw(String ip, String formatStringTime, String id, String encPw);
+
+	/**
+	 * 아이디 비밀번호 확인 - 간소화 버전
+	 * @param id
+	 * @param encPw
+	 * @return
+	 */
+	int checkingUserIdPwSimple(String id, String encPw);
+
 
 
 

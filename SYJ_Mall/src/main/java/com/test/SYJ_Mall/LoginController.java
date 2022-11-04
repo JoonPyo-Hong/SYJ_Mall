@@ -45,7 +45,7 @@ public class LoginController {
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	// 처음에 로그인 페이지로 보내주는 곳
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET , RequestMethod.POST})
-	public String login(HttpServletRequest request, HttpServletResponse response, String site, KakaoCookie kc, RSAalgorithm rsa, ErrorAlarm ea) {
+	public String login(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc, RSAalgorithm rsa, ErrorAlarm ea) {
 		
 		//TEST 용	
 		//kc.deleteCookie(request, response, "loginSaveUserId");
@@ -71,7 +71,6 @@ public class LoginController {
 		String addUrl = request.getParameter("addUrl");
 		
 		if (addUrl != null) {
-			
 			int addUrlResult = logService.modifyCookie(request,response,addUrl,kc,ea);
 			
 			if (addUrlResult == -1) return "/testwaiting/kakaoerror";
@@ -83,10 +82,8 @@ public class LoginController {
 			return "redirect:/main.action";
 		}
 
-		if (result == 0)
-			return "/login/UserLogin";// 에러가 없는경우 -> 로그인 페이지로 넘겨준다.
-		else
-			return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
+		if (result == 0) return "/login/UserLogin";// 에러가 없는경우 -> 로그인 페이지로 넘겨준다.
+		else return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
 
 	}
 	
@@ -102,15 +99,18 @@ public class LoginController {
 
 	// 로그인페이지에서 정보를 넘겨주는곳 => 로그인 검증
 	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST})
-	public String loginVerification(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea, KakaoCookie kc) {
+	public String loginVerification(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea, KakaoCookie kc, ElasticSearchConn ec) {
 
+		ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
+		int userLoginResult = logService.loginVerifyLogicNew(request,response,ic,ea,kc,ec);
 		
-		String userLoginResult = logService.loginVerifyLogic(request,response,ic,ea,kc);
 		
-		if (userLoginResult.equals("error")) return "/testwaiting/kakaoerror";
-		else return userLoginResult;
+		return "";
+		//String userLoginResult = logService.loginVerifyLogic(request,response,ic,ea,kc);
 		
-
+		//if (userLoginResult.equals("error")) return "/testwaiting/kakaoerror";
+		//else return userLoginResult;
+		
 	}
 	
 

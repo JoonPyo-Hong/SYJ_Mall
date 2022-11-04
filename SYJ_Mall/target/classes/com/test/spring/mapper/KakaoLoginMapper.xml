@@ -266,5 +266,35 @@
 	</select>
 	
 	
+	<!-- 벤당한 ip인지 확인 -->
+	<select id="getIpBannedYn" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int 
+		exec @result = dbo.kakao_get_login_ban_ip_yn #{ip},#{getdate}
+		select @result
+				
+	</select>
+	
+	
+	<!-- id, pw 확인(1) -->
+	<select id="checkUserIdPwSimple" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int 
+		exec @result = dbo.kakao_check_user_login #{id},#{pw}
+		select @result
+				
+	</select>
+	
+	
+	<!-- id, pw 확인 -->
+	<select id="checkUserIdPw" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int 
+		exec @result = dbo.kakao_verify_user_login #{ip},#{getdate},#{id},#{pw}
+		select @result
+				
+	</select>
+	
+	
 
 </mapper>

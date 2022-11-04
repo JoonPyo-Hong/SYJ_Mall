@@ -127,22 +127,21 @@ public class LoginService implements ILoginService {
 	@Override
 	public int firstLoginStep(HttpServletRequest request, int errorCode, int comeCount, ErrorAlarm ea, RSAalgorithm rsa) {
 		
-		// 로그인 에러 관련 : 벤당한 아이피로 로그인 시도를 한다거나 로그인 아이디/비밀번호가 틀렸을 경우
-		if (errorCode == -1) {
-			request.setAttribute("loginError", -1);
-		} else {
-			request.setAttribute("loginError", 0);
-		}
-
 		try {
+		
+			// 로그인 에러 관련 : 벤당한 아이피로 로그인 시도를 한다거나 로그인 아이디/비밀번호가 틀렸을 경우
+			if (errorCode == -1) {
+				request.setAttribute("loginError", -1);
+			} else {
+				request.setAttribute("loginError", 0);
+			}
+			
 			rsa.setRSA(request);
 			
+			return 0;
 		} catch (Exception e) {
 			return ea.basicErrorException(request,e);
 		}
-
-		return 0;
-
 	}
 
 	@Override
@@ -152,7 +151,8 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public HttpServletRequest AutoLoginBanned(HttpServletRequest request, int userSeq, String ip) {// 과거로그인 기록을 조회하여 마지막 로그인기록 아이피와 다른경우 자동로그인 방지 페이지로 이동한다.
+	public HttpServletRequest AutoLoginBanned(HttpServletRequest request, int userSeq, String ip) {
+		// 과거로그인 기록을 조회하여 마지막 로그인기록 아이피와 다른경우 자동로그인 방지 페이지로 이동한다.
 
 		HttpSession userSession = request.getSession();// 유저의 세션객체를 만들어준다.
 		userSession.setAttribute("userSeq", userSeq);
@@ -748,13 +748,13 @@ public class LoginService implements ILoginService {
 		}
 		
 	}
-
+	
+	
 	// 존재하는 아이디인지 체크 - 모달창 띄워줄것
 	@Override
 	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
 
 		try {
-			System.out.println("??");
 			
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 			String ip = ipCheck(request);// 아이피 주소 체크
@@ -765,38 +765,35 @@ public class LoginService implements ILoginService {
 			String pw = map.get("pw");// 비밀번호
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 			
-			//elasticsearch conn info -> log write
+			//1. elasticsearch conn info -> login log write
 			HashMap<String,Object> jsonMap = new HashMap<String, Object>();
 			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
-			Calendar curTime = cd.getPresentTimeMilleUTCCal();
 			jsonMap.put("@timestamp",curTimeKor);
 			jsonMap.put("ip",ip);
 			
 			String dateNameIndex = cd.getCurrentDateIndex("login_cnt_index",curTimeKor);
 			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
 
-			//System.out.println("resp : " + indexresp.getSeqNo());
 			
-			//정상적인 값이 나오면 getSeqNo = 0 을 뱉는다.
-			//if (indexresp.getSeqNo() != 0) return -1;
+			//2. banned list 확인하여 접근허용 설정
+			int bannedResult = dao.checkingIpBanned(ip,cd.formatStringTime(curTimeKor));
+			if (bannedResult == 1) return 0;
+
 			
-			System.out.println("curTime : " + cd.formatStringTime(curTimeKor));
+			//3. 정확한 아이디,비밀번호를 쳤는지 확인해준다.
+			int idPasswdCheck = dao.checkingUserIdPwSimple(id,encPw);
+					//dao.checkingUserIdPw(ip,cd.formatStringTime(curTimeKor),id,encPw);
+			if (idPasswdCheck == 1) return 1;
 			
-			//System.out.println("!!");
-			
-			//1. 해당 아이피로 얼마나 접속시도를 했는지 체크  
+			//4. 비밀번호가 틀렸을 경우 해당 아이피로 얼마나 접속시도를 했는지 체크  
 			BoolQueryBuilder query = QueryBuilders.boolQuery();
 			SearchRequest searchRequest = new SearchRequest();
 			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 			
 			query.must(QueryBuilders.termQuery("ip",ip));
 			
-			System.out.println(cd.getMinusSecMille(curTimeKor,-10000));
-			System.out.println(curTimeKor);
-			
-			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTimeKor,-100)));
+			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTimeKor,-30)));
 			query.must(QueryBuilders.rangeQuery("@timestamp").lte(curTimeKor));
-			
 			
 			searchRequest.indices(dateNameIndex);
 			sourceBuilder.query(query);
@@ -809,8 +806,6 @@ public class LoginService implements ILoginService {
 			
 			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
 			if (loginTyrCnt >= 4) {
-				
-				System.out.println("what");
 				//벤시키는 sp 작성
 				int logCnt = dao.setIpBanned(ip,cd.formatStringTime(curTimeKor));
 				
@@ -820,64 +815,8 @@ public class LoginService implements ILoginService {
 			} 
 			
 			
-			
-			//2. 해당 아이피가 벤당한 아이피인지 체크해주는 SP 작성요망
-			
-			
-			//2. 해당 ip를 elasticsearch 로그로 남겨준다.
-//			IndexRequest indexRequest = new IndexRequest(indexName,"_doc");
-//			
-//			String presentDate = cd.getPresentTimeMilleUTC();
-//			
-//			String jsonString = "{" +
-//					"\"@timestamp\":\""+presentDate+"\"," +  
-//					"\"ip\":\"" + ip + "\""+
-//					"}";
-//			
-//			indexRequest.source(jsonString,XContentType.JSON);
-//			indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
-			
-			
-			//3. 해당 아이피가 얼마나 접속시도 했는지 확인 - elasticsearch 를 통해서 해당 ip로 얼마나 접속시도를 했는지 정보를 받아온다.
-//			BoolQueryBuilder query = QueryBuilders.boolQuery();
-//			
-//			Calendar thisTimeUTC = cd.getPresentTimeMilleUTCCal();
-//			Calendar preTimeUTC = cd.getMinusSecMille(thisTimeUTC,-15);
-//			
-//			query.must(QueryBuilders.termQuery("ip",ip));
-//			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.formatStringTime(preTimeUTC)));
-//			query.must(QueryBuilders.rangeQuery("@timestamp").lte(cd.formatStringTime(thisTimeUTC)));
-//			
-//			SearchRequest searchRequest = new SearchRequest();
-//			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-//			
-//			searchRequest.indices(indexName);
-//			
-//			sourceBuilder.query(query);
-//			searchRequest.source(sourceBuilder);
-//			
-//			SearchResponse srep = client.search(searchRequest, RequestOptions.DEFAULT);
-//			
-//			long loginTyrCnt = srep.getHits().getTotalHits().value;
-//			
-//			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
-//			if (loginTyrCnt >= 4) {
-//				//벤시키는 sp 작성
-//				
-//				return 0;//계정 임시 벤 상태
-//			} 
-			
-			
-			// 로그인 정보가 존재하는지 체크
-			// 
-			
-			// System.out.println(srep.getHits().getTotalHits());
-			// System.out.println(srep.t);
-			
-			// 여기서는 그냥 아이디 비밀번호가 있는지 없는지만 판단해준다. && 벤할지도 결정
-			// 0: 계정 일시 벤 상태, 1: 로그인 허용 상태, 2: 로그인 입력정보 오류, -1 : 에러발생
-			return dao.firstLoginCheck(ip, id, encPw);
-			
+			//그외 비정상적인 상황으로 간주
+			return -1;
 
 		} catch (Exception e) {
 			return ea.basicErrorException(request, e);
@@ -1019,7 +958,7 @@ public class LoginService implements ILoginService {
 		}	
 	}
 	
-	//로그인 관련 캅차
+	//로그인 관련 capchar
 	@Override
 	public int getCapcharData(HttpServletRequest request,CommonDAO cdao, ReCaptchar rc, ErrorAlarm ea) {
 		
@@ -1182,7 +1121,7 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//로그인 관련 서비스 메서드
+	//로그인 관련 서비스 메서드 -> 직접적으로 로그인을 수행하고 티켓 세션을 주는 곳.
 	@Override
 	public String loginVerifyLogic(HttpServletRequest request, HttpServletResponse response,IpCheck ic, ErrorAlarm ea, KakaoCookie kc) {
 		
@@ -1195,8 +1134,7 @@ public class LoginService implements ILoginService {
 			
 			String id = map.get("id");// 아이디
 			String pw = map.get("pw");// 비밀번호
-			
-			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
+			String encPw = pwEnc(pw);// 상대방이 입력한 pw 암호화
 			
 			List<LoginDTO> loginResult = loginResult(ip, id, encPw);
 			int userSeq = loginResult.get(0).getUserSeq();// 유저 고유 코드
@@ -1253,6 +1191,24 @@ public class LoginService implements ILoginService {
 		} catch(Exception e) {
 			ea.basicErrorException(request, e);
 			return "error";//오류 발생
+		}
+	}
+	
+	// 로그인 검증 - 새로운 버전
+	@Override
+	public int loginVerifyLogicNew(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea, KakaoCookie kc, ElasticSearchConn ec) {
+		try {
+			
+			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
+
+			String ip = ic.getClientIP(request);
+			Map<String, String> map = getRSAkeySessionStay(request);
+			
+			return 1;
+			
+			
+		} catch(Exception e) {
+			return ea.basicErrorException(request, e);
 		}
 	}
 	
@@ -1539,5 +1495,7 @@ public class LoginService implements ILoginService {
 			return "error";
 		}
 	}
+
+	
 
 }

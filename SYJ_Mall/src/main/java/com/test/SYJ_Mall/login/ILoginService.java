@@ -447,6 +447,18 @@ public interface ILoginService {
 	 */
 	String getQrDevicePassYn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc);
 	
+	/**
+	 * 로그인 검증 - ner version
+	 * @param request
+	 * @param response
+	 * @param ic
+	 * @param ea
+	 * @param kc
+	 * @param ec
+	 * @return
+	 */
+	int loginVerifyLogicNew(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea, KakaoCookie kc, ElasticSearchConn ec);
+	
 
 	
 

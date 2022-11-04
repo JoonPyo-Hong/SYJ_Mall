@@ -55,8 +55,6 @@ public class RSAalgorithm {
 		request.setAttribute("publicKeyModulus", publicKeyModulus);
 
 		request.setAttribute("publicKeyExponent", publicKeyExponent);
-		
-		
 	}
 	
 	/**

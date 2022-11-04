@@ -328,14 +328,45 @@ public class LoginDAO implements ILoginDAO {
 	@Override
 	public int setIpBanned(String ip, String presentTimeMilleCal) {
 		
-		System.out.println(ip);
-		System.out.println(presentTimeMilleCal);
-		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("ip",ip);
 		map.put("getdate",presentTimeMilleCal);
 		
 		return template.selectOne("SYJDB.setIpBanned", map);
+	}
+
+	// 벤당한 아이피인지 확인해주기
+	@Override
+	public int checkingIpBanned(String ip, String curTimeKor) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("ip",ip);
+		map.put("getdate",curTimeKor);
+		
+		return template.selectOne("SYJDB.getIpBannedYn", map);
+	}
+
+	// 아이디 비밀번호 확인
+	@Override
+	public int checkingUserIdPw(String ip, String formatStringTime, String id, String encPw) {
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("ip",ip);
+		map.put("getdate",formatStringTime);
+		map.put("id",id);
+		map.put("pw",encPw);
+		
+		return template.selectOne("SYJDB.checkUserIdPw", map);
+	}
+
+	// 아이디 비밀번호 확인 - 간소화
+	@Override
+	public int checkingUserIdPwSimple(String id, String encPw) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("id",id);
+		map.put("pw",encPw);
+		
+		return template.selectOne("SYJDB.checkUserIdPwSimple", map);
 	}
 	
 	
