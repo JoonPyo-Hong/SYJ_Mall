@@ -368,6 +368,17 @@ public class LoginDAO implements ILoginDAO {
 		
 		return template.selectOne("SYJDB.checkUserIdPwSimple", map);
 	}
+
+	//유저 로그인 현황체크
+	@Override
+	public int checkingUserIdPwEtc(String ip, String curTimeString, int userSeq) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("ip",ip);
+		map.put("date",curTimeString);
+		map.put("userSeq",Integer.toString(userSeq));
+		
+		return template.selectOne("SYJDB.checkUserIdPwEtc", map);
+	}
 	
 	
 }

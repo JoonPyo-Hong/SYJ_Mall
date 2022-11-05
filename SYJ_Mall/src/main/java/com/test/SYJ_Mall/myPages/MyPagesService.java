@@ -103,20 +103,24 @@ public class MyPagesService implements IMyPagesService {
 			
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 			kc.generateUrlCookie(response, "myPageMain.action?myPageNum=1", 60 * 60 * 24 * 7);// 마지막페이지
-
+			
+			System.out.println("seenList : " + seenList);
 			
 			if (seenList == null) request.setAttribute("mpsList", null);
 			else {
-
+				
+				System.out.println("!!sadFasdflaksdjf;laksdjfs");
+				
 				//쿠키에 해당하는 조회상품목록 대상인 상품들을 가져와준다.
 				List<MyPageSeenDTO> mpsList = dao.getMyPageSeenList(seenList);
-				
+			
 				request.setAttribute("mpsListSize", mpsList.size());
 				request.setAttribute("mpsList", mpsList);
 			}
 			
 			return 1;
 		} catch(Exception e) {
+			e.printStackTrace();
 			IpCheck ic = new IpCheck();
 			String ip = ic.getClientIP(request);
 				

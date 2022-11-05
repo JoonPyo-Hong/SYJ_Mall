@@ -24,6 +24,7 @@ import com.common.utill.RSAalgorithm;
 import com.common.utill.ReCaptchar;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.login.ILoginService;
+import com.test.SYJ_Mall.login.LoginDTO;
 import com.test.SYJ_Mall.login.LoginFindIdDTO;
 import com.test.SYJ_Mall.login.SignUpDTO;
 
@@ -99,13 +100,45 @@ public class LoginController {
 
 	// 로그인페이지에서 정보를 넘겨주는곳 => 로그인 검증
 	@RequestMapping(value = "/loginVerification.action", method = { RequestMethod.POST})
-	public String loginVerification(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea, KakaoCookie kc, ElasticSearchConn ec) {
+	public String loginVerification(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea, KakaoCookie kc, ElasticSearchConn ec, CommonDate cd, LoginDTO dtos, AES256Util au, StringBuffer sb) {
 
 		ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
-		int userLoginResult = logService.loginVerifyLogicNew(request,response,ic,ea,kc,ec);
+		String ip = ic.getClientIP(request);
+		
+		LoginDTO userLoginResult = logService.loginVerifyLogicNew(request, response, ic, ea, ec, cd, dtos);
+		
+		int loginCode = userLoginResult.getLoginCode(); // 로그인 허용 코드
+		int userSeq = userLoginResult.getUserSeq(); //유저 고유 번호
+		int loginSave = logService.loginSaveYn(request, response, userSeq);//로그인 유지 관련 함수
+		
+		System.out.println("loginCode : " + loginCode);
+		System.out.println("userSeq : " + userSeq);
+		
+		//로그인 성공했으나 비밀번호를 변경해야 하는 상태
+		if (loginCode == 1 && loginSave != -1) {
+			
+			return null;
+			//return logService.loginPassPawd(kc, logResult);
+		}
+		//로그인은 성공했으나 아이피 주소가 마지막 주소와 달라서 자동 로그인 검증과정을 거쳐야함
+		else if (loginCode == 2 && loginSave != -1) {
+
+			request = logService.AutoLoginBanned(request, userSeq, ip);
+			
+			return "/login/UserAutoLoginCheck";
+		}
+		//로그인 문제없음
+		else if (loginCode == 3 && loginSave != -1) {
+			int logResult = logService.loginSuccessNew(request, response, kc, ic, ea, au, sb, userSeq);// 로그인 인증티켓 발급
+			
+			System.out.println("logResult :: " + logResult);
+			
+			return logService.loginPassBasic(request, kc, ea, logResult);
+		}
+		else return "/testwaiting/kakaoerror";
 		
 		
-		return "";
+		//return "";
 		//String userLoginResult = logService.loginVerifyLogic(request,response,ic,ea,kc);
 		
 		//if (userLoginResult.equals("error")) return "/testwaiting/kakaoerror";

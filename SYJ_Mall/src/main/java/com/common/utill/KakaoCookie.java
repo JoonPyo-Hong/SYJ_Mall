@@ -303,7 +303,7 @@ public class KakaoCookie {
 	 * @param cookieValue		쿠키값
 	 * @param setTimeSecond		쿠키유지시간(초단위)
 	 */
-	public void generateUrlCookie(HttpServletResponse response,String cookieValue,int setTimeSecond) throws Exception{
+	public void generateUrlCookie(HttpServletResponse response,String cookieValue,int setTimeSecond) throws Exception {
 		
 		cookieValue = URLEncoder.encode(cookieValue,"UTF-8");
 		

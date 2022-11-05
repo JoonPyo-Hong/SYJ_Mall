@@ -448,16 +448,39 @@ public interface ILoginService {
 	String getQrDevicePassYn(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, CommonWebsocket cw, IpCheck ic, KakaoCookie kc);
 	
 	/**
-	 * 로그인 검증 - ner version
+	 * 로그인 검증
 	 * @param request
 	 * @param response
 	 * @param ic
 	 * @param ea
-	 * @param kc
 	 * @param ec
+	 * @param cd
+	 * @param dtos
 	 * @return
 	 */
-	int loginVerifyLogicNew(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea, KakaoCookie kc, ElasticSearchConn ec);
+	LoginDTO loginVerifyLogicNew(HttpServletRequest request, HttpServletResponse response, IpCheck ic, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd, LoginDTO dtos);
+	
+	/**
+	 * 로그인 인증티켓 발급
+	 * @param request
+	 * @param response
+	 * @param kc
+	 * @param ic
+	 * @param ea
+	 * @param userSeq
+	 * @return
+	 */
+	int loginSuccessNew(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc, IpCheck ic, ErrorAlarm ea, AES256Util au, StringBuffer sb ,int userSeq);
+	
+	/**
+	 * 로그인 문제 없을 경우에 url 돌려주기
+	 * @param request
+	 * @param kc
+	 * @param ea
+	 * @param logResult
+	 * @return
+	 */
+	String loginPassBasic(HttpServletRequest request, KakaoCookie kc, ErrorAlarm ea, int logResult);
 	
 
 	

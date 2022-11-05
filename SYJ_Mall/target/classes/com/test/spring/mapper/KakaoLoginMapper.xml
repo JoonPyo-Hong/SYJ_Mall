@@ -276,7 +276,7 @@
 	</select>
 	
 	
-	<!-- id, pw 확인(1) -->
+	<!-- id, pw 확인 -->
 	<select id="checkUserIdPwSimple" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
 		
 		declare @result int 
@@ -291,6 +291,16 @@
 		
 		declare @result int 
 		exec @result = dbo.kakao_verify_user_login #{ip},#{getdate},#{id},#{pw}
+		select @result
+				
+	</select>
+	
+	
+	<!-- 추가적인 로그인 관련 체크 -->
+	<select id="checkUserIdPwEtc" resultType="Integer"  parameterType="java.util.HashMap" statementType="CALLABLE" >
+		
+		declare @result int 
+		exec @result = dbo.kakao_user_login_checking #{ip},#{date},#{userSeq}
 		select @result
 				
 	</select>

@@ -277,6 +277,16 @@ public interface ILoginDAO {
 	 */
 	int checkingUserIdPwSimple(String id, String encPw);
 
+	
+	/**
+	 * 유저 로그인 현황 체크
+	 * @param ip
+	 * @param curTimeString
+	 * @param userSeq
+	 * @return
+	 */
+	int checkingUserIdPwEtc(String ip, String curTimeString, int userSeq);
+
 
 
 
