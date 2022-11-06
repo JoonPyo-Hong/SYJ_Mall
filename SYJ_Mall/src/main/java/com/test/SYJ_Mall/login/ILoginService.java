@@ -478,9 +478,21 @@ public interface ILoginService {
 	 * @param kc
 	 * @param ea
 	 * @param logResult
+	 * @param userLog
 	 * @return
 	 */
-	String loginPassBasic(HttpServletRequest request, KakaoCookie kc, ErrorAlarm ea, int logResult);
+	String loginPassBasic(HttpServletRequest request, KakaoCookie kc, ErrorAlarm ea, int logResult, int userLog);
+	
+	/**
+	 * 유저 로그인 로그로 남기기
+	 * @param request
+	 * @param ea
+	 * @param ec
+	 * @param cd
+	 * @param ip
+	 * @return
+	 */
+	int loginUserPassLog(HttpServletRequest request, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd, String ip);
 	
 
 	

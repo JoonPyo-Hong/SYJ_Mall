@@ -359,8 +359,6 @@ public class LoginService implements ILoginService {
 	public int loginSuccessNew(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc, IpCheck ic, ErrorAlarm ea, AES256Util au, StringBuffer sb, int userSeq) {
 		try {
 			
-			System.out.println("!!!!!");
-			
 			HttpSession userSession = request.getSession();
 
 			List<UserDTO> dto = dao.userInfo(userSeq);
@@ -387,8 +385,6 @@ public class LoginService implements ILoginService {
 			/* ================ 쿠키 - db 연동작업(장바구니 정보) ================ */
 			// 여기서 기존의 회원의 상품쿠키정보를 db로 연동시켜주는 작업이 필요함. -> 로그인이 성공한 경우 이므로
 			String basketList = (String) kc.getCookieInfo(request, "basketList");
-			
-			System.out.println(basketList);
 			
 			// 쿠키객체안에 상품리스트가 있는경우에만 연동시켜줄것임
 			if (basketList != null) {
@@ -434,8 +430,6 @@ public class LoginService implements ILoginService {
 				}
 			}//if
 			
-			
-			System.out.println("뭐가 문제인거지");
 			
 			return 1;
 		} catch(Exception e) {
@@ -1307,8 +1301,6 @@ public class LoginService implements ILoginService {
 			
 			dtos.setUserSeq(userSeq);
 			
-			System.out.println("??userSeq : " + userSeq);
-			
 			if (userSeq == -1) {
 				dtos.setLoginCode(-1);
 				return dtos; 
@@ -1316,8 +1308,6 @@ public class LoginService implements ILoginService {
 
 			//2. 로그인 문제없을 경우 다른문제 확인
 			int loginEtcChecking = dao.checkingUserIdPwEtc(ip,curTimeString,userSeq);
-			
-			System.out.println("loginEtcChecking : " + loginEtcChecking);
 			
 			//2-1. 로그인 성공했으나 비밀번호를 변경해야 하는 상태
 			if (loginEtcChecking == 1) {
@@ -1333,18 +1323,6 @@ public class LoginService implements ILoginService {
 			
 			//2-3. 문제없음
 			else if (loginEtcChecking == 3) {
-				
-				System.out.println("what the fixx");
-				
-				//elasticsearch 에 유저 로그인 성공 기록 남기기.
-				//HashMap<String,Object> jsonMap = new HashMap<String, Object>();
-				//jsonMap.put("@timestamp",curTimeKor);
-				//jsonMap.put("ip",ip);
-				//jsonMap.put("userSeq",ip);
-				//jsonMap.put("userId",ip);
-				
-				//String dateNameIndex = cd.getCurrentDateIndex("login_user_index",curTimeKor);
-				//IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
 				
 				dtos.setLoginCode(3);
 				return dtos; 
@@ -1649,14 +1627,14 @@ public class LoginService implements ILoginService {
 	
 	//로그인 문제 없을 경우에 url 정보 돌려주기
 	@Override
-	public String loginPassBasic(HttpServletRequest request, KakaoCookie kc, ErrorAlarm ea, int logResult) {
+	public String loginPassBasic(HttpServletRequest request, KakaoCookie kc, ErrorAlarm ea, int logResult, int userLog) {
 		try {
 			
 			String lastPage = kc.getUrlCookieInfo(request);
 			
-			System.out.println("lastPage : " + lastPage);
+			//System.out.println("lastPage : " + lastPage);
 			
-			if (logResult == 1) {
+			if (logResult == 1 && userLog == 1) {
 				if (lastPage == null) {
 					goMain(request);
 					return "/tiles/mainStart.layout";// 메인페이지로 이동
@@ -1676,8 +1654,30 @@ public class LoginService implements ILoginService {
 			return "/testwaiting/kakaoerror";
 		}
 	}
-
 	
-	
-
+	//유저 로그인 로그 남기기
+	@Override
+	public int loginUserPassLog(HttpServletRequest request, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd, String ip) {
+		try {
+			
+			HttpSession session = request.getSession();
+			UserDTO dto = (UserDTO)session.getAttribute("userinfo");
+			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
+			
+			//elasticsearch 에 유저 로그인 성공 기록 남기기.
+			HashMap<String,Object> jsonMap = new HashMap<String, Object>();
+			jsonMap.put("@timestamp",curTimeKor);
+			jsonMap.put("ip",ip);
+			jsonMap.put("userSeq",dto.getUserSeq());
+			jsonMap.put("userId",dto.getUserId());
+			
+			String dateNameIndex = cd.getCurrentDateIndex("login_user_index",curTimeKor);
+			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
+			
+			
+			return 1;
+		} catch(Exception e) {
+			return ea.basicErrorException(request, e);
+		}
+	}
 }

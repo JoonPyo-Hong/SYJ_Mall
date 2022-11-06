@@ -103,6 +103,8 @@ public class MyPagesService implements IMyPagesService {
 			
 			kc.deleteCookie(request, response, "lastPage");//기존에 있는 마지막 페이지를 지워준다.
 			kc.generateUrlCookie(response, "myPageMain.action?myPageNum=1", 60 * 60 * 24 * 7);// 마지막페이지
+			//kc.deleteCookie(request, response, seenList);
+			
 			
 			System.out.println("seenList : " + seenList);
 			

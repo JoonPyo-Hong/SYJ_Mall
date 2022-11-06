@@ -36,6 +36,8 @@ public class MyPagesController {
 		//KakaoCookie kc = new KakaoCookie();
 		//kc.generateCookie(response, "seenList", "13#45#44#12#", 60 * 60 * 24 * 7);
 		
+		System.out.println("result : " + result);
+		
 		//1. 최근 본 내역
 		if (result == 1) {	
 			

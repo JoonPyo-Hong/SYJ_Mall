@@ -110,7 +110,7 @@ public class LoginController {
 		int loginCode = userLoginResult.getLoginCode(); // 로그인 허용 코드
 		int userSeq = userLoginResult.getUserSeq(); //유저 고유 번호
 		int loginSave = logService.loginSaveYn(request, response, userSeq);//로그인 유지 관련 함수
-		
+
 		System.out.println("loginCode : " + loginCode);
 		System.out.println("userSeq : " + userSeq);
 		
@@ -122,7 +122,6 @@ public class LoginController {
 		}
 		//로그인은 성공했으나 아이피 주소가 마지막 주소와 달라서 자동 로그인 검증과정을 거쳐야함
 		else if (loginCode == 2 && loginSave != -1) {
-
 			request = logService.AutoLoginBanned(request, userSeq, ip);
 			
 			return "/login/UserAutoLoginCheck";
@@ -130,10 +129,9 @@ public class LoginController {
 		//로그인 문제없음
 		else if (loginCode == 3 && loginSave != -1) {
 			int logResult = logService.loginSuccessNew(request, response, kc, ic, ea, au, sb, userSeq);// 로그인 인증티켓 발급
+			int userLog = logService.loginUserPassLog(request,ea,ec,cd,ip);
 			
-			System.out.println("logResult :: " + logResult);
-			
-			return logService.loginPassBasic(request, kc, ea, logResult);
+			return logService.loginPassBasic(request, kc, ea, logResult, userLog);
 		}
 		else return "/testwaiting/kakaoerror";
 		
