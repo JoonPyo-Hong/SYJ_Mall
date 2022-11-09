@@ -117,7 +117,7 @@ public class LoginController {
 		//로그인 성공했으나 비밀번호를 변경해야 하는 상태
 		if (loginCode == 1 && loginSave != -1) {
 			
-			return null;
+			return "/login/UserLoginPwRedefine";
 			//return logService.loginPassPawd(kc, logResult);
 		}
 		//로그인은 성공했으나 아이피 주소가 마지막 주소와 달라서 자동 로그인 검증과정을 거쳐야함
@@ -197,7 +197,6 @@ public class LoginController {
 		if (result == 1) return "/login/UserAutoLoginFail";
 		else return "/testwaiting/kakaoerror";
 		
-
 	}
 	
 	// 로그인 캅차 기능
@@ -221,10 +220,10 @@ public class LoginController {
 		
 	}
 	
+	
 	//테스트용 없애줄것이다
 	@RequestMapping(value = "/loginQrPrint.action", method = { RequestMethod.GET })
 	public String loginQrPrint(HttpServletRequest request, HttpServletResponse response,ErrorAlarm ea, CommonWebsocket cw) {
-		
 		
 		logService.getPrintQrCode(request,cw,ea);
 		

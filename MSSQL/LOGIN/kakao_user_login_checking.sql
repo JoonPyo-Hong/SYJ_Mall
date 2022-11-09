@@ -4,13 +4,14 @@
 	Description : 로그인 정합성 sp - 로그인에 문제가 없는지 판단
 	    
 	History		: 2022-11-05 Seunghwan Shin	#최초 생성
+				  2022-11-09 Seunghwan Shin	#아이피 확인 로직 변경
 
 	Real DB		:	declare @result int
 					exec @result = dbo.kakao_user_login_checking '0.0.0.0', '2022-11-05 13:22:22.122', 2000001
 					select @result
 
 */
-alter proc [dbo].[kakao_user_login_checking]
+CREATE proc [dbo].[kakao_user_login_checking]
 	@user_ip_address varchar(100)	-- 접속한 ip주소
 ,	@cur_date datetime				-- 접속시도한 날짜 시간
 ,	@user_seq bigint				-- user seq
@@ -29,7 +30,7 @@ begin
 		return 1
 	end
 	-- 2. 지난번 접속 아이피와 다른 경우 -> 자동로그인 방지 정책 따라야한다.
-	else if (isnull((select qoouser_lastlogin_ipaddress from dbo.QOO10_USER_REAL with(nolock) where qoouser_seq = @user_seq),'N') <> @last_ip_address)
+	else if ( @user_ip_address <> @last_ip_address)
 	begin
 		return 2
 	end
@@ -66,4 +67,5 @@ begin
 
 
 end
+
 

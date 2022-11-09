@@ -106,7 +106,7 @@ public class LoginService implements ILoginService {
 
 	}
 	
-	//이것도 안쓰면 뺄
+	//이것도 안쓰면 뺄듯
 	@Override
 	public String ipCheck(HttpServletRequest request) {// 접속자의 아이피를 체크함
 
@@ -282,8 +282,6 @@ public class LoginService implements ILoginService {
 				sb.append(userSeq);
 				sb.append(";");
 				String saveCookie = au.encrypt(sb.toString());//로그인한 회원정보 저장.
-				
-				//System.out.println("여기 ");
 				
 				kc.modifyCookie(request,response,"QrSeqCode",saveCookie,60 * 60 * 24 * 15);
 			}
@@ -876,7 +874,6 @@ public class LoginService implements ILoginService {
 			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 			
 			query.must(QueryBuilders.termQuery("ip",ip));
-			
 			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTimeKor,-30)));
 			query.must(QueryBuilders.rangeQuery("@timestamp").lte(curTimeKor));
 			
@@ -898,7 +895,6 @@ public class LoginService implements ILoginService {
 				
 				return 0;//계정 임시 벤 상태
 			} 
-			
 			
 			//그외 비정상적인 상황으로 간주
 			return -1;
@@ -1309,15 +1305,17 @@ public class LoginService implements ILoginService {
 			//2. 로그인 문제없을 경우 다른문제 확인
 			int loginEtcChecking = dao.checkingUserIdPwEtc(ip,curTimeString,userSeq);
 			
+			System.out.println("loginEtcChecking : " + loginEtcChecking);
+			
 			//2-1. 로그인 성공했으나 비밀번호를 변경해야 하는 상태
 			if (loginEtcChecking == 1) {
-				dtos.setLoginCode(2);
+				dtos.setLoginCode(1);
 				return dtos; 
 			}
 			
 			//2-2. 로그인은 성공했으나 아이피 주소가 마지막 주소와 달라서 자동 로그인 검증과정을 거쳐야함
 			else if (loginEtcChecking == 2) {
-				dtos.setLoginCode(3);
+				dtos.setLoginCode(2);
 				return dtos; 
 			}
 			
@@ -1631,9 +1629,7 @@ public class LoginService implements ILoginService {
 		try {
 			
 			String lastPage = kc.getUrlCookieInfo(request);
-			
-			//System.out.println("lastPage : " + lastPage);
-			
+
 			if (logResult == 1 && userLog == 1) {
 				if (lastPage == null) {
 					goMain(request);
