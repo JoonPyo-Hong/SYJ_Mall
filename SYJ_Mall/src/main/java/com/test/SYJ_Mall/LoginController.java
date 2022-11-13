@@ -111,13 +111,16 @@ public class LoginController {
 		int userSeq = userLoginResult.getUserSeq(); //유저 고유 번호
 		int loginSave = logService.loginSaveYn(request, response, userSeq);//로그인 유지 관련 함수
 
-		System.out.println("loginCode : " + loginCode);
-		System.out.println("userSeq : " + userSeq);
 		
 		//로그인 성공했으나 비밀번호를 변경해야 하는 상태
 		if (loginCode == 1 && loginSave != -1) {
 			
-			return "/login/UserLoginPwRedefine";
+			//RSA 키 발급필요
+			int rsaResult = logService.userRedefinedPw(request, userSeq, ip, ea);
+			
+			if (rsaResult == 1) return "/login/UserLoginPwRedefine";
+			else return "/testwaiting/kakaoerror";
+			
 			//return logService.loginPassPawd(kc, logResult);
 		}
 		//로그인은 성공했으나 아이피 주소가 마지막 주소와 달라서 자동 로그인 검증과정을 거쳐야함
@@ -134,13 +137,7 @@ public class LoginController {
 			return logService.loginPassBasic(request, kc, ea, logResult, userLog);
 		}
 		else return "/testwaiting/kakaoerror";
-		
-		
-		//return "";
-		//String userLoginResult = logService.loginVerifyLogic(request,response,ic,ea,kc);
-		
-		//if (userLoginResult.equals("error")) return "/testwaiting/kakaoerror";
-		//else return userLoginResult;
+
 		
 	}
 	

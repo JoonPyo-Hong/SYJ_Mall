@@ -365,7 +365,6 @@ public class LoginService implements ILoginService {
 			/* ================ master 모바일 기기 등록/확인 - 모바일 기기로 로그인한 경우 해당 모바일 기기에 정보남겨둔다. ================ */
 			int deviceCode = request.getParameter("deviceCode") == null ? -1 : Integer.parseInt(request.getParameter("deviceCode"));
 			kc = new KakaoCookie();
-			System.out.println("asldkj : " + deviceCode);
 			
 			//모바일 기기인 경우
 			if (deviceCode == 1) {
@@ -838,7 +837,7 @@ public class LoginService implements ILoginService {
 	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
 
 		try {
-			
+
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 			String ip = ipCheck(request);// 아이피 주소 체크
 
@@ -865,7 +864,6 @@ public class LoginService implements ILoginService {
 			
 			//3. 정확한 아이디,비밀번호를 쳤는지 확인해준다.
 			int idPasswdCheck = dao.checkingUserIdPwSimple(id,encPw);
-			System.out.println("idPasswdCheck :" + idPasswdCheck);
 			if (idPasswdCheck != -1) return 1;
 			
 			//4. 비밀번호가 틀렸을 경우 해당 아이피로 얼마나 접속시도를 했는지 체크  
@@ -884,14 +882,11 @@ public class LoginService implements ILoginService {
 			SearchResponse srep = ec.getClient().search(searchRequest, RequestOptions.DEFAULT);
 			long loginTyrCnt = srep.getHits().getTotalHits().value;
 			
-			System.out.println("loginTyrCnt : " + loginTyrCnt);
 			
 			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
 			if (loginTyrCnt >= 4) {
 				//벤시키는 sp 작성
 				int logCnt = dao.setIpBanned(ip,cd.formatStringTime(curTimeKor));
-				
-				System.out.println(logCnt);
 				
 				return 0;//계정 임시 벤 상태
 			} 
@@ -1305,7 +1300,6 @@ public class LoginService implements ILoginService {
 			//2. 로그인 문제없을 경우 다른문제 확인
 			int loginEtcChecking = dao.checkingUserIdPwEtc(ip,curTimeString,userSeq);
 			
-			System.out.println("loginEtcChecking : " + loginEtcChecking);
 			
 			//2-1. 로그인 성공했으나 비밀번호를 변경해야 하는 상태
 			if (loginEtcChecking == 1) {

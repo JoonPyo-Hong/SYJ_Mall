@@ -2,10 +2,13 @@ package com.common.utill;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.elasticsearch.action.index.IndexResponse;
 
 
 /**
@@ -71,21 +74,32 @@ public class ErrorAlarm {
 	}
 	
 	/**
-	 * 에러요인 db에 넣어주기
+	 * 에러요인 db에 넣어주기 (elasticserarch 에 로그 쌓아주기)
 	 */
 	public void inputErrorToDb() {
-		CommonDAO dao = new CommonDAO();
+		
+		CommonDate cd = new CommonDate();
+		ElasticSearchConn ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
 		
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("errormsg", errors.toString());
-		map.put("ip", this.ip);
+		HashMap<String,Object> jsonMap = new HashMap<String, Object>();
+		Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
 		
-		dao.inputErrorToDb(map);
-		dao.close();
-
+		jsonMap.put("@timestamp",curTimeKor);
+		jsonMap.put("ip",this.ip);
+		jsonMap.put("errMsg",errors.toString());
+		
+		
+		String dateNameIndex = cd.getCurrentDateIndex("error_log_index",curTimeKor);
+		
+		try {
+			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**

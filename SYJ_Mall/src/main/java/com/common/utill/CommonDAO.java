@@ -36,32 +36,7 @@ public class CommonDAO {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * 에러요건 DB에 넣어주기
-	 * 
-	 * @param map
-	 */
-	public void inputErrorToDb(HashMap<String, String> map) {
-
-		try {
-
-			String sql = "{call kakao_error_log(?,?)}";
-
-			stat = conn.prepareCall(sql);
-
-			stat.setString("user_ip_address", map.get("ip"));
-			stat.setString("err_msg", map.get("errormsg"));
-
-			stat.execute();
-
-			stat.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * 로그인 된 경우에 장바구니 기능 -> 장바구니에서 빼주거나 넣어주기.
 	 * 

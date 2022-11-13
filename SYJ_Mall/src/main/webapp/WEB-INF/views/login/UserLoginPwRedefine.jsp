@@ -254,14 +254,14 @@
         //로그인 - 패킷을 중간에 가로채는것을 방지하기 위함
         function packetLogin() {
         	
-      	    var password = document.getElementById("newpw2").value;//유저가 작성한 비밀번호
+      	    let password = document.getElementById("newpw2").value;//유저가 작성한 비밀번호
 			
       	  	//console.log(password);
       	    
       	    
       	    try {
-      	        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
-      	        var rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
+      	        let rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
+      	        let rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
       	        submitEncryptedForm(password, rsaPublicKeyModulus, rsaPublicKeyExponent);
       	        
       	    } catch(err) {
@@ -272,14 +272,14 @@
 
         //로그인 버튼 클릭시 -> 데이터를 넘겨주는 부분
       	function submitEncryptedForm(password, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
-      	    var rsa = new RSAKey();
+      	    let rsa = new RSAKey();
       	    
       	    rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
 
       	    // 사용자ID와 비밀번호를 RSA로 암호화한다.
-      	    var securedPassword = rsa.encrypt(password);
+      	    let securedPassword = rsa.encrypt(password);
 		
-      	    var securedForm = document.getElementById("input_form");//form 데이터
+      	    let securedForm = document.getElementById("input_form");//form 데이터
       	    
       	    securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
       	    securedForm.submit();//제출
