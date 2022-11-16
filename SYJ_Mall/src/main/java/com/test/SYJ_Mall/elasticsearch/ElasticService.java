@@ -46,6 +46,8 @@ public class ElasticService implements IElasticService {
 		
 		try {
 			
+		
+			
 			ec = new ElasticSearchConn("10.107.11.66", 9200, "http");
 			RestHighLevelClient client = ec.elasticClient();
 			

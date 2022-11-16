@@ -5,6 +5,7 @@
 	     
 	History	: 2021-11-03 Seunghwan Shin	#최초 생성  
 			  2022-07-11 Seunghwan Shin	#어드민 제외 추가
+			  2022-11-16 Seunghwan Shin	#어드민 제외 제거
 
 	Real DB : exec dbo.kakao_admin_info
 */
@@ -17,7 +18,7 @@ begin
 	select
 		admin_email as adminEmail
 	from dbo.ADMIN_INFO_TABLE with(nolock)
-	where admin_seq <> 3
+
 end
 
 
