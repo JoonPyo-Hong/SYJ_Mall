@@ -96,6 +96,8 @@ public class ErrorAlarm {
 		
 		try {
 			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
+			ec.connClose();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

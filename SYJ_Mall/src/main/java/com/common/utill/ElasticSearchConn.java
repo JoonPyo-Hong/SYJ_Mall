@@ -3,12 +3,18 @@ package com.common.utill;
 import java.util.HashMap;
 
 import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.RestClientBuilder.HttpClientConfigCallback;
 
 import lombok.Data;
 
@@ -22,8 +28,8 @@ public class ElasticSearchConn {
 	private String hostName;//(deprecated)
 	private int port; //(deprecated)
 	private String scheme; //(deprecated)
-	private RequestOptions options = RequestOptions.DEFAULT;
 	private RestHighLevelClient client;
+	private RequestOptions options = RequestOptions.DEFAULT;
 	
 	/**
 	 * ElasticSearchConn 객체
@@ -41,23 +47,23 @@ public class ElasticSearchConn {
 		this.port = port;
 		this.scheme = scheme;
 		
-		HttpHost host = new HttpHost(hostName, port, scheme);
-		RestClientBuilder restClientBuilder = RestClient.builder(host);
-		this.client = new RestHighLevelClient(restClientBuilder);
-	}
-	
-	
-	/**
-	 * elastic client(deprecated)
-	 * @return RestHighLevelClient
-	 */
-	public RestHighLevelClient elasticClient() {
-		HttpHost host = new HttpHost(this.hostName, this.port, this.scheme);
-		RestClientBuilder restClientBuilder = RestClient.builder(host);
-		RestHighLevelClient client = new RestHighLevelClient(restClientBuilder);
+		CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 		
-		return client;
+		credentialsProvider.setCredentials(AuthScope.ANY,
+				new UsernamePasswordCredentials("elastic", "H0nI5jmRY9ZQhetL7GVt"));
+		
+		RestClientBuilder builder = RestClient.builder(new HttpHost(this.hostName, this.port, this.scheme))
+				.setHttpClientConfigCallback(new HttpClientConfigCallback() {
+					@Override
+					public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+						return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+					}
+				});
+		
+		RestHighLevelClient client = new RestHighLevelClient(builder);
+		this.client = client;
 	}
+	
 	
 	/**
 	 * Post data to Index
@@ -77,6 +83,10 @@ public class ElasticSearchConn {
 		return indexResponse;
 	}
 	
+	
+	public void connClose() throws Exception {
+		this.client.close();
+	}
 	
 	
 	
