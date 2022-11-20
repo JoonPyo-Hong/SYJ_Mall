@@ -31,6 +31,9 @@ public class KafkaController {
 	@Autowired
 	private IKafkaService service;
 	
+	private static String TOPIC_NAME = "testtopics";
+	private static String BOOTSTRAP_SERVER = "218.48.201.158:9092";
+	
 	// kafka test
 	@RequestMapping(value = "/kafkaProducer.action", method = { RequestMethod.GET, RequestMethod.POST })
 	public String kafkaProducer(HttpServletRequest request, HttpServletResponse response) {
@@ -38,34 +41,72 @@ public class KafkaController {
 		try {
 			
 			Properties configs = new Properties();
-			configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "byeanma.kro.kr:9092");// kafka cluster
+
+			configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVER);// kafka cluster
 			configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());// KEY_SERIALIZER
-	        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName()); // VALUE_SERIALIZER
-
-	        // init KafkaProducer
-	        KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
-			
-	        int idx = 0;
+	        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName()); // VALUE_SERIALIZE
 	        
-	        while(true){
-
-	            // set ProducerRecord
-	            String topic = "testtopics";           // topic name
-	            Integer partition = 3;           // partition number (default: Round Robin)
-	            String key = "key-" + idx;       // key  (default: null)
-	            String data = "record-"+ idx;    // data
-
-	            ProducerRecord<String, String> record = new ProducerRecord<>(topic, data);
-	            ProducerRecord<String, String> record2 = new ProducerRecord<>(topic, key, data);
-	            ProducerRecord<String, String> record3 = new ProducerRecord<>(topic, partition, key, data);
-
-	            // send record
-	            producer.send(record);
-
-	            System.out.println("producer.send() >> [topic:" + topic + "][data:" + data + "]");
-	            Thread.sleep(1000);
-	            idx++;
-	        }
+	        try (// init KafkaProducer
+			KafkaProducer<String, String> producer = new KafkaProducer<>(configs)) {
+				for (int index = 0; index < 10; index++) {
+					String data = "This is record " + index;
+					ProducerRecord<String,String> record = new ProducerRecord<>(TOPIC_NAME,data);
+					
+					producer.send(record);
+					
+					System.out.println("Send to " + TOPIC_NAME + " | data : " + data);
+					Thread.sleep(1000);
+				}
+			}
+	        
+	        
+	        return "";
+	        
+//			
+//	        int idx = 0;
+//	        
+//	        
+//	        for (int i = 0; i < 10; i++) {
+//	        	 // set ProducerRecord
+//	            String topic = "testtopics";           // topic name
+//	            Integer partition = 3;           // partition number (default: Round Robin)
+//	            String key = "key-" + idx;       // key  (default: null)
+//	            String data = "record-"+ idx;    // data
+//
+//	            ProducerRecord<String, String> record = new ProducerRecord<>(topic, data);
+//	            ProducerRecord<String, String> record2 = new ProducerRecord<>(topic, key, data);
+//	            ProducerRecord<String, String> record3 = new ProducerRecord<>(topic, partition, key, data);
+//
+//	            // send record
+//	            producer.send(record2);
+//
+//	            System.out.println("producer.send() >> [topic:" + topic + "][data:" + data + "]");
+//	            //Thread.sleep(1000);
+//	            idx++;
+//	        }
+//	        
+//	        producer.close();
+//	        
+//	        return "";
+//	        while(true){
+//
+//	            // set ProducerRecord
+//	            String topic = "testtopics";           // topic name
+//	            Integer partition = 3;           // partition number (default: Round Robin)
+//	            String key = "key-" + idx;       // key  (default: null)
+//	            String data = "record-"+ idx;    // data
+//
+//	            ProducerRecord<String, String> record = new ProducerRecord<>(topic, data);
+//	            ProducerRecord<String, String> record2 = new ProducerRecord<>(topic, key, data);
+//	            ProducerRecord<String, String> record3 = new ProducerRecord<>(topic, partition, key, data);
+//
+//	            // send record
+//	            producer.send(record);
+//
+//	            System.out.println("producer.send() >> [topic:" + topic + "][data:" + data + "]");
+//	            Thread.sleep(1000);
+//	            idx++;
+//	        }
 			
 			
 			
@@ -84,31 +125,40 @@ public class KafkaController {
 			
 			// set kafka properties
             Properties props = new Properties();
-            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "byeanma.kro.kr:9092");  // kafka cluster
+            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVER);  // kafka cluster
             props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());// KEY_SERIALIZER
             props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()); // VALUE_SERIALIZER
             props.put(ConsumerConfig.GROUP_ID_CONFIG,"testgroup");
 			
-            // init KafkaConsumer
-            KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+            try (// init KafkaConsumer - 데이터를 읽고 처리가 가능하다.
+            	KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
+				consumer.subscribe(Arrays.asList(TOPIC_NAME)); // topic list
+				//final int minBatchSize = 200;
 
-            consumer.subscribe(Arrays.asList("testtopics")); // topic list
-            final int minBatchSize = 200;
-
-            List<ConsumerRecord<String, String>> buffer = new ArrayList<>();
+				//List<ConsumerRecord<String, String>> buffer = new ArrayList<>();
+				
+				while(true) {
+					ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
+					for (ConsumerRecord<String, String> record : records) {
+						System.out.println(record.value());
+					}
+				}
+			}
             
-            while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));  // polling interval
-                for (ConsumerRecord<String, String> record : records) {
-                    System.out.println(record.value());
-                    buffer.add(record);
-                }
-                if (buffer.size() >= minBatchSize) {
-                    System.out.println(buffer);
-                    consumer.commitSync();
-                    buffer.clear();
-                }
-            }
+            
+//            while (true) {
+//                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));  // polling interval
+//                System.out.println("!!!");
+//                for (ConsumerRecord<String, String> record : records) {
+//                	System.out.println(record.value());
+//                    //buffer.add(record);
+//                }
+////                if (buffer.size() >= minBatchSize) {
+////                    System.out.println(buffer);
+////                    consumer.commitSync();
+////                    buffer.clear();
+////                }
+//            }
             
             
 		} catch (Exception e) {
