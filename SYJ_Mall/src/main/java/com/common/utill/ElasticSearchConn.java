@@ -84,6 +84,11 @@ public class ElasticSearchConn {
 	}
 	
 	
+	
+	/**
+	 * Disconnecting elasticsearch
+	 * @throws Exception
+	 */
 	public void connClose() throws Exception {
 		this.client.close();
 	}
