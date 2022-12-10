@@ -18,6 +18,7 @@ import com.common.utill.ElasticSearchConn;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
+import com.common.utill.KafkaConn;
 import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
@@ -91,10 +92,12 @@ public class LoginController {
 	//로그인 입력 정보에 따른 처리
 	@RequestMapping(value = "/userLoginVerificationCheck.action", method = { RequestMethod.POST })
 	@ResponseBody
-	public int loginVerificationCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd) {
+	public int loginVerificationCheck(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea, ElasticSearchConn ec, CommonDate cd, KafkaConn kc) {
 		
 		ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
-		return logService.userIdPwCheck(request,ea,ec,cd);
+		kc = new KafkaConn("byeanma.kro.kr",9092,"login.cnt");
+		
+		return logService.userIdPwCheck(request,ea,ec,cd,kc);
 
 	}
 

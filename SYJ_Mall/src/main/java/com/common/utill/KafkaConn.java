@@ -24,6 +24,12 @@ public class KafkaConn {
 	
 	public KafkaConn() {};
 	
+	/**
+	 * 
+	 * @param bootstrap_server_ip
+	 * @param bootstrap_server_port
+	 * @param kafka_topic_name
+	 */
 	public KafkaConn(String bootstrap_server_ip, int bootstrap_server_port, String kafka_topic_name) {
 		this.bootstrap_server_ip = bootstrap_server_ip;
 		this.bootstrap_server_port = bootstrap_server_port;

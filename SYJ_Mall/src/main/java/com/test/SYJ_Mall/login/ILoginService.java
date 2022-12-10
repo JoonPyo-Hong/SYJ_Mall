@@ -17,6 +17,7 @@ import com.common.utill.ElasticSearchConn;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
+import com.common.utill.KafkaConn;
 import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
@@ -245,12 +246,15 @@ public interface ILoginService {
     
 	
 	/**
-	 * 로그인 버튼 누른후 -> 존재하는 아이디가 맞는지 체크 (모달창)
-	 * @param request	request 객체
-	 * @param ea		에러처리 관련 객체
-	 * @return			1 : 존재함, -1 : 존재하지 않음 / 벤당한 아이피로 접속
+	 *  로그인 버튼 누른후 -> 존재하는 아이디가 맞는지 체크 (모달창)
+	 * @param request
+	 * @param ea
+	 * @param ec
+	 * @param cd
+	 * @param kc
+	 * @return	1 : 존재함, -1 : 존재하지 않음 / 벤당한 아이피로 접속
 	 */
-	int userIdPwCheck(HttpServletRequest request,ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd);
+	int userIdPwCheck(HttpServletRequest request,ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd, KafkaConn kc);
 	
 	/**
 	 * RSA 대칭키 복호화

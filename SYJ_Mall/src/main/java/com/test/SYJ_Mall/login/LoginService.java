@@ -20,16 +20,14 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
 
-import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +40,7 @@ import com.common.utill.ElasticSearchConn;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
 import com.common.utill.IpCheck;
+import com.common.utill.KafkaConn;
 import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
@@ -834,10 +833,12 @@ public class LoginService implements ILoginService {
 	
 	// 존재하는 아이디인지 체크 - 모달창 띄워줄것
 	@Override
-	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd) {
+	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd, KafkaConn kc) {
 
 		try {
-
+			
+			System.out.println("start");
+			
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 			String ip = ipCheck(request);// 아이피 주소 체크
 
@@ -847,15 +848,25 @@ public class LoginService implements ILoginService {
 			String pw = map.get("pw");// 비밀번호
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 			
+		
+			
+			
+			// Send a message through kafkatopic
 			//1. elasticsearch conn info -> login log write
-			HashMap<String,Object> jsonMap = new HashMap<String, Object>();
+			//HashMap<String,Object> jsonMap = new HashMap<String, Object>();
+			HashMap<String, Object> jsonob = new JSONObject();
 			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
-			jsonMap.put("@timestamp",curTimeKor);
-			jsonMap.put("ip",ip);
+			
+			jsonob.put("@timestamp",cd.getPresentTimeMille());
+			jsonob.put("ip","0.0.0.0");
+			
+			kc.kafkaSendMessage(jsonob.toString());
+			
+			System.out.println("end");
 			
 			String dateNameIndex = cd.getCurrentDateIndex("login_cnt_index",curTimeKor);
-			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
-
+			//IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
+			
 			
 			//2. banned list 확인하여 접근허용 설정
 			int bannedResult = dao.checkingIpBanned(ip,cd.formatStringTime(curTimeKor));
