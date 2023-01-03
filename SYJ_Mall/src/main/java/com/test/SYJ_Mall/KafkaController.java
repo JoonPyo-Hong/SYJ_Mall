@@ -28,25 +28,38 @@ public class KafkaController {
 		
 		try {
 			
-			KafkaConn kc = new KafkaConn("byeanma.kro.kr",9092,"testtopics");
-
-			Map<String, Object> jsonob = new JSONObject();
-			List<Object> jarray = new JSONArray();
+			KafkaConn kc = new KafkaConn("10.107.11.59",9092,"upgrade_topic");
 			
-			for (int i = 1; i < 10; i++) {
-				HashMap<String, Object> data = new JSONObject();
-				
-				data.put("name", "person" + i);
-				data.put("age", i);
-				
-				jarray.add(data);
+			
+			
+			for (int i = 0; i < 10; i++) {
+				Thread.sleep(1000);
+				kc.kafkaSendMessage(i+"kaka");
 			}
 			
-			jsonob.put("persons", jarray);
-
-			kc.kafkaSendMessage(jsonob.toString());
+			
+//
+//			Map<String, Object> jsonob = new JSONObject();
+//			List<Object> jarray = new JSONArray();
+//			
+//			for (int i = 1; i < 10; i++) {
+//				HashMap<String, Object> data = new JSONObject();
+//				
+//				data.put("name", "person" + i);
+//				data.put("age", i);
+//				
+//				jarray.add(data);
+//			}
+//			
+//			jsonob.put("persons", jarray);
+//
+//			kc.kafkaSendMessage(jsonob.toString());
+//			
+//			return "";
+			
 			
 			return "";
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
