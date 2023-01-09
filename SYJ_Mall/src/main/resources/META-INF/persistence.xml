@@ -5,14 +5,14 @@
     
     <persistence-unit name="sqlserver">
         <properties>
+            
             <!-- 필수 속성 -->
-            <!-- <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/> -->
             <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="javax.persistence.jdbc.user" value="seunghwan"/>
             <property name="javax.persistence.jdbc.password" value="byeanma170125"/>
-            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/> -->
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://byeanma.kro.kr:11289;database=ADMIN"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+          
             
             <!-- 옵션 -->
             <property name="hibernate.show_sql" value="true"/>
@@ -21,6 +21,31 @@
             <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
         </properties>
     </persistence-unit>
+    
+    
+    
+	<persistence-unit name="mysql">
+        <properties>
+            <!-- 필수 속성 -->
+            
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="156452"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/admin"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            
+            
+            <!-- 옵션 -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            
+            <!--배치 사이즈 지정  -->
+            <property name="hibernate.jdbc.batch_size" value="10"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+        </properties>
+    </persistence-unit>
+    
     
     
 </persistence>

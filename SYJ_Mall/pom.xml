@@ -339,12 +339,21 @@
 			<version>${org.apache.tiles-version}</version>
 		</dependency>
 
-
+		<!-- sql server jdbc driver -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
 			<version>8.2.2.jre8</version>
 		</dependency>
+		
+		<!-- mysql jdbc driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.28</version>
+		</dependency>
+
+		
 		
 		<!-- java mail : 이메일 보내주는 서비스 -->
 		<!-- java mail 전송 API -->
