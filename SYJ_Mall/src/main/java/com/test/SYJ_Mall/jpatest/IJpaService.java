@@ -30,5 +30,7 @@ public interface IJpaService {
 	public void flushJpql(HttpServletRequest request, HttpServletResponse response);
 	
 	public void detachTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void EntityTableTest(HttpServletRequest request, HttpServletResponse response);
 	
 }

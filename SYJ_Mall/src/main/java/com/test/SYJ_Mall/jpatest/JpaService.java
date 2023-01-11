@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
+
 
 @Service
 public class JpaService implements IJpaService {
@@ -565,6 +569,66 @@ public class JpaService implements IJpaService {
 		
 		emf.close();
 		
+		
+		
+	}
+
+	@Override
+	public void EntityTableTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		//SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		
+//		//Current Session - no need to close
+//		Session currentSession = sessionFactory.getCurrentSession();
+//		
+//		//open new session
+//		Session newSession = sessionFactory.openSession();
+//		//perform db operations
+//		
+//		//close session
+//		newSession.close();
+//		
+//		//open stateless session
+//		StatelessSession statelessSession = sessionFactory.openStatelessSession();
+//		//perform stateless db operations
+//		
+//		//close session
+//		statelessSession.close();
+//		
+//		//close session factory
+//		sessionFactory.close();
+		
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			// 영속 상태
+			//Member member = em.find(Member.class, 1);
+			Member member = em.find(Member.class, 1);
+			member.setName("AAAA");
+			
+			
+			
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
 		
 		
 	}

@@ -159,6 +159,39 @@ public class JpaController {
 	
 	
 	
+	@RequestMapping(value = "emtityMappingTest.action", method = { RequestMethod.GET })
+	public String emtityMappingTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		/*
+		 
+		 엔타티 매핑
+		 - 객체와 테이블 매핑 @Entity, @Table
+		 - 필드와 컬럼 매핑 : @Column
+		 - 기본 키 매핑 : @Id
+		 - 연관관계 매핑 : @ManyToOne, @JoinColumn
+		
+		
+		@Entity 가 붙은 클래스는 JPA 가 관리, 엔티티라고 한다.
+		JPA 를 사용하여 테이블과 매핑할 클래스는 @Entity 가 필수요건이다.
+		
+		
+		
+		데이터베이스 스키마 자동 생성
+		- DDL 을 애플리케이션 실행 시점에 자동 생성(운영에서는 쓰면 안된다.)
+		- 테이블 중심 -> 객체 중심
+		- 데이터베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL을 생성해준다.
+		
+		*/
+		
+		service.EntityTableTest(request,response);
+		
+		
+		
+		return "";
+	}
+	
+	
+	
 	
 	
 	

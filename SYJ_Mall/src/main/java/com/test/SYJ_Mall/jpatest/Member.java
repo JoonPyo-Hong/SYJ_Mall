@@ -9,13 +9,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "USER")
+@Table(name = "USER_TABLE")
 public class Member {
 	
 	@Id
 	private int id;
 	
-	@Column(name = "username")
+	//@Column(name = "username")
+	@Column(name = "username", unique = true, length = 10)
 	private String name;
 	
 	public Member() {}
