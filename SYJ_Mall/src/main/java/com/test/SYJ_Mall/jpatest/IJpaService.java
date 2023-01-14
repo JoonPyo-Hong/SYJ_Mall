@@ -33,4 +33,10 @@ public interface IJpaService {
 
 	public void EntityTableTest(HttpServletRequest request, HttpServletResponse response);
 	
+	public void identityTableTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void example01(HttpServletRequest request, HttpServletResponse response);
+
+	public void relationMapping01(HttpServletRequest request, HttpServletResponse response);
+	
 }

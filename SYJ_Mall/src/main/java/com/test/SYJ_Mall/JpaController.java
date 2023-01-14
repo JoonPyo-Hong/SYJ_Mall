@@ -1,8 +1,5 @@
 package com.test.SYJ_Mall;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.SYJ_Mall.jpatest.IJpaService;
-import com.test.SYJ_Mall.jpatest.Member;
 
 @Controller
 public class JpaController {
@@ -189,6 +185,67 @@ public class JpaController {
 		
 		return "";
 	}
+	
+	@RequestMapping(value = "identityMappingTest.action", method = { RequestMethod.GET })
+	public String identityMappingTest(HttpServletRequest request, HttpServletResponse response) {
+	
+		
+		service.identityTableTest(request,response);
+		
+		
+		return "";
+	}
+	
+	
+	
+	@RequestMapping(value = "Example01.action", method = { RequestMethod.GET })
+	public String example01(HttpServletRequest request, HttpServletResponse response) {
+	
+		
+		
+		/*
+		 
+		  회원은 상품을 주문할 수 있다.
+		  주문 시 여러 종류의 상품을 선택할 수 있다.
+		  
+		  - 회원 기능 : 등록,조회
+		  - 상품 기능 : 상품등록 , 상품수정, 상품조회
+		  - 주문 기능 : 상품주문, 주문내역 조회, 주문 취소
+		  
+		  
+		  
+		 */
+		
+		service.example01(request,response);
+		
+		
+		return "";
+	}
+	
+	
+	//연관관계 맵핑
+	@RequestMapping(value = "relationshipMapping.action", method = { RequestMethod.GET })
+	public String relationshipMapping(HttpServletRequest request, HttpServletResponse response) {
+	
+		
+		
+		/*
+		 
+		 예제 시나리오
+		 - 회원과 팀이 있다.
+		 - 회원은 하나의 팀에만 소속될 수 있다.
+		 - 회원과 팀은 다대일 관계이다. 회원이 N이고 팀이 1이다.
+		 
+		 
+		 */
+		
+		service.relationMapping01(request,response);
+		
+		
+		return "";
+	}
+	
+	
 	
 	
 	

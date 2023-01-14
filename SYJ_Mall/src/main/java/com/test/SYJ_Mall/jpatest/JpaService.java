@@ -32,7 +32,7 @@ public class JpaService implements IJpaService {
 
 		try {
 
-			Member member = new Member();
+			Members member = new Members();
 			member.setId(1);
 			member.setName("wowo rian");
 
@@ -65,7 +65,7 @@ public class JpaService implements IJpaService {
 
 		try {
 
-			Member findMember = em.find(Member.class, 1);
+			Members findMember = em.find(Members.class, 1);
 
 			System.out.println("findMember = " + findMember.getId());
 			System.out.println("findMember = " + findMember.getName());
@@ -96,7 +96,7 @@ public class JpaService implements IJpaService {
 
 		try {
 
-			Member findMember = em.find(Member.class, 1);
+			Members findMember = em.find(Members.class, 1);
 
 			System.out.println("findMember = " + findMember.getId());
 			System.out.println("findMember = " + findMember.getName());
@@ -128,7 +128,7 @@ public class JpaService implements IJpaService {
 
 		try {
 
-			Member findMember = em.find(Member.class, 1);
+			Members findMember = em.find(Members.class, 1);
 
 			findMember.setName("what the fu");
 			
@@ -181,7 +181,7 @@ public class JpaService implements IJpaService {
 			// 아래와 같이 몇개의 데이터를 가져올지 지정해줄 수 도 있다.
 			// pagenation 과 비슷한 개념이라고 생각하면 된다.
 			// 아래와 같이 쓰게 되면 2번째 데이터부터 4개를 가져오게 된다. (2번째는 0,1,.... 번째를 의미한다.)
-			List<Member> result = em.createQuery("select m from Member as m",Member.class)
+			List<Members> result = em.createQuery("select m from Member as m",Members.class)
 					.setFirstResult(2)
 					.setMaxResults(4)
 					.getResultList();
@@ -189,7 +189,7 @@ public class JpaService implements IJpaService {
 			
 			
 			
-			for (Member mem : result) {
+			for (Members mem : result) {
 				System.out.println(mem.getId());
 				System.out.println(mem.getName());
 			}
@@ -222,7 +222,7 @@ public class JpaService implements IJpaService {
 		try {
 			
 			// 객체를 생성한 상태이지만 JPA 와 아무상관 없으므로 비영속 상태라고 볼 수 있다.
-			Member member = new Member();
+			Members member = new Members();
 			member.setId(10);
 			member.setName("Hello JPA");
 			
@@ -298,8 +298,8 @@ public class JpaService implements IJpaService {
 			
 			// 1차 캐시에서 조회 -> 디비에서 먼저 가져오는 개념이 아님.
 			// 아래와 같이 같은 객체를 두번가져오게 되면 SQL 쿼리를 두번 쏘지 않고 한번 쏘고 캐시에 저장한다.
-			Member findMember1 = em.find(Member.class, 10);
-			Member findMember2 = em.find(Member.class, 10);
+			Members findMember1 = em.find(Members.class, 10);
+			Members findMember2 = em.find(Members.class, 10);
 			
 			
 			
@@ -335,8 +335,8 @@ public class JpaService implements IJpaService {
 
 		try {
 			
-			Member findMember1 = em.find(Member.class, 10);
-			Member findMember2 = em.find(Member.class, 10);
+			Members findMember1 = em.find(Members.class, 10);
+			Members findMember2 = em.find(Members.class, 10);
 			
 			
 			System.out.println(findMember1 == findMember2);// 같다고 나오게 된다.
@@ -374,8 +374,8 @@ public class JpaService implements IJpaService {
 
 		try {
 			
-			Member member1 = new Member(11,"hala1");
-			Member member2 = new Member(12,"hala2");
+			Members member1 = new Members(11,"hala1");
+			Members member2 = new Members(12,"hala2");
 			
 			
 			
@@ -416,7 +416,7 @@ public class JpaService implements IJpaService {
 
 		try {
 			
-			Member member = em.find(Member.class, 10);
+			Members member = em.find(Members.class, 10);
 			
 			member.setName("lalala");
 			System.out.println("====================");
@@ -457,7 +457,7 @@ public class JpaService implements IJpaService {
 
 		try {
 			
-			Member member = new Member(21,"member123");
+			Members member = new Members(21,"member123");
 			
 			em.persist(member);
 			
@@ -495,9 +495,9 @@ public class JpaService implements IJpaService {
 
 		try {
 			
-			Member member1 = new Member(1,"apple");
-			Member member2 = new Member(2,"samsung");
-			Member member3 = new Member(3,"hanhwa");
+			Members member1 = new Members(1,"apple");
+			Members member2 = new Members(2,"samsung");
+			Members member3 = new Members(3,"hanhwa");
 			
 			em.persist(member1);
 			em.persist(member2);
@@ -507,10 +507,10 @@ public class JpaService implements IJpaService {
 			// flush 를 강제적으로적어주지도 않았고 아직 커밋에 도달하지도 않았는데 디비에 쿼리를 쏜것이다.
 			
 			
-			List<Member> result = em.createQuery("select m from Member as m",Member.class).getResultList();
+			List<Members> result = em.createQuery("select m from Member as m",Members.class).getResultList();
 			
 			
-			for (Member mem : result) {
+			for (Members mem : result) {
 				System.out.println(mem.getId());
 				System.out.println(mem.getName());
 			}
@@ -542,7 +542,7 @@ public class JpaService implements IJpaService {
 		try {
 			
 			// 영속 상태
-			Member member = em.find(Member.class, 1);
+			Members member = em.find(Members.class, 1);
 			member.setName("AAAA");
 			
 			// 준영속 상태로 전환 -> 영속성 컨텍스트에서 관리하지 말라고 꺼내버리는 행위가 된다.
@@ -554,7 +554,7 @@ public class JpaService implements IJpaService {
 			em.clear();
 			
 			// clear() 행위로 1차 캐시를 통으로 지워버리므로 캐싱하지 못하고 다시 db에 다녀오는 수고로움을 수반한다.
-			Member member1 = em.find(Member.class, 1);
+			Members member1 = em.find(Members.class, 1);
 			
 			
 			System.out.println("====================");
@@ -577,29 +577,6 @@ public class JpaService implements IJpaService {
 	public void EntityTableTest(HttpServletRequest request, HttpServletResponse response) {
 		
 		
-		//SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		
-//		//Current Session - no need to close
-//		Session currentSession = sessionFactory.getCurrentSession();
-//		
-//		//open new session
-//		Session newSession = sessionFactory.openSession();
-//		//perform db operations
-//		
-//		//close session
-//		newSession.close();
-//		
-//		//open stateless session
-//		StatelessSession statelessSession = sessionFactory.openStatelessSession();
-//		//perform stateless db operations
-//		
-//		//close session
-//		statelessSession.close();
-//		
-//		//close session factory
-//		sessionFactory.close();
-		
-		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
 
 		EntityManager em = emf.createEntityManager();
@@ -612,13 +589,16 @@ public class JpaService implements IJpaService {
 			
 			// 영속 상태
 			//Member member = em.find(Member.class, 1);
-			Member member = em.find(Member.class, 1);
-			member.setName("AAAA");
+			//Member member = em.find(Member.class, 1);
+			//member.setName("AAAA");
+			
+			Members member = new Members();
+			member.setId(1);
+			member.setName("B");
+			member.setRoleType(RoleType.GUEST);
 			
 			
-			
-			
-			
+			em.persist(member);
 			
 			tx.commit();
 		} catch (Exception e) {
@@ -631,6 +611,114 @@ public class JpaService implements IJpaService {
 		emf.close();
 		
 		
+	}
+
+	@Override
+	public void identityTableTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			User user = new User();
+			//user.setName("test");
+			
+			em.persist(user);
+			
+			System.out.println("======================");
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+	
+	
+
+	@Override
+	public void example01(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void relationMapping01(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+		
+			Team team = new Team();
+			team.setName("TeamB");
+			em.persist(team);//영속상태가 되었으므로 pk가 할당된 상태이므로 pk 값을 받을 수 있다.
+			
+			User user = new User();
+			user.setUserName("member10");
+			//user.setTeamId(1L);// 디비 지향 모델링
+			user.setTeam(team);
+			em.persist(user);
+			
+			em.flush();
+			em.clear();
+			
+			
+			//외래키 식별자를 직접 다루다보니 객체간의 관계가 아닌 테이블에 맞춘 모델링이라고 볼 수 있다.
+			User findUser = em.find(User.class, user.getId());
+//			
+//			Long findTeamId = findUser.getTeamId(); // 애도 아래처럼 바꿀 수 있다.
+			Team findTeamInfo = findUser.getTeam();
+			
+			System.out.println(findTeamInfo.getName());
+			
+			
+//			Team findTeam = em.find(Team.class, findTeamId);
+//			
+//			System.out.println(findTeam.getName());
+			
+			
+			//객체를 테이블에 맞추어 데이터 중심으로 모델링 하면, 협력 관계를 만들 수 없다.
+			/*
+			 
+			 - 테이블은 외래 키로 조인을 사용해서 연관된 테이블을 찾는다.
+			 - 객체는 참조를 사용해서 연관된 객체를 찾는다.
+			 - 테이블과 객체 사이에는 위와 같은 큰 간격이 존재한다.
+			
+			 
+			 
+			 
+			 */
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
 	}
 	
 	
