@@ -223,7 +223,7 @@ public class JpaController {
 	}
 	
 	
-	//연관관계 맵핑
+	//연관관계 mapping
 	@RequestMapping(value = "relationshipMapping.action", method = { RequestMethod.GET })
 	public String relationshipMapping(HttpServletRequest request, HttpServletResponse response) {
 	
@@ -240,6 +240,53 @@ public class JpaController {
 		 */
 		
 		service.relationMapping01(request,response);
+		
+		
+		return "";
+	}
+	
+	
+	//양방향 연관관계 mapping
+	@RequestMapping(value = "relationshipHostMapping.action", method = { RequestMethod.GET })
+	public String relationshipHostMapping(HttpServletRequest request, HttpServletResponse response) {
+	
+		
+		
+		/*
+		
+		양방향 연관관계와 연관관계의 주인
+		 
+		- 객체의 두 관계중 하나를 연관관계의 주인으로 지정한다.
+		- 연관관계의 주인만이 외래 키를 관리 (등록,수정)
+		- 주인이 아니쪽은 읽기만 가능하다.
+		- 주인은 mappedBy 속성을 사용할 수 없다.
+		- 주인이 아니면 mappedBy 속성으로 주인을 지정한다.
+		 
+		누구를 주인으로? => 외래키가 존재하는 테이블을 기준으로 주인으로 만들자!
+		*/
+		//service.relationMapping02(request,response);
+		
+		
+		/*  
+		  양방향 맵핑시 가장 많이 하는 실수
+		  - 연관관계 주인이 아닌 객체에 값을 넣는 경우 -> db 연동이 안된다.
+		  
+		 권장은 두개의 객체 모두에 데이터를 저장해주는게 맞다.
+		*/
+		//service.relationMappingMistake(request,response);
+		
+		/*
+		 
+		 lombok 을 적용하면 toString 도 그냥 만들어주게 되는데
+		 해당 방법이 무한루프를 야기할 수 있다.
+		 
+		 
+		 lombok 에서는 그러므로 toString 생성은 제외하는 편이 좋다.
+		 
+		 */
+		
+		service.infinityLoop(request,response);
+		
 		
 		
 		return "";

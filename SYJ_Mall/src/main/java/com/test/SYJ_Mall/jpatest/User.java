@@ -13,8 +13,8 @@ import javax.persistence.TableGenerator;
 import lombok.Data;
 
 
-@Entity
-@Table(name = "USER")
+//@Entity
+//@Table(name = "USER")
 @Data
 //@TableGenerator(
 //		name = "USER_SEQ_GENERATOR",
@@ -71,5 +71,11 @@ public class User {
 	@JoinColumn(name="team_id")
 	private Team team;
 	
+	
+	// 이런식으로 만들어두면 직접 양방향 셋팅을 안해도 자동으로 지정이 되서 좋다.
+	public void setTeam(Team team) {
+		this.team = team;
+		//team.getUsers().add(this);
+	}
 	
 }

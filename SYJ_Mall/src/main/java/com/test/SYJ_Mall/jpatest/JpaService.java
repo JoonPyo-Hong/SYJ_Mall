@@ -669,11 +669,11 @@ public class JpaService implements IJpaService {
 		try {
 		
 			Team team = new Team();
-			team.setName("TeamB");
+			team.setName("TeamA");
 			em.persist(team);//영속상태가 되었으므로 pk가 할당된 상태이므로 pk 값을 받을 수 있다.
 			
 			User user = new User();
-			user.setUserName("member10");
+			user.setUserName("member1");
 			//user.setTeamId(1L);// 디비 지향 모델링
 			user.setTeam(team);
 			em.persist(user);
@@ -719,6 +719,171 @@ public class JpaService implements IJpaService {
 		}
 		
 		emf.close();
+	}
+
+	@Override
+	public void relationMapping02(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+		
+			Team findTeam = em.find(Team.class, 1L);
+			
+			//User findUser = em.find(User.class, 2L);
+			
+			//Team findTeamInfo = findUser.getTeam();
+			
+			//List<User> userList = findTeamInfo.get
+			
+			List<User> userList = findTeam.getUsers();
+			
+			System.out.println(userList.size());
+			
+			
+			for (User users : userList) {
+				System.out.println(users.getUserName());
+				System.out.println(users.getId());
+			}
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	
+	@Override
+	public void relationMappingMistake(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+		
+//			User user = new User();
+//			user.setUserName("member4");
+//			em.persist(user);
+//			
+//			Team team = new Team();
+//			team.setName("Team B");
+//			team.getUsers().add(user);
+//			em.persist(team);
+			
+			//em.flush();
+			//em.clear();
+			
+			// 위와 같이 사용하게 되면 연관관계의 주인인 User 에 Team 객체의 정보를 넣지 않았기 때문에,
+			// User 테이블에 Team 정보가 들어가지 않게 된다.
+			// 아래와 같이 진행해주는게 맞다.
+//			Team team = new Team();
+//			team.setName("Team C");
+//			em.persist(team);
+//			
+//			
+//			User user = new User();
+//			user.setUserName("member5");
+//			user.setTeam(team);
+//			em.persist(user);
+//			
+//			
+//			em.flush();
+//			em.clear();		
+			
+			// 즉 연관관계의 주인에 값을 집어넣어줘야 한다.!
+			// 그래도 양방향에 넣어주는게 권장된다. 이유는 아래와 같다.
+			
+			Team team = new Team();
+			team.setName("Team F");
+			em.persist(team);
+			
+			
+			
+			User user = new User();
+			user.setUserName("member8");
+			user.setTeam(team);
+			em.persist(user);
+			
+			//team.getUsers().add(user); // 애를 해주는걸 권장한다.
+			
+			
+			// 이 부분에서 em.flush(), em.clear() 를 해주면 상관없지만,
+			// clear를 해주지 않으면 디비에 날아가지 않는다.
+			// 그리고 위에서 이미 Team 을 만든경우에는 영속성 컨텍스트 1차 캐시에 저장된다.
+			// 그런데 team 에는 현재 users 를 넣어주지 않았기 때문에, 리스트를 조회해보면 유저가 없다고나오게 된다.
+			
+			Team findTeam = em.find(Team.class, team.getId());
+			List<User> users = findTeam.getUsers();
+			
+			
+			for (User u : users) {
+				System.out.println(u.getUserName());
+			} 
+			
+			
+			// 즉 양방향 연관관계에서는 양쪽에 값을 다 셋팅해주는게 맞다.
+			// 아니면 생성자로 만들어줘서 연관관계를 맵핑을 해주는 방법도 있다.
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void infinityLoop(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			Team findTeam = em.find(Team.class, 1L);
+			
+			findTeam.getUsers().toString();
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+		
 	}
 	
 	

@@ -38,5 +38,11 @@ public interface IJpaService {
 	public void example01(HttpServletRequest request, HttpServletResponse response);
 
 	public void relationMapping01(HttpServletRequest request, HttpServletResponse response);
+
+	public void relationMapping02(HttpServletRequest request, HttpServletResponse response);
+
+	public void relationMappingMistake(HttpServletRequest request, HttpServletResponse response);
+
+	public void infinityLoop(HttpServletRequest request, HttpServletResponse response);
 	
-}
+}	

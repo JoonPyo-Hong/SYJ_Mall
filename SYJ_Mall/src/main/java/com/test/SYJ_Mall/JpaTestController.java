@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.test.SYJ_Mall.jpashop.Order;
+import com.test.SYJ_Mall.jpashop.OrderItem;
+
+
 @Controller
 public class JpaTestController {
 	
@@ -29,7 +33,8 @@ public class JpaTestController {
 
 		try {
 
-			
+			Order order = new Order();
+			order.addOrderItem(new OrderItem());
 			
 			
 			tx.commit();
