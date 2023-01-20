@@ -837,7 +837,7 @@ public class LoginService implements ILoginService {
 
 		try {
 			
-			System.out.println("start");
+			//System.out.println("start");
 			
 			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
 			String ip = ipCheck(request);// 아이피 주소 체크
@@ -848,23 +848,22 @@ public class LoginService implements ILoginService {
 			String pw = map.get("pw");// 비밀번호
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
 			
-		
-			
 			
 			// Send a message through kafkatopic
 			//1. elasticsearch conn info -> login log write
-			//HashMap<String,Object> jsonMap = new HashMap<String, Object>();
 			HashMap<String, Object> jsonob = new JSONObject();
 			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
 			
 			jsonob.put("@timestamp",cd.getPresentTimeMille());
-			jsonob.put("ip","0.0.0.0");
+			jsonob.put("ip",ip);
 			
 			kc.kafkaSendMessage(jsonob.toString());
 			
-			System.out.println("end");
+			//System.out.println("end");
 			
-			String dateNameIndex = cd.getCurrentDateIndex("login_cnt_index",curTimeKor);
+			String dateNameIndex = cd.getCurrentDateIndexUTC("login_cnt_index",curTimeKor);
+			
+			System.out.println(dateNameIndex);
 			//IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
 			
 			

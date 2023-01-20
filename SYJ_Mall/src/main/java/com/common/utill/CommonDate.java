@@ -128,7 +128,7 @@ public class CommonDate {
 		sb.append(dateTypeConvert(Integer.toString(months)));
 		sb.append("-");
 		sb.append(dateTypeConvert(Integer.toString(date)));
-		sb.append(" ");
+		sb.append("T");
 		
 		sb.append(dateTypeConvert(Integer.toString(hour)));
 		sb.append(":");
@@ -137,7 +137,8 @@ public class CommonDate {
 		sb.append(dateTypeConvert(Integer.toString(sec)));
 		sb.append(".");
 		sb.append(milSec);
-
+		sb.append("Z");
+		
 		return sb.toString();
 	}
 	
@@ -291,6 +292,38 @@ public class CommonDate {
 		
 		return sb.toString();
 	}
+	
+	
+	
+	/**
+	 * Extracting current time data in the form of elasticsearch index (based on utc)
+	 * @param cal
+	 * @return
+	 */
+	public String getCurrentDateIndexUTC(String prefix, Calendar cal) {
+		
+		cal.add(Calendar.HOUR_OF_DAY, -9);
+		
+		int years = cal.get(Calendar.YEAR);
+		String months = dateTypeConvert(Integer.toString(cal.get(Calendar.MONTH) + 1));
+		String date = dateTypeConvert(Integer.toString(cal.get(Calendar.DATE)));
+		
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(prefix);
+		sb.append("_");
+		sb.append(years);
+		sb.append("_");
+		sb.append(months);
+		sb.append("_");
+		sb.append(date);
+		
+		return sb.toString();
+	}
+	
+	
+	
+	
 	
 	
 

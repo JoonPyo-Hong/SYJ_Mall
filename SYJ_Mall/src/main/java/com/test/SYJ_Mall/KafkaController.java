@@ -1,14 +1,8 @@
 package com.test.SYJ_Mall;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,35 +22,14 @@ public class KafkaController {
 		
 		try {
 			
-			KafkaConn kc = new KafkaConn("10.107.11.59",9092,"upgrade_topic");
-			
+			KafkaConn kc = new KafkaConn("byeanma.kro.kr",9092,"syjcluster");
 			
 			
 			for (int i = 0; i < 10; i++) {
 				Thread.sleep(1000);
 				kc.kafkaSendMessage(i+"kaka");
 			}
-			
-			
-//
-//			Map<String, Object> jsonob = new JSONObject();
-//			List<Object> jarray = new JSONArray();
-//			
-//			for (int i = 1; i < 10; i++) {
-//				HashMap<String, Object> data = new JSONObject();
-//				
-//				data.put("name", "person" + i);
-//				data.put("age", i);
-//				
-//				jarray.add(data);
-//			}
-//			
-//			jsonob.put("persons", jarray);
-//
-//			kc.kafkaSendMessage(jsonob.toString());
-//			
-//			return "";
-			
+		
 			
 			return "";
 			
@@ -65,7 +38,6 @@ public class KafkaController {
 			e.printStackTrace();
 			return "";
 		}
-
 	}
 	
 //	private static String TOPIC_NAME = "testtopics";
