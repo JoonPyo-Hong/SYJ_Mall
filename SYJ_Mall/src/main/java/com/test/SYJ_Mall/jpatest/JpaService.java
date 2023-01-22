@@ -779,11 +779,11 @@ public class JpaService implements IJpaService {
 		try {
 		
 //			User user = new User();
-//			user.setUserName("member4");
+//			user.setUserName("member10");
 //			em.persist(user);
 //			
 //			Team team = new Team();
-//			team.setName("Team B");
+//			team.setName("Team G");
 //			team.getUsers().add(user);
 //			em.persist(team);
 			
@@ -794,15 +794,15 @@ public class JpaService implements IJpaService {
 			// User 테이블에 Team 정보가 들어가지 않게 된다.
 			// 아래와 같이 진행해주는게 맞다.
 //			Team team = new Team();
-//			team.setName("Team C");
+//			team.setName("Team H");
 //			em.persist(team);
 //			
 //			
 //			User user = new User();
-//			user.setUserName("member5");
+//			user.setUserName("member10");
 //			user.setTeam(team);
 //			em.persist(user);
-//			
+			
 //			
 //			em.flush();
 //			em.clear();		
@@ -810,16 +810,16 @@ public class JpaService implements IJpaService {
 			// 즉 연관관계의 주인에 값을 집어넣어줘야 한다.!
 			// 그래도 양방향에 넣어주는게 권장된다. 이유는 아래와 같다.
 			
-			Team team = new Team();
-			team.setName("Team F");
-			em.persist(team);
-			
-			
-			
-			User user = new User();
-			user.setUserName("member8");
-			user.setTeam(team);
-			em.persist(user);
+//			Team team = new Team();
+//			team.setName("Team F");
+//			em.persist(team);
+//			
+//			
+//			
+//			User user = new User();
+//			user.setUserName("member8");
+//			user.setTeam(team);
+//			em.persist(user);
 			
 			//team.getUsers().add(user); // 애를 해주는걸 권장한다.
 			
@@ -829,13 +829,13 @@ public class JpaService implements IJpaService {
 			// 그리고 위에서 이미 Team 을 만든경우에는 영속성 컨텍스트 1차 캐시에 저장된다.
 			// 그런데 team 에는 현재 users 를 넣어주지 않았기 때문에, 리스트를 조회해보면 유저가 없다고나오게 된다.
 			
-			Team findTeam = em.find(Team.class, team.getId());
-			List<User> users = findTeam.getUsers();
-			
-			
-			for (User u : users) {
-				System.out.println(u.getUserName());
-			} 
+//			Team findTeam = em.find(Team.class, team.getId());
+//			List<User> users = findTeam.getUsers();
+//			
+//			
+//			for (User u : users) {
+//				System.out.println(u.getUserName());
+//			} 
 			
 			
 			// 즉 양방향 연관관계에서는 양쪽에 값을 다 셋팅해주는게 맞다.
@@ -883,6 +883,35 @@ public class JpaService implements IJpaService {
 		
 		emf.close();
 		
+		
+	}
+
+	
+	
+	@Override
+	public void oneToOne(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
 		
 	}
 	

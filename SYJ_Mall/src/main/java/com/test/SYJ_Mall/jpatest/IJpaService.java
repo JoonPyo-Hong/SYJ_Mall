@@ -44,5 +44,7 @@ public interface IJpaService {
 	public void relationMappingMistake(HttpServletRequest request, HttpServletResponse response);
 
 	public void infinityLoop(HttpServletRequest request, HttpServletResponse response);
+
+	public void oneToOne(HttpServletRequest request, HttpServletResponse response);
 	
 }	

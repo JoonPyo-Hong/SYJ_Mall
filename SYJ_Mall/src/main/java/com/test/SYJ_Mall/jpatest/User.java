@@ -1,5 +1,8 @@
 package com.test.SYJ_Mall.jpatest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 
 import lombok.Data;
 
@@ -66,10 +70,19 @@ public class User {
 	//@Column(name = "team_id")
 	//private Long teamId;
 	
-	//객체 참조를 사용하여 연관관계를 만들어보자.
+	//객체 참조를 사용하여 연관관계를 만들어보자. -> 연관관계의 주인
 	@ManyToOne
 	@JoinColumn(name="team_id")
 	private Team team;
+	
+	
+	@OneToOne
+	@JoinColumn(name="locker_id")
+	private Locker locker;
+	
+	
+	@OneToMany(mappedBy = "user")
+	private List<MemberProduct> memberProduct = new ArrayList<>();
 	
 	
 	// 이런식으로 만들어두면 직접 양방향 셋팅을 안해도 자동으로 지정이 되서 좋다.

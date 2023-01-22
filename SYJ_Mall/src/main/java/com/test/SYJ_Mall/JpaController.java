@@ -273,7 +273,7 @@ public class JpaController {
 		  
 		 권장은 두개의 객체 모두에 데이터를 저장해주는게 맞다.
 		*/
-		//service.relationMappingMistake(request,response);
+		service.relationMappingMistake(request,response);
 		
 		/*
 		 
@@ -285,7 +285,7 @@ public class JpaController {
 		 
 		 */
 		
-		service.infinityLoop(request,response);
+		//service.infinityLoop(request,response);
 		
 		
 		
@@ -293,6 +293,53 @@ public class JpaController {
 	}
 	
 	
+	
+	// 여러가지 연관관계
+	@RequestMapping(value = "relationshipMappings.action", method = { RequestMethod.GET })
+	public String relationshipMappings(HttpServletRequest request, HttpServletResponse response) {
+	
+		
+		
+		/*
+		
+		
+		다중성 
+		- 다대일 : @ManyToOne
+		- 일대다 : @OneToOne
+		- 일대일 : @OneToOne
+		- 다대다 : @ManyToMany -> 실무에서 쓰면 안되는 어노테이션이라고 생각하면 된다.
+		
+		
+		
+		테이블
+		- 외래 키 하나로 양쪽을 조인이 가능하다.
+		- 사실 방향이라는 개념이 없다고 보면 된다.
+		
+		
+		
+		객체
+		- 참조용 필드가 있는 쪽으로만 참조가 가능하다.
+		- 한쪽만 참조하면 단방향
+		- 양쪽이 서로 참조하면 양방향
+		
+		
+		*/
+		
+		
+		
+		/*
+		 
+		  일대일 [1:1]
+		  
+		  
+		  
+		*/
+		
+		service.oneToOne(request,response);
+		
+		
+		return "";
+	}
 	
 	
 	

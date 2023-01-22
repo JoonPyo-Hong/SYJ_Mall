@@ -2,39 +2,30 @@ package com.test.SYJ_Mall.jpashop;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "ORDERITEM")
 @Data
-public class OrderItem {
-	
-	
+@Table(name = "DELIVERY")
+public class Delivery {
+
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_item_id")
+	@Column(name = "delivery_id")
 	private Long id;
 	
-	//@Column(name = "order_id")
-	//private Long orderId;
+	@Enumerated(EnumType.STRING)
+	private DeliveryStatus status;
 	
-	//@Column(name = "item_id")
-	//private Long itemId;
 	
-
-	@ManyToOne
-	@JoinColumn(name = "order_id")
+	@OneToOne(mappedBy = "delivery")
 	private Order order;
 	
-	@ManyToOne
-	@JoinColumn(name = "item_id")
-	private Item item;
-	
 }
-

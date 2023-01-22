@@ -1,4 +1,4 @@
-package com.test.SYJ_Mall.jpashop;
+package com.test.SYJ_Mall.jpatest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,28 +13,19 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
+//@Entity
+//@Table(name = "PRODUCT")
 @Data
-@Table(name = "MEMBER")
-public class Member {
-		
+public class Product {
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "member_id")
+	@Column(name = "product_id")
 	private Long id;
 	
-	@Column(name = "member_name")
+	@Column(name = "product_name")
 	private String name;
 	
-	@Column(name = "member_city")
-	private String city;
-	
-	@Column(name = "member_strret")
-	private String street;
-	
-	@Column(name = "member_zipcode")
-	private String zipcode;
-	
-	@OneToMany(mappedBy = "member")
-	private List<Order> orders = new ArrayList<Order>();
+	@OneToMany(mappedBy = "product")
+	private List<MemberProduct> memberProduct = new ArrayList<>();
 	
 }

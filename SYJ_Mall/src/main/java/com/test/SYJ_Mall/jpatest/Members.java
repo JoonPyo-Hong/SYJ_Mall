@@ -17,9 +17,9 @@ import javax.persistence.Transient;
 
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
-@Table(name = "USER_TABLE")
+//@Table(name = "USER_TABLE")
 public class Members {
 	
 	@Id
