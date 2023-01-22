@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
@@ -27,7 +28,6 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,7 @@ import com.common.utill.AES256Util;
 import com.common.utill.AutoLoginPic;
 import com.common.utill.CommonDAO;
 import com.common.utill.CommonDate;
+import com.common.utill.CommonDateFormat;
 import com.common.utill.ElasticSearchConn;
 import com.common.utill.Encryption;
 import com.common.utill.ErrorAlarm;
@@ -831,59 +832,58 @@ public class LoginService implements ILoginService {
 	}
 	
 	
-	// 존재하는 아이디인지 체크 - 모달창 띄워줄것
+	// Check if the ID exists.
 	@Override
 	public int userIdPwCheck(HttpServletRequest request, ErrorAlarm ea,ElasticSearchConn ec, CommonDate cd, KafkaConn kc) {
 
 		try {
 			
-			//System.out.println("start");
-			
-			request.setCharacterEncoding("UTF-8");// 인코딩 타입 설정
-			String ip = ipCheck(request);// 아이피 주소 체크
+			request.setCharacterEncoding("UTF-8");// Setting the encoding type
+			String ip = ipCheck(request);// IP Address Check
 
-			Map<String, String> map = getRSAkeySessionStay(request);// 세션에서 정보를 지우지는 않는다.
+			Map<String, String> map = getRSAkeySessionStay(request);// Do not clear RSA key information from the session.
 
-			String id = map.get("id");// 아이디
-			String pw = map.get("pw");// 비밀번호
-			String encPw = pwEnc(pw);// 상대방이 입력한 pw를 암호화작업해준다.
+			String id = map.get("id");	// User ID
+			String pw = map.get("pw");	// User PW
+			String encPw = pwEnc(pw);	// Encrypts the User PW.
 			
+			CommonDateFormat cmd = new CommonDateFormat();
 			
 			// Send a message through kafkatopic
 			//1. elasticsearch conn info -> login log write
 			HashMap<String, Object> jsonob = new JSONObject();
-			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
+			LocalDateTime curTimeUtc = cmd.getPresentTimeUTC();
+			LocalDateTime curTimeKOR = curTimeUtc.plusHours(9);
 			
-			jsonob.put("@timestamp",cd.getPresentTimeMille());
+			jsonob.put("@timestamp",cmd.formatStringTimeElastic(curTimeUtc));
 			jsonob.put("ip",ip);
-			
+		
+			// Sends a message to the specified kafkatopic.
 			kc.kafkaSendMessage(jsonob.toString());
 			
-			//System.out.println("end");
+			String dateNameIndex = cmd.getDateElasticIndex("login_cnt_index",curTimeUtc);
 			
-			String dateNameIndex = cd.getCurrentDateIndexUTC("login_cnt_index",curTimeKor);
-			
-			System.out.println(dateNameIndex);
-			//IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
-			
-			
-			//2. banned list 확인하여 접근허용 설정
-			int bannedResult = dao.checkingIpBanned(ip,cd.formatStringTime(curTimeKor));
+			//2. Check the banned list. If it is not on the list, access is allowed.
+			int bannedResult = dao.checkingIpBanned(ip,cmd.formatStringTime(curTimeKOR));
 			if (bannedResult == 1) return 0;
 
 			
-			//3. 정확한 아이디,비밀번호를 쳤는지 확인해준다.
+			//3. It checks whether the user entered the correct ID and password.
 			int idPasswdCheck = dao.checkingUserIdPwSimple(id,encPw);
 			if (idPasswdCheck != -1) return 1;
 			
-			//4. 비밀번호가 틀렸을 경우 해당 아이피로 얼마나 접속시도를 했는지 체크  
+			
+			//4. If the password is incorrect, Check how many access attempts have been made with the IP.
 			BoolQueryBuilder query = QueryBuilders.boolQuery();
 			SearchRequest searchRequest = new SearchRequest();
 			SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 			
+			String preDate = cmd.formatStringTimeElastic(curTimeUtc.plusSeconds(-300));
+			String postDate = cmd.formatStringTimeElastic(curTimeUtc);
+			
 			query.must(QueryBuilders.termQuery("ip",ip));
-			query.must(QueryBuilders.rangeQuery("@timestamp").gte(cd.getMinusSecMille(curTimeKor,-30)));
-			query.must(QueryBuilders.rangeQuery("@timestamp").lte(curTimeKor));
+			query.must(QueryBuilders.rangeQuery("@timestamp").gte(preDate));
+			query.must(QueryBuilders.rangeQuery("@timestamp").lte(postDate));
 			
 			searchRequest.indices(dateNameIndex);
 			sourceBuilder.query(query);
@@ -892,16 +892,18 @@ public class LoginService implements ILoginService {
 			SearchResponse srep = ec.getClient().search(searchRequest, RequestOptions.DEFAULT);
 			long loginTyrCnt = srep.getHits().getTotalHits().value;
 			
+			System.out.println("loginTyrCnt : " + loginTyrCnt);
 			
-			//15초 내에 접속시도를 4번이상 할 경우 해당 ip를 벤시킨다.
-			if (loginTyrCnt >= 4) {
-				//벤시키는 sp 작성
-				int logCnt = dao.setIpBanned(ip,cd.formatStringTime(curTimeKor));
+			// If access attempts are made more than four times within 15 seconds with a specific IP, access is prohibited with that IP. 
+			if (loginTyrCnt >= 2) {
+				// SP
+				return dao.setIpBanned(ip,cmd.formatStringTime(curTimeKOR));
 				
-				return 0;//계정 임시 벤 상태
+				//Account Temporarily Locked
+				//return 0;
 			} 
 			
-			//그외 비정상적인 상황으로 간주
+			// Other situations are considered abnormal.
 			return -1;
 
 		} catch (Exception e) {
@@ -946,15 +948,19 @@ public class LoginService implements ILoginService {
 		StringBuffer sb = new StringBuffer();
 		
 		try {
+			
 			for (int i = 0; i < lastPage.length(); i++) {
+				
 				if (Character.getType(lastPage.charAt(i))==5) {
 					sb.append(URLEncoder.encode(lastPage.substring(i,i+1),"UTF-8"));
 				} else {
 					sb.append(lastPage.substring(i,i+1));
 				}
+				
 			}
 			
 			return sb.toString();
+			
 		} catch(Exception e) {
 			ErrorAlarm ea = new ErrorAlarm(e);
 			ea.sendErrorMassegeAdmin();
@@ -1294,8 +1300,8 @@ public class LoginService implements ILoginService {
 			String pw = map.get("pw");// 비밀번호
 			String encPw = pwEnc(pw);// 상대방이 입력한 pw 암호화
 			
-			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
-			String curTimeString = cd.formatStringTime(curTimeKor);
+			Calendar curTimeKor = cd.getPresentTimeKORCal();
+			String curTimeString = cd.formatStringTimeElastic(curTimeKor);
 			
 			//1. 로그인 확인
 			int userSeq = dao.checkingUserIdPwSimple(id,encPw);
@@ -1662,7 +1668,7 @@ public class LoginService implements ILoginService {
 			
 			HttpSession session = request.getSession();
 			UserDTO dto = (UserDTO)session.getAttribute("userinfo");
-			Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
+			Calendar curTimeKor = cd.getPresentTimeKORCal();
 			
 			//elasticsearch 에 유저 로그인 성공 기록 남기기.
 			HashMap<String,Object> jsonMap = new HashMap<String, Object>();

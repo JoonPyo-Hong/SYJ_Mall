@@ -18,6 +18,7 @@ set nocount on
 set transaction isolation level read uncommitted
 begin
 
+
 	if exists (select * from dbo.TBLBANNEDIPLIST with(nolock) where banned_ip_address = @user_ip_address and banned_end_date >= @cur_date)
 	begin
 		return 1

@@ -246,7 +246,7 @@ public class ElasticService implements IElasticService {
 			Map<String, Object> jsonMap = new HashMap<String, Object>();
 			jsonMap.put("age", 32);
 			jsonMap.put("message","what the");
-			jsonMap.put("today", cd.getPresentTimeMilleUTCCal());
+			jsonMap.put("today", cd.getPresentTimeUTCCal());
 			
 			indexRequest.source(jsonMap);
 			//indexResponse = client.index(indexRequest, options);

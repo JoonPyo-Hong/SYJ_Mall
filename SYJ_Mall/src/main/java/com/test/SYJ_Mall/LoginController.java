@@ -41,30 +41,30 @@ public class LoginController {
 	@Autowired
 	private ILoginService logService;
 
-	/*---------------------------------------------------로그인 페이지------------------------------------------------------------------*/
-	/*------------------------------------------------------------------------------------------------------------------------------*/
-	/*------------------------------------------------------------------------------------------------------------------------------*/
-	/*------------------------------------------------------------------------------------------------------------------------------*/
-	// 처음에 로그인 페이지로 보내주는 곳
+	/*---------------------------------------------------Login Page---------------------------------------------------------------------*/
+	/*----------------------------------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------------------------------------------------------------------------------------------------*/
+	// First, send it to the login page.
 	@RequestMapping(value = "/login.action", method = { RequestMethod.GET , RequestMethod.POST})
 	public String login(HttpServletRequest request, HttpServletResponse response, KakaoCookie kc, RSAalgorithm rsa, ErrorAlarm ea) {
 		
-		//TEST 용	
+		//TEST	
 		//kc.deleteCookie(request, response, "loginSaveUserId");
 		//kc.deleteCookie(request, response, "loginSaveUserPw");
 		//kc.deleteCookie(request, response, "loginSaveUserSeq");
 		
-		// ===================로그인 유지 관련 로직===================
+		// ===================Logic related to maintaining login===================
 		String loginStayYn = logService.getLoginStayYn(request,response,kc,rsa,ea);
 		
-		if (loginStayYn.equals("error")) return "/testwaiting/kakaoerror";// 에러페이지로 보내준다.
+		if (loginStayYn.equals("error")) return "/testwaiting/kakaoerror";// Go to Error page
 		else if (loginStayYn.equals("crash")) return "/login/UserLogin";
 		else if (!loginStayYn.equals("pass")) return loginStayYn;   
 		
 		// =====================================================
 		
 		
-		// 혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임 
+		// 혹시나 세션이 존재하는데 url을 직접 쳐서 로그인 시도하는 경우에 막아줄것임
 		int result = -1;
 		
 		HttpSession session = request.getSession();

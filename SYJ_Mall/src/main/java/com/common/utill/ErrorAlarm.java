@@ -85,7 +85,7 @@ public class ErrorAlarm {
 		e.printStackTrace(new PrintWriter(errors));
 		
 		HashMap<String,Object> jsonMap = new HashMap<String, Object>();
-		Calendar curTimeKor = cd.getPresentTimeMilleKORCal();
+		Calendar curTimeKor = cd.getPresentTimeKORCal();
 		
 		jsonMap.put("@timestamp",curTimeKor);
 		jsonMap.put("ip",this.ip);

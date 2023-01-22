@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 /**
- * 날짜타입 라이브러리
+ * Date Type Library(deprecate)
  * 
  * @author shin
  *
@@ -12,40 +12,33 @@ import java.util.Random;
 public class CommonDate {
 
 	/**
-	 * 월,일이 한자리수일 경우 앞에 0을 붙여줘서 리턴해주는 메소드
-	 * 
-	 * @param input 월이나,일(한자리수)
-	 * @return 두자리수로 변환된 일,월
+	 * If month and date are single digits, a function that returns by adding a zero to the front.
+	 * @param 
+	 * @return 
 	 */
 	public String dateTypeConvert(String input) {
 
-		if (input.length() == 1) {
-			input = "0" + input;
-		}
-
+		if (input.length() == 1) input = "0" + input;
+		
 		return input;
 
 	}
 	
 	/**
-	 * millitime 이 한자리수거나 두자리 수인 경우에 세자리로 맞춰주는 메소
+	 * A method that sets the millitime to three digits when it is collected in one place or in two digits.
 	 * @param input
 	 * @return
 	 */
 	public String dateMilliConvert(String input) {
-		if (input.length() == 1) {
-			input = "00" + input;
-		} else if (input.length() == 2) {
-			input = "0" + input;
-		}
+		if (input.length() == 1) input = "00" + input;
+		else if (input.length() == 2) input = "0" + input;
 		
 		return input;
 	}
 
 	/**
-	 * 더미날짜 생성
-	 * 
-	 * @return 원하는 날짜 : yyyy-mm-dd 타입
+	 * Create Dummy Date (deprecate)
+	 * @return yyyy-mm-dd type
 	 */
 	public String dateCreateDummy() {
 
@@ -70,57 +63,25 @@ public class CommonDate {
 		return sb.toString();
 	}
 	
-	/**
-	 * 현재시간 정보 저장
-	 * @return
-	 */
-	public String getPresentTime() {
-
-		Calendar c1 = Calendar.getInstance();
-
-		int years = c1.get(Calendar.YEAR);
-		int months = c1.get(Calendar.MONTH) + 1;
-		int date = c1.get(Calendar.DATE);
-
-		int hour = c1.get(Calendar.HOUR_OF_DAY);
-		int min = c1.get(Calendar.MINUTE);
-		int sec = c1.get(Calendar.SECOND);
-
-		StringBuffer sb = new StringBuffer();
-
-		sb.append(years);
-		sb.append("-");
-		sb.append(dateTypeConvert(Integer.toString(months)));
-		sb.append("-");
-		sb.append(dateTypeConvert(Integer.toString(date)));
-		sb.append(" ");
-		
-		sb.append(dateTypeConvert(Integer.toString(hour)));
-		sb.append(":");
-		sb.append(dateTypeConvert(Integer.toString(min)));
-		sb.append(":");
-		sb.append(sec);
-
-		return sb.toString();
-	}
 	
 	/**
-	 * 현재시간 정보 저장 (밀리초)
+	 * Converting Calendar Objects to String Type(yyyy-mm-dd hh:mm:ss.ms) - elastic version
+	 * @param cal
 	 * @return
 	 */
-	public String getPresentTimeMille() {
+	public String formatStringTimeElastic(Calendar cal) {
+		
+		int years = cal.get(Calendar.YEAR);
+		int months = cal.get(Calendar.MONTH) + 1;
+		int date = cal.get(Calendar.DATE);
 
-		Calendar c1 = Calendar.getInstance();
-
-		int years = c1.get(Calendar.YEAR);
-		int months = c1.get(Calendar.MONTH) + 1;
-		int date = c1.get(Calendar.DATE);
-
-		int hour = c1.get(Calendar.HOUR_OF_DAY);
-		int min = c1.get(Calendar.MINUTE);
-		int sec = c1.get(Calendar.SECOND);
-		int milSec = c1.get(Calendar.MILLISECOND);
-
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int min = cal.get(Calendar.MINUTE);
+		int sec = cal.get(Calendar.SECOND);
+		int milSec = cal.get(Calendar.MILLISECOND);
+		
+		System.out.println("date : " + date);
+		
 		StringBuffer sb = new StringBuffer();
 
 		sb.append(years);
@@ -136,93 +97,21 @@ public class CommonDate {
 		sb.append(":");
 		sb.append(dateTypeConvert(Integer.toString(sec)));
 		sb.append(".");
-		sb.append(milSec);
+		sb.append(dateMilliConvert(Integer.toString(milSec)));
 		sb.append("Z");
 		
+		
 		return sb.toString();
-	}
-	
-	/**
-	 * 현재시간 정보 저장 (밀리초) - UTC 기준
-	 * @return
-	 */
-	public String getPresentTimeMilleUTC() {
 
-		Calendar c1 = Calendar.getInstance();
-		
-		c1.add(Calendar.HOUR_OF_DAY, -9);
-		
-		int years = c1.get(Calendar.YEAR);
-		int months = c1.get(Calendar.MONTH) + 1;
-		int date = c1.get(Calendar.DATE);
-
-		int hour = c1.get(Calendar.HOUR_OF_DAY);
-		int min = c1.get(Calendar.MINUTE);
-		int sec = c1.get(Calendar.SECOND);
-		int milSec = c1.get(Calendar.MILLISECOND);
-
-		StringBuffer sb = new StringBuffer();
-
-		sb.append(years);
-		sb.append("-");
-		sb.append(dateTypeConvert(Integer.toString(months)));
-		sb.append("-");
-		sb.append(dateTypeConvert(Integer.toString(date)));
-		sb.append(" ");
-		
-		sb.append(dateTypeConvert(Integer.toString(hour)));
-		sb.append(":");
-		sb.append(dateTypeConvert(Integer.toString(min)));
-		sb.append(":");
-		sb.append(dateTypeConvert(Integer.toString(sec)));
-		sb.append(".");
-		sb.append(dateMilliConvert(Integer.toString(milSec)));
-
-		return sb.toString();
-	}
-	
-	/**
-	 * 현재시간 정보 저장 (밀리초) - 한국시간 기준
-	 * @return
-	 */
-	public Calendar getPresentTimeMilleKORCal() {
-
-		Calendar c1 = Calendar.getInstance();
-		
-		return c1;
 	}
 	
 	
 	/**
-	 * 현재시간 정보 저장 (밀리초) - UTC 기준
-	 * @return
-	 */
-	public Calendar getPresentTimeMilleUTCCal() {
-
-		Calendar c1 = Calendar.getInstance();
-		
-		c1.add(Calendar.HOUR_OF_DAY, -9);
-	
-		return c1;
-	}
-	
-	/**
-	 * UTC 를 한국시간으로 변환
-	 * @return
-	 */
-	public Calendar getPresentTimeMilleCal(Calendar c) {
-		
-		c.add(Calendar.HOUR_OF_DAY, 9);
-	
-		return c;
-	}
-	
-	/**
-	 * 날짜를 String 타입으로 변환
+	 * Converting Calendar Objects to String Type(yyyy-mm-dd hh:mm:ss.ms)
 	 * @param cal
 	 * @return
 	 */
-	public String formatStringTime(Calendar cal) {
+	public String formatStringTimeMs(Calendar cal) {
 		
 		int years = cal.get(Calendar.YEAR);
 		int months = cal.get(Calendar.MONTH) + 1;
@@ -240,7 +129,6 @@ public class CommonDate {
 		sb.append(dateTypeConvert(Integer.toString(months)));
 		sb.append("-");
 		sb.append(dateTypeConvert(Integer.toString(date)));
-		sb.append(" ");
 		
 		sb.append(dateTypeConvert(Integer.toString(hour)));
 		sb.append(":");
@@ -249,13 +137,145 @@ public class CommonDate {
 		sb.append(dateTypeConvert(Integer.toString(sec)));
 		sb.append(".");
 		sb.append(dateMilliConvert(Integer.toString(milSec)));
-		
-		return sb.toString();
 
+		return sb.toString();
+	}
+	
+	
+	/**
+	 * Converting Calendar Objects to String Type(yyyy-mm-dd hh:mm:ss)
+	 * @param cal
+	 * @return
+	 */
+	public String formatStringTime(Calendar cal) {
+		
+		int years = cal.get(Calendar.YEAR);
+		int months = cal.get(Calendar.MONTH) + 1;
+		int date = cal.get(Calendar.DATE);
+
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int min = cal.get(Calendar.MINUTE);
+		int sec = cal.get(Calendar.SECOND);
+		
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(years);
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(months)));
+		sb.append("-");
+		sb.append(dateTypeConvert(Integer.toString(date)));
+		
+		sb.append(dateTypeConvert(Integer.toString(hour)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(min)));
+		sb.append(":");
+		sb.append(dateTypeConvert(Integer.toString(sec)));
+
+		return sb.toString();
+	}
+	
+	
+	
+	/**
+	 * Save Current Time Information - String Format (KOR)
+	 * @return
+	 */
+	public String getPresentTime() {
+		
+		Calendar cal = getPresentTimeKORCal();
+		
+		return formatStringTime(cal);
 	}
 	
 	/**
-	 * 현재시간 특정시간 전,후 시간 가져오기
+	 * Save Current Time Information - String Format (KOR millisecond)
+	 * @return
+	 */
+	public String getPresentTimeMille() {
+
+		Calendar cal = getPresentTimeKORCal();
+		
+		return formatStringTimeMs(cal);
+	}
+	
+	/**
+	 * Save Current Time Information - String Format (UTC millisecond)
+	 * @return
+	 */
+	public String getPresentTimeMilleUTC() {
+		
+		Calendar cal = getPresentTimeUTCCal();
+		
+		return formatStringTimeMs(cal);
+		
+	}
+	
+	/**
+	 * Save Current Time Information - String Format (UTC millisecond)
+	 * @return
+	 */
+	public String getPresentTimeMilleUTCElastic() {
+		
+		Calendar cal = getPresentTimeUTCCal();
+		
+		return formatStringTimeElastic(cal);
+		
+	}
+	
+	
+	/**
+	 * Save Current Time Information - Korean Time
+	 * @return
+	 */
+	public Calendar getPresentTimeKORCal() {
+
+		Calendar c1 = Calendar.getInstance();
+		
+		return c1;
+	}
+	
+	
+	/**
+	 * Save Current Time Information - UTC Time
+	 * @return
+	 */
+	public Calendar getPresentTimeUTCCal() {
+
+		Calendar cal = Calendar.getInstance();
+		
+		cal.add(Calendar.HOUR_OF_DAY, -9);
+	
+		return cal;
+	}
+	
+	/**
+	 * UTC -> KOR
+	 * @return
+	 */
+	public Calendar getTimeUtcToKor(Calendar cal) {
+		
+		Calendar newC = cal.getInstance();
+		
+		newC.add(Calendar.HOUR_OF_DAY, 9);
+	
+		return newC;
+	}
+	
+	
+	/**
+	 * KOR -> UTC
+	 * @return
+	 */
+	public Calendar getTimeKorToUtc(Calendar c) {
+		
+		c.add(Calendar.HOUR_OF_DAY, -9);
+	
+		return c;
+	}
+	
+	
+	/**
+	 * Get a specific time before and after this time
 	 * @param inSec
 	 * @param cal
 	 * @return
@@ -271,14 +291,19 @@ public class CommonDate {
 	}
 	
 	/**
-	 * elasticsearch index 형태로 현재 시간 데이터 뽑기
+	 * Extract current time data in the form of - Elastic Search index type
 	 * @param cal
 	 * @return
 	 */
 	public String getCurrentDateIndex(String prefix, Calendar cal) {
+		
 		int years = cal.get(Calendar.YEAR);
 		String months = dateTypeConvert(Integer.toString(cal.get(Calendar.MONTH) + 1));
 		String date = dateTypeConvert(Integer.toString(cal.get(Calendar.DATE)));
+		
+		System.out.println(years);
+		System.out.println(months);
+		System.out.println(date);
 		
 		StringBuffer sb = new StringBuffer();
 		
@@ -296,7 +321,7 @@ public class CommonDate {
 	
 	
 	/**
-	 * Extracting current time data in the form of elasticsearch index (based on utc)
+	 * Extracting current time data in the form of elasticsearch index (based on utc) - deprecate
 	 * @param cal
 	 * @return
 	 */
