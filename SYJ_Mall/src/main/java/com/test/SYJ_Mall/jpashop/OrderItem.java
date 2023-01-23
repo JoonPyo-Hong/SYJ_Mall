@@ -11,10 +11,10 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
-@Table(name = "ORDERITEM")
+//@Entity
+//@Table(name = "ORDERITEM")
 @Data
-public class OrderItem {
+public class OrderItem extends ShopBaseEntity {
 	
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

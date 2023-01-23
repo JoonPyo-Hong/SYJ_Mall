@@ -19,10 +19,10 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
-@Table(name = "ORDERS")
-public class Order {
+//@Table(name = "ORDERS")
+public class Order extends ShopBaseEntity {
 	
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

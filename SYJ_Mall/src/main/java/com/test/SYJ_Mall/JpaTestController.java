@@ -7,17 +7,22 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.SYJ_Mall.jpashop.Order;
 import com.test.SYJ_Mall.jpashop.OrderItem;
+import com.test.SYJ_Mall.jpatest.IJpaService;
 
 
 @Controller
 public class JpaTestController {
 	
+	
+	@Autowired
+	private IJpaService service;
 	
 	@RequestMapping(value = "/jpaTestExample.action", method = { RequestMethod.GET })
 	public String jpaTest(HttpServletRequest request, HttpServletResponse response) {
@@ -52,6 +57,5 @@ public class JpaTestController {
 		
 		return "";
 	}
-		
 	
 }

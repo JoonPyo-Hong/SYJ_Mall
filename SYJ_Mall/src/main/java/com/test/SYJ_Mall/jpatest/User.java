@@ -24,7 +24,7 @@ import lombok.Data;
 //		name = "USER_SEQ_GENERATOR",
 //		table = "MY_SEQ",
 //		pkColumnName = "USER_SEQ", allocationSize = 1)
-public class User {
+public class User extends BaseEntity {
 	
 	
 	/*
@@ -76,13 +76,14 @@ public class User {
 	private Team team;
 	
 	
-	@OneToOne
-	@JoinColumn(name="locker_id")
-	private Locker locker;
+//	@OneToOne
+//	@JoinColumn(name="locker_id")
+//	private Locker locker;
 	
 	
-	@OneToMany(mappedBy = "user")
-	private List<MemberProduct> memberProduct = new ArrayList<>();
+//	@OneToMany(mappedBy = "user")
+//	private List<MemberProduct> memberProduct = new ArrayList<>();
+	
 	
 	
 	// 이런식으로 만들어두면 직접 양방향 셋팅을 안해도 자동으로 지정이 되서 좋다.

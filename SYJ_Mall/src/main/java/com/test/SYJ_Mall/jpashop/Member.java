@@ -13,10 +13,10 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
-@Table(name = "MEMBER")
-public class Member {
+//@Table(name = "MEMBER")
+public class Member extends ShopBaseEntity {
 		
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")

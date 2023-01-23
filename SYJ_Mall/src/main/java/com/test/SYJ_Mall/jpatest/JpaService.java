@@ -9,10 +9,10 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.StatelessSession;
+
+import com.test.SYJ_Mall.jpashop.Book;
 
 
 @Service
@@ -900,6 +900,304 @@ public class JpaService implements IJpaService {
 		tx.begin();
 
 		try {
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void inheritanceTypeJoin(HttpServletRequest request, HttpServletResponse response) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			Movie movie = new Movie();
+			movie.setDirector("a2");
+			movie.setActor("b2");
+			movie.setName("harry potter2");
+			movie.setPrice(10000);
+			
+			em.persist(movie);
+			em.flush();
+			em.clear();
+			
+			Movie findMove = em.find(Movie.class, movie.getId());
+			System.out.println("movie : " + findMove.getName());
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void inheritanceTypeSingle(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+//			Movie movie = new Movie();
+//			movie.setDirector("a2");
+//			movie.setActor("b2");
+//			movie.setName("harry potter2");
+//			movie.setPrice(10000);
+//			
+//			em.persist(movie);
+//			em.flush();
+//			em.clear();
+//			
+//			Movie findMove = em.find(Movie.class, movie.getId());
+//			System.out.println("movie : " + findMove.getName());
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void mappedSuperClass(HttpServletRequest request, HttpServletResponse response) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	
+	
+	@Override
+	public void addTesting(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			Book book = new Book();
+			
+			//Book book = new Book();
+			book.setName("JPA");
+			book.setAuthor("test");
+			
+			em.persist(book);
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+	}
+
+	@Override
+	public void proxyTesting(HttpServletRequest request, HttpServletResponse response) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			//Members members = new Members(1,"test1");
+			
+//			Team team = new Team();
+//			team.setName("TEAM-C");
+//			
+//			em.persist(team);
+//			
+//			
+//			User user = new User();
+//			user.setUserName("test11");
+//			user.setTeam(team);
+//			
+//			em.persist(user);
+//			team.getUsers().add(user);
+//			
+//		
+//			User userFind = em.find(User.class, user.getId());
+//			Team teamFind = userFind.getTeam();
+//		
+//			System.out.println(userFind.getUserName());
+//			System.out.println(teamFind.getName());
+			
+			
+			//User userFind = em.find(User.class, 8L);
+			
+			// User 정보만 가져오고 싶은데 Team 까지 조인해주고 있다.
+			//System.out.println(userFind.getUserName());
+			
+			
+//			User user = new User();
+//			user.setUserName("testName");
+//			
+//			em.persist(user);
+//			
+//			em.flush();
+//			em.clear();
+			
+			
+			// em.find 로 찾은 경우
+			//User findUser = em.find(User.class, user.getId());
+			//System.out.println(findUser.getId());
+			//System.out.println(findUser.getUserName());
+			
+			
+			// em.getReference() 로 찾는 경우
+			//User findUser = em.getReference(User.class, user.getId()); // getReference 호출하는 시점에는 데이터베이스에 쿼리를 하지는 않는다.
+			//System.out.println(findUser.getClass()); // proxy class -> 가짜 클래스
+			//System.out.println(findUser.getId());// 애까지는 디비에 쿼리를 날리지 않아도 된다.
+			
+			//System.out.println(findUser.getUserName());// jpa가 애는 없는것을 인지하고 디비에 쿼리를 날려서 가져오게 된다.
+			//System.out.println(findUser.getUserName());// 두번째는 이미 값이 지정되어 있으므로 디비에 쿼리를 날려서 정보를 가져올 필요가 없다.
+			
+			
+			// 프록시가 교체된다는 의미가 아니고 프록시를 통해서 엔티티에 접근해준다는 뜻이다.
+//			System.out.println("before : " + findUser.getClass());
+//			System.out.println(findUser.getUserName());
+//			System.out.println("after : " + findUser.getClass()); 
+			
+			
+			
+			
+			
+			
+//			User user1 = new User();
+//			user1.setUserName("testName1");
+//			
+//			em.persist(user1);
+//			
+//			User user2 = new User();
+//			user2.setUserName("testName2");
+//			
+//			em.persist(user2);
+//			
+//			em.flush();
+//			em.clear();
+//			
+//			
+//			User u1 = em.find(User.class, user1.getId());
+//			//User u2 = em.find(User.class, user2.getId());
+//			User u2 = em.getReference(User.class, user2.getId());
+//			
+//			
+//			System.out.println("m1, m2" + (u1.getClass() == u2.getClass()));
+//			System.out.println("m1, m2" + (u1 instanceof User));
+			
+			
+			
+			
+			
+			User user1 = new User();
+			user1.setUserName("testName31");
+			em.persist(user1);
+			
+//			User user2 = new User();
+//			user2.setUserName("testName111");
+			
+			
+			
+//			System.out.println("=======");
+//			System.out.println(user1.getClass() == user2.getClass());
+//			
+//			
+			// 먼저 프록시를 호출하면 뒤에서 find 로 써도 프록시가 호출되긴 한다.
+//			User refUser = em.getReference(User.class, user1.getId());
+//			System.out.println(refUser.getClass());
+//
+//			User findUser = em.find(User.class, user1.getId());
+//			System.out.println(findUser.getClass());
+//			
+//			
+//			System.out.println(refUser == findUser);
+			
+			
+			em.flush();
+			em.clear();
+			
+			
+			// 프록시 강제초기화 방법
+			User refUser = em.getReference(User.class, user1.getId());
+			//System.out.println(refUser.getClass());
+			//System.out.println(refUser.getClass());
+			//refUser.getUserName();//이렇게 쓰면 강제로 초기화 되긴하지만 매우 무식해보이는 방법이다.
+			
+			//초기화 하는 정석적인 방법
+			Hibernate.initialize(refUser);
+			//System.out.println("isLoaded= " + emf.getPersistenceUnitUtil().isLoaded(refUser));
+			
+			
 			
 			
 			

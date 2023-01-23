@@ -46,5 +46,15 @@ public interface IJpaService {
 	public void infinityLoop(HttpServletRequest request, HttpServletResponse response);
 
 	public void oneToOne(HttpServletRequest request, HttpServletResponse response);
+
+	public void inheritanceTypeJoin(HttpServletRequest request, HttpServletResponse response);
+
+	public void inheritanceTypeSingle(HttpServletRequest request, HttpServletResponse response);
+
+	public void mappedSuperClass(HttpServletRequest request, HttpServletResponse response);
+
+	public void addTesting(HttpServletRequest request, HttpServletResponse response);
+
+	public void proxyTesting(HttpServletRequest request, HttpServletResponse response);
 	
 }	

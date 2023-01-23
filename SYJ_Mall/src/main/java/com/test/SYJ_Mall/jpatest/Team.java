@@ -15,8 +15,8 @@ import lombok.Data;
 
 //@Entity
 @Data
-//@Table(name="TEAM")
-public class Team {
+//@Table(name="TEAMS")
+public class Team extends BaseEntity {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "team_id")

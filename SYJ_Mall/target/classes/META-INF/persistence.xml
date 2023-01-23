@@ -42,7 +42,7 @@
             <!--배치 사이즈 지정  -->
             <property name="hibernate.jdbc.batch_size" value="10"/>
             <!-- DDL 을 사용할 수 있게 해준다. -->
-           <property name="hibernate.hbm2ddl.auto" value="create" />
+           <property name="hibernate.hbm2ddl.auto" value="none" />
         </properties>
     </persistence-unit>
     

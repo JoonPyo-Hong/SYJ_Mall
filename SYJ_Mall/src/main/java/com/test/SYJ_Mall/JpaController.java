@@ -342,12 +342,127 @@ public class JpaController {
 	}
 	
 	
+	// 상속관계 매핑
+	@RequestMapping(value = "inheritanceMapping.action", method = { RequestMethod.GET })
+	public String inheritanceMapping(HttpServletRequest request, HttpServletResponse response) {
+	
+		
+		
+		/*
+		
+		조인전략
+		- 테이블이 정규화가 되어있음
+		- 저장공간의 효율화를 가짐
+		- 조회할때 쿼리가 복잡해질 수 있다
+		- 데이터 저장시 insert 쿼리 2번 호출된다.
+		
+		
+		단일테이블 전략
+		- 조인이 필요없으므로 일반적으로 조회 성능이 좋다.
+		- 조회 쿼리가 엄청 단순하다.
+		- 자식 엔티티가 매핑한 컬럼은 모두 null 허용되어야 한다. 예를들어 item 객체에 movie, album 이 상속되어 있는데 한 테이블에 정보가 있으므로 각 테이블의 유일한 정보는 null 값을 가질수밖에 없다.
+		- 단일 테이블에 저장하므로 데이터가 엄청 많아지는 경우에는 오히려 성능이 안나올 수 있다.
+		
+		
+		구현 클래스마다 테이블 전략
+		- 쓰면 안되는 전략임
+		- 각각 테이블을 묶지 않기때문에 서비스할때 문제가 생길 수 있다.
+		- 여러 자식 테이블 함께 조회할때 성능이 아주 나쁨 => union 으로 가져옴
+		
+		
+		
+		*/
+		
+
+		
+		//service.inheritanceTypeJoin(request,response);
+		//service.inheritanceTypeSingle(request,response);
+		
+		
+		
+		/*
+		 
+		  @MappedSuperclass
+		  - 공통 매핑 정보가 필요할 때 사용한다.
+		  - 속성을 같이 쓰고 싶을때 각 테이블에 컬럼을 하나하나 추가해주는건 시간낭비이므로 MappedSuperclass 를 사용하여 컬럼을 공유한다.
+		  - 상속관계 매핑이 아님
+		  - 또한해당 객체는 엔티티가 아님!
+		  - MappedSuperclass 에 대응되는 객체자체로 조회가 불가능하게 된다.(****)
+		  - 추상클래스로 사용하는것을 권장한다 -> 직접 사용하는 경우가 없으므로
+		  
+		 */
+		
+		//service.mappedSuperClass(request,response);
+		
+		
+		
+		
+		
+		return "";
+	}
 	
 	
 	
 	
+	// 요구사항 추가
+	@RequestMapping(value = "jpatest2.action", method = { RequestMethod.GET })
+	public String jpatest2(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		// 요구사항 추가
+		
+		/*
+		 
+		 요구사항 추가
+		 - 상품의 종류는 음반, 도서, 영화가 있고 이후 더 확장될 수 있다.
+		 - 모든 데이터는 등록일과 수정일이 필수이다.
+		  
+		  
+		 */
+		
+		
+		
+		service.addTesting(request,response);
+		
+		return "";
+		
+	}
 	
 	
+	
+	// 프록시
+	@RequestMapping(value = "proxyTest.action", method = { RequestMethod.GET })
+	public String proxyTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		/*
+		 
+		프록시와 연관관계 정리
+		
+		
+		프록시
+		- em.find() vs em.getReference()
+		
+		- em.find() : 데이터베이스를 통해서 실제 엔티티 객체 조회
+		- em.getReference() : 데이터베이스 조회를 미루는 가짜(프록) 엔티티 객체 조회 / 하이버네이트가 내부의 라이브러를 써서 가짜 엔티티 객체를 만든다.
+		 
+		  
+		프록시의 특징(***)
+		- 프록시 객체는 처음 살용할 때 한번만 초기화 된다.
+		- 프록시 객체를 초기화 할때, 프록시 객체가 실제 엔티티로 바뀌는 것은 아님, 초기화 되면 프록시 객체를 통해서 실제 엔티티에 접근이 가능하다.
+		- 프록시 객체는 원본 엔티티를 상속받음, 따라서 타입 체크시 주의해야한다. (== 비교 실패, 대신 instance of 사용해야 한다.)
+		- 영속성 컨텍스트에 찾는 엔티티가 이미 있으면 em.getReference() 를 호출해도 실제 엔티티를 반환한다.
+		- 영속성 컨텍스트에 도움을 받을 수 없는
+		  
+		*/
+		
+		
+		
+		service.proxyTesting(request,response);
+		
+		return "";
+		
+	}
 	
 	
 	
