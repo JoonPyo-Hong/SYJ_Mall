@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -74,9 +79,13 @@ public class LoginDAO implements ILoginDAO {
 	
 	//회원이 기입한 정보를 토대로 insert 작업 진행
 	@Override
-	public int signUp(SignUpDTO dto) {
+	public void signUp(SignUpDTO dto, EntityManager em,EntityTransaction tx) throws Exception {
 		
-		return template.selectOne("SYJDB.qooSignUpsp", dto);		
+		tx.begin();
+		em.persist(dto);
+		tx.commit();
+		
+		//return template.selectOne("SYJDB.qooSignUpsp", dto);		
 		
 	}
 

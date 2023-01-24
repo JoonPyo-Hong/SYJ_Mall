@@ -4,6 +4,9 @@ import java.security.PrivateKey;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import com.common.utill.AdverDTO;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
 
@@ -47,11 +50,14 @@ public interface ILoginDAO {
 
 	
 	/**
-	 * 회원이 기입한 정보를 회원테이블로 옮겨줄 메서드
-	 * @param dto	회원가입 데이터 객체
-	 * @return		실패 성공 여부 체크
+	 * A method that synchronizes the information entered by a member with the member table.
+	 * @param dto
+	 * @param em
+	 * @param tx
+	 * @return
+	 * @throws Exception
 	 */
-	int signUp(SignUpDTO dto);
+	void signUp(SignUpDTO dto,EntityManager em,EntityTransaction tx) throws Exception;
 
 	
 	/**

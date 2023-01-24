@@ -15,6 +15,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -460,18 +464,27 @@ public class LoginService implements ILoginService {
 
 	}
 	
-	// 회원가입 로직
+	// Logic of membership registration
 	@Override
 	public int userSignUp(HttpServletRequest request, SignUpDTO dto, CommonDate comDate, StringBuffer sb, ErrorAlarm ea) {
 		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("sqlserver");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+		
 		try {
+			
+			CommonDateFormat cfm = new CommonDateFormat();
+			
 			Map<String, String> map = getRSAkey(request);
 
-			String qoouser_id = map.get("id");// 회원가입 아이디
-			String qoouser_pw = pwEnc(map.get("pw"));// 암호화 해줘야한다. -> 회원가입 비밀번호
-			String qoouser_name = request.getParameter("name_input");// 회원가입 이름
-			String qoouser_gender = request.getParameter("sex_input");// 회원가입 성별
-			String qoouser_nation = request.getParameter("nation_input");// 회원가입 국가
+			String qoouser_id = map.get("id");								// ID to register as a member
+			String qoouser_pw = pwEnc(map.get("pw"));						// Password encryption for membership
+			String qoouser_name = request.getParameter("name_input");		// Name to register as a member
+			String qoouser_gender = request.getParameter("sex_input");		// Gender to register as a member
+			String qoouser_nation = request.getParameter("nation_input");	// Nation to register as a member
 			
 			sb = new StringBuffer();
 			sb.append(request.getParameter("yy_input"));
@@ -480,15 +493,17 @@ public class LoginService implements ILoginService {
 			sb.append("-");
 			sb.append(comDate.dateTypeConvert(request.getParameter("dd_input")));
 
-			String qoouser_birthday = sb.toString();// 회원가입 생년월일
-			String qoouser_phone_num = request.getParameter("phone_input");// 회원가입 전화번호
-
-			sb.setLength(0);// StringBuffer 객체 초기화
+			String qoouser_birthday = sb.toString();						// Birth date
+			String qoouser_phone_num = request.getParameter("phone_input");	// Phone number
+			
+			// Initializing StringBuffer Objects
+			sb.setLength(0);
+			
 			sb.append(request.getParameter("email_input_address"));
 			sb.append("@");
 			sb.append(request.getParameter("email_input_site"));
 
-			String qoouser_email = sb.toString();// 회원가입 이메일주소
+			String qoouser_email = sb.toString(); // E-mail address
 			String qoouser_receive_email = request.getParameter("email_agree_input");
 			String qoouser_receive_sms = request.getParameter("sms_agree_input");
 			
@@ -496,18 +511,22 @@ public class LoginService implements ILoginService {
 			String qoouser_addr_info_detail = request.getParameter("addr_input_second");
 			String qoouser_ipaddress = ipCheck(request);
 			
-			dto = new SignUpDTO(qoouser_id, qoouser_pw, qoouser_name, qoouser_gender, qoouser_nation, qoouser_birthday,
-					qoouser_phone_num, qoouser_email, qoouser_receive_email, qoouser_receive_sms, qoouser_ipaddress, qoouser_addr_info,
-					qoouser_addr_info_detail);
-
-			return dao.signUp(dto);
+			dto = new SignUpDTO(qoouser_id,qoouser_pw,qoouser_birthday,qoouser_email,qoouser_gender,qoouser_nation,
+					qoouser_ipaddress,0,qoouser_phone_num,1,qoouser_receive_email,qoouser_receive_sms,"N",cfm.formatStringTime(cfm.getPresentTime()),
+					qoouser_name,qoouser_addr_info,qoouser_addr_info_detail);
+			
+			
+			dao.signUp(dto,em,tx);
+			
+			return 1;
 		} catch(Exception e) {
 			ea.basicErrorException(request,e);
+			tx.rollback();
 			return -1;
+		} finally {
+			em.close();
+			emf.close();
 		}
-		
-		
-
 	}
 
 	// 유저 아이디 확인
@@ -892,15 +911,11 @@ public class LoginService implements ILoginService {
 			SearchResponse srep = ec.getClient().search(searchRequest, RequestOptions.DEFAULT);
 			long loginTyrCnt = srep.getHits().getTotalHits().value;
 			
-			System.out.println("loginTyrCnt : " + loginTyrCnt);
 			
 			// If access attempts are made more than four times within 15 seconds with a specific IP, access is prohibited with that IP. 
 			if (loginTyrCnt >= 2) {
 				// SP
 				return dao.setIpBanned(ip,cmd.formatStringTime(curTimeKOR));
-				
-				//Account Temporarily Locked
-				//return 0;
 			} 
 			
 			// Other situations are considered abnormal.
@@ -911,7 +926,7 @@ public class LoginService implements ILoginService {
 		}
 	}
 
-	// 임시쿠키객체 발급
+	// Issuing temporary cookie objects
 	@Override
 	public Object instanceCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
 
