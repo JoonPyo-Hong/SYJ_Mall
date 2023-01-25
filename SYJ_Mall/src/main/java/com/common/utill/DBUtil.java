@@ -13,7 +13,7 @@ public class DBUtil {
 
 	public Connection open() {
 
-		String url = "jdbc:sqlserver://byeanma.kro.kr:11289;database=ADMIN";
+		String url = "jdbc:sqlserver://byeanma.kro.kr:11289;database=MALL";
 		String id = "seunghwan";
 		String pw = "byeanma170125";
 
