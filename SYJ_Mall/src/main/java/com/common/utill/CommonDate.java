@@ -165,6 +165,7 @@ public class CommonDate {
 		sb.append("-");
 		sb.append(dateTypeConvert(Integer.toString(date)));
 		
+		sb.append(" ");
 		sb.append(dateTypeConvert(Integer.toString(hour)));
 		sb.append(":");
 		sb.append(dateTypeConvert(Integer.toString(min)));

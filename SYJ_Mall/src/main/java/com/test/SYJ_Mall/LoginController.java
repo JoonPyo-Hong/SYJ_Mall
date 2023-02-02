@@ -548,11 +548,23 @@ public class LoginController {
 	
 	//에러 컨트롤러
 	@RequestMapping(value = "/totalError.action", method = { RequestMethod.GET })
-	public String totalError(HttpServletRequest request, HttpServletResponse response) {
+	public String totalError(HttpServletRequest request, HttpServletResponse response, ErrorAlarm ea) {
 		
-		return "/testwaiting/kakaoerror";
-
+		try {
+			
+			int[] numbers = {1, 2, 3};
+		    System.out.println(numbers[3]);
+			
+			
+		    return "/testwaiting/kakaoerror";
+		} catch(Exception e) {
+			ea.basicErrorException(request, e);
+			return "/testwaiting/kakaoerror";
+		}
 	}
+	
+	
+	
 	
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/

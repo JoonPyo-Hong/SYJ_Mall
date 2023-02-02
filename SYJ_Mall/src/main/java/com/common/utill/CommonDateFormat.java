@@ -65,6 +65,17 @@ public class CommonDateFormat {
 	}
 	
 	
+	
+	/**
+	 * Converting LocalDateTime(KOR) Objects to String Type(yyyy-mm-dd hh:mm:ss.SSS)
+	 * @return
+	 */
+	public String formatStringTimeKOR() {
+		return formatStringTime(getPresentTime());
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @param prefix

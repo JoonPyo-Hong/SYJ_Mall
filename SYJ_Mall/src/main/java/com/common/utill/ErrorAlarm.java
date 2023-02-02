@@ -44,9 +44,12 @@ public class ErrorAlarm {
 	 */
 	public void sendErrorMassegeAdmin() {
 		CommonDAO dao = new CommonDAO();
-		CommonDate cd = new CommonDate();
+		CommonDateFormat cd = new CommonDateFormat();
+		//CommonDate cd = new CommonDate();
+		KafkaConn kc = new KafkaConn("byeanma.kro.kr",9092,"testtopics");
+		
 		//관리자 주소-> db에서 받아와야함.
-		List<String> userEmail = dao.getAdminEmailAddress();
+		//List<String> userEmail = dao.getAdminEmailAddress();
  		
 		StringWriter errors = new StringWriter();
 		errors.append("<table border='1' style='width:1200px;'>");
@@ -55,7 +58,7 @@ public class ErrorAlarm {
 		errors.append("<tr><td>");
 		errors.append(this.ip);
 		errors.append("</td><td>");
-		errors.append(cd.getPresentTime());
+		errors.append(cd.formatStringTimeKOR());
 		errors.append("</td></tr>");
 		errors.append("<tr><td colspan='2' style='color: red; font-size: 1.3em; font-weight: bolder; text-align: center;'>Error Log</td></tr>");
 		errors.append("<tr><td colspan='2'>");
@@ -65,11 +68,14 @@ public class ErrorAlarm {
 		String errorsMsg = errors.toString();
 		errorsMsg = errorsMsg.replaceAll("\\)", ")<br>");
 		errorsMsg = errorsMsg.replaceAll("\\###", "<br>###");
-		
-
-		MessageSender ms = new MessageSender("Error into SYJ_Mall!", errorsMsg, userEmail);
-
-		ms.sendDefaultHtmlMassages();
+			
+		try {
+			kc.kafkaSendMessage(errorsMsg);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		//MessageSender ms = new MessageSender("Error into SYJ_Mall!", errorsMsg, userEmail);
+		//ms.sendDefaultHtmlMassages();
 
 	}
 	
