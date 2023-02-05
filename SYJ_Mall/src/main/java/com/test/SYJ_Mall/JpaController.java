@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall;
 
+import javax.persistence.CascadeType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -464,6 +465,84 @@ public class JpaController {
 		
 	}
 	
+	
+	@RequestMapping(value = "lazyLoading.action", method = { RequestMethod.GET })
+	public String lazyLoading(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		/*
+		 
+		 즉시로딩과 지연로딩
+		 User 을 조회하는데 굳이 Team을 조회해야 하나?
+		 -> 지연로딩 옵션을 지원한다.
+		 
+		 실무에서는 지연 로딩만 사용하는 것을 권장한다 (***)
+		 즉시 로딩을 적용하면 예상하지 못한 SQL 이 발생할 수 있다.
+		 
+		 조인이 한두개면 상관없는데 실무에서는 조인이 막 몇십개 걸려있을 수도 있는데 그럴때마다 즉시로딩을 해준다면 성능이 너무 안좋아 질것이다.
+		 
+		 ManyToOne, OneToOne 은 기본이 즉시 로딩 이다 -> LAZY 로 바꿔줘야 한다.
+		 하지만 OneToMany ManyToMany 는 기본이 지연로딩이다.
+		*/
+		
+		
+		
+		service.lazyTesting(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	// 영속성 전이
+	@RequestMapping(value = "cascade.action", method = { RequestMethod.GET })
+	public String cascade(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		/*
+		 
+		  특정 엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속 상태로 만들고 싶을 때 사용해준다.
+		  ex) 부모 엔티티를 저장할 때 자식 엔티티도 함께 저장함.
+		 
+		 
+		*/
+		
+		
+		
+		service.cascadeTesting(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	// 고아객체
+	@RequestMapping(value = "orphan.action", method = { RequestMethod.GET })
+	public String orphanTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		/*
+		 
+		 고아 객체 제거 : 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제한다.
+		 
+		 orphanRemoval = true
+		 
+		 CascadeType.ALL + orphanRemoval = true 
+		 => 스스로 생명주기를 관리하는 엔티티는 em.persist() 로 영속화, em.remove() 로 제거
+		 => 두 옵션을 모두 활성화 하면 부모 엔티티를 통해서 자식의 생명 주기를 관리할 수 있다.
+		 
+		
+		 
+		 
+		*/
+		
+		
+		
+		service.orphanTest(request,response);
+		
+		return "";
+		
+	}
 	
 	
 	

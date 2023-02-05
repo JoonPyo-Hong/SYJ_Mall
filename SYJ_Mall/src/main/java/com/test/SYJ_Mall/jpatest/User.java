@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,8 +18,8 @@ import javax.persistence.Table;
 import lombok.Data;
 
 
-//@Entity
-//@Table(name = "USER")
+@Entity
+@Table(name = "USER")
 @Data
 //@TableGenerator(
 //		name = "USER_SEQ_GENERATOR",
@@ -71,7 +72,8 @@ public class User extends BaseEntity {
 	//private Long teamId;
 	
 	//객체 참조를 사용하여 연관관계를 만들어보자. -> 연관관계의 주인
-	@ManyToOne
+	//@ManyToOne(fetch = FetchType.LAZY) // 이렇게 하면 Team 은 프록시로 조회한다는 뜻이된다. => 직접 값을 할당할때만 디비에서 가져온다는 의미가 된다. => 지연로딩
+	@ManyToOne(fetch = FetchType.EAGER) // 맨날 User 랑 Team 을 같이 조회해야 한다면 EAGER 옵션을 주면 된다. -> 조인을 통해 값을 가져오게 된다. => 즉시로딩
 	@JoinColumn(name="team_id")
 	private Team team;
 	

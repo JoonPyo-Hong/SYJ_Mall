@@ -56,5 +56,11 @@ public interface IJpaService {
 	public void addTesting(HttpServletRequest request, HttpServletResponse response);
 
 	public void proxyTesting(HttpServletRequest request, HttpServletResponse response);
+
+	public void lazyTesting(HttpServletRequest request, HttpServletResponse response);
+
+	public void cascadeTesting(HttpServletRequest request, HttpServletResponse response);
+
+	public void orphanTest(HttpServletRequest request, HttpServletResponse response);
 	
 }	

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1059,6 +1061,7 @@ public class JpaService implements IJpaService {
 
 	@Override
 	public void proxyTesting(HttpServletRequest request, HttpServletResponse response) {
+		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
 
 		EntityManager em = emf.createEntityManager();
@@ -1068,16 +1071,7 @@ public class JpaService implements IJpaService {
 		tx.begin();
 
 		try {
-			
-			
-			//Members members = new Members(1,"test1");
-			
-//			Team team = new Team();
-//			team.setName("TEAM-C");
-//			
-//			em.persist(team);
-//			
-//			
+
 //			User user = new User();
 //			user.setUserName("test11");
 //			user.setTeam(team);
@@ -1099,19 +1093,31 @@ public class JpaService implements IJpaService {
 			//System.out.println(userFind.getUserName());
 			
 			
-//			User user = new User();
-//			user.setUserName("testName");
-//			
-//			em.persist(user);
-//			
-//			em.flush();
-//			em.clear();
+			User user = new User();
+			user.setUserName("testName");
+			
+			em.persist(user);
+			
+			em.flush();
+			em.clear();
 			
 			
 			// em.find 로 찾은 경우
-			//User findUser = em.find(User.class, user.getId());
+			User findUser = em.getReference(User.class, user.getId());
+			
+			System.out.println(findUser.getClass());
+			
+			em.detach(findUser);
+			
+			System.out.println(findUser.getId());
+			
 			//System.out.println(findUser.getId());
 			//System.out.println(findUser.getUserName());
+			
+//			User findUser2 = em.find(User.class, user.getId());
+//			System.out.println(findUser2.getId());
+//			System.out.println(findUser2.getUserName());
+//			
 			
 			
 			// em.getReference() 로 찾는 경우
@@ -1159,9 +1165,9 @@ public class JpaService implements IJpaService {
 			
 			
 			
-			User user1 = new User();
-			user1.setUserName("testName31");
-			em.persist(user1);
+			//User user1 = new User();
+			//user1.setUserName("testName31");
+			//em.persist(user1);
 			
 //			User user2 = new User();
 //			user2.setUserName("testName111");
@@ -1183,21 +1189,165 @@ public class JpaService implements IJpaService {
 //			System.out.println(refUser == findUser);
 			
 			
-			em.flush();
-			em.clear();
+			//em.flush();
+			//em.clear();
 			
 			
 			// 프록시 강제초기화 방법
-			User refUser = em.getReference(User.class, user1.getId());
+			//User refUser = em.getReference(User.class, user1.getId());
 			//System.out.println(refUser.getClass());
 			//System.out.println(refUser.getClass());
 			//refUser.getUserName();//이렇게 쓰면 강제로 초기화 되긴하지만 매우 무식해보이는 방법이다.
 			
 			//초기화 하는 정석적인 방법
-			Hibernate.initialize(refUser);
+			//Hibernate.initialize(refUser);
 			//System.out.println("isLoaded= " + emf.getPersistenceUnitUtil().isLoaded(refUser));
 			
 			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void lazyTesting(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+
+			Team team = new Team();
+			team.setName("LAZY TEAM");
+			em.persist(team);
+			
+			User user = new User();
+			user.setUserName("lazyUser");
+			user.setTeam(team);
+			em.persist(user);
+			
+			
+			em.flush();
+			em.clear();
+			
+			//@ManyToOne(fetch = FetchType.LAZY) -> 옵션을 주게 되면 위에처럼 User 정보만 알고싶은데 굳이 Team을 조회해주진 않는다.
+			User m = em.find(User.class, user.getId());
+			
+			// com.test.SYJ_Mall.jpatest.Team$HibernateProxy User 를 조회할때는 Team 은 Proxy 로 가져오게 된다.
+			System.out.println("m = " + m.getTeam().getClass());
+			
+			System.out.println("=====================");
+			m.getTeam().getName();
+			//team.getName();
+			System.out.println("=====================");
+			System.out.println("m = " + m.getTeam().getClass());
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void cascadeTesting(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			Child child1 = new Child();
+			child1.setName("test1");
+			
+			Child child2 = new Child();
+			child2.setName("test2");
+			
+			Parent parent = new Parent();
+			parent.addChild(child1);
+			parent.addChild(child2);
+			
+			
+			// 원래는 아래와 같이 3개의 persist 를 넘겨줘야 정상적으로 디비에 저장이 된다.
+			//em.persist(parent);
+			//em.persist(child1);
+			//em.persist(child2);
+			
+			
+			// 근데 위와 같이 세개씩 하면 너무 귀찮다...
+			// 이럴때 써주는 옵션이 cascade 옵션이 된다. => parent 객체에 넣어주면 parent 만 persist 해도 문제없이 디비에 데이터를 밀어넣는 것을 볼 수 있다.
+			em.persist(parent);
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+	
+	
+	@Override
+	public void orphanTest(HttpServletRequest request, HttpServletResponse response) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			Child child1 = new Child();
+			child1.setName("test1");
+			
+			Child child2 = new Child();
+			child2.setName("test2");
+			
+			Parent parent = new Parent();
+			parent.addChild(child1);
+			parent.addChild(child2);
+			
+		
+			em.persist(parent);
+			em.flush();
+			em.clear();
+			
+			
+			Parent findParent = em.find(Parent.class, parent.getId());
+			findParent.getChildList().remove(0);
 			
 			
 			

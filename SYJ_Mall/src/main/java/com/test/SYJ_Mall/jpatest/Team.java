@@ -13,9 +13,9 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-//@Entity
+@Entity
 @Data
-//@Table(name="TEAMS")
+@Table(name="TEAMS")
 public class Team extends BaseEntity {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

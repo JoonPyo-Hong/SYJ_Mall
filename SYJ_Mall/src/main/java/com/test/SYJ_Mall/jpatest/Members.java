@@ -17,7 +17,7 @@ import lombok.Data;
 //@Entity
 @Data
 //@Table(name = "USER_TABLE")
-public class Members extends BaseEntity{
+public class Members extends BaseEntity {
 	
 	@Id
 	private int id;
