@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.CommonDateFormat;
 import com.test.SYJ_Mall.jpatest.IJpaService;
 
 @Controller
@@ -539,6 +540,114 @@ public class JpaController {
 		
 		
 		service.orphanTest(request,response);
+		
+		return "";
+		
+	}
+	
+	//JPA 데이터 분류
+	@RequestMapping(value = "jpaDataValue.action", method = { RequestMethod.GET })
+	public String jpaDataValue(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		/*
+		 
+		
+		JPA 에는 크게 두가지의 데이터 타입이 존재한다.
+		
+		1. 엔티티 타입
+		- @Entity 로 정의하는 객체
+		- 데이터가 변해도 식별자로 지속해서 추적 가능
+		- 예 ) 회원 엔티티의 키나 나이 값을 변경해도 식별자로 인식 가능하다.
+		
+		
+		2. 값 타입
+		- int ,Integer, String 처럼 단순히 값으로 사용하는 자바 기본 타입이나 객체
+		- 식별자가 없고 값만 있으므로 변경시 추적이 불가능
+		
+		
+		
+		 
+		 
+		*/
+		
+		
+		
+		service.jpaDataValueTest(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	//embeded type
+	@RequestMapping(value = "embededValue.action", method = { RequestMethod.GET })
+	public String embededValue(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		
+		/*
+		 
+		 
+		 - 잘 설계한 ORM 애플리케이션은 매핑한 테이블의 수보다 클래스의 수가 더 많다.
+		 - 객체와 테이블을 매우 세밀하게 매핑하는 것이 가능하다.
+		 
+		 
+		 
+	
+		 */
+		
+		service.embededValueTest(request,response,cd);
+		
+		return "";
+		
+	}
+	
+	
+	//값 타입과 불변 객체
+	@RequestMapping(value = "valueAndEmmutable.action", method = { RequestMethod.GET })
+	public String valueAndEmmutable(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		
+		/*
+		 
+		 
+		 값 타입은 무조건 불변으로 만들어주는게 사이드 이펙트를 발생시키지 않는다 !
+		 
+		 
+		 
+	
+		 */
+		
+		service.valueAndEmmutableTest(request,response,cd);
+		
+		return "";
+		
+	}
+	
+	
+	//값 타입의 비교
+	@RequestMapping(value = "valueVersus.action", method = { RequestMethod.GET })
+	public String valueVersus(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		
+		/*
+		 
+		 
+		 값 타입의 비교
+		 
+		 1. 동일성(identity) 비교 : 인스턴스의 참조 값을 비교 , == 사용
+		 2. 동등성(equivalence) 비교 : 인스턴스의 값을 비교 equals() 를 사용
+		 
+		 그러므로 값 타입은 equals 를 사용해서 비교해야 한다.
+		 
+		 
+	
+		 */
+		
+		service.valueVersusTest(request,response,cd);
 		
 		return "";
 		

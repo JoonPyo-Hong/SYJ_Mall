@@ -3,6 +3,8 @@ package com.test.SYJ_Mall.jpatest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.common.utill.CommonDateFormat;
+
 public interface IJpaService {
 
 	public void jpaTest(HttpServletRequest request, HttpServletResponse response); 
@@ -62,5 +64,13 @@ public interface IJpaService {
 	public void cascadeTesting(HttpServletRequest request, HttpServletResponse response);
 
 	public void orphanTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpaDataValueTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void embededValueTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd);
+
+	public void valueAndEmmutableTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd);
+
+	public void valueVersusTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd);
 	
 }	

@@ -5,15 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
+import com.common.utill.CommonDateFormat;
 import com.test.SYJ_Mall.jpashop.Book;
 
 
@@ -1361,6 +1359,226 @@ public class JpaService implements IJpaService {
 		
 		emf.close();
 		
+	}
+
+	@Override
+	public void jpaDataValueTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		int a = 10;
+		int b = a;
+		
+		a = 20;
+		
+		
+		System.out.println("a = " + a);
+		System.out.println("b = " + b);
+		// 위에 처럼 값이 공유가 되지 않다는걸 볼 수 있다.
+		
+		
+		// 클래스는 레퍼런스를 긁어가므로 공유가 된다.
+		Integer a1 = 10;
+		Integer b1 = a;
+		
+		a1 = 20;
+		
+		System.out.println("a1 = " + a1);
+		System.out.println("b1 = " + b1);
+		
+		
+		
+		
+		
+	}
+
+	@Override
+	public void embededValueTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			UserTest user = new UserTest();
+			
+			
+			user.setUserName("test1");
+			user.setWorkAddress(new Address("seoul","sopngpa","123-123"));
+			user.setWorkPeriod(new Period(cd.getPresentTimeUTC(),cd.getPresentTime()));
+			
+			
+			em.persist(user);
+			
+			
+			
+			
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+		
+	}
+
+	@Override
+	public void valueAndEmmutableTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+//			Address address = new Address("seoul","sopngpa","123-123");
+//			
+//			UserTest user1 = new UserTest();
+//			user1.setUserName("test1");
+//			user1.setWorkAddress(address);
+//			user1.setWorkPeriod(new Period(cd.getPresentTimeUTC(),cd.getPresentTime()));
+//			
+//			em.persist(user1);
+//			
+//			
+//			UserTest user2 = new UserTest();
+//			user2.setUserName("test1");
+//			user2.setWorkAddress(address);
+//			user2.setWorkPeriod(new Period(cd.getPresentTimeUTC(),cd.getPresentTime()));
+//			
+//
+//			em.persist(user2);
+			
+			// 나는 user1 의 데이터만 바꾸고 싶어서 아래와 같이 메서드를 작성하였다. -> 하지만 두개 다 바뀌어 버린다...
+//			user1.getWorkAddress().setCity("Busan");
+			
+			
+			// 그럼 위와 같은 문제를 어떤식으로 해결해야 할까? => 아래와 같이 해결할 수 있다.
+			
+//			Address address = new Address("seoul","sopngpa","123-123");
+//			
+//			UserTest user1 = new UserTest();
+//			user1.setUserName("test1");
+//			user1.setWorkAddress(address);
+//			user1.setWorkPeriod(new Period(cd.getPresentTimeUTC(),cd.getPresentTime()));
+//			
+//			em.persist(user1);
+//			
+//			
+//			Address address2 = new Address(address.getCity(),address.getStreet(), address.getZipCode());//이런식으로 복사를 해야한다. 공유참조의 부작용을 피할 수 는 있으나...
+//			
+//			UserTest user2 = new UserTest();
+//			user2.setUserName("test1");
+//			user2.setWorkAddress(address2);
+//			user2.setWorkPeriod(new Period(cd.getPresentTimeUTC(),cd.getPresentTime()));
+//			
+//
+//			em.persist(user2);
+//			
+//			user1.getWorkAddress().setCity("Busan");
+			
+			//즉 갹체의 공유참조는 피할 수 없다....
+			
+			/*
+			 
+			  그래서 부작용을 원천 차단하려면 
+			 
+			  값 타입은 불변 객체(immutable object)로 설계해야 한다.
+			  
+			  불변객체 : 생성 시점 이후 절대 값을 변경할 수 없는 객체
+			  
+			  즉 생성자로만 값을 설정하고 수정자를 만들지 않으면 된다.(*****) => setter 를 지워줘버린다!
+			  
+			  참고 => Integer, String 은 자바가 제공하는 대표적인 불변객체
+			  
+			  
+			  
+			 */
+			
+			
+			// 그럼 실제로 값을 바꾸고 싶을 때는 어떤식으로 할 수 있을까?
+			
+			Address address = new Address("seoul","sopngpa","123-123");
+			
+			UserTest user1 = new UserTest();
+			user1.setUserName("test1");
+			user1.setWorkAddress(address);
+			user1.setWorkPeriod(new Period(cd.getPresentTimeUTC(),cd.getPresentTime()));
+			
+			Address newAddress = new Address("Busan","sopngpa","123-123"); //아예 새로 할당해서 아래처럼 셋팅 자체를 통으로 다시 해주면 된다!
+			user1.setWorkAddress(newAddress);
+			
+			em.persist(user1);
+			
+			
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void valueVersusTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+
+		
+		int a = 10;
+		int b = 10;
+		
+		System.out.println("a == b : " + (a==b));
+		
+		Address address1 = new Address("seoul","sopngpa","123-123");
+		Address address2 = new Address("seoul","sopngpa","123-123");
+		
+		//System.out.println("address1 == address1 : " + (address1==address2));
+		
+		System.out.println("address1 == address1 : " + (address1.equals(address2)));
+		
+		System.out.println(address1.hashCode());
+		System.out.println(address2.hashCode());
+		
+		
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+//
+//		EntityManager em = emf.createEntityManager();
+//
+//		EntityTransaction tx = em.getTransaction();
+//
+//		tx.begin();
+//
+//		try {
+//			
+//			
+//
+//			tx.commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			tx.rollback();
+//		} finally {
+//			em.close();
+//		}
+//		
+//		emf.close();
 	}
 	
 	
