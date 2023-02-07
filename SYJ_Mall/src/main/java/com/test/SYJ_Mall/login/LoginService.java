@@ -474,6 +474,8 @@ public class LoginService implements ILoginService {
 
 		EntityTransaction tx = em.getTransaction();
 		
+		tx.begin();
+		
 		try {
 			
 			CommonDateFormat cfm = new CommonDateFormat();
@@ -517,6 +519,8 @@ public class LoginService implements ILoginService {
 			
 			
 			dao.signUp(dto,em,tx);
+			
+			tx.commit();
 			
 			return 1;
 		} catch(Exception e) {
@@ -1130,7 +1134,7 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//로그인 유지 판단 -> 유지 체크 이후 로그인 검증 작업 진행.
+	//Login maintenance determination -> Login verification is performed after the login maintenance check is performed
 	@Override
 	public String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa, ErrorAlarm ea) {
 		
@@ -1142,16 +1146,16 @@ public class LoginService implements ILoginService {
 			String loginSaveUserPw = (String)kc.getCookieInfo(request, "loginSaveUserPw");
 			String loginSaveUserSeq = (String)kc.getCookieInfo(request, "loginSaveUserSeq");
 			
-			//로그인 유지하는 정보가 있는 경우
+			//Login maintenance Information Exists
 			if (loginSaveUserId != null && loginSaveUserPw != null && loginSaveUserSeq != null) {
 				
-				//여기에서 이제 로그인 유지 정보를 가져와주는 역할을 수행해야한다.
-				String secureKeyEnc = dao.getUserSecureKey(Integer.parseInt(loginSaveUserSeq));
+				// Get login maintenance information
+				String secureKeyEnc = dao.getUserSecureKey(Integer.parseInt(loginSaveUserSeq)); // -> Must be designed with JPA.
 				
 				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				byte[] bytePrivateKey = Base64.getDecoder().decode(secureKeyEnc.getBytes());
 	            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(bytePrivateKey);
-	            PrivateKey secureKey = keyFactory.generatePrivate(privateKeySpec);//암호화 키
+	            PrivateKey secureKey = keyFactory.generatePrivate(privateKeySpec);
 				
 	            HashMap<String, String> map = rsa.getRSASessionMaintainChoice(secureKey,loginSaveUserId,loginSaveUserPw);
 	            

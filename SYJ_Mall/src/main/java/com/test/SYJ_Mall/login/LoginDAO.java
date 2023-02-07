@@ -81,12 +81,8 @@ public class LoginDAO implements ILoginDAO {
 	@Override
 	public void signUp(SignUpDTO dto, EntityManager em,EntityTransaction tx) throws Exception {
 		
-		tx.begin();
 		em.persist(dto);
 		tx.commit();
-		
-		//return template.selectOne("SYJDB.qooSignUpsp", dto);		
-		
 	}
 
 	
