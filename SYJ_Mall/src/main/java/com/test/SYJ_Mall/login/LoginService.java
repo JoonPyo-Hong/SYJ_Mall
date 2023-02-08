@@ -1134,9 +1134,9 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	//Login maintenance determination -> Login verification is performed after the login maintenance check is performed
+	//Login maintenance determination -> Login verification is performed after that Login maintenance check is performed
 	@Override
-	public String getLoginStayYn(HttpServletRequest request,HttpServletResponse response,KakaoCookie kc,RSAalgorithm rsa, ErrorAlarm ea) {
+	public String getLoginStayYn(HttpServletRequest request,HttpServletResponse response, KakaoCookie kc,RSAalgorithm rsa, ErrorAlarm ea) {
 		
 		try {
 			
