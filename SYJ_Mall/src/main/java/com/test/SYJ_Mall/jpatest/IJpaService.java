@@ -72,5 +72,11 @@ public interface IJpaService {
 	public void valueAndEmmutableTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd);
 
 	public void valueVersusTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd);
+
+	public void valueCollection(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd);
+
+	public void jpaQueryTesting(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpqlStartTest(HttpServletRequest request, HttpServletResponse response);
 	
 }	

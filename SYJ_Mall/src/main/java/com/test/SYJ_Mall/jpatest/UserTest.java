@@ -1,20 +1,26 @@
 package com.test.SYJ_Mall.jpatest;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
-@Table(name = "USER_TEST")
+//@Table(name = "USER_TEST")
 public class UserTest {
 	
 	
@@ -46,5 +52,18 @@ public class UserTest {
 //	private String zipCode;
 	@Embedded
 	private Address workAddress;
+	
+//	@Embedded
+//	private Address homeAddress;
+	
+	
+	@ElementCollection
+	@CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "user_id"))
+	@Column(name = "food_name")
+	private Set<String> favoriteFoods = new HashSet<>();
+	
+	@ElementCollection
+	@CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "user_id"))
+	private List<Address> addressHistory = new ArrayList<>();
 	
 }

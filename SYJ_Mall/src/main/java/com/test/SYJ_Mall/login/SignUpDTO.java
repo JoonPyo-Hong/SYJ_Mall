@@ -14,8 +14,8 @@ import lombok.Data;
  * @author shin
  *
  */
-@Entity
-@Table(name = "QOO10_USER_REAL")
+//@Entity
+//@Table(name = "QOO10_USER_REAL")
 @Data
 public class SignUpDTO {
 	

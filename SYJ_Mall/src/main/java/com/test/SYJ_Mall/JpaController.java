@@ -654,6 +654,89 @@ public class JpaController {
 	}
 	
 	
+	//값 타입의 컬렉션
+	@RequestMapping(value = "valueCollection.action", method = { RequestMethod.GET })
+	public String valueCollection(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		
+		/*
+		 
+		 
+		 값 타입 컬렉션
+		 - 값 타입을 하나 이상 저장할 때 사용
+		 - @ElementCollection, @CollectionTable 사용
+		 - 데이터베이스는 컬렉션을 같은 테이블에 저장할 수 없다.
+		 - 컬렉션을 저장하기 위한 별도의 테이블이 필요하다.
+		 
+		 
+	
+		 */
+		
+		service.valueCollection(request,response,cd);
+		
+		return "";
+		
+	}
+	
+	
+	
+	// JPA 다양한 쿼리 방법을 지원한다.
+	@RequestMapping(value = "jpaQueryTest.action", method = { RequestMethod.GET })
+	public String jpaQueryTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		
+		/*
+		 
+		 
+		 JPQL
+		 - JPA 를 사용하면 엔티티 객체를 중심으로 개발
+		 - 문제는 검색 쿼리
+		 - 검색을 할 때도 테이블이 아닌 엔티티 객체를 대상으로 검색해야한다.
+		 - 모든 디비 데이터를 객체로 변환해서 검색하는 것은 불가능하다.
+		 - 애플리케이션이 필요한 데이터만 디비에서 불러오려면 결국 검색조건이 포함된 쿼리가 필요하다.
+		 
+		 - 그래서 SQL 과 기능이 비슷한 JPQL 이라는 객체 지향 쿼리를 언어를 제공한다.
+		 
+	
+		 */
+		
+		service.jpaQueryTesting(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	// JPQL Start
+	@RequestMapping(value = "jpqlStartTest.action", method = { RequestMethod.GET })
+	public String jpqlStart(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		
+		/*
+		 
+		- JPQL은 객체지향 쿼리 언어다. 따라서 테이블을 대상으로 쿼리하는 것이 아니라 엔티티 객체를 대상으로 쿼리한다.
+		- JPQL은 SQL 을 추상화해서 특정 데이터베이스 SQL에 의존하지 않는다.
+		- JPQL은 결국 SQL로 변환된다.
+		
+		
+		- 엔티티와 속성은 대소문자 구분한다.
+		- JPQL 키워드는 대소문자 구분하지 않는다.(select from where ~)
+		- 엔티티의 이름을 사용해야지 테이블의 이름을 사용하면 사용할 수 없다.
+		- 별칭은 필수로 지정해야 한다. (as 는 생략 가능)
+		 
+	
+		 */
+		
+		service.jpqlStartTest(request,response);
+		
+		return "";
+		
+	}
+	
+	
 	
 	
 }

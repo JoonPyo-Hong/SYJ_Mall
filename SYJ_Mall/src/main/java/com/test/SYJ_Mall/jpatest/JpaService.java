@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.common.utill.CommonDateFormat;
 import com.test.SYJ_Mall.jpashop.Book;
+import com.test.SYJ_Mall.jpqltest.JpqlMember;
 
 
 @Service
@@ -1579,6 +1580,210 @@ public class JpaService implements IJpaService {
 //		}
 //		
 //		emf.close();
+	}
+	
+	
+	@Override
+	public void valueCollection(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			UserTest user = new UserTest();
+			user.setUserName("user 1");
+			user.setWorkAddress(new Address("seoul","sopngpa","123-123"));
+			
+			user.getFavoriteFoods().add("apple");
+			user.getFavoriteFoods().add("banana");
+			user.getFavoriteFoods().add("kiwi");
+			
+			user.getAddressHistory().add(new Address("seoul123","kangnam","12345-12345"));
+			user.getAddressHistory().add(new Address("seoul345","kangnam","12345-12345"));
+			
+			em.persist(user);
+			
+			
+			em.flush();
+			em.clear();
+			
+			
+			//em.find(UserTest.class, user.getId());
+			System.out.println("============ start ============");
+			UserTest findUser = em.find(UserTest.class, user.getId());
+			
+			// 멤버만 가지고 온다 즉 위에서 쓰인 컬렉션들은 모두 지연 로딩이라고 보면 된다.
+			
+			// select 
+//			List<Address> addList = findUser.getAddressHistory();
+//		
+//			for (Address add : addList) {
+//				System.out.println(add);
+//			}
+			
+			
+			
+			// update
+			// 아래와 같은 방식으로 진행하면 update 문은 나가게 되지만 -> side effect가 무조건 발생하게 된다.
+			//findUser.getWorkAddress().setCity("public");
+			
+			//아래와 같이 그냥 새로 넣어야 한다.
+			Address addr = findUser.getWorkAddress();
+			findUser.setWorkAddress(new Address("public",addr.getStreet(),addr.getZipCode()));
+			
+			
+			// 만약 위에서 food를 apple -> mango 로 바꾸고 싶다면?
+			findUser.getFavoriteFoods().remove("apple");
+			findUser.getFavoriteFoods().add("mango");
+			
+			
+			// 주소를 바꿔보고 싶다
+			// Equals 가 제대로 구현이 되어 있다면 잘 작동할 것이다.
+			findUser.getAddressHistory().remove(new Address("seoul123","kangnam","12345-12345"));
+			findUser.getAddressHistory().add(new Address("seoul123!!!","kangnam","12345-12345"));
+			
+			
+			// 그런데 위에서 리무브를 해주면 전체다 테이블을 삭제하고 다시 데이터 하나하나 넣어준다
+			/*
+			 
+			  값 타입 컬렉션의 제약사항
+			  - 값 타입은 엔티티와 다르게 식별자 개념이 없다.
+			  - 값은 변경하면 추적이 어렵다.
+			  - 값 타입 컬렉션에 변경 사항이 발생하면, 주인 엔티티와 연관된 모든 데이터를 삭제하고,
+			  값 타입 컬렉션에 있는 현재 값을 모두 다시 저장한다. -> 즉 그래서 쓰면 안된다...
+			  - 값 타입 컬렉션을 매핑하는 테이블은 모든 컬럼을 묶어서 기본키를 구성해야 한다.
+			  
+			  
+			  - 실무에서는 값타입 컬렉션을 쓰지 말고 그냥 테이블 로 사용하라 일대다 관계를 사용해서 서비스를 제공해야 한다.
+			  
+			  단순한거에만 사용해야 한다 값타입컬렉션은....
+			  
+			 */
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+	
+	
+	
+	@Override
+	public void jpaQueryTesting(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+//			List<UserTest> userList = em.createQuery("select u From UserTest u where u.userName like '%er%'",UserTest.class).getResultList();
+//			
+//			for (UserTest user : userList) {
+//				System.out.println(user.getUserName());
+//			}
+			
+			
+			// 동적 쿼리와 같이 문자열을 다뤄주는게 너무 힘들다 보니 <Criteria> 가 나오게 된다.
+			// 실무에서는 어려워서 잘 안쓰긴 한다.
+			
+//			CriteriaBuilder cb = em.getCriteriaBuilder();
+//			CriteriaQuery<UserTest> query = cb.createQuery(UserTest.class);
+//			
+//			Root<UserTest> u = query.from(UserTest.class);
+//			
+//			CriteriaQuery<UserTest> cq = query.select(u).where(cb.equal(u.get("userName"), "user 1"));
+//			
+//			List<UserTest> userList = em.createQuery(cq).getResultList();
+//			
+//			
+//			for (UserTest user : userList) {
+//				System.out.println(user.getUserName());
+//			}
+			
+			
+			
+			// 그래서 대안으로 나온건 -> ***Query DSL*** 이 나오게 된다.
+			
+			
+			// 네이티브 SQL -> 진짜 디비마다의 문법으로 적어줄 수 있다.
+			
+			List<UserTest> userList = em.createNativeQuery("select * from USER_TEST",UserTest.class).getResultList();
+		
+			for (UserTest user : userList) {
+				System.out.println(user.getUserName());
+			}
+			
+			
+			// 영속성 컨텍스트를 적절한 시점에 강제로 플러시 필요하다.
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void jpqlStartTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			/*
+			 
+			  TypeQuery: 반환 타입이 명확할 때 사용
+			  Query: 반환 타입이 명확하지 않을 때 사용
+			  
+			 */
+			
+			JpqlMember memeber = new JpqlMember();
+			
+			
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
 	}
 	
 	
