@@ -727,7 +727,9 @@ public class JpaController {
 		- 엔티티의 이름을 사용해야지 테이블의 이름을 사용하면 사용할 수 없다.
 		- 별칭은 필수로 지정해야 한다. (as 는 생략 가능)
 		 
-	
+		
+		
+		
 		 */
 		
 		service.jpqlStartTest(request,response);

@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -1770,10 +1772,54 @@ public class JpaService implements IJpaService {
 			  
 			 */
 			
-			JpqlMember memeber = new JpqlMember();
+			JpqlMember member = new JpqlMember();
+			member.setUserName("member135");
+			member.setAge(30);
+			em.persist(member);
+			
+			//반환타입이 명확한 경우
+			TypedQuery<JpqlMember> query1 = em.createQuery("select u from JpqlMember u",JpqlMember.class);
+			TypedQuery<String> query2 = em.createQuery("select u.userName from JpqlMember u",String.class);
+			
+			// 위에 두개는 타입정보가 명확하니까 TypedQuery 로 받아와주면 되고 아래와 같이 타입이 섞여있을 경우에는 TypedQuery로 받지 않는다.
+			Query query3 = em.createQuery("select u.userName, u.age from JpqlMember u");
 			
 			
-
+			//결과조회
+			
+			// 여러개의 결과가 나오는 경우
+			List<JpqlMember> memberList = query1.getResultList();
+			
+			for (JpqlMember mem : memberList) {
+				System.out.println(mem.getUserName());
+			}
+			
+			
+			// 단일의 결과가 나오는 경우
+			TypedQuery<JpqlMember> query4 = em.createQuery("select u from JpqlMember u where u.id = 1",JpqlMember.class);
+			
+			JpqlMember singleMem = query4.getSingleResult();
+			
+			System.out.println(singleMem.getUserName());
+			
+			//getSingleResult -> 결과가 정확하게 하나여야함 없거나 둘 이상이면 에러를 도출한다.
+			
+			
+			//파라미터 바인딩
+			TypedQuery<JpqlMember> query5 = em.createQuery("select u from JpqlMember u where u.userName = :username",JpqlMember.class);
+			query5.setParameter("username", "member13");
+			
+			JpqlMember singleMem2 = query5.getSingleResult();
+			
+			System.out.println(singleMem2.getUserName());
+			
+			
+			
+			// 위처럼 사용하지 않고 아래와 같이 메서드 체인을 사용한다.
+			JpqlMember singleMem3 = em.createQuery("select u from JpqlMember u where u.userName = :username",JpqlMember.class)
+			.setParameter("username", "member13")
+			.getSingleResult();
+			
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
