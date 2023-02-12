@@ -78,5 +78,19 @@ public interface IJpaService {
 	public void jpaQueryTesting(HttpServletRequest request, HttpServletResponse response);
 
 	public void jpqlStartTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void projectionTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpqlPagingTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpqlJoinTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void subQueryTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpqlTypeTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpqlCaseTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpqlFunctionTest(HttpServletRequest request, HttpServletResponse response);
 	
 }	

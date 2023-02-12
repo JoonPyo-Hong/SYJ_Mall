@@ -2,6 +2,9 @@ package com.test.SYJ_Mall.jpqltest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,9 +29,22 @@ public class JpqlMember {
 	
 	@Column(name = "member_age")
 	private int age;
+
 	
-	@ManyToOne
+//  테스트 용도	
+//	@Column(name = "team_id")
+//	private int teamId;
+	
+	@Enumerated(EnumType.STRING)
+	private JpqlMemberType type;
+	
+	@ManyToOne(fetch = FetchType.LAZY)//이걸 조심해야 한다.
 	@JoinColumn(name = "team_id")
 	private JpqlTeam team;
+	
+	public void changeTeam(JpqlTeam team) {
+		this.team = team;
+		team.getMembers().add(this);
+	}
 	
 }

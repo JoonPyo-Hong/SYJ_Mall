@@ -25,6 +25,7 @@ public class JpqlTeam {
 	@Column(name = "team_name")
 	private String name;
 	
+
 	@OneToMany(mappedBy = "team")
 	private List<JpqlMember> members = new ArrayList<>();
 	

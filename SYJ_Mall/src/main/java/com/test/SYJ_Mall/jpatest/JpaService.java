@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import com.common.utill.CommonDateFormat;
 import com.test.SYJ_Mall.jpashop.Book;
 import com.test.SYJ_Mall.jpqltest.JpqlMember;
+import com.test.SYJ_Mall.jpqltest.JpqlMemberDTO;
+import com.test.SYJ_Mall.jpqltest.JpqlMemberType;
+import com.test.SYJ_Mall.jpqltest.JpqlTeam;
 
 
 @Service
@@ -1819,6 +1822,451 @@ public class JpaService implements IJpaService {
 			JpqlMember singleMem3 = em.createQuery("select u from JpqlMember u where u.userName = :username",JpqlMember.class)
 			.setParameter("username", "member13")
 			.getSingleResult();
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void projectionTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+//			JpqlMember member = new JpqlMember();
+//			member.setUserName("member999");
+//			member.setAge(30);
+//			em.persist(member);
+//			
+//			
+//			em.flush();
+//			em.clear();
+			
+			
+			//1. 엔티티 프로젝션 -> 영속성 컨텍스트 관리가 된다.
+			//List<JpqlMember> userList = em.createQuery("select u from JpqlMember u",JpqlMember.class).getResultList();
+			
+			//JpqlMember userSelect = userList.get(0);
+			
+			//userSelect.setAge(1000); // 만약에 값이 바뀌면 영속성 컨텍스트에서 관리가 되는 것이다. -> 값이 바뀌므로 영속성 컨텍스트 관리가 된다는 의미가 된다.
+			
+			
+			//2. 엔티티 프로젝션 -> join
+			// List<JpqlTeam> teamList = em.createQuery("select u.team from JpqlMember u",JpqlTeam.class).getResultList();
+			
+			// teamList.get(0).setName("wowowowowowow");
+			
+			
+			
+			
+			
+			//만약에 특정 컬럼만 가져오고 싶다 그럼 타입을 어떤식으로 맵핑해야하지?
+			
+			//1) 첫번째 방법 -> Object 로 선언
+//			List<Object> resultList = em.createQuery("select u.userName, u.age from JpqlMember u").getResultList();
+//			
+//			Object o = resultList.get(0);
+//			Object[] result = (Object[])o;
+//			
+//			System.out.println(result[0]);
+//			System.out.println(result[1]);
+//			
+			
+			//2) generic 을 통한 방법
+//			List<Object[]> resultList = em.createQuery("select u.userName, u.age from JpqlMember u").getResultList();
+//			
+//			
+//			System.out.println(resultList.get(0)[0]);
+//			System.out.println(resultList.get(0)[1]);
+			
+			
+			//3) new 명령어로 조회 -> dto 로 조회
+			// 주의점 : 패키지 명을 포함한 전체 클래스 명을 입력해줘야한다.
+			List<JpqlMemberDTO> resultList = em.createQuery("select new com.test.SYJ_Mall.jpqltest.JpqlMemberDTO(u.userName, u.age) from JpqlMember u",JpqlMemberDTO.class).getResultList();
+			
+			System.out.println(resultList.get(0).getAge());
+			System.out.println(resultList.get(0).getUserName());
+			
+			
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+		
+	}
+
+	@Override
+	public void jpqlPagingTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+			
+			List<JpqlMember> result =  em.createQuery("select u from JpqlMember u order by u.age",JpqlMember.class)
+											.setFirstResult(2)
+											.setMaxResults(10)
+											.getResultList();
+			
+			for (JpqlMember mem : result) {
+				System.out.println(mem.getUserName() + " " + mem.getAge());
+				
+			}
+			
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+		
+	}
+
+	@Override
+	public void jpqlJoinTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			
+//			JpqlTeam team = new JpqlTeam();
+//			team.setName("prince song");
+//			em.persist(team);
+//			
+//			JpqlMember member = new JpqlMember();
+//			member.setUserName("member1999");
+//			member.setAge(30);
+//			member.setTeam(team);
+//			em.persist(member);
+//			
+//			
+//			// 1. 내부조인
+//			
+//			String query = "select jm from JpqlMember jm inner join jm.team t ";
+//			
+//			List<JpqlMember> result =  em.createQuery(query,JpqlMember.class).getResultList();
+//			
+//			for (JpqlMember mem : result) {
+//				System.out.println(mem.getUserName() + " " + mem.getAge());
+//				
+//			}
+//			
+//			
+//			
+//			// 2. 외부조인
+//			String query2 = "select jm from JpqlMember jm left outer join jm.team t ";
+//			
+//			List<JpqlMember> result2 =  em.createQuery(query2,JpqlMember.class).getResultList();
+//			
+//			for (JpqlMember mem : result2) {
+//				System.out.println(mem.getUserName() + " " + mem.getAge());
+//				
+//			}
+//			
+//			
+//			// 3. 셋타조인 -> 애는 위처럼 뭐 연관관계 맵핑을 해주지 않아도알아서 실행된다. => Cross join 이 실행된 다음에 where 절로 필터링 한다.
+//			String query3 = "select jm from JpqlMember jm, JpqlTeam jt where jm.userName = jt.name";
+//			
+//			List<JpqlMember> result3 =  em.createQuery(query3,JpqlMember.class).getResultList();
+//			
+//			for (JpqlMember mem : result3) {
+//				System.out.println(mem.getUserName() + " " + mem.getAge());
+//				
+//			}
+			
+			
+			
+			//4. JPA 2.1 부터 on을 사용해서 조인이 되게할 수 있다. && 연관관계 없는 엔티티 외부 조인이 가능해진다. => 연관관계 맵핑이 필요없이 조인이 가능
+			String anyQuery = "select jm from JpqlMember jm inner join JpqlTeam jt on jm.teamId = jt.id";
+			
+			List<JpqlMember> queryResult =  em.createQuery(anyQuery,JpqlMember.class).getResultList();
+			
+//			for (JpqlMember mem : queryResult) {
+//				System.out.println(mem.getUserName() + " " + mem.getAge() + " " + mem.getTeamId());
+//				
+//			}
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+	}
+
+	@Override
+	public void subQueryTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			String query1 = "select jm from JpqlMember jm where exists (select t from jm.team t where t.name = 'wowowowowowow')";
+			
+			List<JpqlMember> queryResult =  em.createQuery(query1,JpqlMember.class).getResultList();
+			
+			for (JpqlMember mem : queryResult) {
+				System.out.println(mem.getUserName() + " " + mem.getAge() + " " + mem.getTeam().getId());
+				
+			}
+			
+			
+//			String query2 = "select jm from JpqlMember jm where exists (select t from jm.team t where t.name = 'wowowowowowow')";
+//			
+//			List<JpqlMember> queryResult2 =  em.createQuery(query2,JpqlMember.class).getResultList();
+//			
+//			for (JpqlMember mem : queryResult2) {
+//				System.out.println(mem.getUserName() + " " + mem.getAge() + " " + mem.getTeam().getId());
+//				
+//			}
+			
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+	}
+
+	@Override
+	public void jpqlTypeTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			JpqlTeam team = new JpqlTeam();
+			team.setName("prince ali123");
+			em.persist(team);
+			
+			JpqlMember member = new JpqlMember();
+			member.setUserName("member3123999");
+			member.setAge(320);
+			member.setTeam(team);
+			member.setType(JpqlMemberType.USER);
+			em.persist(member);
+			
+			em.flush();
+			em.clear();
+			
+			
+			//String query1 = "select jm.userName, 'HELLO', true, FALSE from JpqlMember jm where jm.type = com.test.SYJ_Mall.jpqltest.JpqlMemberType.ADMIN";
+			
+			//List<Object[]> queryResult =  em.createQuery(query1).getResultList();
+			
+			//System.out.println(queryResult.get(0)[0]);
+			
+			// 근데 위처럼 쓰면 패키지 명부터 쓰고 너무 복잡해지니까 아래와 같이 사용해줄 수 있다.
+			
+			
+			String query2 = "select jm.userName, 'HELLO', true, FALSE from JpqlMember jm where jm.type = :userType";
+			
+			List<Object[]> queryResult =  em.createQuery(query2)
+					.setParameter("userType", JpqlMemberType.USER)
+					.getResultList();
+			
+			System.out.println(queryResult.get(0)[0]);
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+		
+	}
+
+	@Override
+	public void jpqlCaseTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			JpqlTeam team = new JpqlTeam();
+			team.setName("prince ali123");
+			em.persist(team);
+			
+			JpqlMember member = new JpqlMember();
+			member.setUserName("member3123999");
+			member.setAge(11);
+			member.setTeam(team);
+			member.setType(JpqlMemberType.USER);
+			em.persist(member);
+			
+			em.flush();
+			em.clear();
+			
+			
+			String selectQuery = 
+					"select " +
+							"case when jm.age <= 10 then 'student' " +
+							"	  when jm.age >= 60 then 'adult' " +
+							"	  else 'normal' " +
+							"end " +
+					"from JpqlMember jm";
+			
+			List<String> resultList = em.createQuery(selectQuery).getResultList();
+			
+			
+			for (int i = 0; i < resultList.size(); i++) {
+				System.out.println(resultList.get(i));
+			}
+			
+			
+//			for (JpqlMember mem : resultList) {
+//				System.out.println(mem.getUserName() + " " + mem.getAge() + " " + mem.getTeam().getId());
+//				
+//			}
+			
+ 			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+	}
+
+	@Override
+	public void jpqlFunctionTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+//			JpqlTeam team = new JpqlTeam();
+//			team.setName("prince ali123");
+//			em.persist(team);
+//			
+//			JpqlMember member = new JpqlMember();
+//			member.setUserName("member3123999");
+//			member.setAge(11);
+//			member.setTeam(team);
+//			member.setType(JpqlMemberType.USER);
+//			em.persist(member);
+//			
+//			em.flush();
+//			em.clear();
+			
+			
+			
+			// 1. concat
+			String query1 = "select concat('a','b') from JpqlMember jm";
+			
+			List<String> resultList1 = em.createQuery(query1).getResultList();
+			
+			for (int i = 0; i < resultList1.size(); i++) {
+				System.out.println(resultList1.get(i));
+			}
+ 			
+			
+			// 2. locate
+			String query2 = "select locate('de','abcde') from JpqlMember jm";
+			
+			List<Integer> resultList2 = em.createQuery(query2,Integer.class).getResultList();
+			
+			for (int i = 0; i < resultList2.size(); i++) {
+				System.out.println(resultList2.get(i));
+			}
+			
+			
+			// 3. size(??)
+			String query3 = "select size(jt.members) from JpqlTeam jt";
+			
+			List<Integer> resultList3 = em.createQuery(query3,Integer.class).getResultList();
+			
+			
+			for (int i = 0; i < resultList3.size(); i++) {
+				System.out.println(resultList3.get(i));
+			}
 			
 			tx.commit();
 		} catch (Exception e) {

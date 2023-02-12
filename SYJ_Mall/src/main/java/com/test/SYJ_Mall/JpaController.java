@@ -739,6 +739,166 @@ public class JpaController {
 	}
 	
 	
+	// Projection
+	@RequestMapping(value = "jpqlProjectionTest.action", method = { RequestMethod.GET })
+	public String projectionTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
 	
+		
+		service.projectionTest(request,response);
+		
+		return "";
+		
+	}
+	
+
+	
+	// Paging
+	@RequestMapping(value = "jpqlPagingTest.action", method = { RequestMethod.GET })
+	public String jpqlPagingTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		 JPA 는 페이징을 다음 두 API로 추상화 한다.
+		 
+		 - setFirstResult(int startPosition) : 조회 시작 위치(0 부터 시작)
+		 
+		 - setMaxResults(int maxResult) : 조회할 데이터 수
+		  
+		  
+		  
+		 */
+		
+		
+		service.jpqlPagingTest(request,response);
+		
+		return "";
+		
+	}	
+
+	
+	// JPQL join
+	@RequestMapping(value = "jpqlJoinTest.action", method = { RequestMethod.GET })
+	public String jpqlJoinTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		 JPA 는 페이징을 다음 두 API로 추상화 한다.
+		 
+		  - 내부 조인 
+		  
+		  - 외부 조인
+		  
+		  - 세타 조인 : 연관관계가 없는걸 그냥 강제로 조인을 해준다.
+		  
+		  
+		 */
+		
+		
+		service.jpqlJoinTest(request,response);
+		
+		return "";
+		
+	}		
+	
+	// subquery
+	@RequestMapping(value = "subQueryTest.action", method = { RequestMethod.GET })
+	public String subQueryTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		 JPA 서브쿼리의 한계
+		 - JPA 는 where , having 절에서만 서브 쿼리 사용할 수 있다.
+		 - SELECT 절도 가능
+		 - FROM 절의 서브쿼리는 현재 JPQL 에서 불가능하다. : 조인으로 풀 수 있을면 풀어서 해결할 것.
+		  
+		  
+		 */
+		
+		
+		service.subQueryTest(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	// JPQL Type
+	@RequestMapping(value = "jpqlTypeTest.action", method = { RequestMethod.GET })
+	public String jpqlTypeTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		 JPA TYPE
+		  
+		  
+		 */
+		
+		
+		service.jpqlTypeTest(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	// JPQL CASE
+	@RequestMapping(value = "jpqlCaseTest.action", method = { RequestMethod.GET })
+	public String jpqlCaseTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		 JPA CASE
+		  
+		  
+		 */
+		
+		
+		service.jpqlCaseTest(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	// JPQL FUCTION
+	@RequestMapping(value = "jpqlFuncTest.action", method = { RequestMethod.GET })
+	public String jpqlFuncTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		  JPA FUCTION
+		  
+		  (기본제공 함수)
+		  - CONCAT
+		  - SUBSTRING
+		  - TRIM
+		  - LOWER, UPPER
+		  - LENGTH
+		  - LOCATE
+		  - ABS, SQRT, MOD
+		  - SIZE, INDEX (JPA 용도)
+		  
+		  
+		  (사용자 제공함수)
+		  - 데이터베이스 방언에 추가를 해놔야 한다.
+		  - 하지만 대부분의 함수는 이미 등록되어 있다. -> 데이터베이스에 종속적이기는 하다.
+		  
+		  
+		  
+		 */
+		
+		
+		service.jpqlFunctionTest(request,response);
+		
+		return "";
+		
+	}
 	
 }
