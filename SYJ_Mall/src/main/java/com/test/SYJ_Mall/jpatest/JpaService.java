@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.jpatest;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -2279,7 +2280,63 @@ public class JpaService implements IJpaService {
 		emf.close();
 		
 	}
-	
+
+	@Override
+	public void jpaPathTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			// 1. 상태필드 : 이런식으로 상태필드를 만나게 되면 userName 에 . 을 찍어서 또 내부로 들어갈 수 있는 것이 아니므로 경로탐색의 끝이라고 볼 수 있다.
+			String query1 = "select jm.userName from JpqlMember jm"; 
+			
+			
+			// 2. 단인 값 연관 경로 : 묵시적 내부 조인 발생한다. => JpqlMember, team 조인해서 가져온다. => 쿼리 튜닝할때 정말 어렵게 된다. : 묵시적 조인이 발생하므로
+			String query2 = "select jm.team.name from JpqlMember jm"; 
+			
+//			List<String> resultList1 = em.createQuery(query2,String.class).getResultList();
+//			
+//			
+//			for (String s : resultList1) {
+//				System.out.println(s);
+//			}
+			
+			
+			// 3. 컬렉션 값 연관 경로 : 컬렉션을 가리키기 때문에 사실 . 을 찍어서 가져올 수 있는건 size 정도 밖에 없다고 볼 수 있다.
+			String query3 = "select jt.members from JpqlTeam jt"; 
+			String query4 = "select jm.userName from JpqlTeam jt join jt.members jm"; //이런식으로 써야한다.
+			
+			//Collection resultList = em.createQuery(query3,Collection.class).getResultList();
+			
+			//System.out.println(resultList);
+			
+			List<String> resultList1 = em.createQuery(query4,String.class).getResultList();
+			
+			for (String s : resultList1) {
+				System.out.println(s);
+			}
+			
+			
+			// 사실은 묵시적 조인은 다 쓰면 안되고 1번만 쓰는것을 권장한다.
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+	}
 	
 	
 	

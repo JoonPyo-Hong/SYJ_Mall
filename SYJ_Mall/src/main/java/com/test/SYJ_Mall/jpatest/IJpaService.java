@@ -92,5 +92,7 @@ public interface IJpaService {
 	public void jpqlCaseTest(HttpServletRequest request, HttpServletResponse response);
 
 	public void jpqlFunctionTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void jpaPathTest(HttpServletRequest request, HttpServletResponse response);
 	
 }	
