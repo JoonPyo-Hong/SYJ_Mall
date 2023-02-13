@@ -927,30 +927,4 @@ public class JpaController {
 		
 	}
 	
-	// 경로표현식
-	@RequestMapping(value = "jpaPathTest.action", method = { RequestMethod.GET })
-	public String jpaPathTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
-			
-		
-		/*
-		 
-		  경로표현식
-		  
-		  - 점을 찍어서 객체 그래프를 탐색하는 것
-		  
-		  
-		  상태필드 : 단순히 값을 저장하기 위한 필드
-		  연관필드 : 연관관계를 위한 필드
-		  
-		  
-		  
-		 */
-		
-		
-		service.jpaPathTest(request,response);
-		
-		return "";
-		
-	}
-	
 }
