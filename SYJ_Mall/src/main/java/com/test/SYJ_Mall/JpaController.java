@@ -927,4 +927,46 @@ public class JpaController {
 		
 	}
 	
+	// fetch join
+	@RequestMapping(value = "fetchJoinTest.action", method = { RequestMethod.GET })
+	public String fetchJoinTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		  fetch join
+		  
+		  - 페치 조인을 사용할 때만 연관된 엔티티도 함께 조회된다(지연로딩이 아닌 즉시로딩이 된다.)
+		  - 페치 조인은 객체 그래프를 SQL 한번에 조회하는 개념이다.
+		  
+		 */
+		
+		
+		service.fetchJoinTest(request,response);
+		
+		return "";
+		
+	}
+	
+	
+	@RequestMapping(value = "fetchJoinLimitTest.action", method = { RequestMethod.GET })
+	public String fetchJoinLimitTest(HttpServletRequest request, HttpServletResponse response, CommonDateFormat cd) {
+			
+		
+		/*
+		 
+		  fetch join 한계
+		  
+		  
+		 
+		  
+		 */
+		
+		
+		service.fetchJoinLimitTest(request,response);
+		
+		return "";
+		
+	}
+	
 }

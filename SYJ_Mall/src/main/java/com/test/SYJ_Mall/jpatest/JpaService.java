@@ -2337,8 +2337,213 @@ public class JpaService implements IJpaService {
 		
 		emf.close();
 	}
-	
-	
-	
+
+	@Override
+	public void fetchJoinTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+//			JpqlTeam teamA = new JpqlTeam();
+//			teamA.setName("teamA");
+//			em.persist(teamA);
+//			
+//			JpqlTeam teamB = new JpqlTeam();
+//			teamB.setName("teamB");
+//			em.persist(teamB);
+//			
+//			
+//			JpqlMember memberA = new JpqlMember();
+//			memberA.setUserName("memberA");
+//			memberA.setAge(11);
+//			memberA.setTeam(teamA);
+//			em.persist(memberA);
+//			
+//			JpqlMember memberB = new JpqlMember();
+//			memberB.setUserName("memberB");
+//			memberB.setAge(21);
+//			memberB.setTeam(teamA);
+//			em.persist(memberB);
+//			
+//			
+//			JpqlMember memberC = new JpqlMember();
+//			memberC.setUserName("memberA");
+//			memberC.setAge(31);
+//			memberC.setTeam(teamB);
+//			em.persist(memberC);
+			
+			
+			
+//			em.flush();
+//			em.clear();
+//			
+//			
+//			String query = "select jm from JpqlMember jm";
+//			
+//			List<JpqlMember> memList = em.createQuery(query,JpqlMember.class).getResultList();
+//			
+//			
+//			
+//			for (JpqlMember mem : memList) {
+//				System.out.println(mem.getUserName());
+//				System.out.println(mem.getTeam().getName());
+//				// 회원1, 팀A (SQL 로 가져온다 영속성컨텍스트에 없기 때문에)
+//				// 회원2, 팀A (영속성 컨텍스트에 있기 때문에 SQL 쿼리 날릴필요 없다 -> 1차캐시에서 가져옴)
+//				// 회원3, 팀B (영속성 컨텍스트에 없기 때문에 SQL 로 가져온다.)
+//				
+//				// 즉 위에서 쿼리가 매우 많이 나가게 된다...
+//				// 회원 100명 조회하는데 쿼리 100방 나가면.... N+1
+//				
+//			}
+			
+			// 즉 위와같은 경우에는 fetch join 으로 풀어야만 한다.
+			
+			
+			String query = "select jm from JpqlMember jm join fetch jm.team";
+			
+			List<JpqlMember> memList = em.createQuery(query,JpqlMember.class).getResultList();
+			
+			
+			for (JpqlMember mem : memList) {
+				System.out.println(mem.getUserName());
+				System.out.println(mem.getTeam().getName());				
+			}
+			
+			System.out.println("========================");
+			
+			// fetch join으로 풀어야 쿼리가 한방에 날라가게 된다.
+			
+			
+			// 컬렉션 페치 조인의 경우 -> 주의해야한다.
+			String query2 = "select jt from JpqlTeam jt join fetch jt.members";
+			
+			List<JpqlTeam> teamList = em.createQuery(query2,JpqlTeam.class).getResultList();
+			
+			for (JpqlTeam team : teamList) {
+				System.out.println(team.getName());
+				System.out.println(team.getMembers().size());				
+			
+				/*
+				 	teamA
+					2
+					teamA
+					2
+					teamB
+					1 
+				 
+				 * */
+				// 컬렉션일때는 위의 현상을 조심해야 한다.
+				
+				
+				
+				
+				
+			}
+			
+			
+			// 중복은 distinct로 제거하고 싶지만 사실 distinct 로 구분이 되려면 진짜 행에 모든 열의 데이터가 같아야 한다 -> 하지만 지금 그런상황은 아님.
+			// 물론 DB 입장에서는 위의 말이 맞지만, JPA 에서는 같은 식별자를 가진 엔티티 자체를 제거해버린다. -> 애플리케이션단에서 필터링 해주는 것이다.
+			String query3 = "select distinct jt from JpqlTeam jt join fetch jt.members";
+			
+			List<JpqlTeam> teamList2 = em.createQuery(query3,JpqlTeam.class).getResultList();
+			
+			
+			for (JpqlTeam team : teamList2) {
+				System.out.println(team.getName());
+				System.out.println(team.getMembers().size());			
+				
+			}
+			
+			
+			
+			// 일반조인과 패치조인의 차이점!! -> 일반조인은 실행 시 연관된 엔티티를 함께 조회하지 않는다.
+			String query4 = "select jt from JpqlTeam jt join jt.members jm";
+			
+			List<JpqlTeam> teamList3 = em.createQuery(query4,JpqlTeam.class).getResultList();
+			
+			
+			for (JpqlTeam team : teamList3) {
+				System.out.println(team.getName());
+				System.out.println(team.getMembers().size());			
+				
+			}
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+		
+		
+	}
+
+	@Override
+	public void fetchJoinLimitTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
+		
+		EntityManager em = emf.createEntityManager();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		try {
+			
+			// fetch join 의 한계 
+			
+			// 1. fetch join 의 대상이 되는 엔티티에는 alias를 줄 수 없다.
+			// -> 중간에 몇개를 가져오고 싶다? -> fetch 조인을 쓰면 안된다.
+			String query = "select jt from JpqlTeam jt join fetch jt.members as jm"; // 이런식으로 as 로 쓸 수 없다.
+			
+			
+			// 2. 둘이상의 컬렉션은 페치 조인할 수 없다.
+			
+			
+			// 3. 컬렉션을 페치 조인하면 페이징 API를 사용할 수 없다.
+			// - 데이터가 뻥튀기가 되므로 페이징이 어렵다.
+			String warnQuery = "select jt from JpqlTeam jt join fetch jt.members";
+			
+			List<JpqlTeam> teamList = em.createQuery(warnQuery,JpqlTeam.class)
+										.setFirstResult(0)
+										.setMaxResults(1)
+										.getResultList();
+			
+			System.out.println(teamList.size());
+			
+			// 쿼리를 보면 알겠지만 데이터를 한번에 다 긁어와서 잘라주는 방식이다 -> 장애나기에 딱 좋은 로직임.
+			// 위의 쿼리를 장애가 안나가게 하면 1 -> M 으로 방향을 바꿔주면 된다.
+			
+			String goodQuery = "select jm from JpqlMember jm join fetch jm.team";
+			
+			List<JpqlMember> memList = em.createQuery(goodQuery,JpqlMember.class)
+					.setFirstResult(0)
+					.setMaxResults(1)
+					.getResultList();
+			
+			System.out.println(memList.size());
+			// -> limit 쿼리가 나가게 된다.
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			em.close();
+		}
+		
+		emf.close();
+	}
 
 }
