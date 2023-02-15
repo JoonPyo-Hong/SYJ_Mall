@@ -94,5 +94,9 @@ public interface IJpaService {
 	public void jpqlFunctionTest(HttpServletRequest request, HttpServletResponse response);
 
 	public void jpaPathTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void fetchJoinTest(HttpServletRequest request, HttpServletResponse response);
+
+	public void fetchJoinLimitTest(HttpServletRequest request, HttpServletResponse response);
 	
 }	
