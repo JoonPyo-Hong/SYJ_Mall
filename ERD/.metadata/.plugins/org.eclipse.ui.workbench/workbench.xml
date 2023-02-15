@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="15" version="2.0">
 <workbenchAdvisor/>
-<window height="768" maximized="true" width="1024" x="3223" y="305">
+<window height="768" maximized="true" width="1024" x="1162" y="204">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -26,12 +26,16 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="KAKAO.exerd" partName="KAKAO.exerd" title="KAKAO.exerd" tooltip="C:\Users\신승환\Desktop\java\SYJ_Mall\ERD\KAKAO.exerd" workbook="DefaultEditorWorkbook">
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="KAKAO.exerd" partName="KAKAO.exerd" title="KAKAO.exerd" tooltip="C:\Users\신승환\Desktop\java\SYJ_Mall\ERD\KAKAO.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/신승환/Desktop/java/SYJ_Mall/ERD/KAKAO.exerd"/>
+</editor>
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="syj_mall_admin.exerd" partName="syj_mall_admin.exerd" path="C:/Users/신승환/Desktop/java/SYJ_Mall/ERD/SYJ_MALL_ADMIN/syj_mall_admin.exerd" title="syj_mall_admin.exerd" tooltip="SYJ_MALL_ADMIN/syj_mall_admin.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SYJ_MALL_ADMIN/syj_mall_admin.exerd"/>
 </editor>
 </editors>
 <views>
@@ -158,8 +162,21 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Users/신승환/Desktop/java/SYJ_Mall/ERD/KAKAO.exerd"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Users/신승환/Desktop/java/SYJ_Mall/ERD/KAKAO-ADMIN.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/SYJ_MALL_ADMIN/syj_mall_admin.exerd"/>
 </editors>
-<item active="true" historyLabel="KAKAO.exerd" index="0"/>
+<item historyLabel="KAKAO.exerd" index="0"/>
+<item historyLabel="KAKAO-ADMIN.exerd" index="1"/>
+<item historyLabel="KAKAO.exerd" index="0"/>
+<item historyLabel="syj_mall_admin.exerd" index="2"/>
+<item historyLabel="KAKAO.exerd" index="0"/>
+<item historyLabel="syj_mall_admin.exerd" index="2"/>
+<item historyLabel="KAKAO.exerd" index="0"/>
+<item historyLabel="syj_mall_admin.exerd" index="2"/>
+<item historyLabel="KAKAO.exerd" index="0"/>
+<item historyLabel="syj_mall_admin.exerd" index="2"/>
+<item historyLabel="KAKAO.exerd" index="0"/>
+<item active="true" historyLabel="syj_mall_admin.exerd" index="2"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -177,6 +194,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="syj_mall_admin.exerd" tooltip="SYJ_MALL_ADMIN/syj_mall_admin.exerd">
+<persistable path="/SYJ_MALL_ADMIN/syj_mall_admin.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="KAKAO.exerd" tooltip="C:\Users\신승환\Desktop\java\SYJ_Mall\ERD\KAKAO.exerd">
 <persistable uri="file:/C:/Users/신승환/Desktop/java/SYJ_Mall/ERD/KAKAO.exerd"/>
 </file>
