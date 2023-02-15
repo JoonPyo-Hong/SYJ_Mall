@@ -64,7 +64,7 @@ public class SearchController {
 		//Performance pf = new Performance();
 		// 결과 -> jsp 로 옮길지 말지 정해준다.
 		int result = service.getSearchResultProd(request, response);
-		//pf.getElapseTimeMs();
+		
 		if (result == 1)
 			return "/semitiles/searchResult.layout";
 		else

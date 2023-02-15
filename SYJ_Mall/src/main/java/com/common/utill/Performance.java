@@ -1,25 +1,35 @@
 package com.common.utill;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * 성능확인 관련 클래스
+ * Performance Check Related Classes
  * @author shin
  *
  */
 public class Performance {
 	
+	
 	private long startTime;
-	private long endTime;
-	private long diffTime;
+	private long startMemory;
+	
 	
 	public Performance() {
+		System.out.println("test");
 		this.startTime = System.currentTimeMillis();
+		this.startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 	}
 	
-	public void getElapseTimeMs() {
-		this.endTime = System.currentTimeMillis();
-		diffTime = (endTime - startTime);
+	public void checkPerformance() {
+		long endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+		long endTime = System.currentTimeMillis();
 		
-		System.out.printf("elapsed time : %dms\n",diffTime);
+		long memoryUsed = endMemory - startMemory;
+        long timeElapsed = endTime - startTime;
+		
+		System.out.println("Time elapsed: " + timeElapsed + " milliseconds");
+        System.out.println("Memory used: " + memoryUsed + " bytes");
 	}
 
 }
