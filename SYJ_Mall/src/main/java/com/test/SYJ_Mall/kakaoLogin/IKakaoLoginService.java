@@ -1,4 +1,4 @@
-package com.test.SYJ_Mall.kafkaoLogin;
+package com.test.SYJ_Mall.kakaoLogin;
 
 import java.io.IOException;
 
@@ -13,6 +13,7 @@ public interface IKakaoLoginService {
 	
 	
 	/**
+	 * Inquiry of cookie information related to login maintenance
 	 * 
 	 * @param request
 	 * @param response
@@ -22,5 +23,15 @@ public interface IKakaoLoginService {
 	 * @return
 	 */
 	String getUserLoginCookieInfo(HttpServletRequest request, HttpServletResponse response, KakaoCookies kc, IpCheck ic) throws Exception;
+	
+	
+	/**
+	 * Blocks attempts to return to the login window in an unusual way.
+	 * 
+	 * @param request
+	 * @param ic
+	 * @return
+	 */
+	String againLoginCheck(HttpServletRequest request, IpCheck ic);
 
 }

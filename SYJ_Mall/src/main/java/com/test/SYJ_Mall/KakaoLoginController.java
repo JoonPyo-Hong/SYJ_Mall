@@ -2,6 +2,7 @@ package com.test.SYJ_Mall;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookies;
 import com.common.utill.KakaoError;
-import com.test.SYJ_Mall.kafkaoLogin.IKakaoLoginService;
+import com.test.SYJ_Mall.kakaoLogin.IKakaoLoginService;
 
 /**
  * Login 2.0 Controller - Completely new development to troubleshoot existing login codes
@@ -48,11 +49,12 @@ public class KakaoLoginController {
 		
 		KakaoCookies kc = new KakaoCookies();
 		IpCheck ic = new IpCheck();
+		//HttpSession userSession = request.getSession();
 		String respUrl = null;
 		
 		
 		// 1. After the user successfully logs in, Access the login screen again (banned) -> Send to main menu
-		
+		String againLoginCheck = service.againLoginCheck(request,ic);
 		
 		
 		String loginCookieInfo = null;

@@ -1,4 +1,4 @@
-package com.test.SYJ_Mall.kafkaoLogin;
+package com.test.SYJ_Mall.kakaoLogin;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

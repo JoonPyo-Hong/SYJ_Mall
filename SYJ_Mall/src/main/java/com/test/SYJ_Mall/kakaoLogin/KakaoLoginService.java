@@ -1,9 +1,10 @@
-package com.test.SYJ_Mall.kafkaoLogin;
+package com.test.SYJ_Mall.kakaoLogin;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,22 @@ public class KakaoLoginService implements IKakaoLoginService {
 		
 		
 		return null;
+	}
+
+	
+	
+	@Override
+	public String againLoginCheck(HttpServletRequest request, IpCheck ic) {
+		
+		String redirectUrl = null;
+		
+		HttpSession userSession = request.getSession();
+		KakaoUserDTO userDto = (KakaoUserDTO)userSession.getAttribute("kakaoUserInfo");
+		
+		if (userDto != null) {
+			
+		}
+		
+		return redirectUrl;
 	}
 }
