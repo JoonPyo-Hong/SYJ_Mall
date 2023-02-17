@@ -80,7 +80,7 @@ public class CommonDate {
 		int sec = cal.get(Calendar.SECOND);
 		int milSec = cal.get(Calendar.MILLISECOND);
 		
-		System.out.println("date : " + date);
+		//System.out.println("date : " + date);
 		
 		StringBuffer sb = new StringBuffer();
 
@@ -302,9 +302,9 @@ public class CommonDate {
 		String months = dateTypeConvert(Integer.toString(cal.get(Calendar.MONTH) + 1));
 		String date = dateTypeConvert(Integer.toString(cal.get(Calendar.DATE)));
 		
-		System.out.println(years);
-		System.out.println(months);
-		System.out.println(date);
+		//System.out.println(years);
+		//System.out.println(months);
+		//System.out.println(date);
 		
 		StringBuffer sb = new StringBuffer();
 		

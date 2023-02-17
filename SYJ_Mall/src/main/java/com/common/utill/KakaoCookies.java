@@ -1,9 +1,13 @@
 package com.common.utill;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -91,23 +95,32 @@ public class KakaoCookies {
 	 * 
 	 * @param cookieValue
 	 * @return
+	 * @throws IOException 
 	 */
-	private Map<String, String> cookieValueToMap(String cookieValue) {
+	private Map<String, String> cookieValueToMap(String cookieValue) throws IOException {
 
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> cookieMap = new HashMap<String, String>();
 
-		String[] parts = cookieValue.split("&");
+		BufferedReader reader = new BufferedReader(new StringReader(cookieValue));
 
-		for (String part : parts) {
+		String line;
 
-			String[] keyValue = part.split("=");
-
-			if (keyValue.length == 2) {
-				map.put(keyValue[0], keyValue[1]);
-			}
+		while ((line = reader.readLine()) != null) {
+			
+		    StringTokenizer tokenizer = new StringTokenizer(line, "&");
+		    
+		    while (tokenizer.hasMoreTokens()) {
+		        
+		    	String pair = tokenizer.nextToken();
+		        
+		    	String[] keyValue = pair.split("=");
+		        
+		    	cookieMap.put(keyValue[0], keyValue[1]);
+		        
+		    }
 		}
-
-		return map;
+		
+		return cookieMap;
 	}
 
 	/**
@@ -121,8 +134,10 @@ public class KakaoCookies {
 		StringBuilder sb = new StringBuilder();
 
 		for (String entry : list) {
+			
 			sb.append(entry);
 			sb.append("&");
+			
 		}
 
 		sb.deleteCharAt(sb.length() - 1);
@@ -135,18 +150,29 @@ public class KakaoCookies {
 	 * 
 	 * @param cookieValue
 	 * @return
+	 * @throws IOException 
 	 */
-	private List<String> cookieValueToList(String cookieValue) {
-
-		List<String> list = new ArrayList<>();
-
-		String[] parts = cookieValue.split("&");
-
-		for (String part : parts) {
-			list.add(part);
+	private List<String> cookieValueToList(String cookieValue) throws IOException {
+		
+		List<String> cookieList = new ArrayList<String>();
+		
+		BufferedReader reader = new BufferedReader(new StringReader(cookieValue));
+		
+		String line;
+		
+		while ((line = reader.readLine()) != null) {
+		    
+			StringTokenizer tokenizer = new StringTokenizer(line, "&");
+		    
+		    while (tokenizer.hasMoreTokens()) {
+		    	
+		    	String element = tokenizer.nextToken();
+		    	
+		    	cookieList.add(element);
+		    }
 		}
-
-		return list;
+		
+		return cookieList;
 	}
 
 	/**
@@ -195,7 +221,7 @@ public class KakaoCookies {
 	 * @param cookieName
 	 * @return
 	 */
-	public Map<String, String> getCookiesMaps(HttpServletRequest request, String cookieName) {
+	public Map<String, String> getCookiesMaps(HttpServletRequest request, String cookieName) throws IOException {
 
 		String targetCookie = getCookies(request, cookieName).getValue();
 
@@ -210,7 +236,7 @@ public class KakaoCookies {
 	 * @param cookieName
 	 * @return
 	 */
-	public List<String> getCookiesList(HttpServletRequest request, String cookieName) {
+	public List<String> getCookiesList(HttpServletRequest request, String cookieName) throws IOException {
 
 		String targetCookie = getCookies(request, cookieName).getValue();
 
@@ -247,11 +273,12 @@ public class KakaoCookies {
 	 * @param keyName
 	 * @param keyValue
 	 */
-	public void modifyMapCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String keyName, String keyValue) {
+	public void modifyMapCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String keyName, String keyValue) throws IOException {
 
 		Cookie cookieToModify = getCookies(request, cookieName);
 
 		if (cookieToModify != null) {
+			
 			Map<String,String> cookieMap = cookieValueToMap(cookieToModify.getValue());
 			
 			cookieMap.replace(keyName, keyValue);
@@ -272,7 +299,7 @@ public class KakaoCookies {
 	 * @param cookieName
 	 * @param keyName
 	 */
-	public void deleteMapKeyCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String keyName) {
+	public void deleteMapKeyCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String keyName) throws IOException {
 		
 		Cookie cookieToModify = getCookies(request, cookieName);
 		
@@ -298,7 +325,7 @@ public class KakaoCookies {
 	 * @param cookieName
 	 * @param value
 	 */
-	public void addListCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String value) {
+	public void addListCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String value) throws IOException {
 
 		Cookie cookieToModify = getCookies(request, cookieName);
 
@@ -326,7 +353,7 @@ public class KakaoCookies {
 	 * @param cookieName
 	 * @param oldValue
 	 */
-	public void removeListCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String oldValue) {
+	public void removeListCookies(HttpServletRequest request, HttpServletResponse response, String cookieName, String oldValue) throws IOException {
 
 		Cookie cookieToModify = getCookies(request, cookieName);
 

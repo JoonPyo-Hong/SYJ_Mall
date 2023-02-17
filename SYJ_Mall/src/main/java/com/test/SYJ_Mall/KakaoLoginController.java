@@ -1,10 +1,5 @@
 package com.test.SYJ_Mall;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookies;
-import com.common.utill.Performance;
+import com.common.utill.KakaoError;
 import com.test.SYJ_Mall.kafkaoLogin.IKakaoLoginService;
 
 /**
@@ -34,51 +30,55 @@ public class KakaoLoginController {
 	/*----------------------------------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "/kakaoLoginStart.action", method = { RequestMethod.GET , RequestMethod.POST})
-	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response) {
 		
 		/*
 		
 		 Preprocessing for sending to login page
 		 
-		 1. Pre-processing when user account information exists in the current web cookie information -> Check if the user wants to remain logged in
-		 2. After the user successfully logs in, Access the login screen again (banned) -> Send to main menu
+		 1. After the user successfully logs in, Access the login screen again (banned) -> Send to main menu
+		 2. Pre-processing when user account information exists in the current web cookie information -> Check if the user wants to remain logged in
 		 3. For encryption of user password, RSA information must be set.
 		 4. 
-		  
+		 
 		  
 		*/
-		
-		
-		//Performance pf = new Performance();
+
+		//System.out.println();
 		
 		KakaoCookies kc = new KakaoCookies();
+		IpCheck ic = new IpCheck();
+		String respUrl = null;
 		
 		
-		Map<String,String> map = new HashMap<>();
-		
-		map.put("test1", "apple1");
-		map.put("test2", "apple22");
-		map.put("test3", "apple333");
-		map.put("test4", "apple4444");
-		map.put("test5", "apple55555");
+		// 1. After the user successfully logs in, Access the login screen again (banned) -> Send to main menu
 		
 		
-		kc.generateCookie(response, "mapCookie", map, -1);
 		
+		String loginCookieInfo = null;
 		
-		List<String> cookieList = new ArrayList<>();
-		
-		for (int i = 0; i < 30; i++) {
-			cookieList.add(Integer.toString(i));
+		// 2. Pre-processing when user account information exists in the current web cookie information -> Check if the user wants to remain logged in
+		try {
+			loginCookieInfo = service.getUserLoginCookieInfo(request,response,kc,ic);
+				
+			int a = 10 / 0;
+			
+
+			
+		} catch(Exception e) {
+			KakaoError ea = new KakaoError(request, e);
+			respUrl = ea.basicErrorException();
+			ea = null;
 		}
 		
 		
-		kc.generateCookie(response, "listCookie", cookieList, -1);
+		if (loginCookieInfo == null) {
+			
+		} else {
+			
+		}
 		
-		
-		
-		
-		return null;
+		return respUrl;
 	}
 	
 	
@@ -86,27 +86,43 @@ public class KakaoLoginController {
 	public String kakaoLoginUpgradeTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		
+		System.out.println("test");
 		
-		KakaoCookies kc = new KakaoCookies();
+//		KakaoCookies kc = new KakaoCookies();
+		
+//		Map<String,String> returnMap = kc.getCookiesMaps(request, "mapCookie");
+//		
+//		System.out.println(returnMap.get("test3"));
+//		
+//		
+		
+		
+//		List<String> stringList = kc.getCookiesList(request, "listCookie");
+//		
+//		
+//		for (String str : stringList) {
+//			System.out.println("!!!");
+//			System.out.println(str);
+//		}
 		
 		//System.out.println(kc.mapToCookieValue(kc.getCookiesMaps(request, "mapCookie")));
 		
 		//System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
 		
-		System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
+		//System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
 		//kc.modifyMapCookies(request, response,"mapCookie", "test4", "123123123123");
 		
 		
 		//Performance pf = new Performance();
 		
 		
-		kc.deleteCookies(request, response, "listCookie");
+		//kc.deleteCookies(request, response, "listCookie");
 		//kc.removeListCookies(request,response,"listCookie","10");
 		//kc.removeListCookies(request,response,"listCookie","20");
 		
 		//pf.checkPerformance();
 		
-		System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
+		//System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
 		//System.out.println(kc.mapToCookieValue(kc.getCookiesMaps(request, "mapCookie")));
 		
 		return null;

@@ -1,5 +1,6 @@
 package com.common.utill;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.apache.http.HttpHost;
@@ -83,8 +84,8 @@ public class ElasticSearchConn {
 		return indexResponse;
 	}
 	
-	
-	
+
+
 	/**
 	 * Disconnecting elasticsearch
 	 * @throws Exception

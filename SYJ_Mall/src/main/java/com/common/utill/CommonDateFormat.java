@@ -34,6 +34,21 @@ public class CommonDateFormat {
 	
 	
 	/**
+	 * If month and date are single digits, a function that returns by adding a zero to the front.
+	 * @param 
+	 * @return 
+	 */
+	public String dateTypeConvert(String input) {
+
+		if (input.length() == 1) input = "0" + input;
+		
+		return input;
+
+	}
+	
+	
+	
+	/**
 	 * Converting LocalDateTime Objects to String Type(yyyy-mm-ddThh:mm:ss.SSSZ) - elastic version
 	 * @param date
 	 * @return
@@ -77,6 +92,7 @@ public class CommonDateFormat {
 	
 	
 	/**
+	 * Create a prefix rule to specify the index name of the elasticsearch(related log)
 	 * 
 	 * @param prefix
 	 * @param date
@@ -92,9 +108,5 @@ public class CommonDateFormat {
 
 		return sb.toString();
 	}
-	
-	
-//	public String formatStringTimeElastic(LocalDateTime date) {
-//		
-//	}
+
 }

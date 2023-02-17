@@ -2,52 +2,50 @@ package com.common.utill;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.elasticsearch.action.index.IndexResponse;
 
-
 /**
- * 에러알람 - deprecated
- *
+ * Server Error Related Classes
  * 
- * @author shin
+ * @author sinseunghwan
  *
  */
-public class ErrorAlarm {
+public class KakaoError {
 	
 	private Exception e;
 	private String ip;
+	private HttpServletRequest request;
 	
 	
-	public ErrorAlarm() {
-		
-	}
+	public KakaoError() {}
 	
-	public ErrorAlarm(Exception e, String ip) {
+	public KakaoError(HttpServletRequest request, Exception e) {
+		this.request = request;
 		this.e = e;
+		
+		IpCheck ic = new IpCheck();
+		String ip = ic.getClientIP(request);
+		
 		this.ip = ip;
 	}
 	
-	public ErrorAlarm(Exception e) {
-		this.e = e;
-		this.ip = "none";
-	}
-	
 	/**
-	 * 에러요인 메시지로 보내주기
+	 * Send error message to Kafka Broker 
 	 * 
-	 * @param userEmail 유저 이메일(복수여도 상관없음)
 	 */
 	public void sendErrorMassegeAdmin() {
+		
 		CommonDateFormat cd = new CommonDateFormat();
 		KafkaConn kc = new KafkaConn("byeanma.kro.kr",9092,"errortopics");
- 		
+		String requestedUrl = this.request.getRequestURL().toString();
+		
 		StringWriter errors = new StringWriter();
+		
 		errors.append("<table border='1' style='width:1200px;'>");
 		errors.append("<th colspan = '2' style='color:red; font-size: 2em; font-weight: bolder;'>Error Occurred In SYJ_Mall</th>");
 		errors.append("<tr><td>machine ip</td><td>Date of occurrence</td></tr>");
@@ -56,10 +54,20 @@ public class ErrorAlarm {
 		errors.append("</td><td>");
 		errors.append(cd.formatStringTimeKOR());
 		errors.append("</td></tr>");
+		
+		errors.append("<tr><td colspan='2' style='color: red; font-size: 1.3em; font-weight: bolder; text-align: center;'>Error URL</td></tr>");
+		errors.append("<tr><td colspan='2' style='text-align: center;'>");
+		errors.append(requestedUrl);
+		errors.append("</td><tr>");
+		
+
 		errors.append("<tr><td colspan='2' style='color: red; font-size: 1.3em; font-weight: bolder; text-align: center;'>Error Log</td></tr>");
 		errors.append("<tr><td colspan='2'>");
-		e.printStackTrace(new PrintWriter(errors));
+		
+		this.e.printStackTrace(new PrintWriter(errors));
+		
 		errors.append("</td></tr></table>");
+		
 		
 		String errorsMsg = errors.toString();
 		errorsMsg = errorsMsg.replaceAll("\\)", ")<br>");
@@ -68,66 +76,62 @@ public class ErrorAlarm {
 		
 		try {
 			kc.kafkaSendMessage(errorsMsg);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 	
 	/**
-	 * 에러요인 db에 넣어주기 (elasticserarch 에 로그 쌓아주기)
+	 * Send error log to Elasticsearch
+	 * 
 	 */
-	public void inputErrorToDb() {
+	public void inputErrorToDbElastic() {
 		
-		CommonDate cd = new CommonDate();
+		CommonDateFormat cd = new CommonDateFormat();
 		ElasticSearchConn ec = new ElasticSearchConn("byeanma.kro.kr", 9200, "http");
 		
 		StringWriter errors = new StringWriter();
-		e.printStackTrace(new PrintWriter(errors));
+		this.e.printStackTrace(new PrintWriter(errors));
 		
 		HashMap<String,Object> jsonMap = new HashMap<String, Object>();
-		Calendar curTimeKor = cd.getPresentTimeKORCal();
 		
-		jsonMap.put("@timestamp",curTimeKor);
+		LocalDateTime curTimeKor = cd.getPresentTime();
+		LocalDateTime curTimeUTC = cd.getPresentTimeUTC();
+		String curTimeUtcStr = cd.formatStringTimeElastic(curTimeUTC);
+		
+		jsonMap.put("@timestamp",curTimeUtcStr);
 		jsonMap.put("ip",this.ip);
 		jsonMap.put("errMsg",errors.toString());
 		
 		
-		String dateNameIndex = cd.getCurrentDateIndex("error_log_index",curTimeKor);
-		
+		String dateNameIndex = cd.getDateElasticIndex("error_log_index",curTimeKor);
+
 		try {
+			
 			IndexResponse indexresp = ec.elasticPostData(dateNameIndex,jsonMap);
 			ec.connClose();
 			
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * 에러요인 메시지로 보내주기 + 에러요인 db에 넣어주기
-	 */
-	public void errorDbAndMail() {
-		sendErrorMassegeAdmin();
-		inputErrorToDb();
-	}
 	
 	/**
-	 * 에러요인 조합 기본 셋팅 1
-	 * @param request
-	 * @param e
+	 * Default setting for ERROR factor combination 1
+	 * 
 	 * @return
 	 */
-	public int basicErrorException(HttpServletRequest request,Exception e) {
+	public String basicErrorException() {
 		
-		IpCheck ic = new IpCheck();
-		String ip = ic.getClientIP(request);
+		sendErrorMassegeAdmin();
+		inputErrorToDbElastic();
 		
-		this.e = e;
-		this.ip = ip;
-		errorDbAndMail();
-		
-		return -1;
+		return "/testwaiting/kakaoerror";
 	}
-
+	
+	
+	
 }

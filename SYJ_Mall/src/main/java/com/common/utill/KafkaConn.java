@@ -52,11 +52,9 @@ public class KafkaConn {
         
         KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
         ProducerRecord<String,String> record = new ProducerRecord<>(kafka_topic_name,data);
+        
         producer.send(record);
 		
 	}
-	
-	
-	
 	
 }
