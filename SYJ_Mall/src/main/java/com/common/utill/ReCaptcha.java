@@ -11,45 +11,30 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import lombok.Data;
+
 /**
- * 리캅차 유틸 - 자동 로그인 방지
+ * Recapcha Util - Prevent Automatic Login
  * @author shin
  *
  */
-public class ReCaptchar {
+@Data
+public class ReCaptcha {
 	
 	final String url = "https://www.google.com/recaptcha/api/siteverify";
     final String USER_AGENT = "Mozilla/5.0";
 	private String publicKey;
 	private String secretKey;
 	
-	public String getPublicKey() {
-		return publicKey;
-	}
+	public ReCaptcha() {}
 	
-	public void setPublicKey(String publicKey) {
-		this.publicKey = publicKey;
-	}
-
-	public String getSecretKey() {
-		return secretKey;
-	}
-
-	public void setSecretKey(String secretKey) {
-		this.secretKey = secretKey;
-	}
-	
-	public ReCaptchar() {
-		
-	}
-	
-	public ReCaptchar(String publicKey, String secretKey) {
+	public ReCaptcha(String publicKey, String secretKey) {
 		this.publicKey = publicKey;
 		this.secretKey = secretKey;
 	}
 	
 	/**
-	 * 리캅차 사용 로직
+	 * Logic of Recapcha
 	 * @param request
 	 * @return
 	 */
@@ -61,14 +46,9 @@ public class ReCaptchar {
 	            return -1;
 	        }
 			
-			//System.out.println(publicKey);
-			//System.out.println(secretKey);
-			
-			
 			URL obj = new URL(url);
 	        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
-	        // add reuqest header
 	        con.setRequestMethod("POST");
 	        con.setRequestProperty("User-Agent", USER_AGENT);
 	        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
@@ -83,9 +63,6 @@ public class ReCaptchar {
 	        wr.close();
 	        
 	        int responseCode = con.getResponseCode();
-	        //System.out.println("\nSending 'POST' request to URL : " + url);
-	        //System.out.println("Post parameters : " + postParams);
-	        //System.out.println("Response Code : " + responseCode);
 	  
 	        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 	        String inputLine;
@@ -96,7 +73,6 @@ public class ReCaptchar {
 	        }
 	        in.close();
 	        
-	       // System.out.println(responses.toString());
 	        
 	        String result = responses.toString();
 	        JSONParser parser = new JSONParser();

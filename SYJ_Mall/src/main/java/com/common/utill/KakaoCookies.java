@@ -208,9 +208,10 @@ public class KakaoCookies {
 	 */
 	public String getCookiesString(HttpServletRequest request, String cookieName) {
 
-		String targetCookie = getCookies(request, cookieName).getValue();
-
-		return targetCookie;
+		Cookie targetCookie = getCookies(request, cookieName);
+		
+		if (targetCookie != null) return targetCookie.getValue();
+		else return null;
 
 	}
 
@@ -223,9 +224,11 @@ public class KakaoCookies {
 	 */
 	public Map<String, String> getCookiesMaps(HttpServletRequest request, String cookieName) throws IOException {
 
-		String targetCookie = getCookies(request, cookieName).getValue();
-
-		return cookieValueToMap(targetCookie);
+		Cookie targetCookie = getCookies(request, cookieName);
+		
+		if (targetCookie != null) return cookieValueToMap(targetCookie.getValue());
+		else return null;
+		
 
 	}
 
@@ -238,10 +241,11 @@ public class KakaoCookies {
 	 */
 	public List<String> getCookiesList(HttpServletRequest request, String cookieName) throws IOException {
 
-		String targetCookie = getCookies(request, cookieName).getValue();
-
-		return cookieValueToList(targetCookie);
-
+		Cookie targetCookie = getCookies(request, cookieName);
+		
+		if (targetCookie != null) return cookieValueToList(targetCookie.getValue());
+		else return null;
+		
 	}
 	
 	

@@ -1,13 +1,15 @@
 package com.test.SYJ_Mall;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.common.utill.IpCheck;
 import com.common.utill.KakaoCookies;
@@ -30,8 +32,16 @@ public class KakaoLoginController {
 	/*----------------------------------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------------------------------------------------------------------------------------------------*/
+	
+	/**
+	 * Login Pre-processing
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/kakaoLoginStart.action", method = { RequestMethod.GET , RequestMethod.POST})
-	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response) {
+	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
 		
 		/*
 		
@@ -44,44 +54,75 @@ public class KakaoLoginController {
 		 
 		  
 		*/
-
-		//System.out.println();
-		
 		KakaoCookies kc = new KakaoCookies();
 		IpCheck ic = new IpCheck();
-		//HttpSession userSession = request.getSession();
-		String respUrl = null;
 		
 		
-		// 1. After the user successfully logs in, Access the login screen again (banned) -> Send to main menu
-		String againLoginCheck = service.againLoginCheck(request,ic);
-		
-		
-		String loginCookieInfo = null;
-		
-		// 2. Pre-processing when user account information exists in the current web cookie information -> Check if the user wants to remain logged in
-		try {
-			loginCookieInfo = service.getUserLoginCookieInfo(request,response,kc,ic);
-				
-			int a = 10 / 0;
+		/*===== 1. After the user successfully logs in, Access the login screen again (banned) -> Send to main menu =====*/
 			
-
+		String againLoginCheck = service.againLoginCheck(request,ic,kc);
+			
+		if (againLoginCheck != null) {
+			redirectAttributes.addAttribute("main", againLoginCheck);
+		    return "redirect:" + againLoginCheck;
+		}
+			
+		
+		
+		/*===== 2. Pre-processing when user account information exists in the current web cookie information -> Check if the user wants to remain logged in =====*/
+		try {
+			
+			String loginCookieInfo = service.getUserLoginCookieInfo(request,response,kc,ic);
+			
+			if (loginCookieInfo != null) return loginCookieInfo;
 			
 		} catch(Exception e) {
 			KakaoError ea = new KakaoError(request, e);
-			respUrl = ea.basicErrorException();
-			ea = null;
+			return ea.basicErrorException();
 		}
 		
 		
-		if (loginCookieInfo == null) {
-			
-		} else {
-			
-		}
 		
-		return respUrl;
+		/*===== 3. For encryption of user password, RSA information must be set. =====*/
+		return service.setUserRsaInfo(request);
 	}
+	
+
+	
+	/**
+	 * kakaoLoginCapchar
+	 * Prevents too many login attempts.
+	 * Prevents logging in through bots.
+	 * 
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/kakaoLoginCapcha.action", method = { RequestMethod.GET , RequestMethod.POST})
+	@ResponseBody
+	public int kakaoLoginCapcha(HttpServletRequest request) {
+		
+		return service.kakaoCapchaCheck(request);
+	}
+	
+	
+	/**
+	 * Login input verification process
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/kakaoLoginVerification.action", method = { RequestMethod.GET , RequestMethod.POST})
+	public String kakaoLoginVerification(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		return null;
+		
+	}
+	
+	
 	
 	
 	@RequestMapping(value = "/kakaoLoginUpgradeTest.action", method = { RequestMethod.GET , RequestMethod.POST})

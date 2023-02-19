@@ -49,7 +49,7 @@ import com.common.utill.KafkaConn;
 import com.common.utill.KakaoCookie;
 import com.common.utill.MessageSender;
 import com.common.utill.RSAalgorithm;
-import com.common.utill.ReCaptchar;
+import com.common.utill.ReCaptcha;
 import com.common.utill.StringFormatClass;
 import com.test.SYJ_Mall.CommonWebsocket;
 import com.test.SYJ_Mall.popularItem.UserProductDTO;
@@ -1070,7 +1070,7 @@ public class LoginService implements ILoginService {
 	
 	//로그인 관련 capchar
 	@Override
-	public int getCapcharData(HttpServletRequest request,CommonDAO cdao, ReCaptchar rc, ErrorAlarm ea) {
+	public int getCapcharData(HttpServletRequest request,CommonDAO cdao, ReCaptcha rc, ErrorAlarm ea) {
 		
 		try {
 			

@@ -466,7 +466,6 @@
       </div>
       <div class="txt-copyright">Copyright © <b>Kakao Corp.</b> All rights reserved.</div>
     </div>
-
   </div>
   
   

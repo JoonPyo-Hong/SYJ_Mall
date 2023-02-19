@@ -30,8 +30,28 @@ public interface IKakaoLoginService {
 	 * 
 	 * @param request
 	 * @param ic
+	 * @param kc
 	 * @return
 	 */
-	String againLoginCheck(HttpServletRequest request, IpCheck ic);
+	String againLoginCheck(HttpServletRequest request, IpCheck ic, KakaoCookies kc);
+
+	
+	/**
+	 * Apply encryption algorithm to prevent login packet hijacking.
+	 * 
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	String setUserRsaInfo(HttpServletRequest request);
+
+	
+	/**
+	 * Check if the capcha value for automatic login prevention is a valid value.
+	 * 
+	 * @param request
+	 * @return
+	 */
+	int kakaoCapchaCheck(HttpServletRequest request);
 
 }

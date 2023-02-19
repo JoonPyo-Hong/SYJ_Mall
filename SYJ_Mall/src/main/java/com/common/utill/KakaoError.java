@@ -133,5 +133,27 @@ public class KakaoError {
 	}
 	
 	
+	/**
+	 * Default setting for ERROR factor combination 2
+	 * 
+	 * @return
+	 */
+	public int basicErrorExceptionReturnInt() {
+		
+		sendErrorMassegeAdmin();
+		inputErrorToDbElastic();
+		
+		return -1;
+	}
+	
+	/**
+	 * Default setting for ERROR factor combination 3
+	 * 
+	 */
+	public void basicErrorExceptionVoid() {
+		sendErrorMassegeAdmin();
+		inputErrorToDbElastic();
+	}
+	
 	
 }
