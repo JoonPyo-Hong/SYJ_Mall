@@ -50,6 +50,7 @@ public class KakaoLoginDAO implements IKakaoLoginDAO {
 			
 			e.printStackTrace();
 			tx.rollback();
+			
 		} finally {
 			em.close();
 		}

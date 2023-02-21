@@ -54,4 +54,14 @@ public interface IKakaoLoginService {
 	 */
 	int kakaoCapchaCheck(HttpServletRequest request);
 
+	
+	/**
+	 * Login information primary verification process
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	int loginPreCheck(HttpServletRequest request, HttpServletResponse response);
+
 }

@@ -91,8 +91,9 @@ public class KakaoLoginController {
 	
 	/**
 	 * kakaoLoginCapchar
-	 * Prevents too many login attempts.
-	 * Prevents logging in through bots.
+	 * 
+	 * 1) Prevents too many login attempts.
+	 * 2) Prevents logging in through bots.
 	 * 
 	 * 
 	 * @param request
@@ -103,6 +104,23 @@ public class KakaoLoginController {
 	public int kakaoLoginCapcha(HttpServletRequest request) {
 		
 		return service.kakaoCapchaCheck(request);
+	}
+	
+	
+	
+	/**
+	 * Login input check process
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/kakaoLoginCheck.action", method = { RequestMethod.GET , RequestMethod.POST})
+	@ResponseBody
+	public int kakaoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
+		
+		return service.loginPreCheck(request,response);
+		
 	}
 	
 	

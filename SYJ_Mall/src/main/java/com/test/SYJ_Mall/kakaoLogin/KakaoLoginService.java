@@ -1,7 +1,5 @@
 package com.test.SYJ_Mall.kakaoLogin;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,5 +102,43 @@ public class KakaoLoginService implements IKakaoLoginService {
 			return krc.verifyCapcha(request);
 		} else return -2;
 		
+	}
+
+
+
+	@Override
+	public int loginPreCheck(HttpServletRequest request, HttpServletResponse response) {
+		
+		int returnVal = 0;
+		
+		KakaoRSA krsa = new KakaoRSA();
+		
+		try {
+			
+			Map<String,String> rsaMap = krsa.getRSAuserInfoSessionMaintain(request);
+			
+			if (rsaMap == null) returnVal = -1;
+			else {
+				
+				String decodeId = rsaMap.get("id");
+				String decodePw = rsaMap.get("pw");
+				
+				String hashedPassword = BCrypt.hashpw(decodePw, BCrypt.gensalt());
+				
+				System.out.println(hashedPassword);
+				//System.out.println(decodeId);
+				//System.out.println(decodePw);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			KakaoError ea = new KakaoError(request, e);
+			returnVal = ea.basicErrorExceptionReturnInt();
+		}
+		
+		
+		
+		return returnVal;
 	}
 }

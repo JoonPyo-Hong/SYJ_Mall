@@ -153,6 +153,8 @@ public class KakaoRSA {
 		String securedUsername = request.getParameter("securedUsername");// Encrypted ID
         String securedPassword = request.getParameter("securedPassword");// Encrypted PW
         
+        if (securedUsername == null || securedPassword == null) return null;
+        
         HttpSession session = request.getSession();
         PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
         

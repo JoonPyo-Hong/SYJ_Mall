@@ -22,12 +22,13 @@ function device_check() {
 		}
 	}
 }
-
-	// When User pressed the login button directly
-	$(".login-btn").click(function() {
+	$(document).on("click",".login-btn",function(){
+		console.log("test");
 		capcharStart();
 		//packetLogin();
 	});
+	
+	// When User pressed the login button directly
 
 	// When attempting to log in by pressing Enter Key
 	$("#inputpw").keyup(function(e) {
@@ -39,11 +40,11 @@ function device_check() {
 		location.reload();
 	});
 	
-	//로그인 - 패킷을 중간에 가로채는것을 방지하기 위함
+	// Login - To prevent packets from being intercepted
 	function packetLogin() {
 
-		let username = document.getElementById("inputid").value;//유저가 작성한 아이디
-		let password = document.getElementById("inputpw").value;//유저가 작성한 비밀번호
+		let username = document.getElementById("inputid").value;
+		let password = document.getElementById("inputpw").value;
 		
 		try {
 			let rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
@@ -56,33 +57,34 @@ function device_check() {
 		}
 	}
 	
-	//로그인 버튼 클릭시 -> 데이터를 넘겨주는 부분
+	// When you click the login button -> Hand over data
 	function submitEncryptedForm(username, password, rsaPublicKeyModulus,rsaPpublicKeyExponent) {
+		
 		let rsa = new RSAKey();
 
 		rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
 
-		// 사용자ID와 비밀번호를 RSA로 암호화한다.
+		// Encrypt user IDs and passwords with RSA.
 		let securedUsername = rsa.encrypt(username);
 		let securedPassword = rsa.encrypt(password);
 
-		let securedForm = document.getElementById("input_form");//form 데이터
+		let securedForm = document.getElementById("input_form");
 		
-		let device_code = device_check();//pc 인지 모바일인지 구분
+		const device_code = device_check();// Differentiate between PC and mobile
 		$('#deviceCode').val(device_code);
 		
-		securedForm.securedUsername.value = securedUsername;//여기서 암호화된 아이디번호를 넘겨준다.
-		securedForm.securedPassword.value = securedPassword;//여기서 암호화된 비밀번호를 넘겨준다.
+		securedForm.securedUsername.value = securedUsername;
+		securedForm.securedPassword.value = securedPassword;
 		
-		ajaxCheck(securedUsername, securedPassword);//ajax 호출
+		loginAjaxCheck(securedUsername, securedPassword);
 	}
 	
-	//로그인 유효성 체크
-	function ajaxCheck(securedUsername, securedPassword) {
+	// Check Login Validation
+	function loginAjaxCheck(securedUsername, securedPassword) {
 		
 		$.ajax({
 			type : "POST",
-			url : "/SYJ_Mall/userLoginVerificationCheck.action",
+			url : "/SYJ_Mall/kakaoLoginCheck.action",
 			data : {
 				"securedUsername" : securedUsername,
 				"securedPassword" : securedPassword
@@ -133,7 +135,7 @@ function device_check() {
 		});
 	}
 	
-	//상황에 따라 맞는 모달 넣어주기
+	// Add modals according to the situation.
 	function modal_situation(inner_text) {
 
 		$('#modal_context').text(inner_text);
@@ -142,13 +144,13 @@ function device_check() {
 
 	}
 	
-	//로그인 상태 유지
+	// Stay logged in
 	$('.ico-check').click(function(){
 		const login_stay_val = $('#loginSave').val();
 		$('#loginSave').val(login_stay_val * -1);
 	});
 	
-	//QR 코드 로그인을 누른 경우
+	// If you pressed the QR code
 	$('.qr-login-btn').click(function(){
 		location.href = "/SYJ_Mall/loginQr.action";
 	});
