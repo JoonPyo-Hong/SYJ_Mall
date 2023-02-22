@@ -73,6 +73,8 @@ public class KakaoLoginService implements IKakaoLoginService {
 		try {
 			KakaoRSA krsa = new KakaoRSA();
 			
+			
+			
 			krsa.setRSA(request);
 			return "/kakaoLogin/kakaoLoginGo";
 			

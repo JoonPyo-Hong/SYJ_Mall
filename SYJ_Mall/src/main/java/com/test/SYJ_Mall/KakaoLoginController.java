@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall;
 
-import javax.servlet.RequestDispatcher;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.common.utill.IpCheck;
+import com.common.utill.JwtUtil;
 import com.common.utill.KakaoCookies;
 import com.common.utill.KakaoError;
 import com.test.SYJ_Mall.kakaoLogin.IKakaoLoginService;
@@ -146,45 +148,25 @@ public class KakaoLoginController {
 	@RequestMapping(value = "/kakaoLoginUpgradeTest.action", method = { RequestMethod.GET , RequestMethod.POST})
 	public String kakaoLoginUpgradeTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		JwtUtil ju = new JwtUtil();
 		
-		System.out.println("test");
+		String privateKey = "test";
 		
-//		KakaoCookies kc = new KakaoCookies();
+		//String encode = ju.createToken(privateKey);
 		
-//		Map<String,String> returnMap = kc.getCookiesMaps(request, "mapCookie");
-//		
-//		System.out.println(returnMap.get("test3"));
-//		
-//		
+		//System.out.println(encode);
 		
+		String encode = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLWF1dGgiLCJhcGlLZXkiOiJwdWJsaWMxMjMiLCJleHAiOjE2NzcwODI0OTN9.0jknrOI63g2PIz2wywMdMst7xcXYI0uVHj1MBxlFBcM";
 		
-//		List<String> stringList = kc.getCookiesList(request, "listCookie");
-//		
-//		
-//		for (String str : stringList) {
-//			System.out.println("!!!");
-//			System.out.println(str);
-//		}
+		Map<String,Object> decode = ju.verifyJWT(privateKey, encode);
 		
-		//System.out.println(kc.mapToCookieValue(kc.getCookiesMaps(request, "mapCookie")));
-		
-		//System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
-		
-		//System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
-		//kc.modifyMapCookies(request, response,"mapCookie", "test4", "123123123123");
+		System.out.println(decode.get("sub"));
 		
 		
-		//Performance pf = new Performance();
+		//System.out.println(ju.createToken("test"));
 		
 		
-		//kc.deleteCookies(request, response, "listCookie");
-		//kc.removeListCookies(request,response,"listCookie","10");
-		//kc.removeListCookies(request,response,"listCookie","20");
 		
-		//pf.checkPerformance();
-		
-		//System.out.println(kc.listToCookieValue(kc.getCookiesList(request, "listCookie")));
-		//System.out.println(kc.mapToCookieValue(kc.getCookiesMaps(request, "mapCookie")));
 		
 		return null;
 	}
