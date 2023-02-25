@@ -128,8 +128,7 @@ public class KakaoLoginService implements IKakaoLoginService {
 				String hashedPassword = BCrypt.hashpw(decodePw, BCrypt.gensalt());
 				
 				System.out.println(hashedPassword);
-				//System.out.println(decodeId);
-				//System.out.println(decodePw);
+
 				
 			}
 			

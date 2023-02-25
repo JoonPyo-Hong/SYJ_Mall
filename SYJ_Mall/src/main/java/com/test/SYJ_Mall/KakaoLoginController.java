@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,12 +25,17 @@ import com.test.SYJ_Mall.kakaoLogin.IKakaoLoginService;
  * @author shin
  *
  */
+@PropertySource("classpath:syjValue.properties")
 @Controller
 public class KakaoLoginController {
 	
+	
+	@Value("${test}")
+	private String test;
+	
 	@Autowired 
 	private IKakaoLoginService service;
-	
+	private JwtUtil ju;
 	
 	/*---------------------------------------------------Login Page---------------------------------------------------------------------*/
 	/*----------------------------------------------------------------------------------------------------------------------------------*/
@@ -144,23 +151,29 @@ public class KakaoLoginController {
 	
 	
 	
-	
+
 	@RequestMapping(value = "/kakaoLoginUpgradeTest.action", method = { RequestMethod.GET , RequestMethod.POST})
 	public String kakaoLoginUpgradeTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		JwtUtil ju = new JwtUtil();
+	
+		System.out.println(test);
 		
-		String privateKey = "test";
+		
+		///ju.test();
+		
+		//String privateKey = "Sh@#$170125";
 		
 		//String encode = ju.createToken(privateKey);
 		
 		//System.out.println(encode);
 		
-		String encode = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLWF1dGgiLCJhcGlLZXkiOiJwdWJsaWMxMjMiLCJleHAiOjE2NzcwODI0OTN9.0jknrOI63g2PIz2wywMdMst7xcXYI0uVHj1MBxlFBcM";
+		//String encode = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLWF1dGgiLCJ0ZXN0Ijoia2FrYWthayIsImV4cCI6MTY3NzMxNjQ2N30.Nyb-XlvCR-EQ19VgoUGRIyEMSQaZECCYhOFksHh5a6Q";
 		
-		Map<String,Object> decode = ju.verifyJWT(privateKey, encode);
+		//String encode = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLWF1dGgiLCJhcGlLZXkiOiJwdWJsaWMxMjM0IiwidGVzdCI6Imtha2FrYWsiLCJleHAiOjE2NzcyNTI0Njd9.d1zE88JMbLki5PdLnkyDmXm0MptbUDfIUYR0bYc95_0";
 		
-		System.out.println(decode.get("sub"));
+		//Map<String,Object> decode = ju.verifyJWT(privateKey, encode);
+		
+		//System.out.println(decode.get("test"));
 		
 		
 		//System.out.println(ju.createToken("test"));

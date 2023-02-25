@@ -10,15 +10,6 @@
       <property name="username" value="seunghwan"></property>      
       <property name="password" value="byeanma170125"></property>      
 	</bean>
-	
-	
-<!-- 	<bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource">
-      <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>      
-      <property name="url" value="jdbc:mysql://localhost:3306/admin"></property>      
-      <property name="username" value="root"></property>      
-      <property name="password" value="156452"></property>      
-	</bean>  -->
-	 
 
 	<bean id="sessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="datasource"></property> 
@@ -26,11 +17,6 @@
       <property name="configLocation" value="/WEB-INF/mybatis.xml"></property>
    </bean> 
    
-<!--    <bean id="sessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-      <property name="dataSource" ref="datasource2"></property> 
-      <property name="mapperLocations" value="classpath*:com/test/spring/mapper/*.xml"></property>
-      <property name="configLocation" value="/WEB-INF/mybatis.xml"></property>
-   </bean>  -->
 	
 	<!--  
       JDBC : Statement + Result
