@@ -25,7 +25,6 @@ import com.test.SYJ_Mall.kakaoLogin.IKakaoLoginService;
  * @author shin
  *
  */
-@PropertySource("classpath:syjValue.properties")
 @Controller
 public class KakaoLoginController {
 	
