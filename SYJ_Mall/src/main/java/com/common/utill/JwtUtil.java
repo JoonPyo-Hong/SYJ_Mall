@@ -106,7 +106,7 @@ public class JwtUtil {
 	
 	
 	/**
-	 * Checks if the jwt token is a valid token.
+	 * aChecks if the jwt token is a valid token.
 	 * 
 	 * 
 	 * @param jwtSecretKey
