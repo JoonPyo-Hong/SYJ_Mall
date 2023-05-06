@@ -1,6 +1,7 @@
 package com.test.SYJ_Mall.elasticsearchDw;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.action.DocWriteResponse;
@@ -23,8 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ElasticDwService implements IElasticDwService{
-	
+public class ElasticDwService implements IElasticDwService {
 	
 	private final ElasticConfig elasticClient;
 	
@@ -153,6 +153,42 @@ public class ElasticDwService implements IElasticDwService{
 	            //return ResponseEntity.badRequest().body("Failed to insert data.");
 	        }
 	        
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//http://byeanma.kro.kr:9081/SYJ_Mall/sqlToElasticDummy.action
+	
+	@Override
+	public void setSqlUserDatas(List<SqlUser> userList, String indexName) {
+		
+		try {
+			
+			IndexRequest request = new IndexRequest(indexName);
+						
+			for (int i = 0; i < userList.size(); i++) {
+				
+				Map<String, Object> dataMap = new HashMap<>();
+		        
+				dataMap.put("user_seq", userList.get(i).getUserSeq());
+		        dataMap.put("user_id", userList.get(i).getUserId());
+		        dataMap.put("user_birthday", userList.get(i).getUserBirthDay());
+		        dataMap.put("user_gender", userList.get(i).getUserGender());
+				
+		        request.source(dataMap);
+		       
+		        IndexResponse indexResponse =  elasticClient.restHighLevelClient().index(request, RequestOptions.DEFAULT);
+		        
+		        if(indexResponse.getResult() != DocWriteResponse.Result.CREATED){
+		            
+		        	System.out.println("ERROR");
+		        	
+		        } 
+			}
+			
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
