@@ -21,6 +21,13 @@
 	<dependencies>
 		
 		
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-sync</artifactId>
+			<version>4.7.1</version>
+		</dependency>
+		
+		
 		<!-- 엑셀파일 관련 -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>

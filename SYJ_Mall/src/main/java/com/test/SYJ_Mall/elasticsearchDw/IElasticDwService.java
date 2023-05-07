@@ -2,6 +2,8 @@ package com.test.SYJ_Mall.elasticsearchDw;
 
 import java.util.List;
 
+import com.test.SYJ_Mall.mongodb.MongoDwDTO;
+
 public interface IElasticDwService {
 
 	void test();
@@ -11,5 +13,7 @@ public interface IElasticDwService {
 	void putIndex();
 
 	void setSqlUserDatas(List<SqlUser> userList, String indexName);
+
+	void setMongoUserDatas(List<MongoDwDTO> userList, String indexName);
 	
 }

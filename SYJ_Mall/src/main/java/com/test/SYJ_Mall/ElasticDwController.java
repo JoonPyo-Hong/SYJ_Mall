@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.SYJ_Mall.elasticsearchDw.IElasticDwService;
 import com.test.SYJ_Mall.elasticsearchDw.SqlUser;
+import com.test.SYJ_Mall.mongodb.IMongoDBService;
+import com.test.SYJ_Mall.mongodb.MongoDwDTO;
 import com.test.SYJ_Mall.sqlServerJpa.ISqlServerService;
 
 @Controller
@@ -28,11 +30,51 @@ public class ElasticDwController {
 	@Autowired 
 	private ISqlServerService sqlService;
 	
+	@Autowired
+	private IMongoDBService mongoService;
+	
+	
+	@RequestMapping(value = "/mongoToSqlDw.action", method = { RequestMethod.GET , RequestMethod.POST})
+	public String mongoDwTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		int batchSize = 100000;
+		
+		List<MongoDwDTO> mongoDwDto = mongoService.getMongoDwData(batchSize);
+
+		
+		sqlService.insertData(mongoDwDto);
+		
+		
+		return "";
+	}
+	
+	
+	@RequestMapping(value = "/elasticDwStarting.action", method = { RequestMethod.GET , RequestMethod.POST})
+	public String elasticDwStarting(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		int totalUserCount = sqlService.getUserCount("MONGO_ELASTIC");
+		int batchPerSize = 10000;
+		
+		
+		for (int i = 1; i < totalUserCount; i = i+batchPerSize) {
+			
+			//System.out.println(i);
+			
+			List<MongoDwDTO> userList = sqlService.getMongoUserData(i,i+batchPerSize);
+			
+			elasticService.setMongoUserDatas(userList,"elastic_dw_test");
+		}
+		
+		
+		return "";
+	}
+	
+	
 	
 	@RequestMapping(value = "/elasticDwStart.action", method = { RequestMethod.GET , RequestMethod.POST})
 	public String elasticDwStart(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		elasticService.test();
+		//elasticService.test();
 		//elasticService.putIndex();
 		
 		return "";
@@ -42,7 +84,7 @@ public class ElasticDwController {
 	@RequestMapping(value = "/sqlToElasticDummy.action", method = { RequestMethod.GET , RequestMethod.POST})
 	public String sqlToElasticDummy(HttpServletRequest request, HttpServletResponse response) {
 		
-		int totalUserCount = sqlService.getUserCount("ELASTIC_USER");
+		int totalUserCount = sqlService.getUserCount("MONGO_ELASTIC");
 		int batchPerSize = 10000;
 		
 		

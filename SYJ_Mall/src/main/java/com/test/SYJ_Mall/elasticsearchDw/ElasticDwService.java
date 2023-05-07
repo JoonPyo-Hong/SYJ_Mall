@@ -23,6 +23,8 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.test.SYJ_Mall.mongodb.MongoDwDTO;
+
 @Service
 public class ElasticDwService implements IElasticDwService {
 	
@@ -191,6 +193,42 @@ public class ElasticDwService implements IElasticDwService {
 			
 			
 		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	@Override
+	public void setMongoUserDatas(List<MongoDwDTO> userList, String indexName) {
+		
+		try {
+
+			IndexRequest request = new IndexRequest(indexName);
+
+			for (int i = 0; i < userList.size(); i++) {
+
+				Map<String, Object> dataMap = new HashMap<>();
+				
+				dataMap.put("class_id", userList.get(i).getClassId());
+				dataMap.put("brand_no", userList.get(i).getBrandNo());
+				dataMap.put("benefit_price", userList.get(i).getBenefitPrice());
+				dataMap.put("link_info", userList.get(i).getLinkInfo());
+				dataMap.put("disp_nm", userList.get(i).getDispNm());
+
+				request.source(dataMap);
+
+				IndexResponse indexResponse = elasticClient.restHighLevelClient().index(request,
+						RequestOptions.DEFAULT);
+
+				if (indexResponse.getResult() != DocWriteResponse.Result.CREATED) {
+
+					System.out.println("ERROR");
+
+				}
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
