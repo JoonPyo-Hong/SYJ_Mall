@@ -184,7 +184,7 @@
 
 /* 신승환 서치결과 디자인 */
 #search-wrap .search-result {
-  display: none;
+  /*display: none;*/
 }
 
 #search-wrap .search-result ul{

@@ -58,8 +58,6 @@ public class ElasticDwController {
 		
 		for (int i = 1; i < totalUserCount; i = i+batchPerSize) {
 			
-			//System.out.println(i);
-			
 			List<MongoDwDTO> userList = sqlService.getMongoUserData(i,i+batchPerSize);
 			
 			elasticService.setMongoUserDatas(userList,"elastic_dw_test");

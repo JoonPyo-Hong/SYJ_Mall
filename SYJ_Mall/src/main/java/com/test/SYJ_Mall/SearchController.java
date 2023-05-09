@@ -27,6 +27,7 @@ import com.test.SYJ_Mall.search.SearchProductDTO;
  */
 @Controller
 public class SearchController {
+	
 	@Autowired
 	private ISearchService service;
 
@@ -39,7 +40,8 @@ public class SearchController {
 		if (lastPageIndex == 1) return "/search/searchStart";
 		else return "/testwaiting/kakaoerror";
 	}
-
+	
+	
 	// 검색어 치면 해당하는 상품 보내주기 -> ajax 처리
 	@RequestMapping(value = "/searchword.action", method = { RequestMethod.GET })
 	@ResponseBody
@@ -57,7 +59,8 @@ public class SearchController {
 			return null;
 		}
 	}
-
+	
+	
 	// 검색어 결과에 나타나는 물품리스트 페이지 보여주기 -> 첫번째로 가져온 경우
 	@RequestMapping(value = "/searchresult.action", method = { RequestMethod.GET })
 	public String searchresult(HttpServletRequest request, HttpServletResponse response) {
