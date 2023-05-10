@@ -15,5 +15,8 @@ public interface IElasticDwService {
 	void setSqlUserDatas(List<SqlUser> userList, String indexName);
 
 	void setMongoUserDatas(List<MongoDwDTO> userList, String indexName);
+
+	List<String> getSearchData(String keyword);
+
 	
 }

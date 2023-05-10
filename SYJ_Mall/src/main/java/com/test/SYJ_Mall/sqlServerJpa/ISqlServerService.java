@@ -15,4 +15,6 @@ public interface ISqlServerService {
 
 	List<MongoDwDTO> getMongoUserData(int startIndex, int batchPerSize);
 
+	List<MongoDwDTO> getSearchData(String keyword);
+
 }

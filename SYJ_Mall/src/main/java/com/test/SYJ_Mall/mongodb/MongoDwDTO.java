@@ -37,5 +37,4 @@ public class MongoDwDTO {
 		this.linkInfo = linkInfo;
 		this.dispNm = dispNm;
 	}
-	
 }

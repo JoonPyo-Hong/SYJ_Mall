@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.SYJ_Mall.elasticsearchDw.IElasticDwService;
+import com.test.SYJ_Mall.mongodb.MongoDwDTO;
 import com.test.SYJ_Mall.sqlServerJpa.ISqlServerService;
 
 
@@ -37,13 +38,15 @@ public class ElasticVersusMongo {
 	
 	@RequestMapping(value = "/sqlServerTime.action", method = { RequestMethod.GET , RequestMethod.POST})
 	@ResponseBody
-	public List<String> sqlServerTime(HttpServletRequest request, HttpServletResponse response) {
+	public List<MongoDwDTO> sqlServerTime(HttpServletRequest request, HttpServletResponse response) {
 		
 		String keyword = request.getParameter("search_keyword");
 		
-		System.out.println(keyword);
-		
 		long startTime = System.currentTimeMillis();
+		
+		List<MongoDwDTO> searchResult = sqlService.getSearchData(keyword);
+		
+		//for (MongoDwDTO mdto : searchResult) System.out.println(mdto.getDispNm());
 		
 		long endTime = System.currentTimeMillis();
 		
@@ -51,19 +54,20 @@ public class ElasticVersusMongo {
 		
 		System.out.println("Time elapsed: " + timeElapsed + " milliseconds");
 		
-		List<String> arrList = new ArrayList<>();
 		
-		arrList.add("test1");
-		arrList.add("test2");
-		
-		return arrList;
+		return searchResult;
 	}	
 	
 	
 	@RequestMapping(value = "/elasticTime.action", method = { RequestMethod.GET , RequestMethod.POST})
-	public String elasticTime(HttpServletRequest request, HttpServletResponse response) {
+	@ResponseBody
+	public List<String> elasticTime(HttpServletRequest request, HttpServletResponse response) {
+		
+		String keyword = request.getParameter("search_keyword");
 		
 		long startTime = System.currentTimeMillis();
+		
+		List<String> searchResult = elasticService.getSearchData(keyword);
 		
 		long endTime = System.currentTimeMillis();
 		
@@ -71,7 +75,7 @@ public class ElasticVersusMongo {
 		
 		System.out.println("Time elapsed: " + timeElapsed + " milliseconds");
 		
-		return "";
+		return searchResult;
 	}
 	
 	

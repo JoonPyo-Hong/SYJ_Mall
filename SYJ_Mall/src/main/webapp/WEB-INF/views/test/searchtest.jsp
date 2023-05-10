@@ -30,12 +30,12 @@
 				
 				<button class="search-close">취소</button>
 			</div>
-			<div class="search-bottom" style="overflow: scroll; height: 300px;">
-				<div class="search-result" style="border: 1px solid red; overflow: scroll; height: 400px;">
+			<div class="search-bottom" style="overflow: scroll;">
+				<div class="search-result" style="overflow: scroll;">
 					<!-- 여기서 검색엔진을 통해 품목을 불러와준다. -->
 					<ul id="search-content-prod">
 						<!-- 검색결과 리스트. -->
-						<li class="search-content-context">test1</li>
+						<!-- <li class="search-content-context">test1</li> -->
 					</ul>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 	
 	<script>
 	
-	function searchVisible(searchFlag) {
+/* 	function searchVisible(searchFlag) {
 		if (searchFlag == 0) {
 			$('.character-wrap').css('display', 'flex');
 			$('.category-wrap').css('visibility', 'visible');
@@ -55,10 +55,42 @@
 			$('.category-wrap').css('visibility', 'hidden');
 			$('.search-result').css('display', 'flex');
 		}
-	}
+	} */
 	
 	
 	function search_keyword_ajax(keyword)
+	{
+		$.ajax({
+			type : "POST",
+			url : "/SYJ_Mall/elasticTime.action",
+			data : {
+				"search_keyword": keyword
+			},
+			dataType : "json",
+			success : function(result) {
+				//기존에 존재하는 li 태그 모두 지워줌
+				//$('.search-content-context').remove();
+				
+				//여기서 품목 불러오는 처리 수행해야함
+				let prod_len = result.length;
+				
+				if (prod_len != 0 ) {
+					for (let i = 0; i < prod_len; i++) {
+						//키워드가 들어가는 품목 보여주기
+						$('#search-content-prod').append(
+								'<li class="search-content-context" style="border:1px solid #EFF0F4;">' + result[i] +'</li>'
+						)
+					}
+				}
+			},
+			error : function(a, b, c) {
+				console.log(a, b, c);
+			}
+		});
+	}
+	
+	
+/* 	function search_keyword_ajax(keyword)
 	{
 		$.ajax({
 			type : "POST",
@@ -76,11 +108,9 @@
 				
 				if (prod_len != 0 ) {
 					for (let i = 0; i < prod_len; i++) {
-						
-						console.log('testing');
 						//키워드가 들어가는 품목 보여주기
 						$('#search-content-prod').append(
-								'<li class="search-content-context">' + result[i] +'</li>'
+								'<li class="search-content-context" style="border:1px solid #EFF0F4;">' + result[i].disp_nm +'</li>'
 						)
 					}
 				}
@@ -89,7 +119,7 @@
 				console.log(a, b, c);
 			}
 		});
-	}
+	} */
 	
 	
 	$('.search-input').on('keypress', function(e) {

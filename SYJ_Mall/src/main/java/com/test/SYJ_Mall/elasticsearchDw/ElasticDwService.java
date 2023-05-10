@@ -1,5 +1,6 @@
 package com.test.SYJ_Mall.elasticsearchDw;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -108,8 +110,7 @@ public class ElasticDwService implements IElasticDwService {
 	        builder.endObject();
 	
 	        request.mapping(builder);
-        
-        
+	        
         	
         	CreateIndexResponse createIndexResponse = elasticClient.restHighLevelClient().indices().create(request, RequestOptions.DEFAULT);
         	
@@ -232,8 +233,50 @@ public class ElasticDwService implements IElasticDwService {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public List<String> getSearchData(String keyword) {
+		
+		List<String> searchResult = new ArrayList<>();
+		
+		try {
+			
+			SearchRequest searchRequest = new SearchRequest("elastic_dw_test");
+			
+			SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+			
+			MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("disp_nm", keyword);
+			matchQueryBuilder.analyzer("my_analyzer");
+			
+			searchSourceBuilder.query(matchQueryBuilder);
+			searchRequest.source(searchSourceBuilder);
+			
+			SearchResponse searchResponse = elasticClient.restHighLevelClient().search(searchRequest, RequestOptions.DEFAULT);
+			
+			SearchHits hits = searchResponse.getHits();
+			SearchHit[] searchHits = hits.getHits();
+			
+			for (SearchHit hit : searchHits) {
+			    String sourceAsString = hit.getSourceAsString();
+			    String dispNm = hit.getSourceAsMap().get("disp_nm").toString();
+			    searchResult.add(dispNm);
+			}
+			
+		
+			return searchResult;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return searchResult;
+		}
 		
 	}
+	
+	
+	
+	
 
 
 	
