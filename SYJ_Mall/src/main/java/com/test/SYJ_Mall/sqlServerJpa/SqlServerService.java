@@ -162,7 +162,7 @@ public class SqlServerService implements ISqlServerService {
 	
 	
 	@Override
-	public List<MongoDwDTO> getSearchData(String keyword) {
+	public List<String> getSearchData(String keyword) {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("sqlserver");
 
@@ -170,15 +170,16 @@ public class SqlServerService implements ISqlServerService {
 
 		EntityTransaction tx = em.getTransaction();
 		
-		List<MongoDwDTO> resultList = new ArrayList<>();
+		//List<MongoDwDTO> resultList = new ArrayList<>();
+		List<String> resultList = new ArrayList<>();
 		
 		tx.begin();
 		
 		try {
 			
-			String queryString = "SELECT e FROM MongoDwDTO e WHERE e.dispNm LIKE :keyword";
+			String queryString = "SELECT e.dispNm FROM MongoDwDTO e WHERE e.dispNm LIKE :keyword";
 			
-			resultList = em.createQuery(queryString, MongoDwDTO.class)
+			resultList = em.createQuery(queryString, String.class)
 			        .setParameter("keyword", "%" + keyword + "%")
 			        .getResultList();
 			

@@ -38,22 +38,18 @@ public class ElasticVersusMongo {
 	
 	@RequestMapping(value = "/sqlServerTime.action", method = { RequestMethod.GET , RequestMethod.POST})
 	@ResponseBody
-	public List<MongoDwDTO> sqlServerTime(HttpServletRequest request, HttpServletResponse response) {
+	public List<String> sqlServerTime(HttpServletRequest request, HttpServletResponse response) {
 		
 		String keyword = request.getParameter("search_keyword");
 		
 		long startTime = System.currentTimeMillis();
 		
-		List<MongoDwDTO> searchResult = sqlService.getSearchData(keyword);
-		
-		//for (MongoDwDTO mdto : searchResult) System.out.println(mdto.getDispNm());
+		List<String> searchResult = sqlService.getSearchData(keyword);
 		
 		long endTime = System.currentTimeMillis();
-		
 		long timeElapsed = endTime - startTime;
 		
-		System.out.println("Time elapsed: " + timeElapsed + " milliseconds");
-		
+		searchResult.add(Long.toString(timeElapsed));
 		
 		return searchResult;
 	}	
@@ -70,10 +66,10 @@ public class ElasticVersusMongo {
 		List<String> searchResult = elasticService.getSearchData(keyword);
 		
 		long endTime = System.currentTimeMillis();
-		
 		long timeElapsed = endTime - startTime;
 		
-		System.out.println("Time elapsed: " + timeElapsed + " milliseconds");
+		searchResult.add(Long.toString(timeElapsed));
+		
 		
 		return searchResult;
 	}

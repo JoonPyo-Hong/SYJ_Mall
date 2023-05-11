@@ -245,6 +245,7 @@ public class ElasticDwService implements IElasticDwService {
 			SearchRequest searchRequest = new SearchRequest("elastic_dw_test");
 			
 			SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+			searchSourceBuilder.size(100); // 결과 데이터 크기를 100으로 설정
 			
 			MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("disp_nm", keyword);
 			matchQueryBuilder.analyzer("my_analyzer");
@@ -258,7 +259,6 @@ public class ElasticDwService implements IElasticDwService {
 			SearchHit[] searchHits = hits.getHits();
 			
 			for (SearchHit hit : searchHits) {
-			    String sourceAsString = hit.getSourceAsString();
 			    String dispNm = hit.getSourceAsMap().get("disp_nm").toString();
 			    searchResult.add(dispNm);
 			}
@@ -269,9 +269,8 @@ public class ElasticDwService implements IElasticDwService {
 		} catch(Exception e) {
 			e.printStackTrace();
 			
-			return searchResult;
+			return null;
 		}
-		
 	}
 	
 	

@@ -44,19 +44,7 @@
 	
 	
 	<script>
-	
-/* 	function searchVisible(searchFlag) {
-		if (searchFlag == 0) {
-			$('.character-wrap').css('display', 'flex');
-			$('.category-wrap').css('visibility', 'visible');
-			$('.search-result').css('display', 'none');
-		} else {
-			$('.character-wrap').css('display', 'none');
-			$('.category-wrap').css('visibility', 'hidden');
-			$('.search-result').css('display', 'flex');
-		}
-	} */
-	
+
 	
 	function search_keyword_ajax(keyword)
 	{
@@ -68,18 +56,28 @@
 			},
 			dataType : "json",
 			success : function(result) {
-				//기존에 존재하는 li 태그 모두 지워줌
-				//$('.search-content-context').remove();
 				
-				//여기서 품목 불러오는 처리 수행해야함
+				$('.search-content-context').remove();
+				
 				let prod_len = result.length;
 				
 				if (prod_len != 0 ) {
 					for (let i = 0; i < prod_len; i++) {
-						//키워드가 들어가는 품목 보여주기
-						$('#search-content-prod').append(
-								'<li class="search-content-context" style="border:1px solid #EFF0F4;">' + result[i] +'</li>'
-						)
+						
+						//const replace_word = result[i].replace(keyword,'<span style="color: red;">' + keyword + '</span>');
+						//console.log(replace_word);
+						const replace_word = result[i]
+						
+						if (i == prod_len - 1) {
+							$('#search-content-prod').append(
+									'<li class="search-content-context" style="border:1px solid #EFF0F4; color: red;" > timeElapsed(ms) : ' + replace_word +' ms</li>'
+							)	
+						} else {
+							//키워드가 들어가는 품목 보여주기
+							$('#search-content-prod').append(
+									'<li class="search-content-context" style="border:1px solid #EFF0F4;">' + replace_word +'</li>'
+							)	
+						}
 					}
 				}
 			},
@@ -88,38 +86,7 @@
 			}
 		});
 	}
-	
-	
-/* 	function search_keyword_ajax(keyword)
-	{
-		$.ajax({
-			type : "POST",
-			url : "/SYJ_Mall/sqlServerTime.action",
-			data : {
-				"search_keyword": keyword
-			},
-			dataType : "json",
-			success : function(result) {
-				//기존에 존재하는 li 태그 모두 지워줌
-				//$('.search-content-context').remove();
-				
-				//여기서 품목 불러오는 처리 수행해야함
-				let prod_len = result.length;
-				
-				if (prod_len != 0 ) {
-					for (let i = 0; i < prod_len; i++) {
-						//키워드가 들어가는 품목 보여주기
-						$('#search-content-prod').append(
-								'<li class="search-content-context" style="border:1px solid #EFF0F4;">' + result[i].disp_nm +'</li>'
-						)
-					}
-				}
-			},
-			error : function(a, b, c) {
-				console.log(a, b, c);
-			}
-		});
-	} */
+
 	
 	
 	$('.search-input').on('keypress', function(e) {
