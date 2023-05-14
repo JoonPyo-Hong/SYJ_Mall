@@ -45,11 +45,12 @@
 	
 	<script>
 
-	
+	//elasticTime
 	function search_keyword_ajax(keyword)
 	{
 		$.ajax({
 			type : "POST",
+			/* url : "/SYJ_Mall/sqlServerTime.action", */
 			url : "/SYJ_Mall/elasticTime.action",
 			data : {
 				"search_keyword": keyword
